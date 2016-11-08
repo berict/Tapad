@@ -208,57 +208,57 @@ public class SoundService {
             {R.raw.h4_11, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.h4_14, 0},
             {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0},
             {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0},
-            {R.raw.h4_41, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.h4_44, 0},
+            {R.raw.h4_41, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.h4_44, 0}
         }, {
             // Roses
             {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0},
             {R.raw.r1_11, 0}, {R.raw.r1_12, 0}, {R.raw.r1_13, 0}, {R.raw.r1_14, 0},
-            {R.raw.r1_21, 0}, {R.raw.r1_22, 0}, {R.raw.r1_23, 0}, {R.raw.r1_24, 0},
-            {R.raw.r1_31, 0}, {R.raw.r1_32, 0}, {R.raw.r1_33, 0}, {R.raw.r1_34, 0},
-            {R.raw.r1_41, 0}, {R.raw.r1_42, 0}, {R.raw.r1_43, 0}, {R.raw.r1_44, 0},
+            {R.raw.r1_21, 1}, {R.raw.r1_22, 1}, {R.raw.r1_23, 1}, {R.raw.r1_24, 1},
+            {R.raw.r1_31, 1}, {R.raw.r1_32, 0}, {R.raw.r1_33, 1}, {R.raw.r1_34, 0},
+            {R.raw.r1_41, 1}, {R.raw.r1_42, 0}, {R.raw.r1_43, 0}, {R.raw.r1_44, 0},
 
-            {R.raw.r2_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0},
-            {R.raw.r2_11, 0}, {R.raw.r2_12, 0}, {R.raw.r2_13, 0}, {R.raw.r2_14, 0},
+            {R.raw.r2_00, 1}, {R.raw.a0_00, 1}, {R.raw.a0_00, 1}, {R.raw.a0_00, 1}, {R.raw.a0_00, 0},
+            {R.raw.r2_11, 0}, {R.raw.r2_12, 0}, {R.raw.r2_13, 1}, {R.raw.r2_14, 1},
             {R.raw.r2_21, 0}, {R.raw.r2_22, 0}, {R.raw.r2_23, 0}, {R.raw.r2_24, 0},
             {R.raw.r2_31, 0}, {R.raw.r2_32, 0}, {R.raw.r2_33, 0}, {R.raw.r2_34, 0},
-            {R.raw.r2_41, 0}, {R.raw.r2_42, 0}, {R.raw.r2_43, 0}, {R.raw.r2_44, 0},
+            {R.raw.r2_41, 1}, {R.raw.r2_42, 1}, {R.raw.r2_43, 0}, {R.raw.r2_44, 0},
 
             {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0},
-            {R.raw.r2_11, 0}, {R.raw.r3_12, 0}, {R.raw.r3_13, 0}, {R.raw.r3_14, 0},
+            {R.raw.r2_11, 0}, {R.raw.r3_12, 1}, {R.raw.r3_13, 1}, {R.raw.r3_14, 1},
             {R.raw.r3_21, 0}, {R.raw.r3_22, 0}, {R.raw.r3_23, 0}, {R.raw.r3_24, 0},
             {R.raw.r3_31, 0}, {R.raw.r3_32, 0}, {R.raw.r3_33, 0}, {R.raw.r3_34, 0},
-            {R.raw.r2_41, 0}, {R.raw.r3_42, 0}, {R.raw.r2_43, 0}, {R.raw.r3_44, 0},
+            {R.raw.r2_41, 0}, {R.raw.r3_42, 1}, {R.raw.r2_43, 0}, {R.raw.r3_44, 0},
 
             {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0},
-            {R.raw.r2_11, 0}, {R.raw.r4_12, 0}, {R.raw.r4_13, 0}, {R.raw.r4_14, 0},
-            {R.raw.r4_21, 0}, {R.raw.r4_22, 0}, {R.raw.r4_23, 0}, {R.raw.r4_24, 0},
-            {R.raw.r4_31, 0}, {R.raw.r4_32, 0}, {R.raw.r4_33, 0}, {R.raw.r4_34, 0},
-            {R.raw.r2_41, 0}, {R.raw.r4_42, 0}, {R.raw.r2_43, 0}, {R.raw.r3_44, 0},
+            {R.raw.r2_11, 0}, {R.raw.r4_12, 1}, {R.raw.r4_13, 1}, {R.raw.r4_14, 1},
+            {R.raw.r4_21, 1}, {R.raw.r4_22, 1}, {R.raw.r4_23, 1}, {R.raw.r4_24, 1},
+            {R.raw.r4_31, 1}, {R.raw.r4_32, 1}, {R.raw.r4_33, 1}, {R.raw.r4_34, 1},
+            {R.raw.r2_41, 0}, {R.raw.r4_42, 1}, {R.raw.r2_43, 0}, {R.raw.r3_44, 0}
         }, {
             // Faded
             {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0},
-            {R.raw.r1_11, 0}, {R.raw.r1_12, 0}, {R.raw.r1_13, 0}, {R.raw.r1_14, 0},
-            {R.raw.r1_21, 0}, {R.raw.r1_22, 0}, {R.raw.r1_23, 0}, {R.raw.r1_24, 0},
-            {R.raw.r1_31, 0}, {R.raw.r1_32, 0}, {R.raw.r1_33, 0}, {R.raw.r1_34, 0},
-            {R.raw.r1_41, 0}, {R.raw.r1_42, 0}, {R.raw.r1_43, 0}, {R.raw.r1_44, 0},
+            {R.raw.f1_11, 0}, {R.raw.f1_12, 0}, {R.raw.f1_13, 0}, {R.raw.f1_14, 0},
+            {R.raw.f1_21, 0}, {R.raw.f1_22, 0}, {R.raw.f1_23, 0}, {R.raw.f1_24, 0},
+            {R.raw.f1_31, 0}, {R.raw.f1_32, 0}, {R.raw.f1_33, 0}, {R.raw.f1_34, 0},
+            {R.raw.f1_41, 0}, {R.raw.f1_42, 0}, {R.raw.f1_43, 1}, {R.raw.a0_00, 0},
 
-            {R.raw.r2_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0},
-            {R.raw.r2_11, 0}, {R.raw.r2_12, 0}, {R.raw.r2_13, 0}, {R.raw.r2_14, 0},
-            {R.raw.r2_21, 0}, {R.raw.r2_22, 0}, {R.raw.r2_23, 0}, {R.raw.r2_24, 0},
-            {R.raw.r2_31, 0}, {R.raw.r2_32, 0}, {R.raw.r2_33, 0}, {R.raw.r2_34, 0},
-            {R.raw.r2_41, 0}, {R.raw.r2_42, 0}, {R.raw.r2_43, 0}, {R.raw.r2_44, 0},
+            {R.raw.f2_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0},
+            {R.raw.f2_11, 0}, {R.raw.f2_12, 0}, {R.raw.f2_13, 0}, {R.raw.f2_14, 1},
+            {R.raw.f2_21, 0}, {R.raw.f2_22, 0}, {R.raw.f2_23, 0}, {R.raw.f2_24, 1},
+            {R.raw.f2_31, 0}, {R.raw.f2_32, 0}, {R.raw.f2_33, 0}, {R.raw.f2_34, 1},
+            {R.raw.f2_41, 0}, {R.raw.f2_42, 0}, {R.raw.f2_43, 0}, {R.raw.f2_44, 1},
+
+            {R.raw.f3_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0},
+            {R.raw.f3_11, 0}, {R.raw.f3_12, 0}, {R.raw.f3_13, 0}, {R.raw.f3_14, 1},
+            {R.raw.f3_21, 0}, {R.raw.f3_22, 0}, {R.raw.f3_23, 0}, {R.raw.f3_24, 1},
+            {R.raw.f3_31, 0}, {R.raw.f3_32, 0}, {R.raw.f3_33, 0}, {R.raw.f3_34, 1},
+            {R.raw.f3_41, 0}, {R.raw.f3_42, 0}, {R.raw.f3_43, 1}, {R.raw.f3_44, 0},
 
             {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0},
-            {R.raw.r2_11, 0}, {R.raw.r3_12, 0}, {R.raw.r3_13, 0}, {R.raw.r3_14, 0},
-            {R.raw.r3_21, 0}, {R.raw.r3_22, 0}, {R.raw.r3_23, 0}, {R.raw.r3_24, 0},
-            {R.raw.r3_31, 0}, {R.raw.r3_32, 0}, {R.raw.r3_33, 0}, {R.raw.r3_34, 0},
-            {R.raw.r2_41, 0}, {R.raw.r3_42, 0}, {R.raw.r2_43, 0}, {R.raw.r3_44, 0},
-
-            {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0}, {R.raw.a0_00, 0},
-            {R.raw.r2_11, 0}, {R.raw.r4_12, 0}, {R.raw.r4_13, 0}, {R.raw.r4_14, 0},
-            {R.raw.r4_21, 0}, {R.raw.r4_22, 0}, {R.raw.r4_23, 0}, {R.raw.r4_24, 0},
-            {R.raw.r4_31, 0}, {R.raw.r4_32, 0}, {R.raw.r4_33, 0}, {R.raw.r4_34, 0},
-            {R.raw.r2_41, 0}, {R.raw.r4_42, 0}, {R.raw.r2_43, 0}, {R.raw.r3_44, 0},
+            {R.raw.f4_11, 0}, {R.raw.f4_12, 0}, {R.raw.f4_13, 0}, {R.raw.f4_14, 0},
+            {R.raw.f4_21, 0}, {R.raw.f4_22, 0}, {R.raw.f4_23, 0}, {R.raw.f4_24, 0},
+            {R.raw.f4_31, 0}, {R.raw.f4_32, 0}, {R.raw.f4_33, 0}, {R.raw.f4_34, 0},
+            {R.raw.f4_41, 0}, {R.raw.f3_42, 0}, {R.raw.f3_43, 0}, {R.raw.f3_44, 0}
         }
     };
 
@@ -289,7 +289,7 @@ public class SoundService {
             if (scheme >= 1 && scheme <= 3) {
                 Log.i("SoundService", "Preset found");
                 for (int i = 0; i < 84; i++) {
-                    soundPoolId[i] = sp.load(activity, raw[scheme - 1][i], 1);
+                    soundPoolId[i] = sp.load(activity, raw[scheme - 1][i][0], 1);
                     publishProgress(i + 1);
                 }
             } else {
@@ -345,7 +345,7 @@ public class SoundService {
                 if (scheme >= 1 && scheme <= 3) {
                     Log.i("SoundService", "Preset found");
                     for (int i = 0; i < 84; i++) {
-                        sp.unload(raw[scheme - 1][i]);
+                        sp.unload(raw[scheme - 1][i][0]);
                         publishProgress(i + 1);
                     }
                 } else {
