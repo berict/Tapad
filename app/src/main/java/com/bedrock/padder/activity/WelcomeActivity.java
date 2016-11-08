@@ -4,14 +4,12 @@ import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -25,10 +23,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bedrock.padder.R;
-import com.bedrock.padder.service.AnimService;
-import com.bedrock.padder.service.IntentService;
-import com.bedrock.padder.service.ThemeService;
-import com.bedrock.padder.service.WindowService;
+import com.bedrock.padder.helper.AnimService;
+import com.bedrock.padder.helper.IntentService;
+import com.bedrock.padder.helper.ThemeService;
+import com.bedrock.padder.helper.WindowService;
 
 public class WelcomeActivity extends Activity {
 

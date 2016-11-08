@@ -1,4 +1,4 @@
-package com.bedrock.padder.service;
+package com.bedrock.padder.helper;
 
 import android.app.Activity;
 import android.content.SharedPreferences;

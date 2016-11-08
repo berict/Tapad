@@ -16,10 +16,10 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.bedrock.padder.R;
-import com.bedrock.padder.service.AnimService;
-import com.bedrock.padder.service.IntentService;
-import com.bedrock.padder.service.ThemeService;
-import com.bedrock.padder.service.WindowService;
+import com.bedrock.padder.helper.AnimService;
+import com.bedrock.padder.helper.IntentService;
+import com.bedrock.padder.helper.ThemeService;
+import com.bedrock.padder.helper.WindowService;
 
 public class AboutArtistActivity extends AppCompatActivity {
 

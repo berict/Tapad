@@ -1,4 +1,4 @@
-package com.bedrock.padder.service;
+package com.bedrock.padder.helper;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -8,13 +8,9 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
-import android.support.v4.content.ContextCompat;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.VideoView;
 
 import com.bedrock.padder.R;

@@ -1,4 +1,4 @@
-package com.bedrock.padder.service;
+package com.bedrock.padder.helper;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -19,8 +19,6 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
-
-import com.bedrock.padder.R;
 
 import java.util.HashMap;
 import java.util.Map;

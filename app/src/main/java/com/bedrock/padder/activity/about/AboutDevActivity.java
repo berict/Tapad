@@ -1,8 +1,6 @@
 package com.bedrock.padder.activity.about;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
@@ -14,17 +12,16 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Toast;
 
 import com.bedrock.padder.R;
-import com.bedrock.padder.service.AnimService;
-import com.bedrock.padder.service.IntentService;
-import com.bedrock.padder.service.TextService;
-import com.bedrock.padder.service.ThemeService;
-import com.bedrock.padder.service.WindowService;
+import com.bedrock.padder.helper.AnimService;
+import com.bedrock.padder.helper.IntentService;
+import com.bedrock.padder.helper.TextService;
+import com.bedrock.padder.helper.ThemeService;
+import com.bedrock.padder.helper.WindowService;
 
 public class AboutDevActivity extends AppCompatActivity {
 

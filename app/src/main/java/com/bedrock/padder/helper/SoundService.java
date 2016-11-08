@@ -1,4 +1,4 @@
-package com.bedrock.padder.service;
+package com.bedrock.padder.helper;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -7,9 +7,6 @@ import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.bedrock.padder.R;
 import com.bedrock.padder.activity.MainActivity;

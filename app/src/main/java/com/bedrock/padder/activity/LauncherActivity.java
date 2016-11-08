@@ -7,10 +7,10 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.bedrock.padder.R;
-import com.bedrock.padder.service.AnimService;
-import com.bedrock.padder.service.IntentService;
-import com.bedrock.padder.service.ThemeService;
-import com.bedrock.padder.service.WindowService;
+import com.bedrock.padder.helper.AnimService;
+import com.bedrock.padder.helper.IntentService;
+import com.bedrock.padder.helper.ThemeService;
+import com.bedrock.padder.helper.WindowService;
 
 public class LauncherActivity extends Activity {
 

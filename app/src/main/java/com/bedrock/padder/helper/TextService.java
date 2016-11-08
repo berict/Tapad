@@ -1,4 +1,4 @@
-package com.bedrock.padder.service;
+package com.bedrock.padder.helper;
 
 import android.app.Activity;
 import android.graphics.PorterDuff;
@@ -10,7 +10,6 @@ import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.EditText;
 
 public class TextService {
     public void setEditText(int editText, int editTextLayout, String type, int hint, int errorMessage, Activity activity) {
