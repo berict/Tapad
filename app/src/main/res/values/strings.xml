@@ -1,0 +1,590 @@
+<resources>
+    <string name="app_name">Tapad</string>
+
+    <string name="blank"></string>
+    <string name="error">Error</string>
+
+    <!-- Welcome Screen -->
+    <string name="welcome_next">NEXT</string>
+    <string name="welcome_skip">SKIP</string>
+    <string name="welcome_start">GOT IT</string>
+
+    <string name="slide_1_title">Tapad</string>
+    <string name="slide_1_desc">Welcome to</string>
+
+    <string name="slide_2_title">Play your favorite songs</string>
+    <string name="slide_2_desc">Anywhere, anytime. Beautifully.</string>
+
+    <string name="slide_3_title">Presets</string>
+    <string name="slide_3_desc">Select a music preset to play</string>
+    <string name="slide_3_hint">More songs coming!</string>
+
+    <string name="slide_4_title">Make some music!</string>
+    <string name="slide_4_desc">Configure finished.</string>
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
+
+    <string name="back">Press back again to exit</string>
+    <string name="tutorial_loading">Can\'t start tutorial mode, loading preset</string>
+
+    <!-- Cardview -->
+    <string name="cardview_explore">EXPLORE</string>
+    <string name="cardview_change">CHANGE</string>
+    <string name="cardview_settings">SETTINGS</string>
+    <string name="cardview_now_playing">Now Playing</string>
+
+    <!-- Scheme -->
+    <string name="fb">Facebook</string>
+    <string name="tw">Twitter</string>
+    <string name="sc">SoundCloud</string>
+    <string name="yt">YouTube</string>
+    <string name="wb">Webpage</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">Twitter</string>
+    <string name="soundcloud">SoundCloud</string>
+    <string name="youtube">YouTube</string>
+    <string name="web">Webpage</string>
+    <string name="bi">Biography</string>
+
+    <string name="hello_full">OMFG - Hello</string>
+    <string name="hello">Hello</string>
+    <string name="hello_artist">OMFG</string>
+    <string name="hello_about">About OMFG</string>
+    <string name="hello_bio">OMFG\'s Biography</string>
+    <string name="hello_bio_name">Alex OMFG (Alex Savage)</string>
+    <string name="hello_bio_full">This is a Fun Loving girl who had a desire to make music.
+        Alex enjoyed making dubstep to just share between friends and family.
+        She soon talked her self into posting her creations online to see what kinda feedback she would get.
+        getting an overly positive reveiws she continued to make music ever since with her latest track called OMFG - Jelly.</string>
+    <string name="hello_bio_source">Powered by Muzikum</string>
+
+    <string name="hello_fb">https://www.facebook.com/alexomfg/</string>
+    <string name="hello_tw">https://twitter.com/AlexSavageOMFG</string>
+    <string name="hello_sc">https://soundcloud.com/alexomfg</string>
+    <string name="hello_yt">https://www.youtube.com/user/alexsavageomfg</string>
+    <string name="hello_wb">http://alexomfg.com</string>
+
+    <string name="hello_facebook">@string/hello_fb</string>
+    <string name="hello_twitter">@string/hello_tw</string>
+    <string name="hello_soundcloud">@string/hello_sc</string>
+    <string name="hello_youtube">@string/hello_yt</string>
+    <string name="hello_web">@string/hello_wb</string>
+
+    <string name="roses_full">The Chainsmokers - Roses</string>
+    <string name="roses">Roses</string>
+    <string name="roses_artist">The Chainsmokers</string>
+    <string name="roses_about">About The Chainsmokers</string>
+    <string name="roses_bio">The Chainsmokers\' Biography</string>
+    <string name="roses_bio_name">Andrew Taggart and Alex Pall</string>
+    <string name="roses_bio_full">The Chainsmokers have become the hottest young American EDM DJ duo.
+        Their signature sound has its foundations in Indie, Progressive and Pop Music.
+        On the production front, their original tracks have all reached the Beatport top charts and their remixes always hit #1 on the HypeM charts.
+        Their first major release, #SELFIE, and it\'s official music video swept the world so look out for much more to come!</string>
+    <string name="roses_bio_source">Powered by thechainsmokers.com</string>
+
+    <string name="roses_fb">https://www.facebook.com/thechainsmokers</string>
+    <string name="roses_tw">http://www.twitter.com/thechainsmokers</string>
+    <string name="roses_sc">http://www.soundcloud.com/thechainsmokers</string>
+    <string name="roses_yt">https://www.youtube.com/user/THECHAINSMOKERS</string>
+    <string name="roses_wb">http://thechainsmokers.com/</string>
+
+    <string name="roses_facebook">@string/roses_fb</string>
+    <string name="roses_twitter">@string/roses_tw</string>
+    <string name="roses_soundcloud">@string/roses_sc</string>
+    <string name="roses_youtube">@string/roses_yt</string>
+    <string name="roses_web">@string/roses_wb</string>
+
+    <string name="faded_full">Alan Walker - Faded</string>
+    <string name="faded">Faded</string>
+    <string name="faded_artist">Alan Walker</string>
+    <string name="faded_about">About Alan Walker</string>
+    <string name="faded_bio">Alan Walker\'s Biography</string>
+    <string name="faded_bio_name">Alan Olav Walker</string>
+    <string name="faded_bio_full">Alan Walker (Alan Olav Walker) is a British-Norwegian record producer who was born in Northampton, England.
+        He is best known for the electronic dance music single "Faded", which has reached number 1 in multiple countries,
+        and on YouTube has over 650 million views and 4 million likes, placing it among the top 40 most liked YouTube videos.</string>
+    <string name="faded_bio_source">Powered by Wikipedia</string>
+
+    <string name="faded_fb">https://www.facebook.com/alanwalkermusic</string>
+    <string name="faded_tw">https://twitter.com/IAmAlanWalker</string>
+    <string name="faded_sc">https://soundcloud.com/alanwalker</string>
+    <string name="faded_yt">https://www.youtube.com/user/DjWalkzz</string>
+    <string name="faded_wb">http://www.alanwalkermusic.no/</string>
+
+    <string name="faded_facebook">@string/faded_fb</string>
+    <string name="faded_twitter">@string/faded_tw</string>
+    <string name="faded_soundcloud">@string/faded_sc</string>
+    <string name="faded_youtube">@string/faded_yt</string>
+    <string name="faded_web">@string/faded_wb</string>
+
+    <string name="berict_full">Studio Berict</string>
+    <string name="berict_about">About Studio Berict</string>
+    <string name="berict_bio">Berict\'s Biography</string>
+    <string name="berict_bio_name">Bedrock Pictures (Nathan Cho)</string>
+    <string name="berict_bio_full">Nathan is high school student in South Korea, who enjoys software and football.
+        Currently attending Sunrin Internet High School in the 1st grade.
+        Started developing about 5 years ago, started by HTML, now on Android.
+        As you see, he has a big interest in Android\'s "Material Design".
+        Also, known as a professional 9gagger.</string>
+    <string name="berict_bio_source">Powered by Studio Berict</string>
+
+    <string name="berict_yt">https://www.youtube.com/user/bedrockpicture</string>
+    <string name="berict_wb">http://berict.com</string>
+
+    <string name="berict_youtube">https://www.youtube.com/user/bedrockpicture</string>
+    <string name="berict_web">http://berict.com</string>
+
+    <string name="berict_support">Support Development</string>
+    <string name="dev_report_bug">Report bugs</string>
+    <string name="dev_report_bug_hint">Help us fix bugs and problems</string>
+    <string name="dev_translate">Translate Tapad</string>
+    <string name="dev_translate_hint">Make Tapad available on your language</string>
+    <string name="dev_translate_error">Sorry, this feature is not available yet.</string>
+    <string name="dev_rate">Rate Tapad</string>
+    <string name="dev_rate_hint">Leave positive rating on Tapad</string>
+    <string name="dev_donate">Donate</string>
+    <string name="dev_donate_hint">Boost dev on updating Tapad</string>
+    <string name="dev_donate_error">Thanks! But this feature is not available yet ;)</string>
+
+    <!-- About -->
+    <string name="google_play">Google Play</string>
+
+    <string name="tapad">Tapad</string>
+    <string name="tapad_about">About Tapad</string>
+    <string name="tapad_about_desc">Probably the best looking launchpad out there.</string>
+    <string name="tapad_about_full">Tapad is a launchpad app for Android.
+        It implemented the Material Design from the Google Design Guideline, and it looks beautiful.
+        It mainly features song genres like EDM, Dubstep, Progressive House, Electronic.</string>
+    <string name="tapad_about_source">Powered by Studio Berict</string>
+
+    <string name="tapad_play">https://play.google.com/store/apps/details?id=com.bedrock.padder</string>
+
+    <string name="tapad_changelog">Changelog</string>
+
+    <string name="tapad_thanks">Special thanks</string>
+    <string name="tapad_thanks_dialog">Special thanks to</string>
+    <string name="tapad_thanks_text">
+        <b>Stack Overflow</b>\n
+        <i>http://stackoverflow.com/</i>\n
+        No description needed. (Devs will know)\n\n
+
+        <b>Androidhive</b>\n
+        <i>http://www.androidhive.info/</i>\n
+        Helped with a lot of Material Design implementation.\n\n
+
+        <b>Material Design Guidelines</b>\n
+        <i>https://material.google.com/</i>\n
+        Greatest guideline for a great UX / UI.\n\n
+
+        <b>Material Design Icons</b>\n
+        <i>https://materialdesignicons.com/</i>\n
+        Tons of beautiful icons following Material Design guideline.\n\n
+
+        <b>9GAG</b>\n
+        <i>http://9gag.com/u/bedrockpic</i>\n
+        9GAG, Best source of your fun!
+    </string>
+
+    <string name="tapad_info">Information</string>
+    <string name="tapad_check_update">Check updates</string>
+    <string name="tapad_check_update_hint">Open in Google Play Store</string>
+    <string name="tapad_legal">Legal Information</string>
+    <string name="tapad_legal_text">"
+        Last updated: May 7, 2016
+
+        Please read these Terms and Conditions carefully before using the "Tapad" mobile application (the "Service") operated by Studio Berict.
+        Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms.
+        These Terms apply to all visitors, users and others who access or use the Service.
+
+        By accessing or using the Service you agree to be bound by these Terms.
+        If you disagree with any part of the terms then you may not access the Service.
+
+        Disclaimer
+
+        Studio Berict don't have any rights for all materials in our service.
+        If you have the copyright to the used text, graphics, videos, or other material
+        ("Contents") in our service and you don't like it, contact us and we will try to fix in 7 days.
+
+        Content
+
+        Our Service may contain links to third­party web sites or services that are not owned or controlled by Studio Berict.
+
+        Studio Berict has no control over, and assumes no responsibility for, the content, privacy policies,
+        or practices of any third party web sites or services.
+        You further acknowledge and agree that by Studio Berict shall not be responsible or liable, directly or indirectly,
+        for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content,
+        goods or services available on or through any such web sites or services.
+
+        Changes
+
+        We reserve the right, at our sole discretion, to modify or replace these Terms at any time.
+        If a revision is material we will try to provide at least 30 days' notice prior to any new terms taking effect.
+        What constitutes a material change will be determined at our sole discretion.
+
+        Contact Us
+
+        If you have any questions about these Terms, please contact us to dev.bedrock@gmail.com."</string>
+    <string name="tapad_version">Tapad version</string>
+    <string name="tapad_version_detail">2.2 Official Release</string>
+    <string name="tapad_build">Build date</string>
+    <string name="tapad_build_date">@string/build_date_detail</string>
+    <string name="tapad_dev">Developer</string>
+    <string name="tapad_dev_name">Studio Berict</string>
+    <string name="tapad_song">Request a song</string>
+    <string name="tapad_song_hint">Will be added to the update list</string>
+    <string name="tapad_feedback">Leave a feedback</string>
+    <string name="tapad_feedback_hint">Request new features or ask questions</string>
+    <string name="tapad_report_bug">Report bugs</string>
+    <string name="tapad_report_bug_hint">Help devs to fix bugs and problems</string>
+    <string name="tapad_translate">Translate Tapad</string>
+    <string name="tapad_translate_hint">Help making Tapad available on your language</string>
+    <string name="tapad_translate_error">Sorry, this feature is not available yet.</string>
+    <string name="tapad_rate">Rate Tapad</string>
+    <string name="tapad_rate_hint">Show your love on Tapad on Google Play</string>
+
+    <string name="tapad_recommend">Recommend Tapad</string>
+    <string name="tapad_recommend_hint">Let your friends know this amazing app</string>
+    <string name="tapad_recommend_share_subject">The most beautiful launchpad app, Tapad.</string>
+    <string name="tapad_recommend_share_text">Check out this awesome app! : https://goo.gl/pmws51</string>
+    <string name="tapad_recommend_share_hint">Share this awesome app to everyone!</string>
+
+    <string name="tapad_other">Others</string>
+
+    <!-- Feedback Dialog -->
+    <string name="dialog_feedback_hint">Studio Berict will reply you back in 1~2 days. If you don\'t receive the reply, please send request again.</string>
+
+    <string name="dialog_song_hint_subject">E-mail subject</string>
+    <string name="dialog_song_hint_text">Song details</string>
+    <string name="dialog_song_hint_link">YouTube, SoundCloud link (or other links)</string>
+    <string name="dialog_song_hint_wrong_subject">Enter the email subject</string>
+    <string name="dialog_song_hint_wrong_text">Enter the song detail</string>
+    <string name="dialog_song_hint_wrong_link">Enter valid song link</string>
+
+    <string name="dialog_feedback_hint_text">Feedback details</string>
+    <string name="dialog_feedback_hint_wrong_text">Enter feedback details</string>
+
+    <string name="dialog_report_bug_hint_text">Bug details</string>
+    <string name="dialog_report_bug_hint_wrong_text">Enter bug details</string>
+
+    <string name="dialog_feedback_close">Press back again to cancel</string>
+    <string name="dialog_feedback_fill_out">Please fill out the form</string>
+    <string name="dialog_feedback_select_email">Select email client to send with</string>
+
+    <!-- Color Dialog -->
+    <string name="dialog_color">Button Color</string>
+
+    <!-- Quickstart Dialog -->
+    <string name="dialog_quickstart_welcome_title">Welcome to Tapad!</string>
+    <string name="dialog_quickstart_welcome_text">Walk through how to use Tapad or tap \'Tips\' in Settings when you want this later.</string>
+    <string name="dialog_quickstart_welcome_negative">NO THAKS</string>
+    <string name="dialog_quickstart_welcome_positive">SHOW ME HOW</string>
+    <string name="dialog_tutorial_warning_title">Start tutorial mode?</string>
+    <string name="dialog_tutorial_warning_text">This is an experimental feature. It may cause huge frame drops and glitches on low-ram devices. Use at your own risk.</string>
+    <string name="dialog_tutorial_warning_text_low_ram">This is an experimental feature. It seems your device has not enough ram, it will probably cause huge frame drops, glitches and even shutting down your device. Use at your own risk.</string>
+    <string name="dialog_tutorial_warning_negative">CANCEL</string>
+    <string name="dialog_tutorial_warning_positive">CONTINUE</string>
+
+    <!-- TapTarget Dialog -->
+    <string name="dialog_tap_target_toggle_primary">Select deck</string>
+    <string name="dialog_tap_target_toggle_secondary">Tap the toggle button to load sounds to pads.</string>
+    <string name="dialog_tap_target_button_primary">Make the music</string>
+    <string name="dialog_tap_target_button_secondary">Press the pads in the right time to make the music!</string>
+    <string name="dialog_tap_target_pattern_primary">Play more beautiful</string>
+    <string name="dialog_tap_target_pattern_secondary">Toggle the auto pattern to play more fabulously.</string>
+    <string name="dialog_tap_target_fab_primary">Get control of the app</string>
+    <string name="dialog_tap_target_fab_secondary">Tap the action button to get information, change settings &amp; more.</string>
+    <string name="dialog_tap_target_info_primary">Check out more information</string>
+    <string name="dialog_tap_target_info_secondary">Know about the artist, app itself &amp; more.</string>
+    <string name="dialog_tap_target_preset_primary">Play your favorite song</string>
+    <string name="dialog_tap_target_preset_secondary">Discover different presets and its artists.</string>
+    <string name="dialog_tap_target_tutorial_primary">Learn how to play</string>
+    <string name="dialog_tap_target_tutorial_secondary">Enable the tutorial mode to learn the preset.</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_changelog_title">Changelog</string>
+    <string name="dialog_changelog_text">
+        You can view the changelog dialog again at any time from the <b><i>about</i></b> section.\n\n
+
+        <b>Version 2.1</b>\n\n
+
+        1. <b>NEW:</b> New preset (Alan Walker - Faded) \n
+        2. <b>IMPROVEMENT:</b> Removed feature (Tutorial mode, will be updated when it is stable / YouTube tutorial is coming soon) \n
+        3. <b>FIX:</b> Crashing when selecting decks \n
+        4. <b>FIX:</b> Wrong links on the artist page \n\n
+
+        <b>Version 2.0.1</b>\n\n
+
+        1. <b>NEW:</b> Now showing changelog when app updates \n
+        2. <b>NEW:</b> Android Nougat support (Android 7.0) \n
+        3. <b>IMPROVEMENT:</b> Reduced lag on loading preset \n
+        4. <b>FIX:</b> Crashing at welcome screen on tablets \n
+        5. <b>FIX:</b> Sound not playing issue \n
+        6. <b>FIX:</b> Build date not matching \n\n
+
+        <b>Version 2.0</b>\n\n
+
+        1. <b>NEW:</b> Completely renewed UI \n
+        2. <b>NEW:</b> Tutorial mode \n
+        3. <b>NEW:</b> Intro slide (first run tutorial) \n
+        4. <b>NEW:</b> Changelog added \n
+        5. <b>NEW:</b> Added Quickstart \n
+        6. <b>NEW:</b> Artist details updated \n
+        7. <b>IMPROVEMENT:</b> Sound volume increased \n
+        8. <b>FIX:</b> Sound not playing issue \n
+        9. <b>FIX:</b> Changed the app icon \n\n
+
+        <b>Version 1.1.2</b>\n\n
+
+        1. <b>FIX:</b> UI Crashing (Still) \n\n
+
+        <b>Version 1.1.1</b>\n\n
+
+        1. <b>FIX:</b> UI Crashing \n\n
+
+        <b>Version 1.1</b>\n\n
+
+        1. <b>NEW:</b> New preset (The Chainsmokers - Roses) \n
+        2. <b>FIX:</b> Memory leak \n\n
+
+        <b>Version 1.0</b>\n\n
+
+        1. <b>NEW:</b> New preset (OMFG - Hello) \n
+        2. <b>NEW:</b> Updated UI (4 X 4 layout) \n
+        3. <b>IMPROVEMENT:</b> Removed preset (Madeon Adventure) \n
+        4. <b>FIX:</b> Changed the app icon \n
+        5. <b>FIX:</b> Changed the app name \n\n
+
+        <b>Version 0.1</b>\n\n
+        1. <b>NEW:</b> New app \n
+        2. <b>NEW:</b> New preset (Madeon Adventure)
+    </string>
+    <string name="dialog_changelog_positive">CLOSE</string>
+
+    <string name="dialog_legal_title">Legal</string>
+    <string name="dialog_legal_text">
+        <i>Last updated: May 7, 2016</i>\n\n
+
+        Please read these Terms and Conditions carefully before using the \"Tapad\" mobile application (the \"Service\") operated by Studio Berict.
+        Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms.
+        These Terms apply to all visitors, users and others who access or use the Service.\n\n
+
+        By accessing or using the Service you agree to be bound by these Terms.
+        If you disagree with any part of the terms then you may not access the Service.\n\n
+
+        <b>Disclaimer</b>\n\n
+
+        Studio Berict don\'t have any rights for all materials in our service.
+        If you have the copyright to the used text, graphics, videos, or other material
+        (\"Contents\") in our service and you don\'t like it, contact us and we will try to fix in 7 days.\n\n
+
+        <b>Content</b>\n\n
+
+        Our Service may contain links to third­party web sites or services that are not owned or controlled by Studio Berict.\n\n
+
+        Studio Berict has no control over, and assumes no responsibility for, the content, privacy policies,
+        or practices of any third party web sites or services.
+        You further acknowledge and agree that by Studio Berict shall not be responsible or liable, directly or indirectly,
+        for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content,
+        goods or services available on or through any such web sites or services.\n\n
+
+        <b>Changes</b>\n\n
+
+        We reserve the right, at our sole discretion, to modify or replace these Terms at any time.
+        If a revision is material we will try to provide at least 30 days\' notice prior to any new terms taking effect.
+        What constitutes a material change will be determined at our sole discretion.\n\n
+
+        <b>Contact Us</b>\n\n
+
+        If you have any questions about these Terms, please contact us to <i>dev.bedrock@gmail.com</i>.
+    </string>
+    <string name="dialog_legal_positive">CLOSE</string>
+
+    <string name="dialog_thanks_title">Special thanks to</string>
+    <string name="dialog_thanks_text">
+        <b>Stack Overflow</b>\n
+        <i>http://stackoverflow.com/</i>\n
+        No description needed. (Devs will know)\n\n
+
+        <b>Androidhive</b>\n
+        <i>http://www.androidhive.info/</i>\n
+        Helped with a lot of Material Design implementation.\n\n
+
+        <b>Material Design Guidelines</b>\n
+        <i>https://material.google.com/</i>\n
+        Greatest guideline for a great UX / UI.\n\n
+
+        <b>Material Design Icons</b>\n
+        <i>https://materialdesignicons.com/</i>\n
+        Tons of beautiful icons following Material Design guideline.\n\n
+
+        <b>Material Dialogs</b>\n
+        <i>https://github.com/afollestad/material-dialogs/</i>\n
+        Epic library of dialog which you are now watching.\n\n
+
+        <b>Material Tap Target Prompt</b>\n
+        <i>https://github.com/sjwall/MaterialTapTargetPrompt/</i>\n
+        Saved me from thousands of codes. Beautiful.\n\n
+
+        <b>9GAG</b>\n
+        <i>http://9gag.com/u/bedrockpic</i>\n
+        9GAG, Best source of your fun!
+    </string>
+    <string name="dialog_thanks_positive">CLOSE</string>
+
+    <string name="dialog_preset_title">Presets</string>
+    <array name="dialog_preset_array">
+        <item>@string/hello_full</item>
+        <item>@string/roses_full</item>
+        <item>@string/faded_full</item>
+    </array>
+    <string name="dialog_preset_positive">SAVE</string>
+    <string name="dialog_preset_negative">CANCEL</string>
+
+    <!-- Dialog Actions -->
+    <string name="dialog_cancel">CANCEL</string>
+    <string name="dialog_save">SAVE</string>
+    <string name="dialog_close">CLOSE</string>
+    <string name="dialog_send">SEND</string>
+
+    <!-- Main Screen -->
+    <string name="warning">Please select a deck to play</string>
+    <string name="settings">Settings</string>
+    <string name="tutorial">Tutorial</string>
+    <string name="close">Close</string>
+    <string name="about">About</string>
+    <string name="presets">Presets</string>
+    <string name="progressbar_loading_preset">Loading preset</string>
+    <string name="progressbar_loading_preset_done">Done!</string>
+    <string name="progressbar_loading_tutorial">Loading tutorial</string>
+
+    <!--
+    web
+    facebook
+    twitter
+    soundcloud
+    youtube
+    -->
+
+    <!--Settings-->
+    <string name="settings_group_play">Play</string>
+
+    <string name="settings_preset">Presets</string>
+    <string name="settings_preset_hint">@string/hello_full</string>
+    <string name="settings_custom_sound">Custom sound</string>
+    <string name="settings_custom_sound_error">This feature is under development.</string>
+    <string name="settings_tutorial">Tutorial mode</string>
+
+    <string name="settings_group_interface">Interface</string>
+
+    <string name="settings_color">Button color</string>
+    <string name="settings_color_hint">Set the button color, defaults to red.</string>
+    <string name="settings_layout">Button layout</string>
+    <string name="settings_layout_error">This feature is under development.</string>
+    <string name="settings_custom_touch">Custom touch pattern</string>
+    <string name="settings_custom_touch_error">This feature is under development.</string>
+
+    <string name="settings_group_about">About</string>
+
+    <string name="settings_about_tapad">About Tapad</string>
+    <string name="settings_about_dev">About developer</string>
+
+    <!-- TaskDescription -->
+    <string name="task_welcome">Welcome to Tapad</string>
+    <string name="task_main">Tapad</string>
+
+    <string name="task_about_tapad">Tapad</string>
+    <string name="task_about_tapad_song">@string/tapad_song</string>
+    <string name="task_about_tapad_feedback">@string/tapad_feedback</string>
+    <string name="task_about_tapad_report_bug">@string/tapad_report_bug</string>
+    <string name="task_about_dev">Studio Berict</string>
+
+    <string name="task_presets">@string/settings_preset</string>
+    <string name="task_tutorial_mode">Start tutorial mode?</string>
+
+    <string name="task_settings">@string/settings</string>
+    <string name="task_settings_button_color">@string/task_settings_button_color</string>
+
+    <!-- Promote -->
+    <string name="feedback">Feedback</string>
+    <string name="request">Ask for new feature or song</string>
+    <string name="email_subject">E-mail Subject</string>
+    <string name="email_message">Message to developer</string>
+    <string name="email_message_hint">For song requests, including a video link will help a lot.</string>
+    <string name="no_email_client">There are no email clients installed.</string>
+    <string name="discard">Discard</string>
+    <string name="send">Send</string>
+
+    <!-- About -->
+    <string name="update_check">Check for update</string>
+    <string name="legal">Legal information</string>
+    <string name="term">Terms and Conditions</string>
+    <string name="version">Tapad Version</string>
+    <string name="build_date">Build date</string>
+    <string name="build_date_detail">Sat Sep 24 01:15:05 KST 2016</string>
+
+    <string name="developer">Developer</string>
+    <string name="about_berict">About Studio Berict</string>
+    <string name="berict">Studio Berict</string>
+
+    <string name="issues">Known Issues</string>
+    <string name="issues_detail">"
+          Vocals on Roses preset cuts off
+          There is no help for playing Tapad
+          There is no translations for everything
+        "</string>
+
+    <string name="terms">
+        <i>Last updated: May 7, 2016</i> \n\n
+
+        Please read these Terms and Conditions carefully before using the \"Tapad\" mobile application (the \"Service\") operated by Studio Berict.
+        Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms.
+        These Terms apply to all visitors, users and others who access or use the Service. \n
+        
+        By accessing or using the Service you agree to be bound by these Terms.
+        If you disagree with any part of the terms then you may not access the Service. \n\n
+
+        <b>Disclaimer</b> \n
+        Studio Berict don\'t have any rights for all materials in our service.
+        If you have the copyright to the used text, graphics, videos, or other material (\"Contents\") in our service and you don\'t like it, contact us and we will try to fix in 7 days. \n\n
+
+        <b>Content</b> \n
+        Our Service may contain links to third­party web sites or services that are not owned or controlled by Studio Berict.
+        Studio Berict has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services.
+        You further acknowledge and agree that by Studio Berict shall not be responsible or liable, directly or indirectly,
+        for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content, 
+        goods or services available on or through any such web sites or services. \n\n
+
+        <b>Changes</b> \n
+        We reserve the right, at our sole discretion, to modify or replace these Terms at any time.
+        If a revision is material we will try to provide at least 30 days\' notice prior to any new terms taking effect.
+        What constitutes a material change will be determined at our sole discretion. \n\n
+
+        <b>Contact Us</b> \n
+        If you have any questions about these Terms, please contact us to <b><i>dev.bedrock@gmail.com</i></b>.
+    </string>
+    <string name="dev">"
+        Developed by
+
+        Nathan Cho, as known as Bedrock Pictures online.
+        Currently attending Sunrin Internet Highschool.
+
+        Other apps by developer
+
+        LIVE (Discontinued)
+        Schedule (Discontinued)
+        Noteice (Developing)
+
+        Thanks for using Tapad!
+        As always, enjoy. Bedrock Presents."
+    </string>
+    <string name="dev_email">berict.bedrock@gmail.com</string>
+
+    <string name="app_link_long">https://play.google.com/store/apps/details?id=com.bedrock.padder</string>
+    <string name="app_link_short">https://goo.gl/pmws51</string>
+
+    <string name="placeholder">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet felis blandit, iaculis odio sit amet, aliquam lacus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed interdum posuere est, nec vehicula felis elementum ac. Nulla aliquet libero semper vehicula consectetur. Aliquam eget luctus felis, pulvinar euismod lectus. Morbi mattis eros non fermentum imperdiet. Praesent cursus urna ligula, ac porttitor purus posuere nec. Phasellus quis purus quis dolor tempus volutpat eu luctus leo. Nulla facilisi. Nullam facilisis pellentesque massa in laoreet. Nulla facilisi. Aenean et fermentum nunc.
+    </string>
+
+</resources>

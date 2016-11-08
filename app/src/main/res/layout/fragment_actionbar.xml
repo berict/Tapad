@@ -1,0 +1,196 @@
+<RelativeLayout
+    android:id="@+id/appbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout android:id="@+id/actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/statusbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@*android:dimen/status_bar_height">
+
+            <!-- Not an error! Just to make this public -->
+
+            <View
+                android:id="@+id/statusbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/red" />
+
+            <View
+                android:id="@+id/statusbar_transparent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/dark_status_bar" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/actionbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:gravity="center_vertical"
+            android:background="@color/red">
+
+            <LinearLayout
+                android:id="@+id/actionbar_nav_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <RelativeLayout
+                    android:id="@+id/actionbar_nav"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:id="@+id/actionbar_nav_icon_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="16dp"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:src="@drawable/icon_back" />
+
+                    <ImageView
+                        android:id="@+id/actionbar_nav_icon_nav"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="16dp"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:src="@drawable/icon_nav"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/actionbar_nav_icon_close"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="16dp"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:src="@drawable/icon_close"
+                        android:visibility="gone" />
+
+                    <!-- Add more nav items -->
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/actionbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dp"
+                    android:includeFontPadding="false"
+                    android:paddingTop="2dp"
+                    android:gravity="center"
+                    android:text="Title"
+                    android:textColor="@color/light_primary"
+                    android:textSize="18sp"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/actionbar_image"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="8dp"
+                android:clickable="true"
+                android:src="@drawable/logo_hello"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/actionbar_action_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:id="@+id/actionbar_action_2"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/actionbar_action_1"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/actionbar_action_2_icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="16dp"
+                        android:adjustViewBounds="true"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:src="@drawable/icon_search" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/actionbar_action_1"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/actionbar_menu"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/actionbar_action_1_icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="16dp"
+                        android:adjustViewBounds="true"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:src="@drawable/icon_fav" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/actionbar_menu"
+                    android:layout_width="48dp"
+                    android:layout_height="56dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/actionbar_menu_icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="16dp"
+                        android:adjustViewBounds="true"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:src="@drawable/icon_menu" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/actionbar_action_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="56dp"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:padding="15dp"
+                    android:gravity="center"
+                    android:text="@string/dialog_send"
+                    android:textColor="@color/light_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

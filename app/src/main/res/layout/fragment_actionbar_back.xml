@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/actionbar_back_layout"
+    android:layout_width="56dp"
+    android:layout_height="56dp"
+    android:layout_alignParentLeft="true"
+    android:layout_centerHorizontal="true"
+    android:background="@color/black">
+
+    <ImageView
+        android:id="@+id/actionbar_back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_margin="12dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:padding="4dp"
+        android:src="@drawable/icon_back" />
+</RelativeLayout>

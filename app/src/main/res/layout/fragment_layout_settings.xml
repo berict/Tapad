@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_settings"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:layout_below="@+id/appbar"
+    android:visibility="gone">
+
+    <ScrollView
+        android:id="@+id/layout_settings_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layout_settings_group_play"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/layout_settings_play"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/settings_group_play"
+                    android:textColor="@color/colorAccentDark"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_settings_preset"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:id="@+id/layout_settings_preset_icon"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:padding="18dp"
+                        android:src="@drawable/settings_preset" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/layout_settings_preset_icon"
+                        android:orientation="vertical"
+                        android:paddingLeft="14dp">
+
+                        <TextView
+                            android:id="@+id/layout_settings_preset_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:text="@string/settings_preset"
+                            android:textColor="@color/dark_primary"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/layout_settings_preset_hint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_preset_hint"
+                            android:textColor="@color/dark_secondary"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/dark_divider" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_settings_tutorial"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:id="@+id/layout_settings_tutorial_icon"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:padding="10dp"
+                        android:src="@drawable/settings_tutorial" />
+
+                    <TextView
+                        android:id="@+id/layout_settings_tutorial_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/layout_settings_tutorial_icon"
+                        android:paddingLeft="14dp"
+                        android:text="@string/settings_tutorial"
+                        android:textColor="@color/dark_primary"
+                        android:textSize="16sp" />
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/layout_settings_tutorial_switch"
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        app:theme="@style/SettingsSwitchStyle"
+                        android:visibility="visible"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:visibility="visible"
+                    android:background="@color/dark_divider" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_settings_custom_sound"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:alpha="0.3">
+
+                    <ImageView
+                        android:id="@+id/layout_settings_custom_sound_icon"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:padding="10dp"
+                        android:src="@drawable/settings_custom_sound" />
+
+                    <TextView
+                        android:id="@+id/layout_settings_custom_sound_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/layout_settings_custom_sound_icon"
+                        android:paddingLeft="14dp"
+                        android:text="@string/settings_custom_sound"
+                        android:textColor="@color/dark_primary"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/dark_divider" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_settings_group_interface"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/layout_settings_interface"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/settings_group_interface"
+                    android:textColor="@color/colorAccentDark"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_settings_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:id="@+id/layout_settings_color_icon"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:padding="10dp"
+                        android:src="@drawable/settings_color" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/layout_settings_color_icon"
+                        android:orientation="vertical"
+                        android:paddingLeft="14dp">
+
+                        <TextView
+                            android:id="@+id/layout_settings_color_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:text="@string/settings_color"
+                            android:textColor="@color/dark_primary"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/layout_settings_color_hint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_color_hint"
+                            android:textColor="@color/dark_secondary"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="16dp">
+
+                        <View
+                            android:id="@+id/layout_settings_color_circle"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/fragment_color_picker"/>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/dark_divider" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_settings_custom_touch"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:alpha="0.3">
+
+                    <ImageView
+                        android:id="@+id/layout_settings_custom_touch_icon"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:padding="10dp"
+                        android:src="@drawable/settings_custom_touch" />
+
+                    <TextView
+                        android:id="@+id/layout_settings_custom_touch_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/layout_settings_custom_touch_icon"
+                        android:paddingLeft="14dp"
+                        android:text="@string/settings_custom_touch"
+                        android:textColor="@color/dark_primary"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/dark_divider" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_settings_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:alpha="0.3">
+
+                    <ImageView
+                        android:id="@+id/layout_settings_layout_icon"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:padding="10dp"
+                        android:src="@drawable/settings_layout" />
+
+                    <TextView
+                        android:id="@+id/layout_settings_layout_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/layout_settings_layout_icon"
+                        android:paddingLeft="14dp"
+                        android:text="@string/settings_layout"
+                        android:textColor="@color/dark_primary"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/dark_divider" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_settings_group_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/layout_settings_about"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/settings_group_about"
+                    android:textColor="@color/colorAccentDark"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_settings_about_tapad"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:id="@+id/layout_settings_about_tapad_icon"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:padding="10dp"
+                        android:src="@drawable/about_info" />
+
+                    <TextView
+                        android:id="@+id/layout_settings_about_tapad_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/layout_settings_about_tapad_icon"
+                        android:paddingLeft="14dp"
+                        android:text="@string/settings_about_tapad"
+                        android:textColor="@color/dark_primary"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/dark_divider" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_settings_about_dev"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:id="@+id/layout_settings_about_dev_icon"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:padding="10dp"
+                        android:src="@drawable/about_dev" />
+
+                    <TextView
+                        android:id="@+id/layout_settings_about_dev_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/layout_settings_about_dev_icon"
+                        android:paddingLeft="14dp"
+                        android:text="@string/settings_about_dev"
+                        android:textColor="@color/dark_primary"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/settings_bottom_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

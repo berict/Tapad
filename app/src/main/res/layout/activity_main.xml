@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".activity.MainActivity">
+
+    <include layout="@layout/fragment_button_tutorial" />
+
+    <include layout="@layout/fragment_button" />
+
+    <RelativeLayout
+        android:id="@+id/progress_bar_layout"
+        android:layout_centerInParent="true"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:id="@+id/progress_bar_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/progress_bar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            android:text="@string/progressbar_loading_preset" />
+    </RelativeLayout>
+
+    <include layout="@layout/fragment_fab" />
+
+    <include layout="@layout/fragment_toolbar" />
+
+    <include layout="@layout/fragment_layout_about" />
+
+    <include layout="@layout/fragment_layout_settings" />
+
+    <include layout="@layout/fragment_actionbar" />
+
+    <View
+        android:id="@+id/placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent"
+        android:visibility="gone" />
+</RelativeLayout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".activity.LauncherActivity"
+    android:alpha="0.5"
+    android:visibility="visible">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:padding="50dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/logo"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/tapad"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginBottom="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/logo_tapad_new"
+        android:visibility="visible" />
+</RelativeLayout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar"
+    android:orientation="horizontal"
+    android:background="@color/colorAccent"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:layout_alignParentBottom="true"
+    android:gravity="center"
+    android:visibility="gone"
+    android:weightSum="4">
+
+    <RelativeLayout
+        android:id="@+id/toolbar_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:background="?selectableItemBackgroundBorderless"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/icon_info"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/toolbar_preset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:background="?selectableItemBackgroundBorderless"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/icon_music"/>
+    </RelativeLayout>
+
+    <!-- Tutorial removed -->
+    <RelativeLayout
+        android:id="@+id/toolbar_tutorial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:background="?selectableItemBackgroundBorderless"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/toolbar_tutorial_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/icon_tutorial"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/toolbar_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:background="?selectableItemBackgroundBorderless"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/icon_settings"/>
+    </RelativeLayout>
+
+</LinearLayout>
