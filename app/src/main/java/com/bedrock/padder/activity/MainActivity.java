@@ -32,6 +32,7 @@ import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.TutorialService;
 import com.bedrock.padder.helper.WindowService;
 
+import be.tarsos.dsp.io.android.AndroidAudioPlayer;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 @TargetApi(9)
@@ -611,6 +612,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                     }
                     isToolbarVisible = true;
                 }
+                //TODO: REMOVE THIS, THIS IS A TEST
+                AndroidAudioPlayer.
             }
         });
     }
