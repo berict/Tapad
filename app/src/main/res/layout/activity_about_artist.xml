@@ -228,7 +228,7 @@
                                         android:padding="4dp"
                                         android:layout_marginLeft="14dp"
                                         android:layout_toRightOf="@+id/layout_artist_web_icon"
-                                        android:orientation="horizontal">
+                                        android:orientation="vertical">
 
                                         <TextView
                                             android:id="@+id/layout_artist_web_text"
@@ -236,8 +236,8 @@
                                             android:layout_height="wrap_content"
                                             android:textSize="16sp"
                                             android:textColor="@color/dark_primary"
-                                            android:text="@string/wb"
-                                            android:paddingTop="10dp" />
+                                            android:text="@string/web"
+                                            android:paddingTop="4dp" />
 
                                         <TextView
                                             android:id="@+id/layout_artist_web_link"
@@ -247,7 +247,7 @@
                                             android:textColor="@color/dark_secondary"
                                             android:textStyle="italic"
                                             android:text="@string/hello_wb"
-                                            android:paddingTop="8dp"
+                                            android:paddingTop="6dp"
                                             android:paddingBottom="4dp"/>
                                     </LinearLayout>
 
@@ -258,6 +258,7 @@
                                         android:background="@color/dark_divider"
                                         android:layout_alignParentBottom="true" />
                                 </RelativeLayout>
+
 
                                 <RelativeLayout
                                     android:id="@+id/layout_artist_facebook"
@@ -274,40 +275,44 @@
                                         android:padding="18dp"
                                         android:src="@drawable/about_facebook" />
 
-                                    <TextView
-                                        android:id="@+id/layout_artist_facebook_text"
+                                    <LinearLayout
+                                        android:id="@+id/layout_artist_facebook_text_layout"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentTop="true"
-                                        android:textSize="16sp"
-                                        android:textColor="@color/dark_primary"
-                                        android:text="@string/fb"
+                                        android:layout_height="match_parent"
+                                        android:padding="4dp"
+                                        android:layout_marginLeft="14dp"
                                         android:layout_toRightOf="@+id/layout_artist_facebook_icon"
-                                        android:paddingTop="14dp"
-                                        android:paddingLeft="14dp" />
+                                        android:orientation="vertical">
 
-                                    <TextView
-                                        android:id="@+id/layout_artist_facebook_link"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentBottom="true"
-                                        android:textSize="12sp"
-                                        android:textColor="@color/dark_secondary"
-                                        android:textStyle="italic"
-                                        android:text="@string/hello_fb"
-                                        android:layout_toRightOf="@+id/layout_artist_facebook_icon"
-                                        android:layout_below="@+id/layout_artist_facebook_text"
-                                        android:paddingTop="4dp"
-                                        android:paddingLeft="14dp" />
+                                        <TextView
+                                            android:id="@+id/layout_artist_facebook_text"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="16sp"
+                                            android:textColor="@color/dark_primary"
+                                            android:text="@string/facebook"
+                                            android:paddingTop="4dp" />
+
+                                        <TextView
+                                            android:id="@+id/layout_artist_facebook_link"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="12sp"
+                                            android:textColor="@color/dark_secondary"
+                                            android:textStyle="italic"
+                                            android:text="@string/hello_wb"
+                                            android:paddingTop="6dp"
+                                            android:paddingBottom="4dp"/>
+                                    </LinearLayout>
 
                                     <View
                                         android:layout_width="match_parent"
                                         android:layout_height="1dp"
-                                        android:layout_alignLeft="@+id/layout_artist_facebook_text"
+                                        android:layout_alignLeft="@+id/layout_artist_facebook_text_layout"
                                         android:background="@color/dark_divider"
                                         android:layout_alignParentBottom="true" />
                                 </RelativeLayout>
-
+                                
                                 <RelativeLayout
                                     android:id="@+id/layout_artist_twitter"
                                     android:clickable="true"
@@ -323,40 +328,44 @@
                                         android:padding="18dp"
                                         android:src="@drawable/about_twitter" />
 
-                                    <TextView
-                                        android:id="@+id/layout_artist_twitter_text"
+                                    <LinearLayout
+                                        android:id="@+id/layout_artist_twitter_text_layout"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentTop="true"
-                                        android:textSize="16sp"
-                                        android:textColor="@color/dark_primary"
-                                        android:text="@string/tw"
+                                        android:layout_height="match_parent"
+                                        android:padding="4dp"
+                                        android:layout_marginLeft="14dp"
                                         android:layout_toRightOf="@+id/layout_artist_twitter_icon"
-                                        android:paddingTop="14dp"
-                                        android:paddingLeft="14dp" />
+                                        android:orientation="vertical">
 
-                                    <TextView
-                                        android:id="@+id/layout_artist_twitter_link"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentBottom="true"
-                                        android:textSize="12sp"
-                                        android:textColor="@color/dark_secondary"
-                                        android:textStyle="italic"
-                                        android:text="@string/hello_tw"
-                                        android:layout_toRightOf="@+id/layout_artist_twitter_icon"
-                                        android:layout_below="@+id/layout_artist_twitter_text"
-                                        android:paddingTop="4dp"
-                                        android:paddingLeft="14dp" />
+                                        <TextView
+                                            android:id="@+id/layout_artist_twitter_text"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="16sp"
+                                            android:textColor="@color/dark_primary"
+                                            android:text="@string/twitter"
+                                            android:paddingTop="4dp" />
+
+                                        <TextView
+                                            android:id="@+id/layout_artist_twitter_link"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="12sp"
+                                            android:textColor="@color/dark_secondary"
+                                            android:textStyle="italic"
+                                            android:text="@string/hello_wb"
+                                            android:paddingTop="6dp"
+                                            android:paddingBottom="4dp"/>
+                                    </LinearLayout>
 
                                     <View
                                         android:layout_width="match_parent"
                                         android:layout_height="1dp"
-                                        android:layout_alignLeft="@+id/layout_artist_twitter_text"
+                                        android:layout_alignLeft="@+id/layout_artist_twitter_text_layout"
                                         android:background="@color/dark_divider"
                                         android:layout_alignParentBottom="true" />
                                 </RelativeLayout>
-
+                                
                                 <RelativeLayout
                                     android:id="@+id/layout_artist_youtube"
                                     android:clickable="true"
@@ -372,39 +381,45 @@
                                         android:padding="18dp"
                                         android:src="@drawable/about_youtube" />
 
-                                    <TextView
-                                        android:id="@+id/layout_artist_youtube_text"
+                                    <LinearLayout
+                                        android:id="@+id/layout_artist_youtube_text_layout"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentTop="true"
-                                        android:textSize="16sp"
-                                        android:textColor="@color/dark_primary"
-                                        android:text="@string/yt"
+                                        android:layout_height="match_parent"
+                                        android:padding="4dp"
+                                        android:layout_marginLeft="14dp"
                                         android:layout_toRightOf="@+id/layout_artist_youtube_icon"
-                                        android:paddingTop="14dp"
-                                        android:paddingLeft="14dp" />
+                                        android:orientation="vertical">
 
-                                    <TextView
-                                        android:id="@+id/layout_artist_youtube_link"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentBottom="true"
-                                        android:textSize="12sp"
-                                        android:textColor="@color/dark_secondary"
-                                        android:textStyle="italic"
-                                        android:text="@string/hello_yt"
-                                        android:layout_toRightOf="@+id/layout_artist_youtube_icon"
-                                        android:layout_below="@+id/layout_artist_youtube_text"
-                                        android:paddingTop="4dp"
-                                        android:paddingLeft="14dp" />
+                                        <TextView
+                                            android:id="@+id/layout_artist_youtube_text"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="16sp"
+                                            android:textColor="@color/dark_primary"
+                                            android:text="@string/youtube"
+                                            android:paddingTop="4dp" />
+
+                                        <TextView
+                                            android:id="@+id/layout_artist_youtube_link"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="12sp"
+                                            android:textColor="@color/dark_secondary"
+                                            android:textStyle="italic"
+                                            android:text="@string/hello_wb"
+                                            android:paddingTop="6dp"
+                                            android:paddingBottom="4dp"/>
+                                    </LinearLayout>
 
                                     <View
                                         android:layout_width="match_parent"
                                         android:layout_height="1dp"
-                                        android:layout_alignLeft="@+id/layout_artist_youtube_text"
+                                        android:layout_alignLeft="@+id/layout_artist_youtube_text_layout"
                                         android:background="@color/dark_divider"
                                         android:layout_alignParentBottom="true" />
                                 </RelativeLayout>
+
+
 
                                 <RelativeLayout
                                     android:id="@+id/layout_artist_soundcloud"
@@ -421,31 +436,35 @@
                                         android:padding="18dp"
                                         android:src="@drawable/about_soundcloud" />
 
-                                    <TextView
-                                        android:id="@+id/layout_artist_soundcloud_text"
+                                    <LinearLayout
+                                        android:id="@+id/layout_artist_soundcloud_text_layout"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentTop="true"
-                                        android:textSize="16sp"
-                                        android:textColor="@color/dark_primary"
-                                        android:text="@string/sc"
+                                        android:layout_height="match_parent"
+                                        android:padding="4dp"
+                                        android:layout_marginLeft="14dp"
                                         android:layout_toRightOf="@+id/layout_artist_soundcloud_icon"
-                                        android:paddingTop="14dp"
-                                        android:paddingLeft="14dp" />
+                                        android:orientation="vertical">
 
-                                    <TextView
-                                        android:id="@+id/layout_artist_soundcloud_link"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentBottom="true"
-                                        android:textSize="12sp"
-                                        android:textColor="@color/dark_secondary"
-                                        android:textStyle="italic"
-                                        android:text="@string/hello_sc"
-                                        android:layout_toRightOf="@+id/layout_artist_soundcloud_icon"
-                                        android:layout_below="@+id/layout_artist_soundcloud_text"
-                                        android:paddingTop="4dp"
-                                        android:paddingLeft="14dp" />
+                                        <TextView
+                                            android:id="@+id/layout_artist_soundcloud_text"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="16sp"
+                                            android:textColor="@color/dark_primary"
+                                            android:text="@string/soundcloud"
+                                            android:paddingTop="4dp" />
+
+                                        <TextView
+                                            android:id="@+id/layout_artist_soundcloud_link"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="12sp"
+                                            android:textColor="@color/dark_secondary"
+                                            android:textStyle="italic"
+                                            android:text="@string/hello_wb"
+                                            android:paddingTop="6dp"
+                                            android:paddingBottom="4dp"/>
+                                    </LinearLayout>
                                 </RelativeLayout>
                             </LinearLayout>
                         </android.support.v7.widget.CardView>

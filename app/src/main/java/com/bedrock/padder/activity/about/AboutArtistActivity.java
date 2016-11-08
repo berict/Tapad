@@ -131,7 +131,7 @@ public class AboutArtistActivity extends AppCompatActivity {
                         {R.id.layout_artist_bio_name, R.string.hello_bio_name},
                         {R.id.layout_artist_bio_text, R.string.hello_bio_full},
                         {R.id.layout_artist_bio_source, R.string.hello_bio_source},
-                        {R.id.layout_artist_about_title, R.string.hello_about},
+                        {R.id.layout_artist_about_title, R.string.hello_about, R.color.hello},
                         {R.id.layout_artist_web_link, R.string.hello_web},
                         {R.id.layout_artist_facebook_link, R.string.hello_facebook},
                         {R.id.layout_artist_twitter_link, R.string.hello_twitter},
@@ -149,7 +149,7 @@ public class AboutArtistActivity extends AppCompatActivity {
                 {R.id.layout_artist_bio_name, R.string.roses_bio_name},
                 {R.id.layout_artist_bio_text, R.string.roses_bio_full},
                 {R.id.layout_artist_bio_source, R.string.roses_bio_source},
-                {R.id.layout_artist_about_title, R.string.roses_about},
+                {R.id.layout_artist_about_title, R.string.roses_about, R.color.roses},
                 {R.id.layout_artist_web_link, R.string.roses_web},
                 {R.id.layout_artist_facebook_link, R.string.roses_facebook},
                 {R.id.layout_artist_twitter_link, R.string.roses_twitter},
@@ -167,7 +167,7 @@ public class AboutArtistActivity extends AppCompatActivity {
                 {R.id.layout_artist_bio_name, R.string.faded_bio_name},
                 {R.id.layout_artist_bio_text, R.string.faded_bio_full},
                 {R.id.layout_artist_bio_source, R.string.faded_bio_source},
-                {R.id.layout_artist_about_title, R.string.faded_about},
+                {R.id.layout_artist_about_title, R.string.faded_about, R.color.faded},
                 {R.id.layout_artist_web_link, R.string.faded_web},
                 {R.id.layout_artist_facebook_link, R.string.faded_facebook},
                 {R.id.layout_artist_twitter_link, R.string.faded_twitter},
@@ -198,6 +198,10 @@ public class AboutArtistActivity extends AppCompatActivity {
                     collapsingToolbarLayout.setContentScrimColor(getResources().getColor(textRes[scheme][i][0]));
                     collapsingToolbarLayout.setStatusBarScrimColor(getResources().getColor(textRes[scheme][i][0]));
                     break;
+                case 11:
+                    window.getTextView(textRes[scheme][i][0], activity).setText(textRes[scheme][i][1]);
+                    window.getTextView(textRes[scheme][i][0], activity).setTextColor(getResources().getColor(textRes[scheme][i][2]));
+                    break;
                 default:
                     window.getTextView(textRes[scheme][i][0], activity).setText(textRes[scheme][i][1]);
                     break;
@@ -205,25 +209,25 @@ public class AboutArtistActivity extends AppCompatActivity {
         }
 
         final int linkRes[][][] = {
-                {
-                        {R.id.layout_artist_web, R.string.hello_web, R.string.web},
-                        {R.id.layout_artist_facebook, R.string.hello_facebook, R.string.facebook},
-                        {R.id.layout_artist_twitter, R.string.hello_twitter, R.string.twitter},
-                        {R.id.layout_artist_youtube, R.string.hello_youtube, R.string.youtube},
-                        {R.id.layout_artist_soundcloud, R.string.hello_soundcloud, R.string.soundcloud}
-                }, {
+            {
+                {R.id.layout_artist_web, R.string.hello_web, R.string.web},
+                {R.id.layout_artist_facebook, R.string.hello_facebook, R.string.facebook},
+                {R.id.layout_artist_twitter, R.string.hello_twitter, R.string.twitter},
+                {R.id.layout_artist_youtube, R.string.hello_youtube, R.string.youtube},
+                {R.id.layout_artist_soundcloud, R.string.hello_soundcloud, R.string.soundcloud}
+            }, {
                 {R.id.layout_artist_web, R.string.roses_web, R.string.web},
                 {R.id.layout_artist_facebook, R.string.roses_facebook, R.string.facebook},
                 {R.id.layout_artist_twitter, R.string.roses_twitter, R.string.twitter},
                 {R.id.layout_artist_youtube, R.string.roses_youtube, R.string.youtube},
                 {R.id.layout_artist_soundcloud, R.string.roses_soundcloud, R.string.soundcloud}
-        }, {
+            }, {
                 {R.id.layout_artist_web, R.string.faded_web, R.string.web},
                 {R.id.layout_artist_facebook, R.string.faded_facebook, R.string.facebook},
                 {R.id.layout_artist_twitter, R.string.faded_twitter, R.string.twitter},
                 {R.id.layout_artist_youtube, R.string.faded_youtube, R.string.youtube},
                 {R.id.layout_artist_soundcloud, R.string.faded_soundcloud, R.string.soundcloud}
-        }
+            }
         };
 
         for (final int j[] = {0}; j[0] < 5; j[0]++) {
