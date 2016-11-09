@@ -295,7 +295,7 @@ public class SoundService {
                         Log.d(TAG, "Length " + raw[scheme - 1][i].length);
                         for(int j = 0; j < raw[scheme - 1][i].length; j++) {
                             soundPoolId[i][j] = sp.load(activity, raw[scheme - 1][i][j], 1);
-                            Log.d(TAG, "    Sound loaded " + i + "_" + (j + 1));
+                            Log.d(TAG, "  Sound loaded " + i + "_" + (j + 1));
                         }
                     }
                     publishProgress(i + 1);

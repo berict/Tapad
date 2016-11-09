@@ -538,7 +538,7 @@ public class WindowService {
                         sp.play(soundId[0], 1, 1, 1, 0, 1f);
                     } else {
                         for(int i = 0; i < length; i++) {
-                            setSoundPoolDelay(sp, soundId, i, i * 500);
+                            setSoundPoolDelay(sp, soundId, i, i * 5000);
                         }
                     }
                 }
