@@ -5,10 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:id="@+id/statusbar"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/hello" />
+
+    <View
+        android:visibility="gone"
+        android:id="@+id/layout_artist_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent" />
+
     <RelativeLayout
         android:id="@+id/layout_artist_relative"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="22dp">
 
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -312,7 +330,7 @@
                                         android:background="@color/dark_divider"
                                         android:layout_alignParentBottom="true" />
                                 </RelativeLayout>
-                                
+
                                 <RelativeLayout
                                     android:id="@+id/layout_artist_twitter"
                                     android:clickable="true"
@@ -365,7 +383,7 @@
                                         android:background="@color/dark_divider"
                                         android:layout_alignParentBottom="true" />
                                 </RelativeLayout>
-                                
+
                                 <RelativeLayout
                                     android:id="@+id/layout_artist_youtube"
                                     android:clickable="true"
@@ -478,19 +496,5 @@
             </android.support.v4.widget.NestedScrollView>
         </android.support.design.widget.CoordinatorLayout>
     </RelativeLayout>
-
-    <View
-        android:id="@+id/statusbar"
-        android:layout_alignParentTop="true"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/hello" />
-
-    <View
-        android:visibility="gone"
-        android:id="@+id/layout_artist_placeholder"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorAccent" />
 
 </RelativeLayout>

@@ -32,7 +32,6 @@ dependencies {
     compile('com.android.support:support-v4:24.+') {
         force = true;
     }
-    compile 'com.afollestad.material-dialogs:commons:0.9.0.1'
     // Material Dialog Lib
-    compile files('libs/TarsosDSP-Android-latest.jar')
+    compile 'com.afollestad.material-dialogs:commons:0.9.0.1'
 }

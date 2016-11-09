@@ -452,7 +452,7 @@ public class WindowService {
         });
     }
 
-    public void setOnTouchSound(int id, final int color_down, final int color_up, final SoundPool sp, final int soundId, final Activity activity){
+    public void setOnTouchSound(int id, final int color_down, final int color_up, final SoundPool sp, final int soundId[], final int length, final Activity activity){
         final View view = activity.findViewById(id);
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -464,7 +464,26 @@ public class WindowService {
                         Log.i("NotFoundException", "Handling with normal value");
                         view.setBackgroundColor(color_down);
                     }
-                    sp.play(soundId, 1, 1, 1, 0, 1f);
+                    if(soundId.length == 1) {
+                        sp.play(soundId[0], 1, 1, 1, 0, 1f);
+                    } else {
+                        final int i[] = {0};
+                        Handler repeat = new Handler();
+                        Runnable play = new Runnable() {
+                            @Override
+                            public void run() {
+                                sp.play(soundId[i[0]], 1, 1, 1, 0, 1f);
+                            }
+                        };
+
+                        for(i[0] = 0; i[0] < length; i[0]++) {
+                            if(i[0] == 0) {
+                                play.run();
+                            } else {
+                                repeat.postDelayed(play, 500 * i[0]);
+                            }
+                        }
+                    }
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP) {
                     view.setBackgroundColor(activity.getResources().getColor(color_up));
@@ -474,7 +493,7 @@ public class WindowService {
         });
     }
 
-    public void setOnTouchSoundPattern(int id, final int pattern[][], final int color_down, final int color_up, final SoundPool sp, final int soundId, final Activity activity){
+    public void setOnTouchSoundPattern(int id, final int pattern[][], final int color_down, final int color_up, final SoundPool sp, final int soundId[], final int length, final Activity activity){
         final View view = activity.findViewById(id);
 
         final int idnum[] = {0};
@@ -515,7 +534,13 @@ public class WindowService {
                             getView(pattern[idnum[0]][i], activity).setBackgroundColor(color_down);
                         }
                     }
-                    sp.play(soundId, 1, 1, 1, 0, 1f);
+                    if(soundId.length == 1) {
+                        sp.play(soundId[0], 1, 1, 1, 0, 1f);
+                    } else {
+                        for(int i = 0; i < length; i++) {
+                            setSoundPoolDelay(sp, soundId, i, i * 500);
+                        }
+                    }
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP) {
                     view.setBackgroundColor(activity.getResources().getColor(color_up));
@@ -526,6 +551,16 @@ public class WindowService {
                 return false;
             }
         });
+    }
+
+    void setSoundPoolDelay(final SoundPool sp, final int soundId[], final int count, int delay) {
+        Handler delayHandler = new Handler();
+        delayHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                sp.play(soundId[count], 1, 1, 1, 0, 1f);
+            }
+        }, delay);
     }
 
     public void setOnTouchSound(int id, final SoundPool sp, final int soundId, final Activity activity){
