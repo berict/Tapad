@@ -553,11 +553,12 @@ public class WindowService {
         });
     }
 
-    void setSoundPoolDelay(final SoundPool sp, final int soundId[], final int count, int delay) {
+    void setSoundPoolDelay(final SoundPool sp, final int soundId[], final int count, final int delay) {
         Handler delayHandler = new Handler();
         delayHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                Log.d("SoundPoolDelay", "SoundPool played on " + soundId[count] + " with " + delay + "ms delay");
                 sp.play(soundId[count], 1, 1, 1, 0, 1f);
             }
         }, delay);
