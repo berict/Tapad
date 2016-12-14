@@ -4,11 +4,16 @@
     <string name="blank"></string>
     <string name="error">Error</string>
 
-    <!-- Welcome Screen -->
-    <string name="welcome_next">NEXT</string>
-    <string name="welcome_skip">SKIP</string>
-    <string name="welcome_start">GOT IT</string>
+    <!-- Actions -->
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="explore">EXPLORE</string>
+    <string name="change">CHANGE</string>
+    <string name="settings_action">SETTINGS</string>
+    <string name="confirm_got_it">GOT IT</string>
+    <string name="confirm_exit">Press back again to exit</string>
 
+    <!-- Welcome Screen -->
     <string name="slide_1_title">Tapad</string>
     <string name="slide_1_desc">Welcome to</string>
 
@@ -25,13 +30,9 @@
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>
 
-    <string name="back">Press back again to exit</string>
     <string name="tutorial_loading">Can\'t start tutorial mode, loading preset</string>
 
     <!-- Cardview -->
-    <string name="cardview_explore">EXPLORE</string>
-    <string name="cardview_change">CHANGE</string>
-    <string name="cardview_settings">SETTINGS</string>
     <string name="cardview_now_playing">Now Playing</string>
 
     <!-- Scheme -->
@@ -40,100 +41,90 @@
     <string name="sc">SoundCloud</string>
     <string name="yt">YouTube</string>
     <string name="wb">Webpage</string>
-    <string name="facebook">Facebook</string>
-    <string name="twitter">Twitter</string>
-    <string name="soundcloud">SoundCloud</string>
-    <string name="youtube">YouTube</string>
-    <string name="web">Webpage</string>
     <string name="bi">Biography</string>
 
-    <string name="hello_full">OMFG - Hello</string>
-    <string name="hello">Hello</string>
-    <string name="hello_artist">OMFG</string>
-    <string name="hello_about">About OMFG</string>
-    <string name="hello_bio">OMFG\'s Biography</string>
-    <string name="hello_bio_name">Alex OMFG (Alex Savage)</string>
-    <string name="hello_bio_full">This is a Fun Loving girl who had a desire to make music.
+    <string name="hello">OMFG - Hello</string>
+    <string name="roses">The Chainsmokers - Roses</string>
+    <string name="faded">Alan Walker - Faded</string>
+
+    <string-array name="hello_social">
+        <item>https://www.facebook.com/alexomfg/</item>
+        <item>https://twitter.com/AlexSavageOMFG</item>
+        <item>https://soundcloud.com/alexomfg</item>
+        <item>https://www.youtube.com/user/alexsavageomfg</item>
+        <item>http://alexomfg.com</item>
+    </string-array>
+
+    <string-array name="hello_bio">
+        <item>OMFG</item>
+        <item>About OMFG</item>
+        <item>OMFG\'s Biography</item>
+        <item>Alex OMFG (Alex Savage)</item>
+        <item>This is a Fun Loving girl who had a desire to make music.
         Alex enjoyed making dubstep to just share between friends and family.
         She soon talked her self into posting her creations online to see what kinda feedback she would get.
-        getting an overly positive reveiws she continued to make music ever since with her latest track called OMFG - Jelly.</string>
-    <string name="hello_bio_source">Powered by Muzikum</string>
+        getting an overly positive reveiws she continued to make music ever since with her latest track called OMFG - Jelly.</item>
+        <item>Powered by Muzikum</item>
+    </string-array>
 
-    <string name="hello_fb">https://www.facebook.com/alexomfg/</string>
-    <string name="hello_tw">https://twitter.com/AlexSavageOMFG</string>
-    <string name="hello_sc">https://soundcloud.com/alexomfg</string>
-    <string name="hello_yt">https://www.youtube.com/user/alexsavageomfg</string>
-    <string name="hello_wb">http://alexomfg.com</string>
-
-    <string name="hello_facebook">@string/hello_fb</string>
-    <string name="hello_twitter">@string/hello_tw</string>
-    <string name="hello_soundcloud">@string/hello_sc</string>
-    <string name="hello_youtube">@string/hello_yt</string>
-    <string name="hello_web">@string/hello_wb</string>
-
-    <string name="roses_full">The Chainsmokers - Roses</string>
-    <string name="roses">Roses</string>
-    <string name="roses_artist">The Chainsmokers</string>
-    <string name="roses_about">About The Chainsmokers</string>
-    <string name="roses_bio">The Chainsmokers\' Biography</string>
-    <string name="roses_bio_name">Andrew Taggart and Alex Pall</string>
-    <string name="roses_bio_full">The Chainsmokers have become the hottest young American EDM DJ duo.
+    <string-array name="roses_bio">
+        <item>The Chainsmokers</item>
+        <item>About The Chainsmokers</item>
+        <item>The Chainsmokers\' Biography</item>
+        <item>Andrew Taggart and Alex Pall</item>
+        <item>The Chainsmokers have become the hottest young American EDM DJ duo.
         Their signature sound has its foundations in Indie, Progressive and Pop Music.
         On the production front, their original tracks have all reached the Beatport top charts and their remixes always hit #1 on the HypeM charts.
-        Their first major release, #SELFIE, and it\'s official music video swept the world so look out for much more to come!</string>
-    <string name="roses_bio_source">Powered by thechainsmokers.com</string>
+        Their first major release, #SELFIE, and it\'s official music video swept the world so look out for much more to come!</item>
+        <item>Powered by thechainsmokers.com</item>
+    </string-array>
 
-    <string name="roses_fb">https://www.facebook.com/thechainsmokers</string>
-    <string name="roses_tw">http://www.twitter.com/thechainsmokers</string>
-    <string name="roses_sc">http://www.soundcloud.com/thechainsmokers</string>
-    <string name="roses_yt">https://www.youtube.com/user/THECHAINSMOKERS</string>
-    <string name="roses_wb">http://thechainsmokers.com/</string>
+    <string-array name="roses_social">
+        <item>https://www.facebook.com/thechainsmokers</item>
+        <item>http://www.twitter.com/thechainsmokers</item>
+        <item>http://www.soundcloud.com/thechainsmokers</item>
+        <item>https://www.youtube.com/user/THECHAINSMOKERS</item>
+        <item>http://thechainsmokers.com</item>
+    </string-array>
 
-    <string name="roses_facebook">@string/roses_fb</string>
-    <string name="roses_twitter">@string/roses_tw</string>
-    <string name="roses_soundcloud">@string/roses_sc</string>
-    <string name="roses_youtube">@string/roses_yt</string>
-    <string name="roses_web">@string/roses_wb</string>
-
-    <string name="faded_full">Alan Walker - Faded</string>
-    <string name="faded">Faded</string>
-    <string name="faded_artist">Alan Walker</string>
-    <string name="faded_about">About Alan Walker</string>
-    <string name="faded_bio">Alan Walker\'s Biography</string>
-    <string name="faded_bio_name">Alan Olav Walker</string>
-    <string name="faded_bio_full">Alan Walker (Alan Olav Walker) is a British-Norwegian record producer who was born in Northampton, England.
+    <string-array name="faded_bio">
+        <item>Alan Walker</item>
+        <item>About Alan Walker</item>
+        <item>Alan Walker\'s Biography</item>
+        <item>Alan Olav Walker</item>
+        <item>Alan Walker (Alan Olav Walker) is a British-Norwegian record producer who was born in Northampton, England.
         He is best known for the electronic dance music single "Faded", which has reached number 1 in multiple countries,
-        and on YouTube has over 650 million views and 4 million likes, placing it among the top 40 most liked YouTube videos.</string>
-    <string name="faded_bio_source">Powered by Wikipedia</string>
+        and on YouTube has over 650 million views and 4 million likes, placing it among the top 40 most liked YouTube videos.</item>
+        <item>Powered by Wikipedia</item>
+    </string-array>
 
-    <string name="faded_fb">https://www.facebook.com/alanwalkermusic</string>
-    <string name="faded_tw">https://twitter.com/IAmAlanWalker</string>
-    <string name="faded_sc">https://soundcloud.com/alanwalker</string>
-    <string name="faded_yt">https://www.youtube.com/user/DjWalkzz</string>
-    <string name="faded_wb">http://www.alanwalkermusic.no/</string>
+    <string-array name="faded_social">
+        <item>https://www.facebook.com/alanwalkermusic</item>
+        <item>https://twitter.com/IAmAlanWalker</item>
+        <item>https://soundcloud.com/alanwalker</item>
+        <item>https://www.youtube.com/user/DjWalkzz</item>
+        <item>http://www.alanwalkermusic.no</item>
+    </string-array>
 
-    <string name="faded_facebook">@string/faded_fb</string>
-    <string name="faded_twitter">@string/faded_tw</string>
-    <string name="faded_soundcloud">@string/faded_sc</string>
-    <string name="faded_youtube">@string/faded_yt</string>
-    <string name="faded_web">@string/faded_wb</string>
-
-    <string name="berict_full">Studio Berict</string>
-    <string name="berict_about">About Studio Berict</string>
-    <string name="berict_bio">Berict\'s Biography</string>
-    <string name="berict_bio_name">Bedrock Pictures (Nathan Cho)</string>
-    <string name="berict_bio_full">Nathan is high school student in South Korea, who enjoys software and football.
+    <string-array name="berict_bio">
+        <item>Studio Berict</item>
+        <item>About Studio Berict</item>
+        <item>Berict\'s Biography</item>
+        <item>Bedrock Pictures (Nathan Cho)</item>
+        <item>Nathan is high school student in South Korea, who enjoys software and football.
         Currently attending Sunrin Internet High School in the 1st grade.
         Started developing about 5 years ago, started by HTML, now on Android.
         As you see, he has a big interest in Android\'s "Material Design".
-        Also, known as a professional 9gagger.</string>
-    <string name="berict_bio_source">Powered by Studio Berict</string>
+        Also, known as a professional 9gagger.</item>
+        <item>Powered by Studio Berict</item>
+    </string-array>
 
-    <string name="berict_yt">https://www.youtube.com/user/bedrockpicture</string>
-    <string name="berict_wb">http://berict.com</string>
-
-    <string name="berict_youtube">https://www.youtube.com/user/bedrockpicture</string>
-    <string name="berict_web">http://berict.com</string>
+    <string-array name="berict_social">
+        <item>https://www.facebook.com/studioberict</item>
+        <item>https://twitter.com/studioberict</item>
+        <item>https://www.youtube.com/user/bedrockpicture</item>
+        <item>http://berict.com</item>
+    </string-array>
 
     <string name="berict_support">Support Development</string>
     <string name="dev_report_bug">Report bugs</string>
@@ -190,41 +181,6 @@
     <string name="tapad_check_update">Check updates</string>
     <string name="tapad_check_update_hint">Open in Google Play Store</string>
     <string name="tapad_legal">Legal Information</string>
-    <string name="tapad_legal_text">"
-        Last updated: May 7, 2016
-
-        Please read these Terms and Conditions carefully before using the "Tapad" mobile application (the "Service") operated by Studio Berict.
-        Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms.
-        These Terms apply to all visitors, users and others who access or use the Service.
-
-        By accessing or using the Service you agree to be bound by these Terms.
-        If you disagree with any part of the terms then you may not access the Service.
-
-        Disclaimer
-
-        Studio Berict don't have any rights for all materials in our service.
-        If you have the copyright to the used text, graphics, videos, or other material
-        ("Contents") in our service and you don't like it, contact us and we will try to fix in 7 days.
-
-        Content
-
-        Our Service may contain links to third­party web sites or services that are not owned or controlled by Studio Berict.
-
-        Studio Berict has no control over, and assumes no responsibility for, the content, privacy policies,
-        or practices of any third party web sites or services.
-        You further acknowledge and agree that by Studio Berict shall not be responsible or liable, directly or indirectly,
-        for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content,
-        goods or services available on or through any such web sites or services.
-
-        Changes
-
-        We reserve the right, at our sole discretion, to modify or replace these Terms at any time.
-        If a revision is material we will try to provide at least 30 days' notice prior to any new terms taking effect.
-        What constitutes a material change will be determined at our sole discretion.
-
-        Contact Us
-
-        If you have any questions about these Terms, please contact us to dev.bedrock@gmail.com."</string>
     <string name="tapad_version">Tapad version</string>
     <string name="tapad_version_detail">2.2 Official Release</string>
     <string name="tapad_build">Build date</string>
@@ -424,20 +380,11 @@
 
         <b>Material Tap Target Prompt</b>\n
         <i>https://github.com/sjwall/MaterialTapTargetPrompt/</i>\n
-        Saved me from thousands of codes. Beautiful.\n\n
-
-        <b>9GAG</b>\n
-        <i>http://9gag.com/u/bedrockpic</i>\n
-        9GAG, Best source of your fun!
+        Saved me from thousands of codes. Beautiful.
     </string>
     <string name="dialog_thanks_positive">CLOSE</string>
 
     <string name="dialog_preset_title">Presets</string>
-    <array name="dialog_preset_array">
-        <item>@string/hello_full</item>
-        <item>@string/roses_full</item>
-        <item>@string/faded_full</item>
-    </array>
     <string name="dialog_preset_positive">SAVE</string>
     <string name="dialog_preset_negative">CANCEL</string>
 
@@ -470,7 +417,7 @@
     <string name="settings_group_play">Play</string>
 
     <string name="settings_preset">Presets</string>
-    <string name="settings_preset_hint">@string/hello_full</string>
+    <string name="settings_preset_hint">PRESET_NAME_HERE</string>
     <string name="settings_custom_sound">Custom sound</string>
     <string name="settings_custom_sound_error">This feature is under development.</string>
     <string name="settings_tutorial">Tutorial mode</string>
@@ -527,15 +474,8 @@
     <string name="about_berict">About Studio Berict</string>
     <string name="berict">Studio Berict</string>
 
-    <string name="issues">Known Issues</string>
-    <string name="issues_detail">"
-          Vocals on Roses preset cuts off
-          There is no help for playing Tapad
-          There is no translations for everything
-        "</string>
-
     <string name="terms">
-        <i>Last updated: May 7, 2016</i> \n\n
+        <i>Last updated: December 14, 2016</i> \n\n
 
         Please read these Terms and Conditions carefully before using the \"Tapad\" mobile application (the \"Service\") operated by Studio Berict.
         Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms.
@@ -561,7 +501,7 @@
         What constitutes a material change will be determined at our sole discretion. \n\n
 
         <b>Contact Us</b> \n
-        If you have any questions about these Terms, please contact us to <b><i>dev.bedrock@gmail.com</i></b>.
+        If you have any questions about these Terms, please contact us to <b><i>berict.bedrock@gmail.com</i></b>.
     </string>
     <string name="dev">"
         Developed by

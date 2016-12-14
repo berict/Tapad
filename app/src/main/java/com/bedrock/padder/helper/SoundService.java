@@ -351,7 +351,7 @@ public class SoundService {
             try {
                 int scheme = prefs.getInt("scheme", 1);
                 if (scheme >= 1 && scheme <= 3) {
-                    Log.i("SoundService", "Preset found");
+                    Log.i("SoundService", "Music found");
                     for (int i = 0; i < 84; i++) {
                         sp.unload(raw[scheme - 1][i][0]);
                         if(raw[scheme - 1][i].length == 1) {

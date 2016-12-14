@@ -12,10 +12,30 @@
         android:focusable="true"
         android:focusableInTouchMode="true" />
 
+    <View
+        android:id="@+id/statusbar"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/blue_grey" />
+
+    <View
+        android:visibility="gone"
+        android:id="@+id/layout_dev_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent" />
+
+    <include layout="@layout/fragment_dialog_feedback"
+        android:visibility="gone"/>
+
     <RelativeLayout
         android:id="@+id/layout_dev_relative"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/linearLayout2"
+        android:layout_toEndOf="@+id/linearLayout2">
 
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -101,7 +121,7 @@
                                     android:id="@+id/layout_dev_bio_title"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/berict_bio"
+                                    android:text="BIO_TITLE_HERE"
                                     android:textColor="@color/blue_grey"
                                     android:padding="16dp" />
 
@@ -129,7 +149,7 @@
                                             android:layout_alignParentTop="true"
                                             android:textSize="18sp"
                                             android:textColor="@color/dark_primary"
-                                            android:text="@string/berict_bio_name"
+                                            android:text="BIO_NAME_HERE"
                                             android:layout_marginTop="14dp"
                                             android:layout_marginLeft="20dp" />
 
@@ -139,7 +159,7 @@
                                             android:layout_height="wrap_content"
                                             android:textSize="14sp"
                                             android:textColor="@color/dark_secondary"
-                                            android:text="@string/berict_bio_full"
+                                            android:text="@string/bio_full"
                                             android:layout_below="@+id/layout_dev_bio_name"
                                             android:lineSpacingMultiplier="1.1"
                                             android:layout_marginTop="15dp"
@@ -162,7 +182,7 @@
                                             android:textSize="12sp"
                                             android:textColor="@color/dark_hint"
                                             android:textStyle="italic"
-                                            android:text="@string/berict_bio_source"
+                                            android:text="@string/bio_source"
                                             android:layout_below="@+id/layout_dev_bio_divider"
                                             android:layout_alignParentRight="true"
                                             android:layout_marginTop="10dp"
@@ -193,7 +213,7 @@
                                     android:id="@+id/layout_dev_about_title"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/berict_about"
+                                    android:text="@string/about"
                                     android:textColor="@color/blue_grey"
                                     android:padding="16dp" />
 
@@ -236,7 +256,7 @@
                                         android:textSize="12sp"
                                         android:textColor="@color/dark_secondary"
                                         android:textStyle="italic"
-                                        android:text="@string/berict_wb"
+                                        android:text="@string/wb"
                                         android:layout_toRightOf="@+id/layout_dev_web_icon"
                                         android:layout_below="@+id/layout_dev_web_text"
                                         android:paddingTop="4dp"
@@ -284,7 +304,7 @@
                                         android:textSize="12sp"
                                         android:textColor="@color/dark_secondary"
                                         android:textStyle="italic"
-                                        android:text="@string/berict_yt"
+                                        android:text="@string/yt"
                                         android:layout_toRightOf="@+id/layout_dev_youtube_icon"
                                         android:layout_below="@+id/layout_dev_youtube_text"
                                         android:paddingTop="4dp"
@@ -517,21 +537,5 @@
             </android.support.v4.widget.NestedScrollView>
         </android.support.design.widget.CoordinatorLayout>
     </RelativeLayout>
-
-    <View
-        android:id="@+id/statusbar"
-        android:layout_alignParentTop="true"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/blue_grey" />
-
-    <View
-        android:visibility="gone"
-        android:id="@+id/layout_dev_placeholder"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorAccent" />
-
-    <include layout="@layout/fragment_dialog_feedback" />
 
 </RelativeLayout>
