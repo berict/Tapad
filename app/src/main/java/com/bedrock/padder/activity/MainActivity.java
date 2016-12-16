@@ -116,8 +116,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         };
 
         Detail details[] = {
-                new Detail("detail1TitleResId", "detail1TitleColorResId", items),
-                new Detail("detail2TitleResId", "detail2TitleColorResId", items)
+                new Detail("detail1TitleResId", items),
+                new Detail("detail2TitleResId", items)
         };
 
         About about = new About("titleResId", "imageDrawableId",
@@ -799,7 +799,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 //intent.intentSharedelement(a, "activity.about.AboutArtistActivity", R.id.cardview_artist_image, "artist", 0);
                 //TODO : edit
                 Intent intent = new Intent(a, AboutActivity.class);
-                intent.putExtra("json", R.string.about_hello);
+                intent.putExtra("json", R.string.json_about_hello);
+                startActivity(intent);
             }
         });
 

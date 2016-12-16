@@ -19,7 +19,6 @@
                             "string_id":"item2ArrayResId"
                         }
                     ],
-                    "title_color_id":"detail1TitleColorResId",
                     "title_id":"detail1TitleResId"
                 },
                 {
@@ -33,7 +32,6 @@
                             "string_id":"item2ArrayResId"
                         }
                     ],
-                    "title_color_id":"detail2TitleColorResId",
                     "title_id":"detail2TitleResId"
                 }
             ],
@@ -61,22 +59,7 @@
                             "string_id":"item2ArrayResId"
                         }
                     ],
-                    "title_color_id":"detail1TitleColorResId",
                     "title_id":"detail1TitleResId"
-                },
-                {
-                    "items":[
-                        {
-                            "image_id":"item1ImageId",
-                            "string_id":"item1ArrayResId"
-                        },
-                        {
-                            "image_id":"item2ImageId",
-                            "string_id":"item2ArrayResId"
-                        }
-                    ],
-                    "title_color_id":"detail2TitleColorResId",
-                    "title_id":"detail2TitleResId"
                 }
             ],
             "image_id":"imageDrawableId",
