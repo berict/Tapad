@@ -118,128 +118,128 @@ public class AboutArtistActivity extends AppCompatActivity {
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.collapsedappbar);
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.expandedappbar);
 
-        int textRes[][][] = {
-                {
-                        {R.id.statusbar, R.color.hello_dark},
-                        {R.id.layout_artist_image, R.drawable.cardview_background_artist_hello},
-                        {R.id.layout_artist_bio_image, R.drawable.about_bio_hello},
-                        {R.id.layout_artist_bio_title, R.color.hello},
-                        {R.string.hello_artist, R.color.hello},
-                        {R.string.hello_artist},
-                        {R.color.hello},
-                        {R.id.layout_artist_bio_title, R.string.hello_bio},
-                        {R.id.layout_artist_bio_name, R.string.hello_bio_name},
-                        {R.id.layout_artist_bio_text, R.string.hello_bio_full},
-                        {R.id.layout_artist_bio_source, R.string.hello_bio_source},
-                        {R.id.layout_artist_about_title, R.string.hello_about, R.color.hello},
-                        {R.id.layout_artist_web_link, R.string.hello_web},
-                        {R.id.layout_artist_facebook_link, R.string.hello_facebook},
-                        {R.id.layout_artist_twitter_link, R.string.hello_twitter},
-                        {R.id.layout_artist_youtube_link, R.string.hello_youtube},
-                        {R.id.layout_artist_soundcloud_link, R.string.hello_soundcloud}
-                }, {
-                {R.id.statusbar, R.color.roses_dark},
-                {R.id.layout_artist_image, R.drawable.cardview_background_artist_roses},
-                {R.id.layout_artist_bio_image, R.drawable.about_bio_roses},
-                {R.id.layout_artist_bio_title, R.color.roses},
-                {R.string.roses_artist, R.color.roses},
-                {R.string.roses_artist},
-                {R.color.roses},
-                {R.id.layout_artist_bio_title, R.string.roses_bio},
-                {R.id.layout_artist_bio_name, R.string.roses_bio_name},
-                {R.id.layout_artist_bio_text, R.string.roses_bio_full},
-                {R.id.layout_artist_bio_source, R.string.roses_bio_source},
-                {R.id.layout_artist_about_title, R.string.roses_about, R.color.roses},
-                {R.id.layout_artist_web_link, R.string.roses_web},
-                {R.id.layout_artist_facebook_link, R.string.roses_facebook},
-                {R.id.layout_artist_twitter_link, R.string.roses_twitter},
-                {R.id.layout_artist_youtube_link, R.string.roses_youtube},
-                {R.id.layout_artist_soundcloud_link, R.string.roses_soundcloud}
-        }, {
-                {R.id.statusbar, R.color.faded_dark},
-                {R.id.layout_artist_image, R.drawable.cardview_background_artist_faded},
-                {R.id.layout_artist_bio_image, R.drawable.about_bio_faded},
-                {R.id.layout_artist_bio_title, R.color.faded},
-                {R.string.faded_artist, R.color.faded},
-                {R.string.faded_artist},
-                {R.color.faded},
-                {R.id.layout_artist_bio_title, R.string.faded_bio},
-                {R.id.layout_artist_bio_name, R.string.faded_bio_name},
-                {R.id.layout_artist_bio_text, R.string.faded_bio_full},
-                {R.id.layout_artist_bio_source, R.string.faded_bio_source},
-                {R.id.layout_artist_about_title, R.string.faded_about, R.color.faded},
-                {R.id.layout_artist_web_link, R.string.faded_web},
-                {R.id.layout_artist_facebook_link, R.string.faded_facebook},
-                {R.id.layout_artist_twitter_link, R.string.faded_twitter},
-                {R.id.layout_artist_youtube_link, R.string.faded_youtube},
-                {R.id.layout_artist_soundcloud_link, R.string.faded_soundcloud}
-        }
-        };
+//        int textRes[][][] = {
+//                {
+//                        {R.id.statusbar, R.color.hello_dark},
+//                        {R.id.layout_artist_image, R.drawable.cardview_background_artist_hello},
+//                        {R.id.layout_artist_bio_image, R.drawable.about_bio_hello},
+//                        {R.id.layout_artist_bio_title, R.color.hello},
+//                        {R.string.hello_artist, R.color.hello},
+//                        {R.string.hello_artist},
+//                        {R.color.hello},
+//                        {R.id.layout_artist_bio_title, R.string.hello_bio},
+//                        {R.id.layout_artist_bio_name, R.string.hello_bio_name},
+//                        {R.id.layout_artist_bio_text, R.string.hello_bio_full},
+//                        {R.id.layout_artist_bio_source, R.string.hello_bio_source},
+//                        {R.id.layout_artist_about_title, R.string.hello_about, R.color.hello},
+//                        {R.id.layout_artist_web_link, R.string.hello_web},
+//                        {R.id.layout_artist_facebook_link, R.string.hello_facebook},
+//                        {R.id.layout_artist_twitter_link, R.string.hello_twitter},
+//                        {R.id.layout_artist_youtube_link, R.string.hello_youtube},
+//                        {R.id.layout_artist_soundcloud_link, R.string.hello_soundcloud}
+//                }, {
+//                {R.id.statusbar, R.color.roses_dark},
+//                {R.id.layout_artist_image, R.drawable.cardview_background_artist_roses},
+//                {R.id.layout_artist_bio_image, R.drawable.about_bio_roses},
+//                {R.id.layout_artist_bio_title, R.color.roses},
+//                {R.string.roses_artist, R.color.roses},
+//                {R.string.roses_artist},
+//                {R.color.roses},
+//                {R.id.layout_artist_bio_title, R.string.roses_bio},
+//                {R.id.layout_artist_bio_name, R.string.roses_bio_name},
+//                {R.id.layout_artist_bio_text, R.string.roses_bio_full},
+//                {R.id.layout_artist_bio_source, R.string.roses_bio_source},
+//                {R.id.layout_artist_about_title, R.string.roses_about, R.color.roses},
+//                {R.id.layout_artist_web_link, R.string.roses_web},
+//                {R.id.layout_artist_facebook_link, R.string.roses_facebook},
+//                {R.id.layout_artist_twitter_link, R.string.roses_twitter},
+//                {R.id.layout_artist_youtube_link, R.string.roses_youtube},
+//                {R.id.layout_artist_soundcloud_link, R.string.roses_soundcloud}
+//        }, {
+//                {R.id.statusbar, R.color.faded_dark},
+//                {R.id.layout_artist_image, R.drawable.cardview_background_artist_faded},
+//                {R.id.layout_artist_bio_image, R.drawable.about_bio_faded},
+//                {R.id.layout_artist_bio_title, R.color.faded},
+//                {R.string.faded_artist, R.color.faded},
+//                {R.string.faded_artist},
+//                {R.color.faded},
+//                {R.id.layout_artist_bio_title, R.string.faded_bio},
+//                {R.id.layout_artist_bio_name, R.string.faded_bio_name},
+//                {R.id.layout_artist_bio_text, R.string.faded_bio_full},
+//                {R.id.layout_artist_bio_source, R.string.faded_bio_source},
+//                {R.id.layout_artist_about_title, R.string.faded_about, R.color.faded},
+//                {R.id.layout_artist_web_link, R.string.faded_web},
+//                {R.id.layout_artist_facebook_link, R.string.faded_facebook},
+//                {R.id.layout_artist_twitter_link, R.string.faded_twitter},
+//                {R.id.layout_artist_youtube_link, R.string.faded_youtube},
+//                {R.id.layout_artist_soundcloud_link, R.string.faded_soundcloud}
+//        }
+//        };
 
-        for (int i = 0; i < 17; i++) {
-            switch (i) {
-                case 0:
-                    window.getView(textRes[scheme][i][0], activity).setBackgroundColor(getResources().getColor(textRes[scheme][i][1]));
-                    break;
-                case 1:
-                case 2:
-                    window.getImageView(textRes[scheme][i][0], activity).setImageResource(textRes[scheme][i][1]);
-                    break;
-                case 3:
-                    window.getTextView(textRes[scheme][i][0], activity).setTextColor(getResources().getColor(textRes[scheme][i][1]));
-                    break;
-                case 4:
-                    window.setRecentColor(textRes[scheme][i][0], 0, textRes[scheme][i][1], activity);
-                    break;
-                case 5:
-                    collapsingToolbarLayout.setTitle(getResources().getString(textRes[scheme][i][0]));
-                    break;
-                case 6:
-                    collapsingToolbarLayout.setContentScrimColor(getResources().getColor(textRes[scheme][i][0]));
-                    collapsingToolbarLayout.setStatusBarScrimColor(getResources().getColor(textRes[scheme][i][0]));
-                    break;
-                case 11:
-                    window.getTextView(textRes[scheme][i][0], activity).setText(textRes[scheme][i][1]);
-                    window.getTextView(textRes[scheme][i][0], activity).setTextColor(getResources().getColor(textRes[scheme][i][2]));
-                    break;
-                default:
-                    window.getTextView(textRes[scheme][i][0], activity).setText(textRes[scheme][i][1]);
-                    break;
-            }
-        }
+//        for (int i = 0; i < 17; i++) {
+//            switch (i) {
+//                case 0:
+//                    window.getView(textRes[scheme][i][0], activity).setBackgroundColor(getResources().getColor(textRes[scheme][i][1]));
+//                    break;
+//                case 1:
+//                case 2:
+//                    window.getImageView(textRes[scheme][i][0], activity).setImageResource(textRes[scheme][i][1]);
+//                    break;
+//                case 3:
+//                    window.getTextView(textRes[scheme][i][0], activity).setTextColor(getResources().getColor(textRes[scheme][i][1]));
+//                    break;
+//                case 4:
+//                    window.setRecentColor(textRes[scheme][i][0], 0, textRes[scheme][i][1], activity);
+//                    break;
+//                case 5:
+//                    collapsingToolbarLayout.setTitle(getResources().getString(textRes[scheme][i][0]));
+//                    break;
+//                case 6:
+//                    collapsingToolbarLayout.setContentScrimColor(getResources().getColor(textRes[scheme][i][0]));
+//                    collapsingToolbarLayout.setStatusBarScrimColor(getResources().getColor(textRes[scheme][i][0]));
+//                    break;
+//                case 11:
+//                    window.getTextView(textRes[scheme][i][0], activity).setText(textRes[scheme][i][1]);
+//                    window.getTextView(textRes[scheme][i][0], activity).setTextColor(getResources().getColor(textRes[scheme][i][2]));
+//                    break;
+//                default:
+//                    window.getTextView(textRes[scheme][i][0], activity).setText(textRes[scheme][i][1]);
+//                    break;
+//            }
+//        }
 
-        final int linkRes[][][] = {
-            {
-                {R.id.layout_artist_web, R.string.hello_web, R.string.web},
-                {R.id.layout_artist_facebook, R.string.hello_facebook, R.string.facebook},
-                {R.id.layout_artist_twitter, R.string.hello_twitter, R.string.twitter},
-                {R.id.layout_artist_youtube, R.string.hello_youtube, R.string.youtube},
-                {R.id.layout_artist_soundcloud, R.string.hello_soundcloud, R.string.soundcloud}
-            }, {
-                {R.id.layout_artist_web, R.string.roses_web, R.string.web},
-                {R.id.layout_artist_facebook, R.string.roses_facebook, R.string.facebook},
-                {R.id.layout_artist_twitter, R.string.roses_twitter, R.string.twitter},
-                {R.id.layout_artist_youtube, R.string.roses_youtube, R.string.youtube},
-                {R.id.layout_artist_soundcloud, R.string.roses_soundcloud, R.string.soundcloud}
-            }, {
-                {R.id.layout_artist_web, R.string.faded_web, R.string.web},
-                {R.id.layout_artist_facebook, R.string.faded_facebook, R.string.facebook},
-                {R.id.layout_artist_twitter, R.string.faded_twitter, R.string.twitter},
-                {R.id.layout_artist_youtube, R.string.faded_youtube, R.string.youtube},
-                {R.id.layout_artist_soundcloud, R.string.faded_soundcloud, R.string.soundcloud}
-            }
-        };
+//        final int linkRes[][][] = {
+//            {
+//                {R.id.layout_artist_web, R.string.hello_web, R.string.web},
+//                {R.id.layout_artist_facebook, R.string.hello_facebook, R.string.facebook},
+//                {R.id.layout_artist_twitter, R.string.hello_twitter, R.string.twitter},
+//                {R.id.layout_artist_youtube, R.string.hello_youtube, R.string.youtube},
+//                {R.id.layout_artist_soundcloud, R.string.hello_soundcloud, R.string.soundcloud}
+//            }, {
+//                {R.id.layout_artist_web, R.string.roses_web, R.string.web},
+//                {R.id.layout_artist_facebook, R.string.roses_facebook, R.string.facebook},
+//                {R.id.layout_artist_twitter, R.string.roses_twitter, R.string.twitter},
+//                {R.id.layout_artist_youtube, R.string.roses_youtube, R.string.youtube},
+//                {R.id.layout_artist_soundcloud, R.string.roses_soundcloud, R.string.soundcloud}
+//            }, {
+//                {R.id.layout_artist_web, R.string.faded_web, R.string.web},
+//                {R.id.layout_artist_facebook, R.string.faded_facebook, R.string.facebook},
+//                {R.id.layout_artist_twitter, R.string.faded_twitter, R.string.twitter},
+//                {R.id.layout_artist_youtube, R.string.faded_youtube, R.string.youtube},
+//                {R.id.layout_artist_soundcloud, R.string.faded_soundcloud, R.string.soundcloud}
+//            }
+//        };
 
-        for (final int j[] = {0}; j[0] < 5; j[0]++) {
-            final int tmp[] = {linkRes[scheme][j[0]][1], linkRes[scheme][j[0]][2]};
-            anim.circularRevealTouch(linkRes[scheme][j[0]][0], R.id.layout_artist_placeholder,
-                    new AccelerateDecelerateInterpolator(), new Runnable() {
-                        @Override
-                        public void run() {
-                            intent.intentLink(activity, getResources().getString(tmp[0]), 400);
-                            window.setRecentColor(tmp[1], 0, R.color.colorAccent, activity);
-                        }
-                    }, 400, 0, activity);
-        }
+//        for (final int j[] = {0}; j[0] < 5; j[0]++) {
+//            final int tmp[] = {linkRes[scheme][j[0]][1], linkRes[scheme][j[0]][2]};
+//            anim.circularRevealTouch(linkRes[scheme][j[0]][0], R.id.layout_artist_placeholder,
+//                    new AccelerateDecelerateInterpolator(), new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            intent.intentLink(activity, getResources().getString(tmp[0]), 400);
+//                            window.setRecentColor(tmp[1], 0, R.color.colorAccent, activity);
+//                        }
+//                    }, 400, 0, activity);
+//        }
     }
 }

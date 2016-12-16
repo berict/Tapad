@@ -57,7 +57,7 @@
                 android:textSize="14sp"
                 android:textColor="@color/light_primary"
                 app:buttonTint="@color/light_primary"
-                android:text="@string/hello_full"
+                android:text="@string/hello"
                 android:visibility="visible" />
 
             <android.support.v7.widget.AppCompatRadioButton
@@ -68,7 +68,7 @@
                 android:textSize="14sp"
                 android:textColor="@color/light_primary"
                 app:buttonTint="@color/light_primary"
-                android:text="@string/roses_full"
+                android:text="@string/roses"
                 android:visibility="visible" />
 
             <android.support.v7.widget.AppCompatRadioButton
@@ -79,7 +79,7 @@
                 android:textSize="14sp"
                 android:textColor="@color/light_primary"
                 app:buttonTint="@color/light_primary"
-                android:text="@string/faded_full"
+                android:text="@string/faded"
                 android:visibility="visible" />
         </RadioGroup>
 

@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailViewHolder> {
+/*
+public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.DetailViewHolder> {
     private Result[] results;
     private int rowLayout;
     private Context context;
@@ -30,7 +30,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
         //TODO: create layout file for first recycler view (second too)
     }
 
-    public DetailAdapter(Result[] results, int rowLayout, Context context) {
+    public AboutAdapter(Result[] results, int rowLayout, Context context) {
         this.results = results;
         this.rowLayout = rowLayout;
         this.context = context;
@@ -65,5 +65,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
     public int getItemCount() {
         return results.length;
     }
+
 }
 
+        */

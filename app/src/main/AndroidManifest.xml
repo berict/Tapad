@@ -32,7 +32,7 @@
         <activity
             android:name=".activity.about.AboutDevActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.DetailsActivity"></activity>
+        <activity android:name=".activity.AboutActivity"></activity>
     </application>
 
 </manifest>

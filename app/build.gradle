@@ -34,4 +34,6 @@ dependencies {
     }
     // Material Dialog Lib
     compile 'com.afollestad.material-dialogs:commons:0.9.0.1'
+    // Google Gson
+    compile 'com.google.code.gson:gson:2.8.0'
 }

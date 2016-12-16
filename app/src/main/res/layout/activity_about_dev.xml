@@ -33,9 +33,7 @@
         android:id="@+id/layout_dev_relative"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/linearLayout2"
-        android:layout_toEndOf="@+id/linearLayout2">
+        android:layout_alignParentTop="true">
 
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -159,7 +157,7 @@
                                             android:layout_height="wrap_content"
                                             android:textSize="14sp"
                                             android:textColor="@color/dark_secondary"
-                                            android:text="@string/bio_full"
+                                            android:text="BIO_FULL_HERE"
                                             android:layout_below="@+id/layout_dev_bio_name"
                                             android:lineSpacingMultiplier="1.1"
                                             android:layout_marginTop="15dp"
@@ -182,7 +180,7 @@
                                             android:textSize="12sp"
                                             android:textColor="@color/dark_hint"
                                             android:textStyle="italic"
-                                            android:text="@string/bio_source"
+                                            android:text="BIO_SOURCE_HERE"
                                             android:layout_below="@+id/layout_dev_bio_divider"
                                             android:layout_alignParentRight="true"
                                             android:layout_marginTop="10dp"

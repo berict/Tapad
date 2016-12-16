@@ -203,7 +203,7 @@ public class WelcomeActivity extends Activity {
             if (page_position == layouts.length - 1) {
                 // last page. make button text to GOT IT
                 try {
-                    btnNext.setText(getString(R.string.welcome_start));
+                    btnNext.setText(getString(R.string.hello)); //TODO edit
                     btnSkip.setVisibility(View.GONE);
 
                     Log.d("ViewPager", "Page is finishing page");
@@ -215,7 +215,7 @@ public class WelcomeActivity extends Activity {
             } else {
                 // still pages are left
                 try {
-                    btnNext.setText(getString(R.string.welcome_next));
+                    btnNext.setText(getString(R.string.hello)); //TODO edit
                     btnSkip.setVisibility(View.VISIBLE);
 
                     Log.d("ViewPager", "Page is not finishing page");
@@ -344,7 +344,7 @@ public class WelcomeActivity extends Activity {
 
             this.doubleBackToExitPressedOnce = true;
 
-            Toast.makeText(this, R.string.back, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.confirm_exit, Toast.LENGTH_SHORT).show();
 
             new Handler().postDelayed(new Runnable() {
 

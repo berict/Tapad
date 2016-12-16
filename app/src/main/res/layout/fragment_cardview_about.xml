@@ -73,7 +73,7 @@
                         android:padding="10dp"
                         android:background="?selectableItemBackground"
                         android:clickable="true"
-                        android:text="@string/cardview_explore"
+                        android:text="@string/explore"
                         android:textColor="@color/bg_screen1"/>
 
                     <TextView
@@ -83,7 +83,7 @@
                         android:padding="10dp"
                         android:background="?selectableItemBackground"
                         android:clickable="true"
-                        android:text="@string/cardview_settings"
+                        android:text="@string/settings"
                         android:textColor="@color/bg_screen1"/>
                 </LinearLayout>
             </RelativeLayout>

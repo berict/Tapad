@@ -3,6 +3,7 @@ package com.bedrock.padder.activity;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -31,6 +32,11 @@ import com.bedrock.padder.helper.SoundService;
 import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.TutorialService;
 import com.bedrock.padder.helper.WindowService;
+import com.bedrock.padder.model.about.About;
+import com.bedrock.padder.model.about.Bio;
+import com.bedrock.padder.model.about.Detail;
+import com.bedrock.padder.model.about.Item;
+import com.google.gson.Gson;
 
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
@@ -102,6 +108,29 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
         color = prefs.getInt("color", R.color.red);
         sound.setButton(R.color.grey_dark, a);
+
+        //TODO edit this
+        Item items[] = {
+                new Item("item1ArrayResId", "item1ImageId"),
+                new Item("item2ArrayResId", "item2ImageId")
+        };
+
+        Detail details[] = {
+                new Detail("detail1TitleResId", "detail1TitleColorResId", items),
+                new Detail("detail2TitleResId", "detail2TitleColorResId", items)
+        };
+
+        About about = new About("titleResId", "imageDrawableId",
+                new Bio("bioArrayResId", "bioImageId"), details,
+                "statusColorResId", "actionColorResId");
+
+        Gson gson = new Gson();
+        String json = gson.toJson(about, About.class);
+
+        Log.d("Json", json);
+
+        //About about = gson.fromJson(getResources().getString(R.string.about_example), About.class);
+        //Log.d("JSON", about.getTitleId());
     }
 
     void enterAnim() {
@@ -146,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
                 doubleBackToExitPressedOnce = true;
 
-                Toast.makeText(this, R.string.back, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.confirm_exit, Toast.LENGTH_SHORT).show();
 
                 new Handler().postDelayed(new Runnable() {
 
@@ -767,7 +796,10 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         w.getView(R.id.cardview_artist, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedelement(a, "activity.about.AboutArtistActivity", R.id.cardview_artist_image, "artist", 0);
+                //intent.intentSharedelement(a, "activity.about.AboutArtistActivity", R.id.cardview_artist_image, "artist", 0);
+                //TODO : edit
+                Intent intent = new Intent(a, AboutActivity.class);
+                intent.putExtra("json", R.string.about_hello);
             }
         });
 
@@ -1085,7 +1117,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
         PresetDialog = new MaterialDialog.Builder(this)
                 .title(R.string.dialog_preset_title)
-                .items(R.array.dialog_preset_array)
+                .items(R.array.indigo) //TODO edit this
                 .autoDismiss(false)
                 .itemsCallbackSingleChoice(defaulScheme - 1, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
@@ -1558,11 +1590,11 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
             // Cardview
             w.getImageView(R.id.cardview_artist_image, a).setImageResource(R.drawable.cardview_background_artist_hello);
-            w.getTextView(R.id.cardview_artist_song, a).setText(getResources().getString(R.string.hello_full));
+            w.getTextView(R.id.cardview_artist_song, a).setText(getResources().getString(R.string.hello));
             w.getTextView(R.id.cardview_artist_explore, a).setTextColor(getResources().getColor(themeColor));
             w.getTextView(R.id.cardview_artist_change, a).setTextColor(getResources().getColor(themeColor));
 
-            w.getTextView(R.id.layout_settings_preset_hint, a).setText(getResources().getString(R.string.hello_full));
+            w.getTextView(R.id.layout_settings_preset_hint, a).setText(getResources().getString(R.string.hello));
         } else if (scheme == 2) {
             themeColor = R.color.roses;
             w.setRecentColor(0, 0, themeColor, a);
@@ -1578,11 +1610,11 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
             // Cardview
             w.getImageView(R.id.cardview_artist_image, a).setImageResource(R.drawable.cardview_background_artist_roses);
-            w.getTextView(R.id.cardview_artist_song, a).setText(getResources().getString(R.string.roses_full));
+            w.getTextView(R.id.cardview_artist_song, a).setText(getResources().getString(R.string.roses));
             w.getTextView(R.id.cardview_artist_explore, a).setTextColor(getResources().getColor(themeColor));
             w.getTextView(R.id.cardview_artist_change, a).setTextColor(getResources().getColor(themeColor));
 
-            w.getTextView(R.id.layout_settings_preset_hint, a).setText(getResources().getString(R.string.roses_full));
+            w.getTextView(R.id.layout_settings_preset_hint, a).setText(getResources().getString(R.string.roses));
         } else if (scheme == 3) {
             themeColor = R.color.faded;
             w.setRecentColor(0, 0, themeColor, a);
@@ -1598,11 +1630,11 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
             // Cardview
             w.getImageView(R.id.cardview_artist_image, a).setImageResource(R.drawable.cardview_background_artist_faded);
-            w.getTextView(R.id.cardview_artist_song, a).setText(getResources().getString(R.string.faded_full));
+            w.getTextView(R.id.cardview_artist_song, a).setText(getResources().getString(R.string.faded));
             w.getTextView(R.id.cardview_artist_explore, a).setTextColor(getResources().getColor(themeColor));
             w.getTextView(R.id.cardview_artist_change, a).setTextColor(getResources().getColor(themeColor));
 
-            w.getTextView(R.id.layout_settings_preset_hint, a).setText(getResources().getString(R.string.faded_full));
+            w.getTextView(R.id.layout_settings_preset_hint, a).setText(getResources().getString(R.string.faded));
         }
     }
 //

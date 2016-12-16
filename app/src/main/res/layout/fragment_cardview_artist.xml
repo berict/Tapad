@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/cardview_artist_now_playing"
                     android:layout_marginTop="10dp"
-                    android:text="@string/hello_full"
+                    android:text="@string/hello"
                     android:textColor="@color/dark_secondary"
                     android:textStyle="italic"
                     android:textSize="16sp"/>
@@ -73,7 +73,7 @@
                         android:padding="10dp"
                         android:background="?selectableItemBackground"
                         android:clickable="true"
-                        android:text="@string/cardview_explore"
+                        android:text="@string/explore"
                         android:textColor="@color/hello"/>
 
                     <TextView
@@ -83,7 +83,7 @@
                         android:padding="10dp"
                         android:background="?selectableItemBackground"
                         android:clickable="true"
-                        android:text="@string/cardview_change"
+                        android:text="@string/change"
                         android:textColor="@color/hello"/>
                 </LinearLayout>
             </RelativeLayout>

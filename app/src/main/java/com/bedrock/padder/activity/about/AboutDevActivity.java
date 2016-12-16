@@ -252,60 +252,60 @@ public class AboutDevActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.collapsedappbar);
-        collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.expandedappbar);
-
-        collapsingToolbarLayout.setTitle(getResources().getString(R.string.berict_full));
-        collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.dev));
-        collapsingToolbarLayout.setStatusBarScrimColor(getResources().getColor(R.color.dev));
-        
-        anim.circularRevealTouch(R.id.layout_dev_web, R.id.layout_dev_placeholder,
-                new AccelerateDecelerateInterpolator(), new Runnable() {
-                    @Override
-                    public void run() {
-                        intent.intentLink(activity, getResources().getString(R.string.berict_web), 400);
-                    }
-                }, 400, 0, activity);
-
-        anim.circularRevealTouch(R.id.layout_dev_youtube, R.id.layout_dev_placeholder,
-                new AccelerateDecelerateInterpolator(), new Runnable() {
-                    @Override
-                    public void run() {
-                        intent.intentLink(activity, getResources().getString(R.string.berict_youtube), 400);
-                    }
-                }, 400, 0, activity);
-
-        showFeedbackDialog(R.id.layout_dev_report_bug);
-
-        anim.circularRevealTouch(R.id.layout_dev_rate, R.id.layout_dev_placeholder,
-                new AccelerateDecelerateInterpolator(), new Runnable() {
-                    @Override
-                    public void run() {
-                        intent.intentMarket(activity, "com.bedrock.padder", 400);
-                    }
-                }, 400, 0, activity);
-
-        //anim.circularRevealTouch(R.id.layout_dev_translate, R.id.layout_dev_placeholder,
-        //        new AccelerateDecelerateInterpolator(), new Runnable() {
-        //            @Override
-        //            public void run() {
-        //                // open translate in dialog
-        //            }
-        //        }, 400, 0, activity);
-
-        window.getView(R.id.layout_dev_translate, activity).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(activity, R.string.dev_translate_error, Toast.LENGTH_LONG).show();
-            }
-        });
-
-        window.getView(R.id.layout_dev_donate, activity).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(activity, R.string.dev_donate_error, Toast.LENGTH_LONG).show();
-            }
-        });
+//        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+//        collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.collapsedappbar);
+//        collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.expandedappbar);
+//
+//        collapsingToolbarLayout.setTitle(getResources().getString(R.string.berict_full));
+//        collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.dev));
+//        collapsingToolbarLayout.setStatusBarScrimColor(getResources().getColor(R.color.dev));
+//
+//        anim.circularRevealTouch(R.id.layout_dev_web, R.id.layout_dev_placeholder,
+//                new AccelerateDecelerateInterpolator(), new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        intent.intentLink(activity, getResources().getString(R.string.berict_web), 400);
+//                    }
+//                }, 400, 0, activity);
+//
+//        anim.circularRevealTouch(R.id.layout_dev_youtube, R.id.layout_dev_placeholder,
+//                new AccelerateDecelerateInterpolator(), new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        intent.intentLink(activity, getResources().getString(R.string.berict_youtube), 400);
+//                    }
+//                }, 400, 0, activity);
+//
+//        showFeedbackDialog(R.id.layout_dev_report_bug);
+//
+//        anim.circularRevealTouch(R.id.layout_dev_rate, R.id.layout_dev_placeholder,
+//                new AccelerateDecelerateInterpolator(), new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        intent.intentMarket(activity, "com.bedrock.padder", 400);
+//                    }
+//                }, 400, 0, activity);
+//
+//        //anim.circularRevealTouch(R.id.layout_dev_translate, R.id.layout_dev_placeholder,
+//        //        new AccelerateDecelerateInterpolator(), new Runnable() {
+//        //            @Override
+//        //            public void run() {
+//        //                // open translate in dialog
+//        //            }
+//        //        }, 400, 0, activity);
+//
+//        window.getView(R.id.layout_dev_translate, activity).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(activity, R.string.dev_translate_error, Toast.LENGTH_LONG).show();
+//            }
+//        });
+//
+//        window.getView(R.id.layout_dev_donate, activity).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(activity, R.string.dev_donate_error, Toast.LENGTH_LONG).show();
+//            }
+//        });
     }
 }
