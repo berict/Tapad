@@ -111,8 +111,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
         //TODO edit this
         Item items[] = {
-                new Item("item1ArrayResId", "item1ImageId"),
-                new Item("item2ArrayResId", "item2ImageId")
+                new Item("item1TextResId", "item1HintResId", "item1ImageResId"),
+                new Item("item2TextResId", "item2HintResId", "item2ImageResId")
         };
 
         Detail details[] = {
@@ -120,8 +120,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 new Detail("detail2TitleResId", items)
         };
 
-        About about = new About("titleResId", "imageDrawableId",
-                new Bio("bioArrayResId", "bioImageId"), details,
+        About about = new About("titleResId", "imageResId",
+                new Bio("bioTitleResId", "bioImageResId", "bioTextResId", "bioSourceResId"), details,
                 "statusColorResId", "actionColorResId");
 
         Gson gson = new Gson();

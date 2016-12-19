@@ -47,12 +47,34 @@
     <string name="roses">The Chainsmokers - Roses</string>
     <string name="faded">Alan Walker - Faded</string>
 
-    <string-array name="hello_social">
+    <string-array name="hello_fb">
+        <item>@string/fb</item>
         <item>https://www.facebook.com/alexomfg/</item>
+        <item>about_facebook</item>
+    </string-array>
+
+    <string-array name="hello_tw">
+        <item>@string/tw</item>
         <item>https://twitter.com/AlexSavageOMFG</item>
+        <item>about_twitter</item>
+    </string-array>
+
+    <string-array name="hello_sc">
+        <item>@string/sc</item>
         <item>https://soundcloud.com/alexomfg</item>
+        <item>about_soundcloud</item>
+    </string-array>
+
+    <string-array name="hello_yt">
+        <item>@string/yt</item>
         <item>https://www.youtube.com/user/alexsavageomfg</item>
+        <item>about_</item>
+    </string-array>
+
+    <string-array name="hello_wb">
+        <item>@string/wb</item>
         <item>http://alexomfg.com</item>
+        <item>about_</item>
     </string-array>
 
     <string-array name="hello_bio">
