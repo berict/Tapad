@@ -12,6 +12,7 @@ import android.media.SoundPool;
 import android.os.Build;
 import android.os.Handler;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -32,6 +33,7 @@ import com.bedrock.padder.R;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -182,6 +184,60 @@ public class WindowService {
             ActivityManager.TaskDescription taskDesc =
                     new ActivityManager.TaskDescription(
                             activity.getResources().getString(titleId),
+                            icon,
+                            activity.getResources().getColor(color_id));
+            activity.setTaskDescription(taskDesc);
+
+            Log.i("WindowService", "TaskDescription applied.");
+        } else {
+            Log.i("WindowService", "API doesn't match requirement. (API >= 21)");
+        }
+    }
+
+    public void setRecentColor(String titleId, int icon_id, int color_id, Activity activity) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            if (titleId == null) {
+                // Default app name
+                titleId = activity.getResources().getString(R.string.app_name);
+            }
+            Bitmap icon;
+            if (icon_id == 0) {
+                // Default app icon
+                icon = BitmapFactory.decodeResource(activity.getResources(), R.drawable.ic_launcher);
+            } else {
+                icon = BitmapFactory.decodeResource(activity.getResources(), icon_id);
+            }
+            if (color_id == 0) {
+                color_id = R.color.colorPrimary;
+            }
+            ActivityManager.TaskDescription taskDesc =
+                    new ActivityManager.TaskDescription(
+                            titleId,
+                            icon,
+                            activity.getResources().getColor(color_id));
+            activity.setTaskDescription(taskDesc);
+
+            Log.i("WindowService", "TaskDescription applied.");
+        } else {
+            Log.i("WindowService", "API doesn't match requirement. (API >= 21)");
+        }
+    }
+
+    public void setRecentColor(String titleId, int color_id, Activity activity) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            if (titleId == null) {
+                // Default app name
+                titleId = activity.getResources().getString(R.string.app_name);
+            }
+
+            Bitmap icon = BitmapFactory.decodeResource(activity.getResources(), R.drawable.ic_launcher);
+
+            if (color_id == 0) {
+                color_id = R.color.colorPrimary;
+            }
+            ActivityManager.TaskDescription taskDesc =
+                    new ActivityManager.TaskDescription(
+                            titleId,
                             icon,
                             activity.getResources().getColor(color_id));
             activity.setTaskDescription(taskDesc);
@@ -368,6 +424,50 @@ public class WindowService {
     public View getViewDialog(int id, Dialog dialog) {
         View view = (View) dialog.findViewById(id);
         return view;
+    }
+
+    public RecyclerView getRecyclerView(int id, Activity activity) {
+        RecyclerView recyclerView = (RecyclerView) activity.findViewById(id);
+        return recyclerView;
+    }
+
+    public int getId(String id) {
+        try {
+            Class res = R.id.class;
+            Field field = res.getField(id);
+            return field.getInt(null);
+        }
+        catch (Exception e) {
+            Log.e("getId", "Failure to get id.", e);
+            return -1;
+        }
+        //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
+    }
+
+    public int getColorId(String id) {
+        try {
+            Class res = R.color.class;
+            Field field = res.getField(id);
+            return field.getInt(null);
+        }
+        catch (Exception e) {
+            Log.e("getColorId", "Failure to get color id.", e);
+            return -1;
+        }
+        //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
+    }
+
+    public int getDrawableId(String id) {
+        try {
+            Class res = R.drawable.class;
+            Field field = res.getField(id);
+            return field.getInt(null);
+        }
+        catch (Exception e) {
+            Log.e("getDrawableId", "Failure to get drawable id.", e);
+            return -1;
+        }
+        //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
     }
 
     // public Z getZ(int id, Activity activity) {

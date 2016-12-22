@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/layout_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:minHeight="64dp">
+
+        <ImageView
+            android:id="@+id/layout_item_icon"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:padding="18dp"
+            android:src="@drawable/about_web" />
+
+        <LinearLayout
+            android:id="@+id/layout_item_text_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@+id/layout_item_icon"
+            android:orientation="vertical"
+            android:padding="4dp">
+
+            <TextView
+                android:id="@+id/layout_item_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dp"
+                android:text="ITEM_TEXT"
+                android:textColor="@color/dark_primary"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/layout_item_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
+                android:text="ITEM_HINT"
+                android:textColor="@color/dark_secondary"
+                android:textSize="12sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignLeft="@+id/layout_item_text_layout"
+            android:layout_alignParentBottom="true"
+            android:background="@color/dark_divider" />
+    </RelativeLayout>
+</LinearLayout>

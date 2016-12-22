@@ -109,34 +109,52 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         color = prefs.getInt("color", R.color.red);
         sound.setButton(R.color.grey_dark, a);
 
-        //TODO edit this
-        Item items[] = {
-                new Item("item1TextResId", "item1HintResId", "item1ImageResId"),
-                new Item("item2TextResId", "item2HintResId", "item2ImageResId")
-        };
+//        //Default json creator
+//        Item items[] = {
+//                new Item("item1Text", "item1Hint", "item1ImageResId"),
+//                new Item("item2Text", "item2Hint", "item2ImageResId")
+//        };
+//
+//        Detail details[] = {
+//                new Detail("detail1Title", items),
+//                new Detail("detail2Title", items)
+//        };
+//
+//        About about = new About("title", "imageResId",
+//                new Bio("bioTitle", "bioImageResId", "bioName", "bioText", "bioSource"), details,
+//                "statusColorResId", "actionColorResId");
 
-        Detail details[] = {
-                new Detail("detail1TitleResId", items),
-                new Detail("detail2TitleResId", items)
-        };
-
-        About about = new About("titleResId", "imageResId",
-                new Bio("bioTitleResId", "bioImageResId", "bioTextResId", "bioSourceResId"), details,
-                "statusColorResId", "actionColorResId");
-
-        Gson gson = new Gson();
-        String json = gson.toJson(about, About.class);
-
-        Log.d("Json", json);
-
-        //About about = gson.fromJson(getResources().getString(R.string.about_example), About.class);
-        //Log.d("JSON", about.getTitleId());
+        //TODO Remove this
+//        String[] social = getResources().getStringArray(R.array.roses_social);
+//        String[] bio = getResources().getStringArray(R.array.roses_bio);
+//
+//        Item items[] = {
+//                new Item("Facebook"  , social[0], "about_facebook"),
+//                new Item("Twitter"   , social[1], "about_twitter"),
+//                new Item("SoundCloud", social[2], "about_soundcloud"),
+//                new Item("YouTube"   , social[3], "about_youtube"),
+//                new Item("Webpage"   , social[4], "about_web")
+//        };
+//
+//        Detail details[] = {
+//                new Detail("About " + bio[0], items)
+//        };
+//
+//        About about = new About(bio[0], "cardview_background_artist_roses",
+//                new Bio(bio[2], "about_bio_roses", bio[3], bio[4], bio[5]), details,
+//                "roses_dark", "roses");
+//
+//        Gson gson = new Gson();
+//        String json = gson.toJson(about, About.class);
+//
+//        Log.d("JSON TEST", json);
     }
 
     void enterAnim() {
         anim.fadeIn(R.id.actionbar_layout, 0, 200, "background", a);
         anim.fadeIn(R.id.actionbar_image, 200, 200, "image", a);
-        loadPreset(400);
+        //TODO: Remove this to load preset
+        //loadPreset(400);
         isPresetLoading = true;
     }
 
@@ -647,10 +665,10 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     }
 
     void setToolbar() {
-        View info = (View) findViewById(R.id.toolbar_info);
-        View tutorial = (View) findViewById(R.id.toolbar_tutorial);
-        View preset = (View) findViewById(R.id.toolbar_preset);
-        View settings = (View) findViewById(R.id.toolbar_settings);
+        View info = findViewById(R.id.toolbar_info);
+        View tutorial = findViewById(R.id.toolbar_tutorial);
+        View preset = findViewById(R.id.toolbar_preset);
+        View settings = findViewById(R.id.toolbar_settings);
 
         assert info != null;
         info.setOnTouchListener(new View.OnTouchListener() {
@@ -734,7 +752,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 coord[0] = (int) event.getRawX();
                 coord[1] = (int) event.getRawY();
 
-                return false;}
+                return false;
+            }
         });
 
         tutorial.setOnClickListener(new View.OnClickListener() {
@@ -796,32 +815,30 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         w.getView(R.id.cardview_artist, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //intent.intentSharedelement(a, "activity.about.AboutArtistActivity", R.id.cardview_artist_image, "artist", 0);
-                //TODO : edit
-                Intent intent = new Intent(a, AboutActivity.class);
-                intent.putExtra("json", R.string.json_about_hello);
-                startActivity(intent);
+                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
+                        R.id.cardview_artist_image, "transition",
+                        "json", getResources().getStringArray(R.array.json_about)[getScheme() - 1],0);
             }
         });
 
         w.getView(R.id.cardview_artist_explore, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedelement(a, "activity.about.AboutArtistActivity", R.id.cardview_artist_image, "artist", 0);
+                intent.intentSharedElement(a, "activity.AboutArtistActivity", R.id.cardview_artist_image, "artist", 0);
             }
         });
 
         w.getView(R.id.cardview_about, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedelement(a, "activity.about.AboutTapadActivity", R.id.cardview_about_image, "tapad", 0);
+                intent.intentSharedElement(a, "activity.about.AboutTapadActivity", R.id.cardview_about_image, "tapad", 0);
             }
         });
 
         w.getView(R.id.cardview_about_explore, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedelement(a, "activity.about.AboutTapadActivity", R.id.cardview_about_image, "tapad", 0);
+                intent.intentSharedElement(a, "activity.about.AboutTapadActivity", R.id.cardview_about_image, "tapad", 0);
             }
         });
 
@@ -864,14 +881,14 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         w.getView(R.id.cardview_dev, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedelement(a, "activity.about.AboutDevActivity", R.id.cardview_dev_image, "dev", 0);
+                intent.intentSharedElement(a, "activity.about.AboutDevActivity", R.id.cardview_dev_image, "dev", 0);
             }
         });
 
         w.getView(R.id.cardview_dev_explore, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedelement(a, "activity.about.AboutDevActivity", R.id.cardview_dev_image, "dev", 0);
+                intent.intentSharedElement(a, "activity.about.AboutDevActivity", R.id.cardview_dev_image, "dev", 0);
             }
         });
     }
@@ -1096,8 +1113,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
         int color;
 
-        final int defaulScheme = prefs.getInt("scheme", 0);
-        switch (defaulScheme) {
+        final int defaultScheme = prefs.getInt("scheme", 0);
+        switch (defaultScheme) {
             case 1:
                 color = R.color.hello;
                 break;
@@ -1120,26 +1137,26 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 .title(R.string.dialog_preset_title)
                 .items(R.array.indigo) //TODO edit this
                 .autoDismiss(false)
-                .itemsCallbackSingleChoice(defaulScheme - 1, new MaterialDialog.ListCallbackSingleChoice() {
+                .itemsCallbackSingleChoice(defaultScheme - 1, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         switch (which) {
                             case 0:
-                                prefs.edit().putInt("scheme", 1).apply();
+                                setScheme(which + 1);
                                 PresetDialog.getBuilder()
                                         .widgetColorRes(R.color.hello)
                                         .positiveColorRes(R.color.hello);
                                 setSchemeInfo();
                                 break;
                             case 1:
-                                prefs.edit().putInt("scheme", 2).apply();
+                                setScheme(which + 1);
                                 PresetDialog.getBuilder()
                                         .widgetColorRes(R.color.roses)
                                         .positiveColorRes(R.color.roses);
                                 setSchemeInfo();
                                 break;
                             case 2:
-                                prefs.edit().putInt("scheme", 3).apply();
+                                setScheme(which + 1);
                                 PresetDialog.getBuilder()
                                         .widgetColorRes(R.color.faded)
                                         .positiveColorRes(R.color.faded);
@@ -1175,7 +1192,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
                         if (isSchemeChanged == false) {
-                            prefs.edit().putInt("scheme", defaulScheme).apply();
+                            setScheme(defaultScheme);
                             setSchemeInfo();
                         } else {
                             loadPreset(circularRevealDuration);
@@ -1574,13 +1591,13 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     }
 
     void setSchemeInfo() {
-        int scheme = prefs.getInt("scheme", 1);
+        int scheme = getScheme();
         ab.setNav(0, null, a);
         if (scheme == 1) {
             themeColor = R.color.hello;
             w.setRecentColor(0, 0, themeColor, a);
 
-            if(isSettingVisible == false) {
+            if (isSettingVisible == false) {
                 ab.setColor(themeColor, a);
                 ab.setImage(R.drawable.logo_hello, a);
             } else {
@@ -1600,7 +1617,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
             themeColor = R.color.roses;
             w.setRecentColor(0, 0, themeColor, a);
 
-            if(isSettingVisible == false) {
+            if (isSettingVisible == false) {
                 ab.setColor(themeColor, a);
                 ab.setImage(R.drawable.logo_roses, a);
             } else {
@@ -1620,7 +1637,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
             themeColor = R.color.faded;
             w.setRecentColor(0, 0, themeColor, a);
 
-            if(isSettingVisible == false) {
+            if (isSettingVisible == false) {
                 ab.setColor(themeColor, a);
                 ab.setImage(R.drawable.logo_faded, a);
             } else {
@@ -1638,81 +1655,12 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
             w.getTextView(R.id.layout_settings_preset_hint, a).setText(getResources().getString(R.string.faded));
         }
     }
-//
-//    static final int COUNT = 17;
-//
-//    int buttonId[] = {
-//            R.id.btn00,
-//            R.id.btn11,
-//            R.id.btn12,
-//            R.id.btn13,
-//            R.id.btn14,
-//            R.id.btn21,
-//            R.id.btn22,
-//            R.id.btn23,
-//            R.id.btn24,
-//            R.id.btn31,
-//            R.id.btn32,
-//            R.id.btn33,
-//            R.id.btn34,
-//            R.id.btn41,
-//            R.id.btn42,
-//            R.id.btn43,
-//            R.id.btn44};
-//
-//    MediaPlayer mp;
-//    int timing[] = {0, 53, 320, 850, 1388, 1654, 1921, 2454, 2985, 3252, -1, 3281, 3815, 4347, 4480, 5013, -1};
-//
-//    void test() {
-//        Log.d("Test", "MP loaded");
-//        mp = MediaPlayer.create(a, R.raw.pt1);
-//        for(int i = 0 ; i < COUNT; i++) {
-//            setOnTouch(i);
-//        }
-//    }
-//
-//    void setOnTouch(final int id) {
-//        Log.d("setOnTouch", String.valueOf(id));
-//        w.getView(buttonId[id], a).setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View view, MotionEvent event) {
-//                if(event.getAction() == MotionEvent.ACTION_DOWN){
-//                    play(id);
-//                }
-//                return false;
-//            }
-//        });
-//    }
-//
-//    Handler stop = new Handler();
-//    Runnable pause = new Runnable() {
-//        @Override
-//        public void run() {
-//            mp.pause();
-//        }
-//    };
-//
-//    void play(int button) {
-//        Log.d("Play", String.valueOf(button));
-//        if(timing[button] != -1) {
-//            mp.seekTo(timing[button]);
-//            mp.start();
-//
-//            //TODO: Only one thread playing ;(
-//
-//            if(button != COUNT - 1) {
-//                if(timing[COUNT - 1] == -1 && button == 15) {
-//                    stop.postDelayed(pause, (mp.getDuration() - timing[button]));
-//                } else {
-//                    if(timing[button + 1] == -1) {
-//                        stop.postDelayed(pause, (timing[button + 2] - timing[button]));
-//                    } else {
-//                        stop.postDelayed(pause, (timing[button + 1] - timing[button]));
-//                    }
-//                }
-//            } else {
-//                stop.postDelayed(pause, (mp.getDuration() - timing[button]));
-//            }
-//        }
-//    }
+
+    int getScheme() {
+        return prefs.getInt("scheme", 1);
+    }
+
+    void setScheme(int scheme) {
+        prefs.edit().putInt("scheme", scheme).apply();
+    }
 }

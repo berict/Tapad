@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:src="@drawable/cardview_background_artist_hello"
-                android:transitionName="artist"
+                android:transitionName="transition"
                 android:layout_alignParentTop="true"/>
 
             <RelativeLayout

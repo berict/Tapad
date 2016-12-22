@@ -4,38 +4,46 @@ import com.google.gson.annotations.SerializedName;
 
 public class Bio {
 
-    @SerializedName("title_id")
-    private String   titleId;
+    @SerializedName("title")
+    private String   title;
 
     @SerializedName("image_id")
     private String   imageId;
 
-    @SerializedName("text_id")
-    private String   textId;
+    @SerializedName("name")
+    private String   name;
 
-    @SerializedName("source_id")
-    private String   sourceId;
+    @SerializedName("text")
+    private String   text;
 
-    public Bio(String titleId, String imageId, String textId, String sourceId) {
-        this.titleId = titleId;
+    @SerializedName("source")
+    private String   source;
+
+    public Bio(String title, String imageId, String name, String text, String source) {
+        this.title = title;
         this.imageId = imageId;
-        this.textId = textId;
-        this.sourceId = sourceId;
+        this.name = name;
+        this.text = text;
+        this.source = source;
     }
 
-    public String getTitleId() {
-        return titleId;
+    public String getTitle() {
+        return title;
     }
 
     public String getImageId() {
         return imageId;
     }
 
-    public String getTextId() {
-        return textId;
+    public String getName() {
+        return name;
     }
 
-    public String getSourceId() {
-        return sourceId;
+    public String getText() {
+        return text;
+    }
+
+    public String getSource() {
+        return source;
     }
 }

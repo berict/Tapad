@@ -40,7 +40,7 @@ public class IntentService {
         }
     }
 
-    public void intentSharedelement(final Activity activity, final String target_name, final int start_element_id, final String transition_name, int delay) {
+    public void intentSharedElement(final Activity activity, final String target_name, final int start_element_id, final String transition_name, int delay) {
         final String classname = "com.bedrock.padder." + target_name;
         final Class<Object> classToLoad;
         try{
@@ -52,6 +52,68 @@ public class IntentService {
                 public void run() {
                     if(Build.VERSION.SDK_INT >= 21) {
                         Intent intent = new Intent(activity, classToLoad);
+                        View view = (View) activity.findViewById(start_element_id);
+
+                        ActivityOptionsCompat options =
+                                ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+                                        view,           // The view which starts the transition
+                                        transition_name // The transitionName of the view we’re transitioning to
+                                );
+                        ActivityCompat.startActivity(activity, intent, options.toBundle());
+                    } else {
+                        intent(activity, target_name, 0);
+                    }
+                }
+            }, delay);
+        } catch (ClassNotFoundException e){
+            Log.i("IntentService", "Error, there is no such class");
+        }
+    }
+
+    public void intentSharedElementWithExtra(final Activity activity, final String target_name, final int start_element_id, final String transition_name, final String extra_name, final int extra, int delay) {
+        final String classname = "com.bedrock.padder." + target_name;
+        final Class<Object> classToLoad;
+        try{
+            classToLoad = (Class<Object>)Class.forName(classname);
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if(Build.VERSION.SDK_INT >= 21) {
+                        Intent intent = new Intent(activity, classToLoad);
+                        intent.putExtra(extra_name, extra);
+                        View view = (View) activity.findViewById(start_element_id);
+
+                        ActivityOptionsCompat options =
+                                ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+                                        view,           // The view which starts the transition
+                                        transition_name // The transitionName of the view we’re transitioning to
+                                );
+                        ActivityCompat.startActivity(activity, intent, options.toBundle());
+                    } else {
+                        intent(activity, target_name, 0);
+                    }
+                }
+            }, delay);
+        } catch (ClassNotFoundException e){
+            Log.i("IntentService", "Error, there is no such class");
+        }
+    }
+
+    public void intentSharedElementWithExtra(final Activity activity, final String target_name, final int start_element_id, final String transition_name, final String extra_name, final String extra, int delay) {
+        final String classname = "com.bedrock.padder." + target_name;
+        final Class<Object> classToLoad;
+        try{
+            classToLoad = (Class<Object>)Class.forName(classname);
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if(Build.VERSION.SDK_INT >= 21) {
+                        Intent intent = new Intent(activity, classToLoad);
+                        intent.putExtra(extra_name, extra);
                         View view = (View) activity.findViewById(start_element_id);
 
                         ActivityOptionsCompat options =

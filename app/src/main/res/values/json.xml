@@ -1,64 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="json_about_example">
-        {
-            "actionbar_color_id":"actionColorResId",
-            "bio":{
-                "image_id":"bioImageId",
-                "string_id":"bioArrayResId"
+        "{
+            \"actionbar_color_id\":\"actionColorResId\",
+            \"bio\":{
+                \"image_id\":\"bioImageResId\",
+                \"source\":\"bioSource\",
+                \"name\":\"bioName\",
+                \"text\":\"bioText\",
+                \"title\":\"bioTitle\"
             },
-            "details":[
+            \"details\":[
                 {
-                    "items":[
+                    \"items\":[
                         {
-                            "string_id":"item1ArrayResId"
+                            \"hint\":\"item1Hint\",
+                            \"image_id\":\"item1ImageResId\",
+                            \"text\":\"item1Text\"
                         },
                         {
-                            "string_id":"item2ArrayResId"
+                            \"hint\":\"item2Hint\",
+                            \"image_id\":\"item2ImageResId\",
+                            \"text\":\"item2Text\"
                         }
                     ],
-                    "title_id":"detail1TitleResId"
+                    \"title\":\"detail1Title\"
                 },
                 {
-                    "items":[
+                    \"items\":[
                         {
-                            "string_id":"item1ArrayResId"
+                            \"hint\":\"item1Hint\",
+                            \"image_id\":\"item1ImageResId\",
+                            \"text\":\"item1Text\"
                         },
                         {
-                            "string_id":"item2ArrayResId"
+                            \"hint\":\"item2Hint\",
+                            \"image_id\":\"item2ImageResId\",
+                            \"text\":\"item2Text\"
                         }
                     ],
-                    "title_id":"detail2TitleResId"
+                    \"title\":\"detail2Title\"
                 }
             ],
-            "image_id":"imageDrawableId",
-            "statusbar_color_id":"statusColorResId",
-            "title_id":"titleResId"
-        }
+            \"image_id\":\"imageResId\",
+            \"statusbar_color_id\":\"statusColorResId\",
+            \"title\":\"title\"
+        }"
     </string>
     <string name="json_about_hello">
-        {
-            "actionbar_color_id":"hello",
-            "bio":{
-                "image_id":"cardview_background_artist_hello",
-                "string_id":"hello_bio"
+        "{  
+            \"actionbar_color_id\":\"hello\",
+            \"bio\":{  
+                \"image_id\":\"about_bio_hello\",
+                \"name\":\"Alex OMFG (Alex Savage)\",
+                \"source\":\"Powered by Muzikum\",
+                \"text\":\"This is a Fun Loving girl who had a desire to make music. Alex enjoyed making dubstep to just share between friends and family. She soon talked her self into posting her creations online to see what kinda feedback she would get. Getting an overly positive reveiws she continued to make music ever since with her latest track called OMFG - Jelly.\",
+                \"title\":\"OMFG's Biography\"
             },
-            "details":[
-                {
-                    "items":[
-                        {
-                            "string_id":"item1ArrayResId"
+            \"details\":[  
+                {  
+                    \"items\":[  
+                        {  
+                            \"hint\":\"https://www.facebook.com/alexomfg/\",
+                            \"image_id\":\"about_facebook\",
+                            \"text\":\"Facebook\"
                         },
-                        {
-                            "string_id":"item2ArrayResId"
+                        {  
+                            \"hint\":\"https://twitter.com/AlexSavageOMFG\",
+                            \"image_id\":\"about_twitter\",
+                            \"text\":\"Twitter\"
+                        },
+                        {  
+                            \"hint\":\"https://soundcloud.com/alexomfg\",
+                            \"image_id\":\"about_soundcloud\",
+                            \"text\":\"SoundCloud\"
+                        },
+                        {  
+                            \"hint\":\"https://www.youtube.com/user/alexsavageomfg\",
+                            \"image_id\":\"about_youtube\",
+                            \"text\":\"YouTube\"
+                        },
+                        {  
+                            \"hint\":\"http://alexomfg.com\",
+                            \"image_id\":\"about_web\",
+                            \"text\":\"Webpage\"
                         }
                     ],
-                    "title_id":"detail1TitleResId"
+                    \"title\":\"About OMFG\"
                 }
             ],
-            "image_id":"imageDrawableId",
-            "statusbar_color_id":"statusColorResId",
-            "title_id":"titleResId"
-        }
+            \"image_id\":\"cardview_background_artist_hello\",
+            \"statusbar_color_id\":\"hello_dark\",
+            \"title\":\"OMFG\"
+        }"
     </string>
+    <string name="json_about_roses">
+        "{  
+            \"actionbar_color_id\":\"roses\",
+            \"bio\":{  
+                \"image_id\":\"about_bio_roses\",
+                \"name\":\"Andrew Taggart and Alex Pall\",
+                \"source\":\"Powered by thechainsmokers.com\",
+                \"text\":\"The Chainsmokers have become the hottest young American EDM DJ duo. Their signature sound has its foundations in Indie, Progressive and Pop Music. On the production front, their original tracks have all reached the Beatport top charts and their remixes always hit #1 on the HypeM charts. Their first major release, #SELFIE, and it\u0027s official music video swept the world so look out for much more to come!\",
+                \"title\":\"The Chainsmokers' Biography\"
+            },
+            \"details\":[  
+                {  
+                    \"items\":[  
+                        {  
+                            \"hint\":\"https://www.facebook.com/thechainsmokers\",
+                            \"image_id\":\"about_facebook\",
+                            \"text\":\"Facebook\"
+                        },
+                        {  
+                            \"hint\":\"http://www.twitter.com/thechainsmokers\",
+                            \"image_id\":\"about_twitter\",
+                            \"text\":\"Twitter\"
+                        },
+                        {  
+                            \"hint\":\"http://www.soundcloud.com/thechainsmokers\",
+                            \"image_id\":\"about_soundcloud\",
+                            \"text\":\"SoundCloud\"
+                        },
+                        {  
+                            \"hint\":\"https://www.youtube.com/user/THECHAINSMOKERS\",
+                            \"image_id\":\"about_youtube\",
+                            \"text\":\"YouTube\"
+                        },
+                        {  
+                            \"hint\":\"http://thechainsmokers.com\",
+                            \"image_id\":\"about_web\",
+                            \"text\":\"Webpage\"
+                        }
+                    ],
+                    \"title\":\"About The Chainsmokers\"
+                }
+            ],
+            \"image_id\":\"cardview_background_artist_roses\",
+            \"statusbar_color_id\":\"roses_dark\",
+            \"title\":\"The Chainsmokers\"
+        }"
+    </string>
+    <string name="json_about_faded">
+        "{  
+            \"actionbar_color_id\":\"faded\",
+            \"bio\":{  
+                \"image_id\":\"about_bio_faded\",
+                \"name\":\"Alan Olav Walker\",
+                \"source\":\"Powered by Wikipedia\",
+                \"text\":\"Alan Walker (Alan Olav Walker) is a British-Norwegian record producer who was born in Northampton, England. He is best known for the electronic dance music single Faded, which has reached number 1 in multiple countries, and on YouTube has over 650 million views and 4 million likes, placing it among the top 40 most liked YouTube videos.\",
+                \"title\":\"Alan Walker's Biography\"
+            },
+            \"details\":[  
+                {  
+                    \"items\":[  
+                        {  
+                            \"hint\":\"https://www.facebook.com/alanwalkermusic\",
+                            \"image_id\":\"about_facebook\",
+                            \"text\":\"Facebook\"
+                        },
+                        {  
+                            \"hint\":\"https://twitter.com/IAmAlanWalker\",
+                            \"image_id\":\"about_twitter\",
+                            \"text\":\"Twitter\"
+                        },
+                        {  
+                            \"hint\":\"https://soundcloud.com/alanwalker\",
+                            \"image_id\":\"about_soundcloud\",
+                            \"text\":\"SoundCloud\"
+                        },
+                        {  
+                            \"hint\":\"https://www.youtube.com/user/DjWalkzz\",
+                            \"image_id\":\"about_youtube\",
+                            \"text\":\"YouTube\"
+                        },
+                        {  
+                            \"hint\":\"http://www.alanwalkermusic.no\",
+                            \"image_id\":\"about_web\",
+                            \"text\":\"Webpage\"
+                        }
+                    ],
+                    \"title\":\"About Alan Walker\"
+                }
+            ],
+            \"image_id\":\"cardview_background_artist_faded\",
+            \"statusbar_color_id\":\"faded_dark\",
+            \"title\":\"Alan Walker\"
+        }"
+    </string>
+    <string-array name="json_about">
+        <item>@string/json_about_hello</item>
+        <item>@string/json_about_roses</item>
+        <item>@string/json_about_faded</item>
+    </string-array>
 </resources>

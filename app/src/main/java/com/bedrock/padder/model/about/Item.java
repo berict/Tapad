@@ -4,27 +4,27 @@ import com.google.gson.annotations.SerializedName;
 
 public class Item {
 
-    @SerializedName("text_id")
-    private String   textId;
+    @SerializedName("text")
+    private String   text;
 
-    @SerializedName("hint_id")
-    private String   hintId;
+    @SerializedName("hint")
+    private String   hint;
 
     @SerializedName("image_id")
     private String   imageId;
 
-    public Item (String textId, String hintId, String imageId) {
-        this.textId = textId;
-        this.hintId = hintId;
+    public Item (String text, String hint, String imageId) {
+        this.text = text;
+        this.hint = hint;
         this.imageId = imageId;
     }
 
-    public String getTextId() {
-        return textId;
+    public String getText() {
+        return text;
     }
 
-    public String getHintId() {
-        return hintId;
+    public String getHint() {
+        return hint;
     }
 
     public String getImageId() {

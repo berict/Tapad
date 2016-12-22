@@ -4,8 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class About {
 
-    @SerializedName("title_id")
-    private String titleId;
+    @SerializedName("title")
+    private String title;
 
     @SerializedName("image_id")
     private String imageId;
@@ -23,10 +23,10 @@ public class About {
     @SerializedName("details")
     private Detail[] details;
 
-    public About (String titleId, String imageId,
+    public About (String title, String imageId,
                   Bio bio, Detail[] details,
                   String statusbarColorId, String actionbarColorId) {
-        this.titleId = titleId;
+        this.title = title;
         this.imageId = imageId;
         this.statusbarColorId = statusbarColorId;
         this.actionbarColorId = actionbarColorId;
@@ -34,8 +34,8 @@ public class About {
         this.details = details;
     }
 
-    public String getTitleId() {
-        return titleId;
+    public String getTitle() {
+        return title;
     }
 
     public String getImageId() {
