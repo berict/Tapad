@@ -337,6 +337,79 @@ public class SoundService {
         }
     }
 
+    class LoadSoundFirstRun extends AsyncTask<Void, Integer, String> {
+        String TAG = "LoadSound";
+        SharedPreferences prefs;
+
+        protected void onPreExecute() {
+            Log.d(TAG, "On preExceute, first run - ui set");
+            //unloadSchemeSound(activity);
+
+            window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.icon_tutorial_disabled);
+            //window.getImageView(R.id.toolbar_tutorial_icon, activity).setClickable(true);
+            //window.getImageView(R.id.toolbar_tutorial_icon, activity).setFocusable(true);
+            window.getImageView(R.id.layout_settings_tutorial_icon, activity).setImageResource(R.drawable.settings_tutorial_disabled);
+            //window.getImageView(R.id.layout_settings_tutorial_icon, activity).setClickable(true);
+            //window.getImageView(R.id.layout_settings_tutorial_icon, activity).setFocusable(true);
+
+            prefs = activity.getSharedPreferences("com.bedrock.padder", activity.MODE_PRIVATE);
+        }
+
+        protected String doInBackground(Void... arg0) {
+            Log.d(TAG, "On doInBackground, start loading sounds");
+            int scheme = prefs.getInt("scheme", 1);
+
+            if (scheme >= 1 && scheme <= 3) {
+                Log.i("SoundService", "Preset found");
+                for (int i = 0; i < 84; i++) {
+                    if(raw[scheme - 1][i].length == 1) {
+                        soundPoolId[i][0] = sp.load(activity, raw[scheme - 1][i][0], 1);
+                    } else {
+                        Log.d(TAG, "Length " + raw[scheme - 1][i].length);
+                        for(int j = 0; j < raw[scheme - 1][i].length; j++) {
+                            soundPoolId[i][j] = sp.load(activity, raw[scheme - 1][i][j], 1);
+                            Log.d(TAG, "  Sound loaded " + i + "_" + (j + 1));
+                        }
+                    }
+                    publishProgress(i + 1);
+                }
+            } else {
+                Log.e("SoundService", "Error during initializing, scheme in SharedPrefs has a wrong value");
+            }
+
+            return "You are at PostExecute";
+        }
+
+        protected void onProgressUpdate(Integer... a) {
+            Log.d(TAG, "Sound loaded " + a[0]);
+        }
+
+        protected void onPostExecute(String result) {
+            Log.d(TAG, "Finished loading sound");
+            window.getTextView(R.id.progress_bar_text, activity).setText(R.string.progressbar_loading_preset_done);
+            isPresetLoaded = true;
+
+            window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.icon_tutorial);
+            //window.getImageView(R.id.toolbar_tutorial_icon, activity).setClickable(false);
+            //window.getImageView(R.id.toolbar_tutorial_icon, activity).setFocusable(false);
+            window.getImageView(R.id.layout_settings_tutorial_icon, activity).setImageResource(R.drawable.settings_tutorial);
+            //window.getImageView(R.id.layout_settings_tutorial_icon, activity).setClickable(false);
+            //window.getImageView(R.id.layout_settings_tutorial_icon, activity).setFocusable(false);
+
+            anim.fadeOut(R.id.progress_bar_layout, 400, 400, activity);
+            MainActivity main = new MainActivity();
+            main.setQuickstart(activity);
+
+            Handler setText = new Handler();
+            setText.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    window.getTextView(R.id.progress_bar_text, activity).setText(R.string.progressbar_loading_preset);
+                }
+            }, 800);
+        }
+    }
+
     class UnloadSound extends AsyncTask<Void, Integer, String> {
         String TAG = "UnloadSound";
         SharedPreferences prefs;
@@ -386,6 +459,11 @@ public class SoundService {
     public void loadSchemeSound(Activity a) {
         activity = a;
         new LoadSound().execute();
+    }
+
+    public void loadSchemeSoundFirstRun(Activity a) {
+        activity = a;
+        new LoadSoundFirstRun().execute();
     }
 
     public void unloadSchemeSound(Activity a) {

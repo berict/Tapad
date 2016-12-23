@@ -3,13 +3,11 @@ package com.bedrock.padder.activity;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,16 +16,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.bedrock.padder.R;
-import com.bedrock.padder.activity.about.AboutArtistActivity;
 import com.bedrock.padder.adapter.DetailAdapter;
 import com.bedrock.padder.helper.AnimService;
 import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.about.About;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 
 public class AboutActivity extends AppCompatActivity {
 

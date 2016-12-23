@@ -201,9 +201,9 @@
             \"actionbar_color_id\":\"colorPrimary\",
             \"bio\":{  
                 \"image_id\":\"about_bio_tapad\",
-                \"name\":\"Probably the best looking launchpad out there.\",
+                \"name\":\"Probably the best looking LaunchPad out there.\",
                 \"source\":\"Powered by Studio Berict\",
-                \"text\":\"Tapad is a LaunchAad application for Android. It implemented the Material Design from the Google Design Guideline, and its beautiful. It mainly features song genres like EDM, Dubstep, Progressive House, Electronic.\",
+                \"text\":\"Tapad is a LaunchPad application for Android. It implemented the Material Design from the Google Design Guideline, and its beautiful. It mainly features song genres like EDM, Dubstep, Progressive House, Electronic.\",
                 \"title\":\"About Tapad\"
             },
             \"details\":[  
@@ -219,7 +219,7 @@
                             \"text\":\"Legal information\"
                         },
                         {  
-                            \"hint\":\"2.3 Official Release\",
+                            \"hint\":\"2.2 Official Release\",
                             \"text\":\"Tapad version\"
                         },
                         {  

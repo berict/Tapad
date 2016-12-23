@@ -31,11 +31,6 @@ import com.bedrock.padder.helper.SoundService;
 import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.TutorialService;
 import com.bedrock.padder.helper.WindowService;
-import com.bedrock.padder.model.about.About;
-import com.bedrock.padder.model.about.Bio;
-import com.bedrock.padder.model.about.Detail;
-import com.bedrock.padder.model.about.Item;
-import com.google.gson.Gson;
 
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
@@ -183,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         anim.fadeIn(R.id.actionbar_layout, 0, 200, "background", a);
         anim.fadeIn(R.id.actionbar_image, 200, 200, "image", a);
         //TODO: Remove this to load preset
-        //loadPreset(400);
+        loadPresetFirstRun(400);
         isPresetLoading = true;
     }
 
@@ -916,7 +911,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         w.getView(R.id.cardview_dev, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //intent.intentSharedElement(a, "activity.about.AboutDevActivity", R.id.cardview_dev_image, "dev", 0);
                 intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
                         R.id.cardview_dev_image, "transition",
                         "json", getResources().getString(R.string.json_about_dev), 0);
@@ -926,7 +920,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         w.getView(R.id.cardview_dev_explore, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //intent.intentSharedElement(a, "activity.about.AboutDevActivity", R.id.cardview_dev_image, "dev", 0);
                 intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
                         R.id.cardview_dev_image, "transition",
                         "json", getResources().getString(R.string.json_about_dev), 0);
@@ -1114,14 +1107,16 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         w.getView(R.id.layout_settings_about_tapad, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intent(a, "activity.about.AboutTapadActivity", 0);
+                intent.intentWithExtra(a, "activity.AboutActivity",
+                        "json", getResources().getString(R.string.json_about_tapad), 0);
             }
         });
 
         w.getView(R.id.layout_settings_about_dev, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intent(a, "activity.about.AboutDevActivity", 0);
+                intent.intentWithExtra(a, "activity.AboutActivity",
+                        "json", getResources().getString(R.string.json_about_dev), 0);
             }
         });
     }
@@ -1291,7 +1286,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     }
 
     void loadPreset(int delay) {
-        //sound.setSchemeSoundAsync(delay, progressBar, a);
         Handler preset = new Handler();
         preset.postDelayed(new Runnable() {
             @Override
@@ -1306,6 +1300,25 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
             @Override
             public void run() {
                 sound.loadSchemeSound(a);
+            }
+        }, delay + 400);
+    }
+
+    void loadPresetFirstRun(int delay) {
+        Handler preset = new Handler();
+        preset.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (w.getView(R.id.progress_bar_layout, a).getVisibility() == View.GONE) {
+                    anim.fadeIn(R.id.progress_bar_layout, 0, 400, "progressIn", a);
+                }
+            }
+        }, delay);
+
+        preset.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                sound.loadSchemeSoundFirstRun(a);
             }
         }, delay + 400);
     }

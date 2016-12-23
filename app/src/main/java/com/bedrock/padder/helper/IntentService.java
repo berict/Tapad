@@ -40,6 +40,27 @@ public class IntentService {
         }
     }
 
+    public void intentWithExtra(final Activity activity, String name, final String extra_name, final String extra, int delay) {
+        final String classname = "com.bedrock.padder." + name;
+        final Class<Object> classToLoad;
+        try{
+            classToLoad = (Class<Object>)Class.forName(classname);
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Log.i("IntentService", "intent");
+                    Intent animActivity = new Intent(activity, classToLoad);
+                    animActivity.putExtra(extra_name, extra);
+                    activity.startActivity(animActivity);
+                }
+            }, delay);
+        } catch (ClassNotFoundException e){
+            Log.i("IntentService", "Error, there is no such class");
+        }
+    }
+
     public void intentSharedElement(final Activity activity, final String target_name, final int start_element_id, final String transition_name, int delay) {
         final String classname = "com.bedrock.padder." + target_name;
         final Class<Object> classToLoad;
