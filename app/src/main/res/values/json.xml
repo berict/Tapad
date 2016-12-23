@@ -47,6 +47,7 @@
             \"title\":\"title\"
         }"
     </string>
+
     <string name="json_about_hello">
         "{  
             \"actionbar_color_id\":\"hello\",
@@ -188,6 +189,7 @@
             \"title\":\"Alan Walker\"
         }"
     </string>
+
     <string-array name="json_about">
         <item>@string/json_about_hello</item>
         <item>@string/json_about_roses</item>
@@ -281,4 +283,71 @@
             \"title\":\"Tapad\"
         }"
     </string>
+    <string name="json_about_dev">
+        "{  
+            \"actionbar_color_id\":\"dev\",
+            \"bio\":{  
+                \"name\":\"Bedrock Pictures (Nathan Cho)\",
+                \"source\":\"Powered by Bedrock Pictures\",
+                \"text\":\"Nathan is high school student in South Korea, who enjoys software and football. Currently attending Sunrin Internet High School in the 1st grade. Started developing at 2011, started by HTML, now on Android. As you see, he has a big interest in Android\u0027s Material Design. Also, known as a professional 9gagger.\",
+                \"title\":\"Berict's Biography\"
+            },
+            \"details\":[  
+                {  
+                    \"items\":[  
+                        {  
+                            \"hint\":\"https://www.facebook.com/studioberict\",
+                            \"image_id\":\"about_facebook\",
+                            \"text\":\"Facebook\"
+                        },
+                        {  
+                            \"hint\":\"https://twitter.com/studioberict\",
+                            \"image_id\":\"about_twitter\",
+                            \"text\":\"Twitter\"
+                        },
+                        {  
+                            \"hint\":\"https://www.youtube.com/user/bedrockpicture\",
+                            \"image_id\":\"about_youtube\",
+                            \"text\":\"YouTube\"
+                        },
+                        {  
+                            \"hint\":\"http://berict.com\",
+                            \"image_id\":\"about_web\",
+                            \"text\":\"Webpage\"
+                        }
+                    ],
+                    \"title\":\"About Studio Berict\"
+                },
+                {  
+                    \"items\":[  
+                        {  
+                            \"hint\":\"Help us fix bugs and problems\",
+                            \"image_id\":\"about_report_bug\",
+                            \"text\":\"Report bugs\"
+                        },
+                        {  
+                            \"hint\":\"Make Tapad available on your language\",
+                            \"image_id\":\"about_rate\",
+                            \"text\":\"Translate Tapad\"
+                        },
+                        {  
+                            \"hint\":\"Leave positive rating on Tapad\",
+                            \"image_id\":\"about_web\",
+                            \"text\":\"Rate Tapad\"
+                        },
+                        {  
+                            \"hint\":\"Boost dev on updating Tapad\",
+                            \"image_id\":\"about_donate\",
+                            \"text\":\"Donate\"
+                        }
+                    ],
+                    \"title\":\"Support Development\"
+                }
+            ],
+            \"image_id\":\"cardview_background_berict\",
+            \"statusbar_color_id\":\"dev_dark\",
+            \"title\":\"Tapad\"
+        }"
+    </string>
+
 </resources>

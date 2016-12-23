@@ -108,8 +108,9 @@ public class AboutActivity extends AppCompatActivity {
         window.getTextView(R.id.layout_bio_title, activity).setText(about.getBio().getTitle());
         window.getTextView(R.id.layout_bio_title, activity).setTextColor(getResources().getColor(window.getColorId(about.getActionbarColorId())));
         if(about.getBio().getImageId() == null) {
+            // no bio image exception
             window.getImageView(R.id.layout_bio_image, activity).setVisibility(View.GONE);
-            window.getImageView(R.id.layout_bio_image_divider, activity).setVisibility(View.GONE);
+            window.getView(R.id.layout_bio_image_divider, activity).setVisibility(View.GONE);
         } else {
             window.getImageView(R.id.layout_bio_image, activity).setImageResource(window.getDrawableId(about.getBio().getImageId()));
         }

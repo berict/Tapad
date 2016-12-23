@@ -148,38 +148,35 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 //
 //        Log.d("JSON TEST", json);
 
-        Item support[] = {
-                new Item(getResources().getStringArray(R.array.berict_support)[0], getResources().getStringArray(R.array.berict_support)[1], "about_report_bug"),
-                new Item(getResources().getStringArray(R.array.berict_support)[2], getResources().getStringArray(R.array.berict_support)[3], "about_rate"),
-                new Item(getResources().getStringArray(R.array.berict_support)[4], getResources().getStringArray(R.array.berict_support)[5], "about_web"),
-                new Item(getResources().getStringArray(R.array.berict_support)[6], getResources().getStringArray(R.array.berict_support)[7], "about_donate")
-        };
-
-        String[] social = getResources().getStringArray(R.array.berict_social);
-
-        Item about[] = {
-                new Item("Facebook"  , social[0], "about_facebook"),
-                new Item("Twitter"   , social[1], "about_twitter"),
-                new Item("YouTube"   , social[2], "about_youtube"),
-                new Item("Webpage"   , social[3], "about_web")
-        };
-
-        String[] bio = getResources().getStringArray(R.array.berict_bio);
-
-        Detail details[] = {
-                new Detail("About " + bio[0], about),
-                new Detail(getResources().getString(R.string.berict_support), support)
-        };
-
-        About dev = new About("Tapad", "cardview_background_berict",
-                new Bio(bio[2], null, bio[3], bio[4], bio[5]), details,
-                "colorPrimaryDark", "colorPrimary");
-        Gson gson = new Gson();
-        String json = gson.toJson(dev, About.class);
-        Log.d("JSON TEST", json);
-
-        // dev json
-        //{"actionbar_color_id":"colorPrimary","bio":{"name":"Bedrock Pictures (Nathan Cho)","source":"Powered by Bedrock Pictures","text":"Nathan is high school student in South Korea, who enjoys software and football. Currently attending Sunrin Internet High School in the 1st grade. Started developing at 2011, started by HTML, now on Android. As you see, he has a big interest in Android\u0027s Material Design. Also, known as a professional 9gagger.","title":"Berict\u0027s Biography"},"details":[{"items":[{"hint":"https://www.facebook.com/studioberict","image_id":"about_facebook","text":"Facebook"},{"hint":"https://twitter.com/studioberict","image_id":"about_twitter","text":"Twitter"},{"hint":"https://www.youtube.com/user/bedrockpicture","image_id":"about_youtube","text":"YouTube"},{"hint":"http://berict.com","image_id":"about_web","text":"Webpage"}],"title":"About Studio Berict"},{"items":[{"hint":"Help us fix bugs and problems","image_id":"about_report_bug","text":"Report bugs"},{"hint":"Make Tapad available on your language","image_id":"about_rate","text":"Translate Tapad"},{"hint":"Leave positive rating on Tapad","image_id":"about_web","text":"Rate Tapad"},{"hint":"Boost dev on updating Tapad","image_id":"about_donate","text":"Donate"}],"title":"Support Development"}],"image_id":"cardview_background_berict","statusbar_color_id":"colorPrimaryDark","title":"Tapad"}
+//        Item support[] = {
+//                new Item(getResources().getStringArray(R.array.berict_support)[0], getResources().getStringArray(R.array.berict_support)[1], "about_report_bug"),
+//                new Item(getResources().getStringArray(R.array.berict_support)[2], getResources().getStringArray(R.array.berict_support)[3], "about_rate"),
+//                new Item(getResources().getStringArray(R.array.berict_support)[4], getResources().getStringArray(R.array.berict_support)[5], "about_web"),
+//                new Item(getResources().getStringArray(R.array.berict_support)[6], getResources().getStringArray(R.array.berict_support)[7], "about_donate")
+//        };
+//
+//        String[] social = getResources().getStringArray(R.array.berict_social);
+//
+//        Item about[] = {
+//                new Item("Facebook"  , social[0], "about_facebook"),
+//                new Item("Twitter"   , social[1], "about_twitter"),
+//                new Item("YouTube"   , social[2], "about_youtube"),
+//                new Item("Webpage"   , social[3], "about_web")
+//        };
+//
+//        String[] bio = getResources().getStringArray(R.array.berict_bio);
+//
+//        Detail details[] = {
+//                new Detail("About " + bio[0], about),
+//                new Detail(getResources().getString(R.string.berict_support), support)
+//        };
+//
+//        About dev = new About("Tapad", "cardview_background_berict",
+//                new Bio(bio[2], null, bio[3], bio[4], bio[5]), details,
+//                "dev_dark", "dev");
+//        Gson gson = new Gson();
+//        String json = gson.toJson(dev, About.class);
+//        Log.d("JSON TEST", json);
     }
 
     void enterAnim() {
@@ -919,14 +916,20 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         w.getView(R.id.cardview_dev, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElement(a, "activity.about.AboutDevActivity", R.id.cardview_dev_image, "dev", 0);
+                //intent.intentSharedElement(a, "activity.about.AboutDevActivity", R.id.cardview_dev_image, "dev", 0);
+                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
+                        R.id.cardview_dev_image, "transition",
+                        "json", getResources().getString(R.string.json_about_dev), 0);
             }
         });
 
         w.getView(R.id.cardview_dev_explore, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElement(a, "activity.about.AboutDevActivity", R.id.cardview_dev_image, "dev", 0);
+                //intent.intentSharedElement(a, "activity.about.AboutDevActivity", R.id.cardview_dev_image, "dev", 0);
+                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
+                        R.id.cardview_dev_image, "transition",
+                        "json", getResources().getString(R.string.json_about_dev), 0);
             }
         });
     }
