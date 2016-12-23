@@ -14,13 +14,6 @@
         android:layout_height="0dp"
         android:background="@color/hello" />
 
-    <View
-        android:visibility="gone"
-        android:id="@+id/layout_placeholder"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorAccent" />
-
     <RelativeLayout
         android:id="@+id/layout_relative"
         android:layout_width="match_parent"
@@ -141,6 +134,7 @@
                                         android:src="@drawable/about_bio_hello" />
 
                                     <View
+                                        android:id="@+id/layout_bio_image_divider"
                                         android:layout_width="match_parent"
                                         android:layout_height="1dp"
                                         android:background="@color/dark_divider" />
@@ -218,5 +212,12 @@
             </android.support.v4.widget.NestedScrollView>
         </android.support.design.widget.CoordinatorLayout>
     </RelativeLayout>
+
+    <View
+        android:visibility="gone"
+        android:id="@+id/layout_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent" />
 
 </RelativeLayout>

@@ -835,6 +835,7 @@
         android:background="@color/colorAccent"
         android:visibility="gone" />
 
-    <include layout="@layout/fragment_dialog_feedback" />
+    <include layout="@layout/fragment_dialog_feedback"
+        android:visibility="gone"/>
 
 </RelativeLayout>

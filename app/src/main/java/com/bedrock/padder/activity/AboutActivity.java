@@ -33,6 +33,7 @@ public class AboutActivity extends AppCompatActivity {
 
     Activity activity = this;
     String json;
+    About about;
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
 
     SharedPreferences prefs;
@@ -53,7 +54,7 @@ public class AboutActivity extends AppCompatActivity {
         }
 
         Gson gson = new Gson();
-        About about = gson.fromJson(json, About.class);
+        about = gson.fromJson(json, About.class);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -83,11 +84,11 @@ public class AboutActivity extends AppCompatActivity {
         window.setMarginRelativePX(R.id.layout_relative, 0, prefs.getInt("statBarPX", 0), 0, 0, activity);
         window.getView(R.id.layout_margin, activity).getLayoutParams().height = prefs.getInt("navBarPX", 0) + window.convertDPtoPX(10, activity);
 
-        setJson(about);
+        setJson();
         enterAnim();
     }
 
-    private void setJson(About about) {
+    private void setJson() {
         // status bar
         window.getView(R.id.statusbar, activity).setBackgroundColor(getResources().getColor(window.getColorId(about.getStatusbarColorId())));
 
@@ -106,7 +107,12 @@ public class AboutActivity extends AppCompatActivity {
         // bio
         window.getTextView(R.id.layout_bio_title, activity).setText(about.getBio().getTitle());
         window.getTextView(R.id.layout_bio_title, activity).setTextColor(getResources().getColor(window.getColorId(about.getActionbarColorId())));
-        window.getImageView(R.id.layout_bio_image, activity).setImageResource(window.getDrawableId(about.getBio().getImageId()));
+        if(about.getBio().getImageId() == null) {
+            window.getImageView(R.id.layout_bio_image, activity).setVisibility(View.GONE);
+            window.getImageView(R.id.layout_bio_image_divider, activity).setVisibility(View.GONE);
+        } else {
+            window.getImageView(R.id.layout_bio_image, activity).setImageResource(window.getDrawableId(about.getBio().getImageId()));
+        }
         window.getTextView(R.id.layout_bio_name, activity).setText(about.getBio().getName());
         window.getTextView(R.id.layout_bio_text, activity).setText(about.getBio().getText());
         window.getTextView(R.id.layout_bio_source, activity).setText(about.getBio().getSource());
@@ -116,7 +122,7 @@ public class AboutActivity extends AppCompatActivity {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         window.getRecyclerView(R.id.layout_detail_recyclerview, activity).setLayoutManager(layoutManager);
         window.getRecyclerView(R.id.layout_detail_recyclerview, activity).setNestedScrollingEnabled(false);
-        window.getRecyclerView(R.id.layout_detail_recyclerview, activity).setAdapter(new DetailAdapter(about, R.layout.adapter_details, getApplicationContext()));
+        window.getRecyclerView(R.id.layout_detail_recyclerview, activity).setAdapter(new DetailAdapter(about, R.layout.adapter_details, getApplicationContext(), activity));
     }
 
     @Override
@@ -143,6 +149,8 @@ public class AboutActivity extends AppCompatActivity {
 
         if (hasFocus) {
             theme.setGone(R.id.layout_placeholder, 0, activity);
+            // reset taskDesc
+            window.setRecentColor(about.getTitle(), window.getColorId(about.getActionbarColorId()), activity);
         }
     }
 

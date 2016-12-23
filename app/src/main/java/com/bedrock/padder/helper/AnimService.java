@@ -839,4 +839,31 @@ public class AnimService {
             }
         });
     }
+
+    public void circularRevealTouch(View touch_view, final int reveal_view,
+                                    final TimeInterpolator interpolator, final Runnable onClick,
+                                    final int duration, final int delay, final Activity activity){
+        final int coord[] = {0, 0};
+
+        touch_view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                coord[0] = (int)event.getRawX();
+                coord[1] = (int)event.getRawY();
+
+                return false;
+            }
+        });
+
+        touch_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                circularRevealinpx(reveal_view,
+                        coord[0], coord[1],
+                        0, (int)Math.hypot(window.getWindowWidthpx(activity), window.getWindowHeightpx(activity)) + 200, interpolator,
+                        duration, delay, activity);
+                onClick.run();
+            }
+        });
+    }
 }

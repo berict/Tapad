@@ -194,6 +194,28 @@ public class WindowService {
         }
     }
 
+    public void setRecentColor(int titleId, Activity activity) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            if (titleId == 0) {
+                // Default app name
+                titleId = R.string.app_name;
+            }
+
+            Bitmap icon = BitmapFactory.decodeResource(activity.getResources(), R.drawable.ic_launcher);
+
+            ActivityManager.TaskDescription taskDesc =
+                    new ActivityManager.TaskDescription(
+                            activity.getResources().getString(titleId),
+                            icon,
+                            activity.getResources().getColor(R.color.colorPrimary));
+            activity.setTaskDescription(taskDesc);
+
+            Log.i("WindowService", "TaskDescription applied.");
+        } else {
+            Log.i("WindowService", "API doesn't match requirement. (API >= 21)");
+        }
+    }
+
     public void setRecentColor(String titleId, int icon_id, int color_id, Activity activity) {
         if (Build.VERSION.SDK_INT >= 21) {
             if (titleId == null) {
@@ -240,28 +262,6 @@ public class WindowService {
                             titleId,
                             icon,
                             activity.getResources().getColor(color_id));
-            activity.setTaskDescription(taskDesc);
-
-            Log.i("WindowService", "TaskDescription applied.");
-        } else {
-            Log.i("WindowService", "API doesn't match requirement. (API >= 21)");
-        }
-    }
-
-    public void setRecentColor(int titleId, Activity activity) {
-        if (Build.VERSION.SDK_INT >= 21) {
-            if (titleId == 0) {
-                // Default app name
-                titleId = R.string.app_name;
-            }
-
-            Bitmap icon = BitmapFactory.decodeResource(activity.getResources(), R.drawable.ic_launcher);
-
-            ActivityManager.TaskDescription taskDesc =
-                    new ActivityManager.TaskDescription(
-                            activity.getResources().getString(titleId),
-                            icon,
-                            activity.getResources().getColor(R.color.colorPrimary));
             activity.setTaskDescription(taskDesc);
 
             Log.i("WindowService", "TaskDescription applied.");

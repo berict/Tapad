@@ -3,7 +3,6 @@ package com.bedrock.padder.activity;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -148,6 +147,39 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 //        String json = gson.toJson(about, About.class);
 //
 //        Log.d("JSON TEST", json);
+
+        Item support[] = {
+                new Item(getResources().getStringArray(R.array.berict_support)[0], getResources().getStringArray(R.array.berict_support)[1], "about_report_bug"),
+                new Item(getResources().getStringArray(R.array.berict_support)[2], getResources().getStringArray(R.array.berict_support)[3], "about_rate"),
+                new Item(getResources().getStringArray(R.array.berict_support)[4], getResources().getStringArray(R.array.berict_support)[5], "about_web"),
+                new Item(getResources().getStringArray(R.array.berict_support)[6], getResources().getStringArray(R.array.berict_support)[7], "about_donate")
+        };
+
+        String[] social = getResources().getStringArray(R.array.berict_social);
+
+        Item about[] = {
+                new Item("Facebook"  , social[0], "about_facebook"),
+                new Item("Twitter"   , social[1], "about_twitter"),
+                new Item("YouTube"   , social[2], "about_youtube"),
+                new Item("Webpage"   , social[3], "about_web")
+        };
+
+        String[] bio = getResources().getStringArray(R.array.berict_bio);
+
+        Detail details[] = {
+                new Detail("About " + bio[0], about),
+                new Detail(getResources().getString(R.string.berict_support), support)
+        };
+
+        About dev = new About("Tapad", "cardview_background_berict",
+                new Bio(bio[2], null, bio[3], bio[4], bio[5]), details,
+                "colorPrimaryDark", "colorPrimary");
+        Gson gson = new Gson();
+        String json = gson.toJson(dev, About.class);
+        Log.d("JSON TEST", json);
+
+        // dev json
+        //{"actionbar_color_id":"colorPrimary","bio":{"name":"Bedrock Pictures (Nathan Cho)","source":"Powered by Bedrock Pictures","text":"Nathan is high school student in South Korea, who enjoys software and football. Currently attending Sunrin Internet High School in the 1st grade. Started developing at 2011, started by HTML, now on Android. As you see, he has a big interest in Android\u0027s Material Design. Also, known as a professional 9gagger.","title":"Berict\u0027s Biography"},"details":[{"items":[{"hint":"https://www.facebook.com/studioberict","image_id":"about_facebook","text":"Facebook"},{"hint":"https://twitter.com/studioberict","image_id":"about_twitter","text":"Twitter"},{"hint":"https://www.youtube.com/user/bedrockpicture","image_id":"about_youtube","text":"YouTube"},{"hint":"http://berict.com","image_id":"about_web","text":"Webpage"}],"title":"About Studio Berict"},{"items":[{"hint":"Help us fix bugs and problems","image_id":"about_report_bug","text":"Report bugs"},{"hint":"Make Tapad available on your language","image_id":"about_rate","text":"Translate Tapad"},{"hint":"Leave positive rating on Tapad","image_id":"about_web","text":"Rate Tapad"},{"hint":"Boost dev on updating Tapad","image_id":"about_donate","text":"Donate"}],"title":"Support Development"}],"image_id":"cardview_background_berict","statusbar_color_id":"colorPrimaryDark","title":"Tapad"}
     }
 
     void enterAnim() {
@@ -166,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     @Override
     public void onBackPressed() {
         if (isToolbarVisible == true) {
-            if ((prefs.getInt(qs, 0) != -1) && isAboutVisible == false) {
+            if ((prefs.getInt(qs, 0) != -1) && isAboutVisible == false && isSettingVisible == false) {
                 Log.i("BackPressed", "Tutorial prompt is visible, backpress ignored.");
             } else {
                 if (isAboutVisible == true) {
@@ -658,8 +690,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                     }
                     isToolbarVisible = true;
                 }
-                //TODO: REMOVE THIS, THIS IS A TEST
-
             }
         });
     }
@@ -704,13 +734,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 anim.fadeOut(R.id.placeholder, circularRevealDuration, fadeAnimDuration, a);
 
                 isAboutVisible = true;
-            }
-        });
-
-        w.getView(R.id.cardview_artist_change, a).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialogPreset();
             }
         });
 
@@ -812,36 +835,50 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     }
 
     void setAbout() {
+        // artist
         w.getView(R.id.cardview_artist, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
                         R.id.cardview_artist_image, "transition",
-                        "json", getResources().getStringArray(R.array.json_about)[getScheme() - 1],0);
+                        "json", getResources().getStringArray(R.array.json_about)[getScheme() - 1], 0);
             }
         });
 
         w.getView(R.id.cardview_artist_explore, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElement(a, "activity.AboutArtistActivity", R.id.cardview_artist_image, "artist", 0);
+                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
+                        R.id.cardview_artist_image, "transition",
+                        "json", getResources().getStringArray(R.array.json_about)[getScheme() - 1], 0);
             }
         });
 
+        w.getView(R.id.cardview_artist_change, a).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialogPreset();
+            }
+        });
+
+        // tapad
         w.getView(R.id.cardview_about, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElement(a, "activity.about.AboutTapadActivity", R.id.cardview_about_image, "tapad", 0);
+                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
+                        R.id.cardview_about_image, "transition",
+                        "json", getResources().getString(R.string.json_about_tapad), 0);
             }
         });
 
         w.getView(R.id.cardview_about_explore, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElement(a, "activity.about.AboutTapadActivity", R.id.cardview_about_image, "tapad", 0);
+                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
+                        R.id.cardview_about_image, "transition",
+                        "json", getResources().getString(R.string.json_about_tapad), 0);
             }
         });
-
         w.getView(R.id.cardview_about_settings, a).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -878,6 +915,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
             }
         });
 
+        // developer
         w.getView(R.id.cardview_dev, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1135,7 +1173,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
         PresetDialog = new MaterialDialog.Builder(this)
                 .title(R.string.dialog_preset_title)
-                .items(R.array.indigo) //TODO edit this
+                .items(R.array.presets)
                 .autoDismiss(false)
                 .itemsCallbackSingleChoice(defaultScheme - 1, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override

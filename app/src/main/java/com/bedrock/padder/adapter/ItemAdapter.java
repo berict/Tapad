@@ -1,14 +1,19 @@
 package com.bedrock.padder.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bedrock.padder.R;
+import com.bedrock.padder.helper.AnimService;
+import com.bedrock.padder.helper.IntentService;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.about.Item;
 
@@ -16,14 +21,16 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
     private Item[] item;
     private int rowLayout;
     private Context context;
+    private Activity activity;
     
-    WindowService window = new WindowService();
+    private WindowService window = new WindowService();
 
     public static class DetailViewHolder extends RecyclerView.ViewHolder {
         ImageView itemIcon;
         TextView itemText;
         TextView itemHint;
         View divider;
+        RelativeLayout itemLayout;
 
         public DetailViewHolder(View view) {
             super(view);
@@ -31,13 +38,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
             itemText = (TextView) view.findViewById(R.id.layout_item_text);
             itemHint = (TextView) view.findViewById(R.id.layout_item_hint);
             divider = view.findViewById(R.id.divider);
+            itemLayout = (RelativeLayout) view.findViewById(R.id.layout_item);
         }
     }
 
-    public ItemAdapter(Item[] item, int rowLayout, Context context) {
+    public ItemAdapter(Item[] item, int rowLayout, Context context, Activity activity) {
         this.item = item;
         this.rowLayout = rowLayout;
         this.context = context;
+        this.activity = activity;
     }
 
     @Override
@@ -46,15 +55,45 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
         return new DetailViewHolder(view);
     }
 
+    private IntentService intent = new IntentService();
+    private AnimService anim =  new AnimService();
+
     @Override
-    public void onBindViewHolder(DetailViewHolder holder, int position) {
-        holder.itemIcon.setImageResource(window.getDrawableId(item[position].getImageId()));
+    public void onBindViewHolder(final DetailViewHolder holder, int position) {
         holder.itemText.setText(String.valueOf(item[position].getText()));
-        holder.itemHint.setText(String.valueOf(item[position].getHint()));
 
         if(position == getItemCount() - 1) {
-            // last item on list
+            // last item on list, hide divider
             holder.divider.setVisibility(View.GONE);
+        }
+
+        if(item[position].getHint() == null) {
+            // no hint provided
+            holder.itemHint.setVisibility(View.GONE);
+        } else {
+            holder.itemHint.setText(String.valueOf(item[position].getHint()));
+
+            if(item[position].getHint().startsWith("http")) {
+                // link available check
+                anim.circularRevealTouch(holder.itemLayout, R.id.layout_placeholder,
+                        new AccelerateDecelerateInterpolator(), new Runnable() {
+                            @Override
+                            public void run() {
+                                window.setRecentColor(item[holder.getAdapterPosition()].getText(), R.color.colorAccent, activity);
+                                intent.intentLink(activity, item[holder.getAdapterPosition()].getHint(), 400);
+                            }
+                        }, 400, 0, activity);
+            } else {
+                // non-link hint, other action
+
+            }
+        }
+
+        if(item[position].getImageId() == null) {
+            // no icon provided
+            holder.itemIcon.setVisibility(View.INVISIBLE);
+        } else {
+            holder.itemIcon.setImageResource(window.getDrawableId(item[position].getImageId()));
         }
     }
 
@@ -62,5 +101,4 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
     public int getItemCount() {
         return item.length;
     }
-
 }

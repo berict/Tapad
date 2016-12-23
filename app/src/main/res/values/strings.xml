@@ -43,6 +43,12 @@
     <string name="wb">Webpage</string>
     <string name="bi">Biography</string>
 
+    <string-array name="presets">
+        <item>@string/hello</item>
+        <item>@string/roses</item>
+        <item>@string/faded</item>
+    </string-array>
+
     <string name="hello">OMFG - Hello</string>
     <string name="roses">The Chainsmokers - Roses</string>
     <string name="faded">Alan Walker - Faded</string>
@@ -126,6 +132,17 @@
         <item>http://berict.com</item>
     </string-array>
 
+    <string-array name="tapad_bio">
+        <item>Tapad</item>
+        <item>About Tapad</item>
+        <item>About Tapad</item>
+        <item>Probably the best looking launchpad out there.</item>
+        <item>Tapad is a LaunchAad application for Android.
+        It implemented the Material Design from the Google Design Guideline, and its beautiful.
+        It mainly features song genres like EDM, Dubstep, Progressive House, Electronic.</item>
+        <item>Powered by Studio Berict</item>
+    </string-array>
+
     <string name="berict_support">Support Development</string>
     <string name="dev_report_bug">Report bugs</string>
     <string name="dev_report_bug_hint">Help us fix bugs and problems</string>
@@ -138,16 +155,27 @@
     <string name="dev_donate_hint">Boost dev on updating Tapad</string>
     <string name="dev_donate_error">Thanks! But this feature is not available yet ;)</string>
 
+    <string-array name="berict_support">
+        <item>Report bugs</item>
+        <item>Help us fix bugs and problems</item>
+        <item>Translate Tapad</item>
+        <item>Make Tapad available on your language</item>
+        <item>Rate Tapad</item>
+        <item>Leave positive rating on Tapad</item>
+        <item>Donate</item>
+        <item>Boost dev on updating Tapad</item>
+    </string-array>
     <!-- About -->
     <string name="google_play">Google Play</string>
 
     <string name="tapad">Tapad</string>
     <string name="tapad_about">About Tapad</string>
     <string name="tapad_about_desc">Probably the best looking launchpad out there.</string>
-    <string name="tapad_about_full">Tapad is a launchpad app for Android.
-        It implemented the Material Design from the Google Design Guideline, and it looks beautiful.
+    <string name="tapad_about_full">Tapad is a LaunchAad application for Android.
+        It implemented the Material Design from the Google Design Guideline, and its beautiful.
         It mainly features song genres like EDM, Dubstep, Progressive House, Electronic.</string>
     <string name="tapad_about_source">Powered by Studio Berict</string>
+
 
     <string name="tapad_play">https://play.google.com/store/apps/details?id=com.bedrock.padder</string>
 

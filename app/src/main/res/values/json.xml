@@ -193,4 +193,92 @@
         <item>@string/json_about_roses</item>
         <item>@string/json_about_faded</item>
     </string-array>
+    
+    <string name="json_about_tapad">
+        "{  
+            \"actionbar_color_id\":\"colorPrimary\",
+            \"bio\":{  
+                \"image_id\":\"about_bio_tapad\",
+                \"name\":\"Probably the best looking launchpad out there.\",
+                \"source\":\"Powered by Studio Berict\",
+                \"text\":\"Tapad is a LaunchAad application for Android. It implemented the Material Design from the Google Design Guideline, and its beautiful. It mainly features song genres like EDM, Dubstep, Progressive House, Electronic.\",
+                \"title\":\"About Tapad\"
+            },
+            \"details\":[  
+                {  
+                    \"items\":[  
+                        {  
+                            \"hint\":\"Open in Play Store\",
+                            \"image_id\":\"about_google_play\",
+                            \"text\":\"Check updates\"
+                        },
+                        {  
+                            \"image_id\":\"about_info\",
+                            \"text\":\"Legal information\"
+                        },
+                        {  
+                            \"hint\":\"2.3 Official Release\",
+                            \"text\":\"Tapad version\"
+                        },
+                        {  
+                            \"hint\":\"Build date\",
+                            \"text\":\"Build date\"
+                        },
+                        {  
+                            \"image_id\":\"about_changelog\",
+                            \"text\":\"Changelog\"
+                        },
+                        {  
+                            \"image_id\":\"about_thanks\",
+                            \"text\":\"Special thanks\"
+                        },
+                        {  
+                            \"hint\":\"Studio Berict\",
+                            \"image_id\":\"about_dev\",
+                            \"text\":\"About developer\"
+                        }
+                    ],
+                    \"title\":\"About Tapad\"
+                },
+                {  
+                    \"items\":[  
+                        {  
+                            \"hint\":\"Will be added to the update list\",
+                            \"image_id\":\"about_request_song\",
+                            \"text\":\"Request a song\"
+                        },
+                        {  
+                            \"hint\":\"Request new features or ask questions\",
+                            \"image_id\":\"about_request\",
+                            \"text\":\"Leave a feedback\"
+                        },
+                        {  
+                            \"hint\":\"Help devs to fix bugs and problems\",
+                            \"image_id\":\"about_report_bug\",
+                            \"text\":\"Report bugs\"
+                        },
+                        {  
+                            \"hint\":\"Show your love on Tapad on Google Play\",
+                            \"image_id\":\"about_rate\",
+                            \"text\":\"Rate Tapad\"
+                        },
+                        {  
+                            \"hint\":\"Help making Tapad available on your language\",
+                            \"image_id\":\"about_web\",
+                            \"text\":\"Translate Tapad\"
+                        },
+                        {  
+                            \"hint\":\"Let your friends know this amazing app\",
+                            \"image_id\":\"about_recommend\",
+                            \"text\":\"Recommend Tapad\"
+                        }
+                    ],
+                    \"title\":\"Information\"
+                }
+            ],
+            \"image_id\":\"cardview_background_tapad\",
+            \"statusbar_color_id\":\"colorPrimaryDark\",
+            \"title\":\"Tapad\"
+        }"
+    </string>
 </resources>

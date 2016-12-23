@@ -1,5 +1,6 @@
 package com.bedrock.padder.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -7,11 +8,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bedrock.padder.R;
+import com.bedrock.padder.helper.AnimService;
+import com.bedrock.padder.helper.IntentService;
 import com.bedrock.padder.helper.RecyclerTouchListener;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.about.About;
@@ -21,6 +25,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
     private About about;
     private int rowLayout;
     private Context context;
+    private Activity activity;
 
     WindowService window = new WindowService();
 
@@ -35,10 +40,11 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
         }
     }
 
-    public DetailAdapter(About about, int rowLayout, Context context) {
+    public DetailAdapter(About about, int rowLayout, Context context, Activity activity) {
         this.about = about;
         this.rowLayout = rowLayout;
         this.context = context;
+        this.activity = activity;
     }
 
     @Override
@@ -55,18 +61,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         holder.itemRecycleView.setLayoutManager(layoutManager);
-        holder.itemRecycleView.setAdapter(new ItemAdapter(about.getDetail(position).getItems(), R.layout.adapter_item, context));
-        holder.itemRecycleView.addOnItemTouchListener(new RecyclerTouchListener(context, holder.itemRecycleView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, int index) {
-                onListItemClick(about.getDetail(holder.getAdapterPosition()).getItem(index));
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
+        holder.itemRecycleView.setAdapter(new ItemAdapter(about.getDetail(position).getItems(), R.layout.adapter_item, context, activity));
     }
 
     @Override
@@ -74,8 +69,6 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
         return about.getDetails().length;
     }
 
-    private void onListItemClick(Item item) {
-        //TODO: link intent
-        Toast.makeText(context, "Link intent : " + item.getHint(), Toast.LENGTH_SHORT).show();
+    private void onListItemClick(final Item item, final DetailViewHolder holder) {
     }
 }

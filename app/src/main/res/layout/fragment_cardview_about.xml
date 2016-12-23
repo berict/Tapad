@@ -83,7 +83,7 @@
                         android:padding="10dp"
                         android:background="?selectableItemBackground"
                         android:clickable="true"
-                        android:text="@string/settings"
+                        android:text="@string/settings_action"
                         android:textColor="@color/bg_screen1"/>
                 </LinearLayout>
             </RelativeLayout>
