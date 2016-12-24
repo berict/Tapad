@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- About Jsons -->
     <string name="json_about_example">
         "{
             \"actionbar_color_id\":\"actionColorResId\",
@@ -350,4 +351,1016 @@
         }"
     </string>
 
+    <!-- Sound Jsons -->
+    <string name="json_hello">
+        "{  
+            \"about\":{  
+                \"actionbar_color_id\":\"hello\",
+                \"bio\":{  
+                    \"image_id\":\"about_bio_hello\",
+                    \"name\":\"Alex OMFG (Alex Savage)\",
+                    \"source\":\"Powered by Muzikum\",
+                    \"text\":\"This is a Fun Loving girl who had a desire to make music. Alex enjoyed making dubstep to just share between friends and family. She soon talked her self into posting her creations online to see what kinda feedback she would get. Getting an overly positive reveiws she continued to make music ever since with her latest track called OMFG - Jelly.\",
+                    \"title\":\"OMFG's Biography\"
+                },
+                \"details\":[  
+                    {  
+                        \"items\":[  
+                            {  
+                                \"hint\":\"https://www.facebook.com/alexomfg/\",
+                                \"image_id\":\"about_facebook\",
+                                \"text\":\"Facebook\"
+                            },
+                            {  
+                                \"hint\":\"https://twitter.com/AlexSavageOMFG\",
+                                \"image_id\":\"about_twitter\",
+                                \"text\":\"Twitter\"
+                            },
+                            {  
+                                \"hint\":\"https://soundcloud.com/alexomfg\",
+                                \"image_id\":\"about_soundcloud\",
+                                \"text\":\"SoundCloud\"
+                            },
+                            {  
+                                \"hint\":\"https://www.youtube.com/user/alexsavageomfg\",
+                                \"image_id\":\"about_youtube\",
+                                \"text\":\"YouTube\"
+                            },
+                            {  
+                                \"hint\":\"http://alexomfg.com\",
+                                \"image_id\":\"about_web\",
+                                \"text\":\"Webpage\"
+                            }
+                        ],
+                        \"title\":\"About OMFG\"
+                    }
+                ],
+                \"image_id\":\"cardview_background_artist_hello\",
+                \"statusbar_color_id\":\"hello_dark\",
+                \"title\":\"OMFG\"
+            },
+            \"id\":1,
+            \"music\":{  
+                \"decks\":[  
+                    {  
+                        \"pad\":[  
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"h3_01\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"h2_03\"
+                            },
+                            {  
+                                \"raw_id\":\"h2_04\"
+                            },
+                            {  
+                                \"raw_id\":\"h1_11\"
+                            },
+                            {  
+                                \"raw_id\":\"h1_12\"
+                            },
+                            {  
+                                \"raw_id\":\"h1_13\"
+                            },
+                            {  
+                                \"raw_id\":\"h1_14\"
+                            },
+                            {  
+                                \"raw_id\":\"h1_21\"
+                            },
+                            {  
+                                \"raw_id\":\"h1_22\"
+                            },
+                            {  
+                                \"raw_id\":\"h1_23\"
+                            },
+                            {  
+                                \"raw_id\":\"h1_24\"
+                            },
+                            {  
+                                \"raw_id\":\"h1_31\"
+                            },
+                            {  
+                                \"raw_id\":\"h1_32\"
+                            },
+                            {  
+                                \"raw_id\":\"h1_33\"
+                            },
+                            {  
+                                \"raw_id\":\"h1_34\"
+                            },
+                            {  
+                                \"raw_id\":\"h1_41\"
+                            },
+                            {  
+                                \"raw_id\":\"h1_42\"
+                            },
+                            {  
+                                \"raw_id\":\"h1_43\"
+                            },
+                            {  
+                                \"raw_id\":\"h1_44\"
+                            }
+                        ]
+                    },
+                    {  
+                        \"pad\":[  
+                            {  
+                                \"raw_id\":\"h2_00\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"h2_11\"
+                            },
+                            {  
+                                \"raw_id\":\"h2_12\"
+                            },
+                            {  
+                                \"raw_id\":\"h2_13\"
+                            },
+                            {  
+                                \"raw_id\":\"h2_14\"
+                            },
+                            {  
+                                \"raw_id\":\"h2_21\"
+                            },
+                            {  
+                                \"raw_id\":\"h2_22\"
+                            },
+                            {  
+                                \"raw_id\":\"h2_23\"
+                            },
+                            {  
+                                \"raw_id\":\"h2_24\"
+                            },
+                            {  
+                                \"raw_id\":\"h2_31\"
+                            },
+                            {  
+                                \"raw_id\":\"h2_32\"
+                            },
+                            {  
+                                \"raw_id\":\"h2_33\"
+                            },
+                            {  
+                                \"raw_id\":\"h2_34\"
+                            },
+                            {  
+                                \"raw_id\":\"h2_41\"
+                            },
+                            {  
+                                \"raw_id\":\"h2_42\"
+                            },
+                            {  
+                                \"raw_id\":\"h2_43\"
+                            },
+                            {  
+                                \"raw_id\":\"h2_44\"
+                            }
+                        ]
+                    },
+                    {  
+                        \"pad\":[  
+                            {  
+                                \"raw_id\":\"h3_01\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"h3_11\"
+                            },
+                            {  
+                                \"raw_id\":\"h3_12\"
+                            },
+                            {  
+                                \"raw_id\":\"h3_13\"
+                            },
+                            {  
+                                \"raw_id\":\"h3_14\"
+                            },
+                            {  
+                                \"raw_id\":\"h3_21\"
+                            },
+                            {  
+                                \"raw_id\":\"h3_22\"
+                            },
+                            {  
+                                \"raw_id\":\"h3_23\"
+                            },
+                            {  
+                                \"raw_id\":\"h3_24\"
+                            },
+                            {  
+                                \"raw_id\":\"h3_31\"
+                            },
+                            {  
+                                \"raw_id\":\"h3_32\"
+                            },
+                            {  
+                                \"raw_id\":\"h3_33\"
+                            },
+                            {  
+                                \"raw_id\":\"h3_34\"
+                            },
+                            {  
+                                \"raw_id\":\"h3_41\"
+                            },
+                            {  
+                                \"raw_id\":\"h3_42\"
+                            },
+                            {  
+                                \"raw_id\":\"h3_43\"
+                            },
+                            {  
+                                \"raw_id\":\"h3_44\"
+                            }
+                        ]
+                    },
+                    {  
+                        \"pad\":[  
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"h4_11\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"h4_14\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"h4_41\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {  
+                                \"raw_id\":\"h4_44\"
+                            }
+                        ]
+                    }
+                ],
+                \"id\":1,
+                \"name\":\"Hello\"
+            }
+        }"
+    </string>
+    <string name="json_roses">
+        "{
+            \"about\":{
+                \"actionbar_color_id\":\"roses\",
+                \"bio\":{
+                    \"image_id\":\"about_bio_roses\",
+                    \"name\":\"Andrew Taggart and Alex Pall\",
+                    \"source\":\"Powered by thechainsmokers.com\",
+                    \"text\":\"The Chainsmokers have become the hottest young American EDM DJ duo. Their signature sound has its foundations in Indie, Progressive and Pop Music. On the production front, their original tracks have all reached the Beatport top charts and their remixes always hit #1 on the HypeM charts. Their first major release, #SELFIE, and it\u0027s official music video swept the world so look out for much more to come!\",
+                    \"title\":\"The Chainsmokers' Biography\"
+                },
+                \"details\":[
+                    {
+                        \"items\":[
+                            {
+                                \"hint\":\"https://www.facebook.com/thechainsmokers\",
+                                \"image_id\":\"about_facebook\",
+                                \"text\":\"Facebook\"
+                            },
+                            {
+                                \"hint\":\"http://www.twitter.com/thechainsmokers\",
+                                \"image_id\":\"about_twitter\",
+                                \"text\":\"Twitter\"
+                            },
+                            {
+                                \"hint\":\"http://www.soundcloud.com/thechainsmokers\",
+                                \"image_id\":\"about_soundcloud\",
+                                \"text\":\"SoundCloud\"
+                            },
+                            {
+                                \"hint\":\"https://www.youtube.com/user/THECHAINSMOKERS\",
+                                \"image_id\":\"about_youtube\",
+                                \"text\":\"YouTube\"
+                            },
+                            {
+                                \"hint\":\"http://thechainsmokers.com\",
+                                \"image_id\":\"about_web\",
+                                \"text\":\"Webpage\"
+                            }
+                        ],
+                        \"title\":\"About The Chainsmokers\"
+                    }
+                ],
+                \"image_id\":\"cardview_background_artist_roses\",
+                \"statusbar_color_id\":\"roses_dark\",
+                \"title\":\"The Chainsmokers\"
+            },
+            \"id\":1,
+            \"music\":{
+                \"decks\":[
+                    {
+                        \"pad\":[
+                            {
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {
+                                \"raw_id\":\"r1_11\"
+                            },
+                            {
+                                \"raw_id\":\"r1_12\"
+                            },
+                            {
+                                \"raw_id\":\"r1_13\"
+                            },
+                            {
+                                \"raw_id\":\"r1_14\"
+                            },
+                            {
+                                \"raw_id_down\":\"r1_21_2\",
+                                \"raw_id_left\":\"r1_21_3\",
+                                \"raw_id_right\":\"r1_21_4\",
+                                \"raw_id_up\":\"r1_21_1\"
+                            },
+                            {
+                                \"raw_id_down\":\"r1_22_2\",
+                                \"raw_id_left\":\"r1_22_3\",
+                                \"raw_id_right\":\"r1_22_4\",
+                                \"raw_id_up\":\"r1_22_1\"
+                            },
+                            {
+                                \"raw_id_down\":\"r1_23_2\",
+                                \"raw_id_left\":\"r1_23_3\",
+                                \"raw_id_right\":\"r1_23_4\",
+                                \"raw_id_up\":\"r1_23_1\"
+                            },
+                            {
+                                \"raw_id_down\":\"r1_24_2\",
+                                \"raw_id_left\":\"r1_24_3\",
+                                \"raw_id_right\":\"r1_24_4\",
+                                \"raw_id_up\":\"r1_24_1\"
+                            },
+                            {
+                                \"raw_id\":\"r1_31_1\"
+                            },
+                            {
+                                \"raw_id\":\"r1_32\"
+                            },
+                            {
+                                \"raw_id\":\"r1_33_1\"
+                            },
+                            {
+                                \"raw_id\":\"r1_34\"
+                            },
+                            {
+                                \"raw_id\":\"r1_41_1\"
+                            },
+                            {
+                                \"raw_id\":\"r1_42\"
+                            },
+                            {
+                                \"raw_id\":\"r1_43\"
+                            },
+                            {
+                                \"raw_id\":\"r1_44\"
+                            }
+                        ]
+                    },
+                    {
+                        \"pad\":[
+                            {
+                                \"raw_id\":\"r2_00\"
+                            },
+                            {
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {
+                                \"raw_id\":\"r2_11_1\"
+                            },
+                            {
+                                \"raw_id\":\"r2_12_1\"
+                            },
+                            {
+                                \"raw_id\":\"r2_13_1\",
+                                \"raw_id_down\":\"r2_13_2\"
+                            },
+                            {
+                                \"raw_id\":\"r2_14_1\",
+                                \"raw_id_down\":\"r2_14_2\"
+                            },
+                            {
+                                \"raw_id\":\"r2_21\"
+                            },
+                            {
+                                \"raw_id\":\"r2_22\"
+                            },
+                            {
+                                \"raw_id\":\"r2_23\"
+                            },
+                            {
+                                \"raw_id\":\"r2_24\"
+                            },
+                            {
+                                \"raw_id\":\"r2_31\"
+                            },
+                            {
+                                \"raw_id\":\"r2_32\"
+                            },
+                            {
+                                \"raw_id\":\"r2_33\"
+                            },
+                            {
+                                \"raw_id\":\"r2_34\"
+                            },
+                            {
+                                \"raw_id\":\"r2_41\"
+                            },
+                            {
+                                \"raw_id\":\"r2_42_1\"
+                            },
+                            {
+                                \"raw_id\":\"r2_43\"
+                            },
+                            {
+                                \"raw_id\":\"r2_44\"
+                            }
+                        ]
+                    },
+                    {
+                        \"pad\":[
+                            {
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {
+                                \"raw_id\":\"r2_11_1\"
+                            },
+                            {
+                                \"raw_id\":\"r3_12_1\"
+                            },
+                            {
+                                \"raw_id\":\"r3_13_1\",
+                                \"raw_id_down\":\"r3_13_2\"
+                            },
+                            {
+                                \"raw_id\":\"r3_14_1\",
+                                \"raw_id_down\":\"r3_14_2\"
+                            },
+                            {
+                                \"raw_id\":\"r3_21\"
+                            },
+                            {
+                                \"raw_id\":\"r3_22\"
+                            },
+                            {
+                                \"raw_id\":\"r3_23\"
+                            },
+                            {
+                                \"raw_id\":\"r3_24\"
+                            },
+                            {
+                                \"raw_id\":\"r3_31\"
+                            },
+                            {
+                                \"raw_id\":\"r3_32\"
+                            },
+                            {
+                                \"raw_id\":\"r3_33\"
+                            },
+                            {
+                                \"raw_id\":\"r3_34\"
+                            },
+                            {
+                                \"raw_id\":\"r2_41\"
+                            },
+                            {
+                                \"raw_id\":\"r3_42_1\"
+                            },
+                            {
+                                \"raw_id\":\"r2_43\"
+                            },
+                            {
+                                \"raw_id\":\"r3_44\"
+                            }
+                        ]
+                    },
+                    {
+                        \"pad\":[
+                            {
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {
+                                \"raw_id\":\"a0_00\"
+                            },
+                            {
+                                \"raw_id\":\"r2_11_1\"
+                            },
+                            {
+                                \"raw_id\":\"r4_12_1\"
+                            },
+                            {
+                                \"raw_id\":\"r4_13_1\",
+                                \"raw_id_down\":\"r4_13_2\"
+                            },
+                            {
+                                \"raw_id\":\"r4_14_1\",
+                                \"raw_id_down\":\"r4_14_2\"
+                            },
+                            {
+                                \"raw_id\":\"r4_21_1\"
+                            },
+                            {
+                                \"raw_id\":\"r4_22_1\"
+                            },
+                            {
+                                \"raw_id\":\"r4_23_1\"
+                            },
+                            {
+                                \"raw_id\":\"r4_24_1\"
+                            },
+                            {
+                                \"raw_id\":\"r4_31_1\"
+                            },
+                            {
+                                \"raw_id\":\"r4_32_1\"
+                            },
+                            {
+                                \"raw_id\":\"r4_33_1\"
+                            },
+                            {
+                                \"raw_id\":\"r4_34_1\"
+                            },
+                            {
+                                \"raw_id\":\"r2_41\"
+                            },
+                            {
+                                \"raw_id\":\"r4_42_1\"
+                            },
+                            {
+                                \"raw_id\":\"r2_43\"
+                            },
+                            {
+                                \"raw_id\":\"r3_44\"
+                            }
+                        ]
+                    }
+                ],
+                \"id\":2,
+                \"name\":\"Roses\"
+            }
+        }"
+    </string>
+    <string name="json_faded">
+        "{
+            \"about\": {
+                \"actionbar_color_id\": \"faded\",
+                \"bio\": {
+                    \"image_id\": \"about_bio_faded\",
+                    \"name\": \"Alan Olav Walker\",
+                    \"source\": \"Powered by Wikipedia\",
+                    \"text\": \"Alan Walker (Alan Olav Walker) is a British-Norwegian record producer who was born in Northampton, England. He is best known for the electronic dance music single Faded, which has reached number 1 in multiple countries, and on YouTube has over 650 million views and 4 million likes, placing it among the top 40 most liked YouTube videos.\",
+                    \"title\": \"Alan Walker's Biography\"
+                },
+                \"details\": [
+                    {
+                        \"items\": [
+                            {
+                                \"hint\": \"https://www.facebook.com/alanwalkermusic\",
+                                \"image_id\": \"about_facebook\",
+                                \"text\": \"Facebook\"
+                            },
+                            {
+                                \"hint\": \"https://twitter.com/IAmAlanWalker\",
+                                \"image_id\": \"about_twitter\",
+                                \"text\": \"Twitter\"
+                            },
+                            {
+                                \"hint\": \"https://soundcloud.com/alanwalker\",
+                                \"image_id\": \"about_soundcloud\",
+                                \"text\": \"SoundCloud\"
+                            },
+                            {
+                                \"hint\": \"https://www.youtube.com/user/DjWalkzz\",
+                                \"image_id\": \"about_youtube\",
+                                \"text\": \"YouTube\"
+                            },
+                            {
+                                \"hint\": \"http://www.alanwalkermusic.no\",
+                                \"image_id\": \"about_web\",
+                                \"text\": \"Webpage\"
+                            }
+                        ],
+                        \"title\": \"About Alan Walker\"
+                    }
+                ],
+                \"image_id\": \"cardview_background_artist_faded\",
+                \"statusbar_color_id\": \"faded_dark\",
+                \"title\": \"Alan Walker\"
+            },
+            \"id\": 1,
+            \"music\": {
+                \"decks\": [
+                    {
+                        \"pad\": [
+                            {
+                                \"raw_id\": \"a0_00\"
+                            },
+                            {
+                                \"raw_id\": \"a0_00\"
+                            },
+                            {
+                                \"raw_id\": \"a0_00\"
+                            },
+                            {
+                                \"raw_id\": \"a0_00\"
+                            },
+                            {
+                                \"raw_id\": \"a0_00\"
+                            },
+                            {
+                                \"raw_id\": \"f1_11\"
+                            },
+                            {
+                                \"raw_id\": \"f1_12\"
+                            },
+                            {
+                                \"raw_id\": \"f1_13\"
+                            },
+                            {
+                                \"raw_id\": \"f1_14\"
+                            },
+                            {
+                                \"raw_id\": \"f1_21\"
+                            },
+                            {
+                                \"raw_id\": \"f1_22\"
+                            },
+                            {
+                                \"raw_id\": \"f1_23\"
+                            },
+                            {
+                                \"raw_id\": \"f1_24\"
+                            },
+                            {
+                                \"raw_id\": \"f1_31\"
+                            },
+                            {
+                                \"raw_id\": \"f1_32\"
+                            },
+                            {
+                                \"raw_id\": \"f1_33\"
+                            },
+                            {
+                                \"raw_id\": \"f1_34\"
+                            },
+                            {
+                                \"raw_id\": \"f1_41\"
+                            },
+                            {
+                                \"raw_id\": \"f1_42\"
+                            },
+                            {
+                                \"raw_id\": \"f1_43_1\",
+                                \"raw_id_down\": \"f1_43_2\"
+                            },
+                            {
+                                \"raw_id\": \"a0_00\"
+                            }
+                        ]
+                    },
+                    {
+                        \"pad\": [
+                            {
+                                \"raw_id\": \"f2_00\"
+                            },
+                            {
+                                \"raw_id\": \"a0_00\"
+                            },
+                            {
+                                \"raw_id\": \"a0_00\"
+                            },
+                            {
+                                \"raw_id\": \"a0_00\"
+                            },
+                            {
+                                \"raw_id\": \"a0_00\"
+                            },
+                            {
+                                \"raw_id\": \"f2_11\"
+                            },
+                            {
+                                \"raw_id\": \"f2_12\"
+                            },
+                            {
+                                \"raw_id\": \"f2_13\"
+                            },
+                            {
+                                \"raw_id\": \"f2_14_1\",
+                                \"raw_id_down\": \"f2_14_3\",
+                                \"raw_id_up\": \"f2_14_2\"
+                            },
+                            {
+                                \"raw_id\": \"f2_21\"
+                            },
+                            {
+                                \"raw_id\": \"f2_22\"
+                            },
+                            {
+                                \"raw_id\": \"f2_23\"
+                            },
+                            {
+                                \"raw_id\": \"f2_24_1\",
+                                \"raw_id_down\": \"f2_24_3\",
+                                \"raw_id_up\": \"f2_24_2\"
+                            },
+                            {
+                                \"raw_id\": \"f2_31\"
+                            },
+                            {
+                                \"raw_id\": \"f2_32\"
+                            },
+                            {
+                                \"raw_id\": \"f2_33\"
+                            },
+                            {
+                                \"raw_id\": \"f2_34_1\",
+                                \"raw_id_down\": \"f2_34_3\",
+                                \"raw_id_up\": \"f2_34_2\"
+                            },
+                            {
+                                \"raw_id\": \"f2_41\"
+                            },
+                            {
+                                \"raw_id\": \"f2_42\"
+                            },
+                            {
+                                \"raw_id\": \"f2_43\"
+                            },
+                            {
+                                \"raw_id\": \"f2_44_1\",
+                                \"raw_id_down\": \"f2_44_3\",
+                                \"raw_id_up\": \"f2_44_2\"
+                            }
+                        ]
+                    },
+                    {
+                        \"pad\": [
+                            {
+                                \"raw_id\": \"f3_00\"
+                            },
+                            {
+                                \"raw_id\": \"a0_00\"
+                            },
+                            {
+                                \"raw_id\": \"a0_00\"
+                            },
+                            {
+                                \"raw_id\": \"a0_00\"
+                            },
+                            {
+                                \"raw_id\": \"a0_00\"
+                            },
+                            {
+                                \"raw_id\": \"f3_11\"
+                            },
+                            {
+                                \"raw_id\": \"f3_12\"
+                            },
+                            {
+                                \"raw_id\": \"f3_13\"
+                            },
+                            {
+                                \"raw_id\": \"f3_14_1\",
+                                \"raw_id_down\": \"f3_14_3\",
+                                \"raw_id_up\": \"f3_14_2\"
+                            },
+                            {
+                                \"raw_id\": \"f3_21\"
+                            },
+                            {
+                                \"raw_id\": \"f3_22\"
+                            },
+                            {
+                                \"raw_id\": \"f3_23\"
+                            },
+                            {
+                                \"raw_id\": \"f3_24_1\",
+                                \"raw_id_down\": \"f3_24_3\",
+                                \"raw_id_up\": \"f3_24_2\"
+                            },
+                            {
+                                \"raw_id\": \"f3_31\"
+                            },
+                            {
+                                \"raw_id\": \"f3_32\"
+                            },
+                            {
+                                \"raw_id\": \"f3_33\"
+                            },
+                            {
+                                \"raw_id\": \"f3_34_1\",
+                                \"raw_id_down\": \"f3_34_3\",
+                                \"raw_id_up\": \"f3_34_2\"
+                            },
+                            {
+                                \"raw_id\": \"f3_41\"
+                            },
+                            {
+                                \"raw_id\": \"f3_42\"
+                            },
+                            {
+                                \"raw_id\": \"f3_43_1\",
+                                \"raw_id_down\": \"f3_43_2\"
+                            },
+                            {
+                                \"raw_id\": \"f3_44_1\",
+                                \"raw_id_down\": \"f3_44_3\",
+                                \"raw_id_up\": \"f3_44_2\"
+                            }
+                        ]
+                    },
+                    {
+                        \"pad\": [
+                            {
+                                \"raw_id\": \"a0_00\"
+                            },
+                            {
+                                \"raw_id\": \"a0_00\"
+                            },
+                            {
+                                \"raw_id\": \"a0_00\"
+                            },
+                            {
+                                \"raw_id\": \"a0_00\"
+                            },
+                            {
+                                \"raw_id\": \"a0_00\"
+                            },
+                            {
+                                \"raw_id\": \"f4_11\"
+                            },
+                            {
+                                \"raw_id\": \"f4_12\"
+                            },
+                            {
+                                \"raw_id\": \"f4_13\"
+                            },
+                            {
+                                \"raw_id\": \"f4_14\"
+                            },
+                            {
+                                \"raw_id\": \"f4_21\"
+                            },
+                            {
+                                \"raw_id\": \"f4_22\"
+                            },
+                            {
+                                \"raw_id\": \"f4_23\"
+                            },
+                            {
+                                \"raw_id\": \"f4_24\"
+                            },
+                            {
+                                \"raw_id\": \"f4_31\"
+                            },
+                            {
+                                \"raw_id\": \"f4_32\"
+                            },
+                            {
+                                \"raw_id\": \"f4_33\"
+                            },
+                            {
+                                \"raw_id\": \"f4_34\"
+                            },
+                            {
+                                \"raw_id\": \"f4_41\"
+                            },
+                            {
+                                \"raw_id\": \"f3_42\"
+                            },
+                            {
+                                \"raw_id\": \"f3_43_1\",
+                                \"raw_id_down\": \"f3_43_2\"
+                            },
+                            {
+                                \"raw_id\": \"f3_44_1\",
+                                \"raw_id_down\": \"f3_44_3\",
+                                \"raw_id_up\": \"f3_44_2\"
+                            }
+                        ]
+                    }
+                ],
+                \"id\": 3,
+                \"name\": \"Faded\"
+            }
+        }"
+    </string>
 </resources>

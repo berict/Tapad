@@ -1,15 +1,23 @@
 package com.bedrock.padder.model.preset;
 
-public class Preset {
-    
-    private Integer id;
-    private Music music;
-    private Artist artist;
+import com.bedrock.padder.model.about.About;
+import com.google.gson.annotations.SerializedName;
 
-    public Preset(Integer id, Music music, Artist artist) {
+public class Preset {
+
+    @SerializedName("id")
+    private Integer id;
+
+    @SerializedName("music")
+    private Music music;
+
+    @SerializedName("about")
+    private About about;
+
+    public Preset(Integer id, Music music, About about) {
         this.id = id;
         this.music = music;
-        this.artist = artist;
+        this.about = about;
     }
 
     public Integer getId() {
@@ -20,7 +28,7 @@ public class Preset {
         return music;
     }
 
-    public Artist getArtist() {
-        return artist;
+    public About getAbout() {
+        return about;
     }
 }

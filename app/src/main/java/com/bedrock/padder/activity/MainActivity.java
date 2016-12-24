@@ -31,8 +31,18 @@ import com.bedrock.padder.helper.SoundService;
 import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.TutorialService;
 import com.bedrock.padder.helper.WindowService;
+import com.bedrock.padder.model.about.About;
+import com.bedrock.padder.model.preset.Artist;
+import com.bedrock.padder.model.preset.Deck;
+import com.bedrock.padder.model.preset.Music;
+import com.bedrock.padder.model.preset.Pad;
+import com.bedrock.padder.model.preset.Preset;
+import com.google.gson.Gson;
 
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
+
+import static com.bedrock.padder.R.string.about;
+import static com.bedrock.padder.R.string.json_about_hello;
 
 @TargetApi(9)
 @SuppressWarnings("deprecation")
@@ -118,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 //                new Bio("bioTitle", "bioImageResId", "bioName", "bioText", "bioSource"), details,
 //                "statusColorResId", "actionColorResId");
 
-        //TODO Remove this
+        //TODO use this for new presets
 //        String[] social = getResources().getStringArray(R.array.roses_social);
 //        String[] bio = getResources().getStringArray(R.array.roses_bio);
 //
@@ -138,47 +148,55 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 //                new Bio(bio[2], "about_bio_roses", bio[3], bio[4], bio[5]), details,
 //                "roses_dark", "roses");
 //
-//        Gson gson = new Gson();
-//        String json = gson.toJson(about, About.class);
-//
 //        Log.d("JSON TEST", json);
+        
+        Pad part1[] = {
+                new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
+                new Pad("f1_11"), new Pad("f1_12"), new Pad("f1_13"), new Pad("f1_14"),
+                new Pad("f1_21"), new Pad("f1_22"), new Pad("f1_23"), new Pad("f1_24"),
+                new Pad("f1_31"), new Pad("f1_32"), new Pad("f1_33"), new Pad("f1_34"),
+                new Pad("f1_41"), new Pad("f1_42"), new Pad("f1_43_1", "f1_43_2"), new Pad("a0_00")
+        };
 
-//        Item support[] = {
-//                new Item(getResources().getStringArray(R.array.berict_support)[0], getResources().getStringArray(R.array.berict_support)[1], "about_report_bug"),
-//                new Item(getResources().getStringArray(R.array.berict_support)[2], getResources().getStringArray(R.array.berict_support)[3], "about_rate"),
-//                new Item(getResources().getStringArray(R.array.berict_support)[4], getResources().getStringArray(R.array.berict_support)[5], "about_web"),
-//                new Item(getResources().getStringArray(R.array.berict_support)[6], getResources().getStringArray(R.array.berict_support)[7], "about_donate")
-//        };
-//
-//        String[] social = getResources().getStringArray(R.array.berict_social);
-//
-//        Item about[] = {
-//                new Item("Facebook"  , social[0], "about_facebook"),
-//                new Item("Twitter"   , social[1], "about_twitter"),
-//                new Item("YouTube"   , social[2], "about_youtube"),
-//                new Item("Webpage"   , social[3], "about_web")
-//        };
-//
-//        String[] bio = getResources().getStringArray(R.array.berict_bio);
-//
-//        Detail details[] = {
-//                new Detail("About " + bio[0], about),
-//                new Detail(getResources().getString(R.string.berict_support), support)
-//        };
-//
-//        About dev = new About("Tapad", "cardview_background_berict",
-//                new Bio(bio[2], null, bio[3], bio[4], bio[5]), details,
-//                "dev_dark", "dev");
-//        Gson gson = new Gson();
-//        String json = gson.toJson(dev, About.class);
-//        Log.d("JSON TEST", json);
+        Pad part2[] = {
+                new Pad("f2_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
+                new Pad("f2_11"), new Pad("f2_12"), new Pad("f2_13"), new Pad("f2_14_1", "f2_14_2", "f2_14_3"),
+                new Pad("f2_21"), new Pad("f2_22"), new Pad("f2_23"), new Pad("f2_24_1", "f2_24_2", "f2_24_3"),
+                new Pad("f2_31"), new Pad("f2_32"), new Pad("f2_33"), new Pad("f2_34_1", "f2_34_2", "f2_34_3"),
+                new Pad("f2_41"), new Pad("f2_42"), new Pad("f2_43"), new Pad("f2_44_1", "f2_44_2", "f2_44_3")
+        };
+
+        Pad part3[] = {
+                new Pad("f3_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
+                new Pad("f3_11"), new Pad("f3_12"), new Pad("f3_13"), new Pad("f3_14_1", "f3_14_2", "f3_14_3"),
+                new Pad("f3_21"), new Pad("f3_22"), new Pad("f3_23"), new Pad("f3_24_1", "f3_24_2", "f3_24_3"),
+                new Pad("f3_31"), new Pad("f3_32"), new Pad("f3_33"), new Pad("f3_34_1", "f3_34_2", "f3_34_3"),
+                new Pad("f3_41"), new Pad("f3_42"), new Pad("f3_43_1", "f3_43_2"), new Pad("f3_44_1", "f3_44_2", "f3_44_3")
+        };
+
+        Pad part4[] = {
+                new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
+                new Pad("f4_11"), new Pad("f4_12"), new Pad("f4_13"), new Pad("f4_14"),
+                new Pad("f4_21"), new Pad("f4_22"), new Pad("f4_23"), new Pad("f4_24"),
+                new Pad("f4_31"), new Pad("f4_32"), new Pad("f4_33"), new Pad("f4_34"),
+                new Pad("f4_41"), new Pad("f3_42"), new Pad("f3_43_1", "f3_43_2"), new Pad("f3_44_1", "f3_44_2", "f3_44_3")
+        };
+
+        Music faded = new Music(3, "Faded",
+                new Deck[]{new Deck(part1), new Deck(part2), new Deck(part3), new Deck(part4)});
+
+        Gson gson = new Gson();
+        Preset preset = new Preset(1, faded, gson.fromJson(getResources().getString(R.string.json_about_faded), About.class));
+
+        String json = gson.toJson(preset, Preset.class);
+        Log.d("JSON", json);
     }
 
     void enterAnim() {
         anim.fadeIn(R.id.actionbar_layout, 0, 200, "background", a);
         anim.fadeIn(R.id.actionbar_image, 200, 200, "image", a);
         //TODO: Remove this to load preset
-        loadPresetFirstRun(400);
+        loadPreset(400);
         isPresetLoading = true;
     }
 
@@ -1296,29 +1314,17 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
             }
         }, delay);
 
-        preset.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                sound.loadSchemeSound(a);
-            }
-        }, delay + 400);
-    }
-
-    void loadPresetFirstRun(int delay) {
-        Handler preset = new Handler();
-        preset.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (w.getView(R.id.progress_bar_layout, a).getVisibility() == View.GONE) {
-                    anim.fadeIn(R.id.progress_bar_layout, 0, 400, "progressIn", a);
-                }
-            }
-        }, delay);
+        Gson gson = new Gson();
+        final Preset presets[] = {
+                gson.fromJson(getResources().getString(R.string.json_hello), Preset.class),
+                gson.fromJson(getResources().getString(R.string.json_roses), Preset.class),
+                gson.fromJson(getResources().getString(R.string.json_faded), Preset.class)
+        };
 
         preset.postDelayed(new Runnable() {
             @Override
             public void run() {
-                sound.loadSchemeSoundFirstRun(a);
+                sound.loadSchemeSound(presets[getScheme() - 1], a);
             }
         }, delay + 400);
     }

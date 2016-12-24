@@ -470,6 +470,10 @@ public class WindowService {
         //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
     }
 
+    public int getRawId(String id, Activity activity) {
+        return activity.getResources().getIdentifier(id, "raw", activity.getPackageName());
+    }
+
     // public Z getZ(int id, Activity activity) {
     //     Z z = (Z) activity.findViewById(id);
     //     return z;
@@ -662,6 +666,62 @@ public class WindowService {
                 sp.play(soundId[count], 1, 1, 1, 0, 1f);
             }
         }, delay);
+    }
+
+    public void setOnGestureSound(int padId, final int colorDown, final int colorUp, final SoundPool sp, final int spid[], final Activity activity) {
+        final boolean isLoopEnabled[] = {false};
+        View pad = activity.findViewById(padId);
+        pad.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                    view.setBackgroundColor(activity.getResources().getColor(colorDown));
+                } if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    view.setBackgroundColor(activity.getResources().getColor(colorUp));
+                }
+                return false;
+            }
+        });
+        final int streamId[] = {0};
+        pad.setOnTouchListener(new OnSwipeTouchListener(activity){
+            @Override
+            public void onClick() {
+                sp.play(spid[0], 1, 1, 1, 0, 1);
+                Log.d("TouchListener", "Click");
+            }
+            @Override
+            public void onSwipeUp() {
+                sp.play(spid[1], 1, 1, 1, 0, 1);
+                Log.d("TouchListener", "SwipeUp");
+            }
+            @Override
+            public void onSwipeRight() {
+                sp.play(spid[2], 1, 1, 1, 0, 1);
+                Log.d("TouchListener", "SwipeRight");
+            }
+            @Override
+            public void onSwipeDown() {
+                sp.play(spid[3], 1, 1, 1, 0, 1);
+                Log.d("TouchListener", "SwipeDown");
+            }
+            @Override
+            public void onSwipeLeft() {
+                sp.play(spid[4], 1, 1, 1, 0, 1);
+                Log.d("TouchListener", "SwipeLeft");
+            }
+            @Override
+            public void onLongClick() {
+                if(isLoopEnabled[0] == false) {
+                    streamId[0] = sp.play(spid[0], 1, 1, 1, -1, 1);
+                    isLoopEnabled[0] = true;
+                    Log.d("TouchListener", "LongClick, loop on");
+                } else {
+                    sp.stop(streamId[0]);
+                    isLoopEnabled[0] = false;
+                    Log.d("TouchListener", "LongClick, loop off");
+                }
+            }
+        });
     }
 
     public void setOnTouchSound(int id, final SoundPool sp, final int soundId, final Activity activity){

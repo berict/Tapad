@@ -1,16 +1,21 @@
 package com.bedrock.padder.model.preset;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Music {
 
+    @SerializedName("id")
     private Integer id;
-    private Integer nameResId;
-    private Integer imgResId;
+
+    @SerializedName("name")
+    private String name;
+
+    @SerializedName("decks")
     private Deck[] decks;
 
-    public Music(Integer id, Integer nameResId, Integer imgResId, Deck[] decks) {
+    public Music(Integer id, String name, Deck[] decks) {
         this.id = id;
-        this.nameResId = nameResId;
-        this.imgResId = imgResId;
+        this.name = name;
         this.decks = decks;
     }
 
@@ -18,23 +23,11 @@ public class Music {
         return id;
     }
 
-    public Integer getNameResId() {
-        return nameResId;
-    }
-
-    public Integer getImgResId() {
-        return imgResId;
+    public String getName() {
+        return name;
     }
 
     public Deck[] getDecks() {
         return decks;
-    }
-
-    public Deck getDeck(Integer index) {
-        return decks[index];
-    }
-
-    public Integer getDecksCount() {
-        return decks.length;
     }
 }
