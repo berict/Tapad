@@ -6,12 +6,14 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.bedrock.padder.R;
 
 public class AppbarService {
     public static int LAYOUT        = R.id.actionbar_layout;
     public static int STATUS        = R.id.statusbar;
+    public static int STATUS_LAYOUT = R.id.statusbar_layout;
     public static int NAV_LAYOUT    = R.id.actionbar_nav_layout;
     public static int NAV           = R.id.actionbar_nav;
     public static int NAV_BACK      = R.id.actionbar_nav_icon_back;
@@ -153,10 +155,10 @@ public class AppbarService {
     public void setStatusHeight(Activity activity){
         SharedPreferences prefs = activity.getSharedPreferences("com.bedrock.padder", activity.MODE_PRIVATE);
 
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) w.getRelativeLayout(STATUS, activity).getLayoutParams();
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) w.getRelativeLayout(STATUS_LAYOUT, activity).getLayoutParams();
         params.height = prefs.getInt("statBarPX", 0);
-        w.getRelativeLayout(STATUS, activity).setLayoutParams(params);
-        Log.d("Appbar", "Status bar height set");
+        w.getRelativeLayout(STATUS_LAYOUT, activity).setLayoutParams(params);
+        Log.d("Appbar", "Status bar (layout) height set");
     }
 
     public void setStatusHeightCustom(int heightPX, Activity activity){

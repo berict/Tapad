@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:wheel="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     tools:context=".activity.MainActivity">
 
@@ -22,6 +23,8 @@
         <ProgressBar
             android:id="@+id/progress_bar"
             style="?android:attr/progressBarStyleLarge"
+            android:indeterminate="false"
+            android:max="84"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_centerInParent="true" />

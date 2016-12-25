@@ -24,6 +24,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -381,6 +382,11 @@ public class WindowService {
         return view;
     }
 
+    public ProgressBar getProgressBar(int id, Activity activity) {
+        ProgressBar progressBar = (ProgressBar) activity.findViewById(id);
+        return progressBar;
+    }
+
     public Button getButton(int id, Activity activity) {
         Button button = (Button) activity.findViewById(id);
         return button;
@@ -670,7 +676,7 @@ public class WindowService {
 
     public void setOnGestureSound(int padId, final int colorDown, final int colorUp, final SoundPool sp, final int spid[], final Activity activity) {
         final boolean isLoopEnabled[] = {false};
-        View pad = activity.findViewById(padId);
+        final View pad = activity.findViewById(padId);
         pad.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -685,32 +691,48 @@ public class WindowService {
         final int streamId[] = {0};
         pad.setOnTouchListener(new OnSwipeTouchListener(activity){
             @Override
+            public void onTouch() {
+                try {
+                    pad.setBackgroundColor(activity.getResources().getColor(colorDown));
+                } catch (Resources.NotFoundException e) {
+                    Log.i("NotFoundException", "Handling with normal value");
+                    pad.setBackgroundColor(colorDown);
+                }
+            }
+
+            @Override
             public void onClick() {
                 sp.play(spid[0], 1, 1, 1, 0, 1);
+                pad.setBackgroundColor(activity.getResources().getColor(colorUp));
                 Log.d("TouchListener", "Click");
             }
             @Override
             public void onSwipeUp() {
                 sp.play(spid[1], 1, 1, 1, 0, 1);
+                pad.setBackgroundColor(activity.getResources().getColor(colorUp));
                 Log.d("TouchListener", "SwipeUp");
             }
             @Override
             public void onSwipeRight() {
                 sp.play(spid[2], 1, 1, 1, 0, 1);
+                pad.setBackgroundColor(activity.getResources().getColor(colorUp));
                 Log.d("TouchListener", "SwipeRight");
             }
             @Override
             public void onSwipeDown() {
                 sp.play(spid[3], 1, 1, 1, 0, 1);
+                pad.setBackgroundColor(activity.getResources().getColor(colorUp));
                 Log.d("TouchListener", "SwipeDown");
             }
             @Override
             public void onSwipeLeft() {
                 sp.play(spid[4], 1, 1, 1, 0, 1);
+                pad.setBackgroundColor(activity.getResources().getColor(colorUp));
                 Log.d("TouchListener", "SwipeLeft");
             }
             @Override
             public void onLongClick() {
+                pad.setBackgroundColor(activity.getResources().getColor(colorUp));
                 if(isLoopEnabled[0] == false) {
                     streamId[0] = sp.play(spid[0], 1, 1, 1, -1, 1);
                     isLoopEnabled[0] = true;

@@ -199,40 +199,6 @@ public class TutorialService extends Activity{
     }
 
     void motionAnimation(int buttonNumber, Activity activity){
-//        switch (buttonNumber){
-//            case 0: playMotionAnimation(R.id.btn00_tutorial , R.id.ph00, R.raw.mo_top_right,    activity); break;
-//
-//            //Toggle
-//            case 1:  playMotionAnimation(R.id.tgl1_tutorial , R.id.ph01, R.raw.mo_toggle_top,   activity); break;
-//            case 2:  playMotionAnimation(R.id.tgl2_tutorial , R.id.ph02, R.raw.mo_toggle_top,   activity); break;
-//            case 3:  playMotionAnimation(R.id.tgl3_tutorial , R.id.ph03, R.raw.mo_toggle_top,   activity); break;
-//            case 4:  playMotionAnimation(R.id.tgl4_tutorial , R.id.ph04, R.raw.mo_toggle_top,   activity); break;
-//            case 5:  playMotionAnimation(R.id.tgl5_tutorial , R.id.ph05, R.raw.mo_toggle_right, activity); break;
-//            case 6:  playMotionAnimation(R.id.tgl6_tutorial , R.id.ph06, R.raw.mo_toggle_right, activity); break;
-//            case 7:  playMotionAnimation(R.id.tgl7_tutorial , R.id.ph07, R.raw.mo_toggle_right, activity); break;
-//            case 8:  playMotionAnimation(R.id.tgl8_tutorial , R.id.ph08, R.raw.mo_toggle_right, activity); break;
-//
-//            //Main
-//            case 11: playMotionAnimation(R.id.btn11_tutorial, R.id.ph11, R.raw.mo_top_left,     activity); break;
-//            case 12: playMotionAnimation(R.id.btn12_tutorial, R.id.ph12, R.raw.mo_top,          activity); break;
-//            case 13: playMotionAnimation(R.id.btn13_tutorial, R.id.ph13, R.raw.mo_top,          activity); break;
-//            case 14: playMotionAnimation(R.id.btn14_tutorial, R.id.ph14, R.raw.mo_top_right,    activity); break;
-//            case 21: playMotionAnimation(R.id.btn21_tutorial, R.id.ph21, R.raw.mo_left,         activity); break;
-//            case 22: playMotionAnimation(R.id.btn22_tutorial, R.id.ph22, R.raw.mo_top_left,     activity); break;
-//            case 23: playMotionAnimation(R.id.btn23_tutorial, R.id.ph23, R.raw.mo_top_right,    activity); break;
-//            case 24: playMotionAnimation(R.id.btn24_tutorial, R.id.ph24, R.raw.mo_right,        activity); break;
-//            case 31: playMotionAnimation(R.id.btn31_tutorial, R.id.ph31, R.raw.mo_left,         activity); break;
-//            case 32: playMotionAnimation(R.id.btn32_tutorial, R.id.ph32, R.raw.mo_bottom_left,  activity); break;
-//            case 33: playMotionAnimation(R.id.btn33_tutorial, R.id.ph33, R.raw.mo_bottom_right, activity); break;
-//            case 34: playMotionAnimation(R.id.btn34_tutorial, R.id.ph34, R.raw.mo_right,        activity); break;
-//            case 41: playMotionAnimation(R.id.btn41_tutorial, R.id.ph41, R.raw.mo_bottom_left,  activity); break;
-//            case 42: playMotionAnimation(R.id.btn42_tutorial, R.id.ph42, R.raw.mo_bottom,       activity); break;
-//            case 43: playMotionAnimation(R.id.btn43_tutorial, R.id.ph43, R.raw.mo_bottom,       activity); break;
-//            case 44: playMotionAnimation(R.id.btn44_tutorial, R.id.ph44, R.raw.mo_bottom_right, activity); break;
-//
-//            default: Log.i("Turorial Service", "Method called without any matching number"); break;
-//        }
-
         switch (buttonNumber){
             case 0:  playMotion(R.id.btn00_tutorial, activity); break;
 
@@ -331,6 +297,8 @@ public class TutorialService extends Activity{
             btn43,
             btn44
     };
+
+    //TODO: add swipe tutorials
 
     public void playMotion(int viewId, Activity activity) {
         // Animator

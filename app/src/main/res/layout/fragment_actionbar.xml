@@ -12,9 +12,9 @@
         <RelativeLayout
             android:id="@+id/statusbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="@*android:dimen/status_bar_height">
+            android:layout_height="25dp">
 
-            <!-- Not an error! Just to make this public -->
+            <!-- Changed programmatically -->
 
             <View
                 android:id="@+id/statusbar"

@@ -43,6 +43,7 @@ import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 import static com.bedrock.padder.R.string.about;
 import static com.bedrock.padder.R.string.json_about_hello;
+import static com.bedrock.padder.helper.SoundService.PRESET_SOUND_COUNTS;
 
 @TargetApi(9)
 @SuppressWarnings("deprecation")
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
         w.setMarginRelativePX(R.id.fab, 0, 0, w.convertDPtoPX(20, a), prefs.getInt("navBarPX", 0) + w.convertDPtoPX(20, a), a);
         w.setMarginRelativePX(R.id.toolbar, 0, 0, 0, prefs.getInt("navBarPX", 0), a);
-        //ab.setStatusHeight(a);
+        ab.setStatusHeight(a);
 
         color = prefs.getInt("color", R.color.red);
         sound.setButton(R.color.grey_dark, a);
@@ -1304,16 +1305,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     }
 
     void loadPreset(int delay) {
-        Handler preset = new Handler();
-        preset.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (w.getView(R.id.progress_bar_layout, a).getVisibility() == View.GONE) {
-                    anim.fadeIn(R.id.progress_bar_layout, 0, 400, "progressIn", a);
-                }
-            }
-        }, delay);
-
         Gson gson = new Gson();
         final Preset presets[] = {
                 gson.fromJson(getResources().getString(R.string.json_hello), Preset.class),
@@ -1321,12 +1312,15 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 gson.fromJson(getResources().getString(R.string.json_faded), Preset.class)
         };
 
+        //w.getProgressBar(R.id.progress_bar, a).setMax(PRESET_SOUND_COUNTS[getScheme() - 1]);
+
+        Handler preset = new Handler();
         preset.postDelayed(new Runnable() {
             @Override
             public void run() {
                 sound.loadSchemeSound(presets[getScheme() - 1], a);
             }
-        }, delay + 400);
+        }, delay);
     }
 
     public boolean tgl1 = false;

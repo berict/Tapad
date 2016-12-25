@@ -7,101 +7,449 @@ import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 
 import com.bedrock.padder.R;
 import com.bedrock.padder.activity.MainActivity;
 import com.bedrock.padder.model.preset.Preset;
 
-import java.util.concurrent.Semaphore;
-
 public class SoundService {
 
-        public SoundPool sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);        public int toggle;    int sp_id_1_00;    int sp_id_1_00_1;    int sp_id_1_00_2;
-    int sp_id_1_00_3;    int sp_id_1_00_4;    int sp_id_2_00;    int sp_id_2_00_1;    int sp_id_2_00_2;
-    int sp_id_2_00_3;    int sp_id_2_00_4;    int sp_id_3_00;    int sp_id_3_00_1;    int sp_id_3_00_2;
-    int sp_id_3_00_3;    int sp_id_3_00_4;    int sp_id_4_00;    int sp_id_4_00_1;    int sp_id_4_00_2;
-    int sp_id_4_00_3;    int sp_id_4_00_4;    int sp_id_1_01;    int sp_id_1_01_1;    int sp_id_1_01_2;
-    int sp_id_1_01_3;    int sp_id_1_01_4;    int sp_id_2_01;    int sp_id_2_01_1;    int sp_id_2_01_2;
-    int sp_id_2_01_3;    int sp_id_2_01_4;    int sp_id_3_01;    int sp_id_3_01_1;    int sp_id_3_01_2;
-    int sp_id_3_01_3;    int sp_id_3_01_4;    int sp_id_4_01;    int sp_id_4_01_1;    int sp_id_4_01_2;
-    int sp_id_4_01_3;    int sp_id_4_01_4;    int sp_id_1_02;    int sp_id_1_02_1;    int sp_id_1_02_2;
-    int sp_id_1_02_3;    int sp_id_1_02_4;    int sp_id_2_02;    int sp_id_2_02_1;    int sp_id_2_02_2;
-    int sp_id_2_02_3;    int sp_id_2_02_4;    int sp_id_3_02;    int sp_id_3_02_1;    int sp_id_3_02_2;
-    int sp_id_3_02_3;    int sp_id_3_02_4;    int sp_id_4_02;    int sp_id_4_02_1;    int sp_id_4_02_2;
-    int sp_id_4_02_3;    int sp_id_4_02_4;    int sp_id_1_03;    int sp_id_1_03_1;    int sp_id_1_03_2;
-    int sp_id_1_03_3;    int sp_id_1_03_4;    int sp_id_2_03;    int sp_id_2_03_1;    int sp_id_2_03_2;
-    int sp_id_2_03_3;    int sp_id_2_03_4;    int sp_id_3_03;    int sp_id_3_03_1;    int sp_id_3_03_2;
-    int sp_id_3_03_3;    int sp_id_3_03_4;    int sp_id_4_03;    int sp_id_4_03_1;    int sp_id_4_03_2;
-    int sp_id_4_03_3;    int sp_id_4_03_4;    int sp_id_1_04;    int sp_id_1_04_1;    int sp_id_1_04_2;
-    int sp_id_1_04_3;    int sp_id_1_04_4;    int sp_id_2_04;    int sp_id_2_04_1;    int sp_id_2_04_2;
-    int sp_id_2_04_3;    int sp_id_2_04_4;    int sp_id_3_04;    int sp_id_3_04_1;    int sp_id_3_04_2;
-    int sp_id_3_04_3;    int sp_id_3_04_4;    int sp_id_4_04;    int sp_id_4_04_1;    int sp_id_4_04_2;
-    int sp_id_4_04_3;    int sp_id_4_04_4;    int sp_id_1_11;    int sp_id_1_11_1;    int sp_id_1_11_2;
-    int sp_id_1_11_3;    int sp_id_1_11_4;    int sp_id_2_11;    int sp_id_2_11_1;    int sp_id_2_11_2;
-    int sp_id_2_11_3;    int sp_id_2_11_4;    int sp_id_3_11;    int sp_id_3_11_1;    int sp_id_3_11_2;
-    int sp_id_3_11_3;    int sp_id_3_11_4;    int sp_id_4_11;    int sp_id_4_11_1;    int sp_id_4_11_2;
-    int sp_id_4_11_3;    int sp_id_4_11_4;    int sp_id_1_12;    int sp_id_1_12_1;    int sp_id_1_12_2;
-    int sp_id_1_12_3;    int sp_id_1_12_4;    int sp_id_2_12;    int sp_id_2_12_1;    int sp_id_2_12_2;
-    int sp_id_2_12_3;    int sp_id_2_12_4;    int sp_id_3_12;    int sp_id_3_12_1;    int sp_id_3_12_2;
-    int sp_id_3_12_3;    int sp_id_3_12_4;    int sp_id_4_12;    int sp_id_4_12_1;    int sp_id_4_12_2;
-    int sp_id_4_12_3;    int sp_id_4_12_4;    int sp_id_1_13;    int sp_id_1_13_1;    int sp_id_1_13_2;
-    int sp_id_1_13_3;    int sp_id_1_13_4;    int sp_id_2_13;    int sp_id_2_13_1;    int sp_id_2_13_2;
-    int sp_id_2_13_3;    int sp_id_2_13_4;    int sp_id_3_13;    int sp_id_3_13_1;    int sp_id_3_13_2;
-    int sp_id_3_13_3;    int sp_id_3_13_4;    int sp_id_4_13;    int sp_id_4_13_1;    int sp_id_4_13_2;
-    int sp_id_4_13_3;    int sp_id_4_13_4;    int sp_id_1_14;    int sp_id_1_14_1;    int sp_id_1_14_2;
-    int sp_id_1_14_3;    int sp_id_1_14_4;    int sp_id_2_14;    int sp_id_2_14_1;    int sp_id_2_14_2;
-    int sp_id_2_14_3;    int sp_id_2_14_4;    int sp_id_3_14;    int sp_id_3_14_1;    int sp_id_3_14_2;
-    int sp_id_3_14_3;    int sp_id_3_14_4;    int sp_id_4_14;    int sp_id_4_14_1;    int sp_id_4_14_2;
-    int sp_id_4_14_3;    int sp_id_4_14_4;    int sp_id_1_21;    int sp_id_1_21_1;    int sp_id_1_21_2;
-    int sp_id_1_21_3;    int sp_id_1_21_4;    int sp_id_2_21;    int sp_id_2_21_1;    int sp_id_2_21_2;
-    int sp_id_2_21_3;    int sp_id_2_21_4;    int sp_id_3_21;    int sp_id_3_21_1;    int sp_id_3_21_2;
-    int sp_id_3_21_3;    int sp_id_3_21_4;    int sp_id_4_21;    int sp_id_4_21_1;    int sp_id_4_21_2;
-    int sp_id_4_21_3;    int sp_id_4_21_4;    int sp_id_1_22;    int sp_id_1_22_1;    int sp_id_1_22_2;
-    int sp_id_1_22_3;    int sp_id_1_22_4;    int sp_id_2_22;    int sp_id_2_22_1;    int sp_id_2_22_2;
-    int sp_id_2_22_3;    int sp_id_2_22_4;    int sp_id_3_22;    int sp_id_3_22_1;    int sp_id_3_22_2;
-    int sp_id_3_22_3;    int sp_id_3_22_4;    int sp_id_4_22;    int sp_id_4_22_1;    int sp_id_4_22_2;
-    int sp_id_4_22_3;    int sp_id_4_22_4;    int sp_id_1_23;    int sp_id_1_23_1;    int sp_id_1_23_2;
-    int sp_id_1_23_3;    int sp_id_1_23_4;    int sp_id_2_23;    int sp_id_2_23_1;    int sp_id_2_23_2;
-    int sp_id_2_23_3;    int sp_id_2_23_4;    int sp_id_3_23;    int sp_id_3_23_1;    int sp_id_3_23_2;
-    int sp_id_3_23_3;    int sp_id_3_23_4;    int sp_id_4_23;    int sp_id_4_23_1;    int sp_id_4_23_2;
-    int sp_id_4_23_3;    int sp_id_4_23_4;    int sp_id_1_24;    int sp_id_1_24_1;    int sp_id_1_24_2;
-    int sp_id_1_24_3;    int sp_id_1_24_4;    int sp_id_2_24;    int sp_id_2_24_1;    int sp_id_2_24_2;
-    int sp_id_2_24_3;    int sp_id_2_24_4;    int sp_id_3_24;    int sp_id_3_24_1;    int sp_id_3_24_2;
-    int sp_id_3_24_3;    int sp_id_3_24_4;    int sp_id_4_24;    int sp_id_4_24_1;    int sp_id_4_24_2;
-    int sp_id_4_24_3;    int sp_id_4_24_4;    int sp_id_1_31;    int sp_id_1_31_1;    int sp_id_1_31_2;
-    int sp_id_1_31_3;    int sp_id_1_31_4;    int sp_id_2_31;    int sp_id_2_31_1;    int sp_id_2_31_2;
-    int sp_id_2_31_3;    int sp_id_2_31_4;    int sp_id_3_31;    int sp_id_3_31_1;    int sp_id_3_31_2;
-    int sp_id_3_31_3;    int sp_id_3_31_4;    int sp_id_4_31;    int sp_id_4_31_1;    int sp_id_4_31_2;
-    int sp_id_4_31_3;    int sp_id_4_31_4;    int sp_id_1_32;    int sp_id_1_32_1;    int sp_id_1_32_2;
-    int sp_id_1_32_3;    int sp_id_1_32_4;    int sp_id_2_32;    int sp_id_2_32_1;    int sp_id_2_32_2;
-    int sp_id_2_32_3;    int sp_id_2_32_4;    int sp_id_3_32;    int sp_id_3_32_1;    int sp_id_3_32_2;
-    int sp_id_3_32_3;    int sp_id_3_32_4;    int sp_id_4_32;    int sp_id_4_32_1;    int sp_id_4_32_2;
-    int sp_id_4_32_3;    int sp_id_4_32_4;    int sp_id_1_33;    int sp_id_1_33_1;    int sp_id_1_33_2;
-    int sp_id_1_33_3;    int sp_id_1_33_4;    int sp_id_2_33;    int sp_id_2_33_1;    int sp_id_2_33_2;
-    int sp_id_2_33_3;    int sp_id_2_33_4;    int sp_id_3_33;    int sp_id_3_33_1;    int sp_id_3_33_2;
-    int sp_id_3_33_3;    int sp_id_3_33_4;    int sp_id_4_33;    int sp_id_4_33_1;    int sp_id_4_33_2;
-    int sp_id_4_33_3;    int sp_id_4_33_4;    int sp_id_1_34;    int sp_id_1_34_1;    int sp_id_1_34_2;
-    int sp_id_1_34_3;    int sp_id_1_34_4;    int sp_id_2_34;    int sp_id_2_34_1;    int sp_id_2_34_2;
-    int sp_id_2_34_3;    int sp_id_2_34_4;    int sp_id_3_34;    int sp_id_3_34_1;    int sp_id_3_34_2;
-    int sp_id_3_34_3;    int sp_id_3_34_4;    int sp_id_4_34;    int sp_id_4_34_1;    int sp_id_4_34_2;
-    int sp_id_4_34_3;    int sp_id_4_34_4;    int sp_id_1_41;    int sp_id_1_41_1;    int sp_id_1_41_2;
-    int sp_id_1_41_3;    int sp_id_1_41_4;    int sp_id_2_41;    int sp_id_2_41_1;    int sp_id_2_41_2;
-    int sp_id_2_41_3;    int sp_id_2_41_4;    int sp_id_3_41;    int sp_id_3_41_1;    int sp_id_3_41_2;
-    int sp_id_3_41_3;    int sp_id_3_41_4;    int sp_id_4_41;    int sp_id_4_41_1;    int sp_id_4_41_2;
-    int sp_id_4_41_3;    int sp_id_4_41_4;    int sp_id_1_42;    int sp_id_1_42_1;    int sp_id_1_42_2;
-    int sp_id_1_42_3;    int sp_id_1_42_4;    int sp_id_2_42;    int sp_id_2_42_1;    int sp_id_2_42_2;
-    int sp_id_2_42_3;    int sp_id_2_42_4;    int sp_id_3_42;    int sp_id_3_42_1;    int sp_id_3_42_2;
-    int sp_id_3_42_3;    int sp_id_3_42_4;    int sp_id_4_42;    int sp_id_4_42_1;    int sp_id_4_42_2;
-    int sp_id_4_42_3;    int sp_id_4_42_4;    int sp_id_1_43;    int sp_id_1_43_1;    int sp_id_1_43_2;
-    int sp_id_1_43_3;    int sp_id_1_43_4;    int sp_id_2_43;    int sp_id_2_43_1;    int sp_id_2_43_2;
-    int sp_id_2_43_3;    int sp_id_2_43_4;    int sp_id_3_43;    int sp_id_3_43_1;    int sp_id_3_43_2;
-    int sp_id_3_43_3;    int sp_id_3_43_4;    int sp_id_4_43;    int sp_id_4_43_1;    int sp_id_4_43_2;
-    int sp_id_4_43_3;    int sp_id_4_43_4;    int sp_id_1_44;    int sp_id_1_44_1;    int sp_id_1_44_2;
-    int sp_id_1_44_3;    int sp_id_1_44_4;    int sp_id_2_44;    int sp_id_2_44_1;    int sp_id_2_44_2;
-    int sp_id_2_44_3;    int sp_id_2_44_4;    int sp_id_3_44;    int sp_id_3_44_1;    int sp_id_3_44_2;
-    int sp_id_3_44_3;    int sp_id_3_44_4;    int sp_id_4_44;    int sp_id_4_44_1;    int sp_id_4_44_2;
-int sp_id_4_44_3;
-int sp_id_4_44_4;
+    //TODO NEW PRESET : update sound count
+    public static final int HELLO_SOUND_COUNT = 84;
+    public static final int ROSES_SOUND_COUNT = 102;
+    public static final int FADED_SOUND_COUNT = 105;
+
+    public static final int PRESET_SOUND_COUNTS[] = {
+            HELLO_SOUND_COUNT,
+            ROSES_SOUND_COUNT,
+            FADED_SOUND_COUNT
+    };
+
+    public SoundPool sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+    public int toggle;
+
+    int sp_id_1_00;
+    int sp_id_1_00_1;
+    int sp_id_1_00_2;
+    int sp_id_1_00_3;
+    int sp_id_1_00_4;
+    int sp_id_2_00;
+    int sp_id_2_00_1;
+    int sp_id_2_00_2;
+    int sp_id_2_00_3;
+    int sp_id_2_00_4;
+    int sp_id_3_00;
+    int sp_id_3_00_1;
+    int sp_id_3_00_2;
+    int sp_id_3_00_3;
+    int sp_id_3_00_4;
+    int sp_id_4_00;
+    int sp_id_4_00_1;
+    int sp_id_4_00_2;
+    int sp_id_4_00_3;
+    int sp_id_4_00_4;
+    int sp_id_1_01;
+    int sp_id_1_01_1;
+    int sp_id_1_01_2;
+    int sp_id_1_01_3;
+    int sp_id_1_01_4;
+    int sp_id_2_01;
+    int sp_id_2_01_1;
+    int sp_id_2_01_2;
+    int sp_id_2_01_3;
+    int sp_id_2_01_4;
+    int sp_id_3_01;
+    int sp_id_3_01_1;
+    int sp_id_3_01_2;
+    int sp_id_3_01_3;
+    int sp_id_3_01_4;
+    int sp_id_4_01;
+    int sp_id_4_01_1;
+    int sp_id_4_01_2;
+    int sp_id_4_01_3;
+    int sp_id_4_01_4;
+    int sp_id_1_02;
+    int sp_id_1_02_1;
+    int sp_id_1_02_2;
+    int sp_id_1_02_3;
+    int sp_id_1_02_4;
+    int sp_id_2_02;
+    int sp_id_2_02_1;
+    int sp_id_2_02_2;
+    int sp_id_2_02_3;
+    int sp_id_2_02_4;
+    int sp_id_3_02;
+    int sp_id_3_02_1;
+    int sp_id_3_02_2;
+    int sp_id_3_02_3;
+    int sp_id_3_02_4;
+    int sp_id_4_02;
+    int sp_id_4_02_1;
+    int sp_id_4_02_2;
+    int sp_id_4_02_3;
+    int sp_id_4_02_4;
+    int sp_id_1_03;
+    int sp_id_1_03_1;
+    int sp_id_1_03_2;
+    int sp_id_1_03_3;
+    int sp_id_1_03_4;
+    int sp_id_2_03;
+    int sp_id_2_03_1;
+    int sp_id_2_03_2;
+    int sp_id_2_03_3;
+    int sp_id_2_03_4;
+    int sp_id_3_03;
+    int sp_id_3_03_1;
+    int sp_id_3_03_2;
+    int sp_id_3_03_3;
+    int sp_id_3_03_4;
+    int sp_id_4_03;
+    int sp_id_4_03_1;
+    int sp_id_4_03_2;
+    int sp_id_4_03_3;
+    int sp_id_4_03_4;
+    int sp_id_1_04;
+    int sp_id_1_04_1;
+    int sp_id_1_04_2;
+    int sp_id_1_04_3;
+    int sp_id_1_04_4;
+    int sp_id_2_04;
+    int sp_id_2_04_1;
+    int sp_id_2_04_2;
+    int sp_id_2_04_3;
+    int sp_id_2_04_4;
+    int sp_id_3_04;
+    int sp_id_3_04_1;
+    int sp_id_3_04_2;
+    int sp_id_3_04_3;
+    int sp_id_3_04_4;
+    int sp_id_4_04;
+    int sp_id_4_04_1;
+    int sp_id_4_04_2;
+    int sp_id_4_04_3;
+    int sp_id_4_04_4;
+    int sp_id_1_11;
+    int sp_id_1_11_1;
+    int sp_id_1_11_2;
+    int sp_id_1_11_3;
+    int sp_id_1_11_4;
+    int sp_id_2_11;
+    int sp_id_2_11_1;
+    int sp_id_2_11_2;
+    int sp_id_2_11_3;
+    int sp_id_2_11_4;
+    int sp_id_3_11;
+    int sp_id_3_11_1;
+    int sp_id_3_11_2;
+    int sp_id_3_11_3;
+    int sp_id_3_11_4;
+    int sp_id_4_11;
+    int sp_id_4_11_1;
+    int sp_id_4_11_2;
+    int sp_id_4_11_3;
+    int sp_id_4_11_4;
+    int sp_id_1_12;
+    int sp_id_1_12_1;
+    int sp_id_1_12_2;
+    int sp_id_1_12_3;
+    int sp_id_1_12_4;
+    int sp_id_2_12;
+    int sp_id_2_12_1;
+    int sp_id_2_12_2;
+    int sp_id_2_12_3;
+    int sp_id_2_12_4;
+    int sp_id_3_12;
+    int sp_id_3_12_1;
+    int sp_id_3_12_2;
+    int sp_id_3_12_3;
+    int sp_id_3_12_4;
+    int sp_id_4_12;
+    int sp_id_4_12_1;
+    int sp_id_4_12_2;
+    int sp_id_4_12_3;
+    int sp_id_4_12_4;
+    int sp_id_1_13;
+    int sp_id_1_13_1;
+    int sp_id_1_13_2;
+    int sp_id_1_13_3;
+    int sp_id_1_13_4;
+    int sp_id_2_13;
+    int sp_id_2_13_1;
+    int sp_id_2_13_2;
+    int sp_id_2_13_3;
+    int sp_id_2_13_4;
+    int sp_id_3_13;
+    int sp_id_3_13_1;
+    int sp_id_3_13_2;
+    int sp_id_3_13_3;
+    int sp_id_3_13_4;
+    int sp_id_4_13;
+    int sp_id_4_13_1;
+    int sp_id_4_13_2;
+    int sp_id_4_13_3;
+    int sp_id_4_13_4;
+    int sp_id_1_14;
+    int sp_id_1_14_1;
+    int sp_id_1_14_2;
+    int sp_id_1_14_3;
+    int sp_id_1_14_4;
+    int sp_id_2_14;
+    int sp_id_2_14_1;
+    int sp_id_2_14_2;
+    int sp_id_2_14_3;
+    int sp_id_2_14_4;
+    int sp_id_3_14;
+    int sp_id_3_14_1;
+    int sp_id_3_14_2;
+    int sp_id_3_14_3;
+    int sp_id_3_14_4;
+    int sp_id_4_14;
+    int sp_id_4_14_1;
+    int sp_id_4_14_2;
+    int sp_id_4_14_3;
+    int sp_id_4_14_4;
+    int sp_id_1_21;
+    int sp_id_1_21_1;
+    int sp_id_1_21_2;
+    int sp_id_1_21_3;
+    int sp_id_1_21_4;
+    int sp_id_2_21;
+    int sp_id_2_21_1;
+    int sp_id_2_21_2;
+    int sp_id_2_21_3;
+    int sp_id_2_21_4;
+    int sp_id_3_21;
+    int sp_id_3_21_1;
+    int sp_id_3_21_2;
+    int sp_id_3_21_3;
+    int sp_id_3_21_4;
+    int sp_id_4_21;
+    int sp_id_4_21_1;
+    int sp_id_4_21_2;
+    int sp_id_4_21_3;
+    int sp_id_4_21_4;
+    int sp_id_1_22;
+    int sp_id_1_22_1;
+    int sp_id_1_22_2;
+    int sp_id_1_22_3;
+    int sp_id_1_22_4;
+    int sp_id_2_22;
+    int sp_id_2_22_1;
+    int sp_id_2_22_2;
+    int sp_id_2_22_3;
+    int sp_id_2_22_4;
+    int sp_id_3_22;
+    int sp_id_3_22_1;
+    int sp_id_3_22_2;
+    int sp_id_3_22_3;
+    int sp_id_3_22_4;
+    int sp_id_4_22;
+    int sp_id_4_22_1;
+    int sp_id_4_22_2;
+    int sp_id_4_22_3;
+    int sp_id_4_22_4;
+    int sp_id_1_23;
+    int sp_id_1_23_1;
+    int sp_id_1_23_2;
+    int sp_id_1_23_3;
+    int sp_id_1_23_4;
+    int sp_id_2_23;
+    int sp_id_2_23_1;
+    int sp_id_2_23_2;
+    int sp_id_2_23_3;
+    int sp_id_2_23_4;
+    int sp_id_3_23;
+    int sp_id_3_23_1;
+    int sp_id_3_23_2;
+    int sp_id_3_23_3;
+    int sp_id_3_23_4;
+    int sp_id_4_23;
+    int sp_id_4_23_1;
+    int sp_id_4_23_2;
+    int sp_id_4_23_3;
+    int sp_id_4_23_4;
+    int sp_id_1_24;
+    int sp_id_1_24_1;
+    int sp_id_1_24_2;
+    int sp_id_1_24_3;
+    int sp_id_1_24_4;
+    int sp_id_2_24;
+    int sp_id_2_24_1;
+    int sp_id_2_24_2;
+    int sp_id_2_24_3;
+    int sp_id_2_24_4;
+    int sp_id_3_24;
+    int sp_id_3_24_1;
+    int sp_id_3_24_2;
+    int sp_id_3_24_3;
+    int sp_id_3_24_4;
+    int sp_id_4_24;
+    int sp_id_4_24_1;
+    int sp_id_4_24_2;
+    int sp_id_4_24_3;
+    int sp_id_4_24_4;
+    int sp_id_1_31;
+    int sp_id_1_31_1;
+    int sp_id_1_31_2;
+    int sp_id_1_31_3;
+    int sp_id_1_31_4;
+    int sp_id_2_31;
+    int sp_id_2_31_1;
+    int sp_id_2_31_2;
+    int sp_id_2_31_3;
+    int sp_id_2_31_4;
+    int sp_id_3_31;
+    int sp_id_3_31_1;
+    int sp_id_3_31_2;
+    int sp_id_3_31_3;
+    int sp_id_3_31_4;
+    int sp_id_4_31;
+    int sp_id_4_31_1;
+    int sp_id_4_31_2;
+    int sp_id_4_31_3;
+    int sp_id_4_31_4;
+    int sp_id_1_32;
+    int sp_id_1_32_1;
+    int sp_id_1_32_2;
+    int sp_id_1_32_3;
+    int sp_id_1_32_4;
+    int sp_id_2_32;
+    int sp_id_2_32_1;
+    int sp_id_2_32_2;
+    int sp_id_2_32_3;
+    int sp_id_2_32_4;
+    int sp_id_3_32;
+    int sp_id_3_32_1;
+    int sp_id_3_32_2;
+    int sp_id_3_32_3;
+    int sp_id_3_32_4;
+    int sp_id_4_32;
+    int sp_id_4_32_1;
+    int sp_id_4_32_2;
+    int sp_id_4_32_3;
+    int sp_id_4_32_4;
+    int sp_id_1_33;
+    int sp_id_1_33_1;
+    int sp_id_1_33_2;
+    int sp_id_1_33_3;
+    int sp_id_1_33_4;
+    int sp_id_2_33;
+    int sp_id_2_33_1;
+    int sp_id_2_33_2;
+    int sp_id_2_33_3;
+    int sp_id_2_33_4;
+    int sp_id_3_33;
+    int sp_id_3_33_1;
+    int sp_id_3_33_2;
+    int sp_id_3_33_3;
+    int sp_id_3_33_4;
+    int sp_id_4_33;
+    int sp_id_4_33_1;
+    int sp_id_4_33_2;
+    int sp_id_4_33_3;
+    int sp_id_4_33_4;
+    int sp_id_1_34;
+    int sp_id_1_34_1;
+    int sp_id_1_34_2;
+    int sp_id_1_34_3;
+    int sp_id_1_34_4;
+    int sp_id_2_34;
+    int sp_id_2_34_1;
+    int sp_id_2_34_2;
+    int sp_id_2_34_3;
+    int sp_id_2_34_4;
+    int sp_id_3_34;
+    int sp_id_3_34_1;
+    int sp_id_3_34_2;
+    int sp_id_3_34_3;
+    int sp_id_3_34_4;
+    int sp_id_4_34;
+    int sp_id_4_34_1;
+    int sp_id_4_34_2;
+    int sp_id_4_34_3;
+    int sp_id_4_34_4;
+    int sp_id_1_41;
+    int sp_id_1_41_1;
+    int sp_id_1_41_2;
+    int sp_id_1_41_3;
+    int sp_id_1_41_4;
+    int sp_id_2_41;
+    int sp_id_2_41_1;
+    int sp_id_2_41_2;
+    int sp_id_2_41_3;
+    int sp_id_2_41_4;
+    int sp_id_3_41;
+    int sp_id_3_41_1;
+    int sp_id_3_41_2;
+    int sp_id_3_41_3;
+    int sp_id_3_41_4;
+    int sp_id_4_41;
+    int sp_id_4_41_1;
+    int sp_id_4_41_2;
+    int sp_id_4_41_3;
+    int sp_id_4_41_4;
+    int sp_id_1_42;
+    int sp_id_1_42_1;
+    int sp_id_1_42_2;
+    int sp_id_1_42_3;
+    int sp_id_1_42_4;
+    int sp_id_2_42;
+    int sp_id_2_42_1;
+    int sp_id_2_42_2;
+    int sp_id_2_42_3;
+    int sp_id_2_42_4;
+    int sp_id_3_42;
+    int sp_id_3_42_1;
+    int sp_id_3_42_2;
+    int sp_id_3_42_3;
+    int sp_id_3_42_4;
+    int sp_id_4_42;
+    int sp_id_4_42_1;
+    int sp_id_4_42_2;
+    int sp_id_4_42_3;
+    int sp_id_4_42_4;
+    int sp_id_1_43;
+    int sp_id_1_43_1;
+    int sp_id_1_43_2;
+    int sp_id_1_43_3;
+    int sp_id_1_43_4;
+    int sp_id_2_43;
+    int sp_id_2_43_1;
+    int sp_id_2_43_2;
+    int sp_id_2_43_3;
+    int sp_id_2_43_4;
+    int sp_id_3_43;
+    int sp_id_3_43_1;
+    int sp_id_3_43_2;
+    int sp_id_3_43_3;
+    int sp_id_3_43_4;
+    int sp_id_4_43;
+    int sp_id_4_43_1;
+    int sp_id_4_43_2;
+    int sp_id_4_43_3;
+    int sp_id_4_43_4;
+    int sp_id_1_44;
+    int sp_id_1_44_1;
+    int sp_id_1_44_2;
+    int sp_id_1_44_3;
+    int sp_id_1_44_4;
+    int sp_id_2_44;
+    int sp_id_2_44_1;
+    int sp_id_2_44_2;
+    int sp_id_2_44_3;
+    int sp_id_2_44_4;
+    int sp_id_3_44;
+    int sp_id_3_44_1;
+    int sp_id_3_44_2;
+    int sp_id_3_44_3;
+    int sp_id_3_44_4;
+    int sp_id_4_44;
+    int sp_id_4_44_1;
+    int sp_id_4_44_2;
+    int sp_id_4_44_3;
+    int sp_id_4_44_4;
+
     public int soundPoolId[][][] = {
             {
                     {sp_id_1_00, sp_id_1_00_1, sp_id_1_00_2, sp_id_1_00_3, sp_id_1_00_4}, {sp_id_1_01, sp_id_1_01_1, sp_id_1_01_2, sp_id_1_01_3, sp_id_1_01_4}, {sp_id_1_02, sp_id_1_02_1, sp_id_1_02_2, sp_id_1_02_3, sp_id_1_02_4}, {sp_id_1_03, sp_id_1_03_1, sp_id_1_03_2, sp_id_1_03_3, sp_id_1_03_4}, {sp_id_1_04, sp_id_1_04_1, sp_id_1_04_2, sp_id_1_04_3, sp_id_1_04_4},
@@ -128,35 +476,36 @@ int sp_id_4_44_4;
                     {sp_id_4_31, sp_id_4_31_1, sp_id_4_31_2, sp_id_4_31_3, sp_id_4_31_4}, {sp_id_4_32, sp_id_4_32_1, sp_id_4_32_2, sp_id_4_32_3, sp_id_4_32_4}, {sp_id_4_33, sp_id_4_33_1, sp_id_4_33_2, sp_id_4_33_3, sp_id_4_33_4}, {sp_id_4_34, sp_id_4_34_1, sp_id_4_34_2, sp_id_4_34_3, sp_id_4_34_4},
                     {sp_id_4_41, sp_id_4_41_1, sp_id_4_41_2, sp_id_4_41_3, sp_id_4_41_4}, {sp_id_4_42, sp_id_4_42_1, sp_id_4_42_2, sp_id_4_42_3, sp_id_4_42_4}, {sp_id_4_43, sp_id_4_43_1, sp_id_4_43_2, sp_id_4_43_3, sp_id_4_43_4}, {sp_id_4_44, sp_id_4_44_1, sp_id_4_44_2, sp_id_4_44_3, sp_id_4_44_4}
             }
-        };
+    };
+
     boolean isPresetLoaded = false;
     int raw[][][] = {
-        {
-            // Hello
-            {R.raw.a0_00}, {R.raw.h3_01}, {R.raw.a0_00}, {R.raw.h2_03}, {R.raw.h2_04},
-            {R.raw.h1_11}, {R.raw.h1_12}, {R.raw.h1_13}, {R.raw.h1_14},
-            {R.raw.h1_21}, {R.raw.h1_22}, {R.raw.h1_23}, {R.raw.h1_24},
-            {R.raw.h1_31}, {R.raw.h1_32}, {R.raw.h1_33}, {R.raw.h1_34},
-            {R.raw.h1_41}, {R.raw.h1_42}, {R.raw.h1_43}, {R.raw.h1_44},
+            {
+                    // Hello
+                    {R.raw.a0_00}, {R.raw.h3_01}, {R.raw.a0_00}, {R.raw.h2_03}, {R.raw.h2_04},
+                    {R.raw.h1_11}, {R.raw.h1_12}, {R.raw.h1_13}, {R.raw.h1_14},
+                    {R.raw.h1_21}, {R.raw.h1_22}, {R.raw.h1_23}, {R.raw.h1_24},
+                    {R.raw.h1_31}, {R.raw.h1_32}, {R.raw.h1_33}, {R.raw.h1_34},
+                    {R.raw.h1_41}, {R.raw.h1_42}, {R.raw.h1_43}, {R.raw.h1_44},
 
-            {R.raw.h2_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
-            {R.raw.h2_11}, {R.raw.h2_12}, {R.raw.h2_13}, {R.raw.h2_14},
-            {R.raw.h2_21}, {R.raw.h2_22}, {R.raw.h2_23}, {R.raw.h2_24},
-            {R.raw.h2_31}, {R.raw.h2_32}, {R.raw.h2_33}, {R.raw.h2_34},
-            {R.raw.h2_41}, {R.raw.h2_42}, {R.raw.h2_43}, {R.raw.h2_44},
+                    {R.raw.h2_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
+                    {R.raw.h2_11}, {R.raw.h2_12}, {R.raw.h2_13}, {R.raw.h2_14},
+                    {R.raw.h2_21}, {R.raw.h2_22}, {R.raw.h2_23}, {R.raw.h2_24},
+                    {R.raw.h2_31}, {R.raw.h2_32}, {R.raw.h2_33}, {R.raw.h2_34},
+                    {R.raw.h2_41}, {R.raw.h2_42}, {R.raw.h2_43}, {R.raw.h2_44},
 
-            {R.raw.h3_01}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
-            {R.raw.h3_11}, {R.raw.h3_12}, {R.raw.h3_13}, {R.raw.h3_14},
-            {R.raw.h3_21}, {R.raw.h3_22}, {R.raw.h3_23}, {R.raw.h3_24},
-            {R.raw.h3_31}, {R.raw.h3_32}, {R.raw.h3_33}, {R.raw.h3_34},
-            {R.raw.h3_41}, {R.raw.h3_42}, {R.raw.h3_43}, {R.raw.h3_44},
+                    {R.raw.h3_01}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
+                    {R.raw.h3_11}, {R.raw.h3_12}, {R.raw.h3_13}, {R.raw.h3_14},
+                    {R.raw.h3_21}, {R.raw.h3_22}, {R.raw.h3_23}, {R.raw.h3_24},
+                    {R.raw.h3_31}, {R.raw.h3_32}, {R.raw.h3_33}, {R.raw.h3_34},
+                    {R.raw.h3_41}, {R.raw.h3_42}, {R.raw.h3_43}, {R.raw.h3_44},
 
-            {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
-            {R.raw.h4_11}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.h4_14},
-            {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
-            {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
-            {R.raw.h4_41}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.h4_44}
-        }, {
+                    {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
+                    {R.raw.h4_11}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.h4_14},
+                    {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
+                    {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
+                    {R.raw.h4_41}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.h4_44}
+            }, {
             // Roses
             {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
             {R.raw.r1_11}, {R.raw.r1_12}, {R.raw.r1_13}, {R.raw.r1_14},
@@ -181,7 +530,7 @@ int sp_id_4_44_4;
             {R.raw.r4_21_1}, {R.raw.r4_22_1}, {R.raw.r4_23_1}, {R.raw.r4_24_1},
             {R.raw.r4_31_1}, {R.raw.r4_32_1}, {R.raw.r4_33_1}, {R.raw.r4_34_1},
             {R.raw.r2_41}, {R.raw.r4_42_1}, {R.raw.r2_43}, {R.raw.r3_44}
-        }, {
+    }, {
             // Faded
             {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
             {R.raw.f1_11}, {R.raw.f1_12}, {R.raw.f1_13}, {R.raw.f1_14},
@@ -206,10 +555,12 @@ int sp_id_4_44_4;
             {R.raw.f4_21}, {R.raw.f4_22}, {R.raw.f4_23}, {R.raw.f4_24},
             {R.raw.f4_31}, {R.raw.f4_32}, {R.raw.f4_33}, {R.raw.f4_34},
             {R.raw.f4_41}, {R.raw.f3_42}, {R.raw.f3_43_1, R.raw.f3_43_2}, {R.raw.f3_44_1, R.raw.f3_44_2, R.raw.f3_44_3}
-        }
+    }
     };
     Activity activity;
     Preset currentPreset = null;
+    Preset previousPreset = null;
+
     int buttonId[] = {
             R.id.btn00,
             R.id.tgl1,
@@ -274,7 +625,7 @@ int sp_id_4_44_4;
         try {
             sp.release();
         } catch (NullPointerException e) {
-            Log.e("SoundService", "NPE, soundpool is null. Cannot release soundpool.");
+            Log.e("SoundService", "NPE, soundPool is null. Cannot release soundPool.");
         }
     }
 
@@ -283,21 +634,15 @@ int sp_id_4_44_4;
         try {
             sp.autoPause();
         } catch (NullPointerException e) {
-            Log.e("SoundService", "NPE, soundpool is null. Cannot autoPause soundpool.");
+            Log.e("SoundService", "NPE, soundPool is null. Cannot autoPause soundPool.");
         }
     }
 
     public void loadSchemeSound(Preset preset, Activity a) {
+        previousPreset = currentPreset;
         currentPreset = preset;
         activity = a;
-        if(currentPreset == null) {
-            // new app run
-            new LoadSound().execute();
-        } else {
-            // on preset change
-            //TODO change - new asynctask class
-            new LoadSound().execute();
-        }
+        new UnloadSound().execute();
     }
 
     public void unloadSchemeSound(Activity a) {
@@ -385,7 +730,7 @@ int sp_id_4_44_4;
         if (isPresetLoaded == true) {
             for (int i = 0; i < 21; i++) {
                 if (id >= 1) {
-                    if(i < 1 || i > 4) {
+                    if (i < 1 || i > 4) {
                         window.setOnGestureSound(buttonId[i], colorId, R.color.grey, sp, soundPoolId[id - 1][i], activity);
                     }
                 } else {
@@ -585,14 +930,11 @@ int sp_id_4_44_4;
         }
     }
 
-    public static final Semaphore semaphore = new Semaphore(0);
-
     class LoadSound extends AsyncTask<Void, Integer, String> {
         String TAG = "LoadSound";
 
         protected void onPreExecute() {
             Log.d(TAG, "On preExceute, unloadSchemeSound");
-            unloadSchemeSound(activity);
 
             window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.icon_tutorial_disabled);
             window.getImageView(R.id.layout_settings_tutorial_icon, activity).setImageResource(R.drawable.settings_tutorial_disabled);
@@ -600,25 +942,8 @@ int sp_id_4_44_4;
 
         protected String doInBackground(Void... arg0) {
             Log.d(TAG, "On doInBackground, start loading sounds");
-//
-//            if (scheme >= 1 && scheme <= 3) {
-//                Log.i("SoundService", "Preset found");
-//                for (int i = 0; i < 84; i++) {
-//                    if(raw[scheme - 1][i].length == 1) {
-//                        soundPoolId[i][0] = sp.load(activity, raw[scheme - 1][i][0], 1);
-//                    } else {
-//                        Log.d(TAG, "Length " + raw[scheme - 1][i].length);
-//                        for(int j = 0; j < raw[scheme - 1][i].length; j++) {
-//                            soundPoolId[i][j] = sp.load(activity, raw[scheme - 1][i][j], 1);
-//                            Log.d(TAG, "  Sound loaded " + i + "_" + (j + 1));
-//                        }
-//                    }
-//                }
-//            } else {
-//                Log.e("SoundService", "Error during initializing, scheme in SharedPrefs has a wrong value");
-//            }
-
-            if(currentPreset != null) {
+            
+            if (currentPreset != null) {
                 Log.i(TAG, "Preset \"" + currentPreset.getMusic().getName() + "\", id " + currentPreset.getMusic().getId());
                 // deck loop
                 for (int i = 0; i < 4; i++) {
@@ -629,6 +954,7 @@ int sp_id_4_44_4;
                         // pad gesture
                         if (currentPreset.getMusic().getDecks()[i].getPad(j).getRaw() != null) {
                             soundPoolId[i][j][0] = sp.load(activity, window.getRawId(currentPreset.getMusic().getDecks()[i].getPad(j).getRaw(), activity), 1);
+                            Log.i(TAG, "      Pad " + (j + 1) + "-Normal" + ", Sound loaded");
                         }
                         if (currentPreset.getMusic().getDecks()[i].getPad(j).getUp() != null) {
                             soundPoolId[i][j][1] = sp.load(activity, window.getRawId(currentPreset.getMusic().getDecks()[i].getPad(j).getUp(), activity), 1);
@@ -659,31 +985,38 @@ int sp_id_4_44_4;
         }
 
         protected void onPostExecute(String result) {
-            Log.d(TAG, "Finished loading sound");
-
-            // TODO : check if this is working or not
+            Log.d(TAG, "sampleId count : " + PRESET_SOUND_COUNTS[currentPreset.getMusic().getId() - 1]);
             sp.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
                 @Override
                 public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                    window.getTextView(R.id.progress_bar_text, activity).setText(R.string.progressbar_loading_preset_done);
-                    isPresetLoaded = true;
+                    Log.d(TAG, "Loading Finished, sampleId : " + sampleId);
+                    int presetSoundCount = PRESET_SOUND_COUNTS[currentPreset.getMusic().getId() - 1];
+                    if(sampleId == presetSoundCount) {
+                        // final sampleId
+                        Log.d(TAG, "Loading completed, SoundPool succesfully loaded "
+                                + presetSoundCount
+                                + " sounds");
 
-                    window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.icon_tutorial);
-                    window.getImageView(R.id.layout_settings_tutorial_icon, activity).setImageResource(R.drawable.settings_tutorial);
+                        window.getTextView(R.id.progress_bar_text, activity).setText(R.string.progressbar_loading_preset_done);
+                        isPresetLoaded = true;
 
-                    anim.fadeOut(R.id.progress_bar_layout, 400, 400, activity);
-                    MainActivity main = new MainActivity();
-                    main.setQuickstart(activity);
+                        window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.icon_tutorial);
+                        window.getImageView(R.id.layout_settings_tutorial_icon, activity).setImageResource(R.drawable.settings_tutorial);
+
+                        anim.fadeOut(R.id.progress_bar_layout, 400, 400, activity);
+                        MainActivity main = new MainActivity();
+                        main.setQuickstart(activity);
+
+                        Handler setText = new Handler();
+                        setText.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                window.getTextView(R.id.progress_bar_text, activity).setText(R.string.progressbar_loading_preset);
+                            }
+                        }, 800);
+                    }
                 }
             });
-
-            Handler setText = new Handler();
-            setText.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    window.getTextView(R.id.progress_bar_text, activity).setText(R.string.progressbar_loading_preset);
-                }
-            }, 800);
         }
     }
 
@@ -693,43 +1026,66 @@ int sp_id_4_44_4;
 
         protected void onPreExecute() {
             Log.d(TAG, "On preExceute, set prefs");
+            isPresetLoaded = false;
+            if (window.getView(R.id.progress_bar_layout, activity).getVisibility() == View.GONE) {
+                Log.d(TAG, "ProgressBar fadeIn");
+                anim.fadeIn(R.id.progress_bar_layout, 0, 400, "progressIn", activity);
+            }
             prefs = activity.getSharedPreferences("com.bedrock.padder", activity.MODE_PRIVATE);
         }
 
         protected String doInBackground(Void... arg0) {
             Log.d(TAG, "On doInBackground, start unloading sounds");
             try {
-                int scheme = prefs.getInt("scheme", 1);
-                if (scheme >= 1 && scheme <= 3) {
-                    Log.i("SoundService", "Music found");
-                    for (int i = 0; i < 84; i++) {
-                        sp.unload(raw[scheme - 1][i][0]);
-                        if(raw[scheme - 1][i].length == 1) {
-                            sp.unload(raw[scheme - 1][i][0]);
-                        } else {
-                            for(int j = 0; j < raw[scheme - 1][i].length; j++) {
-                                sp.unload(raw[scheme - 1][i][j]);
+                if (previousPreset != null) {
+                    Log.i(TAG, "Preset \"" + previousPreset.getMusic().getName() + "\", id " + previousPreset.getMusic().getId());
+                    // deck loop
+                    for (int i = 0; i < 4; i++) {
+                        Log.i(TAG, "  Deck " + (i + 1));
+                        // pad loop
+                        for (int j = 0; j < 21; j++) {
+                            Log.i(TAG, "    Pad " + (j + 1));
+                            // pad gesture
+                            if (previousPreset.getMusic().getDecks()[i].getPad(j).getRaw() != null) {
+                                sp.unload(window.getRawId(previousPreset.getMusic().getDecks()[i].getPad(j).getRaw(), activity));
+                                Log.i(TAG, "      Pad " + (j + 1) + "-Normal" + ", Sound unloaded");
                             }
+                            if (previousPreset.getMusic().getDecks()[i].getPad(j).getUp() != null) {
+                                sp.unload(window.getRawId(previousPreset.getMusic().getDecks()[i].getPad(j).getUp(), activity));
+                                Log.i(TAG, "      Pad " + (j + 1) + "-Up" + ", Sound unloaded");
+                            }
+                            if (previousPreset.getMusic().getDecks()[i].getPad(j).getRight() != null) {
+                                sp.unload(window.getRawId(previousPreset.getMusic().getDecks()[i].getPad(j).getRight(), activity));
+                                Log.i(TAG, "      Pad " + (j + 1) + "-Right" + ", Sound unloaded");
+                            }
+                            if (previousPreset.getMusic().getDecks()[i].getPad(j).getDown() != null) {
+                                sp.unload(window.getRawId(previousPreset.getMusic().getDecks()[i].getPad(j).getDown(), activity));
+                                Log.i(TAG, "      Pad " + (j + 1) + "-Down" + ", Sound unloaded");
+                            }
+                            if (previousPreset.getMusic().getDecks()[i].getPad(j).getLeft() != null) {
+                                sp.unload(window.getRawId(previousPreset.getMusic().getDecks()[i].getPad(j).getLeft(), activity));
+                                Log.i(TAG, "      Pad " + (j + 1) + "-Left" + ", Sound unloaded");
+                            }
+                            publishProgress(i + 1);
                         }
-                        publishProgress(i + 1);
                     }
-                } else {
-                    Log.e("SoundService", "Error during initializing, scheme in SharedPrefs has a wrong value");
                 }
             } catch (NullPointerException e) {
-                Log.e(TAG, "NPE, Can't find soundpool");
+                Log.e(TAG, "NPE, Can't find soundPool");
             }
 
             return "You are at PostExecute";
         }
 
         protected void onProgressUpdate(Integer... a) {
-            Log.d(TAG, "Sound unloaded " + a[0]);
+            //Log.d(TAG, "Sound unloaded " + a[0]);
         }
 
         protected void onPostExecute(String result) {
             Log.d(TAG, "Finished unloading sound");
-            isPresetLoaded = false;
+            sp.release();
+            sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+            new LoadSound().execute();
         }
     }
 }
