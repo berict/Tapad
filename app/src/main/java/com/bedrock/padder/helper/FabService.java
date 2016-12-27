@@ -7,13 +7,19 @@ import android.os.Build;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewPropertyAnimator;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.bedrock.padder.R;
+
+import static android.R.attr.tag;
 
 public class FabService {
     ImageView image;
@@ -297,6 +303,48 @@ public class FabService {
         // }
         //anim.scaleIn(R.id.toolbar, 0, 200, "toolbarIn", activity);
         anim.scaleIn(R.id.toolbar, x, y, 0, 200, "toolbarIn", activity);
+    }
+
+    public void showToolbar(Activity activity) {
+        //TODO FIX ASAP WRONGLY FUNCTIONING
+        String TAG = "showToolbar";
+        if (Build.VERSION.SDK_INT >= 14) {
+            int toolCenterX, toolCenterY;
+            toolCenterY = (window.getView(R.id.toolbar, activity).getTop() + window.getView(R.id.toolbar, activity).getBottom()) / 2;
+            toolCenterX = (window.getView(R.id.toolbar, activity).getLeft() + window.getView(R.id.toolbar, activity).getRight()) / 2;
+            Log.d(TAG, "Toolbar (DP) (" +
+                    window.convertPXtoDP(toolCenterX, activity) + ", " +
+                    window.convertPXtoDP(toolCenterY, activity) + ")");
+            
+            int fabCenterX, fabCenterY;
+            fabCenterY = (window.getView(R.id.fab, activity).getTop() + window.getView(R.id.fab, activity).getBottom()) / 2;
+            fabCenterX = (window.getView(R.id.fab, activity).getLeft() + window.getView(R.id.fab, activity).getRight()) / 2;
+            Log.d(TAG, "FAB (DP) (" +
+                    window.convertPXtoDP(fabCenterX, activity) + ", " +
+                    window.convertPXtoDP(fabCenterY, activity) + ")");
+            
+            int animDiffX, animDiffY;
+            animDiffX = fabCenterX - toolCenterX;
+            animDiffY = toolCenterY - fabCenterY;
+
+            View fab = activity.findViewById(R.id.fab);
+
+            ViewPropertyAnimator animatorX = fab.animate().translationX(- (animDiffX) / 2);
+            animatorX.setInterpolator(new AccelerateInterpolator());
+            ViewPropertyAnimator animatorY = fab.animate().translationY(animDiffY);
+            animatorY.setInterpolator(new AccelerateDecelerateInterpolator());
+            animatorX.setDuration(500);
+            animatorY.setDuration(500);
+            animatorX.start();
+            animatorY.start();
+
+            fabCenterY = (window.getView(R.id.fab, activity).getTop() + window.getView(R.id.fab, activity).getBottom()) / 2;
+            fabCenterX = (window.getView(R.id.fab, activity).getLeft() + window.getView(R.id.fab, activity).getRight()) / 2;
+
+            anim.circularRevealinpx(R.id.toolbar, fabCenterX, fabCenterY,
+                    0, window.getView(R.id.toolbar, activity).getWidth(),
+                    new AccelerateInterpolator(), 500, 500, activity);
+        }
     }
 
     public void hideToolBar(int x, int y) {

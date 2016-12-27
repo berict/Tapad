@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
     final Activity a = this;
     final String qs = "quickstart";
+    final String TAG = "MainActivity";
     SharedPreferences prefs = null;
     int currentVersionCode;
     int themeColor = R.color.hello;
@@ -151,53 +153,53 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 //
 //        Log.d("JSON TEST", json);
         
-        Pad part1[] = {
-                new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
-                new Pad("f1_11"), new Pad("f1_12"), new Pad("f1_13"), new Pad("f1_14"),
-                new Pad("f1_21"), new Pad("f1_22"), new Pad("f1_23"), new Pad("f1_24"),
-                new Pad("f1_31"), new Pad("f1_32"), new Pad("f1_33"), new Pad("f1_34"),
-                new Pad("f1_41"), new Pad("f1_42"), new Pad("f1_43_1", "f1_43_2"), new Pad("a0_00")
-        };
-
-        Pad part2[] = {
-                new Pad("f2_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
-                new Pad("f2_11"), new Pad("f2_12"), new Pad("f2_13"), new Pad("f2_14_1", "f2_14_2", "f2_14_3"),
-                new Pad("f2_21"), new Pad("f2_22"), new Pad("f2_23"), new Pad("f2_24_1", "f2_24_2", "f2_24_3"),
-                new Pad("f2_31"), new Pad("f2_32"), new Pad("f2_33"), new Pad("f2_34_1", "f2_34_2", "f2_34_3"),
-                new Pad("f2_41"), new Pad("f2_42"), new Pad("f2_43"), new Pad("f2_44_1", "f2_44_2", "f2_44_3")
-        };
-
-        Pad part3[] = {
-                new Pad("f3_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
-                new Pad("f3_11"), new Pad("f3_12"), new Pad("f3_13"), new Pad("f3_14_1", "f3_14_2", "f3_14_3"),
-                new Pad("f3_21"), new Pad("f3_22"), new Pad("f3_23"), new Pad("f3_24_1", "f3_24_2", "f3_24_3"),
-                new Pad("f3_31"), new Pad("f3_32"), new Pad("f3_33"), new Pad("f3_34_1", "f3_34_2", "f3_34_3"),
-                new Pad("f3_41"), new Pad("f3_42"), new Pad("f3_43_1", "f3_43_2"), new Pad("f3_44_1", "f3_44_2", "f3_44_3")
-        };
-
-        Pad part4[] = {
-                new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
-                new Pad("f4_11"), new Pad("f4_12"), new Pad("f4_13"), new Pad("f4_14"),
-                new Pad("f4_21"), new Pad("f4_22"), new Pad("f4_23"), new Pad("f4_24"),
-                new Pad("f4_31"), new Pad("f4_32"), new Pad("f4_33"), new Pad("f4_34"),
-                new Pad("f4_41"), new Pad("f3_42"), new Pad("f3_43_1", "f3_43_2"), new Pad("f3_44_1", "f3_44_2", "f3_44_3")
-        };
-
-        Music faded = new Music(3, "Faded",
-                new Deck[]{new Deck(part1), new Deck(part2), new Deck(part3), new Deck(part4)});
-
-        Gson gson = new Gson();
-        Preset preset = new Preset(1, faded, gson.fromJson(getResources().getString(R.string.json_about_faded), About.class));
-
-        String json = gson.toJson(preset, Preset.class);
-        Log.d("JSON", json);
+//        Pad part1[] = {
+//                new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
+//                new Pad("f1_11"), new Pad("f1_12"), new Pad("f1_13"), new Pad("f1_14"),
+//                new Pad("f1_21"), new Pad("f1_22"), new Pad("f1_23"), new Pad("f1_24"),
+//                new Pad("f1_31"), new Pad("f1_32"), new Pad("f1_33"), new Pad("f1_34"),
+//                new Pad("f1_41"), new Pad("f1_42"), new Pad("f1_43_1", "f1_43_2"), new Pad("a0_00")
+//        };
+//
+//        Pad part2[] = {
+//                new Pad("f2_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
+//                new Pad("f2_11"), new Pad("f2_12"), new Pad("f2_13"), new Pad("f2_14_1", "f2_14_2", "f2_14_3"),
+//                new Pad("f2_21"), new Pad("f2_22"), new Pad("f2_23"), new Pad("f2_24_1", "f2_24_2", "f2_24_3"),
+//                new Pad("f2_31"), new Pad("f2_32"), new Pad("f2_33"), new Pad("f2_34_1", "f2_34_2", "f2_34_3"),
+//                new Pad("f2_41"), new Pad("f2_42"), new Pad("f2_43"), new Pad("f2_44_1", "f2_44_2", "f2_44_3")
+//        };
+//
+//        Pad part3[] = {
+//                new Pad("f3_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
+//                new Pad("f3_11"), new Pad("f3_12"), new Pad("f3_13"), new Pad("f3_14_1", "f3_14_2", "f3_14_3"),
+//                new Pad("f3_21"), new Pad("f3_22"), new Pad("f3_23"), new Pad("f3_24_1", "f3_24_2", "f3_24_3"),
+//                new Pad("f3_31"), new Pad("f3_32"), new Pad("f3_33"), new Pad("f3_34_1", "f3_34_2", "f3_34_3"),
+//                new Pad("f3_41"), new Pad("f3_42"), new Pad("f3_43_1", "f3_43_2"), new Pad("f3_44_1", "f3_44_2", "f3_44_3")
+//        };
+//
+//        Pad part4[] = {
+//                new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
+//                new Pad("f4_11"), new Pad("f4_12"), new Pad("f4_13"), new Pad("f4_14"),
+//                new Pad("f4_21"), new Pad("f4_22"), new Pad("f4_23"), new Pad("f4_24"),
+//                new Pad("f4_31"), new Pad("f4_32"), new Pad("f4_33"), new Pad("f4_34"),
+//                new Pad("f4_41"), new Pad("f3_42"), new Pad("f3_43_1", "f3_43_2"), new Pad("f3_44_1", "f3_44_2", "f3_44_3")
+//        };
+//
+//        Music faded = new Music(3, "Faded",
+//                new Deck[]{new Deck(part1), new Deck(part2), new Deck(part3), new Deck(part4)});
+//
+//        Gson gson = new Gson();
+//        Preset preset = new Preset(1, faded, gson.fromJson(getResources().getString(R.string.json_about_faded), About.class));
+//
+//        String json = gson.toJson(preset, Preset.class);
+//        Log.d("JSON", json);
     }
 
     void enterAnim() {
         anim.fadeIn(R.id.actionbar_layout, 0, 200, "background", a);
         anim.fadeIn(R.id.actionbar_image, 200, 200, "image", a);
         //TODO: Remove this to load preset
-        loadPreset(400);
+        //loadPreset(400);
         isPresetLoading = true;
     }
 
@@ -252,9 +254,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     public void onWindowFocusChanged(boolean hasFocus) {
         Log.i("MainActivity", "onWindowFocusChanged");
         sound.soundAllStop();
-        if (isTutorialVisible == true) {
-            tut.tutorialStop(a);
-        }
+
         int tutorial[] = {
                 R.id.btn00_tutorial,
                 R.id.tgl1_tutorial,
@@ -292,6 +292,10 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
+
+        if (isTutorialVisible == true) {
+            tut.tutorialStop(a);
+        }
 
         Log.d("MainActivity", "onResume");
         sound.soundAllStop();
@@ -661,13 +665,15 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
     void setFab() {
         fab.setFab(a);
-        fab.show();
+        //fab.show();
         fab.onClick(new Runnable() {
             @Override
             public void run() {
                 if (isToolbarVisible == false) {
-                    fab.hide(0, 200);
-                    anim.fadeIn(R.id.toolbar, 200, 100, "toolbarIn", a);
+                    fab.showToolbar(a);
+                    //TODO EDIT THIS ASAP WRONGLY FUNCTIONING
+                    //TODO edit this
+                    //anim.fadeIn(R.id.toolbar, 200, 100, "toolbarIn", a);
                     if (prefs.getInt(qs, 0) == 4) {
                         Log.i("setQuickstart", "Quickstart started");
                         if (promptInfo != null) {
@@ -793,11 +799,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         tutorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (w.getView(R.id.progress_bar_layout, a).getVisibility() == View.GONE) {
-                    toggleTutorial();
-                } else {
-                    Toast.makeText(a, R.string.tutorial_loading, Toast.LENGTH_LONG).show();
-                }
+                toggleTutorial();
             }
         });
 
@@ -1006,8 +1008,10 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     }
 
     void toggleTutorial() {
-        if (isTutorialVisible == false) {
-            if (w.getDeviceRam() > 2048) {
+        // TODO add 2gb ram limit if statement
+        if (w.getView(R.id.progress_bar_layout, a).getVisibility() == View.GONE) {
+            // on loading finished
+            if (isTutorialVisible == false) {
                 new MaterialDialog.Builder(a)
                         .title(R.string.dialog_tutorial_warning_title)
                         .content(R.string.dialog_tutorial_warning_text)
@@ -1019,48 +1023,42 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                 tut.tutorialStart(a);
-                                w.getImageView(R.id.toolbar_tutorial_icon, a).setImageResource(R.drawable.icon_tutorial_quit);
-                                w.getImageView(R.id.layout_settings_tutorial_icon, a).setImageResource(R.drawable.settings_tutorial_quit);
-                                isPresetLoading = true;
                                 isTutorialVisible = true;
+                                setTutorialUI();
+
+                                if (isSettingVisible == true) {
+                                    closeSettings();
+                                }
                             }
                         })
                         .onNegative(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                isTutorialVisible = false;
+                                setTutorialUI();
                             }
                         })
                         .show();
             } else {
-                new MaterialDialog.Builder(a)
-                        .title(R.string.dialog_tutorial_warning_title)
-                        .content(R.string.dialog_tutorial_warning_text_low_ram)
-                        .positiveText(R.string.dialog_tutorial_warning_positive)
-                        .positiveColorRes(R.color.red_500)
-                        .negativeText(R.string.dialog_tutorial_warning_negative)
-                        .negativeColorRes(R.color.dark_secondary)
-                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                tut.tutorialStart(a);
-                                w.getImageView(R.id.toolbar_tutorial_icon, a).setImageResource(R.drawable.icon_tutorial_quit);
-                                w.getImageView(R.id.layout_settings_tutorial_icon, a).setImageResource(R.drawable.settings_tutorial_quit);
-                                isPresetLoading = true;
-                                isTutorialVisible = true;
-                            }
-                        })
-                        .onNegative(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            }
-                        })
-                        .show();
+                tut.tutorialStop(a);
+                isTutorialVisible = false;
+                setTutorialUI();
             }
         } else {
-            tut.tutorialStop(a);
+            // still loading preset
+            Toast.makeText(a, R.string.tutorial_loading, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    void setTutorialUI() {
+        if (isTutorialVisible == true) {
+            w.getImageView(R.id.toolbar_tutorial_icon, a).setImageResource(R.drawable.icon_tutorial_quit);
+            w.getImageView(R.id.layout_settings_tutorial_icon, a).setImageResource(R.drawable.settings_tutorial_quit);
+            w.getSwitchCompat(R.id.layout_settings_tutorial_switch, a).setChecked(true);
+        } else {
             w.getImageView(R.id.toolbar_tutorial_icon, a).setImageResource(R.drawable.icon_tutorial);
             w.getImageView(R.id.layout_settings_tutorial_icon, a).setImageResource(R.drawable.settings_tutorial);
-            isTutorialVisible = false;
+            w.getSwitchCompat(R.id.layout_settings_tutorial_switch, a).setChecked(false);
         }
     }
 
@@ -1113,13 +1111,23 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
             }
         });
 
-        //final SwitchCompat switchCompat = (SwitchCompat)findViewById(R.id.layout_settings_tutorial_switch);
-
         w.getView(R.id.layout_settings_tutorial, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toggleTutorial();
-                closeSettings();
+            }
+        });
+
+        w.getSwitchCompat(R.id.layout_settings_tutorial_switch, a).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (w.getView(R.id.progress_bar_layout, a).getVisibility() == View.GONE) {
+                    toggleTutorial();
+                } else {
+                    // still loading preset
+                    Toast.makeText(a, R.string.tutorial_loading, Toast.LENGTH_LONG).show();
+                    w.getSwitchCompat(R.id.layout_settings_tutorial_switch, a).toggle();
+                }
             }
         });
 

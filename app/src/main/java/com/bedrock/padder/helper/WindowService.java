@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -75,9 +76,9 @@ public class WindowService {
                 Rect rect = new Rect();
                 view.getGlobalVisibleRect(rect);
 
-                Log.i("Navigation Bar Height", String.valueOf(getWindowHeightpx(activity) + " - " + String.valueOf(rect.bottom) +
-                        " = " + String.valueOf(getWindowHeightpx(activity) - rect.bottom)));
-                navBarHeight[0] = getWindowHeightpx(activity) - rect.bottom;
+                Log.i("Navigation Bar Height", String.valueOf(getWindowHeightPx(activity) + " - " + String.valueOf(rect.bottom) +
+                        " = " + String.valueOf(getWindowHeightPx(activity) - rect.bottom)));
+                navBarHeight[0] = getWindowHeightPx(activity) - rect.bottom;
 
                 prefs.edit().putInt("navBarPX", navBarHeight[0]).apply();
                 Log.i("SharedPrefs", "navBarPX = " + String.valueOf(prefs.getInt("navBarPX", 0)));
@@ -295,7 +296,7 @@ public class WindowService {
         }
     }
 
-    public int getWindowHeightpx(Activity activity) {
+    public int getWindowHeightPx(Activity activity) {
         Display display = activity.getWindowManager().getDefaultDisplay();
         int realHeight;
 
@@ -323,7 +324,7 @@ public class WindowService {
         return realHeight;
     }
 
-    public int getWindowWidthpx(Activity activity) {
+    public int getWindowWidthPx(Activity activity) {
         Display display = activity.getWindowManager().getDefaultDisplay();
         int realWidth;
 
@@ -352,7 +353,7 @@ public class WindowService {
     }
 
     public int getWindowHypot(Activity activity) {
-        int hypot = (int)Math.hypot(getWindowWidthpx(activity), getWindowHeightpx(activity)) + 200;
+        int hypot = (int)Math.hypot(getWindowWidthPx(activity), getWindowHeightPx(activity)) + 200;
         return hypot;
     }
 
@@ -395,6 +396,11 @@ public class WindowService {
     public ToggleButton getToggleButton(int id, Activity activity) {
         ToggleButton toggle = (ToggleButton) activity.findViewById(id);
         return toggle;
+    }
+
+    public SwitchCompat getSwitchCompat(int id, Activity activity) {
+        SwitchCompat view = (SwitchCompat) activity.findViewById(id);
+        return view;
     }
 
     public ImageView getImageView(int id, Activity activity) {

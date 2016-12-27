@@ -332,8 +332,8 @@ public class AnimService {
     }
 
     public void scaleOut(final View view, int touchX, int touchY, final int delay, final long duration, String handlerName, Activity activity) {
-        float x = touchX / window.getWindowWidthpx(activity);
-        float y = touchY / window.getWindowHeightpx(activity);
+        float x = touchX / window.getWindowWidthPx(activity);
+        float y = touchY / window.getWindowHeightPx(activity);
         final ScaleAnimation scaleOut = new ScaleAnimation(1, 0, 1, 0, Animation.ABSOLUTE, x, Animation.ABSOLUTE, y);
 
         scaleOut.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -362,8 +362,8 @@ public class AnimService {
 
     public void scaleOut(final int id, int touchX, int touchY, final int delay, final long duration, String handlerName, Activity activity) {
         final View view = (View)activity.findViewById(id);
-        float x = touchX / window.getWindowWidthpx(activity);
-        float y = touchY / window.getWindowHeightpx(activity);
+        float x = touchX / window.getWindowWidthPx(activity);
+        float y = touchY / window.getWindowHeightPx(activity);
         final ScaleAnimation scaleOut = new ScaleAnimation(1, 0, 1, 0, Animation.ABSOLUTE, x, Animation.ABSOLUTE, y);
 
         scaleOut.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -434,8 +434,8 @@ public class AnimService {
     }
 
     public void scaleIn(final View view, int touchX, int touchY, final int delay, final long duration, String handlerName, Activity activity) {
-        float x = touchX / window.getWindowWidthpx(activity);
-        float y = touchY / window.getWindowHeightpx(activity);
+        float x = touchX / window.getWindowWidthPx(activity);
+        float y = touchY / window.getWindowHeightPx(activity);
         final ScaleAnimation scaleOut = new ScaleAnimation(0, 1, 0, 1, Animation.ABSOLUTE, x, Animation.ABSOLUTE, y);
 
         scaleOut.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -464,8 +464,8 @@ public class AnimService {
 
     public void scaleIn(final int id, int touchX, int touchY, final int delay, final long duration, String handlerName, Activity activity) {
         final View view = (View)activity.findViewById(id);
-        float x = touchX / window.getWindowWidthpx(activity);
-        float y = touchY / window.getWindowHeightpx(activity);
+        float x = touchX / window.getWindowWidthPx(activity);
+        float y = touchY / window.getWindowHeightPx(activity);
         final ScaleAnimation scaleOut = new ScaleAnimation(0, 1, 0, 1, Animation.ABSOLUTE, x, Animation.ABSOLUTE, y);
 
         scaleOut.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -833,7 +833,7 @@ public class AnimService {
             public void onClick(View v) {
                 circularRevealinpx(reveal_view,
                         coord[0], coord[1],
-                        0, (int)Math.hypot(window.getWindowWidthpx(activity), window.getWindowHeightpx(activity)) + 200, interpolator,
+                        0, (int)Math.hypot(window.getWindowWidthPx(activity), window.getWindowHeightPx(activity)) + 200, interpolator,
                         duration, delay, activity);
                 onClick.run();
             }
@@ -860,7 +860,7 @@ public class AnimService {
             public void onClick(View v) {
                 circularRevealinpx(reveal_view,
                         coord[0], coord[1],
-                        0, (int)Math.hypot(window.getWindowWidthpx(activity), window.getWindowHeightpx(activity)) + 200, interpolator,
+                        0, (int)Math.hypot(window.getWindowWidthPx(activity), window.getWindowHeightPx(activity)) + 200, interpolator,
                         duration, delay, activity);
                 onClick.run();
             }

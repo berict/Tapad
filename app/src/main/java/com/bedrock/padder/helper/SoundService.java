@@ -993,7 +993,7 @@ public class SoundService {
                     int presetSoundCount = PRESET_SOUND_COUNTS[currentPreset.getMusic().getId() - 1];
                     if(sampleId == presetSoundCount) {
                         // final sampleId
-                        Log.d(TAG, "Loading completed, SoundPool succesfully loaded "
+                        Log.d(TAG, "Loading completed, SoundPool successfully loaded "
                                 + presetSoundCount
                                 + " sounds");
 
@@ -1014,6 +1014,8 @@ public class SoundService {
                                 window.getTextView(R.id.progress_bar_text, activity).setText(R.string.progressbar_loading_preset);
                             }
                         }, 800);
+
+                        main.isPresetLoading = false;
                     }
                 }
             });
@@ -1025,7 +1027,7 @@ public class SoundService {
         SharedPreferences prefs;
 
         protected void onPreExecute() {
-            Log.d(TAG, "On preExceute, set prefs");
+            Log.d(TAG, "On preExecute, set prefs");
             isPresetLoaded = false;
             if (window.getView(R.id.progress_bar_layout, activity).getVisibility() == View.GONE) {
                 Log.d(TAG, "ProgressBar fadeIn");
