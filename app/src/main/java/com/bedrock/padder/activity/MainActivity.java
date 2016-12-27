@@ -670,10 +670,10 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
             @Override
             public void run() {
                 if (isToolbarVisible == false) {
-                    fab.showToolbar(a);
-                    //TODO EDIT THIS ASAP WRONGLY FUNCTIONING
-                    //TODO edit this
-                    //anim.fadeIn(R.id.toolbar, 200, 100, "toolbarIn", a);
+                    //TODO:
+                    //fab.showToolbar(a);
+                    fab.show();
+                    anim.fadeIn(R.id.toolbar, 200, 100, "toolbarIn", a);
                     if (prefs.getInt(qs, 0) == 4) {
                         Log.i("setQuickstart", "Quickstart started");
                         if (promptInfo != null) {
