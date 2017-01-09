@@ -7,10 +7,8 @@
     android:layout_height="56dp"
     android:layout_alignParentBottom="true"
     android:gravity="center"
-    android:visibility="invisible"
+    android:visibility="gone"
     android:weightSum="4">
-
-    <!-- TODO visibility to GONE -->
 
     <RelativeLayout
         android:id="@+id/toolbar_info"

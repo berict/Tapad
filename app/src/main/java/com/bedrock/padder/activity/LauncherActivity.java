@@ -43,13 +43,17 @@ public class LauncherActivity extends Activity {
         window.getNavigationBar(R.id.root, activity);
         window.getStatusBar(R.id.root, activity);
 
-        /** Logo fade out + intent */
+        // Logo fade out + intent
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
                 anim.fadeOut(R.id.root, 0, 400, activity);
 
+                // TODO edit this to enable normal intent
                 checkVersionCode();
+
+                // edit this to intent to welcome activity always
+                //intent.intentFlag(activity, "activity.UserBenefitsActivity", 500);
             }
         }, 1000); //Default 1500
     }
@@ -75,9 +79,9 @@ public class LauncherActivity extends Activity {
             //prefs.edit().putInt("quickstart", 0).apply();
         } else if (savedVersionCode == 0 || savedVersionCode == -1) {
             // New install / cleared sharedpref, Welcome transition
-            Log.d("FirstRun", "true, intent to WelcomeActivity");
+            Log.d("FirstRun", "true, intent to UserBenefitsActivity");
 
-            intent.intentFlag(activity, "activity.WelcomeActivity", 500);
+            intent.intentFlag(activity, "activity.UserBenefitsActivity", 500);
             prefs.edit().putInt("quickstart", 0).apply();
             prefs.edit().putInt("versionCode", currentVersionCode - 1).apply(); // To show changelog
         } else if (currentVersionCode > savedVersionCode) {
@@ -87,17 +91,4 @@ public class LauncherActivity extends Activity {
             intent.intentFlag(activity, "activity.MainActivity", 500);
         }
     }
-
-//    @Override
-//    public void onPause(){
-//        super.onPause();
-//        //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-//    }
-
-//    @Override
-//    public void finish() {
-//        super.finish();
-//        Log.d("Animation", "Fade animation");
-//        //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-//    }
 }

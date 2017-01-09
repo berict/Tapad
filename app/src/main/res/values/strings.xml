@@ -5,112 +5,31 @@
     <string name="error">Error</string>
 
     <!-- Actions -->
-    <string name="next">NEXT</string>
-    <string name="skip">SKIP</string>
-    <string name="explore">EXPLORE</string>
-    <string name="change">CHANGE</string>
-    <string name="settings_action">SETTINGS</string>
-    <string name="confirm_got_it">GOT IT</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+    <string name="explore">Explore</string>
+    <string name="change">Change</string>
+    <string name="settings">Settings</string>
+    <string name="confirm_got_it">Got It</string>
+    <string name="explore_ac">EXPLORE</string>
+    <string name="change_ac">CHANGE</string>
+    <string name="settings_ac">SETTINGS</string>
+    <string name="confirm_got_it_ac">GOT IT</string>
     <string name="confirm_exit">Press back again to exit</string>
-
-    <!-- Welcome Screen -->
-    <string name="slide_1_title">Tapad</string>
-    <string name="slide_1_desc">Welcome to</string>
-
-    <string name="slide_2_title">Play your favorite songs</string>
-    <string name="slide_2_desc">Anywhere, anytime. Beautifully.</string>
-
-    <string name="slide_3_title">Presets</string>
-    <string name="slide_3_desc">Select a music preset to play</string>
-    <string name="slide_3_hint">More songs coming!</string>
-
-    <string name="slide_4_title">Make some music!</string>
-    <string name="slide_4_desc">Configure finished.</string>
-
-    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
-    <string name="play_again">Play Again</string>
+    <string name="confirm_get_started">Get Started</string>
+    <string name="confirm_get_started_ac">GET STARTED</string>
 
     <string name="tutorial_loading">Can\'t start tutorial mode, loading preset</string>
 
+    <string name="user_benefits_page_1_title">LaunchPad for everyone</string>
+    <string name="user_benefits_page_1_hint">Play your favorite songs on your phone.</string>
+    <string name="user_benefits_page_2_hint">Make your favorites the only remix in the world - by you.</string>
+    <string name="user_benefits_page_3_hint">Set your favorite color and see them on the move.</string>
+    <string name="user_benefits_dialog_hint">Before you start, select the song to play.</string>
+    <string name="user_benefits_dialog_positive">START</string>
+
     <!-- Cardview -->
     <string name="cardview_now_playing">Now Playing</string>
-
-    <!-- Scheme -->
-    <string name="fb">Facebook</string>
-    <string name="tw">Twitter</string>
-    <string name="sc">SoundCloud</string>
-    <string name="yt">YouTube</string>
-    <string name="wb">Webpage</string>
-    <string name="bi">Biography</string>
-
-    <string-array name="presets">
-        <item>@string/hello</item>
-        <item>@string/roses</item>
-        <item>@string/faded</item>
-    </string-array>
-
-    <string name="hello">OMFG - Hello</string>
-    <string name="roses">The Chainsmokers - Roses</string>
-    <string name="faded">Alan Walker - Faded</string>
-
-    <string-array name="hello_social">
-        <item>https://www.facebook.com/alexomfg/</item>
-        <item>https://twitter.com/AlexSavageOMFG</item>
-        <item>https://soundcloud.com/alexomfg</item>
-        <item>https://www.youtube.com/user/alexsavageomfg</item>
-        <item>http://alexomfg.com</item>
-    </string-array>
-
-    <string-array name="hello_bio">
-        <item>OMFG</item>
-        <item>About OMFG</item>
-        <item>OMFG\'s Biography</item>
-        <item>Alex OMFG (Alex Savage)</item>
-        <item>This is a Fun Loving girl who had a desire to make music.
-        Alex enjoyed making dubstep to just share between friends and family.
-        She soon talked her self into posting her creations online to see what kinda feedback she would get.
-        Getting an overly positive reveiws she continued to make music ever since with her latest track called OMFG - Jelly.</item>
-        <item>Powered by Muzikum</item>
-    </string-array>
-
-    <string-array name="roses_bio">
-        <item>The Chainsmokers</item>
-        <item>About The Chainsmokers</item>
-        <item>The Chainsmokers\' Biography</item>
-        <item>Andrew Taggart and Alex Pall</item>
-        <item>The Chainsmokers have become the hottest young American EDM DJ duo.
-        Their signature sound has its foundations in Indie, Progressive and Pop Music.
-        On the production front, their original tracks have all reached the Beatport top charts and their remixes always hit #1 on the HypeM charts.
-        Their first major release, #SELFIE, and it\'s official music video swept the world so look out for much more to come!</item>
-        <item>Powered by thechainsmokers.com</item>
-    </string-array>
-
-    <string-array name="roses_social">
-        <item>https://www.facebook.com/thechainsmokers</item>
-        <item>http://www.twitter.com/thechainsmokers</item>
-        <item>http://www.soundcloud.com/thechainsmokers</item>
-        <item>https://www.youtube.com/user/THECHAINSMOKERS</item>
-        <item>http://thechainsmokers.com</item>
-    </string-array>
-
-    <string-array name="faded_bio">
-        <item>Alan Walker</item>
-        <item>About Alan Walker</item>
-        <item>Alan Walker\'s Biography</item>
-        <item>Alan Olav Walker</item>
-        <item>Alan Walker (Alan Olav Walker) is a British-Norwegian record producer who was born in Northampton, England.
-        He is best known for the electronic dance music single "Faded", which has reached number 1 in multiple countries,
-        and on YouTube has over 650 million views and 4 million likes, placing it among the top 40 most liked YouTube videos.</item>
-        <item>Powered by Wikipedia</item>
-    </string-array>
-
-    <string-array name="faded_social">
-        <item>https://www.facebook.com/alanwalkermusic</item>
-        <item>https://twitter.com/IAmAlanWalker</item>
-        <item>https://soundcloud.com/alanwalker</item>
-        <item>https://www.youtube.com/user/DjWalkzz</item>
-        <item>http://www.alanwalkermusic.no</item>
-    </string-array>
 
     <string-array name="berict_bio">
         <item>Studio Berict</item>
@@ -118,10 +37,9 @@
         <item>Berict\'s Biography</item>
         <item>Bedrock Pictures (Nathan Cho)</item>
         <item>Nathan is high school student in South Korea, who enjoys software and football.
-        Currently attending Sunrin Internet High School in the 1st grade.
+        Currently attending Sunrin Internet High School.
         Started developing at 2011, started by HTML, now on Android.
-        As you see, he has a big interest in Android\'s "Material Design".
-        Also, known as a professional 9gagger.</item>
+        As you see, has a big interest in Android\'s "Material Design".</item>
         <item>Powered by Bedrock Pictures</item>
     </string-array>
 
@@ -198,11 +116,7 @@
 
         <b>Material Design Icons</b>\n
         <i>https://materialdesignicons.com/</i>\n
-        Tons of beautiful icons following Material Design guideline.\n\n
-
-        <b>9GAG</b>\n
-        <i>http://9gag.com/u/bedrockpic</i>\n
-        9GAG, Best source of your fun!
+        Tons of beautiful icons following Material Design guideline.
     </string>
 
     <string name="tapad_info">Information</string>
@@ -293,7 +207,7 @@
         <b>Version 2.1</b>\n\n
 
         1. <b>NEW:</b> New preset (Alan Walker - Faded) \n
-        2. <b>IMPROVEMENT:</b> Removed feature (Tutorial mode, will be updated when it is stable / YouTube tutorial is coming soon) \n
+        2. <b>IMPROVEMENT:</b> Removed Tutorial mode \n
         3. <b>FIX:</b> Crashing when selecting decks \n
         4. <b>FIX:</b> Wrong links on the artist page \n\n
 
@@ -424,12 +338,13 @@
 
     <!-- Main Screen -->
     <string name="warning">Please select a deck to play</string>
-    <string name="settings">Settings</string>
     <string name="tutorial">Tutorial</string>
     <string name="close">Close</string>
     <string name="about">About</string>
     <string name="presets">Presets</string>
     <string name="progressbar_loading_preset">Loading preset</string>
+    <string name="progressbar_loading_preset_progress">Sound loaded</string>
+    <string name="progressbar_loading_preset_progress_placeholder">Sound loaded 0 / 420</string>
     <string name="progressbar_loading_preset_done">Done!</string>
     <string name="progressbar_loading_tutorial">Loading tutorial</string>
 

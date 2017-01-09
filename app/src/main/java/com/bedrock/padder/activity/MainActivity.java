@@ -82,7 +82,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        prefs = getSharedPreferences("com.bedrock.padder", MODE_PRIVATE);
+        Log.d(TAG, "Sharedprefs initialized");
+        prefs = this.getSharedPreferences("com.bedrock.padder", MODE_PRIVATE);
 
         // for test
         //prefs.edit().putInt(qs, 0).apply();
@@ -152,54 +153,66 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 //                "roses_dark", "roses");
 //
 //        Log.d("JSON TEST", json);
-        
-//        Pad part1[] = {
-//                new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
-//                new Pad("f1_11"), new Pad("f1_12"), new Pad("f1_13"), new Pad("f1_14"),
-//                new Pad("f1_21"), new Pad("f1_22"), new Pad("f1_23"), new Pad("f1_24"),
-//                new Pad("f1_31"), new Pad("f1_32"), new Pad("f1_33"), new Pad("f1_34"),
-//                new Pad("f1_41"), new Pad("f1_42"), new Pad("f1_43_1", "f1_43_2"), new Pad("a0_00")
-//        };
-//
-//        Pad part2[] = {
-//                new Pad("f2_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
-//                new Pad("f2_11"), new Pad("f2_12"), new Pad("f2_13"), new Pad("f2_14_1", "f2_14_2", "f2_14_3"),
-//                new Pad("f2_21"), new Pad("f2_22"), new Pad("f2_23"), new Pad("f2_24_1", "f2_24_2", "f2_24_3"),
-//                new Pad("f2_31"), new Pad("f2_32"), new Pad("f2_33"), new Pad("f2_34_1", "f2_34_2", "f2_34_3"),
-//                new Pad("f2_41"), new Pad("f2_42"), new Pad("f2_43"), new Pad("f2_44_1", "f2_44_2", "f2_44_3")
-//        };
-//
-//        Pad part3[] = {
-//                new Pad("f3_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
-//                new Pad("f3_11"), new Pad("f3_12"), new Pad("f3_13"), new Pad("f3_14_1", "f3_14_2", "f3_14_3"),
-//                new Pad("f3_21"), new Pad("f3_22"), new Pad("f3_23"), new Pad("f3_24_1", "f3_24_2", "f3_24_3"),
-//                new Pad("f3_31"), new Pad("f3_32"), new Pad("f3_33"), new Pad("f3_34_1", "f3_34_2", "f3_34_3"),
-//                new Pad("f3_41"), new Pad("f3_42"), new Pad("f3_43_1", "f3_43_2"), new Pad("f3_44_1", "f3_44_2", "f3_44_3")
-//        };
-//
-//        Pad part4[] = {
-//                new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
-//                new Pad("f4_11"), new Pad("f4_12"), new Pad("f4_13"), new Pad("f4_14"),
-//                new Pad("f4_21"), new Pad("f4_22"), new Pad("f4_23"), new Pad("f4_24"),
-//                new Pad("f4_31"), new Pad("f4_32"), new Pad("f4_33"), new Pad("f4_34"),
-//                new Pad("f4_41"), new Pad("f3_42"), new Pad("f3_43_1", "f3_43_2"), new Pad("f3_44_1", "f3_44_2", "f3_44_3")
-//        };
-//
-//        Music faded = new Music(3, "Faded",
-//                new Deck[]{new Deck(part1), new Deck(part2), new Deck(part3), new Deck(part4)});
-//
-//        Gson gson = new Gson();
-//        Preset preset = new Preset(1, faded, gson.fromJson(getResources().getString(R.string.json_about_faded), About.class));
-//
-//        String json = gson.toJson(preset, Preset.class);
-//        Log.d("JSON", json);
+
+        // TODO PROTO
+
+        Pad part1[] = {
+                new Pad("ft1_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
+                new Pad("ft1_11", "ft1_11_1", "ft1_11_2", "ft1_11_3", "ft1_11_4"), new Pad("ft1_12", "ft1_12_1", "ft1_12_2", "ft1_12_3", "ft1_12_4"), new Pad("ft1_13", "ft1_13_1", "ft1_13_2", "ft1_13_3", "ft1_13_4"), new Pad("ft1_14", "ft1_14_1", "ft1_14_2", "ft1_14_3", "ft1_14_4"),
+                new Pad("ft1_21", "ft1_21_1", "ft1_21_2", "ft1_21_3", "ft1_21_4"), new Pad("ft1_22", "ft1_22_1", "ft1_22_2", "ft1_22_3", "ft1_22_4"), new Pad("ft1_23", "ft1_23_1", "ft1_23_2", "ft1_23_3", "ft1_23_4"), new Pad("ft1_24", "ft1_24_1", "ft1_24_2", "ft1_24_3", "ft1_24_4"),
+                new Pad("ft1_31", "ft1_31_1", "ft1_31_2", "ft1_31_3", "ft1_31_4"), new Pad("ft1_32", "ft1_32_1", "ft1_32_2", "ft1_32_3", "ft1_32_4"), new Pad("ft1_33", "ft1_33_1", "ft1_33_2", "ft1_33_3", "ft1_33_4"), new Pad("ft1_34", "ft1_34_1", "ft1_34_2", "ft1_34_3", "ft1_34_4"),
+                new Pad("ft1_41", "ft1_41", "ft1_41", "ft1_41", "ft1_41"), new Pad("ft1_42", "ft1_42_1", "ft1_42_2", "ft1_42_3", "ft1_42_4"), new Pad("ft1_43", "ft1_43_1", "ft1_43_2", "ft1_43_3", "ft1_43_4"), new Pad("ft1_44", "ft1_44", "ft1_44", "ft1_44", "ft1_44")
+        };
+
+        Pad part2[] = {
+                new Pad("f2_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
+                new Pad("f2_11"), new Pad("f2_12"), new Pad("f2_13"), new Pad("f2_14_1", "f2_14_2", "f2_14_3"),
+                new Pad("f2_21"), new Pad("f2_22"), new Pad("f2_23"), new Pad("f2_24_1", "f2_24_2", "f2_24_3"),
+                new Pad("f2_31"), new Pad("f2_32"), new Pad("f2_33"), new Pad("f2_34_1", "f2_34_2", "f2_34_3"),
+                new Pad("f2_41"), new Pad("f2_42"), new Pad("f2_43"), new Pad("f2_44_1", "f2_44_2", "f2_44_3")
+        };
+
+        Pad part3[] = {
+                new Pad("f3_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
+                new Pad("f3_11"), new Pad("f3_12"), new Pad("f3_13"), new Pad("f3_14_1", "f3_14_2", "f3_14_3"),
+                new Pad("f3_21"), new Pad("f3_22"), new Pad("f3_23"), new Pad("f3_24_1", "f3_24_2", "f3_24_3"),
+                new Pad("f3_31"), new Pad("f3_32"), new Pad("f3_33"), new Pad("f3_34_1", "f3_34_2", "f3_34_3"),
+                new Pad("f3_41"), new Pad("f3_42"), new Pad("f3_43_1", "f3_43_2"), new Pad("f3_44_1", "f3_44_2", "f3_44_3")
+        };
+
+        Pad part4[] = {
+                new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
+                new Pad("f4_11"), new Pad("f4_12"), new Pad("f4_13"), new Pad("f4_14"),
+                new Pad("f4_21"), new Pad("f4_22"), new Pad("f4_23"), new Pad("f4_24"),
+                new Pad("f4_31"), new Pad("f4_32"), new Pad("f4_33"), new Pad("f4_34"),
+                new Pad("f4_41"), new Pad("f3_42"), new Pad("f3_43_1", "f3_43_2"), new Pad("f3_44_1", "f3_44_2", "f3_44_3")
+        };
+
+        //TODO PROTO
+        Music faded = new Music(4, "Faded Gesture Prototype",
+                new Deck[]{new Deck(part1), new Deck(part2), new Deck(part3), new Deck(part4)});
+
+        Gson gson = new Gson();
+        Preset preset = new Preset(1, faded, gson.fromJson(getResources().getString(R.string.json_about_faded), About.class));
+
+        //String json = gson.toJson(preset, Preset.class);
+        largeLog("JSON", gson.toJson(preset));
+    }
+
+    public static void largeLog(String tag, String content) {
+        if (content.length() > 4000) {
+            Log.d(tag, content.substring(0, 4000));
+            largeLog(tag, content.substring(4000));
+        } else {
+            Log.d(tag, content);
+        }
     }
 
     void enterAnim() {
         anim.fadeIn(R.id.actionbar_layout, 0, 200, "background", a);
         anim.fadeIn(R.id.actionbar_image, 200, 200, "image", a);
         //TODO: Remove this to load preset
-        //loadPreset(400);
+        loadPreset(400);
         isPresetLoading = true;
     }
 
@@ -330,6 +343,16 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
             t.setInvisible(tutorial[i], 10, a);
         }
         //Log.d("MainActivity", "Placeholder setVisible");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Log.d(TAG, "onDestroy");
+
+        sound.soundAllStop();
+        sound.cancelLoading();
     }
 
     private MaterialTapTargetPrompt promptToggle;   // 1
@@ -665,14 +688,12 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
     void setFab() {
         fab.setFab(a);
-        //fab.show();
+        fab.show();
         fab.onClick(new Runnable() {
             @Override
             public void run() {
                 if (isToolbarVisible == false) {
-                    //TODO:
-                    //fab.showToolbar(a);
-                    fab.show();
+                    fab.hide(0, 200);
                     anim.fadeIn(R.id.toolbar, 200, 100, "toolbarIn", a);
                     if (prefs.getInt(qs, 0) == 4) {
                         Log.i("setQuickstart", "Quickstart started");
@@ -1187,6 +1208,10 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
             case 3:
                 color = R.color.faded;
                 break;
+            //TODO PROTO
+            case 4:
+                color = R.color.faded;
+                break;
             default:
                 color = R.color.hello;
                 break;
@@ -1219,6 +1244,14 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                                 setSchemeInfo();
                                 break;
                             case 2:
+                                setScheme(which + 1);
+                                PresetDialog.getBuilder()
+                                        .widgetColorRes(R.color.faded)
+                                        .positiveColorRes(R.color.faded);
+                                setSchemeInfo();
+                                break;
+                            //TODO PROTO
+                            case 3:
                                 setScheme(which + 1);
                                 PresetDialog.getBuilder()
                                         .widgetColorRes(R.color.faded)
@@ -1280,8 +1313,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         isPresetVisible = false;
 
         if (prefs.getInt(qs, 0) == 6) {
-            // Tutorial removed
-            /*
             promptTutorial = new MaterialTapTargetPrompt.Builder(a)
                     .setTarget(a.findViewById(R.id.toolbar_tutorial))
                     .setPrimaryText(R.string.dialog_tap_target_tutorial_primary)
@@ -1297,18 +1328,18 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                             if (tappedTarget) {
                                 promptTutorial.finish();
                                 promptTutorial = null;
-                                prefs.edit().putInt(qs, 7).apply();
-                                Log.i("sharedPrefs", "quickstart edited to 7");
+                                // Removed because it disables toolbar
+                                //prefs.edit().putInt(qs, 7).apply();
+                                //Log.i("sharedPrefs", "quickstart edited to 7");
+                                prefs.edit().putInt(qs, -1).apply();
+                                Log.i("sharedPrefs", "quickstart edited to -1, completed");
                             }
                         }
-
                         @Override
                         public void onHidePromptComplete() {}
                     })
                     .show();
-            */
-            prefs.edit().putInt(qs, -1).apply();
-            Log.i("sharedPrefs", "quickstart edited to -1, completed");
+
         }
     }
 
@@ -1317,7 +1348,9 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         final Preset presets[] = {
                 gson.fromJson(getResources().getString(R.string.json_hello), Preset.class),
                 gson.fromJson(getResources().getString(R.string.json_roses), Preset.class),
-                gson.fromJson(getResources().getString(R.string.json_faded), Preset.class)
+                gson.fromJson(getResources().getString(R.string.json_faded), Preset.class),
+                //TODO PROTO
+                gson.fromJson(getResources().getString(R.string.json_faded_proto), Preset.class)
         };
 
         //w.getProgressBar(R.id.progress_bar, a).setMax(PRESET_SOUND_COUNTS[getScheme() - 1]);
@@ -1670,11 +1703,11 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
             // Cardview
             w.getImageView(R.id.cardview_artist_image, a).setImageResource(R.drawable.cardview_background_artist_hello);
-            w.getTextView(R.id.cardview_artist_song, a).setText(getResources().getString(R.string.hello));
+            w.getTextView(R.id.cardview_artist_song, a).setText(getResources().getString(R.string.preset_hello_full));
             w.getTextView(R.id.cardview_artist_explore, a).setTextColor(getResources().getColor(themeColor));
             w.getTextView(R.id.cardview_artist_change, a).setTextColor(getResources().getColor(themeColor));
 
-            w.getTextView(R.id.layout_settings_preset_hint, a).setText(getResources().getString(R.string.hello));
+            w.getTextView(R.id.layout_settings_preset_hint, a).setText(getResources().getString(R.string.preset_hello_full));
         } else if (scheme == 2) {
             themeColor = R.color.roses;
             w.setRecentColor(0, 0, themeColor, a);
@@ -1690,12 +1723,12 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
             // Cardview
             w.getImageView(R.id.cardview_artist_image, a).setImageResource(R.drawable.cardview_background_artist_roses);
-            w.getTextView(R.id.cardview_artist_song, a).setText(getResources().getString(R.string.roses));
+            w.getTextView(R.id.cardview_artist_song, a).setText(getResources().getString(R.string.preset_roses_full));
             w.getTextView(R.id.cardview_artist_explore, a).setTextColor(getResources().getColor(themeColor));
             w.getTextView(R.id.cardview_artist_change, a).setTextColor(getResources().getColor(themeColor));
 
-            w.getTextView(R.id.layout_settings_preset_hint, a).setText(getResources().getString(R.string.roses));
-        } else if (scheme == 3) {
+            w.getTextView(R.id.layout_settings_preset_hint, a).setText(getResources().getString(R.string.preset_roses_full));
+        } else if (scheme == 3 || scheme == 4) { //TODO PROTO
             themeColor = R.color.faded;
             w.setRecentColor(0, 0, themeColor, a);
 
@@ -1710,11 +1743,11 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
             // Cardview
             w.getImageView(R.id.cardview_artist_image, a).setImageResource(R.drawable.cardview_background_artist_faded);
-            w.getTextView(R.id.cardview_artist_song, a).setText(getResources().getString(R.string.faded));
+            w.getTextView(R.id.cardview_artist_song, a).setText(getResources().getString(R.string.preset_faded_full));
             w.getTextView(R.id.cardview_artist_explore, a).setTextColor(getResources().getColor(themeColor));
             w.getTextView(R.id.cardview_artist_change, a).setTextColor(getResources().getColor(themeColor));
 
-            w.getTextView(R.id.layout_settings_preset_hint, a).setText(getResources().getString(R.string.faded));
+            w.getTextView(R.id.layout_settings_preset_hint, a).setText(getResources().getString(R.string.preset_faded_full));
         }
     }
 

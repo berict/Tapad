@@ -38,26 +38,6 @@ public class ThemeService extends Activity {
         /** Dammit google, stop deprecating methods! */
     }
 
-    public void setBackgroundRev(int drawable_id, int view_id, Activity activity){
-        View view = (View)activity.findViewById(view_id);
-
-        Drawable drawable;
-
-        if (Build.VERSION.SDK_INT >= 21) {
-            drawable = activity.getResources().getDrawable(drawable_id, activity.getTheme());
-        } else {
-            drawable = activity.getResources().getDrawable(drawable_id);
-        }
-
-        if (Build.VERSION.SDK_INT >= 16){
-            view.setBackground(drawable);
-        } else {
-            view.setBackgroundDrawable(drawable);
-        }
-
-        /** Dammit google, stop deprecating methods! */
-    }
-
     public void setButtonBackground(int drawable_id, Activity activity){
 
         int button_id[] = {R.id.btn11,

@@ -40,7 +40,7 @@
 
     <!-- Purple -->
     <item name="purple_light" type="color">#BA68C8</item>
-    <item name="purple" type="color">#9C27B0</item>
+    <item name="purple" type="color">#9C27B0</item>s
     <item name="purple_dark" type="color">#7B1FA2</item>
 
     <!-- Deep Purple -->

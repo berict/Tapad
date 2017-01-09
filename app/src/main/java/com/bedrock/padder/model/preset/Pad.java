@@ -51,7 +51,7 @@ public class Pad {
                String rawIdDown,
                String rawIdLeft,
                String rawIdRight) {
-        this.rawId = null;
+        this.rawId = rawIdUp;
         this.rawIdUp = rawIdUp;
         this.rawIdDown = rawIdDown;
         this.rawIdLeft = rawIdLeft;

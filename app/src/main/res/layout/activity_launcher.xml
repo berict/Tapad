@@ -7,25 +7,25 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".activity.LauncherActivity"
-    android:alpha="0.5"
     android:visibility="visible">
 
     <ImageView
-        android:id="@+id/logo"
+        android:id="@+id/icon"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:padding="50dp"
         android:layout_centerInParent="true"
-        android:src="@drawable/logo"
+        android:src="@drawable/ic_launcher"
         android:visibility="visible" />
 
     <ImageView
-        android:id="@+id/tapad"
+        android:id="@+id/berict"
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:layout_marginBottom="40dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/logo_tapad_new"
+        android:src="@drawable/logo_berict"
+        android:alpha="0.5"
         android:visibility="visible" />
 </RelativeLayout>

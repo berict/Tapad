@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:wheel="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     tools:context=".activity.MainActivity">
 
@@ -39,14 +38,23 @@
             android:textSize="20sp"
             android:textStyle="italic"
             android:text="@string/progressbar_loading_preset" />
+
+        <TextView
+            android:id="@+id/progress_bar_progress_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/progress_bar_text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:textColor="@color/dark_secondary"
+            android:text="@string/progressbar_loading_preset_progress_placeholder" />
     </RelativeLayout>
 
     <include layout="@layout/fragment_fab" />
 
-    <!-- TODO edit this -->
-
-    <include layout="@layout/fragment_toolbar"
-        android:visibility="invisible"/>
+    <include layout="@layout/fragment_toolbar"/>
 
     <include layout="@layout/fragment_layout_about" />
 

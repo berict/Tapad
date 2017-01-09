@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.bedrock.padder">
 
     <application
@@ -24,17 +25,9 @@
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.about.AboutArtistActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.about.AboutTapadActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.about.AboutDevActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activity.AboutActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.UserBenefitsActivity"></activity>
     </application>
 
 </manifest>

@@ -72,7 +72,7 @@
                         android:padding="10dp"
                         android:clickable="true"
                         android:background="?selectableItemBackground"
-                        android:text="@string/explore"
+                        android:text="@string/explore_ac"
                         android:textColor="@color/blue_grey"/>
 
                 </RelativeLayout>
