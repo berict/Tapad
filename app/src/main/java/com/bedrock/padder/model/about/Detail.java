@@ -4,19 +4,19 @@ import com.google.gson.annotations.SerializedName;
 
 public class Detail {
 
-    @SerializedName("title")
-    private String title;
+    @SerializedName("title_id")
+    private String titleId;
 
     @SerializedName("items")
     private Item[] items;
 
-    public Detail (String title, Item[] items) {
-        this.title = title;
+    public Detail (String titleId, Item[] items) {
+        this.titleId = titleId;
         this.items = items;
     }
 
     public String getTitle() {
-        return title;
+        return titleId;
     }
 
     public Item[] getItems() {

@@ -17,7 +17,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -33,18 +32,20 @@ import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.TutorialService;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.about.About;
-import com.bedrock.padder.model.preset.Artist;
+import com.bedrock.padder.model.about.Bio;
+import com.bedrock.padder.model.about.Detail;
+import com.bedrock.padder.model.about.Item;
 import com.bedrock.padder.model.preset.Deck;
+import com.bedrock.padder.model.preset.DeckTiming;
 import com.bedrock.padder.model.preset.Music;
 import com.bedrock.padder.model.preset.Pad;
 import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
 
-import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
-import static com.bedrock.padder.R.string.about;
-import static com.bedrock.padder.R.string.json_about_hello;
-import static com.bedrock.padder.helper.SoundService.PRESET_SOUND_COUNTS;
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 @TargetApi(9)
 @SuppressWarnings("deprecation")
@@ -117,86 +118,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         color = prefs.getInt("color", R.color.red);
         sound.setButton(R.color.grey_dark, a);
 
-//        //Default json creator
-//        Item items[] = {
-//                new Item("item1Text", "item1Hint", "item1ImageResId"),
-//                new Item("item2Text", "item2Hint", "item2ImageResId")
-//        };
-//
-//        Detail details[] = {
-//                new Detail("detail1Title", items),
-//                new Detail("detail2Title", items)
-//        };
-//
-//        About about = new About("title", "imageResId",
-//                new Bio("bioTitle", "bioImageResId", "bioName", "bioText", "bioSource"), details,
-//                "statusColorResId", "actionColorResId");
-
-        //TODO use this for new presets
-//        String[] social = getResources().getStringArray(R.array.roses_social);
-//        String[] bio = getResources().getStringArray(R.array.roses_bio);
-//
-//        Item items[] = {
-//                new Item("Facebook"  , social[0], "about_facebook"),
-//                new Item("Twitter"   , social[1], "about_twitter"),
-//                new Item("SoundCloud", social[2], "about_soundcloud"),
-//                new Item("YouTube"   , social[3], "about_youtube"),
-//                new Item("Webpage"   , social[4], "about_web")
-//        };
-//
-//        Detail details[] = {
-//                new Detail("About " + bio[0], items)
-//        };
-//
-//        About about = new About(bio[0], "cardview_background_artist_roses",
-//                new Bio(bio[2], "about_bio_roses", bio[3], bio[4], bio[5]), details,
-//                "roses_dark", "roses");
-//
-//        Log.d("JSON TEST", json);
-
-        // TODO PROTO
-
-        Pad part1[] = {
-                new Pad("ft1_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
-                new Pad("ft1_11", "ft1_11_1", "ft1_11_2", "ft1_11_3", "ft1_11_4"), new Pad("ft1_12", "ft1_12_1", "ft1_12_2", "ft1_12_3", "ft1_12_4"), new Pad("ft1_13", "ft1_13_1", "ft1_13_2", "ft1_13_3", "ft1_13_4"), new Pad("ft1_14", "ft1_14_1", "ft1_14_2", "ft1_14_3", "ft1_14_4"),
-                new Pad("ft1_21", "ft1_21_1", "ft1_21_2", "ft1_21_3", "ft1_21_4"), new Pad("ft1_22", "ft1_22_1", "ft1_22_2", "ft1_22_3", "ft1_22_4"), new Pad("ft1_23", "ft1_23_1", "ft1_23_2", "ft1_23_3", "ft1_23_4"), new Pad("ft1_24", "ft1_24_1", "ft1_24_2", "ft1_24_3", "ft1_24_4"),
-                new Pad("ft1_31", "ft1_31_1", "ft1_31_2", "ft1_31_3", "ft1_31_4"), new Pad("ft1_32", "ft1_32_1", "ft1_32_2", "ft1_32_3", "ft1_32_4"), new Pad("ft1_33", "ft1_33_1", "ft1_33_2", "ft1_33_3", "ft1_33_4"), new Pad("ft1_34", "ft1_34_1", "ft1_34_2", "ft1_34_3", "ft1_34_4"),
-                new Pad("ft1_41", "ft1_41", "ft1_41", "ft1_41", "ft1_41"), new Pad("ft1_42", "ft1_42_1", "ft1_42_2", "ft1_42_3", "ft1_42_4"), new Pad("ft1_43", "ft1_43_1", "ft1_43_2", "ft1_43_3", "ft1_43_4"), new Pad("ft1_44", "ft1_44", "ft1_44", "ft1_44", "ft1_44")
-        };
-
-        Pad part2[] = {
-                new Pad("f2_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
-                new Pad("f2_11"), new Pad("f2_12"), new Pad("f2_13"), new Pad("f2_14_1", "f2_14_2", "f2_14_3"),
-                new Pad("f2_21"), new Pad("f2_22"), new Pad("f2_23"), new Pad("f2_24_1", "f2_24_2", "f2_24_3"),
-                new Pad("f2_31"), new Pad("f2_32"), new Pad("f2_33"), new Pad("f2_34_1", "f2_34_2", "f2_34_3"),
-                new Pad("f2_41"), new Pad("f2_42"), new Pad("f2_43"), new Pad("f2_44_1", "f2_44_2", "f2_44_3")
-        };
-
-        Pad part3[] = {
-                new Pad("f3_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
-                new Pad("f3_11"), new Pad("f3_12"), new Pad("f3_13"), new Pad("f3_14_1", "f3_14_2", "f3_14_3"),
-                new Pad("f3_21"), new Pad("f3_22"), new Pad("f3_23"), new Pad("f3_24_1", "f3_24_2", "f3_24_3"),
-                new Pad("f3_31"), new Pad("f3_32"), new Pad("f3_33"), new Pad("f3_34_1", "f3_34_2", "f3_34_3"),
-                new Pad("f3_41"), new Pad("f3_42"), new Pad("f3_43_1", "f3_43_2"), new Pad("f3_44_1", "f3_44_2", "f3_44_3")
-        };
-
-        Pad part4[] = {
-                new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"), new Pad("a0_00"),
-                new Pad("f4_11"), new Pad("f4_12"), new Pad("f4_13"), new Pad("f4_14"),
-                new Pad("f4_21"), new Pad("f4_22"), new Pad("f4_23"), new Pad("f4_24"),
-                new Pad("f4_31"), new Pad("f4_32"), new Pad("f4_33"), new Pad("f4_34"),
-                new Pad("f4_41"), new Pad("f3_42"), new Pad("f3_43_1", "f3_43_2"), new Pad("f3_44_1", "f3_44_2", "f3_44_3")
-        };
-
-        //TODO PROTO
-        Music faded = new Music(4, "Faded Gesture Prototype",
-                new Deck[]{new Deck(part1), new Deck(part2), new Deck(part3), new Deck(part4)});
-
-        Gson gson = new Gson();
-        Preset preset = new Preset(1, faded, gson.fromJson(getResources().getString(R.string.json_about_faded), About.class));
-
-        //String json = gson.toJson(preset, Preset.class);
-        largeLog("JSON", gson.toJson(preset));
+        //TODO EDIT
+        makeJson();
     }
 
     public static void largeLog(String tag, String content) {
@@ -1208,7 +1131,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
             case 3:
                 color = R.color.faded;
                 break;
-            //TODO PROTO
+            //TODO GESTURE
             case 4:
                 color = R.color.faded;
                 break;
@@ -1250,7 +1173,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                                         .positiveColorRes(R.color.faded);
                                 setSchemeInfo();
                                 break;
-                            //TODO PROTO
+                            //TODO GESTURE
                             case 3:
                                 setScheme(which + 1);
                                 PresetDialog.getBuilder()
@@ -1349,8 +1272,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 gson.fromJson(getResources().getString(R.string.json_hello), Preset.class),
                 gson.fromJson(getResources().getString(R.string.json_roses), Preset.class),
                 gson.fromJson(getResources().getString(R.string.json_faded), Preset.class),
-                //TODO PROTO
-                gson.fromJson(getResources().getString(R.string.json_faded_proto), Preset.class)
+                //TODO GESTURE
+                gson.fromJson(getResources().getString(R.string.json_faded_gesture), Preset.class)
         };
 
         //w.getProgressBar(R.id.progress_bar, a).setMax(PRESET_SOUND_COUNTS[getScheme() - 1]);
@@ -1728,7 +1651,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
             w.getTextView(R.id.cardview_artist_change, a).setTextColor(getResources().getColor(themeColor));
 
             w.getTextView(R.id.layout_settings_preset_hint, a).setText(getResources().getString(R.string.preset_roses_full));
-        } else if (scheme == 3 || scheme == 4) { //TODO PROTO
+        } else if (scheme == 3 || scheme == 4) { //TODO GESTURE
             themeColor = R.color.faded;
             w.setRecentColor(0, 0, themeColor, a);
 
@@ -1757,5 +1680,759 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
     void setScheme(int scheme) {
         prefs.edit().putInt("scheme", scheme).apply();
+    }
+
+    void makeJson() {
+//        //Default json creator
+//        Item items[] = {
+//                new Item("item1Text", "item1Hint", "item1ImageResId"),
+//                new Item("item2Text", "item2Hint", "item2ImageResId")
+//        };
+//
+//        Detail details[] = {
+//                new Detail("detail1Title", items),
+//                new Detail("detail2Title", items)
+//        };
+//
+//        About about = new About("title", "imageResId",
+//                new Bio("bioTitle", "bioImageResId", "bioName", "bioText", "bioSource"), details,
+//                "statusColorResId", "actionColorResId");
+
+        //TODO use this for new presets
+//        String[] social = getResources().getStringArray(R.array.roses_social);
+//        String[] bio = getResources().getStringArray(R.array.roses_bio);
+//
+//        Item items[] = {
+//                new Item("Facebook"  , social[0], "about_facebook"),
+//                new Item("Twitter"   , social[1], "about_twitter"),
+//                new Item("SoundCloud", social[2], "about_soundcloud"),
+//                new Item("YouTube"   , social[3], "about_youtube"),
+//                new Item("Webpage"   , social[4], "about_web")
+//        };
+//
+//        Detail details[] = {
+//                new Detail("About " + bio[0], items)
+//        };
+//
+//        About about = new About(bio[0], "cardview_background_artist_roses",
+//                new Bio(bio[2], "about_bio_roses", bio[3], bio[4], bio[5]), details,
+//                "roses_dark", "roses");
+//
+//        Log.d("JSON TEST", json);
+
+        Item fadedItems[] = {
+                new Item("facebook", "preset_faded_detail_facebook", "about_facebook"),
+                new Item("twitter", "preset_faded_detail_twitter", "about_twitter"),
+                new Item("soundcloud", "preset_faded_detail_soundcloud", "about_soundcloud"),
+                new Item("youtube", "preset_faded_detail_youtube", "about_youtube"),
+                new Item("web", "preset_faded_detail_web", "about_web"),
+        };
+
+        Detail fadedDetail = new Detail("preset_faded_about", fadedItems);
+
+        Bio fadedBio = new Bio(
+                "preset_faded_bio_title",
+                "about_bio_faded",
+                "preset_faded_bio_name",
+                "preset_faded_bio_text",
+                "preset_faded_bio_source"
+        );
+
+        Detail fadedDetails[] = {
+                fadedDetail
+        };
+
+        About fadedAbout = new About(
+                "preset_faded_title", "about_album_faded",
+                fadedBio, fadedDetails,
+                "preset_faded_color_dark", "preset_faded_color"
+        );
+
+        Pad part1[] = {
+                new Pad("ft1_00"),
+                new Pad("a0_00"),
+                new Pad("a0_00"),
+                new Pad("a0_00"),
+                new Pad("a0_00"),
+                new Pad("ft1_11", "ft1_11_1", "ft1_11_2", "ft1_11_3", "ft1_11_4"),
+                new Pad("ft1_12", "ft1_12_1", "ft1_12_2", "ft1_12_3", "ft1_12_4"),
+                new Pad("ft1_13", "ft1_13_1", "ft1_13_2", "ft1_13_3", "ft1_13_4"),
+                new Pad("ft1_14", "ft1_14_1", "ft1_14_2", "ft1_14_3", "ft1_14_4"),
+                new Pad("ft1_21", "ft1_21_1", "ft1_21_2", "ft1_21_3", "ft1_21_4"),
+                new Pad("ft1_22", "ft1_22_1", "ft1_22_2", "ft1_22_3", "ft1_22_4"),
+                new Pad("ft1_23", "ft1_23_1", "ft1_23_2", "ft1_23_3", "ft1_23_4"),
+                new Pad("ft1_24", "ft1_24_1", "ft1_24_2", "ft1_24_3", "ft1_24_4"),
+                new Pad("ft1_31", "ft1_31_1", "ft1_31_2", "ft1_31_3", "ft1_31_4"),
+                new Pad("ft1_32", "ft1_32_1", "ft1_32_2", "ft1_32_3", "ft1_32_4"),
+                new Pad("ft1_33", "ft1_33_1", "ft1_33_2", "ft1_33_3", "ft1_33_4"),
+                new Pad("ft1_34", "ft1_34_1", "ft1_34_2", "ft1_34_3", "ft1_34_4"),
+                new Pad("ft1_41"),
+                new Pad("ft1_42", "ft1_42_1", "ft1_42_2", "ft1_42_3", "ft1_42_4"),
+                new Pad("ft1_43", "ft1_43_1", "ft1_43_2", "ft1_43_3"),
+                new Pad("ft1_44")
+        };
+
+        Pad part2[] = {
+                new Pad("ft2_00", "ft2_00_1", "ft2_00_3"),
+                new Pad("a0_00"),
+                new Pad("a0_00"),
+                new Pad("a0_00"),
+                new Pad("a0_00"),
+                new Pad("ft2_11",
+                        "ft2_11_1", "ft2_11_2", "ft2_11_3", "ft2_11_4"),
+                new Pad("ft2_12", "ft2_12_1",
+                        "ft2_12_2",
+                        "ft2_12_3",
+                        "ft2_12_4"),
+                new Pad("ft2_13",
+                        "ft2_13_1",
+                        "ft2_13_2",
+                        "ft2_13_3",
+                        "ft2_13_4"),
+                new Pad("ft2_14",
+                        "ft2_14_1",
+                        "ft2_14_2",
+                        "ft2_14_3",
+                        "ft2_14_4"),
+                new Pad("ft2_21",
+                        "ft2_21_1",
+                        "ft2_21_2",
+                        "ft2_21_3",
+                        "ft2_21_4"),
+                new Pad("ft2_22",
+                        "ft2_22_1",
+                        "ft2_22_2",
+                        "ft2_22_3",
+                        "ft2_22_4"),
+                new Pad("ft2_23",
+                        "ft2_23_1",
+                        "ft2_23_2",
+                        "ft2_23_3",
+                        "ft2_23_4"),
+                new Pad("ft2_24",
+                        "ft2_24_1",
+                        "ft2_24_2",
+                        "ft2_24_3",
+                        "ft2_24_4"),
+                new Pad("ft2_31",
+                        "ft2_31_1",
+                        "ft2_31_2",
+                        "ft2_31_3",
+                        "ft2_31_4"),
+                new Pad("ft2_32",
+                        "ft2_32_1",
+                        "ft2_32_2",
+                        "ft2_32_3",
+                        "ft2_32_4"),
+                new Pad("ft2_33",
+                        "ft2_33_1",
+                        "ft2_33_2",
+                        "ft2_33_3",
+                        "ft2_33_4"),
+                new Pad("ft2_34",
+                        "ft2_34_1",
+                        "ft2_34_2",
+                        "ft2_34_3",
+                        "ft2_34_4"),
+                new Pad("ft2_41",
+                        "ft2_41_1",
+                        "ft2_41_2",
+                        "ft2_41_3",
+                        "ft2_41_4"),
+                new Pad("ft2_42",
+                        "ft2_42_1",
+                        "ft2_42_2",
+                        "ft2_42_3",
+                        "ft2_42_4"),
+                new Pad("ft2_43",
+                        "ft2_43_1",
+                        "ft2_43_2",
+                        "ft2_43_3",
+                        "ft2_43_4"),
+                new Pad("ft2_44",
+                        "ft2_44_1",
+                        "ft2_44_2",
+                        "ft2_44_3",
+                        "ft2_44_4")
+        };
+
+        Pad part3[] = {
+                new Pad("a0_00"),
+                new Pad("a0_00"),
+                new Pad("a0_00"),
+                new Pad("a0_00"),
+                new Pad("a0_00"),
+                new Pad("ft3_11",
+                        "ft3_11_1",
+                        "ft3_11_2",
+                        "ft3_11_3",
+                        "ft3_11_4"),
+                new Pad("ft3_12",
+                        "ft3_12_1",
+                        "ft3_12_2",
+                        "ft3_12_3",
+                        "ft3_12_4"),
+                new Pad("ft3_13",
+                        "ft3_13_1",
+                        "ft3_13_2",
+                        "ft3_13_3",
+                        "ft3_13_4"),
+                new Pad("ft3_14",
+                        "ft3_14_1",
+                        "ft3_14_2",
+                        "ft3_14_3",
+                        "ft3_14_4"),
+                new Pad("ft3_21",
+                        "ft3_21_1",
+                        "ft3_21_2",
+                        "ft3_21_3",
+                        "ft3_21_4"),
+                new Pad("ft3_22",
+                        "ft3_22_1",
+                        "ft3_22_2",
+                        "ft3_22_3",
+                        "ft3_22_4"),
+                new Pad("ft3_23",
+                        "ft3_23_1",
+                        "ft3_23_2",
+                        "ft3_23_3",
+                        "ft3_23_4"),
+                new Pad("ft3_24",
+                        "ft3_24_1",
+                        "ft3_24_2",
+                        "ft3_24_3",
+                        "ft3_24_4"),
+                new Pad("ft3_31"),
+                new Pad("ft3_32",
+                        "ft3_32_1",
+                        "ft3_32_2",
+                        "ft3_32_3",
+                        "ft3_32_4"),
+                new Pad("ft3_33",
+                        "ft3_33_1",
+                        "ft3_33_2",
+                        "ft3_33_3",
+                        "ft3_33_4"),
+                new Pad("ft3_34",
+                        "ft3_34_1",
+                        "ft3_34_2",
+                        "ft3_34_3",
+                        "ft3_34_4"),
+                new Pad("ft3_41",
+                        "ft3_41_1",
+                        "ft3_41_2"),
+                new Pad("ft3_42",
+                        "ft3_42_1",
+                        "ft3_42_2",
+                        "ft3_42_3",
+                        "ft3_42_4"),
+                new Pad("ft3_43",
+                        "ft3_43_1",
+                        "ft3_43_2",
+                        "ft3_43_3",
+                        "ft3_43_4"),
+                new Pad("ft3_44",
+                        "ft3_44_1",
+                        "ft3_44_2",
+                        "ft3_44_3",
+                        "ft3_44_4")
+        };
+
+        Pad part4[] = {
+                new Pad("a0_00"),
+                new Pad("a0_00"),
+                new Pad("a0_00"),
+                new Pad("a0_00"),
+                new Pad("a0_00"),
+                new Pad("ft4_11"),
+                new Pad("ft4_12"),
+                new Pad("ft4_13"),
+                new Pad("ft4_14"),
+                new Pad("ft4_21"),
+                new Pad("ft4_22"),
+                new Pad("ft4_23"),
+                new Pad("ft4_24"),
+                new Pad("ft4_31"),
+                new Pad("ft4_32"),
+                new Pad("ft4_33"),
+                new Pad("ft4_34"),
+                new Pad("ft4_41"),
+                new Pad("ft4_42"),
+                new Pad("ft4_43"),
+                new Pad("ft4_44")
+        };
+
+        Integer pt1[][] = {
+                {42660},
+                {null},
+                {null},
+                {null},
+                {null},
+                {26658},
+                {0},
+                {1333},
+                {2666},
+                {3998},
+                {27991},
+                {10664, 21327},
+                {11996, 22660},
+                {13329, 23993},
+                {14662, 25326},
+                {29324},
+                {15995},
+                {17328},
+                {18660},
+                {19993},
+                {30657},
+                {5331},
+                {6664},
+                {7997},
+                {9330},
+                {42660},
+                {34656},
+                {37322},
+                {45320},
+                {47986},
+                {47986},
+                {35989},
+                {38655},
+                {46653},
+                {49318},
+                {50651},
+                {36655},
+                {39321},
+                {47319},
+                {49984},
+                {45320},
+                {35322},
+                {37988},
+                {45986},
+                {48652},
+                {31991},
+                {31991},
+                {39988},
+                {42660},
+                {50651},
+                {37322},
+                {33324},
+                {41320},
+                {43987},
+                {51984},
+                {39988},
+                {33990},
+                {41987},
+                {44653},
+                {52650},
+                {34656},
+                {32657},
+                {40654},
+                {43320},
+                {51317},
+                {43987},
+                {null},
+                {null},
+                {null},
+                {null},
+                {10664},
+                {10664},
+                {15995},
+                {21327},
+                {26658},
+                {34656},
+                {34656},
+                {39988},
+                {45320},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null}
+        };
+
+        Integer pt2[][] = {
+                {54660},
+                {53318},
+                {null},
+                {75993},
+                {null},
+                {75993},
+                {70660},
+                {54660},
+                {59993},
+                {65326},
+                {78659},
+                {71326},
+                {55327},
+                {60660},
+                {65993},
+                {81325},
+                {71993},
+                {55994},
+                {61327},
+                {66660},
+                {83992},
+                {72660},
+                {56660},
+                {61993},
+                {67326},
+                {86659},
+                {73326},
+                {57327},
+                {62660},
+                {67993},
+                {89325},
+                {73993},
+                {57993},
+                {63327},
+                {68660},
+                {91992},
+                {74660},
+                {58660},
+                {63993},
+                {69326},
+                {94658},
+                {75326},
+                {59324},
+                {64659},
+                {69991},
+                {87992},
+                {57662},
+                {73660},
+                {68329},
+                {62994},
+                {90658},
+                {58329},
+                {74327},
+                {68995},
+                {63660},
+                {93325},
+                {58995},
+                {74996},
+                {69661},
+                {64330},
+                {95992},
+                {59662},
+                {75663},
+                {70328},
+                {64997},
+                {77326},
+                {54997},
+                {70994},
+                {65663},
+                {60328},
+                {79993},
+                {55664},
+                {71661},
+                {66330},
+                {60995},
+                {82659},
+                {56330},
+                {72327},
+                {66996},
+                {61661},
+                {85326},
+                {56996},
+                {72994},
+                {67663},
+                {62328}
+        };
+
+        Integer pt3[][] = {
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {139993},
+                {97325},
+                {107994},
+                {118660},
+                {129327},
+                {142659},
+                {99991},
+                {110660},
+                {121326},
+                {131993},
+                {143992},
+                {101325},
+                {111994},
+                {122660},
+                {133326},
+                {141326},
+                {98658},
+                {109327},
+                {119993},
+                {130659},
+                {145326},
+                {102658},
+                {113327},
+                {123993},
+                {134659},
+                {147992},
+                {105325},
+                {115994},
+                {126660},
+                {137326},
+                {149326},
+                {106658},
+                {117327},
+                {127993},
+                {138659},
+                {146659},
+                {103991},
+                {114660},
+                {125326},
+                {135993},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {139993},
+                {97325},
+                {107994},
+                {118660},
+                {129327},
+                {142659},
+                {99991},
+                {110660},
+                {121326},
+                {131993},
+                {97325},
+                {102658},
+                {107994},
+                {113327},
+                {118660},
+                {129327, 130657, 131997, 133327, 134657, 135987, 137327, 138657},
+                {139997, 141327, 142667, 143987},
+                {145327, 146657, 147997, 149327},
+                {null},
+                {null},
+                {145326},
+                {102658},
+                {113327},
+                {123993},
+                {134659},
+                {147992},
+                {105325},
+                {115994},
+                {126660},
+                {137326},
+                {123993},
+                {129327},
+                {134659},
+                {139993},
+                {145326}
+        };
+
+        Integer pt4[][] = {
+                {null},
+                {150650},
+                {null},
+                {173325},
+                {null},
+                {173325},
+                {167992},
+                {151992},
+                {157325},
+                {162658},
+                {175991},
+                {168658},
+                {152659},
+                {157992},
+                {163325},
+                {178658},
+                {169325},
+                {153326},
+                {158659},
+                {163992},
+                {181324},
+                {169992},
+                {153992},
+                {159326},
+                {164658},
+                {183991},
+                {170658},
+                {154659},
+                {159992},
+                {165325},
+                {186657},
+                {171325},
+                {155326},
+                {160659},
+                {165992},
+                {189324},
+                {171992},
+                {155992},
+                {161326},
+                {166658},
+                {191990},
+                {172658},
+                {156657},
+                {161992},
+                {167323},
+                {185324},
+                {154994},
+                {170992},
+                {165661},
+                {160326},
+                {187990},
+                {155661},
+                {171659},
+                {166327},
+                {160992},
+                {190657},
+                {156327},
+                {172328},
+                {166993},
+                {161662},
+                {193324},
+                {156994},
+                {172995},
+                {167660},
+                {162329},
+                {174658},
+                {152329},
+                {168326},
+                {162995},
+                {157660},
+                {177325},
+                {152996},
+                {168993},
+                {163662},
+                {158327},
+                {179991},
+                {153662},
+                {169659},
+                {164328},
+                {158993},
+                {182658},
+                {154328},
+                {170326},
+                {164995},
+                {159660}
+        };
+
+        Integer pt5[][] = {
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {194637},
+                {null},
+                {null},
+                {null},
+                {null},
+                {195993},
+                {null},
+                {null},
+                {null},
+                {null},
+                {195326},
+                {null},
+                {null},
+                {null},
+                {null},
+                {196660},
+                {null},
+                {null},
+                {null},
+                {null},
+                {197326},
+                {null},
+                {null},
+                {null},
+                {null},
+                {198660},
+                {null},
+                {null},
+                {null},
+                {null},
+                {197993},
+                {null},
+                {null},
+                {null},
+                {null},
+                {199324},
+                {null},
+                {null},
+                {null},
+                {null},
+                {199993},
+                {null},
+                {null},
+                {null},
+                {null},
+                {201340},
+                {null},
+                {null},
+                {null},
+                {null},
+                {200682},
+                {null},
+                {null},
+                {null},
+                {null},
+                {202128},
+                {null},
+                {null},
+                {null},
+                {null},
+                {203147},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null}
+        };
+
+        DeckTiming deckTiming[] = {
+                new DeckTiming(
+                        pt1, 0
+                ),
+                new DeckTiming(
+                        pt2, 52949
+                ),
+                new DeckTiming(
+                        pt3, 96379
+                ),
+                new DeckTiming(
+                        pt4, 149947
+                ),
+                new DeckTiming(
+                        pt5, 193772
+                )
+        };
+
+        //TODO EDIT
+        Log.d("Array", Arrays.deepToString(deckTiming[0].getDeckTiming()));
+
+        Music fadedMusic = new Music(
+                "preset_faded",
+                new Deck[]{new Deck(part1), new Deck(part2), new Deck(part3), new Deck(part4)},
+                deckTiming
+        );
+
+        Preset fadedPreset = new Preset(4, fadedMusic, fadedAbout);
+
+        //String json = gson.toJson(preset, Preset.class);
+        Gson gson = new Gson();
+        largeLog("JSON", gson.toJson(fadedPreset));
     }
 }

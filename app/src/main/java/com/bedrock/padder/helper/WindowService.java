@@ -273,7 +273,6 @@ public class WindowService {
             Log.i("WindowService", "API doesn't match requirement. (API >= 21)");
         }
     }
-
     public void setViewBackgroundColor(int view_id, int color_id, Activity activity) {
         try {
             getView(view_id, activity).setBackgroundColor(activity.getResources().getColor(color_id));
@@ -493,6 +492,30 @@ public class WindowService {
         //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
     }
 
+    public int getStringId(String id) {
+        try {
+            Class res = R.string.class;
+            Field field = res.getField(id);
+            return field.getInt(null);
+        } catch (Exception e) {
+            Log.e("getColorId", "Failure to get string id.", e);
+            return -1;
+        }
+        //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
+    }
+
+    public String getStringFromId(String id, Activity activity) {
+        try {
+            Class res = R.string.class;
+            Field field = res.getField(id);
+            return activity.getResources().getString(field.getInt(null));
+        } catch (Exception e) {
+            Log.e("getColorId", "Failure to get string id.", e);
+            return null;
+        }
+        //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
+    }
+
     public int getDrawableId(String id) {
         try {
             Class res = R.drawable.class;
@@ -506,7 +529,16 @@ public class WindowService {
     }
 
     public int getRawId(String id, Activity activity) {
-        return activity.getResources().getIdentifier(id, "raw", activity.getPackageName());
+        //return activity.getResources().getIdentifier(id, "raw", activity.getPackageName());
+        try {
+            Class res = R.raw.class;
+            Field field = res.getField(id);
+            return field.getInt(null);
+        } catch (Exception e) {
+            Log.e("getColorId", "Failure to get raw id.", e);
+            return -1;
+        }
+        //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
     }
 
     // public Z getZ(int id, Activity activity) {

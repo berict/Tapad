@@ -21,15 +21,14 @@ public class SoundService {
     public static final int HELLO_SOUND_COUNT = 84;
     public static final int ROSES_SOUND_COUNT = 102;
     public static final int FADED_SOUND_COUNT = 105;
-    //TODO PROTO
-    public static final int FADED_PROTO_SOUND_COUNT = 168;
+    //TODO GESTURE
+    public static final int FADED_GESTURE_SOUND_COUNT = 245;
 
     public static final int PRESET_SOUND_COUNTS[] = {
             HELLO_SOUND_COUNT,
             ROSES_SOUND_COUNT,
             FADED_SOUND_COUNT,
-            //TODO PROTO
-            FADED_PROTO_SOUND_COUNT
+            FADED_GESTURE_SOUND_COUNT
     };
 
     public SoundPool sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
@@ -485,87 +484,9 @@ public class SoundService {
     };
 
     boolean isPresetLoaded = false;
-    int raw[][][] = {
-            {
-                    // Hello
-                    {R.raw.a0_00}, {R.raw.h3_01}, {R.raw.a0_00}, {R.raw.h2_03}, {R.raw.h2_04},
-                    {R.raw.h1_11}, {R.raw.h1_12}, {R.raw.h1_13}, {R.raw.h1_14},
-                    {R.raw.h1_21}, {R.raw.h1_22}, {R.raw.h1_23}, {R.raw.h1_24},
-                    {R.raw.h1_31}, {R.raw.h1_32}, {R.raw.h1_33}, {R.raw.h1_34},
-                    {R.raw.h1_41}, {R.raw.h1_42}, {R.raw.h1_43}, {R.raw.h1_44},
-
-                    {R.raw.h2_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
-                    {R.raw.h2_11}, {R.raw.h2_12}, {R.raw.h2_13}, {R.raw.h2_14},
-                    {R.raw.h2_21}, {R.raw.h2_22}, {R.raw.h2_23}, {R.raw.h2_24},
-                    {R.raw.h2_31}, {R.raw.h2_32}, {R.raw.h2_33}, {R.raw.h2_34},
-                    {R.raw.h2_41}, {R.raw.h2_42}, {R.raw.h2_43}, {R.raw.h2_44},
-
-                    {R.raw.h3_01}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
-                    {R.raw.h3_11}, {R.raw.h3_12}, {R.raw.h3_13}, {R.raw.h3_14},
-                    {R.raw.h3_21}, {R.raw.h3_22}, {R.raw.h3_23}, {R.raw.h3_24},
-                    {R.raw.h3_31}, {R.raw.h3_32}, {R.raw.h3_33}, {R.raw.h3_34},
-                    {R.raw.h3_41}, {R.raw.h3_42}, {R.raw.h3_43}, {R.raw.h3_44},
-
-                    {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
-                    {R.raw.h4_11}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.h4_14},
-                    {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
-                    {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
-                    {R.raw.h4_41}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.h4_44}
-            }, {
-            // Roses
-            {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
-            {R.raw.r1_11}, {R.raw.r1_12}, {R.raw.r1_13}, {R.raw.r1_14},
-            {R.raw.r1_21_1, R.raw.r1_21_2, R.raw.r1_21_3, R.raw.r1_21_4}, {R.raw.r1_22_1, R.raw.r1_22_2, R.raw.r1_22_3, R.raw.r1_22_4}, {R.raw.r1_23_1, R.raw.r1_23_2, R.raw.r1_23_3, R.raw.r1_23_4}, {R.raw.r1_24_1, R.raw.r1_24_2, R.raw.r1_24_3, R.raw.r1_24_4},
-            {R.raw.r1_31_1}, {R.raw.r1_32}, {R.raw.r1_33_1}, {R.raw.r1_34},
-            {R.raw.r1_41_1}, {R.raw.r1_42}, {R.raw.r1_43}, {R.raw.r1_44},
-
-            {R.raw.r2_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
-            {R.raw.r2_11_1}, {R.raw.r2_12_1}, {R.raw.r2_13_1, R.raw.r2_13_2}, {R.raw.r2_14_1, R.raw.r2_14_2},
-            {R.raw.r2_21}, {R.raw.r2_22}, {R.raw.r2_23}, {R.raw.r2_24},
-            {R.raw.r2_31}, {R.raw.r2_32}, {R.raw.r2_33}, {R.raw.r2_34},
-            {R.raw.r2_41}, {R.raw.r2_42_1}, {R.raw.r2_43}, {R.raw.r2_44},
-
-            {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
-            {R.raw.r2_11_1}, {R.raw.r3_12_1}, {R.raw.r3_13_1, R.raw.r3_13_2}, {R.raw.r3_14_1, R.raw.r3_14_2},
-            {R.raw.r3_21}, {R.raw.r3_22}, {R.raw.r3_23}, {R.raw.r3_24},
-            {R.raw.r3_31}, {R.raw.r3_32}, {R.raw.r3_33}, {R.raw.r3_34},
-            {R.raw.r2_41}, {R.raw.r3_42_1}, {R.raw.r2_43}, {R.raw.r3_44},
-
-            {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
-            {R.raw.r2_11_1}, {R.raw.r4_12_1}, {R.raw.r4_13_1, R.raw.r4_13_2}, {R.raw.r4_14_1, R.raw.r4_14_2},
-            {R.raw.r4_21_1}, {R.raw.r4_22_1}, {R.raw.r4_23_1}, {R.raw.r4_24_1},
-            {R.raw.r4_31_1}, {R.raw.r4_32_1}, {R.raw.r4_33_1}, {R.raw.r4_34_1},
-            {R.raw.r2_41}, {R.raw.r4_42_1}, {R.raw.r2_43}, {R.raw.r3_44}
-    }, {
-            // Faded
-            {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
-            {R.raw.f1_11}, {R.raw.f1_12}, {R.raw.f1_13}, {R.raw.f1_14},
-            {R.raw.f1_21}, {R.raw.f1_22}, {R.raw.f1_23}, {R.raw.f1_24},
-            {R.raw.f1_31}, {R.raw.f1_32}, {R.raw.f1_33}, {R.raw.f1_34},
-            {R.raw.f1_41}, {R.raw.f1_42}, {R.raw.f1_43_1, R.raw.f1_43_2}, {R.raw.a0_00},
-
-            {R.raw.f2_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
-            {R.raw.f2_11}, {R.raw.f2_12}, {R.raw.f2_13}, {R.raw.f2_14_1, R.raw.f2_14_2, R.raw.f2_14_3},
-            {R.raw.f2_21}, {R.raw.f2_22}, {R.raw.f2_23}, {R.raw.f2_24_1, R.raw.f2_24_2, R.raw.f2_24_3},
-            {R.raw.f2_31}, {R.raw.f2_32}, {R.raw.f2_33}, {R.raw.f2_34_1, R.raw.f2_34_2, R.raw.f2_34_3},
-            {R.raw.f2_41}, {R.raw.f2_42}, {R.raw.f2_43}, {R.raw.f2_44_1, R.raw.f2_44_2, R.raw.f2_44_3},
-
-            {R.raw.f3_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
-            {R.raw.f3_11}, {R.raw.f3_12}, {R.raw.f3_13}, {R.raw.f3_14_1, R.raw.f3_14_2, R.raw.f3_14_3},
-            {R.raw.f3_21}, {R.raw.f3_22}, {R.raw.f3_23}, {R.raw.f3_24_1, R.raw.f3_24_2, R.raw.f3_24_3},
-            {R.raw.f3_31}, {R.raw.f3_32}, {R.raw.f3_33}, {R.raw.f3_34_1, R.raw.f3_34_2, R.raw.f3_34_3},
-            {R.raw.f3_41}, {R.raw.f3_42}, {R.raw.f3_43_1, R.raw.f3_43_2}, {R.raw.f3_44_1, R.raw.f3_44_2, R.raw.f3_44_3},
-
-            {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00}, {R.raw.a0_00},
-            {R.raw.f4_11}, {R.raw.f4_12}, {R.raw.f4_13}, {R.raw.f4_14},
-            {R.raw.f4_21}, {R.raw.f4_22}, {R.raw.f4_23}, {R.raw.f4_24},
-            {R.raw.f4_31}, {R.raw.f4_32}, {R.raw.f4_33}, {R.raw.f4_34},
-            {R.raw.f4_41}, {R.raw.f3_42}, {R.raw.f3_43_1, R.raw.f3_43_2}, {R.raw.f3_44_1, R.raw.f3_44_2, R.raw.f3_44_3}
-    }
-    };
     Activity activity;
-    Preset currentPreset = null;
-    Preset previousPreset = null;
+    public static Preset currentPreset = null;
+    public static Preset previousPreset = null;
 
     int buttonId[] = {
             R.id.btn00,
@@ -588,34 +509,12 @@ public class SoundService {
             R.id.btn41,
             R.id.btn42,
             R.id.btn43,
-            R.id.btn44};
+            R.id.btn44
+    };
+
     private ThemeService theme = new ThemeService();
     private AnimService anim = new AnimService();
     private WindowService window = new WindowService();
-
-    //  R.raw.h1_00, R.raw.a0_00, R.raw.a0_00, R.raw.a0_00, R.raw.a0_00,
-    //  R.raw.h1_11, R.raw.h1_12, R.raw.h1_13, R.raw.h1_14,
-    //  R.raw.h1_21, R.raw.h1_22, R.raw.h1_23, R.raw.h1_24,
-    //  R.raw.h1_31, R.raw.h1_32, R.raw.h1_33, R.raw.h1_34,
-    //  R.raw.h1_41, R.raw.h1_42, R.raw.h1_43, R.raw.h1_44,
-    //
-    //  R.raw.h2_00, R.raw.a0_00, R.raw.a0_00, R.raw.a0_00, R.raw.a0_00,
-    //  R.raw.h2_11, R.raw.h2_12, R.raw.h2_13, R.raw.h2_14,
-    //  R.raw.h2_21, R.raw.h2_22, R.raw.h2_23, R.raw.h2_24,
-    //  R.raw.h2_31, R.raw.h2_32, R.raw.h2_33, R.raw.h2_34,
-    //  R.raw.h2_41, R.raw.h2_42, R.raw.h2_43, R.raw.h2_44,
-    //
-    //  R.raw.h3_00, R.raw.a0_00, R.raw.a0_00, R.raw.a0_00, R.raw.a0_00,
-    //  R.raw.h3_11, R.raw.h3_12, R.raw.h3_13, R.raw.h3_14,
-    //  R.raw.h3_21, R.raw.h3_22, R.raw.h3_23, R.raw.h3_24,
-    //  R.raw.h3_31, R.raw.h3_32, R.raw.h3_33, R.raw.h3_34,
-    //  R.raw.h3_41, R.raw.h3_42, R.raw.h3_43, R.raw.h3_44,
-    //
-    //  R.raw.h4_00, R.raw.a0_00, R.raw.a0_00, R.raw.a0_00, R.raw.a0_00,
-    //  R.raw.h4_11, R.raw.h4_12, R.raw.h4_13, R.raw.h4_14,
-    //  R.raw.h4_21, R.raw.h4_22, R.raw.h4_23, R.raw.h4_24,
-    //  R.raw.h4_31, R.raw.h4_32, R.raw.h4_33, R.raw.h4_34,
-    //  R.raw.h4_41, R.raw.h4_42, R.raw.h4_43, R.raw.h4_44,
 
     //Play SoundPool
     public void soundPlay(SoundPool sp, int soundid) {
@@ -954,7 +853,7 @@ public class SoundService {
             Log.d(TAG, "On preExecute, set prefs");
             isPresetLoaded = false;
             progressCount = 0;
-            presetSoundCount = PRESET_SOUND_COUNTS[currentPreset.getMusic().getId() - 1];
+            presetSoundCount = PRESET_SOUND_COUNTS[currentPreset.getId() - 1];
             progress = window.getTextView(R.id.progress_bar_progress_text, activity);
             if (window.getView(R.id.progress_bar_layout, activity).getVisibility() == View.GONE) {
                 Log.d(TAG, "ProgressBar fadeIn");
@@ -969,7 +868,7 @@ public class SoundService {
             Log.d(TAG, "On doInBackground, start unloading sounds");
             try {
                 if (previousPreset != null) {
-                    Log.i(TAG, "Preset \"" + previousPreset.getMusic().getName() + "\", id " + previousPreset.getMusic().getId());
+                    Log.i(TAG, "Preset \"" + window.getStringFromId(previousPreset.getMusic().getNameId(), activity) + "\", id " + previousPreset.getId());
                     // deck loop
                     for (int i = 0; i < 4; i++) {
                         Log.i(TAG, "  Deck " + (i + 1));
@@ -1046,7 +945,7 @@ public class SoundService {
             Log.d(TAG, "On doInBackground, start loading sounds");
             
             if (currentPreset != null) {
-                Log.i(TAG, "Preset \"" + currentPreset.getMusic().getName() + "\", id " + currentPreset.getMusic().getId());
+                Log.i(TAG, "Preset \"" + window.getStringFromId(currentPreset.getMusic().getNameId(), activity) + "\", id " + currentPreset.getId());
                 // deck loop
                 for (int i = 0; i < 4; i++) {
                     Log.i(TAG, "  Deck " + (i + 1));

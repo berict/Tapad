@@ -1,30 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Misc -->
+    <string name="web">Web</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">Twitter</string>
+    <string name="soundcloud">SoundCloud</string>
+    <string name="youtube">YouTube</string>
+
     <!-- Berict -->
 
     <string name="info_berict_full">Studio Berict</string>
-    <string name="info_berict_about">About Studio Berict</string>
-    <string name="info_berict_bio">Berict\'s Biography</string>
+    <string name="info_berict_title">About Studio Berict</string>
+    
+    <string name="info_berict_bio_title">Berict\'s Biography</string>
     <string name="info_berict_bio_name">Bedrock Pictures (Nathan Cho)</string>
-    <string name="info_berict_bio_full">
+    <string name="info_berict_bio_text">
         Nathan is high school student in South Korea, who enjoys software and football.
         Currently attending Sunrin Internet High School.
         Started developing about 5 years ago, started by HTML, now on Android.
         As you see, has a big interest in Android\'s "Material Design".</string>
     <string name="info_berict_bio_source">Powered by Bedrock Pictures</string>
 
-    <string name="info_berict_facebook">https://www.facebook.com/studioberict</string>
-    <string name="info_berict_twitter">https://twitter.com/studioberict</string>
-    <string name="info_berict_youtube">https://www.youtube.com/user/bedrockpicture</string>
-    <string name="info_berict_web">http://berict.com</string>
+    <string name="info_berict_detail_title">About Studio Berict</string>
+    <string name="info_berict_detail_facebook">https://www.facebook.com/studioberict</string>
+    <string name="info_berict_detail_twitter">https://twitter.com/studioberict</string>
+    <string name="info_berict_detail_youtube">https://www.youtube.com/user/bedrockpicture</string>
+    <string name="info_berict_detail_web">http://berict.com</string>
     
     <!-- Tapad -->
 
     <string name="info_tapad_full">Tapad</string>
-    <string name="info_tapad_about">About Tapad</string>
-    <string name="info_tapad_bio">About Tapad</string>
+    <string name="info_tapad_title">About Tapad</string>
+    
+    <string name="info_tapad_bio_title">About Tapad</string>
     <string name="info_tapad_bio_name">Probably the best looking LaunchPad out there.</string>
-    <string name="info_tapad_bio_full">
+    <string name="info_tapad_bio_text">
         Tapad is a LaunchAad application.
         It implemented the Material Design from the Google Design Guideline, and its beautiful.
         It mainly features song genres like EDM, Dubstep, Progressive House, Electronic.</string>
@@ -37,84 +47,77 @@
         <item>@string/preset_hello_full</item>
         <item>@string/preset_roses_full</item>
         <item>@string/preset_faded_full</item>
-        <item>@string/preset_faded_proto_full</item>
+        <item>@string/preset_faded_full</item>
     </string-array>
     
     <!-- Hello -->
     
     <string name="preset_hello_full">OMFG - Hello</string>
     <string name="preset_hello">Hello</string>
-    <string name="preset_hello_artist">OMFG</string>
-    <string name="preset_hello_about">About OMFG</string>
-    <string name="preset_hello_bio">OMFG\'s Biography</string>
+    <string name="preset_hello_title">OMFG</string>
+    
+    <string name="preset_hello_bio_title">OMFG\'s Biography</string>
     <string name="preset_hello_bio_name">Alex OMFG (Alex Savage)</string>
-    <string name="preset_hello_bio_full">This is a Fun Loving girl who had a desire to make music.
+    <string name="preset_hello_bio_text">This is a Fun Loving girl who had a desire to make music.
         Alex enjoyed making dubstep to just share between friends and family.
         She soon talked her self into posting her creations online to see what kinda feedback she would get.
-        Getting an overly positive reviews she continued to make music ever since with her latest track called OMFG - Jelly.</string>
+        Getting an overly positive reviews she continued to make music ever since.</string>
     <string name="preset_hello_bio_source">Powered by Muzikum</string>
 
-    <string name="preset_hello_facebook">https://www.facebook.com/alexomfg/</string>
-    <string name="preset_hello_twitter">https://twitter.com/AlexSavageOMFG</string>
-    <string name="preset_hello_soundcloud">https://soundcloud.com/alexomfg</string>
-    <string name="preset_hello_youtube">https://www.youtube.com/user/alexsavageomfg</string>
-    <string name="preset_hello_web">http://alexomfg.com</string>
+    <string name="preset_hello_detail_title">About OMFG</string>
+    <string name="preset_hello_detail_facebook">https://www.facebook.com/alexomfg/</string>
+    <string name="preset_hello_detail_twitter">https://twitter.com/AlexSavageOMFG</string>
+    <string name="preset_hello_detail_soundcloud">https://soundcloud.com/alexomfg</string>
+    <string name="preset_hello_detail_youtube">https://www.youtube.com/user/alexsavageomfg</string>
+    <string name="preset_hello_detail_web">http://alexomfg.com</string>
+
+    <item name="preset_hello_color" type="color">#FF06DC</item>
+    <item name="preset_hello_color_dark" type="color">#CC04B0</item>
     
     <!-- Roses -->
 
     <string name="preset_roses_full">The Chainsmokers - Roses</string>
     <string name="preset_roses">Roses</string>
-    <string name="preset_roses_artist">The Chainsmokers</string>
-    <string name="preset_roses_about">About The Chainsmokers</string>
-    <string name="preset_roses_bio">The Chainsmokers\' Biography</string>
+    <string name="preset_roses_title">The Chainsmokers</string>
+    
+    <string name="preset_roses_bio_title">The Chainsmokers\' Biography</string>
     <string name="preset_roses_bio_name">Andrew Taggart and Alex Pall</string>
-    <string name="preset_roses_bio_full">The Chainsmokers have become the hottest young American EDM DJ duo.
+    <string name="preset_roses_bio_text">The Chainsmokers have become the hottest young American EDM DJ duo.
         Their signature sound has its foundations in Indie, Progressive and Pop Music.
         On the production front, their original tracks have all reached the Beatport top charts and their remixes always hit #1 on the HypeM charts.
         Their first major release, #SELFIE, and it\'s official music video swept the world so look out for much more to come!</string>
     <string name="preset_roses_bio_source">Powered by thechainsmokers.com</string>
 
-    <string name="preset_roses_facebook">https://www.facebook.com/thechainsmokers</string>
-    <string name="preset_roses_twitter">http://www.twitter.com/thechainsmokers</string>
-    <string name="preset_roses_soundcloud">http://www.soundcloud.com/thechainsmokers</string>
-    <string name="preset_roses_youtube">https://www.youtube.com/user/THECHAINSMOKERS</string>
-    <string name="preset_roses_web">http://thechainsmokers.com/</string>
+    <string name="preset_roses_detail_title">About The Chainsmokers</string>
+    <string name="preset_roses_detail_facebook">https://www.facebook.com/thechainsmokers</string>
+    <string name="preset_roses_detail_twitter">http://www.twitter.com/thechainsmokers</string>
+    <string name="preset_roses_detail_soundcloud">http://www.soundcloud.com/thechainsmokers</string>
+    <string name="preset_roses_detail_youtube">https://www.youtube.com/user/THECHAINSMOKERS</string>
+    <string name="preset_roses_detail_web">http://thechainsmokers.com/</string>
+
+    <item name="preset_roses_color" type="color">#FF73E1</item>
+    <item name="preset_roses_color_dark" type="color">#CC5CB4</item>
     
-    <!-- Faded -->
+    <!-- Faded (Gesture same) -->
     
     <string name="preset_faded_full">Alan Walker - Faded</string>
     <string name="preset_faded">Faded</string>
-    <string name="preset_faded_artist">Alan Walker</string>
-    <string name="preset_faded_about">About Alan Walker</string>
-    <string name="preset_faded_bio">Alan Walker\'s Biography</string>
+    <string name="preset_faded_title">Alan Walker</string>
+    
+    <string name="preset_faded_bio_title">Alan Walker\'s Biography</string>
     <string name="preset_faded_bio_name">Alan Olav Walker</string>
-    <string name="preset_faded_bio_full">Alan Walker (Alan Olav Walker) is a British-Norwegian record producer who was born in Northampton, England.
+    <string name="preset_faded_bio_text">Alan Walker (Alan Olav Walker) is a British-Norwegian record producer who was born in Northampton, England.
         He is best known for the electronic dance music single "Faded", which has reached number 1 in multiple countries,
         and on YouTube has over 650 million views and 4 million likes, placing it among the top 40 most liked YouTube videos.</string>
     <string name="preset_faded_bio_source">Powered by Wikipedia</string>
 
-    <string name="preset_faded_facebook">https://www.facebook.com/alanwalkermusic</string>
-    <string name="preset_faded_twitter">https://twitter.com/IAmAlanWalker</string>
-    <string name="preset_faded_soundcloud">https://soundcloud.com/alanwalker</string>
-    <string name="preset_faded_youtube">https://www.youtube.com/user/DjWalkzz</string>
-    <string name="preset_faded_web">http://www.alanwalkermusic.no/</string>
+    <string name="preset_faded_detail_title">About Alan Walker</string>
+    <string name="preset_faded_detail_facebook">https://www.facebook.com/alanwalkermusic</string>
+    <string name="preset_faded_detail_twitter">https://twitter.com/IAmAlanWalker</string>
+    <string name="preset_faded_detail_soundcloud">https://soundcloud.com/alanwalker</string>
+    <string name="preset_faded_detail_youtube">https://www.youtube.com/user/DjWalkzz</string>
+    <string name="preset_faded_detail_web">http://www.alanwalkermusic.no/</string>
 
-    <!-- TODO PROTO FADED -->
-
-    <string name="preset_faded_proto_full">Alan Walker - Faded (PROTO)</string>
-    <string name="preset_faded_proto">Faded</string>
-    <string name="preset_faded_proto_artist">Alan Walker</string>
-    <string name="preset_faded_proto_about">About Alan Walker</string>
-    <string name="preset_faded_proto_bio">Alan Walker\'s Biography</string>
-    <string name="preset_faded_proto_bio_name">Alan Olav Walker</string>
-    <string name="preset_faded_proto_bio_full">Alan Walker (Alan Olav Walker) is a British-Norwegian record producer who was born in Northampton, England.
-        He is best known for the electronic dance music single "Faded", which has reached number 1 in multiple countries,
-        and on YouTube has over 650 million views and 4 million likes, placing it among the top 40 most liked YouTube videos.</string>
-    <string name="preset_faded_proto_bio_source">Powered by Wikipedia</string>
-
-    <string name="preset_faded_proto_facebook">https://www.facebook.com/alanwalkermusic</string>
-    <string name="preset_faded_proto_twitter">https://twitter.com/IAmAlanWalker</string>
-    <string name="preset_faded_proto_soundcloud">https://soundcloud.com/alanwalker</string>
-    <string name="preset_faded_proto_youtube">https://www.youtube.com/user/DjWalkzz</string>
-    <string name="preset_faded_proto_web">http://www.alanwalkermusic.no/</string>
+    <item name="preset_faded_color" type="color">#00D3BE</item>
+    <item name="preset_faded_color_dark" type="color">#00A898</item>
 </resources>

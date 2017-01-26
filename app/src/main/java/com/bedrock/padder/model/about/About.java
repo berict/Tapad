@@ -1,11 +1,14 @@
 package com.bedrock.padder.model.about;
 
+import android.app.Activity;
+
+import com.bedrock.padder.helper.WindowService;
 import com.google.gson.annotations.SerializedName;
 
 public class About {
 
-    @SerializedName("title")
-    private String title;
+    @SerializedName("title_id")
+    private String titleId;
 
     @SerializedName("image_id")
     private String imageId;
@@ -23,10 +26,10 @@ public class About {
     @SerializedName("details")
     private Detail[] details;
 
-    public About (String title, String imageId,
+    public About (String titleId, String imageId,
                   Bio bio, Detail[] details,
                   String statusbarColorId, String actionbarColorId) {
-        this.title = title;
+        this.titleId = titleId;
         this.imageId = imageId;
         this.statusbarColorId = statusbarColorId;
         this.actionbarColorId = actionbarColorId;
@@ -34,8 +37,13 @@ public class About {
         this.details = details;
     }
 
-    public String getTitle() {
-        return title;
+    public String getTitleId() {
+        return titleId;
+    }
+
+    public String getTitle(Activity activity) {
+        WindowService window = new WindowService();
+        return window.getStringFromId(titleId, activity);
     }
 
     public String getImageId() {

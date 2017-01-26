@@ -4,30 +4,43 @@ import com.google.gson.annotations.SerializedName;
 
 public class Item {
 
-    @SerializedName("text")
-    private String   text;
+    @SerializedName("text_id")
+    private String   textId;
 
-    @SerializedName("hint")
-    private String   hint;
+    @SerializedName("hint_id")
+    private String   hintId;
 
     @SerializedName("image_id")
     private String   imageId;
+    
+    @SerializedName("runnable")
+    private Runnable runnable;
 
-    public Item (String text, String hint, String imageId) {
-        this.text = text;
-        this.hint = hint;
+    public Item (String textId, String hintId, String imageId) {
+        this.textId = textId;
+        this.hintId = hintId;
         this.imageId = imageId;
+        this.runnable = null;
     }
 
-    public String getText() {
-        return text;
+    public Item (String textId, String hintId, String imageId, Runnable runnable) {
+        this.textId = textId;
+        this.hintId = hintId;
+        this.imageId = imageId;
+        this.runnable = runnable;
     }
 
-    public String getHint() {
-        return hint;
+    public String getTextId() {
+        return textId;
+    }
+
+    public String getHintId() {
+        return hintId;
     }
 
     public String getImageId() {
         return imageId;
     }
+
+    public Runnable getRunnable() { return runnable; }
 }

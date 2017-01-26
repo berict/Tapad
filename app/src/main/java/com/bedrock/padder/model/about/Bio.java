@@ -1,49 +1,72 @@
 package com.bedrock.padder.model.about;
 
+import android.app.Activity;
+
+import com.bedrock.padder.helper.WindowService;
 import com.google.gson.annotations.SerializedName;
 
 public class Bio {
 
-    @SerializedName("title")
-    private String   title;
+    @SerializedName("title_id")
+    private String   titleId;
 
     @SerializedName("image_id")
     private String   imageId;
 
-    @SerializedName("name")
-    private String   name;
+    @SerializedName("name_id")
+    private String   nameId;
 
-    @SerializedName("text")
-    private String   text;
+    @SerializedName("text_id")
+    private String   textId;
 
-    @SerializedName("source")
-    private String   source;
+    @SerializedName("source_id")
+    private String   sourceId;
 
-    public Bio(String title, String imageId, String name, String text, String source) {
-        this.title = title;
+    public Bio(String titleId, String imageId, String nameId, String textId, String sourceId) {
+        this.titleId = titleId;
         this.imageId = imageId;
-        this.name = name;
-        this.text = text;
-        this.source = source;
+        this.nameId = nameId;
+        this.textId = textId;
+        this.sourceId = sourceId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getTitleId() {
+        return titleId;
+    }
+
+    public String getTitle(Activity activity) {
+        WindowService window = new WindowService();
+        return window.getStringFromId(titleId, activity);
     }
 
     public String getImageId() {
         return imageId;
     }
 
-    public String getName() {
-        return name;
+    public String getNameId() {
+        return nameId;
     }
 
-    public String getText() {
-        return text;
+    public String getName(Activity activity) {
+        WindowService window = new WindowService();
+        return window.getStringFromId(nameId, activity);
     }
 
-    public String getSource() {
-        return source;
+    public String getTextId() {
+        return textId;
+    }
+
+    public String getText(Activity activity) {
+        WindowService window = new WindowService();
+        return window.getStringFromId(textId, activity);
+    }
+
+    public String getSourceId() {
+        return sourceId;
+    }
+
+    public String getSource(Activity activity) {
+        WindowService window = new WindowService();
+        return window.getStringFromId(sourceId, activity);
     }
 }

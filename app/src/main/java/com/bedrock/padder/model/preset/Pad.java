@@ -1,6 +1,5 @@
 package com.bedrock.padder.model.preset;
 
-import com.bedrock.padder.helper.WindowService;
 import com.google.gson.annotations.SerializedName;
 
 public class Pad {

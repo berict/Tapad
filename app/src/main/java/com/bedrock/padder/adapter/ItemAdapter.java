@@ -60,32 +60,34 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
 
     @Override
     public void onBindViewHolder(final DetailViewHolder holder, int position) {
-        holder.itemText.setText(String.valueOf(item[position].getText()));
+        holder.itemText.setText(window.getStringId(item[position].getTextId()));
 
         if(position == getItemCount() - 1) {
             // last item on list, hide divider
             holder.divider.setVisibility(View.GONE);
         }
 
-        if(item[position].getHint() == null) {
+        if(item[position].getHintId() == null) {
             // no hint provided
             holder.itemHint.setVisibility(View.GONE);
         } else {
-            holder.itemHint.setText(String.valueOf(item[position].getHint()));
+            holder.itemHint.setText(window.getStringId(item[position].getHintId()));
 
-            if(item[position].getHint().startsWith("http")) {
+            if(item[position].getRunnable() != null) {
+                // run runnable
+                item[position].getRunnable().run();
+            }
+
+            if(window.getStringFromId(item[position].getHintId(), activity).startsWith("http")) {
                 // link available check
                 anim.circularRevealTouch(holder.itemLayout, R.id.layout_placeholder,
                         new AccelerateDecelerateInterpolator(), new Runnable() {
                             @Override
                             public void run() {
-                                window.setRecentColor(item[holder.getAdapterPosition()].getText(), R.color.colorAccent, activity);
-                                intent.intentLink(activity, item[holder.getAdapterPosition()].getHint(), 400);
+                                window.setRecentColor(window.getStringId(item[holder.getAdapterPosition()].getTextId()), R.color.colorAccent, activity);
+                                intent.intentLink(activity, window.getStringFromId(item[holder.getAdapterPosition()].getHintId(), activity), 400);
                             }
                         }, 400, 0, activity);
-            } else {
-                // non-link hint, other action
-
             }
         }
 

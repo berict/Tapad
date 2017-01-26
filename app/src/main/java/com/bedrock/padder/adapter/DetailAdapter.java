@@ -4,19 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bedrock.padder.R;
-import com.bedrock.padder.helper.AnimService;
-import com.bedrock.padder.helper.IntentService;
-import com.bedrock.padder.helper.RecyclerTouchListener;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.about.About;
 import com.bedrock.padder.model.about.Item;
@@ -55,7 +48,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
 
     @Override
     public void onBindViewHolder(final DetailViewHolder holder, int position) {
-        holder.detailTitle.setText(String.valueOf(about.getDetail(position).getTitle()));
+        holder.detailTitle.setText(window.getStringId(about.getDetail(position).getTitle()));
         holder.detailTitle.setTextColor(context.getResources().getColor(window.getColorId(about.getActionbarColorId())));
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);

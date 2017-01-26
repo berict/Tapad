@@ -14,6 +14,7 @@ public class Deck {
             this.pad = pad;
         } else {
             Log.e("Deck", "Not enough pads");
+            this.pad = null;
         }
     }
 

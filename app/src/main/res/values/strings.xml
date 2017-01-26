@@ -261,40 +261,33 @@
 
     <string name="dialog_legal_title">Legal</string>
     <string name="dialog_legal_text">
-        <i>Last updated: May 7, 2016</i>\n\n
+        <i>Last updated: December 14, 2016</i> \n\n
 
         Please read these Terms and Conditions carefully before using the \"Tapad\" mobile application (the \"Service\") operated by Studio Berict.
         Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms.
-        These Terms apply to all visitors, users and others who access or use the Service.\n\n
+        These Terms apply to all visitors, users and others who access or use the Service. \n
 
         By accessing or using the Service you agree to be bound by these Terms.
-        If you disagree with any part of the terms then you may not access the Service.\n\n
+        If you disagree with any part of the terms then you may not access the Service. \n\n
 
-        <b>Disclaimer</b>\n\n
-
+        <b>Disclaimer</b> \n
         Studio Berict don\'t have any rights for all materials in our service.
-        If you have the copyright to the used text, graphics, videos, or other material
-        (\"Contents\") in our service and you don\'t like it, contact us and we will try to fix in 7 days.\n\n
+        If you have the copyright to the used text, graphics, videos, or other material (\"Contents\") in our service and you don\'t like it, contact us and we will try to fix in 7 days. \n\n
 
-        <b>Content</b>\n\n
-
-        Our Service may contain links to third­party web sites or services that are not owned or controlled by Studio Berict.\n\n
-
-        Studio Berict has no control over, and assumes no responsibility for, the content, privacy policies,
-        or practices of any third party web sites or services.
+        <b>Content</b> \n
+        Our Service may contain links to third­party web sites or services that are not owned or controlled by Studio Berict.
+        Studio Berict has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services.
         You further acknowledge and agree that by Studio Berict shall not be responsible or liable, directly or indirectly,
         for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content,
-        goods or services available on or through any such web sites or services.\n\n
+        goods or services available on or through any such web sites or services. \n\n
 
-        <b>Changes</b>\n\n
-
+        <b>Changes</b> \n
         We reserve the right, at our sole discretion, to modify or replace these Terms at any time.
         If a revision is material we will try to provide at least 30 days\' notice prior to any new terms taking effect.
-        What constitutes a material change will be determined at our sole discretion.\n\n
+        What constitutes a material change will be determined at our sole discretion. \n\n
 
-        <b>Contact Us</b>\n\n
-
-        If you have any questions about these Terms, please contact us to <i>dev.bedrock@gmail.com</i>.
+        <b>Contact Us</b> \n
+        If you have any questions about these Terms, please contact us to <b><i>berict.bedrock@gmail.com</i></b>.
     </string>
     <string name="dialog_legal_positive">CLOSE</string>
 

@@ -89,17 +89,17 @@ public class AboutActivity extends AppCompatActivity {
         // action bar
         collapsingToolbarLayout.setContentScrimColor(getResources().getColor(window.getColorId(about.getActionbarColorId())));
         collapsingToolbarLayout.setStatusBarScrimColor(getResources().getColor(window.getColorId(about.getActionbarColorId())));
-        collapsingToolbarLayout.setTitle(about.getTitle());
+        collapsingToolbarLayout.setTitle(about.getTitleId());
 
         // set taskDesc
-        window.setRecentColor(about.getTitle(), window.getColorId(about.getActionbarColorId()), activity);
+        window.setRecentColor(about.getTitle(activity), window.getColorId(about.getActionbarColorId()), activity);
 
         // title image / text
         window.getImageView(R.id.layout_image, activity).setImageResource(window.getDrawableId(about.getImageId()));
         //window.getTextView(R.id.layout_text, activity).setText(about.getTitle());
 
         // bio
-        window.getTextView(R.id.layout_bio_title, activity).setText(about.getBio().getTitle());
+        window.getTextView(R.id.layout_bio_title, activity).setText(about.getBio().getTitle(activity));
         window.getTextView(R.id.layout_bio_title, activity).setTextColor(getResources().getColor(window.getColorId(about.getActionbarColorId())));
         if(about.getBio().getImageId() == null) {
             // no bio image exception
@@ -108,9 +108,9 @@ public class AboutActivity extends AppCompatActivity {
         } else {
             window.getImageView(R.id.layout_bio_image, activity).setImageResource(window.getDrawableId(about.getBio().getImageId()));
         }
-        window.getTextView(R.id.layout_bio_name, activity).setText(about.getBio().getName());
-        window.getTextView(R.id.layout_bio_text, activity).setText(about.getBio().getText());
-        window.getTextView(R.id.layout_bio_source, activity).setText(about.getBio().getSource());
+        window.getTextView(R.id.layout_bio_name, activity).setText(about.getBio().getName(activity));
+        window.getTextView(R.id.layout_bio_text, activity).setText(about.getBio().getText(activity));
+        window.getTextView(R.id.layout_bio_source, activity).setText(about.getBio().getSource(activity));
 
         // adapter
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -145,7 +145,7 @@ public class AboutActivity extends AppCompatActivity {
         if (hasFocus) {
             theme.setGone(R.id.layout_placeholder, 0, activity);
             // reset taskDesc
-            window.setRecentColor(about.getTitle(), window.getColorId(about.getActionbarColorId()), activity);
+            window.setRecentColor(about.getTitle(activity), window.getColorId(about.getActionbarColorId()), activity);
         }
     }
 

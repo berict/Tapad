@@ -1366,7 +1366,7 @@
         }"
     </string>
     <!-- TODO PROTO -->
-    <string name="json_faded_proto">
+    <string name="json_faded_gesture">
         "{
     \"about\":{  
         \"actionbar_color_id\":\"faded\",

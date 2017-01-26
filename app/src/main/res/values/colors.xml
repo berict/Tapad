@@ -4,8 +4,8 @@
     <color name="colorPrimaryDark">@color/purple_dark</color>
     <color name="colorAccent">#448aff</color>
     <color name="colorAccentDark">#2962FF</color>
-<!--    <color name="colorFeedback">@color/lime</color>
-    <color name="colorFeedbackDark">@color/lime_dark</color> -->
+    <color name="colorFeedback">@color/lime</color>
+    <color name="colorFeedbackDark">@color/lime_dark</color>
 
     <!-- Welcome Screen -->
 
