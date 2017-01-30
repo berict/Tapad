@@ -22,7 +22,7 @@ public class SoundService {
     public static final int ROSES_SOUND_COUNT = 102;
     public static final int FADED_SOUND_COUNT = 105;
     //TODO GESTURE
-    public static final int FADED_GESTURE_SOUND_COUNT = 245;
+    public static final int FADED_GESTURE_SOUND_COUNT = 264;
 
     public static final int PRESET_SOUND_COUNTS[] = {
             HELLO_SOUND_COUNT,

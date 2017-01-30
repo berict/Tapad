@@ -1962,6 +1962,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 new Pad("ft4_44")
         };
 
+        // Timings
         Integer pt1[][] = {
                 {42660},
                 {null},
@@ -2404,19 +2405,19 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
         DeckTiming deckTiming[] = {
                 new DeckTiming(
-                        pt1, 0
+                        pt1, 1, 0
                 ),
                 new DeckTiming(
-                        pt2, 52949
+                        pt2, 2, 52949
                 ),
                 new DeckTiming(
-                        pt3, 96379
+                        pt3, 3, 96379
                 ),
                 new DeckTiming(
-                        pt4, 149947
+                        pt4, 2, 149947
                 ),
                 new DeckTiming(
-                        pt5, 193772
+                        pt5, 4, 193772
                 )
         };
 
@@ -2434,5 +2435,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         //String json = gson.toJson(preset, Preset.class);
         Gson gson = new Gson();
         largeLog("JSON", gson.toJson(fadedPreset));
+
+        //tut.
     }
 }
