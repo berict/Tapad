@@ -14,7 +14,7 @@ import android.view.animation.ScaleAnimation;
 import android.widget.VideoView;
 
 import com.bedrock.padder.R;
-import com.bedrock.padder.model.preset.DeckTiming;
+import com.bedrock.padder.activity.MainActivity;
 import com.bedrock.padder.model.preset.Preset;
 
 import java.util.Timer;
@@ -26,6 +26,8 @@ import java.util.concurrent.TimeUnit;
 import static com.bedrock.padder.helper.SoundService.currentPreset;
 
 public class TutorialService extends Activity{
+
+    //TODO ERROR (on the array conflicts)
 
     private AnimService anim = new AnimService();
     private WindowService window = new WindowService();
@@ -57,6 +59,7 @@ public class TutorialService extends Activity{
 //                /* 43 */ {52.60, 53.73, 80.00, 81.15, 105.14, 123.43, 180.61, 181.73, 208.01, 209.16, -1},
 //                /* 44 */ {54.86, 82.30, 83.43, 109.73, 182.87, 210.31, 211.44, 223.72, -1}
 //    };
+
 
     public double hello[][] = {
                 /* 00 */ {56.867, 184.875, -1},
@@ -342,96 +345,142 @@ public class TutorialService extends Activity{
     private int motionDelay43_4 = 0;
     private int motionDelay44_4 = 0;
 
-    int motionDelays[] = {
-            motionDelay00  , // 00
-            motionDelay00_1,
-            motionDelay00_2,
-            motionDelay00_3,
-            motionDelay00_4,
-            motionDelay01  , // Deck
-            motionDelay02  ,
-            motionDelay03  ,
-            motionDelay04  ,
-            motionDelay11  , // Others
-            motionDelay11_1,
-            motionDelay11_2,
-            motionDelay11_3,
-            motionDelay11_4,
-            motionDelay12  ,
-            motionDelay12_1,
-            motionDelay12_2,
-            motionDelay12_3,
-            motionDelay12_4,
-            motionDelay13  ,
-            motionDelay13_1,
-            motionDelay13_2,
-            motionDelay13_3,
-            motionDelay13_4,
-            motionDelay14  ,
-            motionDelay00_1,
-            motionDelay00_2,
-            motionDelay00_3,
-            motionDelay00_4,
-            motionDelay21  ,
-            motionDelay21_1,
-            motionDelay21_2,
-            motionDelay21_3,
-            motionDelay21_4,
-            motionDelay22  ,
-            motionDelay22_1,
-            motionDelay22_2,
-            motionDelay22_3,
-            motionDelay22_4,
-            motionDelay23  ,
-            motionDelay23_1,
-            motionDelay23_2,
-            motionDelay23_3,
-            motionDelay23_4,
-            motionDelay24  ,
-            motionDelay24_1,
-            motionDelay24_2,
-            motionDelay24_3,
-            motionDelay24_4,
-            motionDelay31  ,
-            motionDelay31_1,
-            motionDelay31_2,
-            motionDelay31_3,
-            motionDelay31_4,
-            motionDelay32  ,
-            motionDelay32_1,
-            motionDelay32_2,
-            motionDelay32_3,
-            motionDelay32_4,
-            motionDelay33  ,
-            motionDelay33_1,
-            motionDelay33_2,
-            motionDelay33_3,
-            motionDelay33_4,
-            motionDelay34  ,
-            motionDelay34_1,
-            motionDelay34_2,
-            motionDelay34_3,
-            motionDelay34_4,
-            motionDelay41  ,
-            motionDelay41_1,
-            motionDelay41_2,
-            motionDelay41_3,
-            motionDelay41_4,
-            motionDelay42  ,
-            motionDelay42_1,
-            motionDelay42_2,
-            motionDelay42_3,
-            motionDelay42_4,
-            motionDelay43  ,
-            motionDelay43_1,
-            motionDelay43_2,
-            motionDelay43_3,
-            motionDelay43_4,
-            motionDelay44,
-            motionDelay44_1,
-            motionDelay44_2,
-            motionDelay44_3,
-            motionDelay44_4
+    int motionDelays[][] = {
+            {
+                    motionDelay00  ,
+                    motionDelay01  ,
+                    motionDelay02  ,
+                    motionDelay03  ,
+                    motionDelay04  ,
+                    motionDelay05  ,
+                    motionDelay06  ,
+                    motionDelay07  ,
+                    motionDelay08  ,
+                    motionDelay11  ,
+                    motionDelay12  ,
+                    motionDelay13  ,
+                    motionDelay14  ,
+                    motionDelay21  ,
+                    motionDelay22  ,
+                    motionDelay23  ,
+                    motionDelay24  ,
+                    motionDelay31  ,
+                    motionDelay32  ,
+                    motionDelay33  ,
+                    motionDelay34  ,
+                    motionDelay41  ,
+                    motionDelay42  ,
+                    motionDelay43  ,
+                    motionDelay44
+            },
+            {
+                    motionDelay00_1,
+                    motionDelay01_1,
+                    motionDelay02_1,
+                    motionDelay03_1,
+                    motionDelay04_1,
+                    motionDelay05_1,
+                    motionDelay06_1,
+                    motionDelay07_1,
+                    motionDelay08_1,
+                    motionDelay11_1,
+                    motionDelay12_1,
+                    motionDelay13_1,
+                    motionDelay14_1,
+                    motionDelay21_1,
+                    motionDelay22_1,
+                    motionDelay23_1,
+                    motionDelay24_1,
+                    motionDelay31_1,
+                    motionDelay32_1,
+                    motionDelay33_1,
+                    motionDelay34_1,
+                    motionDelay41_1,
+                    motionDelay42_1,
+                    motionDelay43_1,
+                    motionDelay44_1
+            },
+            {
+                    motionDelay00_2,
+                    motionDelay01_2,
+                    motionDelay02_2,
+                    motionDelay03_2,
+                    motionDelay04_2,
+                    motionDelay05_2,
+                    motionDelay06_2,
+                    motionDelay07_2,
+                    motionDelay08_2,
+                    motionDelay11_2,
+                    motionDelay12_2,
+                    motionDelay13_2,
+                    motionDelay14_2,
+                    motionDelay21_2,
+                    motionDelay22_2,
+                    motionDelay23_2,
+                    motionDelay24_2,
+                    motionDelay31_2,
+                    motionDelay32_2,
+                    motionDelay33_2,
+                    motionDelay34_2,
+                    motionDelay41_2,
+                    motionDelay42_2,
+                    motionDelay43_2,
+                    motionDelay44_2
+            },
+            {
+                    motionDelay00_3,
+                    motionDelay01_3,
+                    motionDelay02_3,
+                    motionDelay03_3,
+                    motionDelay04_3,
+                    motionDelay05_3,
+                    motionDelay06_3,
+                    motionDelay07_3,
+                    motionDelay08_3,
+                    motionDelay11_3,
+                    motionDelay12_3,
+                    motionDelay13_3,
+                    motionDelay14_3,
+                    motionDelay21_3,
+                    motionDelay22_3,
+                    motionDelay23_3,
+                    motionDelay24_3,
+                    motionDelay31_3,
+                    motionDelay32_3,
+                    motionDelay33_3,
+                    motionDelay34_3,
+                    motionDelay41_3,
+                    motionDelay42_3,
+                    motionDelay43_3,
+                    motionDelay44_3
+            },
+            {
+                    motionDelay00_4,
+                    motionDelay01_4,
+                    motionDelay02_4,
+                    motionDelay03_4,
+                    motionDelay04_4,
+                    motionDelay05_4,
+                    motionDelay06_4,
+                    motionDelay07_4,
+                    motionDelay08_4,
+                    motionDelay11_4,
+                    motionDelay12_4,
+                    motionDelay13_4,
+                    motionDelay14_4,
+                    motionDelay21_4,
+                    motionDelay22_4,
+                    motionDelay23_4,
+                    motionDelay24_4,
+                    motionDelay31_4,
+                    motionDelay32_4,
+                    motionDelay33_4,
+                    motionDelay34_4,
+                    motionDelay41_4,
+                    motionDelay42_4,
+                    motionDelay43_4,
+                    motionDelay44_4
+            }
     };
 
     // motionDelayIndexes
@@ -961,6 +1010,118 @@ public class TutorialService extends Activity{
     Preset getCurrentPreset() {
         return currentPreset;
     }
+
+    /*
+
+    private TextView progress;
+    private int progressCount;
+    private int presetTutorialCount = 85;
+
+    private void progressUpdate() {
+        progress.setText(
+                activity.getResources().getString(R.string.progressbar_loading_preset_progress) + " "
+                        + progressCount++ + " / " + presetTutorialCount);
+    }
+
+    private AsyncTask loadTutorial = null;
+
+    private class LoadTutorial extends AsyncTask<Void, Integer, String> {
+        String TAG = "LoadTutorial";
+
+        protected void onPreExecute() {
+            Log.d(TAG, "On preExceute, set UI");
+
+            window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.icon_tutorial_disabled);
+            window.getImageView(R.id.layout_settings_tutorial_icon, activity).setImageResource(R.drawable.settings_tutorial_disabled);
+        }
+
+        protected String doInBackground(Void... arg0) {
+            Log.d(TAG, "On doInBackground, start loading tutorials");
+
+            if (currentPreset != null) {
+                Log.i(TAG, "Preset \"" + window.getStringFromId(currentPreset.getMusic().getNameId(), activity) + "\", id " + currentPreset.getId());
+
+            }
+
+            return "You are at PostExecute";
+        }
+
+        protected void onProgressUpdate(Integer... a) {
+            progressUpdate();
+        }
+
+        protected void onPostExecute(String result) {
+            Log.d(TAG, "sampleId count : " + presetTutorialCount);
+
+            progress = window.getTextView(R.id.progress_bar_progress_text, activity);
+
+            sp.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+                @Override
+                public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                    Log.d(TAG, "Loading Finished, sampleId : " + sampleId);
+                    progressUpdate();
+                    if(sampleId == presetTutorialCount) {
+                        // final sampleId
+                        Log.d(TAG, "Loading completed, SoundPool successfully loaded "
+                                + presetTutorialCount
+                                + " tutorials");
+
+                        window.getTextView(R.id.progress_bar_text, activity).setText(R.string.progressbar_loading_preset_done);
+                        progress.setText(
+                                activity.getResources().getString(R.string.progressbar_loading_preset_progress) + " "
+                                        + presetTutorialCount * 2 + " / " + presetTutorialCount * 2);
+                        isPresetLoaded = true;
+
+                        // Load finished, set AsyncTask objects to null
+                        LoadTutorial = null;
+                        unLoadTutorial = null;
+
+                        window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.icon_tutorial);
+                        window.getImageView(R.id.layout_settings_tutorial_icon, activity).setImageResource(R.drawable.settings_tutorial);
+
+                        anim.fadeOut(R.id.progress_bar_layout, 400, 400, activity);
+                        MainActivity main = new MainActivity();
+                        main.setQuickstart(activity);
+
+                        Handler setText = new Handler();
+                        setText.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                window.getTextView(R.id.progress_bar_text, activity).setText(R.string.progressbar_loading_preset);
+                                window.getTextView(R.id.progress_bar_progress_text, activity).setText(R.string.progressbar_loading_preset_progress_placeholder);
+                            }
+                        }, 800);
+
+                        main.isPresetLoading = false;
+                    }
+                }
+            });
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            Log.d("TAG", "LoadTutorial successfully canceled");
+        }
+    }
+
+    void startTutorial(Activity activity) {
+        this.activity = activity;
+    }
+
+    void setRunnables() {
+
+    }
+
+    void resetMotionDelayIndexes() {
+        for(int i = 0; i < motionDelayIndexes.length; i++) {
+            for(int j = 0; j < motionDelayIndexes[i].length; j++) {
+                motionDelayIndexes[i][j] = 0;
+                Log.d("MDIS", "Cleared at [" + i + "][" + j + "]");
+            }
+        }
+    }
+    */
 
     void tutorialPlay(final double array[][], final Activity activity){
         Log.i("TutorialService", "tutorial started");
