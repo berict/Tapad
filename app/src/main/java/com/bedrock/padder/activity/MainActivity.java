@@ -42,7 +42,6 @@ import com.bedrock.padder.model.preset.Pad;
 import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
@@ -60,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     private FabService fab = new FabService();
     private AppbarService ab = new AppbarService();
     private TutorialService tut = new TutorialService();
+
 
     float volume;
 
