@@ -15,6 +15,7 @@ import android.widget.VideoView;
 
 import com.bedrock.padder.R;
 import com.bedrock.padder.activity.MainActivity;
+import com.bedrock.padder.model.preset.DeckTiming;
 import com.bedrock.padder.model.preset.Preset;
 
 import java.util.Timer;
@@ -26,8 +27,6 @@ import java.util.concurrent.TimeUnit;
 import static com.bedrock.padder.helper.SoundService.currentPreset;
 
 public class TutorialService extends Activity{
-
-    //TODO ERROR (on the array conflicts)
 
     private AnimService anim = new AnimService();
     private WindowService window = new WindowService();
@@ -345,142 +344,96 @@ public class TutorialService extends Activity{
     private int motionDelay43_4 = 0;
     private int motionDelay44_4 = 0;
 
-    int motionDelays[][] = {
-            {
-                    motionDelay00  ,
-                    motionDelay01  ,
-                    motionDelay02  ,
-                    motionDelay03  ,
-                    motionDelay04  ,
-                    motionDelay05  ,
-                    motionDelay06  ,
-                    motionDelay07  ,
-                    motionDelay08  ,
-                    motionDelay11  ,
-                    motionDelay12  ,
-                    motionDelay13  ,
-                    motionDelay14  ,
-                    motionDelay21  ,
-                    motionDelay22  ,
-                    motionDelay23  ,
-                    motionDelay24  ,
-                    motionDelay31  ,
-                    motionDelay32  ,
-                    motionDelay33  ,
-                    motionDelay34  ,
-                    motionDelay41  ,
-                    motionDelay42  ,
-                    motionDelay43  ,
-                    motionDelay44
-            },
-            {
-                    motionDelay00_1,
-                    motionDelay01_1,
-                    motionDelay02_1,
-                    motionDelay03_1,
-                    motionDelay04_1,
-                    motionDelay05_1,
-                    motionDelay06_1,
-                    motionDelay07_1,
-                    motionDelay08_1,
-                    motionDelay11_1,
-                    motionDelay12_1,
-                    motionDelay13_1,
-                    motionDelay14_1,
-                    motionDelay21_1,
-                    motionDelay22_1,
-                    motionDelay23_1,
-                    motionDelay24_1,
-                    motionDelay31_1,
-                    motionDelay32_1,
-                    motionDelay33_1,
-                    motionDelay34_1,
-                    motionDelay41_1,
-                    motionDelay42_1,
-                    motionDelay43_1,
-                    motionDelay44_1
-            },
-            {
-                    motionDelay00_2,
-                    motionDelay01_2,
-                    motionDelay02_2,
-                    motionDelay03_2,
-                    motionDelay04_2,
-                    motionDelay05_2,
-                    motionDelay06_2,
-                    motionDelay07_2,
-                    motionDelay08_2,
-                    motionDelay11_2,
-                    motionDelay12_2,
-                    motionDelay13_2,
-                    motionDelay14_2,
-                    motionDelay21_2,
-                    motionDelay22_2,
-                    motionDelay23_2,
-                    motionDelay24_2,
-                    motionDelay31_2,
-                    motionDelay32_2,
-                    motionDelay33_2,
-                    motionDelay34_2,
-                    motionDelay41_2,
-                    motionDelay42_2,
-                    motionDelay43_2,
-                    motionDelay44_2
-            },
-            {
-                    motionDelay00_3,
-                    motionDelay01_3,
-                    motionDelay02_3,
-                    motionDelay03_3,
-                    motionDelay04_3,
-                    motionDelay05_3,
-                    motionDelay06_3,
-                    motionDelay07_3,
-                    motionDelay08_3,
-                    motionDelay11_3,
-                    motionDelay12_3,
-                    motionDelay13_3,
-                    motionDelay14_3,
-                    motionDelay21_3,
-                    motionDelay22_3,
-                    motionDelay23_3,
-                    motionDelay24_3,
-                    motionDelay31_3,
-                    motionDelay32_3,
-                    motionDelay33_3,
-                    motionDelay34_3,
-                    motionDelay41_3,
-                    motionDelay42_3,
-                    motionDelay43_3,
-                    motionDelay44_3
-            },
-            {
-                    motionDelay00_4,
-                    motionDelay01_4,
-                    motionDelay02_4,
-                    motionDelay03_4,
-                    motionDelay04_4,
-                    motionDelay05_4,
-                    motionDelay06_4,
-                    motionDelay07_4,
-                    motionDelay08_4,
-                    motionDelay11_4,
-                    motionDelay12_4,
-                    motionDelay13_4,
-                    motionDelay14_4,
-                    motionDelay21_4,
-                    motionDelay22_4,
-                    motionDelay23_4,
-                    motionDelay24_4,
-                    motionDelay31_4,
-                    motionDelay32_4,
-                    motionDelay33_4,
-                    motionDelay34_4,
-                    motionDelay41_4,
-                    motionDelay42_4,
-                    motionDelay43_4,
-                    motionDelay44_4
-            }
+    int motionDelays[] = {
+            motionDelay00  , // 00
+            motionDelay00_1,
+            motionDelay00_2,
+            motionDelay00_3,
+            motionDelay00_4,
+            motionDelay01  , // Deck
+            motionDelay02  ,
+            motionDelay03  ,
+            motionDelay04  ,
+            motionDelay11  , // Others
+            motionDelay11_1,
+            motionDelay11_2,
+            motionDelay11_3,
+            motionDelay11_4,
+            motionDelay12  ,
+            motionDelay12_1,
+            motionDelay12_2,
+            motionDelay12_3,
+            motionDelay12_4,
+            motionDelay13  ,
+            motionDelay13_1,
+            motionDelay13_2,
+            motionDelay13_3,
+            motionDelay13_4,
+            motionDelay14  ,
+            motionDelay00_1,
+            motionDelay00_2,
+            motionDelay00_3,
+            motionDelay00_4,
+            motionDelay21  ,
+            motionDelay21_1,
+            motionDelay21_2,
+            motionDelay21_3,
+            motionDelay21_4,
+            motionDelay22  ,
+            motionDelay22_1,
+            motionDelay22_2,
+            motionDelay22_3,
+            motionDelay22_4,
+            motionDelay23  ,
+            motionDelay23_1,
+            motionDelay23_2,
+            motionDelay23_3,
+            motionDelay23_4,
+            motionDelay24  ,
+            motionDelay24_1,
+            motionDelay24_2,
+            motionDelay24_3,
+            motionDelay24_4,
+            motionDelay31  ,
+            motionDelay31_1,
+            motionDelay31_2,
+            motionDelay31_3,
+            motionDelay31_4,
+            motionDelay32  ,
+            motionDelay32_1,
+            motionDelay32_2,
+            motionDelay32_3,
+            motionDelay32_4,
+            motionDelay33  ,
+            motionDelay33_1,
+            motionDelay33_2,
+            motionDelay33_3,
+            motionDelay33_4,
+            motionDelay34  ,
+            motionDelay34_1,
+            motionDelay34_2,
+            motionDelay34_3,
+            motionDelay34_4,
+            motionDelay41  ,
+            motionDelay41_1,
+            motionDelay41_2,
+            motionDelay41_3,
+            motionDelay41_4,
+            motionDelay42  ,
+            motionDelay42_1,
+            motionDelay42_2,
+            motionDelay42_3,
+            motionDelay42_4,
+            motionDelay43  ,
+            motionDelay43_1,
+            motionDelay43_2,
+            motionDelay43_3,
+            motionDelay43_4,
+            motionDelay44,
+            motionDelay44_1,
+            motionDelay44_2,
+            motionDelay44_3,
+            motionDelay44_4
     };
 
     // motionDelayIndexes
@@ -703,7 +656,8 @@ public class TutorialService extends Activity{
             motionDelayIndex44_1,
             motionDelayIndex44_2,
             motionDelayIndex44_3,
-            motionDelayIndex44_4};
+            motionDelayIndex44_4
+    };
 
     // motions
     // Normal
@@ -938,6 +892,26 @@ public class TutorialService extends Activity{
 
     private int timing[][];
 
+    int currentTiming = 0;
+
+    public int getCurrentTiming() {
+        if(currentTiming < getMaxTutorialCount()) {
+            // legit
+            return currentTiming++;
+        } else {
+            // tutorial ended
+            return -1;
+        }
+    }
+
+    public void initCurrentTiming() {
+        currentTiming = 0;
+    }
+
+    public int getMaxTutorialCount() {
+        return currentPreset.getMusic().getDeckTimings().length;
+    }
+
     public void startTutorial(int index) {
         int timing[][] = new int[89][];
         DeckTiming deckTiming = getCurrentPreset().getMusic().getDeckTimings()[index];
@@ -974,7 +948,11 @@ public class TutorialService extends Activity{
     int[] getIntArray(Integer integerArray[]) {
         int array[] = new int[integerArray.length];
         for(int i = 0; i < integerArray.length; i++) {
-            array[i] = integerArray[i];
+            if(integerArray[i] == null) {
+                array[i] = -1;
+            } else {
+                array[i] = integerArray[i];
+            }
         }
         return array;
     }
@@ -984,22 +962,40 @@ public class TutorialService extends Activity{
             motions[indexI] = new Runnable() {
                 @Override
                 public void run() {
-                    try {
-                        motionAnimation(indexI, a);
-                        if (motionDelayIndexes[indexI] < timing[indexI].length - 1) {
-                            motionDelays[indexI] = 
-                                    timing[indexI][motionDelayIndexes[indexI] + 1] - timing[indexI][motionDelayIndexes[indexI]];
-                                Log.d("setRunnables", "motionDelay at [" + indexI + "," + indexJ + "] set to " + motionDelays[indexI] + "ms");
-                                motionDelayIndexes[indexI]++;
-                        } else {
-                                Log.d("setRunnables", "motionDelay array ended");
-                                mHandler.removeCallbacks(motions[indexI]);
-                        }
-                    } finally {
-                        if (motionDelays[indexI] > 0) {
+                    if (timing[motionDelayIndexes[indexI]] == null) {
+                        // check timing exists
+                        mHandler.removeCallbacks(motions[indexI]);
+                        motionDelays[indexI] = -1;
+                        Log.d("motionDelay", "null timing, Set to " + motionDelays[indexI]);
+                        motionDelayIndexes[indexI] = 0;
+                    } else {
+                        if (motionDelays[indexI] == -1) {
+                            // first run
+                            motionDelays[indexI] = timing[indexI][0];
                             mHandler.postDelayed(motions[indexI], motionDelays[indexI]);
-                        } else {
-                            mHandler.removeCallbacks(motions[indexI]);
+                            Log.d("motionDelay", "Set to " + motionDelays[indexI]);
+                        } else{
+                            try {
+                                // animate
+                                motionAnimation(indexI, a);
+                                if (motionDelayIndexes[indexI] < timing.length) {
+                                    motionDelays[indexI] = (timing[indexI][motionDelayIndexes[indexI] + 1] - timing[indexI][motionDelayIndexes[indexI]]);
+                                    Log.d("motionDelay", "Set to " + motionDelays[indexI]);
+                                    motionDelayIndexes[indexI]++;
+                                } else {
+                                    Log.d("Array", "Finished");
+                                    mHandler.removeCallbacks(motions[indexI]);
+                                }
+                            } finally {
+                                if (motionDelays[indexI] > 0) {
+                                    mHandler.postDelayed(motions[indexI], motionDelays[indexI]);
+                                } else {
+                                    mHandler.removeCallbacks(motions[indexI]);
+                                    motionDelays[indexI] = -1;
+                                    Log.d("motionDelay", "Set to " + motionDelays[indexI]);
+                                    motionDelayIndexes[indexI] = 0;
+                                }
+                            }
                         }
                     }
                 }
@@ -1176,34 +1172,6 @@ public class TutorialService extends Activity{
             }
         }, delay);
     }
-
-//    int buttonIds[] = {
-//            R.id.btn00_tutorial,
-//            R.id.tgl1_tutorial ,
-//            R.id.tgl2_tutorial ,
-//            R.id.tgl3_tutorial ,
-//            R.id.tgl4_tutorial ,
-//            R.id.tgl5_tutorial ,
-//            R.id.tgl6_tutorial ,
-//            R.id.tgl7_tutorial ,
-//            R.id.tgl8_tutorial ,
-//            R.id.btn11_tutorial,
-//            R.id.btn12_tutorial,
-//            R.id.btn13_tutorial,
-//            R.id.btn14_tutorial,
-//            R.id.btn21_tutorial,
-//            R.id.btn22_tutorial,
-//            R.id.btn23_tutorial,
-//            R.id.btn24_tutorial,
-//            R.id.btn31_tutorial,
-//            R.id.btn32_tutorial,
-//            R.id.btn33_tutorial,
-//            R.id.btn34_tutorial,
-//            R.id.btn41_tutorial,
-//            R.id.btn42_tutorial,
-//            R.id.btn43_tutorial,
-//            R.id.btn44_tutorial
-//    };
     
     int buttonIds[] = {
             R.id.btn00_tutorial, // 00
@@ -1298,40 +1266,6 @@ public class TutorialService extends Activity{
     };
 
     void motionAnimation(int id, Activity activity){
-//        switch (buttonNumber){
-//            case 0:  playMotion(R.id.btn00_tutorial, activity); break;
-//
-//            //Toggle2
-//            case 1:  playMotion(R.id.tgl1_tutorial , activity); break;
-//            case 2:  playMotion(R.id.tgl2_tutorial , activity); break;
-//            case 3:  playMotion(R.id.tgl3_tutorial , activity); break;
-//            case 4:  playMotion(R.id.tgl4_tutorial , activity); break;
-//            case 5:  playMotion(R.id.tgl5_tutorial , activity); break;
-//            case 6:  playMotion(R.id.tgl6_tutorial , activity); break;
-//            case 7:  playMotion(R.id.tgl7_tutorial , activity); break;
-//            case 8:  playMotion(R.id.tgl8_tutorial , activity); break;
-//
-//            //Main
-//            case 11: playMotion(R.id.btn11_tutorial, activity); break;
-//            case 12: playMotion(R.id.btn12_tutorial, activity); break;
-//            case 13: playMotion(R.id.btn13_tutorial, activity); break;
-//            case 14: playMotion(R.id.btn14_tutorial, activity); break;
-//            case 21: playMotion(R.id.btn21_tutorial, activity); break;
-//            case 22: playMotion(R.id.btn22_tutorial, activity); break;
-//            case 23: playMotion(R.id.btn23_tutorial, activity); break;
-//            case 24: playMotion(R.id.btn24_tutorial, activity); break;
-//            case 31: playMotion(R.id.btn31_tutorial, activity); break;
-//            case 32: playMotion(R.id.btn32_tutorial, activity); break;
-//            case 33: playMotion(R.id.btn33_tutorial, activity); break;
-//            case 34: playMotion(R.id.btn34_tutorial, activity); break;
-//            case 41: playMotion(R.id.btn41_tutorial, activity); break;
-//            case 42: playMotion(R.id.btn42_tutorial, activity); break;
-//            case 43: playMotion(R.id.btn43_tutorial, activity); break;
-//            case 44: playMotion(R.id.btn44_tutorial, activity); break;
-//
-//            default: Log.i("Turorial Service", "Method called without any matching number"); break;
-//        }
-//        playMotion(buttonIds[buttonNumber], toggleNumber, activity);
         playAnimation(activity.findViewById(buttonIds[id]), scaleAnimations[id]);
     }
 

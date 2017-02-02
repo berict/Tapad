@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     private AppbarService ab = new AppbarService();
     private TutorialService tut = new TutorialService();
 
-
     float volume;
 
     final Activity a = this;
@@ -966,10 +965,12 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                tut.tutorialStart(a);
+                                // TODO TUTORIAL
+                                //tut.tutorialStart(a);
+                                tut.initCurrentTiming();
+                                tut.startTutorial(tut.getCurrentTiming());
                                 isTutorialVisible = true;
                                 setTutorialUI();
-
                                 if (isSettingVisible == true) {
                                     closeSettings();
                                 }
@@ -987,6 +988,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 tut.tutorialStop(a);
                 isTutorialVisible = false;
                 setTutorialUI();
+
             }
         } else {
             // still loading preset
