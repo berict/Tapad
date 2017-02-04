@@ -971,7 +971,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                                 // TODO TUTORIAL
                                 //tut.tutorialStart(a);
                                 tut.initCurrentTiming();
-                                tut.startTutorial(tut.getCurrentTutorialDeckId());
+                                tut.startTutorial(tut.getCurrentTutorialDeckId(), a);
                                 isTutorialVisible = true;
                                 setTutorialUI();
                                 if (isSettingVisible == true) {

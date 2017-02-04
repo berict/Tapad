@@ -16,6 +16,8 @@ import com.bedrock.padder.R;
 import com.bedrock.padder.model.preset.DeckTiming;
 import com.bedrock.padder.model.preset.Preset;
 
+import java.util.Arrays;
+
 import static com.bedrock.padder.helper.SoundService.currentPreset;
 
 public class TutorialService extends Activity {
@@ -1301,6 +1303,7 @@ public class TutorialService extends Activity {
     }
 
     public void initCurrentTiming() {
+        Log.d("init", "tutorialCurrentIndex set to 0");
         tutorialCurrentIndex = 0;
     }
 
@@ -1308,7 +1311,7 @@ public class TutorialService extends Activity {
         return currentPreset.getMusic().getDeckTimings().length;
     }
 
-    public void startTutorial(final int index) {
+    public void startTutorial(final int index, Activity activity) {
         DeckTiming deckTiming = getCurrentPreset().getMusic().getDeckTimings()[index];
         Integer currentTiming[][] = deckTiming.getDeckTiming();
 
@@ -1414,7 +1417,8 @@ public class TutorialService extends Activity {
                 getIntArray(currentTiming[83]),
                 getIntArray(currentTiming[84])
         };
-        setRunnables(setFinalItemInArray(timing));
+        Log.d("timing", Arrays.deepToString(timing));
+        setRunnables(timing, activity);
 
         //if(tutorialCurrentIndex >= 1 && tutorialCurrentIndex <= 4) {
         //    // if tutorial is ongoing, set next deck button id
@@ -1451,14 +1455,24 @@ public class TutorialService extends Activity {
         return array;
     }
 
-    void setRunnables(final int timing[][]) {
+    void removeCallbacksWithDelay(final int index) {
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mHandler.removeCallbacks(motions[index]);
+                Log.d("removeCallbacks", "Callback removed from " + index);
+            }
+        }, 100);
+    }
+
+    void setRunnables(final int timing[][], final Activity activity) {
         for (indexI = 0; indexI < 89; indexI++) {
             motions[indexI] = new Runnable() {
                 @Override
                 public void run() {
-                    if (timing[motionDelayIndexes[indexI]] == null) {
-                        // check timing exists
-                        mHandler.removeCallbacks(motions[indexI]);
+                    // check timing exists
+                    if (timing[indexI].length <= 1) {
+                        //removeCallbacksWithDelay(indexI);
                         motionDelays[indexI] = -1;
                         Log.d("motionDelay", "null timing, Set to " + motionDelays[indexI]);
                         motionDelayIndexes[indexI] = 0;
@@ -1471,20 +1485,20 @@ public class TutorialService extends Activity {
                         } else {
                             try {
                                 // animate
-                                motionAnimation(indexI, a);
-                                if (motionDelayIndexes[indexI] < timing.length) {
+                                motionAnimation(indexI, activity);
+                                if (motionDelayIndexes[indexI] < timing[indexI].length) {
                                     motionDelays[indexI] = (timing[indexI][motionDelayIndexes[indexI] + 1] - timing[indexI][motionDelayIndexes[indexI]]);
                                     Log.d("motionDelay", "Set to " + motionDelays[indexI]);
                                     motionDelayIndexes[indexI]++;
                                 } else {
                                     Log.d("Array", "Finished");
-                                    mHandler.removeCallbacks(motions[indexI]);
+                                    //removeCallbacksWithDelay(indexI);
                                 }
                             } finally {
                                 if (motionDelays[indexI] > 0) {
                                     mHandler.postDelayed(motions[indexI], motionDelays[indexI]);
                                 } else {
-                                    mHandler.removeCallbacks(motions[indexI]);
+                                    //removeCallbacksWithDelay(indexI);
                                     motionDelays[indexI] = -1;
                                     Log.d("motionDelay", "Set to " + motionDelays[indexI]);
                                     motionDelayIndexes[indexI] = 0;
@@ -1494,6 +1508,7 @@ public class TutorialService extends Activity {
                     }
                 }
             };
+            motions[indexI].run();
         }
     }
 
@@ -1556,7 +1571,7 @@ public class TutorialService extends Activity {
     }
 
     void motionAnimation(int id, Activity activity) {
-        playAnimation(activity.findViewById(buttonIds[id]), scaleAnimations[id]);
+        playAnimation(window.getView(R.id.base_tutorial, activity).findViewById(buttonIds[id]), scaleAnimations[id]);
     }
 
     void playMotionAnimation(int btnId, int phId, int motionId, Activity activity) {
