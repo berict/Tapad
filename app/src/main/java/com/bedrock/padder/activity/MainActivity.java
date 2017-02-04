@@ -51,6 +51,30 @@ import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 public class MainActivity extends AppCompatActivity implements ColorChooserDialog.ColorCallback {
 
+    final Activity a = this;
+    final String qs = "quickstart";
+    final String TAG = "MainActivity";
+    public boolean isPresetLoading = false;
+    public boolean tgl1 = false;
+    public boolean tgl2 = false;
+    public boolean tgl3 = false;
+    public boolean tgl4 = false;
+    public boolean tgl5 = false;
+    public boolean tgl6 = false;
+    public boolean tgl7 = false;
+    public boolean tgl8 = false;
+    float volume;
+    SharedPreferences prefs = null;
+    int currentVersionCode;
+    int themeColor = R.color.hello;
+    int color = R.color.red;
+    boolean doubleBackToExitPressedOnce = false;
+    MaterialDialog ChangelogDialog;
+    MaterialDialog QuickstartDialog;
+    MaterialDialog PresetDialog;
+    boolean isSchemeChanged = false;
+    int toggleSoundId = 0;
+    int togglePatternId = 0;
     private AnimService anim = new AnimService();
     private ThemeService t = new ThemeService();
     private SoundService sound = new SoundService();
@@ -59,23 +83,32 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     private FabService fab = new FabService();
     private AppbarService ab = new AppbarService();
     private TutorialService tut = new TutorialService();
-
-    float volume;
-
-    final Activity a = this;
-    final String qs = "quickstart";
-    final String TAG = "MainActivity";
-    SharedPreferences prefs = null;
-    int currentVersionCode;
-    int themeColor = R.color.hello;
-    int color = R.color.red;
-
     private boolean isToolbarVisible = false;
     private boolean isAboutVisible = false;
     private boolean isPresetVisible = false;
-    public boolean isPresetLoading = false;
     private boolean isSettingVisible = false;
     private boolean isTutorialVisible = false;
+    private int circularRevealDuration = 400;
+    private int fadeAnimDuration = 200;
+    private MaterialTapTargetPrompt promptToggle;   // 1
+    private MaterialTapTargetPrompt promptButton;   // 2
+    private MaterialTapTargetPrompt promptPattern;  // 3
+    private MaterialTapTargetPrompt promptFab;      // 4
+    private MaterialTapTargetPrompt promptInfo;     // 5
+    private MaterialTapTargetPrompt promptPreset;   // 6
+    private MaterialTapTargetPrompt promptTutorial; // 7
+    // Used for circularReveal
+    // End two is for settings coordination
+    private int coord[] = {0, 0, 0, 0};
+
+    public static void largeLog(String tag, String content) {
+        if (content.length() > 4000) {
+            Log.d(tag, content.substring(0, 4000));
+            largeLog(tag, content.substring(4000));
+        } else {
+            Log.d(tag, content);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,15 +154,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         makeJson();
     }
 
-    public static void largeLog(String tag, String content) {
-        if (content.length() > 4000) {
-            Log.d(tag, content.substring(0, 4000));
-            largeLog(tag, content.substring(4000));
-        } else {
-            Log.d(tag, content);
-        }
-    }
-
     void enterAnim() {
         anim.fadeIn(R.id.actionbar_layout, 0, 200, "background", a);
         anim.fadeIn(R.id.actionbar_image, 200, 200, "image", a);
@@ -137,11 +161,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         loadPreset(400);
         isPresetLoading = true;
     }
-
-    boolean doubleBackToExitPressedOnce = false;
-
-    private int circularRevealDuration = 400;
-    private int fadeAnimDuration = 200;
 
     @Override
     public void onBackPressed() {
@@ -276,18 +295,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         sound.soundAllStop();
         sound.cancelLoading();
     }
-
-    private MaterialTapTargetPrompt promptToggle;   // 1
-    private MaterialTapTargetPrompt promptButton;   // 2
-    private MaterialTapTargetPrompt promptPattern;  // 3
-    private MaterialTapTargetPrompt promptFab;      // 4
-    private MaterialTapTargetPrompt promptInfo;     // 5
-    private MaterialTapTargetPrompt promptPreset;   // 6
-    private MaterialTapTargetPrompt promptTutorial; // 7
-
-    MaterialDialog ChangelogDialog;
-    MaterialDialog QuickstartDialog;
-    MaterialDialog PresetDialog;
 
     public void setQuickstart(final Activity activity) {
         final SharedPreferences pref = activity.getSharedPreferences("com.bedrock.padder", MODE_PRIVATE);
@@ -603,10 +610,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
             Log.e("QuickstartException", e.getMessage());
         }
     }
-
-    // Used for circularReveal
-    // End two is for settings coordination
-    private int coord[] = {0, 0, 0, 0};
 
     void setFab() {
         fab.setFab(a);
@@ -968,7 +971,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                                 // TODO TUTORIAL
                                 //tut.tutorialStart(a);
                                 tut.initCurrentTiming();
-                                tut.startTutorial(tut.getCurrentTiming());
+                                tut.startTutorial(tut.getCurrentTutorialDeckId());
                                 isTutorialVisible = true;
                                 setTutorialUI();
                                 if (isSettingVisible == true) {
@@ -988,7 +991,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 tut.tutorialStop(a);
                 isTutorialVisible = false;
                 setTutorialUI();
-
             }
         } else {
             // still loading preset
@@ -1113,8 +1115,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
             }
         }, fadeAnimDuration);
     }
-
-    boolean isSchemeChanged = false;
 
     void showDialogPreset() {
         tut.tutorialStop(a);
@@ -1288,18 +1288,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
             }
         }, delay);
     }
-
-    public boolean tgl1 = false;
-    public boolean tgl2 = false;
-    public boolean tgl3 = false;
-    public boolean tgl4 = false;
-    public boolean tgl5 = false;
-    public boolean tgl6 = false;
-    public boolean tgl7 = false;
-    public boolean tgl8 = false;
-
-    int toggleSoundId = 0;
-    int togglePatternId = 0;
 
     void setToggleButton(final int color_id) {
         // 1 - 4
