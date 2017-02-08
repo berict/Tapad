@@ -1910,7 +1910,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                         "ft3_34_4"),
                 new Pad("ft3_41",
                         "ft3_41_1",
-                        "ft3_41_2"),
+                        "ft3_41_3"),
                 new Pad("ft3_42",
                         "ft3_42_1",
                         "ft3_42_2",

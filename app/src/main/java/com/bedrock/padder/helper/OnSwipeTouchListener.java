@@ -35,6 +35,12 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
         }
 
         @Override
+        public boolean onSingleTapConfirmed(MotionEvent e) {
+            onSingleClickConfirmed();
+            return super.onSingleTapConfirmed(e);
+        }
+
+        @Override
         public boolean onDoubleTap(MotionEvent e) {
             onDoubleClick();
             return super.onDoubleTap(e);
@@ -99,5 +105,8 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
     }
 
     public void onLongClick() {
+    }
+
+    public void onSingleClickConfirmed() {
     }
 }

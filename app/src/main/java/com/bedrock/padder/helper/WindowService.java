@@ -1039,6 +1039,14 @@ public class WindowService {
             }
 
             @Override
+            public void onSingleClickConfirmed() {
+                if (isLoopEnabled[0] == false) {
+                    pad.setBackgroundColor(activity.getResources().getColor(colorUp));
+                }
+                Log.d("TouchListener", "SingleClickConfirmed");
+            }
+
+            @Override
             public void onSwipeUp() {
                 if (spid[1] != 0) {
                     sp.play(spid[1], 1, 1, 1, 0, 1);
