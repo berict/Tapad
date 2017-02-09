@@ -104,9 +104,7 @@ public class TutorialService extends Activity {
     //                /* 43 */ {52.60, 53.73, 80.00, 81.15, 105.14, 123.43, 180.61, 181.73, 208.01, 209.16, -1},
     //                /* 44 */ {54.86, 82.30, 83.43, 109.73, 182.87, 210.31, 211.44, 223.72, -1}
     //    };
-    public Runnable tutDelay;
-    Handler tutorial = new Handler();
-    Handler mHandler;
+    Handler mHandler = new Handler();
     Activity a;
     // motions
     // Normal
@@ -1275,7 +1273,7 @@ public class TutorialService extends Activity {
 
     public void tutorialStop(Activity a) {
         try {
-            tutorial.removeCallbacksAndMessages(null);
+            mHandler.removeCallbacksAndMessages(null);
             window.getImageView(R.id.toolbar_tutorial_icon, a).setImageResource(R.drawable.icon_tutorial);
             window.getImageView(R.id.layout_settings_tutorial_icon, a).setImageResource(R.drawable.settings_tutorial);
             Log.i("TutorialService", "tutorial finished");
@@ -1303,7 +1301,7 @@ public class TutorialService extends Activity {
         }
 
         // initialize the array with actual values
-        int timing[][] = {
+        int timingInit[][] = {
                 getIntArray(currentTiming[0]),
                 getIntArray(currentTiming[1]),
                 getIntArray(currentTiming[2]),
@@ -1394,6 +1392,8 @@ public class TutorialService extends Activity {
                 getIntArray(currentTiming[83]),
                 getIntArray(currentTiming[84])
         };
+        // Overwrite the timing with new values
+        timing = timingInit;
         Log.d("timing", Arrays.deepToString(timing));
         //setRunnables(timing, activity);
 
@@ -1518,9 +1518,10 @@ public class TutorialService extends Activity {
         return new Runnable() {
             @Override
             public void run() {
+                // TODO timing not right
                 // check timing exists
                 if (timing[index].length <= 1) {
-                    removeCallbacksWithDelay(index);
+                    removeCallbacksWithDelay(this, index);
                     motionDelays[index] = -1;
                     Log.d("motionDelay", "null timing, Set to " + motionDelays[index]);
                     motionDelayIndexes[index] = 0;
@@ -1534,19 +1535,20 @@ public class TutorialService extends Activity {
                         try {
                             // animate
                             motionAnimation(index, a);
-                            if (motionDelayIndexes[index] < timing[index].length) {
+                            if (motionDelayIndexes[index] < timing[index].length - 1) {
                                 motionDelays[index] = (timing[index][motionDelayIndexes[index] + 1] - timing[index][motionDelayIndexes[index]]);
-                                Log.d("motionDelay", "Set to " + motionDelays[index]);
+                                Log.d("motionDelay", "Set to " + motionDelays[index] + " at " + index);
                                 motionDelayIndexes[index]++;
+                                Log.d("motionDelayIndex", "Set to " + motionDelayIndexes[index] + " at " + index);
                             } else {
                                 Log.d("Array", "Finished");
-                                removeCallbacksWithDelay(index);
+                                removeCallbacksWithDelay(this, index);
                             }
                         } finally {
                             if (motionDelays[index] > 0) {
                                 mHandler.postDelayed(motions[index], motionDelays[index]);
                             } else {
-                                removeCallbacksWithDelay(index);
+                                removeCallbacksWithDelay(this, index);
                                 motionDelays[index] = -1;
                                 Log.d("motionDelay", "Set to " + motionDelays[index]);
                                 motionDelayIndexes[index] = 0;
@@ -1647,15 +1649,17 @@ public class TutorialService extends Activity {
         return array;
     }
 
-    void removeCallbacksWithDelay(final int index) {
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //mHandler.removeCallbacks(motions[index]);
-                //Log.d("removeCallbacks", "Callback removed from " + index);
-                Log.d("removeCallbacks", "need to remove callback from " + index);
-            }
-        }, 0); //TODO MAYBE CHANGE
+    void removeCallbacksWithDelay(Runnable runnable, int index) {
+//        mHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                //mHandler.removeCallbacks(motions[index]);
+//                //Log.d("removeCallbacks", "Callback removed from " + index);
+//                Log.d("removeCallbacks", "need to remove callback from " + index);
+//            }
+//        }, 0); //TODO MAYBE CHANGE
+        mHandler.removeCallbacks(runnable);
+        Log.d("removeCallbacks", "Callback removed from " + index);
     }
 
     private String TAG = "TutorialService";
@@ -1723,6 +1727,7 @@ public class TutorialService extends Activity {
     }
 
     void motionAnimation(int id, Activity activity) {
+        Log.d("motionAnimation", "at " + id);
         playAnimation(window.getView(R.id.base_tutorial, activity).findViewById(buttonIds[id]), scaleAnimations[id]);
     }
 
