@@ -18,10 +18,13 @@ import android.view.View;
 import com.bedrock.padder.R;
 import com.bedrock.padder.adapter.DetailAdapter;
 import com.bedrock.padder.helper.AnimService;
+import com.bedrock.padder.helper.SoundService;
 import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.about.About;
 import com.google.gson.Gson;
+
+import static com.bedrock.padder.helper.SoundService.currentPreset;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -35,6 +38,7 @@ public class AboutActivity extends AppCompatActivity {
     WindowService window = new WindowService();
     AnimService anim = new AnimService();
     ThemeService theme = new ThemeService();
+    SoundService sound = new SoundService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +52,8 @@ public class AboutActivity extends AppCompatActivity {
         }
 
         Gson gson = new Gson();
-        about = gson.fromJson(json, About.class);
+        //about = gson.fromJson(json, About.class);
+        about = currentPreset.getAbout();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -78,11 +83,11 @@ public class AboutActivity extends AppCompatActivity {
         window.setMarginRelativePX(R.id.layout_relative, 0, prefs.getInt("statBarPX", 0), 0, 0, activity);
         window.getView(R.id.layout_margin, activity).getLayoutParams().height = prefs.getInt("navBarPX", 0) + window.convertDPtoPX(10, activity);
 
-        setJson();
+        setJsonToUi();
         enterAnim();
     }
 
-    private void setJson() {
+    private void setJsonToUi() {
         // status bar
         window.getView(R.id.statusbar, activity).setBackgroundColor(getResources().getColor(window.getColorId(about.getStatusbarColorId())));
 

@@ -798,18 +798,16 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         w.getView(R.id.cardview_artist, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
-                        R.id.cardview_artist_image, "transition",
-                        "json", getResources().getStringArray(R.array.json_about)[getScheme() - 1], 0);
+                intent.intentSharedElement(a, "activity.AboutActivity",
+                        R.id.cardview_artist_image, "transition", 0);
             }
         });
 
         w.getView(R.id.cardview_artist_explore, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
-                        R.id.cardview_artist_image, "transition",
-                        "json", getResources().getStringArray(R.array.json_about)[getScheme() - 1], 0);
+                intent.intentSharedElement(a, "activity.AboutActivity",
+                        R.id.cardview_artist_image, "transition", 0);
             }
         });
 
@@ -824,18 +822,16 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         w.getView(R.id.cardview_about, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
-                        R.id.cardview_about_image, "transition",
-                        "json", getResources().getString(R.string.json_about_tapad), 0);
+                intent.intentSharedElement(a, "activity.AboutActivity",
+                        R.id.cardview_about_image, "transition", 0);
             }
         });
 
         w.getView(R.id.cardview_about_explore, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
-                        R.id.cardview_about_image, "transition",
-                        "json", getResources().getString(R.string.json_about_tapad), 0);
+                intent.intentSharedElement(a, "activity.AboutActivity",
+                        R.id.cardview_about_image, "transition", 0);
             }
         });
         w.getView(R.id.cardview_about_settings, a).setOnTouchListener(new View.OnTouchListener() {
@@ -878,18 +874,16 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         w.getView(R.id.cardview_dev, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
-                        R.id.cardview_dev_image, "transition",
-                        "json", getResources().getString(R.string.json_about_dev), 0);
+                intent.intentSharedElement(a, "activity.AboutActivity",
+                        R.id.cardview_dev_image, "transition", 0);
             }
         });
 
         w.getView(R.id.cardview_dev_explore, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
-                        R.id.cardview_dev_image, "transition",
-                        "json", getResources().getString(R.string.json_about_dev), 0);
+                intent.intentSharedElement(a, "activity.AboutActivity",
+                        R.id.cardview_dev_image, "transition", 0);
             }
         });
     }
@@ -1718,7 +1712,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 new Item("web", "preset_faded_detail_web", "about_web"),
         };
 
-        Detail fadedDetail = new Detail("preset_faded_about", fadedItems);
+        Detail fadedDetail = new Detail("preset_faded_detail_title", fadedItems);
 
         Bio fadedBio = new Bio(
                 "preset_faded_bio_title",

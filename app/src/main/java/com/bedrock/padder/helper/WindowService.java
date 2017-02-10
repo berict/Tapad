@@ -273,6 +273,7 @@ public class WindowService {
             Log.i("WindowService", "API doesn't match requirement. (API >= 21)");
         }
     }
+
     public void setViewBackgroundColor(int view_id, int color_id, Activity activity) {
         try {
             getView(view_id, activity).setBackgroundColor(activity.getResources().getColor(color_id));

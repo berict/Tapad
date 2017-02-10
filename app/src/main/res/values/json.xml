@@ -1366,7 +1366,8 @@
         }"
     </string>
     <string name="json_faded_gesture">
-        "{
+        "
+        {  
     \"about\":{  
         \"actionbar_color_id\":\"preset_faded_color\",
         \"bio\":{  
@@ -1405,7 +1406,7 @@
                         \"text_id\":\"web\"
                     }
                 ],
-                \"title_id\":\"preset_faded_about\"
+                \"title_id\":\"preset_faded_detail_title\"
             }
         ],
         \"image_id\":\"about_album_faded\",
@@ -3190,7 +3191,8 @@
         ],
         \"name_id\":\"preset_faded\"
     }
-}"
+}
+        "
     </string>
     
 </resources>
