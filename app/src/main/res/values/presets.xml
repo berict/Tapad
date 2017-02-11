@@ -118,6 +118,8 @@
     <string name="preset_faded_detail_youtube">https://www.youtube.com/user/DjWalkzz</string>
     <string name="preset_faded_detail_web">http://www.alanwalkermusic.no/</string>
 
+    <string name="preset_faded_song_detail"></string>
+
     <item name="preset_faded_color" type="color">#00D3BE</item>
     <item name="preset_faded_color_dark" type="color">#00A898</item>
 </resources>

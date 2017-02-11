@@ -75,7 +75,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
 
             if(item[position].getRunnable() != null) {
                 // run runnable
-                item[position].getRunnable().run();
+                holder.itemLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        item[holder.getAdapterPosition()].getRunnable().run();
+                    }
+                });
             }
 
             if(window.getStringFromId(item[position].getHintId(), activity).startsWith("http")) {

@@ -1714,6 +1714,10 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
         Detail fadedDetail = new Detail("preset_faded_detail_title", fadedItems);
 
+        Item fadedSongItems[] = {
+
+        };
+
         Bio fadedBio = new Bio(
                 "preset_faded_bio_title",
                 "about_bio_faded",

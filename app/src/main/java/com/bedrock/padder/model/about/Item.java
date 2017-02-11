@@ -23,6 +23,13 @@ public class Item {
         this.runnable = null;
     }
 
+    public Item (String textId, String hintId) {
+        this.textId = textId;
+        this.hintId = hintId;
+        this.imageId = "about_" + textId;
+        this.runnable = null;
+    }
+
     public Item (String textId, String hintId, String imageId, Runnable runnable) {
         this.textId = textId;
         this.hintId = hintId;
