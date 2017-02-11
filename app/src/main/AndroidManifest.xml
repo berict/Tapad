@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.bedrock.padder">
 
     <application
@@ -19,15 +18,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.WelcomeActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.AboutActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.UserBenefitsActivity"></activity>
+        <activity
+            android:name=".activity.UserBenefitsActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

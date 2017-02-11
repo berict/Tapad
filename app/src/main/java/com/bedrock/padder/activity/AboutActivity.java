@@ -94,7 +94,7 @@ public class AboutActivity extends AppCompatActivity {
         // action bar
         collapsingToolbarLayout.setContentScrimColor(getResources().getColor(window.getColorId(about.getActionbarColorId())));
         collapsingToolbarLayout.setStatusBarScrimColor(getResources().getColor(window.getColorId(about.getActionbarColorId())));
-        collapsingToolbarLayout.setTitle(about.getTitleId());
+        collapsingToolbarLayout.setTitle(about.getTitle(activity));
 
         // set taskDesc
         window.setRecentColor(about.getTitle(activity), window.getColorId(about.getActionbarColorId()), activity);
