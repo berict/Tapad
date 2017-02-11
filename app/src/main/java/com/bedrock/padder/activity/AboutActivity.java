@@ -18,18 +18,15 @@ import android.view.View;
 import com.bedrock.padder.R;
 import com.bedrock.padder.adapter.DetailAdapter;
 import com.bedrock.padder.helper.AnimService;
-import com.bedrock.padder.helper.SoundService;
 import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.about.About;
-import com.google.gson.Gson;
 
 import static com.bedrock.padder.helper.SoundService.currentPreset;
 
 public class AboutActivity extends AppCompatActivity {
 
     Activity activity = this;
-    String json;
     About about;
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
 
@@ -38,21 +35,12 @@ public class AboutActivity extends AppCompatActivity {
     WindowService window = new WindowService();
     AnimService anim = new AnimService();
     ThemeService theme = new ThemeService();
-    SoundService sound = new SoundService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        // get intent values
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            json = extras.getString("json");
-        }
-
-        Gson gson = new Gson();
-        //about = gson.fromJson(json, About.class);
         about = currentPreset.getAbout();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -83,11 +71,11 @@ public class AboutActivity extends AppCompatActivity {
         window.setMarginRelativePX(R.id.layout_relative, 0, prefs.getInt("statBarPX", 0), 0, 0, activity);
         window.getView(R.id.layout_margin, activity).getLayoutParams().height = prefs.getInt("navBarPX", 0) + window.convertDPtoPX(10, activity);
 
-        setJsonToUi();
+        setUi();
         enterAnim();
     }
 
-    private void setJsonToUi() {
+    private void setUi() {
         // status bar
         window.getView(R.id.statusbar, activity).setBackgroundColor(getResources().getColor(window.getColorId(about.getStatusbarColorId())));
 
@@ -140,7 +128,6 @@ public class AboutActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
         pressBack();
-
         return true;
     }
 

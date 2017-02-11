@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Misc -->
-    <string name="web">Web</string>
-    <string name="facebook">Facebook</string>
-    <string name="twitter">Twitter</string>
-    <string name="soundcloud">SoundCloud</string>
-    <string name="youtube">YouTube</string>
-    <string name="pandora">Pandora</string>
-    <string name="amazon">Amazon Music</string>
-    <string name="twitch">Twitch</string>
-    <string name="google"></string>
-    <string name=""></string>
-    <string name=""></string>
-    <string name=""></string>
-    <string name=""></string>
+    <!-- Keep these in order -->
+    <!-- Social Accounts (detail) -->
+    <string name="facebook"   >Facebook</string>
+    <string name="twitter"    >Twitter</string>
+    <string name="soundcloud" >SoundCloud</string>
+    <string name="instagram"  >Instagram</string>
+    <string name="google_plus">Google Plus</string>
+    <string name="youtube"    >YouTube</string>
+    <string name="twitch"     >Twitch</string>
+    <string name="web"        >Web</string>
+
+    <!-- Music Services (song_detail) -->
+    <!--<string name="soundcloud"       >SoundCloud</string>-->
+    <!--<string name="youtube"    >YouTube</string>-->
+    <string name="spotify"          >Spotify</string>
+    <string name="google_play_music">Google Play Music</string>
+    <string name="apple"            >Apple Music</string>
+    <string name="amazon"           >Amazon Music</string>
+    <string name="pandora"          >Pandora</string>
+
+    <string name="google_play">Google Play</string>
 
     <!-- Berict -->
 
     <string name="info_berict_full">Studio Berict</string>
     <string name="info_berict_title">About Studio Berict</string>
     
-    <string name="info_berict_bio_title">Berict\'s Biography</string>
+    <string name="info_berict_bio_title">Berict\'s biography</string>
     <string name="info_berict_bio_name">Bedrock Pictures (Nathan Cho)</string>
     <string name="info_berict_bio_text">
         Nathan is high school student in South Korea, who enjoys software and football.
-        Currently attending Sunrin Internet High School.
         Started developing about 5 years ago, started by HTML, now on Android.
-        As you see, has a big interest in Android\'s "Material Design".</string>
+        And he has a big interest in Android\'s "Material Design".</string>
     <string name="info_berict_bio_source">Powered by Bedrock Pictures</string>
 
     <string name="info_berict_detail_title">About Studio Berict</string>
@@ -64,7 +70,7 @@
     <string name="preset_hello">Hello</string>
     <string name="preset_hello_title">OMFG</string>
     
-    <string name="preset_hello_bio_title">OMFG\'s Biography</string>
+    <string name="preset_hello_bio_title">OMFG\'s biography</string>
     <string name="preset_hello_bio_name">Alex OMFG (Alex Savage)</string>
     <string name="preset_hello_bio_text">This is a Fun Loving girl who had a desire to make music.
         Alex enjoyed making dubstep to just share between friends and family.
@@ -88,13 +94,13 @@
     <string name="preset_roses">Roses</string>
     <string name="preset_roses_title">The Chainsmokers</string>
     
-    <string name="preset_roses_bio_title">The Chainsmokers\' Biography</string>
+    <string name="preset_roses_bio_title">The Chainsmokers\' biography</string>
     <string name="preset_roses_bio_name">Andrew Taggart and Alex Pall</string>
     <string name="preset_roses_bio_text">The Chainsmokers have become the hottest young American EDM DJ duo.
         Their signature sound has its foundations in Indie, Progressive and Pop Music.
         On the production front, their original tracks have all reached the Beatport top charts and their remixes always hit #1 on the HypeM charts.
         Their first major release, #SELFIE, and it\'s official music video swept the world so look out for much more to come!</string>
-    <string name="preset_roses_bio_source">Powered by thechainsmokers.com</string>
+    <string name="preset_roses_bio_source">Powered by last.fm</string>
 
     <string name="preset_roses_detail_title">About The Chainsmokers</string>
     <string name="preset_roses_detail_facebook">https://www.facebook.com/thechainsmokers</string>
@@ -106,27 +112,36 @@
     <item name="preset_roses_color" type="color">#FF73E1</item>
     <item name="preset_roses_color_dark" type="color">#CC5CB4</item>
     
-    <!-- Faded (Gesture same) -->
+    <!-- Faded -->
     
     <string name="preset_faded_full">Alan Walker - Faded</string>
     <string name="preset_faded">Faded</string>
-    <string name="preset_faded_title">Alan Walker</string>
+    <string name="preset_faded_title">@string/preset_faded_full</string>
     
-    <string name="preset_faded_bio_title">Alan Walker\'s Biography</string>
+    <string name="preset_faded_bio_title">Alan Walker\'s biography</string>
     <string name="preset_faded_bio_name">Alan Olav Walker</string>
     <string name="preset_faded_bio_text">Alan Walker (Alan Olav Walker) is a British-Norwegian record producer who was born in Northampton, England.
-        He is best known for the electronic dance music single "Faded", which has reached number 1 in multiple countries,
-        and on YouTube has over 650 million views and 4 million likes, placing it among the top 40 most liked YouTube videos.</string>
-    <string name="preset_faded_bio_source">Powered by Wikipedia</string>
+        He recorded electronic dance music single \"Faded\" and his song released on NoCopyrightSounds, \"Fade\".</string>
+    <string name="preset_faded_bio_source">Powered by Wikipedia X last.fm</string>
 
-    <string name="preset_faded_detail_title">About Alan Walker</string>
-    <string name="preset_faded_detail_facebook">https://www.facebook.com/alanwalkermusic</string>
-    <string name="preset_faded_detail_twitter">https://twitter.com/IAmAlanWalker</string>
-    <string name="preset_faded_detail_soundcloud">https://soundcloud.com/alanwalker</string>
-    <string name="preset_faded_detail_youtube">https://www.youtube.com/user/DjWalkzz</string>
-    <string name="preset_faded_detail_web">http://www.alanwalkermusic.no/</string>
+    <string name="preset_faded_detail_title"      >About Alan Walker</string>
+    <string name="preset_faded_detail_facebook"   >https://www.facebook.com/alanwalkermusic</string>
+    <string name="preset_faded_detail_twitter"    >https://twitter.com/IAmAlanWalker</string>
+    <string name="preset_faded_detail_soundcloud" >https://soundcloud.com/alanwalker</string>
+    <string name="preset_faded_detail_instagram"  >https://www.instagram.com/alanwalkermusic</string>
+    <string name="preset_faded_detail_google_plus">https://plus.google.com/u/0/+Alanwalkermusic</string>
+    <string name="preset_faded_detail_youtube"    >https://www.youtube.com/user/DjWalkzz</string>
+    <string name="preset_faded_detail_web"        >http://www.alanwalkermusic.no</string>
 
-    <string name="preset_faded_song_detail"></string>
+    <string name="preset_faded_song_detail_title"            >About this track</string>
+    <string name="preset_faded_song_detail_soundcloud"       >https://soundcloud.com/alanwalker/faded-1</string>
+    <string name="preset_faded_song_detail_youtube"          >https://youtu.be/60ItHLz5WEA</string>
+    <string name="preset_faded_song_detail_spotify"          >https://open.spotify.com/track/1brwdYwjltrJo7WHpIvbYt</string>
+    <string name="preset_faded_song_detail_google_play_music">https://goo.gl/zm42j9</string>
+    <string name="preset_faded_song_detail_apple"            >https://itunes.apple.com/us/album/faded/id1196294554?i=1196294581</string>
+    <string name="preset_faded_song_detail_amazon"           >http://a.co/dZaAGqP</string>
+    <string name="preset_faded_song_detail_pandora"          >Pandora</string>
+    <!-- TODO I FUCKING HATE KOREA -->
 
     <item name="preset_faded_color" type="color">#00D3BE</item>
     <item name="preset_faded_color_dark" type="color">#00A898</item>
