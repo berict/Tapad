@@ -6,6 +6,14 @@
     <string name="twitter">Twitter</string>
     <string name="soundcloud">SoundCloud</string>
     <string name="youtube">YouTube</string>
+    <string name="pandora">Pandora</string>
+    <string name="amazon">Amazon Music</string>
+    <string name="twitch">Twitch</string>
+    <string name="google"></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
+    <string name=""></string>
 
     <!-- Berict -->
 
