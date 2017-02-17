@@ -10,6 +10,9 @@ public class Item {
     @SerializedName("hint_id")
     private String   hintId;
 
+    @SerializedName("hint_is_visible")
+    private Boolean hintIsVisible;
+
     @SerializedName("image_id")
     private String   imageId;
     
@@ -19,13 +22,24 @@ public class Item {
     public Item (String textId, String hintId, String imageId) {
         this.textId = textId;
         this.hintId = hintId;
+        this.hintIsVisible = true;
         this.imageId = imageId;
         this.runnable = null;
     }
 
+    public Item (String textId, String hintId, Boolean hintIsVisible, String imageId) {
+        this.textId = textId;
+        this.hintId = hintId;
+        this.hintIsVisible = hintIsVisible;
+        this.imageId = imageId;
+        this.runnable = null;
+    }
+
+
     public Item (String textId, String hintId) {
         this.textId = textId;
         this.hintId = hintId;
+        this.hintIsVisible = true;
         this.imageId = "about_" + textId;
         this.runnable = null;
     }

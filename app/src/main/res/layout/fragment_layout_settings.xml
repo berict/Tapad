@@ -358,7 +358,7 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
                         android:padding="10dp"
-                        android:src="@drawable/about_info" />
+                        android:src="@drawable/about_detail_info" />
 
                     <TextView
                         android:id="@+id/layout_settings_about_tapad_text"
@@ -393,7 +393,7 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
                         android:padding="10dp"
-                        android:src="@drawable/about_dev" />
+                        android:src="@drawable/about_detail_dev" />
 
                     <TextView
                         android:id="@+id/layout_settings_about_dev_text"

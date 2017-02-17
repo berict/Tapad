@@ -13,7 +13,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:padding="18dp"
-        android:src="@drawable/about_web" />
+        android:src="@drawable/about_detail_web" />
 
     <LinearLayout
         android:id="@+id/layout_item_text_layout"
