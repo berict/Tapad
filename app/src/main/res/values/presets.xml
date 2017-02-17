@@ -70,11 +70,8 @@
     
     <string name="preset_hello_bio_title">OMFG\'s biography</string>
     <string name="preset_hello_bio_name">Alex OMFG (Alex Savage)</string>
-    <string name="preset_hello_bio_text">This is a Fun Loving girl who had a desire to make music.
-        Alex enjoyed making dubstep to just share between friends and family.
-        She soon talked her self into posting her creations online to see what kinda feedback she would get.
-        Getting an overly positive reviews she continued to make music ever since.</string>
-    <string name="preset_hello_bio_source">Powered by Muzikum</string>
+    <string name="preset_hello_bio_text">OMFG is Alex Savage.</string>
+    <string name="preset_hello_bio_source">Powered by last.fm</string>
 
     <string name="preset_hello_detail_title">About OMFG</string>
     <string name="preset_hello_detail_facebook">https://www.facebook.com/alexomfg/</string>
@@ -137,8 +134,7 @@
     <string name="preset_faded_song_detail_spotify"          >https://open.spotify.com/track/1brwdYwjltrJo7WHpIvbYt</string>
     <string name="preset_faded_song_detail_google_play_music">https://goo.gl/zm42j9</string>
     <string name="preset_faded_song_detail_apple"            >https://itunes.apple.com/us/album/faded/id1196294554?i=1196294581</string>
-    <string name="preset_faded_song_detail_amazon"           >http://a.co/dZaAGqP</string>
-    <!-- TODO I FUCKING HATE KOREA -->
+    <string name="preset_faded_song_detail_amazon"           >https://www.amazon.com/Faded/dp/B01NBYNKWJ</string>
 
     <item name="preset_faded_color" type="color">#00D3BE</item>
     <item name="preset_faded_color_dark" type="color">#00A898</item>

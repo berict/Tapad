@@ -35,19 +35,42 @@ public class Item {
         this.runnable = null;
     }
 
+    public Item (String textId, String hintId, String imageId, Runnable runnable) {
+        this.textId = textId;
+        this.hintId = hintId;
+        this.imageId = imageId;
+        this.runnable = runnable;
+    }
 
     public Item (String textId, String hintId) {
         this.textId = textId;
         this.hintId = hintId;
         this.hintIsVisible = true;
-        this.imageId = "about_" + textId;
+        this.imageId = "about_detail_" + textId;
         this.runnable = null;
     }
 
-    public Item (String textId, String hintId, String imageId, Runnable runnable) {
+    public Item (String textId, String hintId, Runnable runnable) {
         this.textId = textId;
         this.hintId = hintId;
-        this.imageId = imageId;
+        this.hintIsVisible = true;
+        this.imageId = "about_detail_" + textId;
+        this.runnable = runnable;
+    }
+
+    public Item (String textId, String hintId, Boolean hintIsVisible) {
+        this.textId = textId;
+        this.hintId = hintId;
+        this.hintIsVisible = hintIsVisible;
+        this.imageId = "about_detail_" + textId;
+        this.runnable = null;
+    }
+
+    public Item (String textId, String hintId, Boolean hintIsVisible, Runnable runnable) {
+        this.textId = textId;
+        this.hintId = hintId;
+        this.hintIsVisible = hintIsVisible;
+        this.imageId = "about_detail_" + textId;
         this.runnable = runnable;
     }
 
@@ -61,6 +84,10 @@ public class Item {
 
     public String getImageId() {
         return imageId;
+    }
+
+    public Boolean getHintIsVisible() {
+        return hintIsVisible;
     }
 
     public Runnable getRunnable() { return runnable; }

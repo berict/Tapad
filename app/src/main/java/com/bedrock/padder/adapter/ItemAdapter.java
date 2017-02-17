@@ -70,6 +70,31 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
         if(item[position].getHintId() == null) {
             // no hint provided
             holder.itemHint.setVisibility(View.GONE);
+        } else if (item[position].getHintIsVisible() == false) {
+            // hint is not visible
+            holder.itemHint.setVisibility(View.GONE);
+
+            if(item[position].getRunnable() != null) {
+                // run runnable
+                holder.itemLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        item[holder.getAdapterPosition()].getRunnable().run();
+                    }
+                });
+            }
+
+            if(window.getStringFromId(item[position].getHintId(), activity).startsWith("http")) {
+                // link available check
+                anim.circularRevealTouch(holder.itemLayout, R.id.layout_placeholder,
+                        new AccelerateDecelerateInterpolator(), new Runnable() {
+                            @Override
+                            public void run() {
+                                window.setRecentColor(window.getStringId(item[holder.getAdapterPosition()].getTextId()), R.color.colorAccent, activity);
+                                intent.intentLink(activity, window.getStringFromId(item[holder.getAdapterPosition()].getHintId(), activity), 400);
+                            }
+                        }, 400, 0, activity);
+            }
         } else {
             holder.itemHint.setText(window.getStringId(item[position].getHintId()));
 

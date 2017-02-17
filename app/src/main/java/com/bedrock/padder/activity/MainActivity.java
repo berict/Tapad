@@ -1705,18 +1705,25 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 //        Log.d("JSON TEST", json);
 
         Item fadedItems[] = {
-                new Item("facebook", "preset_faded_detail_facebook", "about_facebook"),
-                new Item("twitter", "preset_faded_detail_twitter", "about_twitter"),
-                new Item("soundcloud", "preset_faded_detail_soundcloud", "about_soundcloud"),
-                new Item("youtube", "preset_faded_detail_youtube", "about_youtube"),
-                new Item("web", "preset_faded_detail_web", "about_web"),
+                new Item("facebook"  , "preset_faded_detail_facebook"  ),
+                new Item("twitter"   , "preset_faded_detail_twitter"   ),
+                new Item("soundcloud", "preset_faded_detail_soundcloud"),
+                new Item("youtube"   , "preset_faded_detail_youtube"   ),
+                new Item("web"       , "preset_faded_detail_web"       ),
         };
 
         Detail fadedDetail = new Detail("preset_faded_detail_title", fadedItems);
 
         Item fadedSongItems[] = {
-
+                new Item("soundcloud"       , "preset_faded_song_detail_soundcloud"       , false),
+                new Item("youtube"          , "preset_faded_song_detail_youtube"          , false),
+                new Item("spotify"          , "preset_faded_song_detail_spotify"          , false),
+                new Item("google_play_music", "preset_faded_song_detail_google_play_music", false),
+                new Item("apple"            , "preset_faded_song_detail_apple"            , false),
+                new Item("amazon"           , "preset_faded_song_detail_amazon"           , false),
         };
+
+        Detail fadedSongDetail = new Detail("preset_faded_song_detail_title", fadedSongItems);
 
         Bio fadedBio = new Bio(
                 "preset_faded_bio_title",
@@ -1727,7 +1734,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         );
 
         Detail fadedDetails[] = {
-                fadedDetail
+                fadedDetail,
+                fadedSongDetail
         };
 
         About fadedAbout = new About(
@@ -2423,7 +2431,109 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         //String json = gson.toJson(preset, Preset.class);
         Gson gson = new Gson();
         largeLog("JSON", gson.toJson(fadedPreset));
+    }
 
-        //tut.
+    Deck[] getDeckFromFileName(String fileTag) {
+        Pad part1[] = {
+        };
+    }
+
+    private int deck = 0;
+    private int pad = 0;
+    private int gesture = 0;
+
+    String getPadStringFromId(int padId) {
+        switch (padId) {
+            case 0: return "00"; break;
+            case 1: return "01"; break;
+            case 2: return "02"; break;
+            case 3: return "03"; break;
+            case 4: return "04"; break;
+            case 5: return "11"; break;
+            case 6: return "12"; break;
+            case 7: return "13"; break;
+            case 8: return "14"; break;
+            case 9: return "21"; break;
+            case 10: return "22"; break;
+            case 11: return "23"; break;
+            case 12: return "24"; break;
+            case 13: return "31"; break;
+            case 14: return "32"; break;
+            case 15: return "33"; break;
+            case 16: return "34"; break;
+            case 17: return "41"; break;
+            case 18: return "42"; break;
+            case 19: return "43"; break;
+            case 20: return "44"; break;
+        }
+    }
+
+    Pad getDeckFromFile(String fileTag) {
+        if(deck < 4) {
+            if(pad < 21) {
+                if(gesture < 5) {
+                    if(validateFileName(
+                            fileTag,
+                            Integer.toString(deck + 1),
+                            getPadStringFromId(pad),
+                            Integer.toString(gesture)
+                    ).equals("a0_00") && gesture == 1) {
+                        // the pad is empty from the first gesture == empty
+                        return new Pad("a0_00");
+                        gesture = 0;
+                    } else {
+                        return new Pad(
+                                validateFileName(
+                                        fileTag,
+                                        Integer.toString(deck + 1),
+                                        getPadStringFromId(pad),
+                                        Integer.toString(gesture++)
+                                ),
+                                validateFileName(
+                                        fileTag,
+                                        Integer.toString(deck + 1),
+                                        getPadStringFromId(pad),
+                                        Integer.toString(gesture++)
+                                ),
+                                validateFileName(
+                                        fileTag,
+                                        Integer.toString(deck + 1),
+                                        getPadStringFromId(pad),
+                                        Integer.toString(gesture++)
+                                ),
+                                validateFileName(
+                                        fileTag,
+                                        Integer.toString(deck + 1),
+                                        getPadStringFromId(pad),
+                                        Integer.toString(gesture++)
+                                ),
+                                validateFileName(
+                                        fileTag,
+                                        Integer.toString(deck + 1),
+                                        getPadStringFromId(pad),
+                                        Integer.toString(gesture++)
+                                )
+                        );
+                        gesture = 0;
+                    }
+                } else {
+                    gesture = 0;
+                    pad++;
+                }
+            } else {
+                pad = 0;
+                deck++;
+            }
+        } else {
+            deck = 0;
+        }
+    }
+
+    Pad getPadFromStringArray(String fileName[]) {
+        //TODO add method; make Pad object from string filename array with 5 if statement
+    }
+
+    String validateFileName(String fileTag, String realPart, String realPad, String realGesture) {
+
     }
 }
