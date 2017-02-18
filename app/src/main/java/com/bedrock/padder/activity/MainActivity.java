@@ -42,6 +42,8 @@ import com.bedrock.padder.model.preset.Pad;
 import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
@@ -1254,8 +1256,10 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                                 Log.i("sharedPrefs", "quickstart edited to -1, completed");
                             }
                         }
+
                         @Override
-                        public void onHidePromptComplete() {}
+                        public void onHidePromptComplete() {
+                        }
                     })
                     .show();
 
@@ -1705,22 +1709,22 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 //        Log.d("JSON TEST", json);
 
         Item fadedItems[] = {
-                new Item("facebook"  , "preset_faded_detail_facebook"  ),
-                new Item("twitter"   , "preset_faded_detail_twitter"   ),
+                new Item("facebook", "preset_faded_detail_facebook"),
+                new Item("twitter", "preset_faded_detail_twitter"),
                 new Item("soundcloud", "preset_faded_detail_soundcloud"),
-                new Item("youtube"   , "preset_faded_detail_youtube"   ),
-                new Item("web"       , "preset_faded_detail_web"       ),
+                new Item("youtube", "preset_faded_detail_youtube"),
+                new Item("web", "preset_faded_detail_web"),
         };
 
         Detail fadedDetail = new Detail("preset_faded_detail_title", fadedItems);
 
         Item fadedSongItems[] = {
-                new Item("soundcloud"       , "preset_faded_song_detail_soundcloud"       , false),
-                new Item("youtube"          , "preset_faded_song_detail_youtube"          , false),
-                new Item("spotify"          , "preset_faded_song_detail_spotify"          , false),
+                new Item("soundcloud", "preset_faded_song_detail_soundcloud", false),
+                new Item("youtube", "preset_faded_song_detail_youtube", false),
+                new Item("spotify", "preset_faded_song_detail_spotify", false),
                 new Item("google_play_music", "preset_faded_song_detail_google_play_music", false),
-                new Item("apple"            , "preset_faded_song_detail_apple"            , false),
-                new Item("amazon"           , "preset_faded_song_detail_amazon"           , false),
+                new Item("apple", "preset_faded_song_detail_apple", false),
+                new Item("amazon", "preset_faded_song_detail_amazon", false),
         };
 
         Detail fadedSongDetail = new Detail("preset_faded_song_detail_title", fadedSongItems);
@@ -1744,219 +1748,219 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 "preset_faded_color_dark", "preset_faded_color"
         );
 
-        Pad part1[] = {
-                new Pad("ft1_00"),
-                new Pad("a0_00"),
-                new Pad("a0_00"),
-                new Pad("a0_00"),
-                new Pad("a0_00"),
-                new Pad("ft1_11", "ft1_11_1", "ft1_11_2", "ft1_11_3", "ft1_11_4"),
-                new Pad("ft1_12", "ft1_12_1", "ft1_12_2", "ft1_12_3", "ft1_12_4"),
-                new Pad("ft1_13", "ft1_13_1", "ft1_13_2", "ft1_13_3", "ft1_13_4"),
-                new Pad("ft1_14", "ft1_14_1", "ft1_14_2", "ft1_14_3", "ft1_14_4"),
-                new Pad("ft1_21", "ft1_21_1", "ft1_21_2", "ft1_21_3", "ft1_21_4"),
-                new Pad("ft1_22", "ft1_22_1", "ft1_22_2", "ft1_22_3", "ft1_22_4"),
-                new Pad("ft1_23", "ft1_23_1", "ft1_23_2", "ft1_23_3", "ft1_23_4"),
-                new Pad("ft1_24", "ft1_24_1", "ft1_24_2", "ft1_24_3", "ft1_24_4"),
-                new Pad("ft1_31", "ft1_31_1", "ft1_31_2", "ft1_31_3", "ft1_31_4"),
-                new Pad("ft1_32", "ft1_32_1", "ft1_32_2", "ft1_32_3", "ft1_32_4"),
-                new Pad("ft1_33", "ft1_33_1", "ft1_33_2", "ft1_33_3", "ft1_33_4"),
-                new Pad("ft1_34", "ft1_34_1", "ft1_34_2", "ft1_34_3", "ft1_34_4"),
-                new Pad("ft1_41"),
-                new Pad("ft1_42", "ft1_42_1", "ft1_42_2", "ft1_42_3", "ft1_42_4"),
-                new Pad("ft1_43", "ft1_43_1", "ft1_43_2", "ft1_43_3"),
-                new Pad("ft1_44")
-        };
-
-        Pad part2[] = {
-                new Pad("ft2_00", "ft2_00_1", "ft2_00_3"),
-                new Pad("a0_00"),
-                new Pad("a0_00"),
-                new Pad("a0_00"),
-                new Pad("a0_00"),
-                new Pad("ft2_11",
-                        "ft2_11_1", "ft2_11_2", "ft2_11_3", "ft2_11_4"),
-                new Pad("ft2_12", "ft2_12_1",
-                        "ft2_12_2",
-                        "ft2_12_3",
-                        "ft2_12_4"),
-                new Pad("ft2_13",
-                        "ft2_13_1",
-                        "ft2_13_2",
-                        "ft2_13_3",
-                        "ft2_13_4"),
-                new Pad("ft2_14",
-                        "ft2_14_1",
-                        "ft2_14_2",
-                        "ft2_14_3",
-                        "ft2_14_4"),
-                new Pad("ft2_21",
-                        "ft2_21_1",
-                        "ft2_21_2",
-                        "ft2_21_3",
-                        "ft2_21_4"),
-                new Pad("ft2_22",
-                        "ft2_22_1",
-                        "ft2_22_2",
-                        "ft2_22_3",
-                        "ft2_22_4"),
-                new Pad("ft2_23",
-                        "ft2_23_1",
-                        "ft2_23_2",
-                        "ft2_23_3",
-                        "ft2_23_4"),
-                new Pad("ft2_24",
-                        "ft2_24_1",
-                        "ft2_24_2",
-                        "ft2_24_3",
-                        "ft2_24_4"),
-                new Pad("ft2_31",
-                        "ft2_31_1",
-                        "ft2_31_2",
-                        "ft2_31_3",
-                        "ft2_31_4"),
-                new Pad("ft2_32",
-                        "ft2_32_1",
-                        "ft2_32_2",
-                        "ft2_32_3",
-                        "ft2_32_4"),
-                new Pad("ft2_33",
-                        "ft2_33_1",
-                        "ft2_33_2",
-                        "ft2_33_3",
-                        "ft2_33_4"),
-                new Pad("ft2_34",
-                        "ft2_34_1",
-                        "ft2_34_2",
-                        "ft2_34_3",
-                        "ft2_34_4"),
-                new Pad("ft2_41",
-                        "ft2_41_1",
-                        "ft2_41_2",
-                        "ft2_41_3",
-                        "ft2_41_4"),
-                new Pad("ft2_42",
-                        "ft2_42_1",
-                        "ft2_42_2",
-                        "ft2_42_3",
-                        "ft2_42_4"),
-                new Pad("ft2_43",
-                        "ft2_43_1",
-                        "ft2_43_2",
-                        "ft2_43_3",
-                        "ft2_43_4"),
-                new Pad("ft2_44",
-                        "ft2_44_1",
-                        "ft2_44_2",
-                        "ft2_44_3",
-                        "ft2_44_4")
-        };
-
-        Pad part3[] = {
-                new Pad("a0_00"),
-                new Pad("a0_00"),
-                new Pad("a0_00"),
-                new Pad("a0_00"),
-                new Pad("a0_00"),
-                new Pad("ft3_11",
-                        "ft3_11_1",
-                        "ft3_11_2",
-                        "ft3_11_3",
-                        "ft3_11_4"),
-                new Pad("ft3_12",
-                        "ft3_12_1",
-                        "ft3_12_2",
-                        "ft3_12_3",
-                        "ft3_12_4"),
-                new Pad("ft3_13",
-                        "ft3_13_1",
-                        "ft3_13_2",
-                        "ft3_13_3",
-                        "ft3_13_4"),
-                new Pad("ft3_14",
-                        "ft3_14_1",
-                        "ft3_14_2",
-                        "ft3_14_3",
-                        "ft3_14_4"),
-                new Pad("ft3_21",
-                        "ft3_21_1",
-                        "ft3_21_2",
-                        "ft3_21_3",
-                        "ft3_21_4"),
-                new Pad("ft3_22",
-                        "ft3_22_1",
-                        "ft3_22_2",
-                        "ft3_22_3",
-                        "ft3_22_4"),
-                new Pad("ft3_23",
-                        "ft3_23_1",
-                        "ft3_23_2",
-                        "ft3_23_3",
-                        "ft3_23_4"),
-                new Pad("ft3_24",
-                        "ft3_24_1",
-                        "ft3_24_2",
-                        "ft3_24_3",
-                        "ft3_24_4"),
-                new Pad("ft3_31"),
-                new Pad("ft3_32",
-                        "ft3_32_1",
-                        "ft3_32_2",
-                        "ft3_32_3",
-                        "ft3_32_4"),
-                new Pad("ft3_33",
-                        "ft3_33_1",
-                        "ft3_33_2",
-                        "ft3_33_3",
-                        "ft3_33_4"),
-                new Pad("ft3_34",
-                        "ft3_34_1",
-                        "ft3_34_2",
-                        "ft3_34_3",
-                        "ft3_34_4"),
-                new Pad("ft3_41",
-                        "ft3_41_1",
-                        "ft3_41_3"),
-                new Pad("ft3_42",
-                        "ft3_42_1",
-                        "ft3_42_2",
-                        "ft3_42_3",
-                        "ft3_42_4"),
-                new Pad("ft3_43",
-                        "ft3_43_1",
-                        "ft3_43_2",
-                        "ft3_43_3",
-                        "ft3_43_4"),
-                new Pad("ft3_44",
-                        "ft3_44_1",
-                        "ft3_44_2",
-                        "ft3_44_3",
-                        "ft3_44_4")
-        };
-
-        Pad part4[] = {
-                new Pad("a0_00"),
-                new Pad("a0_00"),
-                new Pad("a0_00"),
-                new Pad("a0_00"),
-                new Pad("a0_00"),
-                new Pad("ft4_11"),
-                new Pad("ft4_12"),
-                new Pad("ft4_13"),
-                new Pad("ft4_14"),
-                new Pad("ft4_21"),
-                new Pad("ft4_22"),
-                new Pad("ft4_23"),
-                new Pad("ft4_24"),
-                new Pad("ft4_31"),
-                new Pad("ft4_32"),
-                new Pad("ft4_33"),
-                new Pad("ft4_34"),
-                new Pad("ft4_41"),
-                new Pad("ft4_42"),
-                new Pad("ft4_43"),
-                new Pad("ft4_44")
-        };
+//        Pad part1[] = {
+//                new Pad("ft1_00"),
+//                new Pad("a0_00"),
+//                new Pad("a0_00"),
+//                new Pad("a0_00"),
+//                new Pad("a0_00"),
+//                new Pad("ft1_11", "ft1_11_1", "ft1_11_2", "ft1_11_3", "ft1_11_4"),
+//                new Pad("ft1_12", "ft1_12_1", "ft1_12_2", "ft1_12_3", "ft1_12_4"),
+//                new Pad("ft1_13", "ft1_13_1", "ft1_13_2", "ft1_13_3", "ft1_13_4"),
+//                new Pad("ft1_14", "ft1_14_1", "ft1_14_2", "ft1_14_3", "ft1_14_4"),
+//                new Pad("ft1_21", "ft1_21_1", "ft1_21_2", "ft1_21_3", "ft1_21_4"),
+//                new Pad("ft1_22", "ft1_22_1", "ft1_22_2", "ft1_22_3", "ft1_22_4"),
+//                new Pad("ft1_23", "ft1_23_1", "ft1_23_2", "ft1_23_3", "ft1_23_4"),
+//                new Pad("ft1_24", "ft1_24_1", "ft1_24_2", "ft1_24_3", "ft1_24_4"),
+//                new Pad("ft1_31", "ft1_31_1", "ft1_31_2", "ft1_31_3", "ft1_31_4"),
+//                new Pad("ft1_32", "ft1_32_1", "ft1_32_2", "ft1_32_3", "ft1_32_4"),
+//                new Pad("ft1_33", "ft1_33_1", "ft1_33_2", "ft1_33_3", "ft1_33_4"),
+//                new Pad("ft1_34", "ft1_34_1", "ft1_34_2", "ft1_34_3", "ft1_34_4"),
+//                new Pad("ft1_41"),
+//                new Pad("ft1_42", "ft1_42_1", "ft1_42_2", "ft1_42_3", "ft1_42_4"),
+//                new Pad("ft1_43", "ft1_43_1", "ft1_43_2", "ft1_43_3"),
+//                new Pad("ft1_44")
+//        };
+//
+//        Pad part2[] = {
+//                new Pad("ft2_00", "ft2_00_1", "ft2_00_3"),
+//                new Pad("a0_00"),
+//                new Pad("a0_00"),
+//                new Pad("a0_00"),
+//                new Pad("a0_00"),
+//                new Pad("ft2_11",
+//                        "ft2_11_1", "ft2_11_2", "ft2_11_3", "ft2_11_4"),
+//                new Pad("ft2_12", "ft2_12_1",
+//                        "ft2_12_2",
+//                        "ft2_12_3",
+//                        "ft2_12_4"),
+//                new Pad("ft2_13",
+//                        "ft2_13_1",
+//                        "ft2_13_2",
+//                        "ft2_13_3",
+//                        "ft2_13_4"),
+//                new Pad("ft2_14",
+//                        "ft2_14_1",
+//                        "ft2_14_2",
+//                        "ft2_14_3",
+//                        "ft2_14_4"),
+//                new Pad("ft2_21",
+//                        "ft2_21_1",
+//                        "ft2_21_2",
+//                        "ft2_21_3",
+//                        "ft2_21_4"),
+//                new Pad("ft2_22",
+//                        "ft2_22_1",
+//                        "ft2_22_2",
+//                        "ft2_22_3",
+//                        "ft2_22_4"),
+//                new Pad("ft2_23",
+//                        "ft2_23_1",
+//                        "ft2_23_2",
+//                        "ft2_23_3",
+//                        "ft2_23_4"),
+//                new Pad("ft2_24",
+//                        "ft2_24_1",
+//                        "ft2_24_2",
+//                        "ft2_24_3",
+//                        "ft2_24_4"),
+//                new Pad("ft2_31",
+//                        "ft2_31_1",
+//                        "ft2_31_2",
+//                        "ft2_31_3",
+//                        "ft2_31_4"),
+//                new Pad("ft2_32",
+//                        "ft2_32_1",
+//                        "ft2_32_2",
+//                        "ft2_32_3",
+//                        "ft2_32_4"),
+//                new Pad("ft2_33",
+//                        "ft2_33_1",
+//                        "ft2_33_2",
+//                        "ft2_33_3",
+//                        "ft2_33_4"),
+//                new Pad("ft2_34",
+//                        "ft2_34_1",
+//                        "ft2_34_2",
+//                        "ft2_34_3",
+//                        "ft2_34_4"),
+//                new Pad("ft2_41",
+//                        "ft2_41_1",
+//                        "ft2_41_2",
+//                        "ft2_41_3",
+//                        "ft2_41_4"),
+//                new Pad("ft2_42",
+//                        "ft2_42_1",
+//                        "ft2_42_2",
+//                        "ft2_42_3",
+//                        "ft2_42_4"),
+//                new Pad("ft2_43",
+//                        "ft2_43_1",
+//                        "ft2_43_2",
+//                        "ft2_43_3",
+//                        "ft2_43_4"),
+//                new Pad("ft2_44",
+//                        "ft2_44_1",
+//                        "ft2_44_2",
+//                        "ft2_44_3",
+//                        "ft2_44_4")
+//        };
+//
+//        Pad part3[] = {
+//                new Pad("a0_00"),
+//                new Pad("a0_00"),
+//                new Pad("a0_00"),
+//                new Pad("a0_00"),
+//                new Pad("a0_00"),
+//                new Pad("ft3_11",
+//                        "ft3_11_1",
+//                        "ft3_11_2",
+//                        "ft3_11_3",
+//                        "ft3_11_4"),
+//                new Pad("ft3_12",
+//                        "ft3_12_1",
+//                        "ft3_12_2",
+//                        "ft3_12_3",
+//                        "ft3_12_4"),
+//                new Pad("ft3_13",
+//                        "ft3_13_1",
+//                        "ft3_13_2",
+//                        "ft3_13_3",
+//                        "ft3_13_4"),
+//                new Pad("ft3_14",
+//                        "ft3_14_1",
+//                        "ft3_14_2",
+//                        "ft3_14_3",
+//                        "ft3_14_4"),
+//                new Pad("ft3_21",
+//                        "ft3_21_1",
+//                        "ft3_21_2",
+//                        "ft3_21_3",
+//                        "ft3_21_4"),
+//                new Pad("ft3_22",
+//                        "ft3_22_1",
+//                        "ft3_22_2",
+//                        "ft3_22_3",
+//                        "ft3_22_4"),
+//                new Pad("ft3_23",
+//                        "ft3_23_1",
+//                        "ft3_23_2",
+//                        "ft3_23_3",
+//                        "ft3_23_4"),
+//                new Pad("ft3_24",
+//                        "ft3_24_1",
+//                        "ft3_24_2",
+//                        "ft3_24_3",
+//                        "ft3_24_4"),
+//                new Pad("ft3_31"),
+//                new Pad("ft3_32",
+//                        "ft3_32_1",
+//                        "ft3_32_2",
+//                        "ft3_32_3",
+//                        "ft3_32_4"),
+//                new Pad("ft3_33",
+//                        "ft3_33_1",
+//                        "ft3_33_2",
+//                        "ft3_33_3",
+//                        "ft3_33_4"),
+//                new Pad("ft3_34",
+//                        "ft3_34_1",
+//                        "ft3_34_2",
+//                        "ft3_34_3",
+//                        "ft3_34_4"),
+//                new Pad("ft3_41",
+//                        "ft3_41_1",
+//                        "ft3_41_3"),
+//                new Pad("ft3_42",
+//                        "ft3_42_1",
+//                        "ft3_42_2",
+//                        "ft3_42_3",
+//                        "ft3_42_4"),
+//                new Pad("ft3_43",
+//                        "ft3_43_1",
+//                        "ft3_43_2",
+//                        "ft3_43_3",
+//                        "ft3_43_4"),
+//                new Pad("ft3_44",
+//                        "ft3_44_1",
+//                        "ft3_44_2",
+//                        "ft3_44_3",
+//                        "ft3_44_4")
+//        };
+//
+//        Pad part4[] = {
+//                new Pad("a0_00"),
+//                new Pad("a0_00"),
+//                new Pad("a0_00"),
+//                new Pad("a0_00"),
+//                new Pad("a0_00"),
+//                new Pad("ft4_11"),
+//                new Pad("ft4_12"),
+//                new Pad("ft4_13"),
+//                new Pad("ft4_14"),
+//                new Pad("ft4_21"),
+//                new Pad("ft4_22"),
+//                new Pad("ft4_23"),
+//                new Pad("ft4_24"),
+//                new Pad("ft4_31"),
+//                new Pad("ft4_32"),
+//                new Pad("ft4_33"),
+//                new Pad("ft4_34"),
+//                new Pad("ft4_41"),
+//                new Pad("ft4_42"),
+//                new Pad("ft4_43"),
+//                new Pad("ft4_44")
+//        };
 
         // Timings
         Integer pt1[][] = {
@@ -2422,7 +2426,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
         Music fadedMusic = new Music(
                 "preset_faded",
-                new Deck[]{new Deck(part1), new Deck(part2), new Deck(part3), new Deck(part4)},
+                getDeckFromFileName(fileTag),
                 deckTiming
         );
 
@@ -2433,107 +2437,226 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         largeLog("JSON", gson.toJson(fadedPreset));
     }
 
+    String fileTag = "ft";
+
     Deck[] getDeckFromFileName(String fileTag) {
         Pad part1[] = {
+                getPadsFromFile(fileTag, 0, 0 ),
+                getPadsFromFile(fileTag, 0, 1 ),
+                getPadsFromFile(fileTag, 0, 2 ),
+                getPadsFromFile(fileTag, 0, 3 ),
+                getPadsFromFile(fileTag, 0, 4 ),
+                getPadsFromFile(fileTag, 0, 5 ),
+                getPadsFromFile(fileTag, 0, 6 ),
+                getPadsFromFile(fileTag, 0, 7 ),
+                getPadsFromFile(fileTag, 0, 8 ),
+                getPadsFromFile(fileTag, 0, 9 ),
+                getPadsFromFile(fileTag, 0, 10),
+                getPadsFromFile(fileTag, 0, 11),
+                getPadsFromFile(fileTag, 0, 12),
+                getPadsFromFile(fileTag, 0, 13),
+                getPadsFromFile(fileTag, 0, 14),
+                getPadsFromFile(fileTag, 0, 15),
+                getPadsFromFile(fileTag, 0, 16),
+                getPadsFromFile(fileTag, 0, 17),
+                getPadsFromFile(fileTag, 0, 18),
+                getPadsFromFile(fileTag, 0, 19),
+                getPadsFromFile(fileTag, 0, 20)
         };
-    }
+        Pad part2[] = {
+                getPadsFromFile(fileTag, 1, 0 ),
+                getPadsFromFile(fileTag, 1, 1 ),
+                getPadsFromFile(fileTag, 1, 2 ),
+                getPadsFromFile(fileTag, 1, 3 ),
+                getPadsFromFile(fileTag, 1, 4 ),
+                getPadsFromFile(fileTag, 1, 5 ),
+                getPadsFromFile(fileTag, 1, 6 ),
+                getPadsFromFile(fileTag, 1, 7 ),
+                getPadsFromFile(fileTag, 1, 8 ),
+                getPadsFromFile(fileTag, 1, 9 ),
+                getPadsFromFile(fileTag, 1, 10),
+                getPadsFromFile(fileTag, 1, 11),
+                getPadsFromFile(fileTag, 1, 12),
+                getPadsFromFile(fileTag, 1, 13),
+                getPadsFromFile(fileTag, 1, 14),
+                getPadsFromFile(fileTag, 1, 15),
+                getPadsFromFile(fileTag, 1, 16),
+                getPadsFromFile(fileTag, 1, 17),
+                getPadsFromFile(fileTag, 1, 18),
+                getPadsFromFile(fileTag, 1, 19),
+                getPadsFromFile(fileTag, 1, 20)
+        };
+        Pad part3[] = {
+                getPadsFromFile(fileTag, 2, 0 ),
+                getPadsFromFile(fileTag, 2, 1 ),
+                getPadsFromFile(fileTag, 2, 2 ),
+                getPadsFromFile(fileTag, 2, 3 ),
+                getPadsFromFile(fileTag, 2, 4 ),
+                getPadsFromFile(fileTag, 2, 5 ),
+                getPadsFromFile(fileTag, 2, 6 ),
+                getPadsFromFile(fileTag, 2, 7 ),
+                getPadsFromFile(fileTag, 2, 8 ),
+                getPadsFromFile(fileTag, 2, 9 ),
+                getPadsFromFile(fileTag, 2, 10),
+                getPadsFromFile(fileTag, 2, 11),
+                getPadsFromFile(fileTag, 2, 12),
+                getPadsFromFile(fileTag, 2, 13),
+                getPadsFromFile(fileTag, 2, 14),
+                getPadsFromFile(fileTag, 2, 15),
+                getPadsFromFile(fileTag, 2, 16),
+                getPadsFromFile(fileTag, 2, 17),
+                getPadsFromFile(fileTag, 2, 18),
+                getPadsFromFile(fileTag, 2, 19),
+                getPadsFromFile(fileTag, 2, 20)
+        };
+        Pad part4[] = {
+                getPadsFromFile(fileTag, 3, 0 ),
+                getPadsFromFile(fileTag, 3, 1 ),
+                getPadsFromFile(fileTag, 3, 2 ),
+                getPadsFromFile(fileTag, 3, 3 ),
+                getPadsFromFile(fileTag, 3, 4 ),
+                getPadsFromFile(fileTag, 3, 5 ),
+                getPadsFromFile(fileTag, 3, 6 ),
+                getPadsFromFile(fileTag, 3, 7 ),
+                getPadsFromFile(fileTag, 3, 8 ),
+                getPadsFromFile(fileTag, 3, 9 ),
+                getPadsFromFile(fileTag, 3, 10),
+                getPadsFromFile(fileTag, 3, 11),
+                getPadsFromFile(fileTag, 3, 12),
+                getPadsFromFile(fileTag, 3, 13),
+                getPadsFromFile(fileTag, 3, 14),
+                getPadsFromFile(fileTag, 3, 15),
+                getPadsFromFile(fileTag, 3, 16),
+                getPadsFromFile(fileTag, 3, 17),
+                getPadsFromFile(fileTag, 3, 18),
+                getPadsFromFile(fileTag, 3, 19),
+                getPadsFromFile(fileTag, 3, 20)
+        };
 
-    private int deck = 0;
-    private int pad = 0;
-    private int gesture = 0;
+        return new Deck[]{new Deck(part1), new Deck(part2), new Deck(part3), new Deck(part4)};
+    }
 
     String getPadStringFromId(int padId) {
         switch (padId) {
-            case 0: return "00"; break;
-            case 1: return "01"; break;
-            case 2: return "02"; break;
-            case 3: return "03"; break;
-            case 4: return "04"; break;
-            case 5: return "11"; break;
-            case 6: return "12"; break;
-            case 7: return "13"; break;
-            case 8: return "14"; break;
-            case 9: return "21"; break;
-            case 10: return "22"; break;
-            case 11: return "23"; break;
-            case 12: return "24"; break;
-            case 13: return "31"; break;
-            case 14: return "32"; break;
-            case 15: return "33"; break;
-            case 16: return "34"; break;
-            case 17: return "41"; break;
-            case 18: return "42"; break;
-            case 19: return "43"; break;
-            case 20: return "44"; break;
+            case 0 : return "00";
+            case 1 : return "01";
+            case 2 : return "02";
+            case 3 : return "03";
+            case 4 : return "04";
+            case 5 : return "11";
+            case 6 : return "12";
+            case 7 : return "13";
+            case 8 : return "14";
+            case 9 : return "21";
+            case 10: return "22";
+            case 11: return "23";
+            case 12: return "24";
+            case 13: return "31";
+            case 14: return "32";
+            case 15: return "33";
+            case 16: return "34";
+            case 17: return "41";
+            case 18: return "42";
+            case 19: return "43";
+            case 20: return "44";
+            default: return null;
         }
     }
 
-    Pad getDeckFromFile(String fileTag) {
-        if(deck < 4) {
-            if(pad < 21) {
-                if(gesture < 5) {
-                    if(validateFileName(
+    Pad getPadsFromFile(String fileTag, int deck, int pad) {
+        if (validateFileName(
+                fileTag,
+                Integer.toString(deck + 1),
+                getPadStringFromId(pad),
+                Integer.toString(0)
+        ) == null) {
+            // the pad is empty from the first gesture == empty
+            return new Pad("a0_00");
+        } else {
+            String fileNameArray[] = {
+                    validateFileName(
                             fileTag,
                             Integer.toString(deck + 1),
                             getPadStringFromId(pad),
-                            Integer.toString(gesture)
-                    ).equals("a0_00") && gesture == 1) {
-                        // the pad is empty from the first gesture == empty
-                        return new Pad("a0_00");
-                        gesture = 0;
-                    } else {
-                        return new Pad(
-                                validateFileName(
-                                        fileTag,
-                                        Integer.toString(deck + 1),
-                                        getPadStringFromId(pad),
-                                        Integer.toString(gesture++)
-                                ),
-                                validateFileName(
-                                        fileTag,
-                                        Integer.toString(deck + 1),
-                                        getPadStringFromId(pad),
-                                        Integer.toString(gesture++)
-                                ),
-                                validateFileName(
-                                        fileTag,
-                                        Integer.toString(deck + 1),
-                                        getPadStringFromId(pad),
-                                        Integer.toString(gesture++)
-                                ),
-                                validateFileName(
-                                        fileTag,
-                                        Integer.toString(deck + 1),
-                                        getPadStringFromId(pad),
-                                        Integer.toString(gesture++)
-                                ),
-                                validateFileName(
-                                        fileTag,
-                                        Integer.toString(deck + 1),
-                                        getPadStringFromId(pad),
-                                        Integer.toString(gesture++)
-                                )
-                        );
-                        gesture = 0;
-                    }
-                } else {
-                    gesture = 0;
-                    pad++;
-                }
-            } else {
-                pad = 0;
-                deck++;
-            }
-        } else {
-            deck = 0;
+                            Integer.toString(0)
+                    ),
+                    validateFileName(
+                            fileTag,
+                            Integer.toString(deck + 1),
+                            getPadStringFromId(pad),
+                            Integer.toString(1)
+                    ),
+                    validateFileName(
+                            fileTag,
+                            Integer.toString(deck + 1),
+                            getPadStringFromId(pad),
+                            Integer.toString(2)
+                    ),
+                    validateFileName(
+                            fileTag,
+                            Integer.toString(deck + 1),
+                            getPadStringFromId(pad),
+                            Integer.toString(3)
+                    ),
+                    validateFileName(
+                            fileTag,
+                            Integer.toString(deck + 1),
+                            getPadStringFromId(pad),
+                            Integer.toString(4)
+                    )
+            };
+            return getPadFromStringArray(fileNameArray);
         }
     }
 
     Pad getPadFromStringArray(String fileName[]) {
         //TODO add method; make Pad object from string filename array with 5 if statement
+        ArrayList<String> stringArray = new ArrayList<>();
+        for (int i = 0; i < fileName.length; i++) {
+            if (fileName[i] != null) {
+                stringArray.add(fileName[i]);
+            }
+        }
+
+        String padStringArray[] = stringArray.toArray(new String[stringArray.size()]);
+
+        switch (padStringArray.length) {
+            case 1:
+                return new Pad(padStringArray[0]);
+            case 2:
+                return new Pad(padStringArray[0], padStringArray[1]);
+            case 3:
+                return new Pad(padStringArray[0], padStringArray[1], padStringArray[2]);
+            case 4:
+                return new Pad(padStringArray[0], padStringArray[1], padStringArray[2], padStringArray[3]);
+            case 5:
+                return new Pad(padStringArray[0], padStringArray[1], padStringArray[2], padStringArray[3], padStringArray[4]);
+            default:
+                Log.d(TAG, "getPadFromStringArray : null array");
+                return null;
+        }
     }
 
     String validateFileName(String fileTag, String realPart, String realPad, String realGesture) {
-
+        String fileName;
+        if (realGesture.equals("0")) {
+            fileName = fileTag + realPart + "_" + realPad;
+        } else {
+            fileName = fileTag + realPart + "_" + realPad + "_" + realGesture;
+        }
+        try {
+            Class res = R.raw.class;
+            Field field = res.getField(fileName);
+            // legit
+            if(field != null) {
+                return fileName;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            Log.e("getColorId", "Failure to get raw id.", e);
+            // fail
+            return null;
+        }
     }
 }

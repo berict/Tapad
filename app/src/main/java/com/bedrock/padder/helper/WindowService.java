@@ -499,7 +499,7 @@ public class WindowService {
             Field field = res.getField(id);
             return field.getInt(null);
         } catch (Exception e) {
-            Log.e("getColorId", "Failure to get string id.", e);
+            Log.e("getStringId", "Failure to get string id.", e);
             return -1;
         }
         //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
@@ -511,7 +511,7 @@ public class WindowService {
             Field field = res.getField(id);
             return activity.getResources().getString(field.getInt(null));
         } catch (Exception e) {
-            Log.e("getColorId", "Failure to get string id.", e);
+            Log.e("getStringFromId", "Failure to get string id.", e);
             return null;
         }
         //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
@@ -536,7 +536,7 @@ public class WindowService {
             Field field = res.getField(id);
             return field.getInt(null);
         } catch (Exception e) {
-            Log.e("getColorId", "Failure to get raw id.", e);
+            Log.e("getRawId", "Failure to get raw id.", e);
             return -1;
         }
         //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
