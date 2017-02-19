@@ -21,7 +21,7 @@
 
     <string name="tutorial_loading">Can\'t start tutorial mode, loading preset</string>
 
-    <string name="user_benefits_page_1_title">LaunchPad for everyone</string>
+    <string name="user_benefits_page_1_title">Remix for everyone</string>
     <string name="user_benefits_page_1_hint">Play your favorite songs on your phone.</string>
     <string name="user_benefits_page_2_hint">Make your favorites the only remix in the world - by you.</string>
     <string name="user_benefits_page_3_hint">Set your favorite color and see them on the move.</string>
@@ -54,7 +54,7 @@
         <item>Tapad</item>
         <item>About Tapad</item>
         <item>About Tapad</item>
-        <item>Probably the best looking launchpad out there.</item>
+        <item>Probably the best looking remix app out there.</item>
         <item>Tapad is a LaunchAad application for Android.
         It implemented the Material Design from the Google Design Guideline, and its beautiful.
         It mainly features song genres like EDM, Dubstep, Progressive House, Electronic.</item>
@@ -88,7 +88,7 @@
 
     <string name="tapad">Tapad</string>
     <string name="tapad_about">About Tapad</string>
-    <string name="tapad_about_desc">Probably the best looking launchpad out there.</string>
+    <string name="tapad_about_desc">Probably the best looking remix app out there.</string>
     <string name="tapad_about_full">Tapad is a LaunchAad application for Android.
         It implemented the Material Design from the Google Design Guideline, and its beautiful.
         It mainly features song genres like EDM, Dubstep, Progressive House, Electronic.</string>
@@ -143,7 +143,7 @@
 
     <string name="tapad_recommend">Recommend Tapad</string>
     <string name="tapad_recommend_hint">Let your friends know this amazing app</string>
-    <string name="tapad_recommend_share_subject">The most beautiful launchpad app, Tapad.</string>
+    <string name="tapad_recommend_share_subject">The most beautiful remix app, Tapad.</string>
     <string name="tapad_recommend_share_text">Check out this awesome app! : https://goo.gl/pmws51</string>
     <string name="tapad_recommend_share_hint">Share this awesome app to everyone!</string>
 
