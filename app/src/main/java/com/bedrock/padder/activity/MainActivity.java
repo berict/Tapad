@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -123,6 +124,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         // for test
         //prefs.edit().putInt(qs, 0).apply();
 
+        w.getView(R.id.progress_bar_layout, a).setVisibility(View.GONE);
+
         volume = 1.0f;
 
         a.setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -140,6 +143,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         setSchemeInfo();
         setToggleButton(R.color.colorAccent);
         enterAnim();
+        // TODO new
+        setButtonLayout();
 
         //Set transparent nav bar
         w.setStatusBar(R.color.transparent, a);
@@ -162,6 +167,72 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         //TODO: Remove this to load preset
         loadPreset(400);
         isPresetLoading = true;
+    }
+
+    void setButtonLayout() {
+        int screenWidthPx = w.getWindowWidthPx(a) - ((w.convertDPtoPX(36, a)) * 2);
+        int marginPx = w.convertDPtoPX(2, a);
+        int newWidthPx;
+        int newHeightPx;
+        int buttons[][] = {
+                // first row is root view
+                {R.id.ver0, R.id.tgl1, R.id.tgl2, R.id.tgl3, R.id.tgl4, R.id.btn00},
+                {R.id.ver1, R.id.btn11, R.id.btn12, R.id.btn13, R.id.btn14, R.id.tgl5},
+                {R.id.ver2, R.id.btn21, R.id.btn22, R.id.btn23, R.id.btn24, R.id.tgl6},
+                {R.id.ver3, R.id.btn31, R.id.btn32, R.id.btn33, R.id.btn34, R.id.tgl7},
+                {R.id.ver4, R.id.btn41, R.id.btn42, R.id.btn43, R.id.btn44, R.id.tgl8},
+        };
+
+        int tutorialButtons[][] = {
+                // first row is root view
+                {R.id.ver0_tutorial, R.id.tgl1_tutorial, R.id.tgl2_tutorial, R.id.tgl3_tutorial, R.id.tgl4_tutorial, R.id.btn00_tutorial},
+                {R.id.ver1_tutorial, R.id.btn11_tutorial, R.id.btn12_tutorial, R.id.btn13_tutorial, R.id.btn14_tutorial, R.id.tgl5_tutorial},
+                {R.id.ver2_tutorial, R.id.btn21_tutorial, R.id.btn22_tutorial, R.id.btn23_tutorial, R.id.btn24_tutorial, R.id.tgl6_tutorial},
+                {R.id.ver3_tutorial, R.id.btn31_tutorial, R.id.btn32_tutorial, R.id.btn33_tutorial, R.id.btn34_tutorial, R.id.tgl7_tutorial},
+                {R.id.ver4_tutorial, R.id.btn41_tutorial, R.id.btn42_tutorial, R.id.btn43_tutorial, R.id.btn44_tutorial, R.id.tgl8_tutorial},
+        };
+
+        for (int i = 0; i < 5; i++) {
+            if (i == 0) {
+                newHeightPx = screenWidthPx / 9;
+            } else {
+                newHeightPx = (screenWidthPx / 9) * 2;
+            }
+            for (int j = 0; j < 6; j++) {
+                if (j == 0) {
+                    resizeView(tutorialButtons[i][j], 0, newHeightPx);
+                    resizeView(buttons[i][j], 0, newHeightPx);
+                } else if (j == 5) {
+                    newWidthPx = screenWidthPx / 9;
+                    resizeView(tutorialButtons[i][j], newWidthPx, newHeightPx);
+                    resizeView(buttons[i][j], newWidthPx - (marginPx * 2), newHeightPx - (marginPx * 2));
+                    w.setMarginLinearPX(buttons[i][j], marginPx, marginPx, marginPx, marginPx, a);
+                    if (i != 0) {
+                        w.getTextView(buttons[i][j], a).setTextSize(TypedValue.COMPLEX_UNIT_PX, (float)(newWidthPx / 3));
+                    }
+                } else {
+                    newWidthPx = (screenWidthPx / 9) * 2;
+                    resizeView(tutorialButtons[i][j], newWidthPx, newHeightPx);
+                    resizeView(buttons[i][j], newWidthPx - (marginPx * 2), newHeightPx - (marginPx * 2));
+                    w.setMarginLinearPX(buttons[i][j], marginPx, marginPx, marginPx, marginPx, a);
+                    if(i == 0) {
+                        w.getTextView(buttons[i][j], a).setTextSize(TypedValue.COMPLEX_UNIT_PX, (float)(newHeightPx / 3));
+                    }
+                }
+            }
+        }
+    }
+
+    private void resizeView(int viewId, int newWidth, int newHeight) {
+        View view = a.findViewById(viewId);
+        Log.d("resizeView", "width " + newWidth + " X height " + newHeight);
+        if (newHeight > 0) {
+            view.getLayoutParams().height = newHeight;
+        }
+        if (newWidth > 0) {
+            view.getLayoutParams().width = newWidth;
+        }
+        view.setLayoutParams(view.getLayoutParams());
     }
 
     @Override
@@ -1707,7 +1778,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 //                "roses_dark", "roses");
 //
 //        Log.d("JSON TEST", json);
-
         Item fadedItems[] = {
                 new Item("facebook", "preset_faded_detail_facebook"),
                 new Item("twitter", "preset_faded_detail_twitter"),
@@ -2441,16 +2511,16 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
     Deck[] getDeckFromFileName(String fileTag) {
         Pad part1[] = {
-                getPadsFromFile(fileTag, 0, 0 ),
-                getPadsFromFile(fileTag, 0, 1 ),
-                getPadsFromFile(fileTag, 0, 2 ),
-                getPadsFromFile(fileTag, 0, 3 ),
-                getPadsFromFile(fileTag, 0, 4 ),
-                getPadsFromFile(fileTag, 0, 5 ),
-                getPadsFromFile(fileTag, 0, 6 ),
-                getPadsFromFile(fileTag, 0, 7 ),
-                getPadsFromFile(fileTag, 0, 8 ),
-                getPadsFromFile(fileTag, 0, 9 ),
+                getPadsFromFile(fileTag, 0, 0),
+                getPadsFromFile(fileTag, 0, 1),
+                getPadsFromFile(fileTag, 0, 2),
+                getPadsFromFile(fileTag, 0, 3),
+                getPadsFromFile(fileTag, 0, 4),
+                getPadsFromFile(fileTag, 0, 5),
+                getPadsFromFile(fileTag, 0, 6),
+                getPadsFromFile(fileTag, 0, 7),
+                getPadsFromFile(fileTag, 0, 8),
+                getPadsFromFile(fileTag, 0, 9),
                 getPadsFromFile(fileTag, 0, 10),
                 getPadsFromFile(fileTag, 0, 11),
                 getPadsFromFile(fileTag, 0, 12),
@@ -2464,16 +2534,16 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 getPadsFromFile(fileTag, 0, 20)
         };
         Pad part2[] = {
-                getPadsFromFile(fileTag, 1, 0 ),
-                getPadsFromFile(fileTag, 1, 1 ),
-                getPadsFromFile(fileTag, 1, 2 ),
-                getPadsFromFile(fileTag, 1, 3 ),
-                getPadsFromFile(fileTag, 1, 4 ),
-                getPadsFromFile(fileTag, 1, 5 ),
-                getPadsFromFile(fileTag, 1, 6 ),
-                getPadsFromFile(fileTag, 1, 7 ),
-                getPadsFromFile(fileTag, 1, 8 ),
-                getPadsFromFile(fileTag, 1, 9 ),
+                getPadsFromFile(fileTag, 1, 0),
+                getPadsFromFile(fileTag, 1, 1),
+                getPadsFromFile(fileTag, 1, 2),
+                getPadsFromFile(fileTag, 1, 3),
+                getPadsFromFile(fileTag, 1, 4),
+                getPadsFromFile(fileTag, 1, 5),
+                getPadsFromFile(fileTag, 1, 6),
+                getPadsFromFile(fileTag, 1, 7),
+                getPadsFromFile(fileTag, 1, 8),
+                getPadsFromFile(fileTag, 1, 9),
                 getPadsFromFile(fileTag, 1, 10),
                 getPadsFromFile(fileTag, 1, 11),
                 getPadsFromFile(fileTag, 1, 12),
@@ -2487,16 +2557,16 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 getPadsFromFile(fileTag, 1, 20)
         };
         Pad part3[] = {
-                getPadsFromFile(fileTag, 2, 0 ),
-                getPadsFromFile(fileTag, 2, 1 ),
-                getPadsFromFile(fileTag, 2, 2 ),
-                getPadsFromFile(fileTag, 2, 3 ),
-                getPadsFromFile(fileTag, 2, 4 ),
-                getPadsFromFile(fileTag, 2, 5 ),
-                getPadsFromFile(fileTag, 2, 6 ),
-                getPadsFromFile(fileTag, 2, 7 ),
-                getPadsFromFile(fileTag, 2, 8 ),
-                getPadsFromFile(fileTag, 2, 9 ),
+                getPadsFromFile(fileTag, 2, 0),
+                getPadsFromFile(fileTag, 2, 1),
+                getPadsFromFile(fileTag, 2, 2),
+                getPadsFromFile(fileTag, 2, 3),
+                getPadsFromFile(fileTag, 2, 4),
+                getPadsFromFile(fileTag, 2, 5),
+                getPadsFromFile(fileTag, 2, 6),
+                getPadsFromFile(fileTag, 2, 7),
+                getPadsFromFile(fileTag, 2, 8),
+                getPadsFromFile(fileTag, 2, 9),
                 getPadsFromFile(fileTag, 2, 10),
                 getPadsFromFile(fileTag, 2, 11),
                 getPadsFromFile(fileTag, 2, 12),
@@ -2510,16 +2580,16 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 getPadsFromFile(fileTag, 2, 20)
         };
         Pad part4[] = {
-                getPadsFromFile(fileTag, 3, 0 ),
-                getPadsFromFile(fileTag, 3, 1 ),
-                getPadsFromFile(fileTag, 3, 2 ),
-                getPadsFromFile(fileTag, 3, 3 ),
-                getPadsFromFile(fileTag, 3, 4 ),
-                getPadsFromFile(fileTag, 3, 5 ),
-                getPadsFromFile(fileTag, 3, 6 ),
-                getPadsFromFile(fileTag, 3, 7 ),
-                getPadsFromFile(fileTag, 3, 8 ),
-                getPadsFromFile(fileTag, 3, 9 ),
+                getPadsFromFile(fileTag, 3, 0),
+                getPadsFromFile(fileTag, 3, 1),
+                getPadsFromFile(fileTag, 3, 2),
+                getPadsFromFile(fileTag, 3, 3),
+                getPadsFromFile(fileTag, 3, 4),
+                getPadsFromFile(fileTag, 3, 5),
+                getPadsFromFile(fileTag, 3, 6),
+                getPadsFromFile(fileTag, 3, 7),
+                getPadsFromFile(fileTag, 3, 8),
+                getPadsFromFile(fileTag, 3, 9),
                 getPadsFromFile(fileTag, 3, 10),
                 getPadsFromFile(fileTag, 3, 11),
                 getPadsFromFile(fileTag, 3, 12),
@@ -2538,28 +2608,50 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
     String getPadStringFromId(int padId) {
         switch (padId) {
-            case 0 : return "00";
-            case 1 : return "01";
-            case 2 : return "02";
-            case 3 : return "03";
-            case 4 : return "04";
-            case 5 : return "11";
-            case 6 : return "12";
-            case 7 : return "13";
-            case 8 : return "14";
-            case 9 : return "21";
-            case 10: return "22";
-            case 11: return "23";
-            case 12: return "24";
-            case 13: return "31";
-            case 14: return "32";
-            case 15: return "33";
-            case 16: return "34";
-            case 17: return "41";
-            case 18: return "42";
-            case 19: return "43";
-            case 20: return "44";
-            default: return null;
+            case 0:
+                return "00";
+            case 1:
+                return "01";
+            case 2:
+                return "02";
+            case 3:
+                return "03";
+            case 4:
+                return "04";
+            case 5:
+                return "11";
+            case 6:
+                return "12";
+            case 7:
+                return "13";
+            case 8:
+                return "14";
+            case 9:
+                return "21";
+            case 10:
+                return "22";
+            case 11:
+                return "23";
+            case 12:
+                return "24";
+            case 13:
+                return "31";
+            case 14:
+                return "32";
+            case 15:
+                return "33";
+            case 16:
+                return "34";
+            case 17:
+                return "41";
+            case 18:
+                return "42";
+            case 19:
+                return "43";
+            case 20:
+                return "44";
+            default:
+                return null;
         }
     }
 
@@ -2610,7 +2702,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     }
 
     Pad getPadFromStringArray(String fileName[]) {
-        //TODO add method; make Pad object from string filename array with 5 if statement
         ArrayList<String> stringArray = new ArrayList<>();
         for (int i = 0; i < fileName.length; i++) {
             if (fileName[i] != null) {
@@ -2648,7 +2739,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
             Class res = R.raw.class;
             Field field = res.getField(fileName);
             // legit
-            if(field != null) {
+            if (field != null) {
                 return fileName;
             } else {
                 return null;

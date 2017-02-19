@@ -39,7 +39,6 @@ public class LauncherActivity extends Activity {
 
         // White screen set
         theme.color(this, "FFFFFF");
-
         window.getNavigationBar(R.id.root, activity);
         window.getStatusBar(R.id.root, activity);
 
@@ -49,7 +48,7 @@ public class LauncherActivity extends Activity {
             public void run() {
                 anim.fadeOut(R.id.root, 0, 400, activity);
 
-                // TODO edit this to enable normal intent
+                // edit this to enable normal intent
                 checkVersionCode();
 
                 // edit this to intent to welcome activity always
