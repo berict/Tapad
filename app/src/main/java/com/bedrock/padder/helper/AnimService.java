@@ -31,7 +31,7 @@ public class AnimService {
 
     public void fade(final int id, final float startAlpha, final float endAlpha, final int delay, final long duration, String handlerName, Activity activity) {
         final AlphaAnimation fade = new AlphaAnimation(startAlpha, endAlpha);
-        final View view = (View) activity.findViewById(id);
+        final View view = activity.findViewById(id);
 
         //fadeIn.setInterpolator();
 

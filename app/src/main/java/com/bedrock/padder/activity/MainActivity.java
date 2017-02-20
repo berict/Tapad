@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.ColorInt;
@@ -124,8 +125,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         // for test
         //prefs.edit().putInt(qs, 0).apply();
 
-        w.getView(R.id.progress_bar_layout, a).setVisibility(View.GONE);
-
         volume = 1.0f;
 
         a.setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -143,7 +142,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         setSchemeInfo();
         setToggleButton(R.color.colorAccent);
         enterAnim();
-        // TODO new
         setButtonLayout();
 
         //Set transparent nav bar
@@ -164,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     void enterAnim() {
         anim.fadeIn(R.id.actionbar_layout, 0, 200, "background", a);
         anim.fadeIn(R.id.actionbar_image, 200, 200, "image", a);
-        //TODO: Remove this to load preset
+        //TODO: Remove this to not load preset
         loadPreset(400);
         isPresetLoading = true;
     }
@@ -208,15 +206,15 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                     resizeView(buttons[i][j], newWidthPx - (marginPx * 2), newHeightPx - (marginPx * 2));
                     w.setMarginLinearPX(buttons[i][j], marginPx, marginPx, marginPx, marginPx, a);
                     if (i != 0) {
-                        w.getTextView(buttons[i][j], a).setTextSize(TypedValue.COMPLEX_UNIT_PX, (float)(newWidthPx / 3));
+                        w.getTextView(buttons[i][j], a).setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) (newWidthPx / 3));
                     }
                 } else {
                     newWidthPx = (screenWidthPx / 9) * 2;
                     resizeView(tutorialButtons[i][j], newWidthPx, newHeightPx);
                     resizeView(buttons[i][j], newWidthPx - (marginPx * 2), newHeightPx - (marginPx * 2));
                     w.setMarginLinearPX(buttons[i][j], marginPx, marginPx, marginPx, marginPx, a);
-                    if(i == 0) {
-                        w.getTextView(buttons[i][j], a).setTextSize(TypedValue.COMPLEX_UNIT_PX, (float)(newHeightPx / 3));
+                    if (i == 0) {
+                        w.getTextView(buttons[i][j], a).setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) (newHeightPx / 3));
                     }
                 }
             }
@@ -1387,6 +1385,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         }, new Runnable() {
             @Override
             public void run() {
+                clearDeck();
                 if (tgl1 == false) {
                     tgl1 = true;
                     tgl2 = false;
@@ -1423,6 +1422,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         }, new Runnable() {
             @Override
             public void run() {
+                clearDeck();
                 if (tgl2 == false) {
                     tgl2 = true;
                     tgl1 = false;
@@ -1459,6 +1459,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         }, new Runnable() {
             @Override
             public void run() {
+                clearDeck();
                 if (tgl3 == false) {
                     tgl3 = true;
                     tgl2 = false;
@@ -1495,6 +1496,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         }, new Runnable() {
             @Override
             public void run() {
+                clearDeck();
                 if (tgl4 == false) {
                     tgl4 = true;
                     tgl2 = false;
@@ -1643,6 +1645,39 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 }
             }
         }, a);
+    }
+
+    void clearDeck() {
+        // clear button colors
+        int buttonIds[] = {
+                R.id.btn00,
+                R.id.btn11,
+                R.id.btn12,
+                R.id.btn13,
+                R.id.btn14,
+                R.id.btn21,
+                R.id.btn22,
+                R.id.btn23,
+                R.id.btn24,
+                R.id.btn31,
+                R.id.btn32,
+                R.id.btn33,
+                R.id.btn34,
+                R.id.btn41,
+                R.id.btn42,
+                R.id.btn43,
+                R.id.btn44
+        };
+        for (int buttonId : buttonIds) {
+            View pad = findViewById(buttonId);
+            pad.setBackgroundColor(a.getResources().getColor(R.color.grey));
+        }
+
+        Integer streamIds[] = w.getLoopStreamIds();
+        SoundPool soundPool = w.getSoundPool();
+        for (Integer streamId : streamIds) {
+            soundPool.stop(streamId);
+        }
     }
 
     void clearToggleButton() {

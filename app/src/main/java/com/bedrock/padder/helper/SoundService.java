@@ -858,7 +858,7 @@ public class SoundService {
             if (window.getView(R.id.progress_bar_layout, activity).getVisibility() == View.GONE) {
                 Log.d(TAG, "ProgressBar fadeIn");
                 //TODO EDIT
-                //anim.fadeIn(R.id.progress_bar_layout, 0, 400, "progressIn", activity);
+                anim.fadeIn(R.id.progress_bar_layout, 0, 400, "progressIn", activity);
                 progress.setText(
                         activity.getResources().getString(R.string.progressbar_loading_preset_progress) + " 0 / " + presetSoundCount * 2);
             }
