@@ -138,13 +138,13 @@
     <string name="preset_faded_bio_source">Powered by Wikipedia X last.fm</string>
 
     <string name="preset_faded_detail_title"      >About Alan Walker</string>
-    <string name="preset_faded_detail_facebook"   >https://www.facebook.com/alanwalkermusic</string>
+    <string name="preset_faded_detail_facebook"   >https://facebook.com/alanwalkermusic</string>
     <string name="preset_faded_detail_twitter"    >https://twitter.com/IAmAlanWalker</string>
     <string name="preset_faded_detail_soundcloud" >https://soundcloud.com/alanwalker</string>
-    <string name="preset_faded_detail_instagram"  >https://www.instagram.com/alanwalkermusic</string>
+    <string name="preset_faded_detail_instagram"  >https://instagram.com/alanwalkermusic</string>
     <string name="preset_faded_detail_google_plus">https://plus.google.com/u/0/+Alanwalkermusic</string>
-    <string name="preset_faded_detail_youtube"    >https://www.youtube.com/user/DjWalkzz</string>
-    <string name="preset_faded_detail_web"        >http://www.alanwalkermusic.no</string>
+    <string name="preset_faded_detail_youtube"    >https://youtube.com/user/DjWalkzz</string>
+    <string name="preset_faded_detail_web"        >http://alanwalkermusic.no</string>
 
     <string name="preset_faded_song_detail_title"            >About this track</string>
     <string name="preset_faded_song_detail_soundcloud"       >https://soundcloud.com/alanwalker/faded-1</string>

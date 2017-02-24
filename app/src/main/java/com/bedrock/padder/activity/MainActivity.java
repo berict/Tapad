@@ -99,6 +99,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     private MaterialTapTargetPrompt promptInfo;     // 5
     private MaterialTapTargetPrompt promptPreset;   // 6
     private MaterialTapTargetPrompt promptTutorial; // 7
+    Gson gson = new Gson();
+    Preset presets[];
     // Used for circularReveal
     // End two is for settings coordination
     private int coord[] = {0, 0, 0, 0};
@@ -116,6 +118,12 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        presets = new Preset[] {
+                gson.fromJson(getResources().getString(R.string.json_hello), Preset.class),
+                gson.fromJson(getResources().getString(R.string.json_roses), Preset.class),
+                gson.fromJson(getResources().getString(R.string.json_faded), Preset.class)
+        };
 
         Log.d(TAG, "Sharedprefs initialized");
         prefs = this.getSharedPreferences("com.bedrock.padder", MODE_PRIVATE);
@@ -1213,34 +1221,26 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 .title(R.string.dialog_preset_title)
                 .items(R.array.presets)
                 .autoDismiss(false)
-                .itemsCallbackSingleChoice(defaultScheme - 1, new MaterialDialog.ListCallbackSingleChoice() {
+                .itemsCallbackSingleChoice(defaultScheme, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         switch (which) {
                             case 0:
-                                setScheme(which + 1);
+                                setScheme(which);
                                 PresetDialog.getBuilder()
                                         .widgetColorRes(R.color.hello)
                                         .positiveColorRes(R.color.hello);
                                 setSchemeInfo();
                                 break;
                             case 1:
-                                setScheme(which + 1);
+                                setScheme(which);
                                 PresetDialog.getBuilder()
                                         .widgetColorRes(R.color.roses)
                                         .positiveColorRes(R.color.roses);
                                 setSchemeInfo();
                                 break;
                             case 2:
-                                setScheme(which + 1);
-                                PresetDialog.getBuilder()
-                                        .widgetColorRes(R.color.faded)
-                                        .positiveColorRes(R.color.faded);
-                                setSchemeInfo();
-                                break;
-                            //TODO GESTURE
-                            case 3:
-                                setScheme(which + 1);
+                                setScheme(which);
                                 PresetDialog.getBuilder()
                                         .widgetColorRes(R.color.faded)
                                         .positiveColorRes(R.color.faded);
@@ -1334,20 +1334,11 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     }
 
     void loadPreset(int delay) {
-        Gson gson = new Gson();
-        final Preset presets[] = {
-                gson.fromJson(getResources().getString(R.string.json_hello), Preset.class),
-                gson.fromJson(getResources().getString(R.string.json_roses), Preset.class),
-                gson.fromJson(getResources().getString(R.string.json_faded), Preset.class)
-        };
-
-        //w.getProgressBar(R.id.progress_bar, a).setMax(PRESET_SOUND_COUNTS[getScheme() - 1]);
-
         Handler preset = new Handler();
         preset.postDelayed(new Runnable() {
             @Override
             public void run() {
-                sound.loadSchemeSound(presets[getScheme() - 1], a);
+                sound.loadSchemeSound(presets[getScheme()], a);
             }
         }, delay);
     }
@@ -1832,73 +1823,31 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     }
 
     void setSchemeInfo() {
-        int scheme = getScheme();
         ab.setNav(0, null, a);
-        if (scheme == 1) {
-            themeColor = R.color.hello;
-            w.setRecentColor(0, 0, themeColor, a);
+        Preset currentPreset = presets[getScheme()];
+        themeColor = currentPreset.getAbout().getActionbarColor();
+        w.setRecentColor(0, 0, themeColor, a);
 
-            if (isSettingVisible == false) {
-                ab.setColor(themeColor, a);
-                ab.setImage(R.drawable.logo_hello, a);
-            } else {
-                ab.setNav(1, null, a);
-                ab.setTitle(R.string.settings, a);
-                ab.setColor(R.color.colorAccent, a);
-            }
-
-            // Cardview
-            w.getImageView(R.id.cardview_music_image, a).setImageResource(R.drawable.about_album_hello);
-            w.getTextView(R.id.cardview_music_song, a).setText(getResources().getString(R.string.preset_hello_full));
-            w.getTextView(R.id.cardview_music_explore, a).setTextColor(getResources().getColor(themeColor));
-            w.getTextView(R.id.cardview_music_change, a).setTextColor(getResources().getColor(themeColor));
-
-            w.getTextView(R.id.layout_settings_preset_hint, a).setText(getResources().getString(R.string.preset_hello_full));
-        } else if (scheme == 2) {
-            themeColor = R.color.roses;
-            w.setRecentColor(0, 0, themeColor, a);
-
-            if (isSettingVisible == false) {
-                ab.setColor(themeColor, a);
-                ab.setImage(R.drawable.logo_roses, a);
-            } else {
-                ab.setNav(1, null, a);
-                ab.setTitle(R.string.settings, a);
-                ab.setColor(R.color.colorAccent, a);
-            }
-
-            // Cardview
-            w.getImageView(R.id.cardview_music_image, a).setImageResource(R.drawable.about_album_roses);
-            w.getTextView(R.id.cardview_music_song, a).setText(getResources().getString(R.string.preset_roses_full));
-            w.getTextView(R.id.cardview_music_explore, a).setTextColor(getResources().getColor(themeColor));
-            w.getTextView(R.id.cardview_music_change, a).setTextColor(getResources().getColor(themeColor));
-
-            w.getTextView(R.id.layout_settings_preset_hint, a).setText(getResources().getString(R.string.preset_roses_full));
-        } else if (scheme == 3 || scheme == 4) { //TODO GESTURE
-            themeColor = R.color.faded;
-            w.setRecentColor(0, 0, themeColor, a);
-
-            if (isSettingVisible == false) {
-                ab.setColor(themeColor, a);
-                ab.setImage(R.drawable.logo_faded, a);
-            } else {
-                ab.setNav(1, null, a);
-                ab.setTitle(R.string.settings, a);
-                ab.setColor(R.color.colorAccent, a);
-            }
-
-            // Cardview
-            w.getImageView(R.id.cardview_music_image, a).setImageResource(R.drawable.about_album_faded);
-            w.getTextView(R.id.cardview_music_song, a).setText(getResources().getString(R.string.preset_faded_full));
-            w.getTextView(R.id.cardview_music_explore, a).setTextColor(getResources().getColor(themeColor));
-            w.getTextView(R.id.cardview_music_change, a).setTextColor(getResources().getColor(themeColor));
-
-            w.getTextView(R.id.layout_settings_preset_hint, a).setText(getResources().getString(R.string.preset_faded_full));
+        if (isSettingVisible == false) {
+            ab.setColor(themeColor, a);
+            ab.setImage(w.getDrawableId("logo_" + currentPreset.getMusic().getNameId().replace("preset_", "")), a);
+        } else {
+            ab.setNav(1, null, a);
+            ab.setTitle(R.string.settings, a);
+            ab.setColor(R.color.colorAccent, a);
         }
+
+        // Cardview
+        w.getImageView(R.id.cardview_music_image, a).setImageResource(w.getDrawableId("about_album_" + currentPreset.getMusic().getNameId().replace("preset_", "")));
+        w.getTextView(R.id.cardview_music_song, a).setText(w.getStringId(currentPreset.getMusic().getNameId() + "_full"));
+        w.getTextView(R.id.cardview_music_explore, a).setTextColor(getResources().getColor(themeColor));
+        w.getTextView(R.id.cardview_music_change, a).setTextColor(getResources().getColor(themeColor));
+
+        w.getTextView(R.id.layout_settings_preset_hint, a).setText(w.getStringId(currentPreset.getMusic().getNameId() + "_full"));
     }
 
     int getScheme() {
-        return prefs.getInt("scheme", 1);
+        return prefs.getInt("scheme", 0);
     }
 
     void setScheme(int scheme) {
@@ -1942,48 +1891,48 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 //                "roses_dark", "roses");
 //
 //        Log.d("JSON TEST", json);
-        Item rosesItems[] = {
-                new Item("facebook"   , "preset_roses_detail_facebook"   ),
-                new Item("twitter"    , "preset_roses_detail_twitter"    ),
-                new Item("soundcloud" , "preset_roses_detail_soundcloud" ),
-                new Item("instagram"  , "preset_roses_detail_instagram"  ),
-                new Item("google_plus", "preset_roses_detail_google_plus"),
-                new Item("youtube"    , "preset_roses_detail_youtube"    ),
-                //new Item("twitch"     , "preset_roses_detail_twitch"     ), // only roses
-                new Item("web"        , "preset_roses_detail_web"        )
+        Item fadedItems[] = {
+                new Item("facebook", "preset_faded_detail_facebook"),
+                new Item("twitter", "preset_faded_detail_twitter"),
+                new Item("soundcloud", "preset_faded_detail_soundcloud"),
+                new Item("instagram", "preset_faded_detail_instagram"),
+                new Item("google_plus", "preset_faded_detail_google_plus"),
+                new Item("youtube", "preset_faded_detail_youtube"),
+                new Item("twitch", "preset_faded_detail_twitch"), // only faded
+                new Item("web", "preset_faded_detail_web")
         };
 
-        Detail rosesDetail = new Detail("preset_roses_detail_title", rosesItems);
+        Detail fadedDetail = new Detail("preset_faded_detail_title", fadedItems);
 
-        Item rosesSongItems[] = {
-                new Item("soundcloud"       , "preset_roses_song_detail_soundcloud"       , false),
-                new Item("youtube"          , "preset_roses_song_detail_youtube"          , false),
-                new Item("spotify"          , "preset_roses_song_detail_spotify"          , false),
-                new Item("google_play_music", "preset_roses_song_detail_google_play_music", false),
-                new Item("apple"            , "preset_roses_song_detail_apple"            , false),
-                new Item("amazon"           , "preset_roses_song_detail_amazon"           , false),
-                new Item("pandora"          , "preset_roses_song_detail_pandora"          , false)
+        Item fadedSongItems[] = {
+                new Item("soundcloud", "preset_faded_song_detail_soundcloud", false),
+                new Item("youtube", "preset_faded_song_detail_youtube", false),
+                new Item("spotify", "preset_faded_song_detail_spotify", false),
+                new Item("google_play_music", "preset_faded_song_detail_google_play_music", false),
+                new Item("apple", "preset_faded_song_detail_apple", false),
+                new Item("amazon", "preset_faded_song_detail_amazon", false),
+                new Item("pandora", "preset_faded_song_detail_pandora", false)
         };
 
-        Detail rosesSongDetail = new Detail("preset_roses_song_detail_title", rosesSongItems);
+        Detail fadedSongDetail = new Detail("preset_faded_song_detail_title", fadedSongItems);
 
-        Bio rosesBio = new Bio(
-                "preset_roses_bio_title",
-                "about_bio_roses",
-                "preset_roses_bio_name",
-                "preset_roses_bio_text",
-                "preset_roses_bio_source"
+        Bio fadedBio = new Bio(
+                "preset_faded_bio_title",
+                "about_bio_faded",
+                "preset_faded_bio_name",
+                "preset_faded_bio_text",
+                "preset_faded_bio_source"
         );
 
-        Detail rosesDetails[] = {
-                rosesDetail,
-                rosesSongDetail
+        Detail fadedDetails[] = {
+                fadedDetail,
+                fadedSongDetail
         };
 
-        About rosesAbout = new About(
-                "preset_roses_title", "about_album_roses",
-                rosesBio, rosesDetails,
-                "preset_roses_color_dark", "preset_roses_color"
+        About fadedAbout = new About(
+                "preset_faded_title", "about_album_faded",
+                fadedBio, fadedDetails,
+                "preset_faded_color_dark", "preset_faded_color"
         );
 
         // Timings
@@ -2448,20 +2397,20 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         //TODO EDIT
         //Log.d("Array", Arrays.deepToString(deckTiming[0].getDeckTiming()));
 
-        Music rosesMusic = new Music(
-                "preset_roses",
+        Music fadedMusic = new Music(
+                "preset_faded",
                 getDeckFromFileName(fileTag),
                 null
         );
 
-        Preset rosesPreset = new Preset(0, rosesMusic, rosesAbout);
+        Preset fadedPreset = new Preset(2, fadedMusic, fadedAbout);
 
         //String json = gson.toJson(preset, Preset.class);
         Gson gson = new Gson();
-        largeLog("JSON", gson.toJson(rosesPreset));
+        largeLog("JSON", gson.toJson(fadedPreset));
     }
 
-    String fileTag = "ft";
+    String fileTag = "alan_walker_faded_";
 
     Deck[] getDeckFromFileName(String fileTag) {
         Pad part1[] = {

@@ -58,6 +58,11 @@ public class About {
         return actionbarColorId;
     }
 
+    public int getActionbarColor() {
+        WindowService window = new WindowService();
+        return window.getColorId(actionbarColorId);
+    }
+
     public Bio getBio() {
         return bio;
     }
