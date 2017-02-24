@@ -758,27 +758,50 @@ public class WindowService {
         });
     }
 
-    public ArrayList<Integer> loopStreamIds = new ArrayList<>();
+    private ArrayList<Integer> loopStreamIds = new ArrayList<>();
 
-    private SoundPool soundPool = null;
+    private void addLoopStreamId(Integer id) {
+        Log.d("addLoopStreamId", "added " + id);
+        loopStreamIds.add(id);
+    }
 
-    public SoundPool getSoundPool() {
-        if(soundPool == null) {
-            Log.d("getSoundPool", "SoundPool object wasn't initialized at the runtime");
-            return null;
-        } else {
-            return soundPool;
-        }
+    private void removeLoopStreamId(Integer id) {
+        Log.d("removeLoopStreamId", "removed " + id);
+        loopStreamIds.remove(id);
+    }
+
+    public void clearLoopStreamId() {
+        Log.d("clearLoopStreamId", "cleared");
+        loopStreamIds.clear();
     }
 
     public Integer[] getLoopStreamIds() {
+        Log.d("getLoopStreamIds", "length = " + loopStreamIds.size());
         return loopStreamIds.toArray(new Integer[loopStreamIds.size()]);
     }
 
-    public void setOnGestureSoundPattern(int padId, final int patternScheme[][], final int colorDown, final int colorUp, final SoundPool sp, final int spid[], final Activity activity) {
+    public void setPadColor(View pad, int color, Activity activity) {
+        try {
+            pad.setBackgroundColor(activity.getResources().getColor(color));
+        } catch (Resources.NotFoundException e) {
+            Log.i("NotFoundException", "Handling with normal value");
+            pad.setBackgroundColor(color);
+        }
+    }
+
+    public void setPadColor(int padId, int color, Activity activity) {
+        View pad = getView(padId, activity);
+        try {
+            pad.setBackgroundColor(activity.getResources().getColor(color));
+        } catch (Resources.NotFoundException e) {
+            Log.i("NotFoundException", "Handling with normal value");
+            pad.setBackgroundColor(color);
+        }
+    }
+
+    public void setOnGestureSound(int padId, final int colorDown, final int colorUp, final SoundPool sp, final int spid[], final int patternScheme[][], final Activity activity) {
         final int btnId[] = {0};
         final boolean isLoopEnabled[] = {false};
-        soundPool = sp;
         switch (padId) {
             case R.id.btn11:
                 btnId[0] = 0;
@@ -829,30 +852,32 @@ public class WindowService {
                 btnId[0] = 15;
                 break;
         }
-
         final View pad = activity.findViewById(padId);
         final int streamId[] = {0};
+
         final Handler buttonDelay = new Handler();
         final Runnable clearPad = new Runnable() {
             @Override
             public void run() {
-                pad.setBackgroundColor(activity.getResources().getColor(colorUp));
+                setPadColor(pad, colorUp, activity);
             }
         };
 
         pad.setOnTouchListener(new OnSwipeTouchListener(activity) {
             @Override
             public void onTouch() {
-                try {
-                    pad.setBackgroundColor(activity.getResources().getColor(colorDown));
-                    buttonDelay.postDelayed(clearPad, 100);
-                    setButtonPattern(patternScheme, btnId[0], colorDown, activity);
-                } catch (Resources.NotFoundException e) {
-                    Log.i("NotFoundException", "Handling with normal value");
-                    pad.setBackgroundColor(colorDown);
-                    setButtonPattern(patternScheme, btnId[0], colorDown, activity);
+                setPadColor(pad, colorDown, activity);
+                setButtonPattern(patternScheme, btnId[0], colorDown, activity);
+                if (isLoopEnabled[0] == false) {
+                    buttonDelay.postDelayed(clearPad, 500);
                 }
-                buttonDelay.postDelayed(clearPad, 100);
+            }
+
+            @Override
+            public void onClick() {
+                sp.play(spid[0], 1, 1, 1, 0, 1);
+                setPadColor(pad, colorUp, activity);
+                Log.d("TouchListener", "Click");
             }
 
             @Override
@@ -864,23 +889,12 @@ public class WindowService {
                     public void run() {
                         if (isLoopEnabled[0] == false) {
                             pad.setBackgroundColor(activity.getResources().getColor(colorUp));
-                            buttonDelay.postDelayed(clearPad, 100);
+                            buttonDelay.postDelayed(clearPad, 500);
                         }
                         setButtonPattern(patternScheme, btnId[0], colorUp, activity);
                     }
                 }, 10);
                 Log.d("TouchListener", "Double Click");
-            }
-
-            @Override
-            public void onClick() {
-                sp.play(spid[0], 1, 1, 1, 0, 1);
-                if (isLoopEnabled[0] == false) {
-                    pad.setBackgroundColor(activity.getResources().getColor(colorUp));
-                    buttonDelay.postDelayed(clearPad, 100);
-                }
-                setButtonPattern(patternScheme, btnId[0], colorUp, activity);
-                Log.d("TouchListener", "Click");
             }
 
             @Override
@@ -890,8 +904,10 @@ public class WindowService {
                 } else {
                     sp.play(spid[0], 1, 1, 1, 0, 1);
                 }
-                pad.setBackgroundColor(activity.getResources().getColor(colorUp));
-                buttonDelay.postDelayed(clearPad, 100);
+                if (isLoopEnabled[0] == false) {
+                    pad.setBackgroundColor(activity.getResources().getColor(colorUp));
+                    buttonDelay.postDelayed(clearPad, 500);
+                }
                 setButtonPattern(patternScheme, btnId[0], colorUp, activity);
                 Log.d("TouchListener", "SwipeUp");
             }
@@ -903,8 +919,10 @@ public class WindowService {
                 } else {
                     sp.play(spid[0], 1, 1, 1, 0, 1);
                 }
-                pad.setBackgroundColor(activity.getResources().getColor(colorUp));
-                buttonDelay.postDelayed(clearPad, 100);
+                if (isLoopEnabled[0] == false) {
+                    pad.setBackgroundColor(activity.getResources().getColor(colorUp));
+                    buttonDelay.postDelayed(clearPad, 500);
+                }
                 setButtonPattern(patternScheme, btnId[0], colorUp, activity);
                 Log.d("TouchListener", "SwipeRight");
             }
@@ -916,8 +934,10 @@ public class WindowService {
                 } else {
                     sp.play(spid[0], 1, 1, 1, 0, 1);
                 }
-                pad.setBackgroundColor(activity.getResources().getColor(colorUp));
-                buttonDelay.postDelayed(clearPad, 100);
+                if (isLoopEnabled[0] == false) {
+                    pad.setBackgroundColor(activity.getResources().getColor(colorUp));
+                    buttonDelay.postDelayed(clearPad, 500);
+                }
                 setButtonPattern(patternScheme, btnId[0], colorUp, activity);
                 Log.d("TouchListener", "SwipeDown");
             }
@@ -929,28 +949,31 @@ public class WindowService {
                 } else {
                     sp.play(spid[0], 1, 1, 1, 0, 1);
                 }
-                pad.setBackgroundColor(activity.getResources().getColor(colorUp));
-                buttonDelay.postDelayed(clearPad, 100);
+                if (isLoopEnabled[0] == false) {
+                    pad.setBackgroundColor(activity.getResources().getColor(colorUp));
+                    buttonDelay.postDelayed(clearPad, 500);
+                }
                 setButtonPattern(patternScheme, btnId[0], colorUp, activity);
                 Log.d("TouchListener", "SwipeLeft");
             }
 
             @Override
             public void onLongClick() {
-                pad.setBackgroundColor(activity.getResources().getColor(colorUp));
+                //pad.setBackgroundColor(activity.getResources().getColor(colorUp));
                 buttonDelay.removeCallbacks(clearPad);
                 if (isLoopEnabled[0] == false) {
                     streamId[0] = sp.play(spid[0], 1, 1, 1, -1, 1);
                     // add item to arraylist to reset loop sounds on deck change
-                    loopStreamIds.add(streamId[0]);
+                    addLoopStreamId(streamId[0]);
                     isLoopEnabled[0] = true;
                     pad.setBackgroundColor(activity.getResources().getColor(colorDown));
                     Log.d("TouchListener", "LongClick, loop on");
                 } else {
                     sp.stop(streamId[0]);
+                    removeLoopStreamId(streamId[0]);
                     isLoopEnabled[0] = false;
                     pad.setBackgroundColor(activity.getResources().getColor(colorUp));
-                    buttonDelay.postDelayed(clearPad, 100);
+                    buttonDelay.postDelayed(clearPad, 500);
                     Log.d("TouchListener", "LongClick, loop off");
                 }
                 setButtonPattern(patternScheme, btnId[0], colorUp, activity);
@@ -1025,6 +1048,15 @@ public class WindowService {
         final boolean isLoopEnabled[] = {false};
         final View pad = activity.findViewById(padId);
         final int streamId[] = {0};
+
+        final Handler buttonDelay = new Handler();
+        final Runnable clearPad = new Runnable() {
+            @Override
+            public void run() {
+                pad.setBackgroundColor(activity.getResources().getColor(colorUp));
+            }
+        };
+
         pad.setOnTouchListener(new OnSwipeTouchListener(activity) {
             @Override
             public void onTouch() {
@@ -1033,7 +1065,18 @@ public class WindowService {
                 } catch (Resources.NotFoundException e) {
                     Log.i("NotFoundException", "Handling with normal value");
                     pad.setBackgroundColor(colorDown);
+                } finally {
+                    buttonDelay.postDelayed(clearPad, 500);
                 }
+            }
+
+            @Override
+            public void onClick() {
+                sp.play(spid[0], 1, 1, 1, 0, 1);
+                if (isLoopEnabled[0] == false) {
+                    pad.setBackgroundColor(activity.getResources().getColor(colorUp));
+                }
+                Log.d("TouchListener", "Click");
             }
 
             @Override
@@ -1045,19 +1088,11 @@ public class WindowService {
                     public void run() {
                         if (isLoopEnabled[0] == false) {
                             pad.setBackgroundColor(activity.getResources().getColor(colorUp));
+                            buttonDelay.postDelayed(clearPad, 500);
                         }
                     }
                 }, 10);
                 Log.d("TouchListener", "Double Click");
-            }
-
-            @Override
-            public void onClick() {
-                sp.play(spid[0], 1, 1, 1, 0, 1);
-                if (isLoopEnabled[0] == false) {
-                    pad.setBackgroundColor(activity.getResources().getColor(colorUp));
-                }
-                Log.d("TouchListener", "Click");
             }
 
             @Override

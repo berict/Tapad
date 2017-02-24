@@ -51,7 +51,7 @@
                             android:transitionName="transition"
                             android:scaleType="centerCrop"
                             android:fitsSystemWindows="true"
-                            android:src="@drawable/cardview_background_artist_hello"
+                            android:src="@drawable/about_album_hello"
                             app:layout_collapseMode="parallax" />
 
                         <View

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardview_artist_layout"
+    android:id="@+id/cardview_music_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -21,24 +21,24 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/cardview_artist_image"
+                android:id="@+id/cardview_music_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:src="@drawable/cardview_background_artist_hello"
+                android:src="@drawable/about_album_hello"
                 android:transitionName="transition"
                 android:layout_alignParentTop="true"/>
 
             <RelativeLayout
-                android:id="@+id/cardview_artist_description"
+                android:id="@+id/cardview_music_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/cardview_artist_image"
+                android:layout_below="@id/cardview_music_image"
                 android:layout_alignParentBottom="true"
                 android:padding="16dp">
 
                 <TextView
-                    android:id="@+id/cardview_artist_now_playing"
+                    android:id="@+id/cardview_music_now_playing"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cardview_now_playing"
@@ -46,28 +46,28 @@
                     android:textSize="24sp"/>
 
                 <TextView
-                    android:id="@+id/cardview_artist_song"
+                    android:id="@+id/cardview_music_song"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/cardview_artist_now_playing"
+                    android:layout_below="@+id/cardview_music_now_playing"
                     android:layout_marginTop="10dp"
-                    android:text="@string/preset_hello"
+                    android:text="@string/preset_hello_full"
                     android:textColor="@color/dark_secondary"
                     android:textStyle="italic"
                     android:textSize="16sp"/>
 
                 <LinearLayout
-                    android:id="@+id/cardview_artist_more_layout"
+                    android:id="@+id/cardview_music_more_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_marginTop="10dp"
-                    android:layout_below="@+id/cardview_artist_song"
+                    android:layout_below="@+id/cardview_music_song"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/cardview_artist_explore"
+                        android:id="@+id/cardview_music_explore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
@@ -77,7 +77,7 @@
                         android:textColor="@color/hello"/>
 
                     <TextView
-                        android:id="@+id/cardview_artist_change"
+                        android:id="@+id/cardview_music_change"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="10dp"

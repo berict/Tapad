@@ -20,15 +20,12 @@ public class SoundService {
     //TODO NEW PRESET : update sound count
     public static final int HELLO_SOUND_COUNT = 84;
     public static final int ROSES_SOUND_COUNT = 102;
-    public static final int FADED_SOUND_COUNT = 105;
-    //TODO GESTURE
-    public static final int FADED_GESTURE_SOUND_COUNT = 264;
+    public static final int FADED_SOUND_COUNT = 264;
 
     public static final int PRESET_SOUND_COUNTS[] = {
             HELLO_SOUND_COUNT,
             ROSES_SOUND_COUNT,
-            FADED_SOUND_COUNT,
-            FADED_GESTURE_SOUND_COUNT
+            FADED_SOUND_COUNT
     };
 
     public SoundPool sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
@@ -512,6 +509,10 @@ public class SoundService {
             R.id.btn44
     };
 
+    public SoundPool getSoundPool() {
+        return sp;
+    }
+
     private ThemeService theme = new ThemeService();
     private AnimService anim = new AnimService();
     private WindowService window = new WindowService();
@@ -757,7 +758,7 @@ public class SoundService {
                     continue;
                 } else {
                     if (id >= 1) {
-                        window.setOnGestureSoundPattern(buttonId[i], pattern, colorId, R.color.grey, sp, soundPoolId[id - 1][i], activity);
+                        window.setOnGestureSound(buttonId[i], colorId, R.color.grey, sp, soundPoolId[id - 1][i], pattern, activity);
                     }
                 }
             }
@@ -853,7 +854,7 @@ public class SoundService {
             Log.d(TAG, "On preExecute, set prefs");
             isPresetLoaded = false;
             progressCount = 0;
-            presetSoundCount = PRESET_SOUND_COUNTS[currentPreset.getId() - 1];
+            presetSoundCount = PRESET_SOUND_COUNTS[currentPreset.getId()];
             progress = window.getTextView(R.id.progress_bar_progress_text, activity);
             if (window.getView(R.id.progress_bar_layout, activity).getVisibility() == View.GONE) {
                 Log.d(TAG, "ProgressBar fadeIn");

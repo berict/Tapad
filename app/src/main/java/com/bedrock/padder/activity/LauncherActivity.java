@@ -54,7 +54,7 @@ public class LauncherActivity extends Activity {
                 // edit this to intent to welcome activity always
                 //intent.intentFlag(activity, "activity.UserBenefitsActivity", 500);
             }
-        }, 1000); //Default 1500
+        }, 500); //Default 1500
     }
 
     void checkVersionCode() {
