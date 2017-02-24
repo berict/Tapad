@@ -3,7 +3,6 @@ package com.bedrock.padder.activity;
 import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Build;
@@ -184,7 +183,7 @@ public class UserBenefitsActivity extends Activity {
                         .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
                             @Override
                             public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                                setScheme(which + 1);
+                                setScheme(which);
                                 switch (which) {
                                     case 0:
                                         PresetDialog.getBuilder()

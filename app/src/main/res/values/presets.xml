@@ -23,21 +23,37 @@
     <!-- Berict -->
 
     <string name="info_berict_full">Studio Berict</string>
-    <string name="info_berict_title">About Studio Berict</string>
-    
-    <string name="info_berict_bio_title">Berict\'s biography</string>
-    <string name="info_berict_bio_name">Bedrock Pictures (Nathan Cho)</string>
-    <string name="info_berict_bio_text">
-        Nathan is high school student in South Korea, who enjoys software and football.
-        Started developing about 5 years ago, started by HTML, now on Android.
-        And he has a big interest in Android\'s "Material Design".</string>
+    <string name="info_berict">Berict</string>
+    <string name="info_berict_title">Studio Berict</string>
+
+    <string name="info_berict_bio_title">Studio Berict\'s biography</string>
+    <string name="info_berict_bio_name">Bedrock Pictures</string>
+    <string name="info_berict_bio_text">We target everyone. Whatever we make, it\'s just for you.
+        Our main focus on our service is your experience. Unlike others, we think everything at your perspective.
+		Mainly makes mobile / web software, often makes some high-quality videos.</string>
     <string name="info_berict_bio_source">Powered by Bedrock Pictures</string>
 
-    <string name="info_berict_detail_title">About Studio Berict</string>
-    <string name="info_berict_detail_facebook">https://www.facebook.com/studioberict</string>
-    <string name="info_berict_detail_twitter">https://twitter.com/studioberict</string>
-    <string name="info_berict_detail_youtube">https://www.youtube.com/user/bedrockpicture</string>
-    <string name="info_berict_detail_web">http://berict.com</string>
+    <string name="info_berict_detail_title"      >About Studio Berict</string>
+    <string name="info_berict_detail_facebook"   >https://facebook.com/studioberict</string>
+    <string name="info_berict_detail_twitter"    >https://twitter.com/studioberict</string>
+    <string name="info_berict_detail_google_plus">https://plus.google.com/u/0/117444496369895524856</string>
+    <string name="info_berict_detail_youtube"    >https://youtube.com/channel/UCAXcxUEs9Mc2gN4eWev3mAw</string>
+    <string name="info_berict_detail_web"        >http://berict.com</string>
+
+	<string name="info_berict_action_title"          >Support Development</string>
+	<string name="info_berict_action_report_bug"     >Report bugs</string>
+	<string name="info_berict_action_report_bug_hint">Help us fix bugs and problems</string>
+	<string name="info_berict_action_translate"      >Translate Tapad</string>
+	<string name="info_berict_action_translate_hint" >Make Tapad available on your language</string>
+	<string name="info_berict_action_translate_error">Sorry, this feature is not available yet.</string>
+	<string name="info_berict_action_rate"           >Rate Tapad</string>
+	<string name="info_berict_action_rate_hint"      >Leave positive rating on Tapad</string>
+	<string name="info_berict_action_donate"         >Donate</string>
+	<string name="info_berict_action_donate_hint"    >Boost dev on updating Tapad</string>
+	<string name="info_berict_action_donate_error"   >Thanks! But this feature is not available yet.</string>
+
+    <item name="info_berict_color" type="color">@color/blue_grey</item>
+    <item name="info_berict_color_dark" type="color">@color/blue_grey_dark</item>
     
     <!-- Tapad -->
 
@@ -73,7 +89,7 @@
     <string name="preset_hello_bio_source">Powered by last.fm</string>
 
     <string name="preset_hello_detail_title"      >About OMFG</string>
-    <string name="preset_hello_detail_facebook"   >https://facebook.com/alexomfg/</string>
+    <string name="preset_hello_detail_facebook"   >https://facebook.com/alexomfg</string>
     <string name="preset_hello_detail_twitter"    >https://twitter.com/AlexSavageOMFG</string>
     <string name="preset_hello_detail_soundcloud" >https://soundcloud.com/alexomfg</string>
     <string name="preset_hello_detail_instagram"  >https://instagram.com/alexsavageomfg</string>
@@ -112,7 +128,7 @@
     <string name="preset_roses_detail_instagram"  >https://instagram.com/thechainsmokers</string>
     <string name="preset_roses_detail_google_plus">https://plus.google.com/u/0/+THECHAINSMOKERS</string>
     <string name="preset_roses_detail_youtube"    >https://youtube.com/user/THECHAINSMOKERS</string>
-    <string name="preset_roses_detail_web"        >http://thechainsmokers.com/</string>
+    <string name="preset_roses_detail_web"        >http://thechainsmokers.com</string>
 
     <string name="preset_roses_song_detail_title"            >About this track</string>
     <string name="preset_roses_song_detail_soundcloud"       >https://soundcloud.com/thechainsmokers/roses-1</string>

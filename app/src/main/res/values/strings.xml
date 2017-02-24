@@ -342,12 +342,12 @@
     <string name="progressbar_loading_tutorial">Loading tutorial</string>
 
     <!--
-    web
-    facebook
-    twitter
-    soundcloud
-    youtube
-    -->
+	web
+	facebook
+	twitter
+	soundcloud
+	youtube
+	-->
 
     <!--Settings-->
     <string name="settings_group_play">Play</string>
