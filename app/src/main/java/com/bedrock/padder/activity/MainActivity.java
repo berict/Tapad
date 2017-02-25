@@ -114,6 +114,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        String base64EncodePublicKey = "";
+
         presets = new Preset[] {
                 gson.fromJson(getResources().getString(R.string.json_hello), Preset.class),
                 gson.fromJson(getResources().getString(R.string.json_roses), Preset.class),
