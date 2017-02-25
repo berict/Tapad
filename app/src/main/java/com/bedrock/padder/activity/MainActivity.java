@@ -2403,6 +2403,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 //        //String json = gson.toJson(preset, Preset.class);
 //        largeLog("JSON", gson.toJson(fadedPreset));
 
+
+
         largeLog("JSON", gson.toJson("lol"));
     }
 
