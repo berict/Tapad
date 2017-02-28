@@ -34,6 +34,8 @@ import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.TutorialService;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.about.About;
+import com.bedrock.padder.model.about.Bio;
+import com.bedrock.padder.model.about.Item;
 import com.bedrock.padder.model.preset.Deck;
 import com.bedrock.padder.model.preset.Pad;
 import com.bedrock.padder.model.preset.Preset;
@@ -2507,6 +2509,20 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 //
 //        //String json = gson.toJson(preset, Preset.class);
 //        largeLog("JSON", gson.toJson(fadedPreset));
+
+        Bio tapadBio = new Bio(
+                "info_tapad_bio_title",
+                "about_bio_tapad",
+                "info_tapad_bio_name",
+                "info_tapad_bio_text",
+                "info_tapad_bio_source"
+        );
+
+        Item tapadInfo[] = {
+                new Item("info_tapad_info_check_update", "info_tapad_info_check_update_hint", "about_detail_google_play")
+        }
+
+        About tapadAbout = new About()
 
         largeLog("JSON", gson.toJson("lol"));
     }
