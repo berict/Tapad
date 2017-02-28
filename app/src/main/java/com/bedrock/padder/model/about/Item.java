@@ -11,7 +11,7 @@ public class Item {
     private String   hintId;
 
     @SerializedName("hint_is_visible")
-    private Boolean hintIsVisible;
+    private Boolean  hintIsVisible;
 
     @SerializedName("image_id")
     private String   imageId;

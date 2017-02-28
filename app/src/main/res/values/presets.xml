@@ -75,9 +75,9 @@
 	<string name="info_tapad_info_check_update"     >Check updates</string>
 	<string name="info_tapad_info_check_update_hint">Open in Google Play</string>
 	<string name="info_tapad_info_check_update_link">https://goo.gl/pmws51</string>
-	<string name="info_tapad_info_check_tester"     >Become a tester</string>
-	<string name="info_tapad_info_check_tester_hint">Receive updates of a testing version of the app</string>
-	<string name="info_tapad_info_check_tester_link">https://goo.gl/a5V8kc</string>
+	<string name="info_tapad_info_tester"           >Become a tester</string>
+	<string name="info_tapad_info_tester_hint"      >Receive updates of a testing version of the app</string>
+	<string name="info_tapad_info_tester_link"      >https://goo.gl/a5V8kc</string>
 	<string name="info_tapad_info_legal"            >Legal Information</string>
 	<string name="info_tapad_info_legal_text"       >
         <i>Last updated: December 14, 2016</i> \n\n

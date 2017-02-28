@@ -2519,10 +2519,37 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         );
 
         Item tapadInfo[] = {
-                new Item("info_tapad_info_check_update", "info_tapad_info_check_update_hint", "about_detail_google_play")
-        }
+                new Item("info_tapad_info_check_update", "info_tapad_info_check_update_hint", "about_detail_google_play", new Runnable() {
+                    @Override
+                    public void run() {
+                        w.setRecentColor(w.getStringId("info_tapad_info_check_update"), R.color.colorAccent, a);
+                        intent.intentLink(a, w.getStringFromId("info_tapad_info_check_update_link", a), 400);
+                    }
+                }),
+                new Item("info_tapad_info_tester", "info_tapad_info_tester_hint", "about_detail_tester", new Runnable() {
+                    @Override
+                    public void run() {
+                        w.setRecentColor(w.getStringId("info_tapad_info_tester"), R.color.colorAccent, a);
+                        intent.intentLink(a, w.getStringFromId("info_tapad_info_tester_link", a), 400);
+                    }
+                }),
+                new Item("info_tapad_info_legal", null, "about_detail_info", new Runnable() {
+                    @Override
+                    public void run() {
+                        w.setRecentColor(w.getStringId("info_tapad_info_legal"), R.color.colorAccent, a);
+                        // legal info dialog
+                        new MaterialDialog.Builder(a)
+                                .title(w.getStringId("info_tapad_info_legal"))
+                                .content(w.getStringId("info_tapad_info_legal_text"))
+                                .positiveText(R.string.dialog_close)
+                                .positiveColorRes(R.color.colorAccent)
+                                .show();
+                    }
+                }),
+                // TODO ADD ITEMS
+        };
 
-        About tapadAbout = new About()
+        //About tapadAbout = new About()
 
         largeLog("JSON", gson.toJson("lol"));
     }

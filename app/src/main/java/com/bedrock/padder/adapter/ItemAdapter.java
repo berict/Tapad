@@ -76,12 +76,18 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
 
             if(item[position].getRunnable() != null) {
                 // run runnable
-                holder.itemLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        item[holder.getAdapterPosition()].getRunnable().run();
-                    }
-                });
+                //holder.itemLayout.setOnClickListener(new View.OnClickListener() {
+                //    @Override
+                //    public void onClick(View v) {
+                //        item[holder.getAdapterPosition()].getRunnable().run();
+                //    }
+                //});
+
+                // Runnable with reveal anim
+                anim.circularRevealTouch(holder.itemLayout, R.id.layout_placeholder,
+                        new AccelerateDecelerateInterpolator(),
+                        item[holder.getAdapterPosition()].getRunnable(),
+                        400, 0, activity);
             }
 
             if(window.getStringFromId(item[position].getHintId(), activity).startsWith("http")) {
