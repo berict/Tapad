@@ -33,6 +33,7 @@ import com.bedrock.padder.helper.SoundService;
 import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.TutorialService;
 import com.bedrock.padder.helper.WindowService;
+import com.bedrock.padder.model.about.About;
 import com.bedrock.padder.model.preset.Deck;
 import com.bedrock.padder.model.preset.Pad;
 import com.bedrock.padder.model.preset.Preset;
@@ -96,7 +97,9 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     private MaterialTapTargetPrompt promptTutorial; // 7
     Gson gson = new Gson();
     Preset presets[];
+    About abouts[];
 
+    // TODO iap launch
     //IabHelper mHelper;
     //IabBroadcastReceiver mBroadcastReceiver;
 
@@ -166,6 +169,10 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 gson.fromJson(getResources().getString(R.string.json_faded), Preset.class)
         };
 
+        abouts = new About[] {
+
+        };
+
         Log.d(TAG, "Sharedprefs initialized");
         prefs = this.getSharedPreferences("com.bedrock.padder", MODE_PRIVATE);
 
@@ -206,6 +213,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         //makeJson();
     }
 
+// TODO iap launch
 //    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
 //        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
 //            Log.d(TAG, "Query inventory finished.");
@@ -2499,8 +2507,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 //
 //        //String json = gson.toJson(preset, Preset.class);
 //        largeLog("JSON", gson.toJson(fadedPreset));
-
-
 
         largeLog("JSON", gson.toJson("lol"));
     }

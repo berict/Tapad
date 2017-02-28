@@ -19,7 +19,7 @@
     <string name="confirm_get_started">Get Started</string>
     <string name="confirm_get_started_ac">GET STARTED</string>
 
-    <string name="tutorial_loading">Can\'t start tutorial mode, loading preset</string>
+    <string name="tutorial_loading">Can\'t start tutorial mode during loading preset</string>
 
     <string name="user_benefits_page_1_title">Remix for everyone</string>
     <string name="user_benefits_page_1_hint">Play your favorite songs on your phone.</string>
@@ -340,14 +340,6 @@
     <string name="progressbar_loading_preset_progress_placeholder">Sound loaded 0 / 420</string>
     <string name="progressbar_loading_preset_done">Done!</string>
     <string name="progressbar_loading_tutorial">Loading tutorial</string>
-
-    <!--
-	web
-	facebook
-	twitter
-	soundcloud
-	youtube
-	-->
 
     <!--Settings-->
     <string name="settings_group_play">Play</string>

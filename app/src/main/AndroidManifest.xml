@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 		  package="com.bedrock.padder">
 
-	<uses-permission android:name="com.android.vending.BILLING" />
+	<!-- TODO on iap launch -->
+	<!--<uses-permission android:name="com.android.vending.BILLING" />-->
 
 	<application
 		android:allowBackup="true"
