@@ -189,10 +189,8 @@
 		1.	<b>NEW:</b> New app\n
 		2.	<b>NEW:</b> New preset (Madeon Adventure)
 	</string>
-	<string name="info_tapad_info_dev"              >Developer</string>
-	<string name="info_tapad_info_dev_hint"         >Studio Berict</string>
 	<string name="info_tapad_info_thanks"           >Special thanks</string>
-    <string name="info_tapad_info_thanks_text"      >
+	<string name="info_tapad_info_thanks_text"      >
         <b>Stack Overflow</b>\n
         <i>http://stackoverflow.com/</i>\n
         No description needed. (Developers will know)\n\n
@@ -217,6 +215,8 @@
         <i>https://github.com/sjwall/MaterialTapTargetPrompt/</i>\n
         Saved me from thousands of codes. Beautiful.
     </string>
+	<string name="info_tapad_info_dev"              >Developer</string>
+	<string name="info_tapad_info_dev_hint"         >Studio Berict</string>
 
 	<string name="info_tapad_others_title"                  >Others</string>
 	<string name="info_tapad_others_song"                   >Request a song</string>

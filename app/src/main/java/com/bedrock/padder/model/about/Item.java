@@ -66,6 +66,14 @@ public class Item {
         this.runnable = null;
     }
 
+    public Item (String textId, String hintId, Boolean hintIsVisible, Boolean imageIsAvailable) {
+        this.textId = textId;
+        this.hintId = hintId;
+        this.hintIsVisible = hintIsVisible;
+        this.imageId = null;
+        this.runnable = null;
+    }
+
     public Item (String textId, String hintId, Boolean hintIsVisible, Runnable runnable) {
         this.textId = textId;
         this.hintId = hintId;

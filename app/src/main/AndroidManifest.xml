@@ -24,7 +24,7 @@
 			android:name=".activity.MainActivity"
 			android:screenOrientation="portrait"/>
 		<activity
-			android:name=".activity.NowPlayingActivity"
+			android:name=".activity.AboutActivity"
 			android:screenOrientation="portrait"/>
 		<activity
 			android:name=".activity.UserBenefitsActivity"

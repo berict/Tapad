@@ -35,13 +35,20 @@ public class AboutActivity extends AppCompatActivity {
     WindowService window = new WindowService();
     AnimService anim = new AnimService();
     ThemeService theme = new ThemeService();
+    MainActivity main = new MainActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.activity_now_playing);
 
-        about = currentPreset.getAbout();
+        if (main.currentAbout == null) {
+            // not intent from about, show now playing
+            about = currentPreset.getAbout();
+        } else {
+            // intent from about
+            about = main.currentAbout;
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

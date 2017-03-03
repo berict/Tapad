@@ -97,6 +97,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     private MaterialTapTargetPrompt promptInfo;     // 5
     private MaterialTapTargetPrompt promptPreset;   // 6
     private MaterialTapTargetPrompt promptTutorial; // 7
+    // TODO SET ON INTENT
+    public About currentAbout = null;
     Gson gson = new Gson();
     Preset presets[];
     About abouts[];
@@ -977,7 +979,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         w.getView(R.id.cardview_artist, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElement(a, "activity.NowPlayingActivity",
+                intent.intentSharedElement(a, "activity.AboutActivity",
                         R.id.cardview_music_image, "transition", 0);
             }
         });
@@ -985,7 +987,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         w.getView(R.id.cardview_music_explore, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElement(a, "activity.NowPlayingActivity",
+                intent.intentSharedElement(a, "activity.AboutActivity",
                         R.id.cardview_music_image, "transition", 0);
             }
         });
@@ -1001,7 +1003,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         w.getView(R.id.cardview_about, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElement(a, "activity.NowPlayingActivity",
+                intent.intentSharedElement(a, "activity.AboutActivity",
                         R.id.cardview_about_image, "transition", 0);
             }
         });
@@ -1009,7 +1011,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         w.getView(R.id.cardview_about_explore, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElement(a, "activity.NowPlayingActivity",
+                intent.intentSharedElement(a, "activity.AboutActivity",
                         R.id.cardview_about_image, "transition", 0);
             }
         });
@@ -1053,7 +1055,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         w.getView(R.id.cardview_dev, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElement(a, "activity.NowPlayingActivity",
+                intent.intentSharedElement(a, "activity.AboutActivity",
                         R.id.cardview_dev_image, "transition", 0);
             }
         });
@@ -1061,7 +1063,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         w.getView(R.id.cardview_dev_explore, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElement(a, "activity.NowPlayingActivity",
+                intent.intentSharedElement(a, "activity.AboutActivity",
                         R.id.cardview_dev_image, "transition", 0);
             }
         });
@@ -1255,7 +1257,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         w.getView(R.id.layout_settings_about_tapad, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentWithExtra(a, "activity.NowPlayingActivity",
+                intent.intentWithExtra(a, "activity.AboutActivity",
                         "json", getResources().getString(R.string.json_about_tapad), 0);
             }
         });
@@ -1263,7 +1265,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         w.getView(R.id.layout_settings_about_dev, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentWithExtra(a, "activity.NowPlayingActivity",
+                intent.intentWithExtra(a, "activity.AboutActivity",
                         "json", getResources().getString(R.string.json_about_dev), 0);
             }
         });
@@ -2546,7 +2548,65 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                                 .show();
                     }
                 }),
+                new Item("info_tapad_info_version", "info_tapad_info_version_hint", true, false),
+                new Item("info_tapad_info_build_date", "info_tapad_info_build_date_hint", true, false),
+                new Item("info_tapad_info_changelog", null, "about_detail_changelog", new Runnable() {
+                    @Override
+                    public void run() {
+                        w.setRecentColor(w.getStringId("info_tapad_info_changelog"), R.color.colorAccent, a);
+                        // changelog info dialog
+                        new MaterialDialog.Builder(a)
+                                .title(w.getStringId("info_tapad_info_changelog"))
+                                .content(w.getStringId("info_tapad_info_changelog_text"))
+                                .positiveText(R.string.dialog_close)
+                                .positiveColorRes(R.color.colorAccent)
+                                .show();
+                    }
+                }),
+                new Item("info_tapad_info_thanks", null, "about_detail_thanks", new Runnable() {
+                    @Override
+                    public void run() {
+                        w.setRecentColor(w.getStringId("info_tapad_info_thanks"), R.color.colorAccent, a);
+                        // thanks info dialog
+                        new MaterialDialog.Builder(a)
+                                .title(w.getStringId("info_tapad_info_thanks"))
+                                .content(w.getStringId("info_tapad_info_thanks_text"))
+                                .positiveText(R.string.dialog_close)
+                                .positiveColorRes(R.color.colorAccent)
+                                .show();
+                    }
+                }),
+                new Item("info_tapad_info_dev", "info_tapad_info_dev_hint", "about_detail_dev", new Runnable() {
+                    @Override
+                    public void run() {
+                        // TODO do this after the dev about constructed
+                        //intent.intent();
+                        Toast.makeText(a, "intent dev", Toast.LENGTH_SHORT).show();
+                    }
+                })
                 // TODO ADD ITEMS
+        };
+
+        Item tapadOthers[] = {
+                new Item("info_tapad_others_song", "info_tapad_others_song_hint", "about_detail_others_song", new Runnable() {
+                    @Override
+                    public void run() {
+                        intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "song", 0);
+                    }
+                }),
+                new Item("info_tapad_others_feedback", "info_tapad_others_feedback_hint", "about_detail_others_feedback", new Runnable() {
+                    @Override
+                    public void run() {
+                        intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "feedback", 0);
+                    }
+                }),
+                new Item("info_tapad_others_report_bug", "info_tapad_others_report_bug_hint", "about_detail_others_report_bug", new Runnable() {
+                    @Override
+                    public void run() {
+                        intent.intentWithExtra(a, "activity.FeedbackActivity", "report_bugMode", "report_bug", 0);
+                    }
+                }),
+                // TODO OTHERS CONTINUE
         };
 
         //About tapadAbout = new About()
