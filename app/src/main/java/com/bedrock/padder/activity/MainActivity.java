@@ -2611,7 +2611,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                         intent.intentMarket(a, "com.bedrock.padder", 400);
                     }
                 }, true),
-                new Item("info_tapad_others_translate", "info_tapad_others_translate_hint", "about_detail_translate", new Runnable() {
+                new Item("info_tapad_others_translate", "info_tapad_others_translate_hint", "about_detail_web", new Runnable() {
                     @Override
                     public void run() {
                         // TODO make translation service available
@@ -2643,6 +2643,14 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
         largeLog("tapadAboutJSON", gson.toJson(tapadAbout));
 
+        Bio berictBio = new Bio(
+                "info_berict_bio_title",
+                null,
+                "info_berict_bio_name",
+                "info_berict_bio_text",
+                "info_berict_bio_source"
+        );
+
         Item devItems[] = {
                 new Item("facebook", "info_berict_detail_facebook"),
                 new Item("twitter", "info_berict_detail_twitter"),
@@ -2652,27 +2660,47 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         };
 
         Item devSupport[] = {
-                new Item("info_berict_others_report_bug", "info_berict_others_report_bug_hint", "about_detail_others_report_bug", new Runnable() {
+                new Item("info_berict_action_report_bug", "info_berict_action_report_bug_hint", "about_detail_others_report_bug", new Runnable() {
                     @Override
                     public void run() {
                         intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "report_bug", 400);
                     }
                 }, true),
-                new Item("info_berict_others_rate", "info_berict_others_rate_hint", "about_detail_others_rate", new Runnable() {
+                new Item("info_berict_action_rate", "info_berict_action_rate_hint", "about_detail_others_rate", new Runnable() {
                     @Override
                     public void run() {
-                        w.setRecentColor(w.getStringId("info_berict_others_rate"), R.color.colorAccent, a);
+                        w.setRecentColor(w.getStringId("info_berict_action_rate"), R.color.colorAccent, a);
                         intent.intentMarket(a, "com.bedrock.padder", 400);
                     }
                 }, true),
-                new Item("info_berict_others_translate", "info_berict_others_translate_hint", "about_detail_translate", new Runnable() {
+                new Item("info_berict_action_translate", "info_berict_action_translate_hint", "about_detail_others_translate", new Runnable() {
                     @Override
                     public void run() {
                         // TODO make translation service available
-                        Toast.makeText(a, w.getStringFromId("info_berict_others_translate_error", a), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(a, w.getStringFromId("info_berict_action_translate_error", a), Toast.LENGTH_SHORT).show();
                     }
                 }, false),
+                new Item("info_berict_action_donate", "info_berict_action_donate_hint", "about_detail_others_donate", new Runnable() {
+                    @Override
+                    public void run() {
+                        // TODO make translation service available
+                        Toast.makeText(a, w.getStringFromId("info_berict_action_donate_error", a), Toast.LENGTH_SHORT).show();
+                    }
+                }, false)
         };
+
+        Detail berictDetails[] = {
+                new Detail("info_berict_detail_title", devItems),
+                new Detail("info_berict_action_title", devSupport)
+        };
+        
+        About berictAbout = new About(
+                "info_berict_title", "about_image_berict",
+                berictBio, berictDetails,
+                "info_berict_color_dark", "info_berict_color"
+        );
+
+        largeLog("berictAboutJSON", gson.toJson(berictAbout));
     }
 
     String fileTag = "alan_walker_faded_";
