@@ -68,27 +68,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
         }
 
         if(item[position].getHintId() == null) {
-            // no hint provided
+            // hint null
             holder.itemHint.setVisibility(View.GONE);
         } else if (item[position].getHintIsVisible() == false) {
-            // hint is not visible
+            // hint invisible
             holder.itemHint.setVisibility(View.GONE);
-
-            if(item[position].getRunnable() != null) {
-                // run runnable
-                //holder.itemLayout.setOnClickListener(new View.OnClickListener() {
-                //    @Override
-                //    public void onClick(View v) {
-                //        item[holder.getAdapterPosition()].getRunnable().run();
-                //    }
-                //});
-
-                // Runnable with reveal anim
-                anim.circularRevealTouch(holder.itemLayout, R.id.layout_placeholder,
-                        new AccelerateDecelerateInterpolator(),
-                        item[holder.getAdapterPosition()].getRunnable(),
-                        400, 0, activity);
-            }
 
             if(window.getStringFromId(item[position].getHintId(), activity).startsWith("http")) {
                 // link available check
@@ -102,17 +86,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                         }, 400, 0, activity);
             }
         } else {
+            // hint visible
             holder.itemHint.setText(window.getStringId(item[position].getHintId()));
-
-            if(item[position].getRunnable() != null) {
-                // run runnable
-                holder.itemLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        item[holder.getAdapterPosition()].getRunnable().run();
-                    }
-                });
-            }
 
             if(window.getStringFromId(item[position].getHintId(), activity).startsWith("http")) {
                 // link available check
@@ -127,7 +102,25 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
             }
         }
 
-        if(item[position].getImageId() == null) {
+        if(item[position].getRunnable() != null) {
+            if (item[position].getRunnableIsWithAnim() == true) {
+                // Runnable with reveal anim
+                anim.circularRevealTouch(holder.itemLayout, R.id.layout_placeholder,
+                        new AccelerateDecelerateInterpolator(),
+                        item[holder.getAdapterPosition()].getRunnable(),
+                        400, 0, activity);
+            } else {
+                // Runnable with no anim
+                holder.itemLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        item[holder.getAdapterPosition()].getRunnable().run();
+                    }
+                });
+            }
+        }
+
+        if(item[position].getImageId() == null || item[position].getImageId().isEmpty()) {
             // no icon provided
             holder.itemIcon.setVisibility(View.INVISIBLE);
         } else {

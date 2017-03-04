@@ -25,6 +25,9 @@
     <string name="info_berict_full">Studio Berict</string>
     <string name="info_berict">Berict</string>
     <string name="info_berict_title">Studio Berict</string>
+	
+	<item name="info_berict_color" type="color">@color/blue_grey</item>
+	<item name="info_berict_color_dark" type="color">@color/blue_grey_dark</item>
 
     <string name="info_berict_bio_title">Studio Berict\'s biography</string>
     <string name="info_berict_bio_name">Bedrock Pictures</string>
@@ -52,13 +55,13 @@
 	<string name="info_berict_action_donate_hint"    >Boost dev on updating Tapad</string>
 	<string name="info_berict_action_donate_error"   >Thanks! But this feature is not available yet.</string>
 
-    <item name="info_berict_color" type="color">@color/blue_grey</item>
-    <item name="info_berict_color_dark" type="color">@color/blue_grey_dark</item>
-
     <!-- Tapad -->
 
     <string name="info_tapad_full">Tapad</string>
     <string name="info_tapad_title">About Tapad</string>
+	
+	<item name="info_tapad_color" type="color">@color/colorPrimary</item>
+	<item name="info_tapad_color_dark" type="color">@color/colorPrimaryDark</item>
 
     <string name="info_tapad_bio_title">About Tapad</string>
     <string name="info_tapad_bio_name">Remixing X Material Design</string>
@@ -67,9 +70,6 @@
         It implemented the Material Design from the Google Design Guideline, and its beautiful.
         It mainly features song genres like EDM, Dubstep, Progressive House, Electronic.</string>
     <string name="info_tapad_bio_source">Powered by Studio Berict</string>
-
-    <item name="info_tapad_color" type="color">@color/colorPrimary</item>
-    <item name="info_tapad_color_dark" type="color">@color/colorPrimaryDark</item>
 
     <string name="info_tapad_info_title"            >Information</string>
 	<string name="info_tapad_info_check_update"     >Check updates</string>

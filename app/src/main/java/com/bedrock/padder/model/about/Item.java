@@ -19,28 +19,8 @@ public class Item {
     @SerializedName("runnable")
     private Runnable runnable;
 
-    public Item (String textId, String hintId, String imageId) {
-        this.textId = textId;
-        this.hintId = hintId;
-        this.hintIsVisible = true;
-        this.imageId = imageId;
-        this.runnable = null;
-    }
-
-    public Item (String textId, String hintId, Boolean hintIsVisible, String imageId) {
-        this.textId = textId;
-        this.hintId = hintId;
-        this.hintIsVisible = hintIsVisible;
-        this.imageId = imageId;
-        this.runnable = null;
-    }
-
-    public Item (String textId, String hintId, String imageId, Runnable runnable) {
-        this.textId = textId;
-        this.hintId = hintId;
-        this.imageId = imageId;
-        this.runnable = runnable;
-    }
+    @SerializedName("runnable_is_with_anim")
+    private Boolean  runnableIsWithAnim;
 
     public Item (String textId, String hintId) {
         this.textId = textId;
@@ -48,14 +28,16 @@ public class Item {
         this.hintIsVisible = true;
         this.imageId = "about_detail_" + textId;
         this.runnable = null;
+        this.runnableIsWithAnim = false;
     }
 
-    public Item (String textId, String hintId, Runnable runnable) {
+    public Item (String textId, String hintId, String imageId) {
         this.textId = textId;
         this.hintId = hintId;
         this.hintIsVisible = true;
-        this.imageId = "about_detail_" + textId;
-        this.runnable = runnable;
+        this.imageId = imageId;
+        this.runnable = null;
+        this.runnableIsWithAnim = false;
     }
 
     public Item (String textId, String hintId, Boolean hintIsVisible) {
@@ -64,22 +46,43 @@ public class Item {
         this.hintIsVisible = hintIsVisible;
         this.imageId = "about_detail_" + textId;
         this.runnable = null;
+        this.runnableIsWithAnim = false;
     }
 
-    public Item (String textId, String hintId, Boolean hintIsVisible, Boolean imageIsAvailable) {
+    public Item (String textId, String hintId, Boolean hintIsVisible, String imageId) {
         this.textId = textId;
         this.hintId = hintId;
         this.hintIsVisible = hintIsVisible;
-        this.imageId = null;
+        this.imageId = imageId;
         this.runnable = null;
+        this.runnableIsWithAnim = false;
     }
 
-    public Item (String textId, String hintId, Boolean hintIsVisible, Runnable runnable) {
+    public Item (String textId, String hintId, Runnable runnable, Boolean runnableIsWithAnim) {
+        this.textId = textId;
+        this.hintId = hintId;
+        this.hintIsVisible = true;
+        this.imageId = "about_detail_" + textId;
+        this.runnable = runnable;
+        this.runnableIsWithAnim = runnableIsWithAnim;
+    }
+
+    public Item (String textId, String hintId, String imageId, Runnable runnable, Boolean runnableIsWithAnim) {
+        this.textId = textId;
+        this.hintId = hintId;
+        this.hintIsVisible = true;
+        this.imageId = imageId;
+        this.runnable = runnable;
+        this.runnableIsWithAnim = runnableIsWithAnim;
+    }
+
+    public Item (String textId, String hintId, Boolean hintIsVisible, Runnable runnable, Boolean runnableIsWithAnim) {
         this.textId = textId;
         this.hintId = hintId;
         this.hintIsVisible = hintIsVisible;
         this.imageId = "about_detail_" + textId;
         this.runnable = runnable;
+        this.runnableIsWithAnim = runnableIsWithAnim;
     }
 
     public String getTextId() {
@@ -98,5 +101,11 @@ public class Item {
         return hintIsVisible;
     }
 
-    public Runnable getRunnable() { return runnable; }
+    public Runnable getRunnable() {
+        return runnable;
+    }
+
+    public Boolean getRunnableIsWithAnim() {
+        return runnableIsWithAnim;
+    }
 }

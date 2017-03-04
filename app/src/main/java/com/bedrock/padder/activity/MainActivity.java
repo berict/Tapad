@@ -35,6 +35,7 @@ import com.bedrock.padder.helper.TutorialService;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.about.About;
 import com.bedrock.padder.model.about.Bio;
+import com.bedrock.padder.model.about.Detail;
 import com.bedrock.padder.model.about.Item;
 import com.bedrock.padder.model.preset.Deck;
 import com.bedrock.padder.model.preset.Pad;
@@ -2527,18 +2528,17 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                         w.setRecentColor(w.getStringId("info_tapad_info_check_update"), R.color.colorAccent, a);
                         intent.intentLink(a, w.getStringFromId("info_tapad_info_check_update_link", a), 400);
                     }
-                }),
+                }, true),
                 new Item("info_tapad_info_tester", "info_tapad_info_tester_hint", "about_detail_tester", new Runnable() {
                     @Override
                     public void run() {
                         w.setRecentColor(w.getStringId("info_tapad_info_tester"), R.color.colorAccent, a);
                         intent.intentLink(a, w.getStringFromId("info_tapad_info_tester_link", a), 400);
                     }
-                }),
+                }, true),
                 new Item("info_tapad_info_legal", null, "about_detail_info", new Runnable() {
                     @Override
                     public void run() {
-                        w.setRecentColor(w.getStringId("info_tapad_info_legal"), R.color.colorAccent, a);
                         // legal info dialog
                         new MaterialDialog.Builder(a)
                                 .title(w.getStringId("info_tapad_info_legal"))
@@ -2547,13 +2547,12 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                                 .positiveColorRes(R.color.colorAccent)
                                 .show();
                     }
-                }),
-                new Item("info_tapad_info_version", "info_tapad_info_version_hint", true, false),
-                new Item("info_tapad_info_build_date", "info_tapad_info_build_date_hint", true, false),
+                }, false),
+                new Item("info_tapad_info_version", "info_tapad_info_version_hint", ""),
+                new Item("info_tapad_info_build_date", "info_tapad_info_build_date_hint", ""),
                 new Item("info_tapad_info_changelog", null, "about_detail_changelog", new Runnable() {
                     @Override
                     public void run() {
-                        w.setRecentColor(w.getStringId("info_tapad_info_changelog"), R.color.colorAccent, a);
                         // changelog info dialog
                         new MaterialDialog.Builder(a)
                                 .title(w.getStringId("info_tapad_info_changelog"))
@@ -2562,11 +2561,10 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                                 .positiveColorRes(R.color.colorAccent)
                                 .show();
                     }
-                }),
+                }, false),
                 new Item("info_tapad_info_thanks", null, "about_detail_thanks", new Runnable() {
                     @Override
                     public void run() {
-                        w.setRecentColor(w.getStringId("info_tapad_info_thanks"), R.color.colorAccent, a);
                         // thanks info dialog
                         new MaterialDialog.Builder(a)
                                 .title(w.getStringId("info_tapad_info_thanks"))
@@ -2575,7 +2573,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                                 .positiveColorRes(R.color.colorAccent)
                                 .show();
                     }
-                }),
+                }, false),
                 new Item("info_tapad_info_dev", "info_tapad_info_dev_hint", "about_detail_dev", new Runnable() {
                     @Override
                     public void run() {
@@ -2583,7 +2581,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                         //intent.intent();
                         Toast.makeText(a, "intent dev", Toast.LENGTH_SHORT).show();
                     }
-                })
+                }, false)
                 // TODO ADD ITEMS
         };
 
@@ -2591,27 +2589,90 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 new Item("info_tapad_others_song", "info_tapad_others_song_hint", "about_detail_others_song", new Runnable() {
                     @Override
                     public void run() {
-                        intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "song", 0);
+                        intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "song", 400);
                     }
-                }),
+                }, true),
                 new Item("info_tapad_others_feedback", "info_tapad_others_feedback_hint", "about_detail_others_feedback", new Runnable() {
                     @Override
                     public void run() {
-                        intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "feedback", 0);
+                        intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "feedback", 400);
                     }
-                }),
+                }, true),
                 new Item("info_tapad_others_report_bug", "info_tapad_others_report_bug_hint", "about_detail_others_report_bug", new Runnable() {
                     @Override
                     public void run() {
-                        intent.intentWithExtra(a, "activity.FeedbackActivity", "report_bugMode", "report_bug", 0);
+                        intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "report_bug", 400);
                     }
-                }),
-                // TODO OTHERS CONTINUE
+                }, true),
+                new Item("info_tapad_others_rate", "info_tapad_others_rate_hint", "about_detail_others_rate", new Runnable() {
+                    @Override
+                    public void run() {
+                        w.setRecentColor(w.getStringId("info_tapad_others_rate"), R.color.colorAccent, a);
+                        intent.intentMarket(a, "com.bedrock.padder", 400);
+                    }
+                }, true),
+                new Item("info_tapad_others_translate", "info_tapad_others_translate_hint", "about_detail_translate", new Runnable() {
+                    @Override
+                    public void run() {
+                        // TODO make translation service available
+                        Toast.makeText(a, w.getStringFromId("info_tapad_others_translate_error", a), Toast.LENGTH_SHORT).show();
+                    }
+                }, false),
+                new Item("info_tapad_others_recommend", "info_tapad_others_recommend_hint", "about_detail_others_recommend", new Runnable() {
+                    @Override
+                    public void run() {
+                        intent.intentShareText(a,
+                                w.getStringFromId("info_tapad_others_recommend_share_subject", a),
+                                w.getStringFromId("info_tapad_others_recommend_share_text", a),
+                                w.getStringFromId("info_tapad_others_recommend_share_hint", a),
+                                400);
+                    }
+                }, true)
         };
 
-        //About tapadAbout = new About()
+        Detail tapadDetails[] = {
+                new Detail("info_tapad_info_title", tapadInfo),
+                new Detail("info_tapad_others_title", tapadOthers)
+        };
 
-        largeLog("JSON", gson.toJson("lol"));
+        About tapadAbout = new About(
+                "info_tapad_title", "about_image_tapad",
+                tapadBio, tapadDetails,
+                "info_tapad_color_dark", "info_tapad_color"
+        );
+
+        largeLog("tapadAboutJSON", gson.toJson(tapadAbout));
+
+        Item devItems[] = {
+                new Item("facebook", "info_berict_detail_facebook"),
+                new Item("twitter", "info_berict_detail_twitter"),
+                new Item("google_plus", "info_berict_detail_google_plus"),
+                new Item("youtube", "info_berict_detail_youtube"),
+                new Item("web", "info_berict_detail_web")
+        };
+
+        Item devSupport[] = {
+                new Item("info_berict_others_report_bug", "info_berict_others_report_bug_hint", "about_detail_others_report_bug", new Runnable() {
+                    @Override
+                    public void run() {
+                        intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "report_bug", 400);
+                    }
+                }, true),
+                new Item("info_berict_others_rate", "info_berict_others_rate_hint", "about_detail_others_rate", new Runnable() {
+                    @Override
+                    public void run() {
+                        w.setRecentColor(w.getStringId("info_berict_others_rate"), R.color.colorAccent, a);
+                        intent.intentMarket(a, "com.bedrock.padder", 400);
+                    }
+                }, true),
+                new Item("info_berict_others_translate", "info_berict_others_translate_hint", "about_detail_translate", new Runnable() {
+                    @Override
+                    public void run() {
+                        // TODO make translation service available
+                        Toast.makeText(a, w.getStringFromId("info_berict_others_translate_error", a), Toast.LENGTH_SHORT).show();
+                    }
+                }, false),
+        };
     }
 
     String fileTag = "alan_walker_faded_";
