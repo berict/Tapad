@@ -113,7 +113,7 @@
 	<string name="info_tapad_info_build_date"       >Build date</string>
 	<!-- TODO RELEASE -->
 	<string name="info_tapad_info_build_date_hint"  >Wed Mar 1 01:08:14 KST 2017</string>
-	<string name="info_tapad_info_changelog"        >Build date</string>
+	<string name="info_tapad_info_changelog"        >Changelog</string>
 	<!-- TODO RELEASE -->
 	<string name="info_tapad_info_changelog_text"   >
         You can view the changelog dialog again at any time from the <b><i>about</i></b> section.\n\n

@@ -1,6 +1,7 @@
 package com.bedrock.padder.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.bedrock.padder.helper.AnimService;
 import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.about.About;
+import com.google.gson.Gson;
 
 import static com.bedrock.padder.helper.SoundService.currentPreset;
 
@@ -35,19 +37,30 @@ public class AboutActivity extends AppCompatActivity {
     WindowService window = new WindowService();
     AnimService anim = new AnimService();
     ThemeService theme = new ThemeService();
-    MainActivity main = new MainActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_now_playing);
 
-        if (main.currentAbout == null) {
-            // not intent from about, show now playing
-            about = currentPreset.getAbout();
-        } else {
-            // intent from about
-            about = main.currentAbout;
+        Gson gson = new Gson();
+
+        Intent intent = getIntent();
+        String currentAbout = intent.getStringExtra("about");
+
+        switch (currentAbout) {
+            case "now_playing":
+                about = currentPreset.getAbout();
+                break;
+            case "tapad":
+                about = gson.fromJson(getResources().getString(R.string.json_about_tapad), About.class);
+                break;
+            case "dev":
+                about = gson.fromJson(getResources().getString(R.string.json_about_dev  ), About.class);
+                break;
+            default:
+                Log.e("Error", "currentAbout is not specified");
+                break;
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -78,8 +91,8 @@ public class AboutActivity extends AppCompatActivity {
         window.setMarginRelativePX(R.id.layout_relative, 0, prefs.getInt("statBarPX", 0), 0, 0, activity);
         window.getView(R.id.layout_margin, activity).getLayoutParams().height = prefs.getInt("navBarPX", 0) + window.convertDPtoPX(10, activity);
 
-        setUi();
         enterAnim();
+        setUi();
     }
 
     private void setUi() {

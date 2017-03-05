@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:src="@drawable/cardview_background_tapad"
+                android:src="@drawable/about_image_tapad"
                 android:transitionName="tapad"
                 android:layout_alignParentTop="true"/>
 

@@ -10,7 +10,9 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.helper.AnimService;
 import com.bedrock.padder.helper.IntentService;
@@ -102,19 +104,19 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
             }
         }
 
-        if(item[position].getRunnable() != null) {
+        if(getExceptionalRunnable(item[position].getTextId()) != null) {
             if (item[position].getRunnableIsWithAnim() == true) {
                 // Runnable with reveal anim
                 anim.circularRevealTouch(holder.itemLayout, R.id.layout_placeholder,
                         new AccelerateDecelerateInterpolator(),
-                        item[holder.getAdapterPosition()].getRunnable(),
+                        getExceptionalRunnable(item[position].getTextId()),
                         400, 0, activity);
             } else {
                 // Runnable with no anim
                 holder.itemLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        item[holder.getAdapterPosition()].getRunnable().run();
+                        getExceptionalRunnable(item[holder.getAdapterPosition()].getTextId()).run();
                     }
                 });
             }
@@ -131,5 +133,171 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
     @Override
     public int getItemCount() {
         return item.length;
+    }
+
+    private Runnable getExceptionalRunnable(String textId) {
+        Runnable exceptionalRunnable;
+        final Activity a = activity;
+        final WindowService w = new WindowService();
+
+        switch (textId) {
+            case "info_tapad_info_check_update":
+                exceptionalRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        w.setRecentColor(w.getStringId("info_tapad_info_check_update"), R.color.colorAccent, a);
+                        intent.intentLink(a, w.getStringFromId("info_tapad_info_check_update_link", a), 400);
+                    }
+                };
+                break;
+            case "info_tapad_info_tester":
+                exceptionalRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        w.setRecentColor(w.getStringId("info_tapad_info_tester"), R.color.colorAccent, a);
+                        intent.intentLink(a, w.getStringFromId("info_tapad_info_tester_link", a), 400);
+                    }
+                };
+                break;
+            case "info_tapad_info_legal":
+                exceptionalRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        // legal info dialog
+                        new MaterialDialog.Builder(a)
+                                .title(w.getStringId("info_tapad_info_legal"))
+                                .content(w.getStringId("info_tapad_info_legal_text"))
+                                .contentColorRes(R.color.dark_primary)
+                                .positiveText(R.string.dialog_close)
+                                .positiveColorRes(R.color.colorAccent)
+                                .show();
+                    }
+                };
+                break;
+            case "info_tapad_info_changelog":
+                exceptionalRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        // changelog info dialog
+                        new MaterialDialog.Builder(a)
+                                .title(w.getStringId("info_tapad_info_changelog"))
+                                .content(w.getStringId("info_tapad_info_changelog_text"))
+                                .contentColorRes(R.color.dark_primary)
+                                .positiveText(R.string.dialog_close)
+                                .positiveColorRes(R.color.colorAccent)
+                                .show();
+                    }
+                };
+                break;
+            case "info_tapad_info_thanks":
+                exceptionalRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        // thanks info dialog
+                        new MaterialDialog.Builder(a)
+                                .title(w.getStringId("info_tapad_info_thanks"))
+                                .content(w.getStringId("info_tapad_info_thanks_text"))
+                                .contentColorRes(R.color.dark_primary)
+                                .positiveText(R.string.dialog_close)
+                                .positiveColorRes(R.color.colorAccent)
+                                .show();
+                    }
+                };
+                break;
+            case "info_tapad_others_song":
+                exceptionalRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        intent.intentWithExtra(activity, "activity.FeedbackActivity", "feedbackMode", "song", 400);
+                    }
+                };
+                break;
+            case "info_tapad_others_feedback":
+                exceptionalRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        intent.intentWithExtra(activity, "activity.FeedbackActivity", "feedbackMode", "feedback", 400);
+                    }
+                };
+                break;
+            case "info_tapad_others_report_bug":
+                exceptionalRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "report_bug", 400);
+                    }
+                };
+                break;
+            case "info_tapad_others_rate":
+                exceptionalRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        w.setRecentColor(w.getStringId("info_tapad_others_rate"), R.color.colorAccent, a);
+                        intent.intentMarket(a, "com.bedrock.padder", 400);
+                    }
+                };
+                break;
+            case "info_tapad_others_translate":
+                exceptionalRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        // TODO make translation service available
+                        Toast.makeText(a, w.getStringFromId("info_tapad_others_translate_error", a), Toast.LENGTH_SHORT).show();
+                    }
+                };
+                break;
+            case "info_tapad_others_recommend":
+                exceptionalRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        intent.intentShareText(a,
+                                w.getStringFromId("info_tapad_others_recommend_share_subject", a),
+                                w.getStringFromId("info_tapad_others_recommend_share_text", a),
+                                w.getStringFromId("info_tapad_others_recommend_share_hint", a),
+                                400);
+                    }
+                };
+                break;
+            case "info_berict_action_report_bug":
+                exceptionalRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "report_bug", 400);
+                    }
+                };
+                break;
+            case "info_berict_action_rate":
+                exceptionalRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        w.setRecentColor(w.getStringId("info_berict_action_rate"), R.color.colorAccent, a);
+                        intent.intentMarket(a, "com.bedrock.padder", 400);
+                    }
+                };
+                break;
+            case "info_berict_action_translate":
+                exceptionalRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        // TODO make translation service available
+                        Toast.makeText(a, w.getStringFromId("info_berict_action_translate_error", a), Toast.LENGTH_SHORT).show();
+                    }
+                };
+                break;
+            case "info_berict_action_donate":
+                exceptionalRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        // TODO make translation service available
+                        Toast.makeText(a, w.getStringFromId("info_berict_action_donate_error", a), Toast.LENGTH_SHORT).show();
+                    }
+                };
+                break;
+            default:
+                exceptionalRunnable = null;
+                break;
+        }
+
+        return exceptionalRunnable;
     }
 }

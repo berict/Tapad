@@ -99,10 +99,9 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     private MaterialTapTargetPrompt promptPreset;   // 6
     private MaterialTapTargetPrompt promptTutorial; // 7
     // TODO SET ON INTENT
-    public About currentAbout = null;
+    public String currentAbout = null;
     Gson gson = new Gson();
     Preset presets[];
-    About abouts[];
 
     // TODO iap launch
     //IabHelper mHelper;
@@ -174,10 +173,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 gson.fromJson(getResources().getString(R.string.json_faded), Preset.class)
         };
 
-        abouts = new About[] {
-
-        };
-
         Log.d(TAG, "Sharedprefs initialized");
         prefs = this.getSharedPreferences("com.bedrock.padder", MODE_PRIVATE);
 
@@ -215,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         clearDeck();
 
         //TODO EDIT
-        //makeJson();
+        makeJson();
     }
 
 // TODO iap launch
@@ -980,16 +975,16 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         w.getView(R.id.cardview_artist, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElement(a, "activity.AboutActivity",
-                        R.id.cardview_music_image, "transition", 0);
+                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
+                        R.id.cardview_music_image, "transition", "about", "now_playing", 0);
             }
         });
 
         w.getView(R.id.cardview_music_explore, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElement(a, "activity.AboutActivity",
-                        R.id.cardview_music_image, "transition", 0);
+                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
+                        R.id.cardview_music_image, "transition", "about", "now_playing", 0);
             }
         });
 
@@ -1004,16 +999,16 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         w.getView(R.id.cardview_about, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElement(a, "activity.AboutActivity",
-                        R.id.cardview_about_image, "transition", 0);
+                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
+                        R.id.cardview_about_image, "transition", "about", "tapad", 0);
             }
         });
 
         w.getView(R.id.cardview_about_explore, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElement(a, "activity.AboutActivity",
-                        R.id.cardview_about_image, "transition", 0);
+                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
+                        R.id.cardview_about_image, "transition", "about", "tapad", 0);
             }
         });
         w.getView(R.id.cardview_about_settings, a).setOnTouchListener(new View.OnTouchListener() {
@@ -1056,16 +1051,16 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         w.getView(R.id.cardview_dev, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElement(a, "activity.AboutActivity",
-                        R.id.cardview_dev_image, "transition", 0);
+                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
+                        R.id.cardview_dev_image, "transition", "about", "dev", 0);
             }
         });
 
         w.getView(R.id.cardview_dev_explore, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentSharedElement(a, "activity.AboutActivity",
-                        R.id.cardview_dev_image, "transition", 0);
+                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
+                        R.id.cardview_dev_image, "transition", "about", "dev", 0);
             }
         });
     }
@@ -2522,112 +2517,24 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         );
 
         Item tapadInfo[] = {
-                new Item("info_tapad_info_check_update", "info_tapad_info_check_update_hint", "about_detail_google_play", new Runnable() {
-                    @Override
-                    public void run() {
-                        w.setRecentColor(w.getStringId("info_tapad_info_check_update"), R.color.colorAccent, a);
-                        intent.intentLink(a, w.getStringFromId("info_tapad_info_check_update_link", a), 400);
-                    }
-                }, true),
-                new Item("info_tapad_info_tester", "info_tapad_info_tester_hint", "about_detail_tester", new Runnable() {
-                    @Override
-                    public void run() {
-                        w.setRecentColor(w.getStringId("info_tapad_info_tester"), R.color.colorAccent, a);
-                        intent.intentLink(a, w.getStringFromId("info_tapad_info_tester_link", a), 400);
-                    }
-                }, true),
-                new Item("info_tapad_info_legal", null, "about_detail_info", new Runnable() {
-                    @Override
-                    public void run() {
-                        // legal info dialog
-                        new MaterialDialog.Builder(a)
-                                .title(w.getStringId("info_tapad_info_legal"))
-                                .content(w.getStringId("info_tapad_info_legal_text"))
-                                .positiveText(R.string.dialog_close)
-                                .positiveColorRes(R.color.colorAccent)
-                                .show();
-                    }
-                }, false),
+                new Item("info_tapad_info_check_update", "info_tapad_info_check_update_hint", "about_detail_google_play", true),
+                new Item("info_tapad_info_tester", "info_tapad_info_tester_hint", "about_detail_tester", true),
+                new Item("info_tapad_info_legal", null, "about_detail_info", false),
                 new Item("info_tapad_info_version", "info_tapad_info_version_hint", ""),
                 new Item("info_tapad_info_build_date", "info_tapad_info_build_date_hint", ""),
-                new Item("info_tapad_info_changelog", null, "about_detail_changelog", new Runnable() {
-                    @Override
-                    public void run() {
-                        // changelog info dialog
-                        new MaterialDialog.Builder(a)
-                                .title(w.getStringId("info_tapad_info_changelog"))
-                                .content(w.getStringId("info_tapad_info_changelog_text"))
-                                .positiveText(R.string.dialog_close)
-                                .positiveColorRes(R.color.colorAccent)
-                                .show();
-                    }
-                }, false),
-                new Item("info_tapad_info_thanks", null, "about_detail_thanks", new Runnable() {
-                    @Override
-                    public void run() {
-                        // thanks info dialog
-                        new MaterialDialog.Builder(a)
-                                .title(w.getStringId("info_tapad_info_thanks"))
-                                .content(w.getStringId("info_tapad_info_thanks_text"))
-                                .positiveText(R.string.dialog_close)
-                                .positiveColorRes(R.color.colorAccent)
-                                .show();
-                    }
-                }, false),
-                new Item("info_tapad_info_dev", "info_tapad_info_dev_hint", "about_detail_dev", new Runnable() {
-                    @Override
-                    public void run() {
-                        // TODO do this after the dev about constructed
-                        //intent.intent();
-                        Toast.makeText(a, "intent dev", Toast.LENGTH_SHORT).show();
-                    }
-                }, false)
+                new Item("info_tapad_info_changelog", null, "about_detail_changelog", false),
+                new Item("info_tapad_info_thanks", null, "about_detail_thanks", false),
+                new Item("info_tapad_info_dev", "info_tapad_info_dev_hint", "about_detail_dev", false)
                 // TODO ADD ITEMS
         };
 
         Item tapadOthers[] = {
-                new Item("info_tapad_others_song", "info_tapad_others_song_hint", "about_detail_others_song", new Runnable() {
-                    @Override
-                    public void run() {
-                        intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "song", 400);
-                    }
-                }, true),
-                new Item("info_tapad_others_feedback", "info_tapad_others_feedback_hint", "about_detail_others_feedback", new Runnable() {
-                    @Override
-                    public void run() {
-                        intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "feedback", 400);
-                    }
-                }, true),
-                new Item("info_tapad_others_report_bug", "info_tapad_others_report_bug_hint", "about_detail_others_report_bug", new Runnable() {
-                    @Override
-                    public void run() {
-                        intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "report_bug", 400);
-                    }
-                }, true),
-                new Item("info_tapad_others_rate", "info_tapad_others_rate_hint", "about_detail_others_rate", new Runnable() {
-                    @Override
-                    public void run() {
-                        w.setRecentColor(w.getStringId("info_tapad_others_rate"), R.color.colorAccent, a);
-                        intent.intentMarket(a, "com.bedrock.padder", 400);
-                    }
-                }, true),
-                new Item("info_tapad_others_translate", "info_tapad_others_translate_hint", "about_detail_web", new Runnable() {
-                    @Override
-                    public void run() {
-                        // TODO make translation service available
-                        Toast.makeText(a, w.getStringFromId("info_tapad_others_translate_error", a), Toast.LENGTH_SHORT).show();
-                    }
-                }, false),
-                new Item("info_tapad_others_recommend", "info_tapad_others_recommend_hint", "about_detail_others_recommend", new Runnable() {
-                    @Override
-                    public void run() {
-                        intent.intentShareText(a,
-                                w.getStringFromId("info_tapad_others_recommend_share_subject", a),
-                                w.getStringFromId("info_tapad_others_recommend_share_text", a),
-                                w.getStringFromId("info_tapad_others_recommend_share_hint", a),
-                                400);
-                    }
-                }, true)
+                new Item("info_tapad_others_song", "info_tapad_others_song_hint", "about_detail_others_song", true),
+                new Item("info_tapad_others_feedback", "info_tapad_others_feedback_hint", "about_detail_others_feedback", true),
+                new Item("info_tapad_others_report_bug", "info_tapad_others_report_bug_hint", "about_detail_others_report_bug", true),
+                new Item("info_tapad_others_rate", "info_tapad_others_rate_hint", "about_detail_others_rate", true),
+                new Item("info_tapad_others_translate", "info_tapad_others_translate_hint", "about_detail_web", false),
+                new Item("info_tapad_others_recommend", "info_tapad_others_recommend_hint", "about_detail_others_recommend", true)
         };
 
         Detail tapadDetails[] = {
@@ -2660,33 +2567,10 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         };
 
         Item devSupport[] = {
-                new Item("info_berict_action_report_bug", "info_berict_action_report_bug_hint", "about_detail_others_report_bug", new Runnable() {
-                    @Override
-                    public void run() {
-                        intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "report_bug", 400);
-                    }
-                }, true),
-                new Item("info_berict_action_rate", "info_berict_action_rate_hint", "about_detail_others_rate", new Runnable() {
-                    @Override
-                    public void run() {
-                        w.setRecentColor(w.getStringId("info_berict_action_rate"), R.color.colorAccent, a);
-                        intent.intentMarket(a, "com.bedrock.padder", 400);
-                    }
-                }, true),
-                new Item("info_berict_action_translate", "info_berict_action_translate_hint", "about_detail_others_translate", new Runnable() {
-                    @Override
-                    public void run() {
-                        // TODO make translation service available
-                        Toast.makeText(a, w.getStringFromId("info_berict_action_translate_error", a), Toast.LENGTH_SHORT).show();
-                    }
-                }, false),
-                new Item("info_berict_action_donate", "info_berict_action_donate_hint", "about_detail_others_donate", new Runnable() {
-                    @Override
-                    public void run() {
-                        // TODO make translation service available
-                        Toast.makeText(a, w.getStringFromId("info_berict_action_donate_error", a), Toast.LENGTH_SHORT).show();
-                    }
-                }, false)
+                new Item("info_berict_action_report_bug", "info_berict_action_report_bug_hint", "about_detail_others_report_bug", true),
+                new Item("info_berict_action_rate", "info_berict_action_rate_hint", "about_detail_others_rate", true),
+                new Item("info_berict_action_translate", "info_berict_action_translate_hint", "about_detail_others_translate", false),
+                new Item("info_berict_action_donate", "info_berict_action_donate_hint", "about_detail_others_donate", false)
         };
 
         Detail berictDetails[] = {
