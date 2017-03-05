@@ -33,10 +33,6 @@ import com.bedrock.padder.helper.SoundService;
 import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.TutorialService;
 import com.bedrock.padder.helper.WindowService;
-import com.bedrock.padder.model.about.About;
-import com.bedrock.padder.model.about.Bio;
-import com.bedrock.padder.model.about.Detail;
-import com.bedrock.padder.model.about.Item;
 import com.bedrock.padder.model.preset.Deck;
 import com.bedrock.padder.model.preset.Pad;
 import com.bedrock.padder.model.preset.Preset;
@@ -210,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         clearDeck();
 
         //TODO EDIT
-        makeJson();
+        //makeJson();
     }
 
 // TODO iap launch
@@ -490,11 +486,11 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
             if (currentVersionCode > pref.getInt("versionCode", -1)) {
                 // Updated
                 Log.d("VersionCode", "Updated, show changelog");
-                ChangelogDialog = new MaterialDialog.Builder(activity)
-                        .title(R.string.dialog_changelog_title)
-                        .content(R.string.dialog_changelog_text)
+                ChangelogDialog = new MaterialDialog.Builder(a)
+                        .title(w.getStringId("info_tapad_info_changelog"))
+                        .content(w.getStringId("info_tapad_info_changelog_text"))
                         .contentColorRes(R.color.dark_primary)
-                        .positiveText(R.string.dialog_changelog_positive)
+                        .positiveText(R.string.dialog_close)
                         .positiveColorRes(R.color.colorAccent)
                         .dismissListener(new DialogInterface.OnDismissListener() {
                             @Override
@@ -2507,84 +2503,84 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 //
 //        //String json = gson.toJson(preset, Preset.class);
 //        largeLog("JSON", gson.toJson(fadedPreset));
-
-        Bio tapadBio = new Bio(
-                "info_tapad_bio_title",
-                "about_bio_tapad",
-                "info_tapad_bio_name",
-                "info_tapad_bio_text",
-                "info_tapad_bio_source"
-        );
-
-        Item tapadInfo[] = {
-                new Item("info_tapad_info_check_update", "info_tapad_info_check_update_hint", "about_detail_google_play", true),
-                new Item("info_tapad_info_tester", "info_tapad_info_tester_hint", "about_detail_tester", true),
-                new Item("info_tapad_info_legal", null, "about_detail_info", false),
-                new Item("info_tapad_info_version", "info_tapad_info_version_hint", ""),
-                new Item("info_tapad_info_build_date", "info_tapad_info_build_date_hint", ""),
-                new Item("info_tapad_info_changelog", null, "about_detail_changelog", false),
-                new Item("info_tapad_info_thanks", null, "about_detail_thanks", false),
-                new Item("info_tapad_info_dev", "info_tapad_info_dev_hint", "about_detail_dev", false)
-                // TODO ADD ITEMS
-        };
-
-        Item tapadOthers[] = {
-                new Item("info_tapad_others_song", "info_tapad_others_song_hint", "about_detail_others_song", true),
-                new Item("info_tapad_others_feedback", "info_tapad_others_feedback_hint", "about_detail_others_feedback", true),
-                new Item("info_tapad_others_report_bug", "info_tapad_others_report_bug_hint", "about_detail_others_report_bug", true),
-                new Item("info_tapad_others_rate", "info_tapad_others_rate_hint", "about_detail_others_rate", true),
-                new Item("info_tapad_others_translate", "info_tapad_others_translate_hint", "about_detail_web", false),
-                new Item("info_tapad_others_recommend", "info_tapad_others_recommend_hint", "about_detail_others_recommend", true)
-        };
-
-        Detail tapadDetails[] = {
-                new Detail("info_tapad_info_title", tapadInfo),
-                new Detail("info_tapad_others_title", tapadOthers)
-        };
-
-        About tapadAbout = new About(
-                "info_tapad_title", "about_image_tapad",
-                tapadBio, tapadDetails,
-                "info_tapad_color_dark", "info_tapad_color"
-        );
-
-        largeLog("tapadAboutJSON", gson.toJson(tapadAbout));
-
-        Bio berictBio = new Bio(
-                "info_berict_bio_title",
-                null,
-                "info_berict_bio_name",
-                "info_berict_bio_text",
-                "info_berict_bio_source"
-        );
-
-        Item devItems[] = {
-                new Item("facebook", "info_berict_detail_facebook"),
-                new Item("twitter", "info_berict_detail_twitter"),
-                new Item("google_plus", "info_berict_detail_google_plus"),
-                new Item("youtube", "info_berict_detail_youtube"),
-                new Item("web", "info_berict_detail_web")
-        };
-
-        Item devSupport[] = {
-                new Item("info_berict_action_report_bug", "info_berict_action_report_bug_hint", "about_detail_others_report_bug", true),
-                new Item("info_berict_action_rate", "info_berict_action_rate_hint", "about_detail_others_rate", true),
-                new Item("info_berict_action_translate", "info_berict_action_translate_hint", "about_detail_others_translate", false),
-                new Item("info_berict_action_donate", "info_berict_action_donate_hint", "about_detail_others_donate", false)
-        };
-
-        Detail berictDetails[] = {
-                new Detail("info_berict_detail_title", devItems),
-                new Detail("info_berict_action_title", devSupport)
-        };
-        
-        About berictAbout = new About(
-                "info_berict_title", "about_image_berict",
-                berictBio, berictDetails,
-                "info_berict_color_dark", "info_berict_color"
-        );
-
-        largeLog("berictAboutJSON", gson.toJson(berictAbout));
+//        //TODO use this on about screen updates
+//        Bio tapadBio = new Bio(
+//                "info_tapad_bio_title",
+//                "about_bio_tapad",
+//                "info_tapad_bio_name",
+//                "info_tapad_bio_text",
+//                "info_tapad_bio_source"
+//        );
+//
+//        Item tapadInfo[] = {
+//                new Item("info_tapad_info_check_update", "info_tapad_info_check_update_hint", "about_detail_google_play", true),
+//                new Item("info_tapad_info_tester", "info_tapad_info_tester_hint", "about_detail_tester", true),
+//                new Item("info_tapad_info_legal", null, "about_detail_info", false),
+//                new Item("info_tapad_info_version", "info_tapad_info_version_hint", ""),
+//                new Item("info_tapad_info_build_date", "info_tapad_info_build_date_hint", ""),
+//                new Item("info_tapad_info_changelog", null, "about_detail_changelog", false),
+//                new Item("info_tapad_info_thanks", null, "about_detail_thanks", false),
+//                new Item("info_tapad_info_dev", "info_tapad_info_dev_hint", "about_detail_dev", false)
+//                // TODO ADD ITEMS
+//        };
+//
+//        Item tapadOthers[] = {
+//                new Item("info_tapad_others_song", "info_tapad_others_song_hint", "about_detail_others_song", true),
+//                new Item("info_tapad_others_feedback", "info_tapad_others_feedback_hint", "about_detail_others_feedback", true),
+//                new Item("info_tapad_others_report_bug", "info_tapad_others_report_bug_hint", "about_detail_others_report_bug", true),
+//                new Item("info_tapad_others_rate", "info_tapad_others_rate_hint", "about_detail_others_rate", true),
+//                new Item("info_tapad_others_translate", "info_tapad_others_translate_hint", "about_detail_web", false),
+//                new Item("info_tapad_others_recommend", "info_tapad_others_recommend_hint", "about_detail_others_recommend", true)
+//        };
+//
+//        Detail tapadDetails[] = {
+//                new Detail("info_tapad_info_title", tapadInfo),
+//                new Detail("info_tapad_others_title", tapadOthers)
+//        };
+//
+//        About tapadAbout = new About(
+//                "info_tapad_title", "about_image_tapad",
+//                tapadBio, tapadDetails,
+//                "info_tapad_color_dark", "info_tapad_color"
+//        );
+//
+//        largeLog("tapadAboutJSON", gson.toJson(tapadAbout));
+//
+//        Bio berictBio = new Bio(
+//                "info_berict_bio_title",
+//                null,
+//                "info_berict_bio_name",
+//                "info_berict_bio_text",
+//                "info_berict_bio_source"
+//        );
+//
+//        Item devItems[] = {
+//                new Item("facebook", "info_berict_detail_facebook"),
+//                new Item("twitter", "info_berict_detail_twitter"),
+//                new Item("google_plus", "info_berict_detail_google_plus"),
+//                new Item("youtube", "info_berict_detail_youtube"),
+//                new Item("web", "info_berict_detail_web")
+//        };
+//
+//        Item devSupport[] = {
+//                new Item("info_berict_action_report_bug", "info_berict_action_report_bug_hint", "about_detail_others_report_bug", true),
+//                new Item("info_berict_action_rate", "info_berict_action_rate_hint", "about_detail_others_rate", true),
+//                new Item("info_berict_action_translate", "info_berict_action_translate_hint", "about_detail_others_translate", false),
+//                new Item("info_berict_action_donate", "info_berict_action_donate_hint", "about_detail_others_donate", false)
+//        };
+//
+//        Detail berictDetails[] = {
+//                new Detail("info_berict_detail_title", devItems),
+//                new Detail("info_berict_action_title", devSupport)
+//        };
+//
+//        About berictAbout = new About(
+//                "info_berict_title", "about_image_berict",
+//                berictBio, berictDetails,
+//                "info_berict_color_dark", "info_berict_color"
+//        );
+//
+//        largeLog("berictAboutJSON", gson.toJson(berictAbout));
     }
 
     String fileTag = "alan_walker_faded_";

@@ -7,11 +7,89 @@
 	android:layout_height="match_parent"
 	tools:context="com.bedrock.padder.activity.FeedbackActivity">
 	
-	<TextView
-		android:id="@+id/test"
-		android:layout_centerInParent="true"
-		android:layout_width="wrap_content"
+	<RelativeLayout
+		android:id="@+id/feedback_song"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:text="null"/>
+		android:layout_below="@+id/appbar"
+		android:layout_margin="16dp">
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+			
+			<android.support.design.widget.TextInputLayout
+				android:id="@+id/feedback_song_name_input_layout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				
+				<EditText
+					android:id="@+id/feedback_song_name_input"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:hint="@string/feedback_song_name_hint"
+					android:layout_marginLeft="4dp"
+					android:textSize="16sp"
+					android:maxLines="1"/>
+			</android.support.design.widget.TextInputLayout>
+			
+			<android.support.design.widget.TextInputLayout
+				android:id="@+id/feedback_song_artist_input_layout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				
+				<EditText
+					android:id="@+id/feedback_song_artist_input"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:hint="@string/feedback_song_artist_hint"
+					android:layout_marginLeft="4dp"
+					android:textSize="16sp"
+					android:maxLines="1"/>
+			</android.support.design.widget.TextInputLayout>
+			
+			<Spinner
+				android:id="@+id/feedback_song_genre_spinner"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="12dp"
+				android:layout_marginTop="12dp"
+				android:entries="@array/feedback_song_genre_array"
+				android:paddingBottom="8dp"
+				android:paddingTop="8dp"/>
+		
+		</LinearLayout>
+	</RelativeLayout>
+	
+	<include layout="@layout/fragment_actionbar"/>
+	
+	<RelativeLayout
+		android:id="@+id/fab"
+		android:layout_width="56dp"
+		android:layout_height="56dp"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentRight="true"
+		android:background="@drawable/fragment_fab"
+		android:translationZ="0dp">
+		
+		<RelativeLayout
+			android:id="@+id/fab_button"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentStart="true"
+			android:layout_alignParentTop="true"
+			android:background="?selectableItemBackgroundBorderless"
+			android:clickable="true"
+			android:gravity="center">
+			
+			<ImageView
+				android:id="@+id/fab_icon"
+				android:layout_width="24dp"
+				android:layout_height="24dp"
+				android:src="@drawable/feedback_send"/>
+		</RelativeLayout>
+	</RelativeLayout>
 
 </RelativeLayout>

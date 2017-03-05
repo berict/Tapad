@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.bedrock.padder.R;
 
@@ -111,7 +110,7 @@ public class AppbarService {
                 w.getView(NAV_NAV, activity).setVisibility(View.GONE);
                 w.getView(NAV_BACK, activity).setVisibility(View.GONE);
                 w.getView(NAV_CLOSE, activity).setVisibility(View.VISIBLE);
-                w.getView(NAV_NAV, activity).setOnClickListener(new View.OnClickListener() {
+                w.getView(NAV_CLOSE, activity).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         KeyEvent kDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);

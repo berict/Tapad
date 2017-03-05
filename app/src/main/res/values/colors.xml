@@ -4,16 +4,10 @@
     <color name="colorPrimaryDark">@color/purple_dark</color>
     <color name="colorAccent">#448aff</color>
     <color name="colorAccentDark">#2962FF</color>
-    <color name="colorFeedback">@color/lime</color>
-    <color name="colorFeedbackDark">@color/lime_dark</color>
-
-    <!-- Welcome Screen -->
-
-    <!-- Screens background color-->
-    <color name="bg_screen1">#BA68C8</color>
-    <color name="bg_screen2">#7986CB</color>
-    <color name="bg_screen3">#009688</color>
-    <color name="bg_screen4">#689F38</color>
+    <color name="colorFeedback">@color/pink</color>
+    <color name="colorFeedbackDark">@color/pink_dark</color>
+	
+	<color name="bg_screen1">#BA68C8</color>
 
     <!-- Scheme Colors -->
     <item name="hello" type="color">#FF06DC</item>
@@ -40,7 +34,7 @@
 
     <!-- Purple -->
     <item name="purple_light" type="color">#BA68C8</item>
-    <item name="purple" type="color">#9C27B0</item>s
+    <item name="purple" type="color">#9C27B0</item>
     <item name="purple_dark" type="color">#7B1FA2</item>
 
     <!-- Deep Purple -->

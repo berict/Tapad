@@ -31,125 +31,15 @@
     <!-- Cardview -->
     <string name="cardview_now_playing">Now Playing</string>
 
-    <string-array name="berict_bio">
-        <item>Studio Berict</item>
-        <item>About Studio Berict</item>
-        <item>Berict\'s Biography</item>
-        <item>Bedrock Pictures (Nathan Cho)</item>
-        <item>Nathan is high school student in South Korea, who enjoys software and football.
-        Currently attending Sunrin Internet High School.
-        Started developing at 2011, started by HTML, now on Android.
-        As you see, has a big interest in Android\'s "Material Design".</item>
-        <item>Powered by Bedrock Pictures</item>
-    </string-array>
-
-    <string-array name="berict_social">
-        <item>https://www.facebook.com/studioberict</item>
-        <item>https://twitter.com/studioberict</item>
-        <item>https://www.youtube.com/user/bedrockpicture</item>
-        <item>http://berict.com</item>
-    </string-array>
-
-    <string-array name="tapad_bio">
-        <item>Tapad</item>
-        <item>About Tapad</item>
-        <item>About Tapad</item>
-        <item>Probably the best looking remix app out there.</item>
-        <item>Tapad is a LaunchAad application for Android.
-        It implemented the Material Design from the Google Design Guideline, and its beautiful.
-        It mainly features song genres like EDM, Dubstep, Progressive House, Electronic.</item>
-        <item>Powered by Studio Berict</item>
-    </string-array>
-
-    <string name="berict_support">Support Development</string>
-    <string name="dev_report_bug">Report bugs</string>
-    <string name="dev_report_bug_hint">Help us fix bugs and problems</string>
-    <string name="dev_translate">Translate Tapad</string>
-    <string name="dev_translate_hint">Make Tapad available on your language</string>
-    <string name="dev_translate_error">Sorry, this feature is not available yet.</string>
-    <string name="dev_rate">Rate Tapad</string>
-    <string name="dev_rate_hint">Leave positive rating on Tapad</string>
-    <string name="dev_donate">Donate</string>
-    <string name="dev_donate_hint">Boost dev on updating Tapad</string>
-    <string name="dev_donate_error">Thanks! But this feature is not available yet ;)</string>
-
-    <string-array name="berict_support">
-        <item>Report bugs</item>
-        <item>Help us fix bugs and problems</item>
-        <item>Translate Tapad</item>
-        <item>Make Tapad available on your language</item>
-        <item>Rate Tapad</item>
-        <item>Leave positive rating on Tapad</item>
-        <item>Donate</item>
-        <item>Boost dev on updating Tapad</item>
-    </string-array>
-    <!-- About -->
-    <string name="google_play">Google Play</string>
-
-    <string name="tapad">Tapad</string>
-    <string name="tapad_about">About Tapad</string>
-    <string name="tapad_about_desc">Probably the best looking remix app out there.</string>
-    <string name="tapad_about_full">Tapad is a LaunchAad application for Android.
-        It implemented the Material Design from the Google Design Guideline, and its beautiful.
-        It mainly features song genres like EDM, Dubstep, Progressive House, Electronic.</string>
-    <string name="tapad_about_source">Powered by Studio Berict</string>
-
-
-    <string name="tapad_play">https://play.google.com/store/apps/details?id=com.bedrock.padder</string>
-
-    <string name="tapad_changelog">Changelog</string>
-
-    <string name="tapad_thanks">Special thanks</string>
-    <string name="tapad_thanks_dialog">Special thanks to</string>
-    <string name="tapad_thanks_text">
-        <b>Stack Overflow</b>\n
-        <i>http://stackoverflow.com/</i>\n
-        No description needed. (Devs will know)\n\n
-
-        <b>Androidhive</b>\n
-        <i>http://www.androidhive.info/</i>\n
-        Helped with a lot of Material Design implementation.\n\n
-
-        <b>Material Design Guidelines</b>\n
-        <i>https://material.google.com/</i>\n
-        Greatest guideline for a great UX / UI.\n\n
-
-        <b>Material Design Icons</b>\n
-        <i>https://materialdesignicons.com/</i>\n
-        Tons of beautiful icons following Material Design guideline.
-    </string>
-
-    <string name="tapad_info">Information</string>
-    <string name="tapad_check_update">Check updates</string>
-    <string name="tapad_check_update_hint">Open in Google Play Store</string>
-    <string name="tapad_legal">Legal Information</string>
-    <string name="tapad_version">Tapad version</string>
-    <string name="tapad_version_detail">2.2 Official Release</string>
-    <string name="tapad_build">Build date</string>
-    <string name="tapad_build_date">@string/build_date_detail</string>
-    <string name="tapad_dev">Developer</string>
-    <string name="tapad_dev_name">Studio Berict</string>
-    <string name="tapad_song">Request a song</string>
-    <string name="tapad_song_hint">Will be added to the update list</string>
-    <string name="tapad_feedback">Leave a feedback</string>
-    <string name="tapad_feedback_hint">Request new features or ask questions</string>
-    <string name="tapad_report_bug">Report bugs</string>
-    <string name="tapad_report_bug_hint">Help devs to fix bugs and problems</string>
-    <string name="tapad_translate">Translate Tapad</string>
-    <string name="tapad_translate_hint">Help making Tapad available on your language</string>
-    <string name="tapad_translate_error">Sorry, this feature is not available yet.</string>
-    <string name="tapad_rate">Rate Tapad</string>
-    <string name="tapad_rate_hint">Show your love on Tapad on Google Play</string>
-
-    <string name="tapad_recommend">Recommend Tapad</string>
-    <string name="tapad_recommend_hint">Let your friends know this amazing app</string>
-    <string name="tapad_recommend_share_subject">The most beautiful remix app, Tapad.</string>
-    <string name="tapad_recommend_share_text">Check out this awesome app! : https://goo.gl/pmws51</string>
-    <string name="tapad_recommend_share_hint">Share this awesome app to everyone!</string>
-
-    <string name="tapad_other">Others</string>
-
     <!-- Feedback Dialog -->
+	<string name="feedback_song_name_hint">Song title</string>
+	<string name="feedback_song_artist_hint">Artist name</string>
+	<string-array name="feedback_song_genre_array">
+		<item>Select the song genre</item>
+		<item>Cyka blyat</item>
+	</string-array>
+	
+	<!-- Feedback old -->
     <string name="dialog_feedback_hint">Studio Berict will reply you back in 1~2 days. If you don\'t receive the reply, please send request again.</string>
 
     <string name="dialog_song_hint_subject">E-mail subject</string>
@@ -198,125 +88,6 @@
     <string name="dialog_tap_target_preset_secondary">Discover different presets and its artists.</string>
     <string name="dialog_tap_target_tutorial_primary">Learn how to play</string>
     <string name="dialog_tap_target_tutorial_secondary">Enable the tutorial mode to learn the preset.</string>
-
-    <!-- Dialogs -->
-    <string name="dialog_changelog_title">Changelog</string>
-    <string name="dialog_changelog_text">
-        You can view the changelog dialog again at any time from the <b><i>about</i></b> section.\n\n
-
-        <b>Version 2.1</b>\n\n
-
-        1. <b>NEW:</b> New preset (Alan Walker - Faded) \n
-        2. <b>IMPROVEMENT:</b> Removed Tutorial mode \n
-        3. <b>FIX:</b> Crashing when selecting decks \n
-        4. <b>FIX:</b> Wrong links on the artist page \n\n
-
-        <b>Version 2.0.1</b>\n\n
-
-        1. <b>NEW:</b> Now showing changelog when app updates \n
-        2. <b>NEW:</b> Android Nougat support (Android 7.0) \n
-        3. <b>IMPROVEMENT:</b> Reduced lag on loading preset \n
-        4. <b>FIX:</b> Crashing at welcome screen on tablets \n
-        5. <b>FIX:</b> Sound not playing issue \n
-        6. <b>FIX:</b> Build date not matching \n\n
-
-        <b>Version 2.0</b>\n\n
-
-        1. <b>NEW:</b> Completely renewed UI \n
-        2. <b>NEW:</b> Tutorial mode \n
-        3. <b>NEW:</b> Intro slide (first run tutorial) \n
-        4. <b>NEW:</b> Changelog added \n
-        5. <b>NEW:</b> Added Quickstart \n
-        6. <b>NEW:</b> Artist details updated \n
-        7. <b>IMPROVEMENT:</b> Sound volume increased \n
-        8. <b>FIX:</b> Sound not playing issue \n
-        9. <b>FIX:</b> Changed the app icon \n\n
-
-        <b>Version 1.1.2</b>\n\n
-
-        1. <b>FIX:</b> UI Crashing (Still) \n\n
-
-        <b>Version 1.1.1</b>\n\n
-
-        1. <b>FIX:</b> UI Crashing \n\n
-
-        <b>Version 1.1</b>\n\n
-
-        1. <b>NEW:</b> New preset (The Chainsmokers - Roses) \n
-        2. <b>FIX:</b> Memory leak \n\n
-
-        <b>Version 1.0</b>\n\n
-
-        1. <b>NEW:</b> New preset (OMFG - Hello) \n
-        2. <b>NEW:</b> Updated UI (4 X 4 layout) \n
-        3. <b>IMPROVEMENT:</b> Removed preset (Madeon Adventure) \n
-        4. <b>FIX:</b> Changed the app icon \n
-        5. <b>FIX:</b> Changed the app name \n\n
-
-        <b>Version 0.1</b>\n\n
-        1. <b>NEW:</b> New app \n
-        2. <b>NEW:</b> New preset (Madeon Adventure)
-    </string>
-    <string name="dialog_changelog_positive">CLOSE</string>
-
-    <string name="dialog_legal_title">Legal</string>
-    <string name="dialog_legal_text">
-        <i>Last updated: December 14, 2016</i> \n\n
-
-        Please read these Terms and Conditions carefully before using the \"Tapad\" mobile application (the \"Service\") operated by Studio Berict.
-        Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms.
-        These Terms apply to all visitors, users and others who access or use the Service. \n
-
-        By accessing or using the Service you agree to be bound by these Terms.
-        If you disagree with any part of the terms then you may not access the Service. \n\n
-
-        <b>Disclaimer</b> \n
-        Studio Berict don\'t have any rights for all materials in our service.
-        If you have the copyright to the used text, graphics, videos, or other material (\"Contents\") in our service and you don\'t like it, contact us and we will try to fix in 7 days. \n\n
-
-        <b>Content</b> \n
-        Our Service may contain links to third­party web sites or services that are not owned or controlled by Studio Berict.
-        Studio Berict has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services.
-        You further acknowledge and agree that by Studio Berict shall not be responsible or liable, directly or indirectly,
-        for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content,
-        goods or services available on or through any such web sites or services. \n\n
-
-        <b>Changes</b> \n
-        We reserve the right, at our sole discretion, to modify or replace these Terms at any time.
-        If a revision is material we will try to provide at least 30 days\' notice prior to any new terms taking effect.
-        What constitutes a material change will be determined at our sole discretion. \n\n
-
-        <b>Contact Us</b> \n
-        If you have any questions about these Terms, please contact us to <b><i>berict.bedrock@gmail.com</i></b>.
-    </string>
-    <string name="dialog_legal_positive">CLOSE</string>
-
-    <string name="dialog_thanks_title">Special thanks to</string>
-    <string name="dialog_thanks_text">
-        <b>Stack Overflow</b>\n
-        <i>http://stackoverflow.com/</i>\n
-        No description needed. (Devs will know)\n\n
-
-        <b>Androidhive</b>\n
-        <i>http://www.androidhive.info/</i>\n
-        Helped with a lot of Material Design implementation.\n\n
-
-        <b>Material Design Guidelines</b>\n
-        <i>https://material.google.com/</i>\n
-        Greatest guideline for a great UX / UI.\n\n
-
-        <b>Material Design Icons</b>\n
-        <i>https://materialdesignicons.com/</i>\n
-        Tons of beautiful icons following Material Design guideline.\n\n
-
-        <b>Material Dialogs</b>\n
-        <i>https://github.com/afollestad/material-dialogs/</i>\n
-        Epic library of dialog which you are now watching.\n\n
-
-        <b>Material Tap Target Prompt</b>\n
-        <i>https://github.com/sjwall/MaterialTapTargetPrompt/</i>\n
-        Saved me from thousands of codes. Beautiful.
-    </string>
     <string name="dialog_thanks_positive">CLOSE</string>
 
     <string name="dialog_preset_title">Presets</string>
@@ -369,10 +140,11 @@
     <string name="task_main">Tapad</string>
 
     <string name="task_about_tapad">Tapad</string>
-    <string name="task_about_tapad_song">@string/tapad_song</string>
-    <string name="task_about_tapad_feedback">@string/tapad_feedback</string>
-    <string name="task_about_tapad_report_bug">@string/tapad_report_bug</string>
     <string name="task_about_dev">Studio Berict</string>
+	
+	<string name="task_feedback_song">@string/info_tapad_others_song</string>
+	<string name="task_feedback_feedback">@string/info_tapad_others_feedback</string>
+	<string name="task_feedback_report_bug">@string/info_tapad_others_report_bug</string>
 
     <string name="task_presets">@string/settings_preset</string>
     <string name="task_tutorial_mode">Start tutorial mode?</string>
@@ -390,62 +162,6 @@
     <string name="discard">Discard</string>
     <string name="send">Send</string>
 
-    <!-- About -->
-    <string name="update_check">Check for update</string>
-    <string name="legal">Legal information</string>
-    <string name="term">Terms and Conditions</string>
-    <string name="version">Tapad Version</string>
-    <string name="build_date">Build date</string>
-    <string name="build_date_detail">Sat Sep 24 01:15:05 KST 2016</string>
-
-    <string name="developer">Developer</string>
-    <string name="about_berict">About Studio Berict</string>
-    <string name="berict">Studio Berict</string>
-
-    <string name="terms">
-        <i>Last updated: December 14, 2016</i> \n\n
-
-        Please read these Terms and Conditions carefully before using the \"Tapad\" mobile application (the \"Service\") operated by Studio Berict.
-        Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms.
-        These Terms apply to all visitors, users and others who access or use the Service. \n
-
-        By accessing or using the Service you agree to be bound by these Terms.
-        If you disagree with any part of the terms then you may not access the Service. \n\n
-
-        <b>Disclaimer</b> \n
-        Studio Berict don\'t have any rights for all materials in our service.
-        If you have the copyright to the used text, graphics, videos, or other material (\"Contents\") in our service and you don\'t like it, contact us and we will try to fix in 7 days. \n\n
-
-        <b>Content</b> \n
-        Our Service may contain links to third­party web sites or services that are not owned or controlled by Studio Berict.
-        Studio Berict has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services.
-        You further acknowledge and agree that by Studio Berict shall not be responsible or liable, directly or indirectly,
-        for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content,
-        goods or services available on or through any such web sites or services. \n\n
-
-        <b>Changes</b> \n
-        We reserve the right, at our sole discretion, to modify or replace these Terms at any time.
-        If a revision is material we will try to provide at least 30 days\' notice prior to any new terms taking effect.
-        What constitutes a material change will be determined at our sole discretion. \n\n
-
-        <b>Contact Us</b> \n
-        If you have any questions about these Terms, please contact us to <b><i>berict.bedrock@gmail.com</i></b>.
-    </string>
-    <string name="dev">"
-        Developed by
-
-        Nathan Cho, as known as Bedrock Pictures online.
-        Currently attending Sunrin Internet Highschool.
-
-        Other apps by developer
-
-        LIVE (Discontinued)
-        Schedule (Discontinued)
-        Noteice (Developing)
-
-        Thanks for using Tapad!
-        As always, enjoy. Bedrock Presents."
-    </string>
     <string name="dev_email">berict.bedrock@gmail.com</string>
 
     <string name="app_link_long">https://play.google.com/store/apps/details?id=com.bedrock.padder</string>

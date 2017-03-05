@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/cardview_dev_now_playing"
                     android:layout_marginTop="10dp"
-                    android:text="@string/berict"
+                    android:text="@string/info_berict_title"
                     android:textColor="@color/dark_secondary"
                     android:textStyle="italic"
                     android:textSize="16sp"/>
