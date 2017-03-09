@@ -1249,16 +1249,16 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         w.getView(R.id.layout_settings_about_tapad, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentWithExtra(a, "activity.AboutActivity",
-                        "json", getResources().getString(R.string.json_about_tapad), 0);
+                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
+                        R.id.cardview_about_image, "transition", "about", "tapad", 0);
             }
         });
 
         w.getView(R.id.layout_settings_about_dev, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intentWithExtra(a, "activity.AboutActivity",
-                        "json", getResources().getString(R.string.json_about_dev), 0);
+                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
+                        R.id.cardview_dev_image, "transition", "about", "dev", 0);
             }
         });
     }

@@ -278,4 +278,24 @@ public class IntentService {
             }
         }, delay);
     }
+
+    public void intentEmail(final Activity activity, int emailTargetId, String subject, String text, final String hint, int delay) {
+        final Intent email = new Intent(Intent.ACTION_SEND);
+        email.setType("message/rfc822");
+        email.putExtra(Intent.EXTRA_EMAIL  , new String[]{activity.getResources().getString(emailTargetId)});
+        email.putExtra(Intent.EXTRA_SUBJECT, subject);
+        email.putExtra(Intent.EXTRA_TEXT   , text);
+
+        Handler emailDelay = new Handler();
+        emailDelay.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    activity.startActivity(Intent.createChooser(email, hint));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(activity, activity.getResources().getString(R.string.no_email_client), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, delay);
+    }
 }

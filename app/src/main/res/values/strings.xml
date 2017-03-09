@@ -32,12 +32,19 @@
     <string name="cardview_now_playing">Now Playing</string>
 
     <!-- Feedback Dialog -->
-	<string name="feedback_song_name_hint">Song title</string>
-	<string name="feedback_song_artist_hint">Artist name</string>
-	<string-array name="feedback_song_genre_array">
-		<item>Select the song genre</item>
+	<string name="feedback_song_name_input_hint"     >Song title</string>
+	<string name="feedback_song_artist_input_hint"   >Artist name</string>
+    <string name="feedback_song_link_input_hint"     >YouTube / SoundCloud link</string>
+    <string name="feedback_song_message_input_hint"  >Message (optional)</string>
+    <string name="feedback_song_name_input_error"    >Enter the song title</string>
+    <string name="feedback_song_artist_input_error"  >Enter the artist name</string>
+    <string name="feedback_song_link_input_error"    >Enter the song link</string>
+    <string name="feedback_song_link_input_url_error">Enter a valid YouTube / SoundCloud link</string>
+	<string-array name="feedback_song_genre_array" >
+		<item>Song genre</item>
 		<item>Cyka blyat</item>
 	</string-array>
+    <string name="feedback_song_send_error">Please fill out the form to request a song</string>
 	
 	<!-- Feedback old -->
     <string name="dialog_feedback_hint">Studio Berict will reply you back in 1~2 days. If you don\'t receive the reply, please send request again.</string>
@@ -162,7 +169,8 @@
     <string name="discard">Discard</string>
     <string name="send">Send</string>
 
-    <string name="dev_email">berict.bedrock@gmail.com</string>
+    <string name="dev_email">dev.bedrock@gmail.com</string>
+    <string name="feedback_email">berict.bedrock@gmail.com</string>
 
     <string name="app_link_long">https://play.google.com/store/apps/details?id=com.bedrock.padder</string>
     <string name="app_link_short">https://goo.gl/pmws51</string>
