@@ -29,8 +29,10 @@
 		<activity
 			android:name=".activity.UserBenefitsActivity"
 			android:screenOrientation="portrait"/>
-		<activity android:name=".activity.FeedbackActivity">
-		</activity>
+		<activity
+			android:name=".activity.FeedbackActivity"
+			android:screenOrientation="portrait"
+			android:windowSoftInputMode="adjustResize" />
 	</application>
 
 </manifest>

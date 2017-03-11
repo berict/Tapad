@@ -32,19 +32,49 @@
     <string name="cardview_now_playing">Now Playing</string>
 
     <!-- Feedback Dialog -->
+    <string name="feedback_disclaimer_text"          >Your system info will be sent to Studio Berict.</string>
+    <string name="feedback_disclaimer_action"        >Learn More</string>
+    <string name="feedback_disclaimer_dialog_title"  >System information</string>
+    <string name="feedback_disclaimer_dialog_action" >Close</string>
+	<string name="feedback_quit_dialog_positive"     >KEEP WRITING</string>
+	<string name="feedback_quit_dialog_negative"     >DISCARD</string>
+	
+	<string name="feedback_song_title"               >Discard song request?</string>
+	<string name="feedback_song_description"         >We would love new presets! Please let us know what song would fit in Tapad.</string>
 	<string name="feedback_song_name_input_hint"     >Song title</string>
+	<string name="feedback_song_name_input_error"    >Enter the song title</string>
 	<string name="feedback_song_artist_input_hint"   >Artist name</string>
+	<string name="feedback_song_artist_input_error"  >Enter the artist name</string>
+	<string name="feedback_song_link_input_error"    >Enter the song link</string>
     <string name="feedback_song_link_input_hint"     >YouTube / SoundCloud link</string>
+	<string name="feedback_song_link_input_url_error">Enter a valid YouTube / SoundCloud link</string>
     <string name="feedback_song_message_input_hint"  >Message (optional)</string>
-    <string name="feedback_song_name_input_error"    >Enter the song title</string>
-    <string name="feedback_song_artist_input_error"  >Enter the artist name</string>
-    <string name="feedback_song_link_input_error"    >Enter the song link</string>
-    <string name="feedback_song_link_input_url_error">Enter a valid YouTube / SoundCloud link</string>
-	<string-array name="feedback_song_genre_array" >
+    <string name="feedback_song_genre_error"         >Select a song genre</string>
+	<string-array name="feedback_song_genre_array"   >
 		<item>Song genre</item>
-		<item>Cyka blyat</item>
+		<item>Drum and Bass</item>
+        <item>Hardcore</item>
+        <item>House</item>
+        <item>Techno</item>
+        <item>Trance</item>
+        <item>Pop</item>
 	</string-array>
-    <string name="feedback_song_send_error">Please fill out the form to request a song</string>
+    <string name="feedback_song_send_error"          >Please fill out the form to request a song</string>
+	
+	<string name="feedback_feedback_title"                        >Discard feedback?</string>
+	<string name="feedback_feedback_description"                  >We would love to hear thoughts, ideas, anything from you. We hope we can improve Tapad with you!</string>
+	<string name="feedback_feedback_message_input_hint"           >Feedback message</string>
+	<string name="feedback_feedback_message_input_error_empty"    >Enter feedback message (at least 15 characters)</string>
+	<string name="feedback_feedback_message_input_error_too_short">more to go…</string>
+	<string name="feedback_feedback_type_error"                   >Select a feedback type</string>
+	<string-array name="feedback_feedback_type_array"             >
+		<item>Feedback type</item>
+		<item>Comments</item>
+		<item>Questions</item>
+		<item>Ideas</item>
+		<item>Others</item>
+	</string-array>
+	<string name="feedback_feedback_send_error"                   >Please fill out the form to send a feedback</string>
 	
 	<!-- Feedback old -->
     <string name="dialog_feedback_hint">Studio Berict will reply you back in 1~2 days. If you don\'t receive the reply, please send request again.</string>

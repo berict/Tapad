@@ -33,4 +33,12 @@
     <style name="SettingsSwitchStyle">
         <item name="colorControlActivated">@color/colorAccent</item>
     </style>
+    
+    <style name="editTextErrorDefault">
+        <item name="android:textColor">@color/red</item>
+    </style>
+    
+    <style name="editTextErrorGrey">
+        <item name="android:textColor">@color/dark_secondary</item>
+    </style>
 </resources>

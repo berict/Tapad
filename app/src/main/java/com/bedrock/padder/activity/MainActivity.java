@@ -207,6 +207,25 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
         //TODO EDIT
         //makeJson();
+        // TODO REMOVE (intent)
+        w.setOnClick(R.id.testFeedbackIntentSong, new Runnable() {
+            @Override
+            public void run() {
+                intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "song", 400);
+            }
+        }, a);
+        w.setOnClick(R.id.testFeedbackIntentFeedback, new Runnable() {
+            @Override
+            public void run() {
+                intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "feedback", 400);
+            }
+        }, a);
+        w.setOnClick(R.id.testFeedbackIntentBug, new Runnable() {
+            @Override
+            public void run() {
+                intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "report_bug", 400);
+            }
+        }, a);
     }
 
 // TODO iap launch

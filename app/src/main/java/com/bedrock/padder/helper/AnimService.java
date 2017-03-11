@@ -96,7 +96,7 @@ public class AnimService {
 
     public void fadeIn(final int id, final int delay, final long duration, String handlerName, Activity activity) {
         final AlphaAnimation fadeIn = new AlphaAnimation(0.0f, 1.0f);
-        final View view = (View) activity.findViewById(id);
+        final View view = activity.findViewById(id);
         view.setVisibility(View.INVISIBLE);
 
         //fadeIn.setInterpolator();
@@ -118,7 +118,7 @@ public class AnimService {
 
     public void fadeInDelay(final int id, final int delay, final int fadeDelay, final long duration, String handlerName, Activity activity) {
         final AlphaAnimation fadeIn = new AlphaAnimation(0.0f, 1.0f);
-        final View view = (View) activity.findViewById(id);
+        final View view = activity.findViewById(id);
         view.setVisibility(View.INVISIBLE);
 
         Map<String, Handler> handlerCreator = new HashMap<>();
@@ -173,7 +173,7 @@ public class AnimService {
 
     public void fadeOut(final int id, final int delay, final long duration, Activity activity) {
         final AlphaAnimation fadeOut = new AlphaAnimation(1.0f, 0.0f);
-        final View view = (View) activity.findViewById(id);
+        final View view = activity.findViewById(id);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -236,7 +236,7 @@ public class AnimService {
 
     public void fadeOutInvisible(final int id, final int delay, final long duration, Activity activity) {
         final AlphaAnimation fadeOut = new AlphaAnimation(1.0f, 0.0f);
-        final View view = (View) activity.findViewById(id);
+        final View view = activity.findViewById(id);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -524,7 +524,7 @@ public class AnimService {
         handlerCreator.get(handlerName).postDelayed(new Runnable() {
             @Override
             public void run() {
-                View view = (View) activity.findViewById(view_id);
+                View view = activity.findViewById(view_id);
                 scaleInOverShoot.setDuration(duration);
                 view.startAnimation(scaleInOverShoot);
                 view.setVisibility(View.VISIBLE);
@@ -571,7 +571,7 @@ public class AnimService {
                            int duration, int delay, Activity activity) {
 
         if (Build.VERSION.SDK_INT >= 11) {
-            View object = (View) activity.findViewById(view);
+            View object = activity.findViewById(view);
 
             Animator animSet = new AnimatorSet();
 
@@ -631,7 +631,7 @@ public class AnimService {
                            int duration, int delay, Activity activity) {
 
         if (Build.VERSION.SDK_INT >= 11) {
-            View object = (View) activity.findViewById(view);
+            View object = activity.findViewById(view);
 
             float scale = activity.getResources().getDisplayMetrics().density;
 
@@ -662,7 +662,7 @@ public class AnimService {
                                    int startRad, int endRad, TimeInterpolator interpolator,
                                    int duration, int delay, Activity activity) {
 
-        final View object = (View) activity.findViewById(view);
+        final View object = activity.findViewById(view);
 
         if (Build.VERSION.SDK_INT >= 21) {
             Animator animator = ViewAnimationUtils.createCircularReveal(object, centerX, centerY, startRad, endRad);
@@ -713,7 +713,7 @@ public class AnimService {
                                    int startRad, int endRad, TimeInterpolator interpolator,
                                    int duration, int delay, Activity activity) {
 
-        final View object = (View) activity.findViewById(view);
+        final View object = activity.findViewById(view);
 
         if (Build.VERSION.SDK_INT >= 21) {
             Animator animator = ViewAnimationUtils.createCircularReveal(object, centerX, centerY, startRad, endRad);
@@ -766,7 +766,7 @@ public class AnimService {
                                    int startRad, int endRad, TimeInterpolator interpolator,
                                    int duration, int delay, Activity activity) {
 
-        final View object = (View) activity.findViewById(view);
+        final View object = activity.findViewById(view);
 
         float scale = activity.getResources().getDisplayMetrics().density;
 
