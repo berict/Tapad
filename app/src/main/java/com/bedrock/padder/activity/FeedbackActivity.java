@@ -48,6 +48,7 @@ public class FeedbackActivity extends AppCompatActivity {
     private String sendMessage;
     private String systemInfo;
     private MaterialDialog learnMoreDialog;
+    private MaterialDialog learnMoreQuickFixDialog;
     private int circularRevealDuration = 400;
     private boolean feedbackSent = false;
 
@@ -105,6 +106,14 @@ public class FeedbackActivity extends AppCompatActivity {
 
     private String feedbackMessageString;
     private String feedbackTypeString;
+
+    private TextInputLayout reportBugMessageLayout;
+    private EditText reportBugMessage;
+    private Spinner reportBugType;
+    private boolean reportBugTypeValidateFirstRun = true;
+
+    private String reportBugMessageString;
+    private String reportBugTypeString;
 
     private void initUi() {
         switch (MODE_TAG) {
@@ -173,7 +182,57 @@ public class FeedbackActivity extends AppCompatActivity {
                 });
                 break;
             case "report_bug":
+                // layout
+                reportBugLayout        = (RelativeLayout) findViewById(R.id.feedback_report_bug);
+                // input layout
+                reportBugMessageLayout = (TextInputLayout) findViewById(R.id.feedback_report_bug_message_input_layout);
+                // edittext
+                reportBugMessage       = (EditText) findViewById(R.id.feedback_report_bug_message_input);
+                // spinner
+                reportBugType          = (Spinner) findViewById(R.id.feedback_report_bug_type_spinner);
 
+                reportBugLayout .setVisibility(View.VISIBLE);
+                reportBugMessage.addTextChangedListener(new mTextWatcher(reportBugMessage));
+                reportBugType   .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        View quickFix  = findViewById(R.id.feedback_report_bug_type_quickfix);
+                        if (position == 2) {
+                            // custom quickfix
+                            reportBugTypeString = getResources().getStringArray(R.array.feedback_report_bug_type_array)[position];
+                            if (quickFix.getVisibility() == View.INVISIBLE) {
+                                anim.fadeIn(quickFix, 0, 100, "errorQuickFix");
+                            }
+                        } else if (position != 0) {
+                            // not the first item (placeholder)
+                            reportBugTypeString = getResources().getStringArray(R.array.feedback_report_bug_type_array)[position];
+                            Log.d(TAG, reportBugTypeString);
+                            if (quickFix.getVisibility() == View.VISIBLE) {
+                                anim.fadeOutInvisible(quickFix, 0, 100);
+                            }
+                        } else {
+                            // first item
+                            reportBugTypeString = "";
+                            Log.d(TAG, "null");
+                            if (quickFix.getVisibility() == View.VISIBLE) {
+                                anim.fadeOutInvisible(quickFix, 0, 100);
+                            }
+                        }
+                        validateSpinner(reportBugTypeValidateFirstRun, R.id.feedback_report_bug_type_spinner_error, reportBugTypeString);
+                    } // to close the onItemSelected
+                    public void onNothingSelected(AdapterView<?> parent) {}
+                });
+
+                w.setOnClick(R.id.feedback_report_bug_type_quickfix_action, new Runnable() {
+                    @Override
+                    public void run() {
+                        learnMoreQuickFixDialog = new MaterialDialog.Builder(a)
+                                .content(R.string.feedback_report_bug_type_quickfix_content)
+                                .contentColorRes(R.color.dark_secondary)
+                                .positiveText(R.string.feedback_report_bug_type_quickfix_neutral)
+                                .positiveColorRes(R.color.colorAccent)
+                                .show();
+                    }
+                }, a);
                 break;
         }
 
@@ -202,7 +261,7 @@ public class FeedbackActivity extends AppCompatActivity {
                     feedbackTypeValidateFirstRun = false;
                     break;
                 case "report_bug":
-
+                    reportBugTypeValidateFirstRun = false;
                     break;
             }
             return false;
@@ -295,6 +354,28 @@ public class FeedbackActivity extends AppCompatActivity {
                 }
                 break;
             case "report_bug":
+                if (editText == reportBugMessage) {
+                    if (reportBugMessage.getText().toString().trim().isEmpty()) {
+                        // string empty
+                        reportBugMessageLayout.setErrorTextAppearance(R.style.editTextErrorDefault);
+                        reportBugMessageLayout.setError(getResources().getString(R.string.feedback_report_bug_message_input_error_empty));
+                        reportBugMessage.requestFocus();
+                        return false;
+                    } else if (reportBugMessage.getText().toString().length() < 15) {
+                        // too short
+                        reportBugMessageLayout.setErrorTextAppearance(R.style.editTextErrorGrey);
+                        reportBugMessageLayout.setError(
+                                (15 - reportBugMessage.getText().toString().length()) + " " +
+                                        getResources().getString(R.string.feedback_report_bug_message_input_error_too_short)
+                        );
+                        reportBugMessage.requestFocus();
+                        return false;
+                    } else {
+                        reportBugMessageLayout.setErrorEnabled(false);
+                        reportBugMessageString = reportBugMessage.getText().toString();
+                    }
+                    return true;
+                }
                 break;
         }
         return false;
@@ -336,7 +417,10 @@ public class FeedbackActivity extends AppCompatActivity {
                 }
                 break;
             case "report_bug":
-
+                if (validateEditText(reportBugMessage) &
+                        validateSpinner(reportBugTypeValidateFirstRun, R.id.feedback_report_bug_type_spinner_error, reportBugTypeString)) {
+                    return true;
+                }
                 break;
         }
         return false;
@@ -367,7 +451,14 @@ public class FeedbackActivity extends AppCompatActivity {
                             "Select a email client to send feedback", circularRevealDuration);
                     break;
                 case "report_bug":
-
+                    sendMessage =
+                            "Bug type   = \"" + reportBugTypeString    + "\"" + br +
+                            "Bug detail = \"" + reportBugMessageString + "\"" + br + br +
+                            systemInfo + br + br +
+                            "### Do not edit the subject and the message to receive a reply ###";
+                    intent.intentEmail(a, R.string.feedback_email,
+                            "Tapad Feedback - Bug Report [" + reportBugTypeString + "]", sendMessage,
+                            "Select a email client to send bug report", circularRevealDuration);
                     break;
             }
             feedbackSent = true;
@@ -383,18 +474,7 @@ public class FeedbackActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (feedbackSent == false) {
-            String currentContentTitle = "";
-            switch (MODE_TAG) {
-                case "song":
-                    currentContentTitle = a.getResources().getString(R.string.feedback_song_title);
-                    break;
-                case "feedback":
-                    currentContentTitle = a.getResources().getString(R.string.feedback_feedback_title);
-                    break;
-                case "report_bug":
-
-                    break;
-            }
+            String currentContentTitle = w.getStringFromId("feedback_" + MODE_TAG + "_discard", a);
 
             onBackPressedDialog = new MaterialDialog.Builder(a)
                     .content(currentContentTitle)

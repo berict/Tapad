@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     private MaterialTapTargetPrompt promptPreset;   // 6
     private MaterialTapTargetPrompt promptTutorial; // 7
     // TODO SET ON INTENT
-    public String currentAbout = null;
     Gson gson = new Gson();
     Preset presets[];
 

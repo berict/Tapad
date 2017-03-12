@@ -200,6 +200,97 @@
 						</android.support.design.widget.TextInputLayout>
 					</LinearLayout>
 				</RelativeLayout>
+				
+				<RelativeLayout
+					android:id="@+id/feedback_report_bug"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_margin="16dp"
+					android:visibility="visible">
+					
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="vertical">
+						
+						<TextView
+							android:id="@+id/feedback_report_bug_description"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="8dp"
+							android:layout_marginLeft="8dp"
+							android:layout_marginRight="8dp"
+							android:lineSpacingMultiplier="1.2"
+							android:text="@string/feedback_report_bug_description"
+							android:textColor="@color/dark_primary"
+							android:textSize="14sp"
+							android:textStyle="italic"/>
+						
+						<TextView
+							android:id="@+id/feedback_report_bug_type_spinner_error"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginLeft="8dp"
+							android:text="@string/feedback_report_bug_type_error"
+							android:textColor="@color/red_500"
+							android:textSize="13sp"
+							android:visibility="invisible"/>
+						
+						<Spinner
+							android:id="@+id/feedback_report_bug_type_spinner"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="4dp"
+							android:entries="@array/feedback_report_bug_type_array"
+							android:paddingBottom="8dp"
+							android:paddingTop="8dp"/>
+						
+						<LinearLayout
+							android:id="@+id/feedback_report_bug_type_quickfix"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginLeft="8dp"
+							android:layout_marginBottom="8dp"
+							android:visibility="invisible"
+							android:orientation="horizontal">
+							
+							<TextView
+								android:id="@+id/feedback_report_bug_type_quickfix_text"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_marginRight="4dp"
+								android:text="@string/feedback_report_bug_type_quickfix_text"
+								android:textColor="@color/red_300"
+								android:textSize="13sp"
+								android:textStyle="italic"/>
+							
+							<TextView
+								android:id="@+id/feedback_report_bug_type_quickfix_action"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:text="@string/feedback_report_bug_type_quickfix_action"
+								android:textColor="@color/blue_300"
+								android:textSize="13sp"
+								android:textStyle="italic"/>
+						</LinearLayout>
+						
+						<android.support.design.widget.TextInputLayout
+							android:id="@+id/feedback_report_bug_message_input_layout"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="4dp"
+							android:layout_marginLeft="4dp">
+							
+							<EditText
+								android:id="@+id/feedback_report_bug_message_input"
+								android:layout_width="match_parent"
+								android:layout_height="100dp"
+								android:hint="@string/feedback_report_bug_message_input_hint"
+								android:inputType="textMultiLine|textCapSentences"
+								android:textSize="16sp"/>
+						</android.support.design.widget.TextInputLayout>
+					</LinearLayout>
+				</RelativeLayout>
 			</RelativeLayout>
 			
 			<LinearLayout
@@ -233,7 +324,6 @@
 			<View
 				android:layout_width="match_parent"
 				android:layout_height="400dp"/>
-		
 		</LinearLayout>
 	
 	</ScrollView>

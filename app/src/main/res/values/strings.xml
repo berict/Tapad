@@ -39,7 +39,7 @@
 	<string name="feedback_quit_dialog_positive"     >KEEP WRITING</string>
 	<string name="feedback_quit_dialog_negative"     >DISCARD</string>
 	
-	<string name="feedback_song_title"               >Discard song request?</string>
+	<string name="feedback_song_discard"             >Discard song request?</string>
 	<string name="feedback_song_description"         >We would love new presets! Please let us know what song would fit in Tapad.</string>
 	<string name="feedback_song_name_input_hint"     >Song title</string>
 	<string name="feedback_song_name_input_error"    >Enter the song title</string>
@@ -61,7 +61,7 @@
 	</string-array>
     <string name="feedback_song_send_error"          >Please fill out the form to request a song</string>
 	
-	<string name="feedback_feedback_title"                        >Discard feedback?</string>
+	<string name="feedback_feedback_discard"                      >Discard feedback?</string>
 	<string name="feedback_feedback_description"                  >We would love to hear thoughts, ideas, anything from you. We hope we can improve Tapad with you!</string>
 	<string name="feedback_feedback_message_input_hint"           >Feedback message</string>
 	<string name="feedback_feedback_message_input_error_empty"    >Enter feedback message (at least 15 characters)</string>
@@ -75,6 +75,25 @@
 		<item>Others</item>
 	</string-array>
 	<string name="feedback_feedback_send_error"                   >Please fill out the form to send a feedback</string>
+	
+	<string name="feedback_report_bug_discard"                      >Discard bug report?</string>
+	<string name="feedback_report_bug_description"                  >Our priority is on you. We are not letting you to see any of those errors. Let us know and fix them.</string>
+	<string name="feedback_report_bug_message_input_hint"           >Bug details</string>
+	<string name="feedback_report_bug_message_input_error_empty"    >Enter bug details (at least 15 characters)</string>
+	<string name="feedback_report_bug_message_input_error_too_short">more to go…</string>
+	<string name="feedback_report_bug_type_error"                   >Select a bug type</string>
+	<string name="feedback_report_bug_type_quickfix_text"           >Wait! We might have a quickfix for you.</string>
+	<string name="feedback_report_bug_type_quickfix_action"         >Learn More</string>
+	<string name="feedback_report_bug_type_quickfix_content"        >LEL IDK FIX URSELF</string>
+	<string name="feedback_report_bug_type_quickfix_neutral"        >CLOSE</string>
+	<string-array name="feedback_report_bug_type_array"             >
+		<item>Bug type</item>
+		<item>Preset problem</item>
+		<item>Sound not playing</item>
+		<item>App crashing</item>
+		<item>Others</item>
+	</string-array>
+	<string name="feedback_report_bug_send_error"                   >Please fill out the form to report a bug</string>
 	
 	<!-- Feedback old -->
     <string name="dialog_feedback_hint">Studio Berict will reply you back in 1~2 days. If you don\'t receive the reply, please send request again.</string>

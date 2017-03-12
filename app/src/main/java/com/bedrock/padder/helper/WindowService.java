@@ -129,6 +129,62 @@ public class WindowService {
         return statBarHeight[0];
     }
 
+    public void setVisible(final int view_id, final int delay, final Activity activity){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                final View view = (View) activity.findViewById(view_id);
+
+                view.setVisibility(View.VISIBLE);
+            }
+        }, delay);
+    }
+
+    public void setInvisible(final View view, final int delay){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                view.setVisibility(View.INVISIBLE);
+            }
+        }, delay);
+    }
+
+    public void setInvisible(final int view_id, final int delay, final Activity activity){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                final View view = (View) activity.findViewById(view_id);
+
+                view.setVisibility(View.INVISIBLE);
+            }
+        }, delay);
+    }
+
+    public void setGone(final int view_id, final int delay, final Activity activity){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                final View view = (View) activity.findViewById(view_id);
+
+                view.setVisibility(View.GONE);
+            }
+        }, delay);
+    }
+
+    public void setGone(final View view, final int delay){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                view.setVisibility(View.GONE);
+            }
+        }, delay);
+    }
+
     public void setActionBarBack(final boolean backEnable, final Runnable back, final Activity activity) {
         View backLayout = activity.findViewById(R.id.actionbar_back_layout);
         View backButton = activity.findViewById(R.id.actionbar_back);
