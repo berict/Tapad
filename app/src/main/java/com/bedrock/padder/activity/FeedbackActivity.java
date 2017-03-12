@@ -40,7 +40,6 @@ public class FeedbackActivity extends AppCompatActivity {
     private AppbarService ab = new AppbarService();
     private IntentService intent = new IntentService();
     private AnimService anim = new AnimService();
-    //private ThemeService theme = new ThemeService();
 
     Activity a = this;
     SharedPreferences prefs = null;
@@ -428,9 +427,11 @@ public class FeedbackActivity extends AppCompatActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         focusCount++;
         Log.d("FocusCount", String.valueOf(focusCount));
-        if (focusCount == 5) {
-            // TODO DEVICE CHECK
-            w.getView(R.id.layout_placeholder, a).setVisibility(View.GONE);
+        if (focusCount == 2) {
+            if (feedbackSent == true) {
+                w.getView(R.id.layout_placeholder, a).setVisibility(View.GONE);
+                w.setRecentColor(w.getStringId("task_feedback_" + MODE_TAG), 0, R.color.colorFeedback, a);
+            }
             focusCount = 0;
         }
         super.onWindowFocusChanged(hasFocus);
@@ -457,11 +458,13 @@ public class FeedbackActivity extends AppCompatActivity {
         fabView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                focusCount = 0;
                 if (send() == true) {
                     anim.circularRevealinpx(R.id.layout_placeholder,
                             coord[0], coord[1],
                             0, (int) Math.hypot(coord[0], coord[1]) + 200, new AccelerateDecelerateInterpolator(),
                             circularRevealDuration, 0, a);
+                    w.setRecentColor(w.getStringId("task_feedback_" + MODE_TAG), 0, R.color.colorAccent, a);
                 }
             }
         });

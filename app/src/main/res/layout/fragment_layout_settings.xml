@@ -90,7 +90,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:background="?selectableItemBackground"
-                    android:clickable="true">
+                    android:clickable="true"
+                    android:visibility="gone">
+					
+					<!-- TODO on tutorial update -->
 
                     <ImageView
                         android:id="@+id/layout_settings_tutorial_icon"
