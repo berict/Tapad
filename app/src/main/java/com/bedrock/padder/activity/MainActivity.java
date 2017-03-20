@@ -25,6 +25,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.bedrock.padder.R;
+import com.bedrock.padder.helper.AdmobService;
 import com.bedrock.padder.helper.AnimService;
 import com.bedrock.padder.helper.AppbarService;
 import com.bedrock.padder.helper.FabService;
@@ -36,6 +37,10 @@ import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.preset.Deck;
 import com.bedrock.padder.model.preset.Pad;
 import com.bedrock.padder.model.preset.Preset;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.NativeExpressAdView;
+import com.google.android.gms.ads.VideoController;
+import com.google.android.gms.ads.VideoOptions;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Field;
@@ -50,7 +55,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
     final Activity a = this;
     final String qs = "quickstart";
-    final String TAG = "MainActivity";
+    public static final String TAG = "MainActivity";
+
     public boolean isPresetLoading = false;
     public boolean tgl1 = false;
     public boolean tgl2 = false;
@@ -60,18 +66,22 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     public boolean tgl6 = false;
     public boolean tgl7 = false;
     public boolean tgl8 = false;
-    float volume;
+
     SharedPreferences prefs = null;
+
     int currentVersionCode;
     int themeColor = R.color.hello;
     int color = R.color.red;
     boolean doubleBackToExitPressedOnce = false;
+
     MaterialDialog ChangelogDialog;
     MaterialDialog QuickstartDialog;
     MaterialDialog PresetDialog;
+
     boolean isSchemeChanged = false;
     int toggleSoundId = 0;
     int togglePatternId = 0;
+
     private AnimService anim = new AnimService();
     private ThemeService t = new ThemeService();
     private SoundService sound = new SoundService();
@@ -80,13 +90,17 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     private FabService fab = new FabService();
     private AppbarService ab = new AppbarService();
     private TutorialService tut = new TutorialService();
+    private AdmobService ad = new AdmobService();
+
     private boolean isToolbarVisible = false;
     private boolean isAboutVisible = false;
     private boolean isPresetVisible = false;
     private boolean isSettingVisible = false;
     private boolean isTutorialVisible = false;
+
     private int circularRevealDuration = 400;
     private int fadeAnimDuration = 200;
+
     private MaterialTapTargetPrompt promptToggle;   // 1
     private MaterialTapTargetPrompt promptButton;   // 2
     private MaterialTapTargetPrompt promptPattern;  // 3
@@ -94,11 +108,14 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     private MaterialTapTargetPrompt promptInfo;     // 5
     private MaterialTapTargetPrompt promptPreset;   // 6
     private MaterialTapTargetPrompt promptTutorial; // 7
+    
+    private NativeExpressAdView adViewMain;
+    private VideoController mVideoController;
     // TODO SET ON INTENT
     Gson gson = new Gson();
     Preset presets[];
 
-    // TODO iap launch
+    // TODO TAP launch
     //IabHelper mHelper;
     //IabBroadcastReceiver mBroadcastReceiver;
 
@@ -120,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // TODO IAP launch
         //String base64EncodePublicKey = constructBase64Key();
 
         //mHelper = new IabHelper(this, base64EncodePublicKey);
@@ -168,22 +186,19 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 gson.fromJson(getResources().getString(R.string.json_faded), Preset.class)
         };
 
+        // sharedPrefs
         Log.d(TAG, "Sharedprefs initialized");
         prefs = this.getSharedPreferences("com.bedrock.padder", MODE_PRIVATE);
-
         // for test
         //prefs.edit().putInt(qs, 0).apply();
-
-        volume = 1.0f;
-
-        a.setVolumeControlStream(AudioManager.STREAM_MUSIC);
-
-        clearToggleButton();
-
         if (prefs.getBoolean("welcome", true)) {
             prefs.edit().putBoolean("welcome", false).apply();
         }
 
+        a.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
+        // Set UI
+        clearToggleButton();
         setFab();
         setToolbar();
         setAbout();
@@ -192,6 +207,42 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         setToggleButton(R.color.colorAccent);
         enterAnim();
         setButtonLayout();
+
+        // TODO native app fucking not working
+
+        // Request ads
+        adViewMain = ad.getNativeAdView(R.id.adView_main, a);
+        ad.requestLoadNativeAd(adViewMain);
+        adViewMain.setVideoOptions(new VideoOptions.Builder()
+                .setStartMuted(true)
+                .build());
+
+        // The VideoController can be used to get lifecycle events and info about an ad's video
+        // asset. One will always be returned by getVideoController, even if the ad has no video
+        // asset.
+        mVideoController = adViewMain.getVideoController();
+        mVideoController.setVideoLifecycleCallbacks(new VideoController.VideoLifecycleCallbacks() {
+            @Override
+            public void onVideoEnd() {
+                Log.d(TAG, "Video playback is finished.");
+                super.onVideoEnd();
+            }
+        });
+
+        // Set an AdListener for the AdView, so the Activity can take action when an ad has finished
+        // loading.
+        adViewMain.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                if (mVideoController.hasVideoContent()) {
+                    Log.d(TAG, "Received an ad that contains a video asset.");
+                } else {
+                    Log.d(TAG, "Received an ad that does not contain a video asset.");
+                }
+            }
+        });
+        //ad.setNativeAdViewSize(adViewMain,
+        //        new AdSize(w.convertPXtoDP(w.getView(R.id.progress_bar_layout, a).getWidth(), a), 100), a);
 
         //Set transparent nav bar
         w.setStatusBar(R.color.transparent, a);
@@ -227,57 +278,57 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         }, a);
     }
 
-// TODO iap launch
-//    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
-//        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
-//            Log.d(TAG, "Query inventory finished.");
-//
-//            // Have we been disposed of in the meantime? If so, quit.
-//            if (mHelper == null) return;
-//
-//            // Is it a failure?
-//            if (result.isFailure()) {
-//                complain("Failed to query inventory: " + result);
-//                return;
-//            }
-//
-//            Log.d(TAG, "Query inventory was successful.");
-//            Log.d(TAG, "Initial inventory query finished; enabling main UI.");
-//        }
-//    };
-//
-//    @NonNull
-//    private String constructBase64Key() {
-//        // TODO work on iap processes
-//        String encodedString = getResources().getString(R.string.base64_rsa_key);
-//        int base64Length = encodedString.length();
-//        char[] encodedStringArray = encodedString.toCharArray();
-//        char temp;
-//
-//        for(int i = 0; i < base64Length / 2; i++) {
-//            if (i % 2 == 0) {
-//                // ******   E P I C   D E C O D I N G   M E C H A N I S M   ****** //
-//                temp = encodedStringArray[i];
-//                encodedStringArray[i] = encodedStringArray[base64Length - 1 - i];
-//                encodedStringArray[base64Length - 1 - i] = temp;
-//            }
-//        }
-//
-//        return String.valueOf(encodedStringArray);
-//    }
-//
-//    void complain(String message) {
-//        Log.e(TAG, "**** Purchase Error: " + message);
-//        alert("Error: " + message);
-//    }
-//
-//    void alert(String message) {
-//        AlertDialog.Builder bld = new AlertDialog.Builder(this);
-//        bld.setMessage(message);
-//        bld.setNeutralButton("OK", null);
-//        Log.d(TAG, "Showing alert dialog: " + message);
-//        bld.create().show();
-//    }
+    // TODO iap launch
+    //    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
+    //        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
+    //            Log.d(TAG, "Query inventory finished.");
+    //
+    //            // Have we been disposed of in the meantime? If so, quit.
+    //            if (mHelper == null) return;
+    //
+    //            // Is it a failure?
+    //            if (result.isFailure()) {
+    //                complain("Failed to query inventory: " + result);
+    //                return;
+    //            }
+    //
+    //            Log.d(TAG, "Query inventory was successful.");
+    //            Log.d(TAG, "Initial inventory query finished; enabling main UI.");
+    //        }
+    //    };
+    //
+    //    @NonNull
+    //    private String constructBase64Key() {
+    //        // TODO work on iap processes
+    //        String encodedString = getResources().getString(R.string.base64_rsa_key);
+    //        int base64Length = encodedString.length();
+    //        char[] encodedStringArray = encodedString.toCharArray();
+    //        char temp;
+    //
+    //        for(int i = 0; i < base64Length / 2; i++) {
+    //            if (i % 2 == 0) {
+    //                // ******   E P I C   D E C O D I N G   M E C H A N I S M   ****** //
+    //                temp = encodedStringArray[i];
+    //                encodedStringArray[i] = encodedStringArray[base64Length - 1 - i];
+    //                encodedStringArray[base64Length - 1 - i] = temp;
+    //            }
+    //        }
+    //
+    //        return String.valueOf(encodedStringArray);
+    //    }
+    //
+    //    void complain(String message) {
+    //        Log.e(TAG, "**** Purchase Error: " + message);
+    //        alert("Error: " + message);
+    //    }
+    //
+    //    void alert(String message) {
+    //        AlertDialog.Builder bld = new AlertDialog.Builder(this);
+    //        bld.setMessage(message);
+    //        bld.setNeutralButton("OK", null);
+    //        Log.d(TAG, "Showing alert dialog: " + message);
+    //        bld.create().show();
+    //    }
 
     void enterAnim() {
         anim.fadeIn(R.id.actionbar_layout, 0, 200, "background", a);
@@ -433,10 +484,16 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         //Log.d("MainActivity", "tutorial setVisible");
         super.onWindowFocusChanged(hasFocus);
     }
+    
+    @Override
+    public void onPause() {
+        ad.pauseNativeAdView(R.id.adView_main, a);
+        super.onPause();
+    }
 
     @Override
     public void onResume() {
-        super.onResume();  // Always call the superclass method first
+        super.onResume();
 
         if (isTutorialVisible == true) {
             tut.tutorialStop(a);
@@ -474,17 +531,20 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         for (int i = 0; i < tutorial.length; i++) {
             t.setInvisible(tutorial[i], 10, a);
         }
-        //Log.d("MainActivity", "Placeholder setVisible");
+
+        ad.resumeNativeAdView(R.id.adView_main, a);
     }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-
         Log.d(TAG, "onDestroy");
 
         sound.soundAllStop();
         sound.cancelLoading();
+
+        ad.destroyNativeAdView(R.id.adView_main, a);
+        
+        super.onDestroy();
     }
 
     public void setQuickstart(final Activity activity) {

@@ -513,7 +513,7 @@ public class SoundService {
         return sp;
     }
 
-    private ThemeService theme = new ThemeService();
+    private AdmobService ad = new AdmobService();
     private AnimService anim = new AnimService();
     private WindowService window = new WindowService();
 
@@ -855,6 +855,7 @@ public class SoundService {
             isPresetLoaded = false;
             progressCount = 0;
             presetSoundCount = PRESET_SOUND_COUNTS[currentPreset.getId()];
+            ad.resumeNativeAdView(R.id.adView_main, activity);
             progress = window.getTextView(R.id.progress_bar_progress_text, activity);
             if (window.getView(R.id.progress_bar_layout, activity).getVisibility() == View.GONE) {
                 Log.d(TAG, "ProgressBar fadeIn");
@@ -1006,6 +1007,9 @@ public class SoundService {
                         Log.d(TAG, "Loading completed, SoundPool successfully loaded "
                                 + presetSoundCount
                                 + " sounds");
+
+                        // pause adViewMain after the loading
+                        ad.pauseNativeAdView(R.id.adView_main, activity);
 
                         window.getTextView(R.id.progress_bar_text, activity).setText(R.string.progressbar_loading_preset_done);
                         progress.setText(

@@ -1,100 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".activity.MainActivity">
-
-    <include layout="@layout/fragment_button_tutorial" />
-
-    <include layout="@layout/fragment_button" />
-
-    <RelativeLayout
-        android:id="@+id/progress_bar_layout"
-        android:layout_centerInParent="true"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible">
-
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="?android:attr/progressBarStyleLarge"
-            android:indeterminate="false"
-            android:max="84"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerInParent="true" />
-
-        <TextView
-            android:id="@+id/progress_bar_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/progress_bar"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:textSize="20sp"
-            android:textStyle="italic"
-            android:text="@string/progressbar_loading_preset" />
-
-        <TextView
-            android:id="@+id/progress_bar_progress_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/progress_bar_text"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
-            android:textSize="14sp"
-            android:textStyle="italic"
-            android:textColor="@color/dark_secondary"
-            android:text="@string/progressbar_loading_preset_progress_placeholder" />
-    </RelativeLayout>
-
-    <include layout="@layout/fragment_fab" />
-
-    <include layout="@layout/fragment_toolbar"/>
-
-    <include layout="@layout/fragment_layout_about" />
-
-    <include layout="@layout/fragment_layout_settings" />
-
-    <include layout="@layout/fragment_actionbar" />
-
-    <View
-        android:id="@+id/placeholder"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorAccent"
-        android:visibility="gone" />
-    
-    <LinearLayout
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/testFeedbackIntentSong"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/amber"
-            android:gravity="center"
-            android:text="song"/>
-        <TextView
-            android:id="@+id/testFeedbackIntentFeedback"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/blue"
-            android:gravity="center"
-            android:text="feedback"/>
-        <TextView
-            android:id="@+id/testFeedbackIntentBug"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/green"
-            android:gravity="center"
-            android:text="bug"/>
-    </LinearLayout>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:ads="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/white"
+	tools:context=".activity.MainActivity">
+	
+	<include layout="@layout/fragment_button_tutorial"/>
+	
+	<include layout="@layout/fragment_button"/>
+	
+	<LinearLayout
+		android:id="@+id/progress_bar_layout"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_centerInParent="true"
+		android:orientation="vertical"
+		android:gravity="center"
+		android:background="@color/white"
+		android:visibility="visible">
+		
+		<ProgressBar
+			android:id="@+id/progress_bar"
+			style="?android:attr/progressBarStyleLarge"
+			android:layout_width="100dp"
+			android:layout_height="100dp"
+			android:indeterminate="false"
+			android:layout_marginTop="100dp"
+			android:max="84"/>
+		
+		<TextView
+			android:id="@+id/progress_bar_text"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="20dp"
+			android:text="@string/progressbar_loading_preset"
+			android:textSize="20sp"
+			android:textStyle="italic"/>
+		
+		<TextView
+			android:id="@+id/progress_bar_progress_text"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="12dp"
+			android:text="@string/progressbar_loading_preset_progress_placeholder"
+			android:textColor="@color/dark_secondary"
+			android:textSize="14sp"
+			android:textStyle="italic"/>
+		
+		<com.google.android.gms.ads.NativeExpressAdView
+			android:id="@+id/adView_main"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="24dp"
+			ads:adSize="FULL_WIDTHx120"
+			ads:adUnitId="@string/admob_unit_id_native_main">
+		</com.google.android.gms.ads.NativeExpressAdView>
+	</LinearLayout>
+	
+	<include layout="@layout/fragment_fab"/>
+	
+	<include layout="@layout/fragment_toolbar"/>
+	
+	<include layout="@layout/fragment_layout_about"/>
+	
+	<include layout="@layout/fragment_layout_settings"/>
+	
+	<include layout="@layout/fragment_actionbar"/>
+	
+	<View
+		android:id="@+id/placeholder"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/colorAccent"
+		android:visibility="gone"/>
+	
+	<LinearLayout
+		android:layout_width="100dp"
+		android:layout_height="wrap_content"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentTop="true"
+		android:visibility="gone"
+		android:orientation="vertical">
+		
+		<TextView
+			android:id="@+id/testFeedbackIntentSong"
+			android:layout_width="match_parent"
+			android:layout_height="40dp"
+			android:background="@color/amber"
+			android:gravity="center"
+			android:text="song"/>
+		
+		<TextView
+			android:id="@+id/testFeedbackIntentFeedback"
+			android:layout_width="match_parent"
+			android:layout_height="40dp"
+			android:background="@color/blue"
+			android:gravity="center"
+			android:text="feedback"/>
+		
+		<TextView
+			android:id="@+id/testFeedbackIntentBug"
+			android:layout_width="match_parent"
+			android:layout_height="40dp"
+			android:background="@color/green"
+			android:gravity="center"
+			android:text="bug"/>
+	</LinearLayout>
 </RelativeLayout>

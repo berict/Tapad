@@ -34,6 +34,8 @@ import android.widget.ToggleButton;
 import android.widget.VideoView;
 
 import com.bedrock.padder.R;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.NativeExpressAdView;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -470,6 +472,16 @@ public class WindowService {
     public TextView getTextView(int id, Activity activity) {
         TextView textview = (TextView) activity.findViewById(id);
         return textview;
+    }
+
+    public AdView getAdView(int id, Activity activity) {
+        AdView adview = (AdView) activity.findViewById(id);
+        return adview;
+    }
+
+    public NativeExpressAdView getNativeAdView(int id, Activity activity) {
+        NativeExpressAdView adview = (NativeExpressAdView) activity.findViewById(id);
+        return adview;
     }
 
     public RelativeLayout getRelativeLayout(int id, Activity activity) {
