@@ -233,4 +233,5 @@
     <string name="base64_rsa_key">BIQBDjQNEgtqUkwGqwxBUQSFVADC+QDAGIzBtggCoQeAdLok2Z2y3ywS2WYNw5nmXnRn+68iZP5/WwNjPMqRxrOuudFqWK4yU308muWps1fmMZAobxn+rQpcbvAiWjCBFcx+B5Vnsm9onJJT5I/YPckqdVKN5AivMevQNCOPS1aJe5ayUvaQptOtmH8do//SuGEJ4WZ7LKNr4fNx2ZMmdBYV+dMkKDQDUUPT3d4dPF1Nbn8l9/igtt53OmnsM88LdiAnxhDPN/Xxg4mwP1nS0iplJ/vqD9IEDJ8gLMxeoF468HdUQ6T3XZBmA7j2avoHNuU/AGTdjIGfo4Kgjf0WvGmA0gBn/EdAgKmCyIJMV8dAoOIAUEoA/0U9HixhRk6BAAIIAIAM</string>
 	<string name="admob_unit_id_banner_main">ca-app-pub-4284148629649013/3055716682</string>
 	<string name="admob_unit_id_native_main">ca-app-pub-4284148629649013/8479481484</string>
+	<string name="admob_unit_id_native_about">ca-app-pub-4284148629649013/1028436683</string>
 </resources>

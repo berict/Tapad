@@ -7,8 +7,9 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardview_about"
-        android:layout_width="match_parent"
+        android:layout_width="360dp"
         android:layout_height="match_parent"
+		android:layout_centerHorizontal="true"
         android:foreground="?selectableItemBackground"
         android:clickable="true"
         app:cardElevation="4dp"
@@ -20,8 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true">
-            
-            <!-- TODO FIX -->
 
             <ImageView
                 android:id="@+id/cardview_about_image"

@@ -37,10 +37,6 @@ import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.preset.Deck;
 import com.bedrock.padder.model.preset.Pad;
 import com.bedrock.padder.model.preset.Preset;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.NativeExpressAdView;
-import com.google.android.gms.ads.VideoController;
-import com.google.android.gms.ads.VideoOptions;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Field;
@@ -108,9 +104,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     private MaterialTapTargetPrompt promptInfo;     // 5
     private MaterialTapTargetPrompt promptPreset;   // 6
     private MaterialTapTargetPrompt promptTutorial; // 7
-    
-    private NativeExpressAdView adViewMain;
-    private VideoController mVideoController;
+
     // TODO SET ON INTENT
     Gson gson = new Gson();
     Preset presets[];
@@ -208,41 +202,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         enterAnim();
         setButtonLayout();
 
-        // TODO native app fucking not working
-
         // Request ads
-        adViewMain = ad.getNativeAdView(R.id.adView_main, a);
-        ad.requestLoadNativeAd(adViewMain);
-        adViewMain.setVideoOptions(new VideoOptions.Builder()
-                .setStartMuted(true)
-                .build());
-
-        // The VideoController can be used to get lifecycle events and info about an ad's video
-        // asset. One will always be returned by getVideoController, even if the ad has no video
-        // asset.
-        mVideoController = adViewMain.getVideoController();
-        mVideoController.setVideoLifecycleCallbacks(new VideoController.VideoLifecycleCallbacks() {
-            @Override
-            public void onVideoEnd() {
-                Log.d(TAG, "Video playback is finished.");
-                super.onVideoEnd();
-            }
-        });
-
-        // Set an AdListener for the AdView, so the Activity can take action when an ad has finished
-        // loading.
-        adViewMain.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                if (mVideoController.hasVideoContent()) {
-                    Log.d(TAG, "Received an ad that contains a video asset.");
-                } else {
-                    Log.d(TAG, "Received an ad that does not contain a video asset.");
-                }
-            }
-        });
-        //ad.setNativeAdViewSize(adViewMain,
-        //        new AdSize(w.convertPXtoDP(w.getView(R.id.progress_bar_layout, a).getWidth(), a), 100), a);
+        ad.requestLoadNativeAd(ad.getNativeAdView(R.id.adView_main, a));
 
         //Set transparent nav bar
         w.setStatusBar(R.color.transparent, a);
@@ -941,6 +902,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                         w.setRecentColor(R.string.about, 0, themeColor, a);
                         ab.setNav(1, null, a);
                         ab.setTitle(R.string.about, a);
+                        // TODO need to resolve "Not enough space to show ad." - probably occurs from visibility.gone
+                        //ad.requestLoadNativeAd(ad.getNativeAdView(R.id.adView_about, a));
                     }
                 }, circularRevealDuration);
 
@@ -1147,6 +1110,9 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
         anim.fadeIn(R.id.placeholder, 0, fadeAnimDuration, "aboutOut", a);
         isAboutVisible = false;
+
+        // TODO need to resolve "Not enough space to show ad." - probably occurs from visibility.gone
+        //ad.destroyNativeAdView(R.id.adView_about, a);
 
         Handler closeAbout = new Handler();
         closeAbout.postDelayed(new Runnable() {
