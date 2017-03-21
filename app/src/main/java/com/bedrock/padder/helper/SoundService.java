@@ -659,83 +659,83 @@ public class SoundService {
 
     public void setButtonTogglePattern(int id, int colorId, int patternId, Activity activity) {
 
-        int pattern1[][] = {
-                {R.id.btn12, R.id.btn21},
-                {R.id.btn11, R.id.btn22, R.id.btn13},
-                {R.id.btn12, R.id.btn23, R.id.btn14},
-                {R.id.btn13, R.id.btn24},
-                {R.id.btn11, R.id.btn22, R.id.btn31},
-                {R.id.btn12, R.id.btn21, R.id.btn32, R.id.btn23},
-                {R.id.btn13, R.id.btn22, R.id.btn33, R.id.btn24},
-                {R.id.btn14, R.id.btn23, R.id.btn34},
-                {R.id.btn21, R.id.btn32, R.id.btn41},
-                {R.id.btn31, R.id.btn33, R.id.btn22, R.id.btn42},
-                {R.id.btn32, R.id.btn34, R.id.btn23, R.id.btn43},
-                {R.id.btn33, R.id.btn24, R.id.btn44},
-                {R.id.btn31, R.id.btn42},
-                {R.id.btn41, R.id.btn32, R.id.btn43},
-                {R.id.btn42, R.id.btn33, R.id.btn44},
-                {R.id.btn34, R.id.btn43}
+        int pattern1[][][] = {
+                {{R.id.btn12, R.id.btn21}},
+                {{R.id.btn11, R.id.btn22, R.id.btn13}},
+                {{R.id.btn12, R.id.btn23, R.id.btn14}},
+                {{R.id.btn13, R.id.btn24}},
+                {{R.id.btn11, R.id.btn22, R.id.btn31}},
+                {{R.id.btn12, R.id.btn21, R.id.btn32, R.id.btn23}},
+                {{R.id.btn13, R.id.btn22, R.id.btn33, R.id.btn24}},
+                {{R.id.btn14, R.id.btn23, R.id.btn34}},
+                {{R.id.btn21, R.id.btn32, R.id.btn41}},
+                {{R.id.btn31, R.id.btn33, R.id.btn22, R.id.btn42}},
+                {{R.id.btn32, R.id.btn34, R.id.btn23, R.id.btn43}},
+                {{R.id.btn33, R.id.btn24, R.id.btn44}},
+                {{R.id.btn31, R.id.btn42}},
+                {{R.id.btn41, R.id.btn32, R.id.btn43}},
+                {{R.id.btn42, R.id.btn33, R.id.btn44}},
+                {{R.id.btn34, R.id.btn43}}
         };
 
-        int pattern2[][] = {
-                {R.id.btn12, R.id.btn13, R.id.btn14},
-                {R.id.btn11, R.id.btn13, R.id.btn14},
-                {R.id.btn11, R.id.btn12, R.id.btn14},
-                {R.id.btn11, R.id.btn12, R.id.btn13},
-                {R.id.btn22, R.id.btn23, R.id.btn24},
-                {R.id.btn21, R.id.btn23, R.id.btn24},
-                {R.id.btn21, R.id.btn22, R.id.btn24},
-                {R.id.btn21, R.id.btn22, R.id.btn23},
-                {R.id.btn32, R.id.btn33, R.id.btn34},
-                {R.id.btn31, R.id.btn33, R.id.btn34},
-                {R.id.btn31, R.id.btn32, R.id.btn34},
-                {R.id.btn31, R.id.btn32, R.id.btn33},
-                {R.id.btn42, R.id.btn43, R.id.btn44},
-                {R.id.btn41, R.id.btn43, R.id.btn44},
-                {R.id.btn41, R.id.btn42, R.id.btn44},
-                {R.id.btn41, R.id.btn42, R.id.btn43}
+        int pattern2[][][] = {
+                {{R.id.btn12}, {R.id.btn13}, {R.id.btn14}},
+                {{R.id.btn11, R.id.btn13}, {R.id.btn14}},
+                {{R.id.btn12, R.id.btn14}, {R.id.btn11}},
+                {{R.id.btn13}, {R.id.btn12}, {R.id.btn11}},
+                {{R.id.btn22}, {R.id.btn23}, {R.id.btn24}},
+                {{R.id.btn21, R.id.btn23}, {R.id.btn24}},
+                {{R.id.btn24, R.id.btn22}, {R.id.btn21}},
+                {{R.id.btn23}, {R.id.btn22}, {R.id.btn21}},
+                {{R.id.btn32}, {R.id.btn33}, {R.id.btn34}},
+                {{R.id.btn31, R.id.btn33}, {R.id.btn34}},
+                {{R.id.btn34, R.id.btn32}, {R.id.btn31}},
+                {{R.id.btn33}, {R.id.btn32}, {R.id.btn31}},
+                {{R.id.btn42}, {R.id.btn43}, {R.id.btn44}},
+                {{R.id.btn41, R.id.btn43}, {R.id.btn44}},
+                {{R.id.btn44, R.id.btn42}, {R.id.btn41}},
+                {{R.id.btn43}, {R.id.btn42}, {R.id.btn41}}
         };
 
-        int pattern3[][] = {
-                {R.id.btn21, R.id.btn31, R.id.btn41},
-                {R.id.btn22, R.id.btn32, R.id.btn42},
-                {R.id.btn23, R.id.btn33, R.id.btn43},
-                {R.id.btn24, R.id.btn34, R.id.btn44},
-                {R.id.btn11, R.id.btn31, R.id.btn41},
-                {R.id.btn12, R.id.btn32, R.id.btn42},
-                {R.id.btn13, R.id.btn33, R.id.btn43},
-                {R.id.btn14, R.id.btn34, R.id.btn44},
-                {R.id.btn11, R.id.btn21, R.id.btn41},
-                {R.id.btn12, R.id.btn22, R.id.btn42},
-                {R.id.btn13, R.id.btn23, R.id.btn43},
-                {R.id.btn14, R.id.btn24, R.id.btn44},
-                {R.id.btn11, R.id.btn21, R.id.btn31},
-                {R.id.btn12, R.id.btn22, R.id.btn32},
-                {R.id.btn13, R.id.btn23, R.id.btn33},
-                {R.id.btn14, R.id.btn24, R.id.btn34}
+        int pattern3[][][] = {
+                {{R.id.btn21}, {R.id.btn31}, {R.id.btn41}},
+                {{R.id.btn22}, {R.id.btn32}, {R.id.btn42}},
+                {{R.id.btn23}, {R.id.btn33}, {R.id.btn43}},
+                {{R.id.btn24}, {R.id.btn34}, {R.id.btn44}},
+                {{R.id.btn11, R.id.btn31}, {R.id.btn41}},
+                {{R.id.btn12, R.id.btn32}, {R.id.btn42}},
+                {{R.id.btn13, R.id.btn33}, {R.id.btn43}},
+                {{R.id.btn14, R.id.btn34}, {R.id.btn44}},
+                {{R.id.btn41, R.id.btn21}, {R.id.btn11}},
+                {{R.id.btn42, R.id.btn22}, {R.id.btn12}},
+                {{R.id.btn43, R.id.btn23}, {R.id.btn13}},
+                {{R.id.btn44, R.id.btn24}, {R.id.btn14}},
+                {{R.id.btn31}, {R.id.btn21}, {R.id.btn11}},
+                {{R.id.btn32}, {R.id.btn22}, {R.id.btn12}},
+                {{R.id.btn33}, {R.id.btn23}, {R.id.btn13}},
+                {{R.id.btn34}, {R.id.btn24}, {R.id.btn14}}
         };
 
-        int pattern4[][] = {
-                {R.id.btn12, R.id.btn13, R.id.btn14, R.id.btn21, R.id.btn31, R.id.btn41},
-                {R.id.btn11, R.id.btn13, R.id.btn14, R.id.btn22, R.id.btn32, R.id.btn42},
-                {R.id.btn11, R.id.btn12, R.id.btn14, R.id.btn23, R.id.btn33, R.id.btn43},
-                {R.id.btn11, R.id.btn12, R.id.btn13, R.id.btn24, R.id.btn34, R.id.btn44},
-                {R.id.btn22, R.id.btn23, R.id.btn24, R.id.btn11, R.id.btn31, R.id.btn41},
-                {R.id.btn21, R.id.btn23, R.id.btn24, R.id.btn12, R.id.btn32, R.id.btn42},
-                {R.id.btn21, R.id.btn22, R.id.btn24, R.id.btn13, R.id.btn33, R.id.btn43},
-                {R.id.btn21, R.id.btn22, R.id.btn23, R.id.btn14, R.id.btn34, R.id.btn44},
-                {R.id.btn32, R.id.btn33, R.id.btn34, R.id.btn11, R.id.btn21, R.id.btn41},
-                {R.id.btn31, R.id.btn33, R.id.btn34, R.id.btn12, R.id.btn22, R.id.btn42},
-                {R.id.btn31, R.id.btn32, R.id.btn34, R.id.btn13, R.id.btn23, R.id.btn43},
-                {R.id.btn31, R.id.btn32, R.id.btn33, R.id.btn14, R.id.btn24, R.id.btn44},
-                {R.id.btn42, R.id.btn43, R.id.btn44, R.id.btn11, R.id.btn21, R.id.btn31},
-                {R.id.btn41, R.id.btn43, R.id.btn44, R.id.btn12, R.id.btn22, R.id.btn32},
-                {R.id.btn41, R.id.btn42, R.id.btn44, R.id.btn13, R.id.btn23, R.id.btn33},
-                {R.id.btn41, R.id.btn42, R.id.btn43, R.id.btn14, R.id.btn24, R.id.btn34}
+        int pattern4[][][] = {
+                {{R.id.btn12, R.id.btn21}, {R.id.btn13, R.id.btn31}, {R.id.btn14, R.id.btn41}},
+                {{R.id.btn11, R.id.btn22, R.id.btn13}, {R.id.btn14, R.id.btn32}, {R.id.btn42}},
+                {{R.id.btn12, R.id.btn14, R.id.btn23}, {R.id.btn11, R.id.btn33}, {R.id.btn43}},
+                {{R.id.btn13, R.id.btn24}, {R.id.btn12, R.id.btn34}, {R.id.btn11, R.id.btn44}},
+                {{R.id.btn11, R.id.btn22, R.id.btn31}, {R.id.btn23, R.id.btn41}, {R.id.btn24}},
+                {{R.id.btn12, R.id.btn21, R.id.btn23, R.id.btn32}, {R.id.btn24, R.id.btn42}},
+                {{R.id.btn13, R.id.btn22, R.id.btn24, R.id.btn33}, {R.id.btn21, R.id.btn43}},
+                {{R.id.btn14, R.id.btn23, R.id.btn34}, {R.id.btn22, R.id.btn44}, {R.id.btn21}},
+                {{R.id.btn21, R.id.btn32, R.id.btn41}, {R.id.btn11, R.id.btn33}, {R.id.btn34}},
+                {{R.id.btn22, R.id.btn31, R.id.btn33, R.id.btn42}, {R.id.btn12, R.id.btn34}},
+                {{R.id.btn23, R.id.btn32, R.id.btn34, R.id.btn43}, {R.id.btn13, R.id.btn31}},
+                {{R.id.btn24, R.id.btn33, R.id.btn44}, {R.id.btn14, R.id.btn32}, {R.id.btn13}},
+                {{R.id.btn31, R.id.btn42}, {R.id.btn21, R.id.btn43}, {R.id.btn11, R.id.btn44}},
+                {{R.id.btn32, R.id.btn41, R.id.btn43}, {R.id.btn22, R.id.btn44}, {R.id.btn12}},
+                {{R.id.btn33, R.id.btn42, R.id.btn44}, {R.id.btn23, R.id.btn41}, {R.id.btn13}},
+                {{R.id.btn34, R.id.btn43}, {R.id.btn42, R.id.btn24}, {R.id.btn14, R.id.btn41}}
         };
 
-        int pattern[][] = {};
+        int pattern[][][] = {};
 
         switch (patternId) {
             case 1:
