@@ -25,6 +25,7 @@
     <string name="user_benefits_page_1_hint">Play your favorite songs on your phone.</string>
     <string name="user_benefits_page_2_hint">Make your favorites the only remix in the world - by you.</string>
     <string name="user_benefits_page_3_hint">Set your favorite color and see them on the move.</string>
+	<string name="user_benefits_page_4_hint">Swipe up, down, left, right to make different sounds.\nHold to loop a sound.</string>
     <string name="user_benefits_dialog_hint">Before you start, select the song to play.</string>
     <string name="user_benefits_dialog_positive">START</string>
 
@@ -85,7 +86,7 @@
 	<string name="feedback_report_bug_type_error"                   >Select a bug type</string>
 	<string name="feedback_report_bug_type_quickfix_text"           >Wait! We might have a quickfix for you.</string>
 	<string name="feedback_report_bug_type_quickfix_action"         >Learn More</string>
-	<string name="feedback_report_bug_type_quickfix_content"        >LEL IDK FIX URSELF</string>
+	<string name="feedback_report_bug_type_quickfix_content"        >Make sure the deck (buttons with numbers on the first row) is selected and your device volume is big enough to hear.</string>
 	<string name="feedback_report_bug_type_quickfix_neutral"        >CLOSE</string>
 	<string-array name="feedback_report_bug_type_array"             >
 		<item>Bug type</item>
@@ -135,16 +136,20 @@
     <string name="dialog_tap_target_toggle_secondary">Tap the toggle button to load sounds to pads.</string>
     <string name="dialog_tap_target_button_primary">Make the music</string>
     <string name="dialog_tap_target_button_secondary">Press the pads in the right time to make the music!</string>
-    <string name="dialog_tap_target_pattern_primary">Play more beautiful</string>
-    <string name="dialog_tap_target_pattern_secondary">Toggle the auto pattern to play more fabulously.</string>
+	<string name="dialog_tap_target_swipe_primary">Play with style</string>
+	<string name="dialog_tap_target_swipe_secondary">Swipe the pad up, down, left, right. It will make different sounds.</string>
+	<string name="dialog_tap_target_loop_primary">Loop sounds</string>
+	<string name="dialog_tap_target_loop_secondary">You can loop the sound by holding the pad.</string>
+    <string name="dialog_tap_target_pattern_primary">Play more beautifully</string>
+    <string name="dialog_tap_target_pattern_secondary">Toggle the auto pattern to make the pads light with patterns.</string>
     <string name="dialog_tap_target_fab_primary">Get control of the app</string>
     <string name="dialog_tap_target_fab_secondary">Tap the action button to get information, change settings &amp; more.</string>
     <string name="dialog_tap_target_info_primary">Check out more information</string>
     <string name="dialog_tap_target_info_secondary">Know about the artist, app itself &amp; more.</string>
-    <string name="dialog_tap_target_preset_primary">Play your favorite song</string>
-    <string name="dialog_tap_target_preset_secondary">Discover different presets and its artists.</string>
     <string name="dialog_tap_target_tutorial_primary">Learn how to play</string>
-    <string name="dialog_tap_target_tutorial_secondary">Enable the tutorial mode to learn the preset.</string>
+    <string name="dialog_tap_target_tutorial_secondary">Check out the tutorial to learn the preset.</string>
+	<string name="dialog_tap_target_preset_primary">Change now playing preset</string>
+	<string name="dialog_tap_target_preset_secondary">Discover different presets and its artists.</string>
     <string name="dialog_thanks_positive">CLOSE</string>
 
     <string name="dialog_preset_title">Presets</string>

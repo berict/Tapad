@@ -71,7 +71,8 @@ public class UserBenefitsActivity extends Activity {
         layouts = new int[]{
                 R.layout.fragment_user_benefits_page1,
                 R.layout.fragment_user_benefits_page2,
-                R.layout.fragment_user_benefits_page3};
+                R.layout.fragment_user_benefits_page3,
+                R.layout.fragment_user_benefits_page4};
 
         // Set viewpager
         viewPagerAdapter = new ViewPagerAdapter();
@@ -81,11 +82,11 @@ public class UserBenefitsActivity extends Activity {
         // Setting windows default
         setBottomDots(0);
 
-        reveal = (View)findViewById(R.id.user_benefits_reveal_view);
+        reveal = findViewById(R.id.user_benefits_reveal_view);
 
         setIntentMain(btnSkip, reveal);
 
-        prefs.edit().putInt("scheme", 1).apply();
+        prefs.edit().putInt("scheme", 0).apply();
         Log.d("SharedPrefs", "Scheme : Hello");
 
         prefs.edit().putInt("color", R.color.red).apply();
@@ -96,8 +97,8 @@ public class UserBenefitsActivity extends Activity {
         window.setNavigationBar(R.color.transparent, activity);
 
         // Set window margins
-        window.setMarginRelativePX(R.id.user_benefits_view_pager, 0, prefs.getInt("statBarPX", 0), 0, 0, activity);
-        window.setMarginLinearPX(R.id.user_benefits_page_indicator, 0, 0, 0, prefs.getInt("navBarPX", 0), activity);
+        window.getView(R.id.user_benefits_view_pager, activity).setPadding(0, prefs.getInt("statBarPX", 0), 0, 0);
+        window.getView(R.id.user_benefits_layout, activity).setPadding(0, 0, 0, prefs.getInt("navBarPX", 0));
 
         // Set taskDesc
         window.setRecentColor(R.string.app_name, 0, R.color.colorPrimary, activity);
@@ -228,7 +229,7 @@ public class UserBenefitsActivity extends Activity {
     }
 
     private void setBottomDots(int currentPage) {
-        int dot[] = {R.id.dot_1, R.id.dot_2, R.id.dot_3};
+        int dot[] = {R.id.dot_1, R.id.dot_2, R.id.dot_3, R.id.dot_4};
 
         for(int i = 0; i < dot.length; i++) {
             if(i == currentPage) {

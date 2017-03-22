@@ -99,11 +99,13 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
     private MaterialTapTargetPrompt promptToggle;   // 1
     private MaterialTapTargetPrompt promptButton;   // 2
-    private MaterialTapTargetPrompt promptPattern;  // 3
-    private MaterialTapTargetPrompt promptFab;      // 4
-    private MaterialTapTargetPrompt promptInfo;     // 5
-    private MaterialTapTargetPrompt promptPreset;   // 6
-    private MaterialTapTargetPrompt promptTutorial; // 7
+    private MaterialTapTargetPrompt promptSwipe;    // 3
+    private MaterialTapTargetPrompt promptLoop;     // 4
+    private MaterialTapTargetPrompt promptPattern;  // 5
+    private MaterialTapTargetPrompt promptFab;      // 6
+    private MaterialTapTargetPrompt promptPreset;   // 7
+    private MaterialTapTargetPrompt promptInfo;     // 8
+    private MaterialTapTargetPrompt promptTutorial; // 9
 
     // TODO SET ON INTENT
     Gson gson = new Gson();
@@ -369,7 +371,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     public void onBackPressed() {
         if (isToolbarVisible == true) {
             if ((prefs.getInt(qs, 0) != -1) && isAboutVisible == false && isSettingVisible == false) {
-                Log.i("BackPressed", "Tutorial prompt is visible, backpress ignored.");
+                Log.i("BackPressed", "Quickstart tap target prompt is visible, backpress ignored.");
             } else {
                 if (isAboutVisible == true) {
                     if (isSettingVisible == true) {
@@ -380,7 +382,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 } else if (isSettingVisible == true) {
                     closeSettings();
                 } else {
-                    closeToolbar();
+                    closeToolbar(a);
                 }
             }
         } else {
@@ -522,302 +524,459 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         try {
             Log.d("VersionCode", "sharedPrefs versionCode = " + String.valueOf(pref.getInt("versionCode", -1))
                     + " , currentVersionCode = " + String.valueOf(currentVersionCode));
-            if (currentVersionCode > pref.getInt("versionCode", -1)) {
-                // Updated
-                Log.d("VersionCode", "Updated, show changelog");
-                ChangelogDialog = new MaterialDialog.Builder(a)
-                        .title(w.getStringId("info_tapad_info_changelog"))
-                        .content(w.getStringId("info_tapad_info_changelog_text"))
-                        .contentColorRes(R.color.dark_primary)
-                        .positiveText(R.string.dialog_close)
-                        .positiveColorRes(R.color.colorAccent)
-                        .dismissListener(new DialogInterface.OnDismissListener() {
-                            @Override
-                            public void onDismiss(DialogInterface dialogInterface) {
-                                // Dialog
-                                if (pref.getInt(qs, 0) == 0) {
-                                    QuickstartDialog = new MaterialDialog.Builder(activity)
-                                            .title(R.string.dialog_quickstart_welcome_title)
-                                            .content(R.string.dialog_quickstart_welcome_text)
-                                            .positiveText(R.string.dialog_quickstart_welcome_positive)
-                                            .positiveColorRes(R.color.colorAccent)
-                                            .negativeText(R.string.dialog_quickstart_welcome_negative)
-                                            .negativeColorRes(R.color.dark_secondary)
-                                            .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                                @Override
-                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                                    pref.edit().putInt(qs, 0).apply();
-                                                    Log.i("sharedPrefs", "quickstart edited to 0");
-                                                }
-                                            })
-                                            .onNegative(new MaterialDialog.SingleButtonCallback() {
-                                                @Override
-                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                                    pref.edit().putInt(qs, -1).apply();
-                                                    Log.i("sharedPrefs", "quickstart edited to -1");
-                                                }
-                                            })
-                                            .dismissListener(new DialogInterface.OnDismissListener() {
-                                                @Override
-                                                public void onDismiss(DialogInterface dialogInterface) {
-                                                    if (pref.getInt(qs, 0) == 0) {
-                                                        Log.i("setQuickstart", "Quickstart started");
-                                                        if (promptFab != null) {
-                                                            return;
-                                                        }
-                                                        promptToggle = new MaterialTapTargetPrompt.Builder(activity)
-                                                                .setTarget(activity.findViewById(R.id.tgl1))
-                                                                .setPrimaryText(R.string.dialog_tap_target_toggle_primary)
-                                                                .setSecondaryText(R.string.dialog_tap_target_toggle_secondary)
-                                                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
-                                                                .setAutoDismiss(false)
-                                                                .setAutoFinish(false)
-                                                                .setFocalColourFromRes(R.color.white)
-                                                                .setCaptureTouchEventOutsidePrompt(true)
-                                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
-                                                                    @Override
-                                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
-                                                                        if (tappedTarget) {
-                                                                            promptToggle.finish();
-                                                                            promptToggle = null;
-                                                                            pref.edit().putInt(qs, 1).apply();
-                                                                            Log.i("sharedPrefs", "quickstart edited to 1");
-                                                                        }
-                                                                    }
+            Log.d("VersionCode", "Updated, show changelog");
 
-                                                                    @Override
-                                                                    public void onHidePromptComplete() {
-                                                                        promptButton = new MaterialTapTargetPrompt.Builder(activity)
-                                                                                .setTarget(activity.findViewById(R.id.btn31))
-                                                                                .setPrimaryText(R.string.dialog_tap_target_button_primary)
-                                                                                .setSecondaryText(R.string.dialog_tap_target_button_secondary)
-                                                                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
-                                                                                .setAutoDismiss(false)
-                                                                                .setAutoFinish(false)
-                                                                                .setFocalColourFromRes(R.color.white)
-                                                                                .setFocalRadius((float) w.convertDPtoPX(80, activity))
-                                                                                .setCaptureTouchEventOutsidePrompt(true)
-                                                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
-                                                                                    @Override
-                                                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
-                                                                                        if (tappedTarget) {
-                                                                                            promptButton.finish();
-                                                                                            promptButton = null;
-                                                                                            pref.edit().putInt(qs, 2).apply();
-                                                                                            Log.i("sharedPrefs", "quickstart edited to 2");
-                                                                                        }
-                                                                                    }
-
-                                                                                    @Override
-                                                                                    public void onHidePromptComplete() {
-                                                                                        promptPattern = new MaterialTapTargetPrompt.Builder(activity)
-                                                                                                .setTarget(activity.findViewById(R.id.tgl7))
-                                                                                                .setPrimaryText(R.string.dialog_tap_target_pattern_primary)
-                                                                                                .setSecondaryText(R.string.dialog_tap_target_pattern_secondary)
-                                                                                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
-                                                                                                .setAutoDismiss(false)
-                                                                                                .setAutoFinish(false)
-                                                                                                .setFocalColourFromRes(R.color.white)
-                                                                                                .setCaptureTouchEventOutsidePrompt(true)
-                                                                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
-                                                                                                    @Override
-                                                                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
-                                                                                                        if (tappedTarget) {
-                                                                                                            promptPattern.finish();
-                                                                                                            promptPattern = null;
-                                                                                                            pref.edit().putInt(qs, 3).apply();
-                                                                                                            Log.i("sharedPrefs", "quickstart edited to 3");
-                                                                                                        }
-                                                                                                    }
-
-                                                                                                    @Override
-                                                                                                    public void onHidePromptComplete() {
-                                                                                                        promptFab = new MaterialTapTargetPrompt.Builder(activity)
-                                                                                                                .setTarget(activity.findViewById(R.id.fab))
-                                                                                                                .setPrimaryText(R.string.dialog_tap_target_fab_primary)
-                                                                                                                .setSecondaryText(R.string.dialog_tap_target_fab_secondary)
-                                                                                                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
-                                                                                                                .setAutoDismiss(false)
-                                                                                                                .setAutoFinish(false)
-                                                                                                                .setFocalColourFromRes(R.color.white)
-                                                                                                                .setCaptureTouchEventOutsidePrompt(true)
-                                                                                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
-                                                                                                                    @Override
-                                                                                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
-                                                                                                                        if (tappedTarget) {
-                                                                                                                            promptFab.finish();
-                                                                                                                            promptFab = null;
-                                                                                                                            pref.edit().putInt(qs, 4).apply();
-                                                                                                                            Log.i("sharedPrefs", "quickstart edited to 4");
-                                                                                                                        }
-                                                                                                                    }
-
-                                                                                                                    @Override
-                                                                                                                    public void onHidePromptComplete() {
-                                                                                                                    }
-                                                                                                                })
-                                                                                                                .show();
-                                                                                                    }
-                                                                                                })
-                                                                                                .show();
-                                                                                    }
-                                                                                })
-                                                                                .show();
-                                                                    }
-                                                                })
-                                                                .show();
-                                                    } else {
-                                                        Log.i("setQuickstart", "Quickstart canceled");
+            ChangelogDialog = new MaterialDialog.Builder(activity)
+                    .title(w.getStringId("info_tapad_info_changelog"))
+                    .content(w.getStringId("info_tapad_info_changelog_text"))
+                    .contentColorRes(R.color.dark_primary)
+                    .positiveText(R.string.dialog_close)
+                    .positiveColorRes(R.color.colorAccent)
+                    .dismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialogInterface) {
+                            // Dialog
+                            if (pref.getInt(qs, 0) == 0) {
+                                closeToolbar(activity);
+                                QuickstartDialog = new MaterialDialog.Builder(activity)
+                                        .title(R.string.dialog_quickstart_welcome_title)
+                                        .content(R.string.dialog_quickstart_welcome_text)
+                                        .positiveText(R.string.dialog_quickstart_welcome_positive)
+                                        .positiveColorRes(R.color.colorAccent)
+                                        .negativeText(R.string.dialog_quickstart_welcome_negative)
+                                        .negativeColorRes(R.color.dark_secondary)
+                                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                            @Override
+                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                pref.edit().putInt(qs, 0).apply();
+                                                Log.i("sharedPrefs", "quickstart edited to 0");
+                                            }
+                                        })
+                                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                            @Override
+                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                pref.edit().putInt(qs, -1).apply();
+                                                Log.i("sharedPrefs", "quickstart edited to -1");
+                                            }
+                                        })
+                                        .dismissListener(new DialogInterface.OnDismissListener() {
+                                            @Override
+                                            public void onDismiss(DialogInterface dialogInterface) {
+                                                if (pref.getInt(qs, 0) == 0) {
+                                                    Log.i("setQuickstart", "Quickstart started");
+                                                    if (promptFab != null) {
+                                                        return;
                                                     }
+                                                    promptToggle = new MaterialTapTargetPrompt.Builder(activity)
+                                                            .setTarget(activity.findViewById(R.id.tgl1))
+                                                            .setPrimaryText(R.string.dialog_tap_target_toggle_primary)
+                                                            .setSecondaryText(R.string.dialog_tap_target_toggle_secondary)
+                                                            .setAnimationInterpolator(new FastOutSlowInInterpolator())
+                                                            .setAutoDismiss(false)
+                                                            .setAutoFinish(false)
+                                                            .setFocalColourFromRes(R.color.white)
+                                                            .setCaptureTouchEventOutsidePrompt(true)
+                                                            .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
+                                                                @Override
+                                                                public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
+                                                                    if (tappedTarget) {
+                                                                        promptToggle.finish();
+                                                                        promptToggle = null;
+                                                                        pref.edit().putInt(qs, 1).apply();
+                                                                        Log.i("sharedPrefs", "quickstart edited to 1");
+                                                                    }
+                                                                }
+
+                                                                @Override
+                                                                public void onHidePromptComplete() {
+                                                                    promptButton = new MaterialTapTargetPrompt.Builder(activity)
+                                                                            .setTarget(activity.findViewById(R.id.btn31))
+                                                                            .setPrimaryText(R.string.dialog_tap_target_button_primary)
+                                                                            .setSecondaryText(R.string.dialog_tap_target_button_secondary)
+                                                                            .setAnimationInterpolator(new FastOutSlowInInterpolator())
+                                                                            .setAutoDismiss(false)
+                                                                            .setAutoFinish(false)
+                                                                            .setFocalColourFromRes(R.color.white)
+                                                                            .setFocalRadius((float) w.convertDPtoPX(80, activity))
+                                                                            .setCaptureTouchEventOutsidePrompt(true)
+                                                                            .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
+                                                                                @Override
+                                                                                public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
+                                                                                    if (tappedTarget) {
+                                                                                        promptButton.finish();
+                                                                                        promptButton = null;
+                                                                                        pref.edit().putInt(qs, 3).apply();
+                                                                                        Log.i("sharedPrefs", "quickstart edited to 3");
+                                                                                    }
+                                                                                }
+
+                                                                                @Override
+                                                                                public void onHidePromptComplete() {
+                                                                                    promptSwipe = new MaterialTapTargetPrompt.Builder(activity)
+                                                                                            .setTarget(activity.findViewById(R.id.btn23))
+                                                                                            .setPrimaryText(R.string.dialog_tap_target_swipe_primary)
+                                                                                            .setSecondaryText(R.string.dialog_tap_target_swipe_secondary)
+                                                                                            .setAnimationInterpolator(new FastOutSlowInInterpolator())
+                                                                                            .setAutoDismiss(false)
+                                                                                            .setAutoFinish(false)
+                                                                                            .setFocalColourFromRes(R.color.white)
+                                                                                            .setFocalRadius((float) w.convertDPtoPX(80, activity))
+                                                                                            .setCaptureTouchEventOutsidePrompt(true)
+                                                                                            .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
+                                                                                                @Override
+                                                                                                public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
+                                                                                                    if (tappedTarget) {
+                                                                                                        promptSwipe.finish();
+                                                                                                        promptSwipe = null;
+                                                                                                        pref.edit().putInt(qs, 4).apply();
+                                                                                                        Log.i("sharedPrefs", "quickstart edited to 4");
+                                                                                                    }
+                                                                                                }
+
+                                                                                                @Override
+                                                                                                public void onHidePromptComplete() {
+                                                                                                    promptLoop = new MaterialTapTargetPrompt.Builder(activity)
+                                                                                                            .setTarget(activity.findViewById(R.id.btn42))
+                                                                                                            .setPrimaryText(R.string.dialog_tap_target_loop_primary)
+                                                                                                            .setSecondaryText(R.string.dialog_tap_target_loop_secondary)
+                                                                                                            .setAnimationInterpolator(new FastOutSlowInInterpolator())
+                                                                                                            .setAutoDismiss(false)
+                                                                                                            .setAutoFinish(false)
+                                                                                                            .setFocalColourFromRes(R.color.white)
+                                                                                                            .setFocalRadius((float) w.convertDPtoPX(80, activity))
+                                                                                                            .setCaptureTouchEventOutsidePrompt(true)
+                                                                                                            .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
+                                                                                                                @Override
+                                                                                                                public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
+                                                                                                                    if (tappedTarget) {
+                                                                                                                        promptLoop.finish();
+                                                                                                                        promptLoop = null;
+                                                                                                                        pref.edit().putInt(qs, 5).apply();
+                                                                                                                        Log.i("sharedPrefs", "quickstart edited to 5");
+                                                                                                                    }
+                                                                                                                }
+
+                                                                                                                @Override
+                                                                                                                public void onHidePromptComplete() {
+                                                                                                                    promptPattern = new MaterialTapTargetPrompt.Builder(activity)
+                                                                                                                            .setTarget(activity.findViewById(R.id.tgl7))
+                                                                                                                            .setPrimaryText(R.string.dialog_tap_target_pattern_primary)
+                                                                                                                            .setSecondaryText(R.string.dialog_tap_target_pattern_secondary)
+                                                                                                                            .setAnimationInterpolator(new FastOutSlowInInterpolator())
+                                                                                                                            .setAutoDismiss(false)
+                                                                                                                            .setAutoFinish(false)
+                                                                                                                            .setFocalColourFromRes(R.color.white)
+                                                                                                                            .setCaptureTouchEventOutsidePrompt(true)
+                                                                                                                            .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
+                                                                                                                                @Override
+                                                                                                                                public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
+                                                                                                                                    if (tappedTarget) {
+                                                                                                                                        promptPattern.finish();
+                                                                                                                                        promptPattern = null;
+                                                                                                                                        pref.edit().putInt(qs, 5).apply();
+                                                                                                                                        Log.i("sharedPrefs", "quickstart edited to 5");
+                                                                                                                                    }
+                                                                                                                                }
+
+                                                                                                                                @Override
+                                                                                                                                public void onHidePromptComplete() {
+                                                                                                                                    promptFab = new MaterialTapTargetPrompt.Builder(activity)
+                                                                                                                                            .setTarget(activity.findViewById(R.id.fab))
+                                                                                                                                            .setPrimaryText(R.string.dialog_tap_target_fab_primary)
+                                                                                                                                            .setSecondaryText(R.string.dialog_tap_target_fab_secondary)
+                                                                                                                                            .setAnimationInterpolator(new FastOutSlowInInterpolator())
+                                                                                                                                            .setAutoDismiss(false)
+                                                                                                                                            .setAutoFinish(false)
+                                                                                                                                            .setFocalColourFromRes(R.color.white)
+                                                                                                                                            .setCaptureTouchEventOutsidePrompt(true)
+                                                                                                                                            .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
+                                                                                                                                                @Override
+                                                                                                                                                public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
+                                                                                                                                                    if (tappedTarget) {
+                                                                                                                                                        promptFab.finish();
+                                                                                                                                                        promptFab = null;
+                                                                                                                                                        pref.edit().putInt(qs, 6).apply();
+                                                                                                                                                        Log.i("sharedPrefs", "quickstart edited to 6");
+                                                                                                                                                    }
+                                                                                                                                                }
+
+                                                                                                                                                @Override
+                                                                                                                                                public void onHidePromptComplete() {
+                                                                                                                                                    promptPreset = new MaterialTapTargetPrompt.Builder(activity)
+                                                                                                                                                            .setTarget(activity.findViewById(R.id.toolbar_preset))
+                                                                                                                                                            .setPrimaryText(R.string.dialog_tap_target_preset_primary)
+                                                                                                                                                            .setSecondaryText(R.string.dialog_tap_target_preset_secondary)
+                                                                                                                                                            .setAnimationInterpolator(new FastOutSlowInInterpolator())
+                                                                                                                                                            .setAutoDismiss(false)
+                                                                                                                                                            .setAutoFinish(false)
+                                                                                                                                                            .setFocalColourFromRes(R.color.blue_500)
+                                                                                                                                                            .setCaptureTouchEventOutsidePrompt(true)
+                                                                                                                                                            .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
+                                                                                                                                                                @Override
+                                                                                                                                                                public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
+                                                                                                                                                                    if (tappedTarget) {
+                                                                                                                                                                        promptPreset.finish();
+                                                                                                                                                                        promptPreset = null;
+                                                                                                                                                                        pref.edit().putInt(qs, 7).apply();
+                                                                                                                                                                        Log.i("sharedPrefs", "quickstart edited to 7");
+                                                                                                                                                                    }
+                                                                                                                                                                }
+
+                                                                                                                                                                @Override
+                                                                                                                                                                public void onHidePromptComplete() {
+                                                                                                                                                                }
+                                                                                                                                                            })
+                                                                                                                                                            .show();
+                                                                                                                                                }
+                                                                                                                                            })
+                                                                                                                                            .show();
+                                                                                                                                }
+                                                                                                                            })
+                                                                                                                            .show();
+                                                                                                                }
+                                                                                                            })
+                                                                                                            .show();
+                                                                                                }
+                                                                                            })
+                                                                                            .show();
+                                                                                }
+                                                                            })
+                                                                            .show();
+                                                                }
+                                                            })
+                                                            .show();
+                                                } else {
+                                                    Log.i("setQuickstart", "Quickstart canceled");
+                                                    prefs.edit().putInt(qs, -1).apply();
                                                 }
-                                            })
-                                            .show();
-                                }
-                                pref.edit().putInt("versionCode", currentVersionCode).apply(); // Change this
-                                Log.d("VersionCode", "putInt " + String.valueOf(pref.getInt("versionCode", -1)));
+                                            }
+                                        })
+                                        .show();
                             }
-                        })
-                        .show();
-            } else {
-                if (pref.getInt(qs, 0) == 0) {
-                    QuickstartDialog = new MaterialDialog.Builder(activity)
-                            .title(R.string.dialog_quickstart_welcome_title)
-                            .content(R.string.dialog_quickstart_welcome_text)
-                            .positiveText(R.string.dialog_quickstart_welcome_positive)
-                            .positiveColorRes(R.color.colorAccent)
-                            .negativeText(R.string.dialog_quickstart_welcome_negative)
-                            .negativeColorRes(R.color.dark_secondary)
-                            .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    pref.edit().putInt(qs, 0).apply();
-                                    Log.i("sharedPrefs", "quickstart edited to 0");
-                                }
-                            })
-                            .onNegative(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    pref.edit().putInt(qs, -1).apply();
-                                    Log.i("sharedPrefs", "quickstart edited to -1");
-                                }
-                            })
-                            .dismissListener(new DialogInterface.OnDismissListener() {
-                                @Override
-                                public void onDismiss(DialogInterface dialogInterface) {
-                                    if (pref.getInt(qs, 0) == 0) {
-                                        Log.i("setQuickstart", "Quickstart started");
-                                        if (promptFab != null) {
-                                            return;
-                                        }
-                                        promptToggle = new MaterialTapTargetPrompt.Builder(activity)
-                                                .setTarget(activity.findViewById(R.id.tgl1))
-                                                .setPrimaryText(R.string.dialog_tap_target_toggle_primary)
-                                                .setSecondaryText(R.string.dialog_tap_target_toggle_secondary)
-                                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
-                                                .setAutoDismiss(false)
-                                                .setAutoFinish(false)
-                                                .setFocalColourFromRes(R.color.white)
-                                                .setCaptureTouchEventOutsidePrompt(true)
-                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
-                                                    @Override
-                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
-                                                        if (tappedTarget) {
-                                                            promptToggle.finish();
-                                                            promptToggle = null;
-                                                            pref.edit().putInt(qs, 1).apply();
-                                                            Log.i("sharedPrefs", "quickstart edited to 1");
-                                                        }
-                                                    }
-
-                                                    @Override
-                                                    public void onHidePromptComplete() {
-                                                        promptButton = new MaterialTapTargetPrompt.Builder(activity)
-                                                                .setTarget(activity.findViewById(R.id.btn31))
-                                                                .setPrimaryText(R.string.dialog_tap_target_button_primary)
-                                                                .setSecondaryText(R.string.dialog_tap_target_button_secondary)
-                                                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
-                                                                .setAutoDismiss(false)
-                                                                .setAutoFinish(false)
-                                                                .setFocalColourFromRes(R.color.white)
-                                                                .setFocalRadius((float) w.convertDPtoPX(80, activity))
-                                                                .setCaptureTouchEventOutsidePrompt(true)
-                                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
-                                                                    @Override
-                                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
-                                                                        if (tappedTarget) {
-                                                                            promptButton.finish();
-                                                                            promptButton = null;
-                                                                            pref.edit().putInt(qs, 2).apply();
-                                                                            Log.i("sharedPrefs", "quickstart edited to 2");
-                                                                        }
-                                                                    }
-
-                                                                    @Override
-                                                                    public void onHidePromptComplete() {
-                                                                        promptPattern = new MaterialTapTargetPrompt.Builder(activity)
-                                                                                .setTarget(activity.findViewById(R.id.tgl7))
-                                                                                .setPrimaryText(R.string.dialog_tap_target_pattern_primary)
-                                                                                .setSecondaryText(R.string.dialog_tap_target_pattern_secondary)
-                                                                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
-                                                                                .setAutoDismiss(false)
-                                                                                .setAutoFinish(false)
-                                                                                .setFocalColourFromRes(R.color.white)
-                                                                                .setCaptureTouchEventOutsidePrompt(true)
-                                                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
-                                                                                    @Override
-                                                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
-                                                                                        if (tappedTarget) {
-                                                                                            promptPattern.finish();
-                                                                                            promptPattern = null;
-                                                                                            pref.edit().putInt(qs, 3).apply();
-                                                                                            Log.i("sharedPrefs", "quickstart edited to 3");
-                                                                                        }
-                                                                                    }
-
-                                                                                    @Override
-                                                                                    public void onHidePromptComplete() {
-                                                                                        promptFab = new MaterialTapTargetPrompt.Builder(activity)
-                                                                                                .setTarget(activity.findViewById(R.id.fab))
-                                                                                                .setPrimaryText(R.string.dialog_tap_target_fab_primary)
-                                                                                                .setSecondaryText(R.string.dialog_tap_target_fab_secondary)
-                                                                                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
-                                                                                                .setAutoDismiss(false)
-                                                                                                .setAutoFinish(false)
-                                                                                                .setFocalColourFromRes(R.color.white)
-                                                                                                .setCaptureTouchEventOutsidePrompt(true)
-                                                                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
-                                                                                                    @Override
-                                                                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
-                                                                                                        if (tappedTarget) {
-                                                                                                            promptFab.finish();
-                                                                                                            promptFab = null;
-                                                                                                            pref.edit().putInt(qs, 4).apply();
-                                                                                                            Log.i("sharedPrefs", "quickstart edited to 4");
-                                                                                                        }
-                                                                                                    }
-
-                                                                                                    @Override
-                                                                                                    public void onHidePromptComplete() {
-                                                                                                    }
-                                                                                                })
-                                                                                                .show();
-                                                                                    }
-                                                                                })
-                                                                                .show();
-                                                                    }
-                                                                })
-                                                                .show();
-                                                    }
-                                                })
-                                                .show();
-                                    } else {
-                                        Log.i("setQuickstart", "Quickstart canceled");
-                                    }
-                                }
-                            })
-                            .show();
-                }
-            }
+                            pref.edit().putInt("versionCode", currentVersionCode).apply(); // Change this
+                            Log.d("VersionCode", "putInt " + String.valueOf(pref.getInt("versionCode", -1)));
+                        }
+                    })
+                    .show();
+//            if (currentVersionCode > pref.getInt("versionCode", -1)) {
+//                // Updated
+//            } else {
+//                if (pref.getInt(qs, 0) == 0) {
+//                    QuickstartDialog = new MaterialDialog.Builder(activity)
+//                            .title(R.string.dialog_quickstart_welcome_title)
+//                            .content(R.string.dialog_quickstart_welcome_text)
+//                            .positiveText(R.string.dialog_quickstart_welcome_positive)
+//                            .positiveColorRes(R.color.colorAccent)
+//                            .negativeText(R.string.dialog_quickstart_welcome_negative)
+//                            .negativeColorRes(R.color.dark_secondary)
+//                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+//                                @Override
+//                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//                                    pref.edit().putInt(qs, 0).apply();
+//                                    Log.i("sharedPrefs", "quickstart edited to 0");
+//                                }
+//                            })
+//                            .onNegative(new MaterialDialog.SingleButtonCallback() {
+//                                @Override
+//                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//                                    pref.edit().putInt(qs, -1).apply();
+//                                    Log.i("sharedPrefs", "quickstart edited to -1");
+//                                }
+//                            })
+//                            .dismissListener(new DialogInterface.OnDismissListener() {
+//                                @Override
+//                                public void onDismiss(DialogInterface dialogInterface) {
+//                                    if (pref.getInt(qs, 0) == 0) {
+//                                        Log.i("setQuickstart", "Quickstart started");
+//                                        if (promptFab != null) {
+//                                            return;
+//                                        }
+//                                        promptToggle = new MaterialTapTargetPrompt.Builder(activity)
+//                                                .setTarget(activity.findViewById(R.id.tgl1))
+//                                                .setPrimaryText(R.string.dialog_tap_target_toggle_primary)
+//                                                .setSecondaryText(R.string.dialog_tap_target_toggle_secondary)
+//                                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
+//                                                .setAutoDismiss(false)
+//                                                .setAutoFinish(false)
+//                                                .setFocalColourFromRes(R.color.white)
+//                                                .setCaptureTouchEventOutsidePrompt(true)
+//                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
+//                                                    @Override
+//                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
+//                                                        if (tappedTarget) {
+//                                                            promptToggle.finish();
+//                                                            promptToggle = null;
+//                                                            pref.edit().putInt(qs, 1).apply();
+//                                                            Log.i("sharedPrefs", "quickstart edited to 1");
+//                                                        }
+//                                                    }
+//
+//                                                    @Override
+//                                                    public void onHidePromptComplete() {
+//                                                        promptButton = new MaterialTapTargetPrompt.Builder(activity)
+//                                                                .setTarget(activity.findViewById(R.id.btn31))
+//                                                                .setPrimaryText(R.string.dialog_tap_target_button_primary)
+//                                                                .setSecondaryText(R.string.dialog_tap_target_button_secondary)
+//                                                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
+//                                                                .setAutoDismiss(false)
+//                                                                .setAutoFinish(false)
+//                                                                .setFocalColourFromRes(R.color.white)
+//                                                                .setFocalRadius((float) w.convertDPtoPX(80, activity))
+//                                                                .setCaptureTouchEventOutsidePrompt(true)
+//                                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
+//                                                                    @Override
+//                                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
+//                                                                        if (tappedTarget) {
+//                                                                            promptButton.finish();
+//                                                                            promptButton = null;
+//                                                                            pref.edit().putInt(qs, 3).apply();
+//                                                                            Log.i("sharedPrefs", "quickstart edited to 3");
+//                                                                        }
+//                                                                    }
+//
+//                                                                    @Override
+//                                                                    public void onHidePromptComplete() {
+//                                                                        promptSwipe = new MaterialTapTargetPrompt.Builder(activity)
+//                                                                                .setTarget(activity.findViewById(R.id.btn23))
+//                                                                                .setPrimaryText(R.string.dialog_tap_target_swipe_primary)
+//                                                                                .setSecondaryText(R.string.dialog_tap_target_swipe_secondary)
+//                                                                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
+//                                                                                .setAutoDismiss(false)
+//                                                                                .setAutoFinish(false)
+//                                                                                .setFocalColourFromRes(R.color.white)
+//                                                                                .setFocalRadius((float) w.convertDPtoPX(80, activity))
+//                                                                                .setCaptureTouchEventOutsidePrompt(true)
+//                                                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
+//                                                                                    @Override
+//                                                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
+//                                                                                        if (tappedTarget) {
+//                                                                                            promptSwipe.finish();
+//                                                                                            promptSwipe = null;
+//                                                                                            pref.edit().putInt(qs, 4).apply();
+//                                                                                            Log.i("sharedPrefs", "quickstart edited to 4");
+//                                                                                        }
+//                                                                                    }
+//
+//                                                                                    @Override
+//                                                                                    public void onHidePromptComplete() {
+//                                                                                        promptLoop = new MaterialTapTargetPrompt.Builder(activity)
+//                                                                                                .setTarget(activity.findViewById(R.id.btn31))
+//                                                                                                .setPrimaryText(R.string.dialog_tap_target_loop_primary)
+//                                                                                                .setSecondaryText(R.string.dialog_tap_target_loop_secondary)
+//                                                                                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
+//                                                                                                .setAutoDismiss(false)
+//                                                                                                .setAutoFinish(false)
+//                                                                                                .setFocalColourFromRes(R.color.white)
+//                                                                                                .setFocalRadius((float) w.convertDPtoPX(80, activity))
+//                                                                                                .setCaptureTouchEventOutsidePrompt(true)
+//                                                                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
+//                                                                                                    @Override
+//                                                                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
+//                                                                                                        if (tappedTarget) {
+//                                                                                                            promptLoop.finish();
+//                                                                                                            promptLoop = null;
+//                                                                                                            pref.edit().putInt(qs, 5).apply();
+//                                                                                                            Log.i("sharedPrefs", "quickstart edited to 5");
+//                                                                                                        }
+//                                                                                                    }
+//
+//                                                                                                    @Override
+//                                                                                                    public void onHidePromptComplete() {
+//                                                                                                        promptPattern = new MaterialTapTargetPrompt.Builder(activity)
+//                                                                                                                .setTarget(activity.findViewById(R.id.tgl7))
+//                                                                                                                .setPrimaryText(R.string.dialog_tap_target_pattern_primary)
+//                                                                                                                .setSecondaryText(R.string.dialog_tap_target_pattern_secondary)
+//                                                                                                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
+//                                                                                                                .setAutoDismiss(false)
+//                                                                                                                .setAutoFinish(false)
+//                                                                                                                .setFocalColourFromRes(R.color.white)
+//                                                                                                                .setCaptureTouchEventOutsidePrompt(true)
+//                                                                                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
+//                                                                                                                    @Override
+//                                                                                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
+//                                                                                                                        if (tappedTarget) {
+//                                                                                                                            promptPattern.finish();
+//                                                                                                                            promptPattern = null;
+//                                                                                                                            pref.edit().putInt(qs, 5).apply();
+//                                                                                                                            Log.i("sharedPrefs", "quickstart edited to 5");
+//                                                                                                                        }
+//                                                                                                                    }
+//
+//                                                                                                                    @Override
+//                                                                                                                    public void onHidePromptComplete() {
+//                                                                                                                        promptFab = new MaterialTapTargetPrompt.Builder(activity)
+//                                                                                                                                .setTarget(activity.findViewById(R.id.fab))
+//                                                                                                                                .setPrimaryText(R.string.dialog_tap_target_fab_primary)
+//                                                                                                                                .setSecondaryText(R.string.dialog_tap_target_fab_secondary)
+//                                                                                                                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
+//                                                                                                                                .setAutoDismiss(false)
+//                                                                                                                                .setAutoFinish(false)
+//                                                                                                                                .setFocalColourFromRes(R.color.white)
+//                                                                                                                                .setCaptureTouchEventOutsidePrompt(true)
+//                                                                                                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
+//                                                                                                                                    @Override
+//                                                                                                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
+//                                                                                                                                        if (tappedTarget) {
+//                                                                                                                                            promptFab.finish();
+//                                                                                                                                            promptFab = null;
+//                                                                                                                                            pref.edit().putInt(qs, 6).apply();
+//                                                                                                                                            Log.i("sharedPrefs", "quickstart edited to 6");
+//                                                                                                                                        }
+//                                                                                                                                    }
+//
+//                                                                                                                                    @Override
+//                                                                                                                                    public void onHidePromptComplete() {
+//                                                                                                                                        promptPreset = new MaterialTapTargetPrompt.Builder(activity)
+//                                                                                                                                                .setTarget(activity.findViewById(R.id.fab))
+//                                                                                                                                                .setPrimaryText(R.string.dialog_tap_target_preset_primary)
+//                                                                                                                                                .setSecondaryText(R.string.dialog_tap_target_preset_secondary)
+//                                                                                                                                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
+//                                                                                                                                                .setAutoDismiss(false)
+//                                                                                                                                                .setAutoFinish(false)
+//                                                                                                                                                .setFocalColourFromRes(R.color.white)
+//                                                                                                                                                .setCaptureTouchEventOutsidePrompt(true)
+//                                                                                                                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
+//                                                                                                                                                    @Override
+//                                                                                                                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
+//                                                                                                                                                        if (tappedTarget) {
+//                                                                                                                                                            promptPreset.finish();
+//                                                                                                                                                            promptPreset = null;
+//                                                                                                                                                            pref.edit().putInt(qs, 7).apply();
+//                                                                                                                                                            Log.i("sharedPrefs", "quickstart edited to 7");
+//                                                                                                                                                        }
+//                                                                                                                                                    }
+//
+//                                                                                                                                                    @Override
+//                                                                                                                                                    public void onHidePromptComplete() {
+//                                                                                                                                                    }
+//                                                                                                                                                })
+//                                                                                                                                                .show();
+//                                                                                                                                    }
+//                                                                                                                                })
+//                                                                                                                                .show();
+//                                                                                                                    }
+//                                                                                                                })
+//                                                                                                                .show();
+//                                                                                                    }
+//                                                                                                })
+//                                                                                                .show();
+//                                                                                    }
+//                                                                                })
+//                                                                                .show();
+//                                                                    }
+//                                                                })
+//                                                                .show();
+//                                                    }
+//                                                })
+//                                                .show();
+//                                    } else {
+//                                        Log.i("setQuickstart", "Quickstart canceled");
+//                                    }
+//                                }
+//                            })
+//                            .show();
+//                }
+//            }
         } catch (Exception e) {
             Log.e("QuickstartException", e.getMessage());
         }
@@ -832,7 +991,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 if (isToolbarVisible == false) {
                     fab.hide(0, 200);
                     anim.fadeIn(R.id.toolbar, 200, 100, "toolbarIn", a);
-                    if (prefs.getInt(qs, 0) == 4) {
+                    if (prefs.getInt(qs, 0) == 7) {
                         Log.i("setQuickstart", "Quickstart started");
                         if (promptInfo != null) {
                             return;
@@ -852,8 +1011,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                                         if (tappedTarget) {
                                             promptInfo.finish();
                                             promptInfo = null;
-                                            prefs.edit().putInt(qs, 5).apply();
-                                            Log.i("sharedPrefs", "quickstart edited to 5");
+                                            prefs.edit().putInt(qs, 8).apply();
+                                            Log.i("sharedPrefs", "quickstart edited to 8");
                                         }
                                     }
 
@@ -1001,8 +1160,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         });
     }
 
-    void closeToolbar() {
-        anim.fadeOut(R.id.toolbar, 0, 100, a);
+    void closeToolbar(Activity activity) {
+        anim.fadeOut(R.id.toolbar, 0, 100, activity);
         fab.show(100, 200);
         isToolbarVisible = false;
     }
@@ -1124,7 +1283,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
             }
         }, 200);
 
-        if (prefs.getInt(qs, 0) == 5) {
+        if (prefs.getInt(qs, 0) == 8) {
             promptPreset = new MaterialTapTargetPrompt.Builder(a)
                     .setTarget(a.findViewById(R.id.toolbar_preset))
                     .setPrimaryText(R.string.dialog_tap_target_preset_primary)
@@ -1140,13 +1299,14 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                             if (tappedTarget) {
                                 promptPreset.finish();
                                 promptPreset = null;
-                                prefs.edit().putInt(qs, 6).apply();
-                                Log.i("sharedPrefs", "quickstart edited to 6");
+                                prefs.edit().putInt(qs, 9).apply();
+                                Log.i("sharedPrefs", "quickstart edited to 9");
                             }
                         }
 
                         @Override
                         public void onHidePromptComplete() {
+                            isTutorialVisible = false;
                         }
                     })
                     .show();
@@ -1345,10 +1505,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
             case 3:
                 color = R.color.faded;
                 break;
-            //TODO GESTURE
-            case 4:
-                color = R.color.faded;
-                break;
             default:
                 color = R.color.hello;
                 break;
@@ -1441,7 +1597,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
         isPresetVisible = false;
 
-        if (prefs.getInt(qs, 0) == 6) {
+        if (prefs.getInt(qs, 0) == 7) {
             promptTutorial = new MaterialTapTargetPrompt.Builder(a)
                     .setTarget(a.findViewById(R.id.toolbar_tutorial))
                     .setPrimaryText(R.string.dialog_tap_target_tutorial_primary)
@@ -1457,9 +1613,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                             if (tappedTarget) {
                                 promptTutorial.finish();
                                 promptTutorial = null;
-                                // Removed because it disables toolbar
-                                //prefs.edit().putInt(qs, 7).apply();
-                                //Log.i("sharedPrefs", "quickstart edited to 7");
                                 prefs.edit().putInt(qs, -1).apply();
                                 Log.i("sharedPrefs", "quickstart edited to -1, completed");
                             }
@@ -1470,7 +1623,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                         }
                     })
                     .show();
-
         }
     }
 

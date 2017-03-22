@@ -68,6 +68,13 @@
                 android:layout_height="8dp"
                 android:layout_margin="5dp"
                 android:background="@drawable/tutorial_dots_light" />
+    
+            <View
+                android:id="@+id/dot_4"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/tutorial_dots_light"/>
         </LinearLayout>
 
     </LinearLayout>
