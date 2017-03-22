@@ -868,326 +868,8 @@ public class WindowService {
         }
     }
 
-    public void setOnGestureSound(int padId, final int colorDown, final int colorUp, final SoundPool sp, final int spid[], final int patternScheme[][][], final Activity activity) {
-        final int btnId[] = {0};
-        final boolean isLoopEnabled[] = {false};
-        switch (padId) {
-            case R.id.btn11:
-                btnId[0] = 0;
-                break;
-            case R.id.btn12:
-                btnId[0] = 1;
-                break;
-            case R.id.btn13:
-                btnId[0] = 2;
-                break;
-            case R.id.btn14:
-                btnId[0] = 3;
-                break;
-            case R.id.btn21:
-                btnId[0] = 4;
-                break;
-            case R.id.btn22:
-                btnId[0] = 5;
-                break;
-            case R.id.btn23:
-                btnId[0] = 6;
-                break;
-            case R.id.btn24:
-                btnId[0] = 7;
-                break;
-            case R.id.btn31:
-                btnId[0] = 8;
-                break;
-            case R.id.btn32:
-                btnId[0] = 9;
-                break;
-            case R.id.btn33:
-                btnId[0] = 10;
-                break;
-            case R.id.btn34:
-                btnId[0] = 11;
-                break;
-            case R.id.btn41:
-                btnId[0] = 12;
-                break;
-            case R.id.btn42:
-                btnId[0] = 13;
-                break;
-            case R.id.btn43:
-                btnId[0] = 14;
-                break;
-            case R.id.btn44:
-                btnId[0] = 15;
-                break;
-        }
-        final View pad = activity.findViewById(padId);
-        final int streamId[] = {0};
-
-        final Handler buttonDelay = new Handler();
-        final Runnable clearPad = new Runnable() {
-            @Override
-            public void run() {
-                setPadColor(pad, colorUp, activity);
-            }
-        };
-
-        pad.setOnTouchListener(new OnSwipeTouchListener(activity) {
-            @Override
-            public void onTouch() {
-                setPadColor(pad, colorDown, activity);
-                setButtonPattern(patternScheme, btnId[0], colorDown, colorUp, activity);
-                if (isLoopEnabled[0] == false) {
-                    buttonDelay.postDelayed(clearPad, 500);
-                }
-            }
-
-            @Override
-            public void onClick() {
-                sp.play(spid[0], 1, 1, 1, 0, 1);
-                setPadColor(pad, colorUp, activity);
-                Log.d("TouchListener", "Click");
-            }
-
-            @Override
-            public void onDoubleClick() {
-                sp.play(spid[0], 1, 1, 1, 0, 1);
-                Handler backgroundChangeHandler = new Handler();
-                backgroundChangeHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (isLoopEnabled[0] == false) {
-                            pad.setBackgroundColor(activity.getResources().getColor(colorUp));
-                            buttonDelay.postDelayed(clearPad, 500);
-                        }
-                        setButtonPattern(patternScheme, btnId[0], colorDown, colorUp, activity);
-                    }
-                }, 10);
-                Log.d("TouchListener", "Double Click");
-            }
-
-            @Override
-            public void onSwipeUp() {
-                if (spid[1] != 0) {
-                    sp.play(spid[1], 1, 1, 1, 0, 1);
-                } else {
-                    sp.play(spid[0], 1, 1, 1, 0, 1);
-                }
-                if (isLoopEnabled[0] == false) {
-                    pad.setBackgroundColor(activity.getResources().getColor(colorUp));
-                    buttonDelay.postDelayed(clearPad, 500);
-                }
-                setButtonPattern(patternScheme, btnId[0], colorDown, colorUp, activity);
-                Log.d("TouchListener", "SwipeUp");
-            }
-
-            @Override
-            public void onSwipeRight() {
-                if (spid[2] != 0) {
-                    sp.play(spid[2], 1, 1, 1, 0, 1);
-                } else {
-                    sp.play(spid[0], 1, 1, 1, 0, 1);
-                }
-                if (isLoopEnabled[0] == false) {
-                    pad.setBackgroundColor(activity.getResources().getColor(colorUp));
-                    buttonDelay.postDelayed(clearPad, 500);
-                }
-                setButtonPattern(patternScheme, btnId[0], colorDown, colorUp, activity);
-                Log.d("TouchListener", "SwipeRight");
-            }
-
-            @Override
-            public void onSwipeDown() {
-                if (spid[3] != 0) {
-                    sp.play(spid[3], 1, 1, 1, 0, 1);
-                } else {
-                    sp.play(spid[0], 1, 1, 1, 0, 1);
-                }
-                if (isLoopEnabled[0] == false) {
-                    pad.setBackgroundColor(activity.getResources().getColor(colorUp));
-                    buttonDelay.postDelayed(clearPad, 500);
-                }
-                setButtonPattern(patternScheme, btnId[0], colorDown, colorUp, activity);
-                Log.d("TouchListener", "SwipeDown");
-            }
-
-            @Override
-            public void onSwipeLeft() {
-                if (spid[4] != 0) {
-                    sp.play(spid[4], 1, 1, 1, 0, 1);
-                } else {
-                    sp.play(spid[0], 1, 1, 1, 0, 1);
-                }
-                if (isLoopEnabled[0] == false) {
-                    pad.setBackgroundColor(activity.getResources().getColor(colorUp));
-                    buttonDelay.postDelayed(clearPad, 500);
-                }
-                setButtonPattern(patternScheme, btnId[0], colorDown, colorUp, activity);
-                Log.d("TouchListener", "SwipeLeft");
-            }
-
-            @Override
-            public void onLongClick() {
-                //pad.setBackgroundColor(activity.getResources().getColor(colorUp));
-                buttonDelay.removeCallbacks(clearPad);
-                if (isLoopEnabled[0] == false) {
-                    streamId[0] = sp.play(spid[0], 1, 1, 1, -1, 1);
-                    // add item to arraylist to reset loop sounds on deck change
-                    addLoopStreamId(streamId[0]);
-                    isLoopEnabled[0] = true;
-                    pad.setBackgroundColor(activity.getResources().getColor(colorDown));
-                    Log.d("TouchListener", "LongClick, loop on");
-                } else {
-                    sp.stop(streamId[0]);
-                    removeLoopStreamId(streamId[0]);
-                    isLoopEnabled[0] = false;
-                    pad.setBackgroundColor(activity.getResources().getColor(colorUp));
-                    buttonDelay.postDelayed(clearPad, 500);
-                    Log.d("TouchListener", "LongClick, loop off");
-                }
-                setButtonPattern(patternScheme, btnId[0], colorDown, colorUp, activity);
-            }
-        });
-    }
-
-    // TODO NEXT UPDATE on check algorithm, use on next update
-//    void setButtonPattern(int patternScheme[][], int btnId, int colorDown, int colorUp, int mode, Activity activity) {
-//        boolean wasAlreadyOn[] = {
-//                false, false, false, false,
-//                false, false, false, false,
-//                false, false, false, false,
-//                false, false, false, false
-//        };
-//        if (mode == 1) {
-//            // button pressed (down)
-//            for (int i = 0; i < buttonIds.length; i++) {
-//                if (getBackgroundColor(buttonIds[btnId], activity) == colorDown) {
-//                    wasAlreadyOn[btnId] = true;
-//                }
-//            }
-//            for (int i = 0; i < patternScheme[btnId].length; i++) {
-//                try {
-//                    getView(patternScheme[btnId][i], activity).setBackgroundColor(activity.getResources().getColor(colorDown));
-//                } catch (Resources.NotFoundException e) {
-//                    Log.i("NotFoundException", "Handling with normal value");
-//                    getView(patternScheme[btnId][i], activity).setBackgroundColor(colorDown);
-//                }
-//            }
-//        } else if (mode == 0) {
-//            // button clicked (up)
-//            for (int i = 0; i < patternScheme[btnId].length; i++) {
-//                if (wasAlreadyOn[btnId] == false) {
-//                    try {
-//                        getView(patternScheme[btnId][i], activity).setBackgroundColor(activity.getResources().getColor(colorUp));
-//                    } catch (Resources.NotFoundException e) {
-//                        Log.i("NotFoundException", "Handling with normal value");
-//                        getView(patternScheme[btnId][i], activity).setBackgroundColor(colorUp);
-//                    }
-//                    wasAlreadyOn[btnId] = true;
-//                }
-//            }
-//        } else {
-//            Log.d("NotFoundException", "Wrong touch mode");
-//        }
-//    }
-
-    void setButtonPattern(int patternScheme[][][], int btnId, int colorDown, int colorUp, Activity activity) {
-        for (int i = 0; i < patternScheme[btnId].length; i++) {
-            for (int j = 0; j < patternScheme[btnId][i].length; j++) {
-                try {
-                    getView(patternScheme[btnId][i][j], activity).setBackgroundColor(
-                            getBlendColor(
-                                    activity.getResources().getColor(colorDown),
-                                    activity.getResources().getColor(colorUp),
-                                    (0.1f * i)));
-                } catch (Resources.NotFoundException e) {
-                    Log.i("NotFoundException", "Handling with normal value");
-                    getView(patternScheme[btnId][i][j], activity).setBackgroundColor(
-                            getBlendColor(
-                                    colorDown,
-                                    activity.getResources().getColor(colorUp),
-                                    (0.1f * i)));
-                }
-            }
-        }
-    }
-
-    int getBlendColor(int color0, int color1, float blendPercent) {
-        String colorString0 = String.format("#%06X", (0xFFFFFF & color0));
-        Log.d("color0", colorString0);
-        String colorString1 = String.format("#%06X", (0xFFFFFF & color1));
-        Log.d("color1", colorString1);
-
-        int r0 = Integer.parseInt(colorString0.substring(1, 3), 16);
-        int g0 = Integer.parseInt(colorString0.substring(3, 5), 16);
-        int b0 = Integer.parseInt(colorString0.substring(5, 7), 16);
-
-        int r1 = Integer.parseInt(colorString1.substring(1, 3), 16);
-        int g1 = Integer.parseInt(colorString1.substring(3, 5), 16);
-        int b1 = Integer.parseInt(colorString1.substring(5, 7), 16);
-
-        Log.d("r0", String.valueOf(r0));
-        Log.d("g0", String.valueOf(g0));
-        Log.d("b0", String.valueOf(b0));
-        Log.d("r1", String.valueOf(r1));
-        Log.d("g1", String.valueOf(g1));
-        Log.d("b1", String.valueOf(b1));
-
-        Log.d("r0", colorString0.substring(1, 3));
-        Log.d("g0", colorString0.substring(3, 5));
-        Log.d("b0", colorString0.substring(5, 7));
-        Log.d("r1", colorString1.substring(1, 3));
-        Log.d("g1", colorString1.substring(3, 5));
-        Log.d("b1", colorString1.substring(5, 7));
-
-        String blendColorHex = "#" +
-                        getTwoDigitHexString(averageIntegerWithPercent(r0, r1, blendPercent)) +
-                        getTwoDigitHexString(averageIntegerWithPercent(g0, g1, blendPercent)) +
-                        getTwoDigitHexString(averageIntegerWithPercent(b0, b1, blendPercent));
-
-        Log.d("Color", blendColorHex);
-
-        return Color.parseColor(blendColorHex);
-    }
-
-    private int averageIntegerWithPercent(int num1, int num2, float percent) {
-        int difference = Math.round(getDifference(num1, num2) * percent);
-        if (num1 > num2) {
-            return (num2 + difference) / 2;
-        } else {
-            return (num1 + difference) / 2;
-        }
-    }
-
-    private String getTwoDigitHexString(int hexValue) {
-        String hexString = Integer.toHexString(hexValue);
-        Log.d("hexStringCheck", hexString);
-        if (hexString.length() == 1) {
-            hexString = "0" + hexString;
-        }
-        return hexString;
-    }
-
-    public int getDifference(int num1, int num2) {
-        if (num1 > num2) {
-            return num1 - num2;
-        } else {
-            return num2 - num1;
-        }
-    }
-
-    void setSoundPoolDelay(final SoundPool sp, final int soundId[], final int count, final int delay) {
-        Handler delayHandler = new Handler();
-        delayHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Log.d("SoundPoolDelay", "SoundPool played on " + soundId[count] + " with " + delay + "ms delay");
-                sp.play(soundId[count], 1, 1, 1, 0, 1f);
-            }
-        }, delay);
-    }
-
     public void setOnGestureSound(int padId, final int colorDown, final int colorUp, final SoundPool sp, final int spid[], final Activity activity) {
+        // normal
         final boolean isLoopEnabled[] = {false};
         final View pad = activity.findViewById(padId);
         final int streamId[] = {0};
@@ -1304,6 +986,329 @@ public class WindowService {
                 }
             }
         });
+    }
+
+    public void setOnGestureSound(final int padId, final int colorDown, final int colorUp, final SoundPool sp, final int spid[], final int patternScheme[][][], final Activity activity) {
+        // pattern
+        final int btnId[] = {0};
+        final boolean isLoopEnabled[] = {false};
+        // setButtonPattern button number id
+        switch (padId) {
+            case R.id.btn11:
+                btnId[0] = 0;
+                break;
+            case R.id.btn12:
+                btnId[0] = 1;
+                break;
+            case R.id.btn13:
+                btnId[0] = 2;
+                break;
+            case R.id.btn14:
+                btnId[0] = 3;
+                break;
+            case R.id.btn21:
+                btnId[0] = 4;
+                break;
+            case R.id.btn22:
+                btnId[0] = 5;
+                break;
+            case R.id.btn23:
+                btnId[0] = 6;
+                break;
+            case R.id.btn24:
+                btnId[0] = 7;
+                break;
+            case R.id.btn31:
+                btnId[0] = 8;
+                break;
+            case R.id.btn32:
+                btnId[0] = 9;
+                break;
+            case R.id.btn33:
+                btnId[0] = 10;
+                break;
+            case R.id.btn34:
+                btnId[0] = 11;
+                break;
+            case R.id.btn41:
+                btnId[0] = 12;
+                break;
+            case R.id.btn42:
+                btnId[0] = 13;
+                break;
+            case R.id.btn43:
+                btnId[0] = 14;
+                break;
+            case R.id.btn44:
+                btnId[0] = 15;
+                break;
+        }
+        final View pad = activity.findViewById(padId);
+        final int streamId[] = {0};
+
+        final Handler buttonDelay = new Handler();
+        final Runnable clearPad = new Runnable() {
+            @Override
+            public void run() {
+                if (getBackgroundColor(padId, activity) != colorDown) {
+                    setPadColor(pad, colorUp, activity);
+                }
+            }
+        };
+
+        pad.setOnTouchListener(new OnSwipeTouchListener(activity) {
+            @Override
+            public void onTouch() {
+                setPadColor(pad, colorDown, activity);
+                setButtonPattern(patternScheme, btnId[0], colorDown, colorUp, activity);
+                if (isLoopEnabled[0] == false) {
+                    buttonDelay.postDelayed(clearPad, 500);
+                }
+            }
+
+            @Override
+            public void onClick() {
+                sp.play(spid[0], 1, 1, 1, 0, 1);
+                setPadColor(pad, colorUp, activity);
+                setButtonPatternDefault(patternScheme, btnId[0], colorUp, activity);
+                Log.d("TouchListener", "Click");
+            }
+
+            @Override
+            public void onDoubleClick() {
+                sp.play(spid[0], 1, 1, 1, 0, 1);
+                Handler backgroundChangeHandler = new Handler();
+                backgroundChangeHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (isLoopEnabled[0] == false) {
+                            setPadColor(pad, colorUp, activity);
+                            buttonDelay.postDelayed(clearPad, 500);
+                        }
+                        setButtonPatternDefault(patternScheme, btnId[0], colorUp, activity);
+                    }
+                }, 10);
+                Log.d("TouchListener", "Double Click");
+            }
+
+            @Override
+            public void onSwipeUp() {
+                if (spid[1] != 0) {
+                    sp.play(spid[1], 1, 1, 1, 0, 1);
+                } else {
+                    sp.play(spid[0], 1, 1, 1, 0, 1);
+                }
+                if (isLoopEnabled[0] == false) {
+                    setPadColor(pad, colorUp, activity);
+                    buttonDelay.postDelayed(clearPad, 500);
+                }
+                setButtonPatternDefault(patternScheme, btnId[0], colorUp, activity);
+                Log.d("TouchListener", "SwipeUp");
+            }
+
+            @Override
+            public void onSwipeRight() {
+                if (spid[2] != 0) {
+                    sp.play(spid[2], 1, 1, 1, 0, 1);
+                } else {
+                    sp.play(spid[0], 1, 1, 1, 0, 1);
+                }
+                if (isLoopEnabled[0] == false) {
+                    setPadColor(pad, colorUp, activity);
+                    buttonDelay.postDelayed(clearPad, 500);
+                }
+                setButtonPatternDefault(patternScheme, btnId[0], colorUp, activity);
+                Log.d("TouchListener", "SwipeRight");
+            }
+
+            @Override
+            public void onSwipeDown() {
+                if (spid[3] != 0) {
+                    sp.play(spid[3], 1, 1, 1, 0, 1);
+                } else {
+                    sp.play(spid[0], 1, 1, 1, 0, 1);
+                }
+                if (isLoopEnabled[0] == false) {
+                    setPadColor(pad, colorUp, activity);
+                    buttonDelay.postDelayed(clearPad, 500);
+                }
+                setButtonPatternDefault(patternScheme, btnId[0], colorUp, activity);
+                Log.d("TouchListener", "SwipeDown");
+            }
+
+            @Override
+            public void onSwipeLeft() {
+                if (spid[4] != 0) {
+                    sp.play(spid[4], 1, 1, 1, 0, 1);
+                } else {
+                    sp.play(spid[0], 1, 1, 1, 0, 1);
+                }
+                if (isLoopEnabled[0] == false) {
+                    setPadColor(pad, colorUp, activity);
+                    buttonDelay.postDelayed(clearPad, 500);
+                }
+                setButtonPatternDefault(patternScheme, btnId[0], colorUp, activity);
+                Log.d("TouchListener", "SwipeLeft");
+            }
+
+            @Override
+            public void onLongClick() {
+                //pad.setBackgroundColor(activity.getResources().getColor(colorUp));
+                buttonDelay.removeCallbacks(clearPad);
+                if (isLoopEnabled[0] == false) {
+                    streamId[0] = sp.play(spid[0], 1, 1, 1, -1, 1);
+                    // add item to arraylist to reset loop sounds on deck change
+                    addLoopStreamId(streamId[0]);
+                    isLoopEnabled[0] = true;
+                    setPadColor(pad, colorDown, activity);
+                    Log.d("TouchListener", "LongClick, loop on");
+                } else {
+                    sp.stop(streamId[0]);
+                    removeLoopStreamId(streamId[0]);
+                    isLoopEnabled[0] = false;
+                    setPadColor(pad, colorUp, activity);
+                    buttonDelay.postDelayed(clearPad, 500);
+                    Log.d("TouchListener", "LongClick, loop off");
+                }
+                setButtonPatternDefault(patternScheme, btnId[0], colorUp, activity);
+            }
+        });
+    }
+
+    // TODO NEXT UPDATE on check algorithm, use on next update
+//    void setButtonPattern(int patternScheme[][], int btnId, int colorDown, int colorUp, int mode, Activity activity) {
+//        boolean wasAlreadyOn[] = {
+//                false, false, false, false,
+//                false, false, false, false,
+//                false, false, false, false,
+//                false, false, false, false
+//        };
+//        if (mode == 1) {
+//            // button pressed (down)
+//            for (int i = 0; i < buttonIds.length; i++) {
+//                if (getBackgroundColor(buttonIds[btnId], activity) == colorDown) {
+//                    wasAlreadyOn[btnId] = true;
+//                }
+//            }
+//            for (int i = 0; i < patternScheme[btnId].length; i++) {
+//                try {
+//                    getView(patternScheme[btnId][i], activity).setBackgroundColor(activity.getResources().getColor(colorDown));
+//                } catch (Resources.NotFoundException e) {
+//                    Log.i("NotFoundException", "Handling with normal value");
+//                    getView(patternScheme[btnId][i], activity).setBackgroundColor(colorDown);
+//                }
+//            }
+//        } else if (mode == 0) {
+//            // button clicked (up)
+//            for (int i = 0; i < patternScheme[btnId].length; i++) {
+//                if (wasAlreadyOn[btnId] == false) {
+//                    try {
+//                        getView(patternScheme[btnId][i], activity).setBackgroundColor(activity.getResources().getColor(colorUp));
+//                    } catch (Resources.NotFoundException e) {
+//                        Log.i("NotFoundException", "Handling with normal value");
+//                        getView(patternScheme[btnId][i], activity).setBackgroundColor(colorUp);
+//                    }
+//                    wasAlreadyOn[btnId] = true;
+//                }
+//            }
+//        } else {
+//            Log.d("NotFoundException", "Wrong touch mode");
+//        }
+//    }
+
+    void setButtonPattern(int patternScheme[][][], int btnId, int colorDown, int colorUp, Activity activity) {
+        for (int i = 0; i < patternScheme[btnId].length; i++) {
+            for (int j = 0; j < patternScheme[btnId][i].length; j++) {
+                try {
+                    getView(patternScheme[btnId][i][j], activity).setBackgroundColor(
+                            getBlendColor(
+                                    activity.getResources().getColor(colorDown),
+                                    activity.getResources().getColor(colorUp),
+                                    (0.8f - (0.3f * i))));
+                } catch (Resources.NotFoundException e) {
+                    Log.i("NotFoundException", "Handling with normal value");
+                    getView(patternScheme[btnId][i][j], activity).setBackgroundColor(
+                            getBlendColor(
+                                    colorDown,
+                                    activity.getResources().getColor(colorUp),
+                                    (0.8f - (0.3f * i))));
+                }
+            }
+        }
+    }
+
+    void setButtonPatternDefault(int patternScheme[][][], int btnId, int colorUp, Activity activity) {
+        for (int i = 0; i < patternScheme[btnId].length; i++) {
+            for (int j = 0; j < patternScheme[btnId][i].length; j++) {
+                try {
+                    getView(patternScheme[btnId][i][j], activity).setBackgroundColor(activity.getResources().getColor(colorUp));
+                } catch (Resources.NotFoundException e) {
+                    Log.i("NotFoundException", "Handling with normal value");
+                    getView(patternScheme[btnId][i][j], activity).setBackgroundColor(colorUp);
+                }
+            }
+        }
+    }
+
+    int getBlendColor(int color0, int color1, float blendPercent) {
+        String colorString0 = String.format("#%06X", (0xFFFFFF & color0));
+        Log.d("color0", colorString0);
+        String colorString1 = String.format("#%06X", (0xFFFFFF & color1));
+        Log.d("color1", colorString1);
+
+        int r0 = Integer.parseInt(colorString0.substring(1, 3), 16);
+        int g0 = Integer.parseInt(colorString0.substring(3, 5), 16);
+        int b0 = Integer.parseInt(colorString0.substring(5, 7), 16);
+
+        int r1 = Integer.parseInt(colorString1.substring(1, 3), 16);
+        int g1 = Integer.parseInt(colorString1.substring(3, 5), 16);
+        int b1 = Integer.parseInt(colorString1.substring(5, 7), 16);
+
+        //Log.d("r0", String.valueOf(r0));
+        //Log.d("g0", String.valueOf(g0));
+        //Log.d("b0", String.valueOf(b0));
+        //Log.d("r1", String.valueOf(r1));
+        //Log.d("g1", String.valueOf(g1));
+        //Log.d("b1", String.valueOf(b1));
+        //Log.d("r0", colorString0.substring(1, 3));
+        //Log.d("g0", colorString0.substring(3, 5));
+        //Log.d("b0", colorString0.substring(5, 7));
+        //Log.d("r1", colorString1.substring(1, 3));
+        //Log.d("g1", colorString1.substring(3, 5));
+        //Log.d("b1", colorString1.substring(5, 7));
+
+        String blendColorHex = "#" +
+                        getTwoDigitHexString(averageIntegerWithPercent(r0, r1, blendPercent)) +
+                        getTwoDigitHexString(averageIntegerWithPercent(g0, g1, blendPercent)) +
+                        getTwoDigitHexString(averageIntegerWithPercent(b0, b1, blendPercent));
+
+        //Log.d("Color", blendColorHex);
+
+        return Color.parseColor(blendColorHex);
+    }
+
+    private int averageIntegerWithPercent(int num1, int num2, float percent) {
+        return Math.round((num1 - num2) * percent) + num2;
+    }
+
+    private String getTwoDigitHexString(int hexValue) {
+        String hexString = Integer.toHexString(hexValue);
+        Log.d("hexStringCheck", hexString);
+        if (hexString.length() == 1) {
+            hexString = "0" + hexString;
+        }
+        return hexString;
+    }
+
+    void setSoundPoolDelay(final SoundPool sp, final int soundId[], final int count, final int delay) {
+        Handler delayHandler = new Handler();
+        delayHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("SoundPoolDelay", "SoundPool played on " + soundId[count] + " with " + delay + "ms delay");
+                sp.play(soundId[count], 1, 1, 1, 0, 1f);
+            }
+        }, delay);
     }
 
     public void setOnTouchSound(int id, final SoundPool sp, final int soundId, final Activity activity) {

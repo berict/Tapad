@@ -1112,6 +1112,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         isAboutVisible = false;
 
         // TODO need to resolve "Not enough space to show ad." - probably occurs from visibility.gone
+        // TODO maybe resolve by making the view programmatically
         //ad.destroyNativeAdView(R.id.adView_about, a);
 
         Handler closeAbout = new Handler();

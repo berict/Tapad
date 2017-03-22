@@ -45,7 +45,6 @@
 						android:layout_height="match_parent"
 						android:layout_alignParentBottom="true">
 						
-						
 						<!-- TODO need to resolve "Not enough space to show ad." - probably occurs from visibility.gone
 						<com.google.android.gms.ads.NativeExpressAdView
 							android:id="@+id/adView_about"
