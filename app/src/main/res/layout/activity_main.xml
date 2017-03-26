@@ -71,6 +71,11 @@
 	
 	<include layout="@layout/fragment_actionbar"/>
 	
+	<FrameLayout
+		android:id="@+id/fragment_about_container"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent" />
+	
 	<View
 		android:id="@+id/placeholder"
 		android:layout_width="match_parent"
@@ -109,5 +114,13 @@
 			android:background="@color/green"
 			android:gravity="center"
 			android:text="bug"/>
+		
+		<TextView
+			android:id="@+id/testAboutFragment"
+			android:layout_width="match_parent"
+			android:layout_height="40dp"
+			android:background="@color/red"
+			android:gravity="center"
+			android:text="aboutFrag"/>
 	</LinearLayout>
 </RelativeLayout>

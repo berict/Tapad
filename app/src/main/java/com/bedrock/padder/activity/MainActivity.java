@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.ColorInt;
@@ -25,6 +26,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.bedrock.padder.R;
+import com.bedrock.padder.fragment.AboutFragment;
 import com.bedrock.padder.helper.AdmobService;
 import com.bedrock.padder.helper.AnimService;
 import com.bedrock.padder.helper.AppbarService;
@@ -52,7 +54,9 @@ import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 @TargetApi(9)
 @SuppressWarnings("deprecation")
 
-public class MainActivity extends AppCompatActivity implements ColorChooserDialog.ColorCallback {
+public class MainActivity
+        extends AppCompatActivity
+        implements ColorChooserDialog.ColorCallback, AboutFragment.OnFragmentInteractionListener {
 
     final Activity a = this;
     final String qs = "quickstart";
@@ -115,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     // TODO SET ON INTENT
     Gson gson = new Gson();
     Preset presets[];
+    Preset currentPreset = null;
 
     // TODO TAP launch
     //IabHelper mHelper;
@@ -245,6 +250,26 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                 intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "report_bug", 400);
             }
         }, a);
+        w.setOnClick(R.id.testAboutFragment, new Runnable() {
+            @Override
+            public void run() {
+                setFragment();
+            }
+        }, a);
+    }
+
+    private void setFragment() {
+        AboutFragment aboutFragment = new AboutFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.fragment_about_container, aboutFragment)
+                .commit();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri){
+        // you can leave it empty
+        // used for fragments
     }
 
     // TODO iap launch
@@ -2138,7 +2163,7 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 
     void setSchemeInfo() {
         ab.setNav(0, null, a);
-        Preset currentPreset = presets[getScheme()];
+        currentPreset = presets[getScheme()];
         themeColor = currentPreset.getAbout().getActionbarColor();
         w.setRecentColor(0, 0, themeColor, a);
 
