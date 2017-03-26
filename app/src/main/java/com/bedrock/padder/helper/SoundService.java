@@ -854,7 +854,7 @@ public class SoundService {
             Log.d(TAG, "On preExecute, set prefs");
             isPresetLoaded = false;
             progressCount = 0;
-            presetSoundCount = PRESET_SOUND_COUNTS[currentPreset.getId()];
+            presetSoundCount = currentPreset.getMusic().getSoundCount();
             ad.resumeNativeAdView(R.id.adView_main, activity);
             progress = window.getTextView(R.id.progress_bar_progress_text, activity);
             if (window.getView(R.id.progress_bar_layout, activity).getVisibility() == View.GONE) {

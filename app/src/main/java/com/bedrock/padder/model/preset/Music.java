@@ -7,14 +7,18 @@ public class Music {
     @SerializedName("name_id")
     private String nameId;
 
+    @SerializedName("sound_count")
+    private Integer soundCount;
+
     @SerializedName("decks")
     private Deck[] decks;
 
     @SerializedName("deckTimings")
     private DeckTiming[] deckTimings;
 
-    public Music(String nameId, Deck[] decks, DeckTiming[] deckTimings) {
+    public Music(String nameId, Integer soundCount, Deck[] decks, DeckTiming[] deckTimings) {
         this.nameId = nameId;
+        this.soundCount = soundCount;
         this.decks = decks;
         this.deckTimings = deckTimings;
     }
@@ -29,5 +33,9 @@ public class Music {
 
     public DeckTiming[] getDeckTimings() {
         return deckTimings;
+    }
+
+    public Integer getSoundCount() {
+        return soundCount;
     }
 }

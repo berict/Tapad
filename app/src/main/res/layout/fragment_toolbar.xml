@@ -38,14 +38,13 @@
             android:src="@drawable/icon_music"/>
     </RelativeLayout>
 
-    <!-- Tutorial removed -->
     <RelativeLayout
         android:id="@+id/toolbar_tutorial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:background="?selectableItemBackgroundBorderless"
-        android:visibility="gone"
+        android:visibility="visible"
         android:padding="16dp">
 
         <ImageView

@@ -435,7 +435,7 @@ public class FeedbackActivity extends AppCompatActivity {
                                     "Song genre   = \"" + songGenreString   + "\"" + br +
                                     "Song link    = \"" + songLinkString    + "\"" + br +
                                     "User message = \"" + songMessageString + "\"" + br + br +
-                                    systemInfo + br + br +
+                                    systemInfo + br + "FeedbackId0" + br + br +
                                     "### Do not edit the subject and the message to receive a reply ###";
                     intent.intentEmail(a, R.string.feedback_email,
                             "Tapad Feedback - Song Request", sendMessage,
@@ -444,7 +444,7 @@ public class FeedbackActivity extends AppCompatActivity {
                 case "feedback":
                     sendMessage =   "Feedback type    = \"" + feedbackTypeString    + "\"" + br +
                                     "Feedback message = \"" + feedbackMessageString + "\"" + br + br +
-                                    systemInfo + br + br +
+                                    systemInfo + br + "FeedbackId1" + br + br +
                             "### Do not edit the subject and the message to receive a reply ###";
                     intent.intentEmail(a, R.string.feedback_email,
                             "Tapad Feedback - Feedback [" + feedbackTypeString + "]", sendMessage,
@@ -454,7 +454,7 @@ public class FeedbackActivity extends AppCompatActivity {
                     sendMessage =
                             "Bug type   = \"" + reportBugTypeString    + "\"" + br +
                             "Bug detail = \"" + reportBugMessageString + "\"" + br + br +
-                            systemInfo + br + br +
+                            systemInfo + br + "FeedbackId2" + br + br +
                             "### Do not edit the subject and the message to receive a reply ###";
                     intent.intentEmail(a, R.string.feedback_email,
                             "Tapad Feedback - Bug Report [" + reportBugTypeString + "]", sendMessage,

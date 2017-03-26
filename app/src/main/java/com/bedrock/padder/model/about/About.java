@@ -13,6 +13,9 @@ public class About {
     @SerializedName("image_id")
     private String imageId;
 
+    @SerializedName("tutorial_link_id")
+    private String tutorialLinkId;
+
     @SerializedName("statusbar_color_id")
     private String statusbarColorId;
 
@@ -27,10 +30,12 @@ public class About {
     private Detail[] details;
 
     public About (String titleId, String imageId,
+                  String tutorialLinkId,
                   Bio bio, Detail[] details,
                   String statusbarColorId, String actionbarColorId) {
         this.titleId = titleId;
         this.imageId = imageId;
+        this.tutorialLinkId = tutorialLinkId;
         this.statusbarColorId = statusbarColorId;
         this.actionbarColorId = actionbarColorId;
         this.bio = bio;
@@ -73,5 +78,14 @@ public class About {
 
     public Detail getDetail(Integer index) {
         return details[index];
+    }
+
+    public String getTutorialLinkId() {
+        return tutorialLinkId;
+    }
+
+    public String getTutorialLink(Activity activity) {
+        WindowService window = new WindowService();
+        return window.getStringFromId(tutorialLinkId, activity);
     }
 }

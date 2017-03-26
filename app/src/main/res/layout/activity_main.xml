@@ -84,7 +84,7 @@
 		android:layout_alignParentRight="true"
 		android:layout_alignParentTop="true"
 		android:orientation="vertical"
-		android:visibility="gone">
+		android:visibility="visible">
 		
 		<TextView
 			android:id="@+id/testFeedbackIntentSong"

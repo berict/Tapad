@@ -250,6 +250,8 @@
     <string name="preset_hello_full">OMFG - Hello</string>
     <string name="preset_hello">Hello</string>
     <string name="preset_hello_title">@string/preset_hello_full</string>
+	
+	<string name="preset_hello_tutorial_link">null</string>
 
     <string name="preset_hello_bio_title">OMFG\'s biography</string>
     <string name="preset_hello_bio_name">Alex OMFG (Alex Savage)</string>
@@ -283,6 +285,8 @@
     <string name="preset_roses_full">The Chainsmokers - Roses</string>
     <string name="preset_roses">Roses</string>
     <string name="preset_roses_title">@string/preset_roses_full</string>
+	
+	<string name="preset_roses_tutorial_link">null</string>
 
     <string name="preset_roses_bio_title">The Chainsmokers\' biography</string>
     <string name="preset_roses_bio_name">Andrew Taggart and Alex Pall</string>
@@ -315,6 +319,8 @@
     <string name="preset_faded_full">Alan Walker - Faded</string>
     <string name="preset_faded">Faded</string>
     <string name="preset_faded_title">@string/preset_faded_full</string>
+	
+	<string name="preset_faded_tutorial_link">null</string>
 
     <string name="preset_faded_bio_title">Alan Walker\'s biography</string>
     <string name="preset_faded_bio_name">Alan Olav Walker</string>

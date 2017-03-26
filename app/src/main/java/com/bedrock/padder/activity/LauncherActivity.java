@@ -49,10 +49,11 @@ public class LauncherActivity extends Activity {
                 anim.fadeOut(R.id.root, 0, 400, activity);
 
                 // edit this to enable normal intent
-                //checkVersionCode();
+                checkVersionCode();
 
                 // edit this to intent to welcome activity always
-                intent.intentFlag(activity, "activity.UserBenefitsActivity", 500);
+                //intent.intentFlag(activity, "activity.UserBenefitsActivity", 500);
+                //prefs.edit().putInt("versionCode", -1).apply();
             }
         }, 500); //Default 1500
     }

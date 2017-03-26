@@ -34,7 +34,12 @@ import com.bedrock.padder.helper.SoundService;
 import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.TutorialService;
 import com.bedrock.padder.helper.WindowService;
+import com.bedrock.padder.model.about.About;
+import com.bedrock.padder.model.about.Bio;
+import com.bedrock.padder.model.about.Detail;
+import com.bedrock.padder.model.about.Item;
 import com.bedrock.padder.model.preset.Deck;
+import com.bedrock.padder.model.preset.Music;
 import com.bedrock.padder.model.preset.Pad;
 import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
@@ -133,6 +138,9 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //TODO EDIT
+        //makeJson();
+
         // TODO IAP launch
         //String base64EncodePublicKey = constructBase64Key();
 
@@ -218,8 +226,6 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         color = prefs.getInt("color", R.color.red);
         clearDeck();
 
-        //TODO EDIT
-        //makeJson();
         // TODO REMOVE (intent)
         w.setOnClick(R.id.testFeedbackIntentSong, new Runnable() {
             @Override
@@ -526,238 +532,241 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
                     + " , currentVersionCode = " + String.valueOf(currentVersionCode));
             Log.d("VersionCode", "Updated, show changelog");
 
-            ChangelogDialog = new MaterialDialog.Builder(activity)
-                    .title(w.getStringId("info_tapad_info_changelog"))
-                    .content(w.getStringId("info_tapad_info_changelog_text"))
-                    .contentColorRes(R.color.dark_primary)
-                    .positiveText(R.string.dialog_close)
-                    .positiveColorRes(R.color.colorAccent)
-                    .dismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialogInterface) {
-                            // Dialog
-                            if (pref.getInt(qs, 0) == 0) {
-                                closeToolbar(activity);
-                                QuickstartDialog = new MaterialDialog.Builder(activity)
-                                        .title(R.string.dialog_quickstart_welcome_title)
-                                        .content(R.string.dialog_quickstart_welcome_text)
-                                        .positiveText(R.string.dialog_quickstart_welcome_positive)
-                                        .positiveColorRes(R.color.colorAccent)
-                                        .negativeText(R.string.dialog_quickstart_welcome_negative)
-                                        .negativeColorRes(R.color.dark_secondary)
-                                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                            @Override
-                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                                pref.edit().putInt(qs, 0).apply();
-                                                Log.i("sharedPrefs", "quickstart edited to 0");
-                                            }
-                                        })
-                                        .onNegative(new MaterialDialog.SingleButtonCallback() {
-                                            @Override
-                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                                pref.edit().putInt(qs, -1).apply();
-                                                Log.i("sharedPrefs", "quickstart edited to -1");
-                                            }
-                                        })
-                                        .dismissListener(new DialogInterface.OnDismissListener() {
-                                            @Override
-                                            public void onDismiss(DialogInterface dialogInterface) {
-                                                if (pref.getInt(qs, 0) == 0) {
-                                                    Log.i("setQuickstart", "Quickstart started");
-                                                    if (promptFab != null) {
-                                                        return;
-                                                    }
-                                                    promptToggle = new MaterialTapTargetPrompt.Builder(activity)
-                                                            .setTarget(activity.findViewById(R.id.tgl1))
-                                                            .setPrimaryText(R.string.dialog_tap_target_toggle_primary)
-                                                            .setSecondaryText(R.string.dialog_tap_target_toggle_secondary)
-                                                            .setAnimationInterpolator(new FastOutSlowInInterpolator())
-                                                            .setAutoDismiss(false)
-                                                            .setAutoFinish(false)
-                                                            .setFocalColourFromRes(R.color.white)
-                                                            .setCaptureTouchEventOutsidePrompt(true)
-                                                            .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
-                                                                @Override
-                                                                public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
-                                                                    if (tappedTarget) {
-                                                                        promptToggle.finish();
-                                                                        promptToggle = null;
-                                                                        pref.edit().putInt(qs, 1).apply();
-                                                                        Log.i("sharedPrefs", "quickstart edited to 1");
-                                                                    }
-                                                                }
-
-                                                                @Override
-                                                                public void onHidePromptComplete() {
-                                                                    promptButton = new MaterialTapTargetPrompt.Builder(activity)
-                                                                            .setTarget(activity.findViewById(R.id.btn31))
-                                                                            .setPrimaryText(R.string.dialog_tap_target_button_primary)
-                                                                            .setSecondaryText(R.string.dialog_tap_target_button_secondary)
-                                                                            .setAnimationInterpolator(new FastOutSlowInInterpolator())
-                                                                            .setAutoDismiss(false)
-                                                                            .setAutoFinish(false)
-                                                                            .setFocalColourFromRes(R.color.white)
-                                                                            .setFocalRadius((float) w.convertDPtoPX(80, activity))
-                                                                            .setCaptureTouchEventOutsidePrompt(true)
-                                                                            .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
-                                                                                @Override
-                                                                                public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
-                                                                                    if (tappedTarget) {
-                                                                                        promptButton.finish();
-                                                                                        promptButton = null;
-                                                                                        pref.edit().putInt(qs, 3).apply();
-                                                                                        Log.i("sharedPrefs", "quickstart edited to 3");
-                                                                                    }
-                                                                                }
-
-                                                                                @Override
-                                                                                public void onHidePromptComplete() {
-                                                                                    promptSwipe = new MaterialTapTargetPrompt.Builder(activity)
-                                                                                            .setTarget(activity.findViewById(R.id.btn23))
-                                                                                            .setPrimaryText(R.string.dialog_tap_target_swipe_primary)
-                                                                                            .setSecondaryText(R.string.dialog_tap_target_swipe_secondary)
-                                                                                            .setAnimationInterpolator(new FastOutSlowInInterpolator())
-                                                                                            .setAutoDismiss(false)
-                                                                                            .setAutoFinish(false)
-                                                                                            .setFocalColourFromRes(R.color.white)
-                                                                                            .setFocalRadius((float) w.convertDPtoPX(80, activity))
-                                                                                            .setCaptureTouchEventOutsidePrompt(true)
-                                                                                            .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
-                                                                                                @Override
-                                                                                                public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
-                                                                                                    if (tappedTarget) {
-                                                                                                        promptSwipe.finish();
-                                                                                                        promptSwipe = null;
-                                                                                                        pref.edit().putInt(qs, 4).apply();
-                                                                                                        Log.i("sharedPrefs", "quickstart edited to 4");
-                                                                                                    }
-                                                                                                }
-
-                                                                                                @Override
-                                                                                                public void onHidePromptComplete() {
-                                                                                                    promptLoop = new MaterialTapTargetPrompt.Builder(activity)
-                                                                                                            .setTarget(activity.findViewById(R.id.btn42))
-                                                                                                            .setPrimaryText(R.string.dialog_tap_target_loop_primary)
-                                                                                                            .setSecondaryText(R.string.dialog_tap_target_loop_secondary)
-                                                                                                            .setAnimationInterpolator(new FastOutSlowInInterpolator())
-                                                                                                            .setAutoDismiss(false)
-                                                                                                            .setAutoFinish(false)
-                                                                                                            .setFocalColourFromRes(R.color.white)
-                                                                                                            .setFocalRadius((float) w.convertDPtoPX(80, activity))
-                                                                                                            .setCaptureTouchEventOutsidePrompt(true)
-                                                                                                            .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
-                                                                                                                @Override
-                                                                                                                public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
-                                                                                                                    if (tappedTarget) {
-                                                                                                                        promptLoop.finish();
-                                                                                                                        promptLoop = null;
-                                                                                                                        pref.edit().putInt(qs, 5).apply();
-                                                                                                                        Log.i("sharedPrefs", "quickstart edited to 5");
-                                                                                                                    }
-                                                                                                                }
-
-                                                                                                                @Override
-                                                                                                                public void onHidePromptComplete() {
-                                                                                                                    promptPattern = new MaterialTapTargetPrompt.Builder(activity)
-                                                                                                                            .setTarget(activity.findViewById(R.id.tgl7))
-                                                                                                                            .setPrimaryText(R.string.dialog_tap_target_pattern_primary)
-                                                                                                                            .setSecondaryText(R.string.dialog_tap_target_pattern_secondary)
-                                                                                                                            .setAnimationInterpolator(new FastOutSlowInInterpolator())
-                                                                                                                            .setAutoDismiss(false)
-                                                                                                                            .setAutoFinish(false)
-                                                                                                                            .setFocalColourFromRes(R.color.white)
-                                                                                                                            .setCaptureTouchEventOutsidePrompt(true)
-                                                                                                                            .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
-                                                                                                                                @Override
-                                                                                                                                public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
-                                                                                                                                    if (tappedTarget) {
-                                                                                                                                        promptPattern.finish();
-                                                                                                                                        promptPattern = null;
-                                                                                                                                        pref.edit().putInt(qs, 5).apply();
-                                                                                                                                        Log.i("sharedPrefs", "quickstart edited to 5");
-                                                                                                                                    }
-                                                                                                                                }
-
-                                                                                                                                @Override
-                                                                                                                                public void onHidePromptComplete() {
-                                                                                                                                    promptFab = new MaterialTapTargetPrompt.Builder(activity)
-                                                                                                                                            .setTarget(activity.findViewById(R.id.fab))
-                                                                                                                                            .setPrimaryText(R.string.dialog_tap_target_fab_primary)
-                                                                                                                                            .setSecondaryText(R.string.dialog_tap_target_fab_secondary)
-                                                                                                                                            .setAnimationInterpolator(new FastOutSlowInInterpolator())
-                                                                                                                                            .setAutoDismiss(false)
-                                                                                                                                            .setAutoFinish(false)
-                                                                                                                                            .setFocalColourFromRes(R.color.white)
-                                                                                                                                            .setCaptureTouchEventOutsidePrompt(true)
-                                                                                                                                            .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
-                                                                                                                                                @Override
-                                                                                                                                                public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
-                                                                                                                                                    if (tappedTarget) {
-                                                                                                                                                        promptFab.finish();
-                                                                                                                                                        promptFab = null;
-                                                                                                                                                        pref.edit().putInt(qs, 6).apply();
-                                                                                                                                                        Log.i("sharedPrefs", "quickstart edited to 6");
-                                                                                                                                                    }
-                                                                                                                                                }
-
-                                                                                                                                                @Override
-                                                                                                                                                public void onHidePromptComplete() {
-                                                                                                                                                    promptPreset = new MaterialTapTargetPrompt.Builder(activity)
-                                                                                                                                                            .setTarget(activity.findViewById(R.id.toolbar_preset))
-                                                                                                                                                            .setPrimaryText(R.string.dialog_tap_target_preset_primary)
-                                                                                                                                                            .setSecondaryText(R.string.dialog_tap_target_preset_secondary)
-                                                                                                                                                            .setAnimationInterpolator(new FastOutSlowInInterpolator())
-                                                                                                                                                            .setAutoDismiss(false)
-                                                                                                                                                            .setAutoFinish(false)
-                                                                                                                                                            .setFocalColourFromRes(R.color.blue_500)
-                                                                                                                                                            .setCaptureTouchEventOutsidePrompt(true)
-                                                                                                                                                            .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
-                                                                                                                                                                @Override
-                                                                                                                                                                public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
-                                                                                                                                                                    if (tappedTarget) {
-                                                                                                                                                                        promptPreset.finish();
-                                                                                                                                                                        promptPreset = null;
-                                                                                                                                                                        pref.edit().putInt(qs, 7).apply();
-                                                                                                                                                                        Log.i("sharedPrefs", "quickstart edited to 7");
-                                                                                                                                                                    }
-                                                                                                                                                                }
-
-                                                                                                                                                                @Override
-                                                                                                                                                                public void onHidePromptComplete() {
-                                                                                                                                                                }
-                                                                                                                                                            })
-                                                                                                                                                            .show();
-                                                                                                                                                }
-                                                                                                                                            })
-                                                                                                                                            .show();
-                                                                                                                                }
-                                                                                                                            })
-                                                                                                                            .show();
-                                                                                                                }
-                                                                                                            })
-                                                                                                            .show();
-                                                                                                }
-                                                                                            })
-                                                                                            .show();
-                                                                                }
-                                                                            })
-                                                                            .show();
-                                                                }
-                                                            })
-                                                            .show();
-                                                } else {
-                                                    Log.i("setQuickstart", "Quickstart canceled");
-                                                    prefs.edit().putInt(qs, -1).apply();
+            if (currentVersionCode > pref.getInt("versionCode", -1)) {
+                // new app and updates
+                ChangelogDialog = new MaterialDialog.Builder(activity)
+                        .title(w.getStringId("info_tapad_info_changelog"))
+                        .content(w.getStringId("info_tapad_info_changelog_text"))
+                        .contentColorRes(R.color.dark_primary)
+                        .positiveText(R.string.dialog_close)
+                        .positiveColorRes(R.color.colorAccent)
+                        .dismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialogInterface) {
+                                // Dialog
+                                if (pref.getInt(qs, 0) == 0) {
+                                    closeToolbar(activity);
+                                    QuickstartDialog = new MaterialDialog.Builder(activity)
+                                            .title(R.string.dialog_quickstart_welcome_title)
+                                            .content(R.string.dialog_quickstart_welcome_text)
+                                            .positiveText(R.string.dialog_quickstart_welcome_positive)
+                                            .positiveColorRes(R.color.colorAccent)
+                                            .negativeText(R.string.dialog_quickstart_welcome_negative)
+                                            .negativeColorRes(R.color.dark_secondary)
+                                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                                @Override
+                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                    pref.edit().putInt(qs, 0).apply();
+                                                    Log.i("sharedPrefs", "quickstart edited to 0");
                                                 }
-                                            }
-                                        })
-                                        .show();
+                                            })
+                                            .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                                @Override
+                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                    pref.edit().putInt(qs, -1).apply();
+                                                    Log.i("sharedPrefs", "quickstart edited to -1");
+                                                }
+                                            })
+                                            .dismissListener(new DialogInterface.OnDismissListener() {
+                                                @Override
+                                                public void onDismiss(DialogInterface dialogInterface) {
+                                                    if (pref.getInt(qs, 0) == 0) {
+                                                        Log.i("setQuickstart", "Quickstart started");
+                                                        if (promptFab != null) {
+                                                            return;
+                                                        }
+                                                        promptToggle = new MaterialTapTargetPrompt.Builder(activity)
+                                                                .setTarget(activity.findViewById(R.id.tgl1))
+                                                                .setPrimaryText(R.string.dialog_tap_target_toggle_primary)
+                                                                .setSecondaryText(R.string.dialog_tap_target_toggle_secondary)
+                                                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
+                                                                .setAutoDismiss(false)
+                                                                .setAutoFinish(false)
+                                                                .setFocalColourFromRes(R.color.white)
+                                                                .setCaptureTouchEventOutsidePrompt(true)
+                                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
+                                                                    @Override
+                                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
+                                                                        if (tappedTarget) {
+                                                                            promptToggle.finish();
+                                                                            promptToggle = null;
+                                                                            pref.edit().putInt(qs, 1).apply();
+                                                                            Log.i("sharedPrefs", "quickstart edited to 1");
+                                                                        }
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onHidePromptComplete() {
+                                                                        promptButton = new MaterialTapTargetPrompt.Builder(activity)
+                                                                                .setTarget(activity.findViewById(R.id.btn31))
+                                                                                .setPrimaryText(R.string.dialog_tap_target_button_primary)
+                                                                                .setSecondaryText(R.string.dialog_tap_target_button_secondary)
+                                                                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
+                                                                                .setAutoDismiss(false)
+                                                                                .setAutoFinish(false)
+                                                                                .setFocalColourFromRes(R.color.white)
+                                                                                .setFocalRadius((float) w.convertDPtoPX(80, activity))
+                                                                                .setCaptureTouchEventOutsidePrompt(true)
+                                                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
+                                                                                    @Override
+                                                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
+                                                                                        if (tappedTarget) {
+                                                                                            promptButton.finish();
+                                                                                            promptButton = null;
+                                                                                            pref.edit().putInt(qs, 3).apply();
+                                                                                            Log.i("sharedPrefs", "quickstart edited to 3");
+                                                                                        }
+                                                                                    }
+
+                                                                                    @Override
+                                                                                    public void onHidePromptComplete() {
+                                                                                        promptSwipe = new MaterialTapTargetPrompt.Builder(activity)
+                                                                                                .setTarget(activity.findViewById(R.id.btn23))
+                                                                                                .setPrimaryText(R.string.dialog_tap_target_swipe_primary)
+                                                                                                .setSecondaryText(R.string.dialog_tap_target_swipe_secondary)
+                                                                                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
+                                                                                                .setAutoDismiss(false)
+                                                                                                .setAutoFinish(false)
+                                                                                                .setFocalColourFromRes(R.color.white)
+                                                                                                .setFocalRadius((float) w.convertDPtoPX(80, activity))
+                                                                                                .setCaptureTouchEventOutsidePrompt(true)
+                                                                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
+                                                                                                    @Override
+                                                                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
+                                                                                                        if (tappedTarget) {
+                                                                                                            promptSwipe.finish();
+                                                                                                            promptSwipe = null;
+                                                                                                            pref.edit().putInt(qs, 4).apply();
+                                                                                                            Log.i("sharedPrefs", "quickstart edited to 4");
+                                                                                                        }
+                                                                                                    }
+
+                                                                                                    @Override
+                                                                                                    public void onHidePromptComplete() {
+                                                                                                        promptLoop = new MaterialTapTargetPrompt.Builder(activity)
+                                                                                                                .setTarget(activity.findViewById(R.id.btn42))
+                                                                                                                .setPrimaryText(R.string.dialog_tap_target_loop_primary)
+                                                                                                                .setSecondaryText(R.string.dialog_tap_target_loop_secondary)
+                                                                                                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
+                                                                                                                .setAutoDismiss(false)
+                                                                                                                .setAutoFinish(false)
+                                                                                                                .setFocalColourFromRes(R.color.white)
+                                                                                                                .setFocalRadius((float) w.convertDPtoPX(80, activity))
+                                                                                                                .setCaptureTouchEventOutsidePrompt(true)
+                                                                                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
+                                                                                                                    @Override
+                                                                                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
+                                                                                                                        if (tappedTarget) {
+                                                                                                                            promptLoop.finish();
+                                                                                                                            promptLoop = null;
+                                                                                                                            pref.edit().putInt(qs, 5).apply();
+                                                                                                                            Log.i("sharedPrefs", "quickstart edited to 5");
+                                                                                                                        }
+                                                                                                                    }
+
+                                                                                                                    @Override
+                                                                                                                    public void onHidePromptComplete() {
+                                                                                                                        promptPattern = new MaterialTapTargetPrompt.Builder(activity)
+                                                                                                                                .setTarget(activity.findViewById(R.id.tgl7))
+                                                                                                                                .setPrimaryText(R.string.dialog_tap_target_pattern_primary)
+                                                                                                                                .setSecondaryText(R.string.dialog_tap_target_pattern_secondary)
+                                                                                                                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
+                                                                                                                                .setAutoDismiss(false)
+                                                                                                                                .setAutoFinish(false)
+                                                                                                                                .setFocalColourFromRes(R.color.white)
+                                                                                                                                .setCaptureTouchEventOutsidePrompt(true)
+                                                                                                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
+                                                                                                                                    @Override
+                                                                                                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
+                                                                                                                                        if (tappedTarget) {
+                                                                                                                                            promptPattern.finish();
+                                                                                                                                            promptPattern = null;
+                                                                                                                                            pref.edit().putInt(qs, 5).apply();
+                                                                                                                                            Log.i("sharedPrefs", "quickstart edited to 5");
+                                                                                                                                        }
+                                                                                                                                    }
+
+                                                                                                                                    @Override
+                                                                                                                                    public void onHidePromptComplete() {
+                                                                                                                                        promptFab = new MaterialTapTargetPrompt.Builder(activity)
+                                                                                                                                                .setTarget(activity.findViewById(R.id.fab))
+                                                                                                                                                .setPrimaryText(R.string.dialog_tap_target_fab_primary)
+                                                                                                                                                .setSecondaryText(R.string.dialog_tap_target_fab_secondary)
+                                                                                                                                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
+                                                                                                                                                .setAutoDismiss(false)
+                                                                                                                                                .setAutoFinish(false)
+                                                                                                                                                .setFocalColourFromRes(R.color.white)
+                                                                                                                                                .setCaptureTouchEventOutsidePrompt(true)
+                                                                                                                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
+                                                                                                                                                    @Override
+                                                                                                                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
+                                                                                                                                                        if (tappedTarget) {
+                                                                                                                                                            promptFab.finish();
+                                                                                                                                                            promptFab = null;
+                                                                                                                                                            pref.edit().putInt(qs, 6).apply();
+                                                                                                                                                            Log.i("sharedPrefs", "quickstart edited to 6");
+                                                                                                                                                        }
+                                                                                                                                                    }
+
+                                                                                                                                                    @Override
+                                                                                                                                                    public void onHidePromptComplete() {
+                                                                                                                                                        promptPreset = new MaterialTapTargetPrompt.Builder(activity)
+                                                                                                                                                                .setTarget(activity.findViewById(R.id.toolbar_preset))
+                                                                                                                                                                .setPrimaryText(R.string.dialog_tap_target_preset_primary)
+                                                                                                                                                                .setSecondaryText(R.string.dialog_tap_target_preset_secondary)
+                                                                                                                                                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
+                                                                                                                                                                .setAutoDismiss(false)
+                                                                                                                                                                .setAutoFinish(false)
+                                                                                                                                                                .setFocalColourFromRes(R.color.blue_500)
+                                                                                                                                                                .setCaptureTouchEventOutsidePrompt(true)
+                                                                                                                                                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
+                                                                                                                                                                    @Override
+                                                                                                                                                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
+                                                                                                                                                                        if (tappedTarget) {
+                                                                                                                                                                            promptPreset.finish();
+                                                                                                                                                                            promptPreset = null;
+                                                                                                                                                                            pref.edit().putInt(qs, 7).apply();
+                                                                                                                                                                            Log.i("sharedPrefs", "quickstart edited to 7");
+                                                                                                                                                                        }
+                                                                                                                                                                    }
+
+                                                                                                                                                                    @Override
+                                                                                                                                                                    public void onHidePromptComplete() {
+                                                                                                                                                                    }
+                                                                                                                                                                })
+                                                                                                                                                                .show();
+                                                                                                                                                    }
+                                                                                                                                                })
+                                                                                                                                                .show();
+                                                                                                                                    }
+                                                                                                                                })
+                                                                                                                                .show();
+                                                                                                                    }
+                                                                                                                })
+                                                                                                                .show();
+                                                                                                    }
+                                                                                                })
+                                                                                                .show();
+                                                                                    }
+                                                                                })
+                                                                                .show();
+                                                                    }
+                                                                })
+                                                                .show();
+                                                    } else {
+                                                        Log.i("setQuickstart", "Quickstart canceled");
+                                                        pref.edit().putInt(qs, -1).apply();
+                                                    }
+                                                }
+                                            })
+                                            .show();
+                                }
+                                pref.edit().putInt("versionCode", currentVersionCode).apply(); // Change this
+                                Log.d("VersionCode", "putInt " + String.valueOf(pref.getInt("versionCode", -1)));
                             }
-                            pref.edit().putInt("versionCode", currentVersionCode).apply(); // Change this
-                            Log.d("VersionCode", "putInt " + String.valueOf(pref.getInt("versionCode", -1)));
-                        }
-                    })
-                    .show();
+                        })
+                        .show();
+            }
 //            if (currentVersionCode > pref.getInt("versionCode", -1)) {
 //                // Updated
 //            } else {
@@ -1329,41 +1338,53 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
         // TODO add 2gb ram limit if statement
         if (w.getView(R.id.progress_bar_layout, a).getVisibility() == View.GONE) {
             // on loading finished
-            if (isTutorialVisible == false) {
-                new MaterialDialog.Builder(a)
-                        .title(R.string.dialog_tutorial_warning_title)
-                        .content(R.string.dialog_tutorial_warning_text)
-                        .positiveText(R.string.dialog_tutorial_warning_positive)
-                        .positiveColorRes(R.color.red_500)
-                        .negativeText(R.string.dialog_tutorial_warning_negative)
-                        .negativeColorRes(R.color.dark_secondary)
-                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                // TODO TUTORIAL
-                                //tut.tutorialStart(a);
-                                tut.initCurrentTiming();
-                                tut.startTutorial(tut.getCurrentTutorialDeckId(), a);
-                                isTutorialVisible = true;
-                                setTutorialUI();
-                                if (isSettingVisible == true) {
-                                    closeSettings();
-                                }
-                            }
-                        })
-                        .onNegative(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                isTutorialVisible = false;
-                                setTutorialUI();
-                            }
-                        })
-                        .show();
+//            if (isTutorialVisible == false) {
+//                new MaterialDialog.Builder(a)
+//                        .title(R.string.dialog_tutorial_warning_title)
+//                        .content(R.string.dialog_tutorial_warning_text)
+//                        .positiveText(R.string.dialog_tutorial_warning_positive)
+//                        .positiveColorRes(R.color.red_500)
+//                        .negativeText(R.string.dialog_tutorial_warning_negative)
+//                        .negativeColorRes(R.color.dark_secondary)
+//                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+//                            @Override
+//                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//                                // TODO TUTORIAL
+//                                //tut.tutorialStart(a);
+//                                tut.initCurrentTiming();
+//                                tut.startTutorial(tut.getCurrentTutorialDeckId(), a);
+//                                isTutorialVisible = true;
+//                                setTutorialUI();
+//                                if (isSettingVisible == true) {
+//                                    closeSettings();
+//                                }
+//                            }
+//                        })
+//                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+//                            @Override
+//                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//                                isTutorialVisible = false;
+//                                setTutorialUI();
+//                            }
+//                        })
+//                        .show();
+//            } else {
+//                tut.tutorialStop(a);
+//                isTutorialVisible = false;
+//                setTutorialUI();
+//            }
+            String tutorialText;
+            if (presets[getScheme()].getAbout().getTutorialLink(a).equals("null")) {
+                tutorialText = w.getStringFromId("dialog_tutorial_text_error", a);
             } else {
-                tut.tutorialStop(a);
-                isTutorialVisible = false;
-                setTutorialUI();
+                tutorialText = presets[getScheme()].getAbout().getTutorialLinkId();
             }
+
+            new MaterialDialog.Builder(a)
+                    .title(R.string.dialog_tutorial_title)
+                    .content(tutorialText)
+                    .neutralText(R.string.dialog_close)
+                    .show();
         } else {
             // still loading preset
             Toast.makeText(a, R.string.tutorial_loading, Toast.LENGTH_LONG).show();
@@ -2148,558 +2169,523 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
     }
 
     void makeJson() {
-//        //Default json creator
-//        Item items[] = {
-//                new Item("item1Text", "item1Hint", "item1ImageResId"),
-//                new Item("item2Text", "item2Hint", "item2ImageResId")
-//        };
-//
-//        Detail details[] = {
-//                new Detail("detail1Title", items),
-//                new Detail("detail2Title", items)
-//        };
-//
-//        About about = new About("title", "imageResId",
-//                new Bio("bioTitle", "bioImageResId", "bioName", "bioText", "bioSource"), details,
-//                "statusColorResId", "actionColorResId");
+        Item helloItems[] = {
+                new Item("facebook", "preset_hello_detail_facebook"),
+                new Item("twitter", "preset_hello_detail_twitter"),
+                new Item("soundcloud", "preset_hello_detail_soundcloud"),
+                new Item("instagram", "preset_hello_detail_instagram"),
+                new Item("google_plus", "preset_hello_detail_google_plus"),
+                new Item("youtube", "preset_hello_detail_youtube"),
+                new Item("twitch", "preset_hello_detail_twitch"), // only hello
+                new Item("web", "preset_hello_detail_web")
+        };
 
-        //TODO use this for new presets
-//        String[] social = getResources().getStringArray(R.array.roses_social);
-//        String[] bio = getResources().getStringArray(R.array.roses_bio);
-//
-//        Item items[] = {
-//                new Item("Facebook"  , social[0], "about_facebook"),
-//                new Item("Twitter"   , social[1], "about_twitter"),
-//                new Item("SoundCloud", social[2], "about_soundcloud"),
-//                new Item("YouTube"   , social[3], "about_youtube"),
-//                new Item("Webpage"   , social[4], "about_web")
+        Detail helloDetail = new Detail("preset_hello_detail_title", helloItems);
+
+        Item helloSongItems[] = {
+                new Item("soundcloud", "preset_hello_song_detail_soundcloud", false),
+                new Item("youtube", "preset_hello_song_detail_youtube", false),
+                new Item("spotify", "preset_hello_song_detail_spotify", false),
+                new Item("google_play_music", "preset_hello_song_detail_google_play_music", false),
+                new Item("apple", "preset_hello_song_detail_apple", false),
+                new Item("amazon", "preset_hello_song_detail_amazon", false),
+                new Item("pandora", "preset_hello_song_detail_pandora", false)
+        };
+
+        Detail helloSongDetail = new Detail("preset_hello_song_detail_title", helloSongItems);
+
+        Bio helloBio = new Bio(
+                "preset_hello_bio_title",
+                "about_bio_hello",
+                "preset_hello_bio_name",
+                "preset_hello_bio_text",
+                "preset_hello_bio_source"
+        );
+
+        Detail helloDetails[] = {
+                helloDetail,
+                helloSongDetail
+        };
+
+        About helloAbout = new About(
+                "preset_hello_title", "about_album_hello",
+                "preset_hello_tutorial_link",
+                helloBio, helloDetails,
+                "preset_hello_color_dark", "preset_hello_color"
+        );
+
+        // Timings
+//        Integer pt1[][] = {
+//                {42660},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {26658},
+//                {0},
+//                {1333},
+//                {2666},
+//                {3998},
+//                {27991},
+//                {10664, 21327},
+//                {11996, 22660},
+//                {13329, 23993},
+//                {14662, 25326},
+//                {29324},
+//                {15995},
+//                {17328},
+//                {18660},
+//                {19993},
+//                {30657},
+//                {5331},
+//                {6664},
+//                {7997},
+//                {9330},
+//                {42660},
+//                {34656},
+//                {37322},
+//                {45320},
+//                {47986},
+//                {47986},
+//                {35989},
+//                {38655},
+//                {46653},
+//                {49318},
+//                {50651},
+//                {36655},
+//                {39321},
+//                {47319},
+//                {49984},
+//                {45320},
+//                {35322},
+//                {37988},
+//                {45986},
+//                {48652},
+//                {31991},
+//                {31991},
+//                {39988},
+//                {42660},
+//                {50651},
+//                {37322},
+//                {33324},
+//                {41320},
+//                {43987},
+//                {51984},
+//                {39988},
+//                {33990},
+//                {41987},
+//                {44653},
+//                {52650},
+//                {34656},
+//                {32657},
+//                {40654},
+//                {43320},
+//                {51317},
+//                {43987},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {10664},
+//                {10664},
+//                {15995},
+//                {21327},
+//                {26658},
+//                {34656},
+//                {34656},
+//                {39988},
+//                {45320},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {null}
 //        };
 //
-//        Detail details[] = {
-//                new Detail("About " + bio[0], items)
+//        Integer pt2[][] = {
+//                {54660},
+//                {53318},
+//                {null},
+//                {75993},
+//                {null},
+//                {75993},
+//                {70660},
+//                {54660},
+//                {59993},
+//                {65326},
+//                {78659},
+//                {71326},
+//                {55327},
+//                {60660},
+//                {65993},
+//                {81325},
+//                {71993},
+//                {55994},
+//                {61327},
+//                {66660},
+//                {83992},
+//                {72660},
+//                {56660},
+//                {61993},
+//                {67326},
+//                {86659},
+//                {73326},
+//                {57327},
+//                {62660},
+//                {67993},
+//                {89325},
+//                {73993},
+//                {57993},
+//                {63327},
+//                {68660},
+//                {91992},
+//                {74660},
+//                {58660},
+//                {63993},
+//                {69326},
+//                {94658},
+//                {75326},
+//                {59324},
+//                {64659},
+//                {69991},
+//                {87992},
+//                {57662},
+//                {73660},
+//                {68329},
+//                {62994},
+//                {90658},
+//                {58329},
+//                {74327},
+//                {68995},
+//                {63660},
+//                {93325},
+//                {58995},
+//                {74996},
+//                {69661},
+//                {64330},
+//                {95992},
+//                {59662},
+//                {75663},
+//                {70328},
+//                {64997},
+//                {77326},
+//                {54997},
+//                {70994},
+//                {65663},
+//                {60328},
+//                {79993},
+//                {55664},
+//                {71661},
+//                {66330},
+//                {60995},
+//                {82659},
+//                {56330},
+//                {72327},
+//                {66996},
+//                {61661},
+//                {85326},
+//                {56996},
+//                {72994},
+//                {67663},
+//                {62328}
 //        };
 //
-//        About about = new About(bio[0], "cardview_background_music_roses",
-//                new Bio(bio[2], "about_bio_roses", bio[3], bio[4], bio[5]), details,
-//                "roses_dark", "roses");
-//
-//        Log.d("JSON TEST", json);
-//        Item fadedItems[] = {
-//                new Item("facebook", "preset_faded_detail_facebook"),
-//                new Item("twitter", "preset_faded_detail_twitter"),
-//                new Item("soundcloud", "preset_faded_detail_soundcloud"),
-//                new Item("instagram", "preset_faded_detail_instagram"),
-//                new Item("google_plus", "preset_faded_detail_google_plus"),
-//                new Item("youtube", "preset_faded_detail_youtube"),
-//                new Item("twitch", "preset_faded_detail_twitch"), // only faded
-//                new Item("web", "preset_faded_detail_web")
+//        Integer pt3[][] = {
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {139993},
+//                {97325},
+//                {107994},
+//                {118660},
+//                {129327},
+//                {142659},
+//                {99991},
+//                {110660},
+//                {121326},
+//                {131993},
+//                {143992},
+//                {101325},
+//                {111994},
+//                {122660},
+//                {133326},
+//                {141326},
+//                {98658},
+//                {109327},
+//                {119993},
+//                {130659},
+//                {145326},
+//                {102658},
+//                {113327},
+//                {123993},
+//                {134659},
+//                {147992},
+//                {105325},
+//                {115994},
+//                {126660},
+//                {137326},
+//                {149326},
+//                {106658},
+//                {117327},
+//                {127993},
+//                {138659},
+//                {146659},
+//                {103991},
+//                {114660},
+//                {125326},
+//                {135993},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {139993},
+//                {97325},
+//                {107994},
+//                {118660},
+//                {129327},
+//                {142659},
+//                {99991},
+//                {110660},
+//                {121326},
+//                {131993},
+//                {97325},
+//                {102658},
+//                {107994},
+//                {113327},
+//                {118660},
+//                {129327, 130657, 131997, 133327, 134657, 135987, 137327, 138657},
+//                {139997, 141327, 142667, 143987},
+//                {145327, 146657, 147997, 149327},
+//                {null},
+//                {null},
+//                {145326},
+//                {102658},
+//                {113327},
+//                {123993},
+//                {134659},
+//                {147992},
+//                {105325},
+//                {115994},
+//                {126660},
+//                {137326},
+//                {123993},
+//                {129327},
+//                {134659},
+//                {139993},
+//                {145326}
 //        };
 //
-//        Detail fadedDetail = new Detail("preset_faded_detail_title", fadedItems);
-//
-//        Item fadedSongItems[] = {
-//                new Item("soundcloud", "preset_faded_song_detail_soundcloud", false),
-//                new Item("youtube", "preset_faded_song_detail_youtube", false),
-//                new Item("spotify", "preset_faded_song_detail_spotify", false),
-//                new Item("google_play_music", "preset_faded_song_detail_google_play_music", false),
-//                new Item("apple", "preset_faded_song_detail_apple", false),
-//                new Item("amazon", "preset_faded_song_detail_amazon", false),
-//                new Item("pandora", "preset_faded_song_detail_pandora", false)
+//        Integer pt4[][] = {
+//                {null},
+//                {150650},
+//                {null},
+//                {173325},
+//                {null},
+//                {173325},
+//                {167992},
+//                {151992},
+//                {157325},
+//                {162658},
+//                {175991},
+//                {168658},
+//                {152659},
+//                {157992},
+//                {163325},
+//                {178658},
+//                {169325},
+//                {153326},
+//                {158659},
+//                {163992},
+//                {181324},
+//                {169992},
+//                {153992},
+//                {159326},
+//                {164658},
+//                {183991},
+//                {170658},
+//                {154659},
+//                {159992},
+//                {165325},
+//                {186657},
+//                {171325},
+//                {155326},
+//                {160659},
+//                {165992},
+//                {189324},
+//                {171992},
+//                {155992},
+//                {161326},
+//                {166658},
+//                {191990},
+//                {172658},
+//                {156657},
+//                {161992},
+//                {167323},
+//                {185324},
+//                {154994},
+//                {170992},
+//                {165661},
+//                {160326},
+//                {187990},
+//                {155661},
+//                {171659},
+//                {166327},
+//                {160992},
+//                {190657},
+//                {156327},
+//                {172328},
+//                {166993},
+//                {161662},
+//                {193324},
+//                {156994},
+//                {172995},
+//                {167660},
+//                {162329},
+//                {174658},
+//                {152329},
+//                {168326},
+//                {162995},
+//                {157660},
+//                {177325},
+//                {152996},
+//                {168993},
+//                {163662},
+//                {158327},
+//                {179991},
+//                {153662},
+//                {169659},
+//                {164328},
+//                {158993},
+//                {182658},
+//                {154328},
+//                {170326},
+//                {164995},
+//                {159660}
 //        };
 //
-//        Detail fadedSongDetail = new Detail("preset_faded_song_detail_title", fadedSongItems);
-//
-//        Bio fadedBio = new Bio(
-//                "preset_faded_bio_title",
-//                "about_bio_faded",
-//                "preset_faded_bio_name",
-//                "preset_faded_bio_text",
-//                "preset_faded_bio_source"
-//        );
-//
-//        Detail fadedDetails[] = {
-//                fadedDetail,
-//                fadedSongDetail
+//        Integer pt5[][] = {
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {194637},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {195993},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {195326},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {196660},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {197326},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {198660},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {197993},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {199324},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {199993},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {201340},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {200682},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {202128},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {203147},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {null},
+//                {null}
 //        };
 //
-//        About fadedAbout = new About(
-//                "preset_faded_title", "about_album_faded",
-//                fadedBio, fadedDetails,
-//                "preset_faded_color_dark", "preset_faded_color"
-//        );
-//
-//        // Timings
-////        Integer pt1[][] = {
-////                {42660},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {26658},
-////                {0},
-////                {1333},
-////                {2666},
-////                {3998},
-////                {27991},
-////                {10664, 21327},
-////                {11996, 22660},
-////                {13329, 23993},
-////                {14662, 25326},
-////                {29324},
-////                {15995},
-////                {17328},
-////                {18660},
-////                {19993},
-////                {30657},
-////                {5331},
-////                {6664},
-////                {7997},
-////                {9330},
-////                {42660},
-////                {34656},
-////                {37322},
-////                {45320},
-////                {47986},
-////                {47986},
-////                {35989},
-////                {38655},
-////                {46653},
-////                {49318},
-////                {50651},
-////                {36655},
-////                {39321},
-////                {47319},
-////                {49984},
-////                {45320},
-////                {35322},
-////                {37988},
-////                {45986},
-////                {48652},
-////                {31991},
-////                {31991},
-////                {39988},
-////                {42660},
-////                {50651},
-////                {37322},
-////                {33324},
-////                {41320},
-////                {43987},
-////                {51984},
-////                {39988},
-////                {33990},
-////                {41987},
-////                {44653},
-////                {52650},
-////                {34656},
-////                {32657},
-////                {40654},
-////                {43320},
-////                {51317},
-////                {43987},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {10664},
-////                {10664},
-////                {15995},
-////                {21327},
-////                {26658},
-////                {34656},
-////                {34656},
-////                {39988},
-////                {45320},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {null}
-////        };
-////
-////        Integer pt2[][] = {
-////                {54660},
-////                {53318},
-////                {null},
-////                {75993},
-////                {null},
-////                {75993},
-////                {70660},
-////                {54660},
-////                {59993},
-////                {65326},
-////                {78659},
-////                {71326},
-////                {55327},
-////                {60660},
-////                {65993},
-////                {81325},
-////                {71993},
-////                {55994},
-////                {61327},
-////                {66660},
-////                {83992},
-////                {72660},
-////                {56660},
-////                {61993},
-////                {67326},
-////                {86659},
-////                {73326},
-////                {57327},
-////                {62660},
-////                {67993},
-////                {89325},
-////                {73993},
-////                {57993},
-////                {63327},
-////                {68660},
-////                {91992},
-////                {74660},
-////                {58660},
-////                {63993},
-////                {69326},
-////                {94658},
-////                {75326},
-////                {59324},
-////                {64659},
-////                {69991},
-////                {87992},
-////                {57662},
-////                {73660},
-////                {68329},
-////                {62994},
-////                {90658},
-////                {58329},
-////                {74327},
-////                {68995},
-////                {63660},
-////                {93325},
-////                {58995},
-////                {74996},
-////                {69661},
-////                {64330},
-////                {95992},
-////                {59662},
-////                {75663},
-////                {70328},
-////                {64997},
-////                {77326},
-////                {54997},
-////                {70994},
-////                {65663},
-////                {60328},
-////                {79993},
-////                {55664},
-////                {71661},
-////                {66330},
-////                {60995},
-////                {82659},
-////                {56330},
-////                {72327},
-////                {66996},
-////                {61661},
-////                {85326},
-////                {56996},
-////                {72994},
-////                {67663},
-////                {62328}
-////        };
-////
-////        Integer pt3[][] = {
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {139993},
-////                {97325},
-////                {107994},
-////                {118660},
-////                {129327},
-////                {142659},
-////                {99991},
-////                {110660},
-////                {121326},
-////                {131993},
-////                {143992},
-////                {101325},
-////                {111994},
-////                {122660},
-////                {133326},
-////                {141326},
-////                {98658},
-////                {109327},
-////                {119993},
-////                {130659},
-////                {145326},
-////                {102658},
-////                {113327},
-////                {123993},
-////                {134659},
-////                {147992},
-////                {105325},
-////                {115994},
-////                {126660},
-////                {137326},
-////                {149326},
-////                {106658},
-////                {117327},
-////                {127993},
-////                {138659},
-////                {146659},
-////                {103991},
-////                {114660},
-////                {125326},
-////                {135993},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {139993},
-////                {97325},
-////                {107994},
-////                {118660},
-////                {129327},
-////                {142659},
-////                {99991},
-////                {110660},
-////                {121326},
-////                {131993},
-////                {97325},
-////                {102658},
-////                {107994},
-////                {113327},
-////                {118660},
-////                {129327, 130657, 131997, 133327, 134657, 135987, 137327, 138657},
-////                {139997, 141327, 142667, 143987},
-////                {145327, 146657, 147997, 149327},
-////                {null},
-////                {null},
-////                {145326},
-////                {102658},
-////                {113327},
-////                {123993},
-////                {134659},
-////                {147992},
-////                {105325},
-////                {115994},
-////                {126660},
-////                {137326},
-////                {123993},
-////                {129327},
-////                {134659},
-////                {139993},
-////                {145326}
-////        };
-////
-////        Integer pt4[][] = {
-////                {null},
-////                {150650},
-////                {null},
-////                {173325},
-////                {null},
-////                {173325},
-////                {167992},
-////                {151992},
-////                {157325},
-////                {162658},
-////                {175991},
-////                {168658},
-////                {152659},
-////                {157992},
-////                {163325},
-////                {178658},
-////                {169325},
-////                {153326},
-////                {158659},
-////                {163992},
-////                {181324},
-////                {169992},
-////                {153992},
-////                {159326},
-////                {164658},
-////                {183991},
-////                {170658},
-////                {154659},
-////                {159992},
-////                {165325},
-////                {186657},
-////                {171325},
-////                {155326},
-////                {160659},
-////                {165992},
-////                {189324},
-////                {171992},
-////                {155992},
-////                {161326},
-////                {166658},
-////                {191990},
-////                {172658},
-////                {156657},
-////                {161992},
-////                {167323},
-////                {185324},
-////                {154994},
-////                {170992},
-////                {165661},
-////                {160326},
-////                {187990},
-////                {155661},
-////                {171659},
-////                {166327},
-////                {160992},
-////                {190657},
-////                {156327},
-////                {172328},
-////                {166993},
-////                {161662},
-////                {193324},
-////                {156994},
-////                {172995},
-////                {167660},
-////                {162329},
-////                {174658},
-////                {152329},
-////                {168326},
-////                {162995},
-////                {157660},
-////                {177325},
-////                {152996},
-////                {168993},
-////                {163662},
-////                {158327},
-////                {179991},
-////                {153662},
-////                {169659},
-////                {164328},
-////                {158993},
-////                {182658},
-////                {154328},
-////                {170326},
-////                {164995},
-////                {159660}
-////        };
-////
-////        Integer pt5[][] = {
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {194637},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {195993},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {195326},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {196660},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {197326},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {198660},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {197993},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {199324},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {199993},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {201340},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {200682},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {202128},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {203147},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {null},
-////                {null}
-////        };
-////
-////        DeckTiming deckTiming[] = {
-////                new DeckTiming(
-////                        pt1, 1, 0
-////                ),
-////                new DeckTiming(
-////                        pt2, 2, 52949
-////                ),
-////                new DeckTiming(
-////                        pt3, 3, 96379
-////                ),
-////                new DeckTiming(
-////                        pt4, 2, 149947
-////                ),
-////                new DeckTiming(
-////                        pt5, 4, 193772
-////                )
-////        };
-//
-//        //TODO EDIT
-//        //Log.d("Array", Arrays.deepToString(deckTiming[0].getDeckTiming()));
-//
-//        Music fadedMusic = new Music(
-//                "preset_faded",
-//                getDeckFromFileName(fileTag),
-//                null
-//        );
-//
-//        Preset fadedPreset = new Preset(2, fadedMusic, fadedAbout);
-//
-//        //String json = gson.toJson(preset, Preset.class);
-//        largeLog("JSON", gson.toJson(fadedPreset));
+//        DeckTiming deckTiming[] = {
+//                new DeckTiming(
+//                        pt1, 1, 0
+//                ),
+//                new DeckTiming(
+//                        pt2, 2, 52949
+//                ),
+//                new DeckTiming(
+//                        pt3, 3, 96379
+//                ),
+//                new DeckTiming(
+//                        pt4, 2, 149947
+//                ),
+//                new DeckTiming(
+//                        pt5, 4, 193772
+//                )
+//        };
+
+        //TODO EDIT
+        //Log.d("Array", Arrays.deepToString(deckTiming[0].getDeckTiming()));
+
+        Music helloMusic = new Music(
+                "preset_hello",
+                84,
+                getDeckFromFileName(fileTag),
+                null
+        );
+
+        Preset helloPreset = new Preset(1, helloMusic, helloAbout);
+
+        largeLog("JSON", gson.toJson(helloPreset));
 //        //TODO use this on about screen updates
 //        Bio tapadBio = new Bio(
 //                "info_tapad_bio_title",
@@ -2780,7 +2766,8 @@ public class MainActivity extends AppCompatActivity implements ColorChooserDialo
 //        largeLog("berictAboutJSON", gson.toJson(berictAbout));
     }
 
-    String fileTag = "alan_walker_faded_";
+    // TODO change on new preset
+    String fileTag = "omfg_hello_";
 
     Deck[] getDeckFromFileName(String fileTag) {
         Pad part1[] = {

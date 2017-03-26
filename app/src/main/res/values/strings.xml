@@ -125,11 +125,15 @@
     <string name="dialog_quickstart_welcome_text">Walk through how to use Tapad or tap \'Tips\' in Settings when you want this later.</string>
     <string name="dialog_quickstart_welcome_negative">NO THANKS</string>
     <string name="dialog_quickstart_welcome_positive">SHOW ME HOW</string>
+	
+	<!-- Tutorial -->
     <string name="dialog_tutorial_warning_title">Start tutorial mode?</string>
     <string name="dialog_tutorial_warning_text">This is an experimental feature. It may cause huge frame drops and glitches on low-ram devices. Use at your own risk.</string>
     <string name="dialog_tutorial_warning_text_low_ram">This is an experimental feature. It seems your device has not enough ram, it will probably cause huge frame drops, glitches and even shutting down your device. Use at your own risk.</string>
     <string name="dialog_tutorial_warning_negative">CANCEL</string>
     <string name="dialog_tutorial_warning_positive">CONTINUE</string>
+	<string name="dialog_tutorial_title">Tutorial mode</string>
+	<string name="dialog_tutorial_text_error">Sorry, there is no tutorial for this preset for now. Check again later.</string>
 
     <!-- TapTarget Dialog -->
     <string name="dialog_tap_target_toggle_primary">Select deck</string>
