@@ -213,6 +213,7 @@ public class MainActivity
         setAbout();
         setSettings();
         setSchemeInfo();
+        setAboutFragment();
         setToggleButton(R.color.colorAccent);
         enterAnim();
         setButtonLayout();
@@ -253,12 +254,12 @@ public class MainActivity
         w.setOnClick(R.id.testAboutFragment, new Runnable() {
             @Override
             public void run() {
-                setFragment();
+                setAboutFragment();
             }
         }, a);
     }
 
-    private void setFragment() {
+    private void setAboutFragment() {
         AboutFragment aboutFragment = new AboutFragment();
         getSupportFragmentManager()
                 .beginTransaction()
@@ -1091,12 +1092,7 @@ public class MainActivity
                 about.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        w.getView(R.id.layout_about, a).setVisibility(View.VISIBLE);
-                        w.setRecentColor(R.string.about, 0, themeColor, a);
-                        ab.setNav(1, null, a);
-                        ab.setTitle(R.string.about, a);
-                        // TODO need to resolve "Not enough space to show ad." - probably occurs from visibility.gone
-                        //ad.requestLoadNativeAd(ad.getNativeAdView(R.id.adView_about, a));
+                        w.getView(R.id.fragment_about_container, a).setVisibility(View.VISIBLE);
                     }
                 }, circularRevealDuration);
 
@@ -1302,20 +1298,17 @@ public class MainActivity
                 circularRevealDuration, fadeAnimDuration, a);
 
         anim.fadeIn(R.id.placeholder, 0, fadeAnimDuration, "aboutOut", a);
-        isAboutVisible = false;
 
-        // TODO need to resolve "Not enough space to show ad." - probably occurs from visibility.gone
-        // TODO maybe resolve by making the view programmatically
-        //ad.destroyNativeAdView(R.id.adView_about, a);
+        isAboutVisible = false;
 
         Handler closeAbout = new Handler();
         closeAbout.postDelayed(new Runnable() {
             @Override
             public void run() {
                 setSchemeInfo();
-                w.getView(R.id.layout_about, a).setVisibility(View.GONE);
+                w.getView(R.id.fragment_about_container, a).setVisibility(View.GONE);
             }
-        }, 200);
+        }, fadeAnimDuration);
 
         if (prefs.getInt(qs, 0) == 8) {
             promptPreset = new MaterialTapTargetPrompt.Builder(a)

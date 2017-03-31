@@ -74,7 +74,8 @@
 	<FrameLayout
 		android:id="@+id/fragment_about_container"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent" />
+		android:layout_height="match_parent"
+		android:visibility="gone" />
 	
 	<View
 		android:id="@+id/placeholder"
@@ -97,6 +98,7 @@
 			android:layout_height="40dp"
 			android:background="@color/amber"
 			android:gravity="center"
+			android:visibility="gone"
 			android:text="song"/>
 		
 		<TextView
@@ -105,6 +107,7 @@
 			android:layout_height="40dp"
 			android:background="@color/blue"
 			android:gravity="center"
+			android:visibility="gone"
 			android:text="feedback"/>
 		
 		<TextView
@@ -113,6 +116,7 @@
 			android:layout_height="40dp"
 			android:background="@color/green"
 			android:gravity="center"
+			android:visibility="gone"
 			android:text="bug"/>
 		
 		<TextView

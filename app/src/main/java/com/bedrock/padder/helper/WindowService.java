@@ -22,7 +22,6 @@ import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -344,12 +343,12 @@ public class WindowService {
         }
     }
 
-    public void setViewBackgroundColor(int view_id, int color_id, Activity activity, ViewGroup viewGroup) {
+    public void setViewBackgroundColor(int view_id, int color_id, Activity activity, View view) {
         try {
-            getView(view_id, viewGroup).setBackgroundColor(activity.getResources().getColor(color_id));
+            getView(view_id, view).setBackgroundColor(activity.getResources().getColor(color_id));
         } catch (Resources.NotFoundException e) {
             Log.i("NotFoundException", "Handling with normal value");
-            getView(view_id, viewGroup).setBackgroundColor(color_id);
+            getView(view_id, view).setBackgroundColor(color_id);
         }
     }
 
@@ -454,8 +453,8 @@ public class WindowService {
         return activity.findViewById(id);
     }
 
-    public View getView(int id, ViewGroup viewGroup) {
-        return viewGroup.findViewById(id);
+    public View getView(int id, View view) {
+        return view.findViewById(id);
     }
 
     public ProgressBar getProgressBar(int id, Activity activity) {
@@ -478,12 +477,16 @@ public class WindowService {
         return (ImageView) activity.findViewById(id);
     }
 
+    public ImageView getImageView(int id, View view) {
+        return (ImageView) view.findViewById(id);
+    }
+
     public TextView getTextView(int id, Activity activity) {
         return (TextView) activity.findViewById(id);
     }
 
-    public TextView getTextView(int id, ViewGroup viewGroup) {
-        return (TextView) viewGroup.findViewById(id);
+    public TextView getTextView(int id, View view) {
+        return (TextView) view.findViewById(id);
     }
 
     public AdView getAdView(int id, Activity activity) {
@@ -1178,7 +1181,7 @@ public class WindowService {
         });
     }
 
-    // TODO NEXT UPDATE on check algorithm, use on next update
+    // TODO NEXT UPDATE check algorithm
 //    void setButtonPattern(int patternScheme[][], int btnId, int colorDown, int colorUp, int mode, Activity activity) {
 //        boolean wasAlreadyOn[] = {
 //                false, false, false, false,

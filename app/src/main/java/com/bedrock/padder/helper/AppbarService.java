@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.bedrock.padder.R;
@@ -39,10 +38,17 @@ public class AppbarService {
         Log.d("Appbar", "Title set");
     }
 
-    public void setTitle(int resid, ViewGroup viewGroup) {
-        w.getTextView(TITLE, viewGroup).setText(resid);
-        w.getView(TITLE, viewGroup).setVisibility(View.VISIBLE);
-        w.getView(IMAGE, viewGroup).setVisibility(View.GONE);
+    public void setTitle(int resid, Activity activity, View view) {
+        w.getTextView(TITLE, view).setText(resid);
+        w.getView(TITLE, view).setVisibility(View.VISIBLE);
+        w.getView(IMAGE, view).setVisibility(View.GONE);
+        Log.d("Appbar", "Title set");
+    }
+
+    public void setTitle(int resid, View view) {
+        w.getTextView(TITLE, view).setText(resid);
+        w.getView(TITLE, view).setVisibility(View.VISIBLE);
+        w.getView(IMAGE, view).setVisibility(View.GONE);
         Log.d("Appbar", "Title set");
     }
 
@@ -57,9 +63,9 @@ public class AppbarService {
         Log.d("Appbar", "Color set");
     }
 
-    public void setColor(int resid, Activity activity, ViewGroup viewGroup) {
-        w.setViewBackgroundColor(LAYOUT, resid, activity);
-        w.setViewBackgroundColor(STATUS, resid, activity);
+    public void setColor(int resid, Activity activity, View view) {
+        w.setViewBackgroundColor(LAYOUT, resid, activity, view);
+        w.setViewBackgroundColor(STATUS, resid, activity, view);
         Log.d("Appbar", "Color set");
     }
 
@@ -140,17 +146,17 @@ public class AppbarService {
         Log.d("Appbar", "Nav set");
     }
 
-    public void setNav(int mode, final Runnable onClick, final Activity activity, final ViewGroup viewGroup) {
+    public void setNav(int mode, final Runnable onClick, final Activity activity, final View view) {
         /* 0: gone, 1: back, 2: nav, 3: close */
         switch (mode) {
-            case 0: w.getView(NAV, viewGroup).setVisibility(View.GONE); break;
+            case 0: w.getView(NAV, view).setVisibility(View.GONE); break;
             case 1:
                 // BACK
-                w.getView(NAV, viewGroup).setVisibility(View.VISIBLE);
-                w.getView(NAV_BACK, viewGroup).setVisibility(View.VISIBLE);
-                w.getView(NAV_NAV, viewGroup).setVisibility(View.GONE);
-                w.getView(NAV_CLOSE, viewGroup).setVisibility(View.GONE);
-                w.getView(NAV_BACK, viewGroup).setOnClickListener(new View.OnClickListener() {
+                w.getView(NAV, view).setVisibility(View.VISIBLE);
+                w.getView(NAV_BACK, view).setVisibility(View.VISIBLE);
+                w.getView(NAV_NAV, view).setVisibility(View.GONE);
+                w.getView(NAV_CLOSE, view).setVisibility(View.GONE);
+                w.getView(NAV_BACK, view).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         KeyEvent kDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
@@ -162,11 +168,11 @@ public class AppbarService {
                 break;
             case 2:
                 // NAV
-                w.getView(NAV, viewGroup).setVisibility(View.VISIBLE);
-                w.getView(NAV_NAV, viewGroup).setVisibility(View.VISIBLE);
-                w.getView(NAV_BACK, viewGroup).setVisibility(View.GONE);
-                w.getView(NAV_CLOSE, viewGroup).setVisibility(View.GONE);
-                w.getView(NAV_NAV, viewGroup).setOnClickListener(new View.OnClickListener() {
+                w.getView(NAV, view).setVisibility(View.VISIBLE);
+                w.getView(NAV_NAV, view).setVisibility(View.VISIBLE);
+                w.getView(NAV_BACK, view).setVisibility(View.GONE);
+                w.getView(NAV_CLOSE, view).setVisibility(View.GONE);
+                w.getView(NAV_NAV, view).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if(onClick != null) {
@@ -177,11 +183,11 @@ public class AppbarService {
                 break;
             case 3:
                 // CLOSE
-                w.getView(NAV, viewGroup).setVisibility(View.VISIBLE);
-                w.getView(NAV_NAV, viewGroup).setVisibility(View.GONE);
-                w.getView(NAV_BACK, viewGroup).setVisibility(View.GONE);
-                w.getView(NAV_CLOSE, viewGroup).setVisibility(View.VISIBLE);
-                w.getView(NAV_CLOSE, viewGroup).setOnClickListener(new View.OnClickListener() {
+                w.getView(NAV, view).setVisibility(View.VISIBLE);
+                w.getView(NAV_NAV, view).setVisibility(View.GONE);
+                w.getView(NAV_BACK, view).setVisibility(View.GONE);
+                w.getView(NAV_CLOSE, view).setVisibility(View.VISIBLE);
+                w.getView(NAV_CLOSE, view).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         KeyEvent kDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
@@ -192,7 +198,7 @@ public class AppbarService {
                 });
                 break;
             default:
-                w.getView(NAV, viewGroup).setVisibility(View.GONE);
+                w.getView(NAV, view).setVisibility(View.GONE);
                 Log.e("Appbar", "Wrong mode value, set to no nav button."); break;
         }
         Log.d("Appbar", "Nav set");
