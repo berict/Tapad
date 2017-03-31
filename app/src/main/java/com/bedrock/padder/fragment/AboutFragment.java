@@ -26,6 +26,7 @@ public class AboutFragment extends Fragment {
 
     int themeColor = R.color.hello;
     Activity a;
+    ViewGroup c;
     Gson gson = new Gson();
 
     private OnFragmentInteractionListener mListener;
@@ -54,8 +55,8 @@ public class AboutFragment extends Fragment {
         themeColor = currentPreset.getAbout().getActionbarColor();
         w.setRecentColor(R.string.about, 0, themeColor, a);
 
-        ab.setNav(1, null, a);
-        ab.setColor(themeColor, a);
+        ab.setNav(1, null, a, c);
+        ab.setColor(themeColor, a, c);
         ab.setTitle(R.string.about, a);
 
         // Cardview

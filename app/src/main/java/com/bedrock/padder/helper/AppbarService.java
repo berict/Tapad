@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.bedrock.padder.R;
@@ -38,12 +39,25 @@ public class AppbarService {
         Log.d("Appbar", "Title set");
     }
 
+    public void setTitle(int resid, ViewGroup viewGroup) {
+        w.getTextView(TITLE, viewGroup).setText(resid);
+        w.getView(TITLE, viewGroup).setVisibility(View.VISIBLE);
+        w.getView(IMAGE, viewGroup).setVisibility(View.GONE);
+        Log.d("Appbar", "Title set");
+    }
+
     public void setTitleColor(int resid, Activity activity) {
         w.getTextView(TITLE, activity).setTextColor(resid);
         Log.d("Appbar", "Title color set");
     }
 
     public void setColor(int resid, Activity activity) {
+        w.setViewBackgroundColor(LAYOUT, resid, activity);
+        w.setViewBackgroundColor(STATUS, resid, activity);
+        Log.d("Appbar", "Color set");
+    }
+
+    public void setColor(int resid, Activity activity, ViewGroup viewGroup) {
         w.setViewBackgroundColor(LAYOUT, resid, activity);
         w.setViewBackgroundColor(STATUS, resid, activity);
         Log.d("Appbar", "Color set");
@@ -121,6 +135,64 @@ public class AppbarService {
                 break;
             default:
                 w.getView(NAV, activity).setVisibility(View.GONE);
+                Log.e("Appbar", "Wrong mode value, set to no nav button."); break;
+        }
+        Log.d("Appbar", "Nav set");
+    }
+
+    public void setNav(int mode, final Runnable onClick, final Activity activity, final ViewGroup viewGroup) {
+        /* 0: gone, 1: back, 2: nav, 3: close */
+        switch (mode) {
+            case 0: w.getView(NAV, viewGroup).setVisibility(View.GONE); break;
+            case 1:
+                // BACK
+                w.getView(NAV, viewGroup).setVisibility(View.VISIBLE);
+                w.getView(NAV_BACK, viewGroup).setVisibility(View.VISIBLE);
+                w.getView(NAV_NAV, viewGroup).setVisibility(View.GONE);
+                w.getView(NAV_CLOSE, viewGroup).setVisibility(View.GONE);
+                w.getView(NAV_BACK, viewGroup).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        KeyEvent kDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
+                        activity.dispatchKeyEvent(kDown);
+                        KeyEvent kUp = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK);
+                        activity.dispatchKeyEvent(kUp);
+                    }
+                });
+                break;
+            case 2:
+                // NAV
+                w.getView(NAV, viewGroup).setVisibility(View.VISIBLE);
+                w.getView(NAV_NAV, viewGroup).setVisibility(View.VISIBLE);
+                w.getView(NAV_BACK, viewGroup).setVisibility(View.GONE);
+                w.getView(NAV_CLOSE, viewGroup).setVisibility(View.GONE);
+                w.getView(NAV_NAV, viewGroup).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(onClick != null) {
+                            onClick.run();
+                        }
+                    }
+                });
+                break;
+            case 3:
+                // CLOSE
+                w.getView(NAV, viewGroup).setVisibility(View.VISIBLE);
+                w.getView(NAV_NAV, viewGroup).setVisibility(View.GONE);
+                w.getView(NAV_BACK, viewGroup).setVisibility(View.GONE);
+                w.getView(NAV_CLOSE, viewGroup).setVisibility(View.VISIBLE);
+                w.getView(NAV_CLOSE, viewGroup).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        KeyEvent kDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
+                        activity.dispatchKeyEvent(kDown);
+                        KeyEvent kUp = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK);
+                        activity.dispatchKeyEvent(kUp);
+                    }
+                });
+                break;
+            default:
+                w.getView(NAV, viewGroup).setVisibility(View.GONE);
                 Log.e("Appbar", "Wrong mode value, set to no nav button."); break;
         }
         Log.d("Appbar", "Nav set");

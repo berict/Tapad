@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -343,6 +344,15 @@ public class WindowService {
         }
     }
 
+    public void setViewBackgroundColor(int view_id, int color_id, Activity activity, ViewGroup viewGroup) {
+        try {
+            getView(view_id, viewGroup).setBackgroundColor(activity.getResources().getColor(color_id));
+        } catch (Resources.NotFoundException e) {
+            Log.i("NotFoundException", "Handling with normal value");
+            getView(view_id, viewGroup).setBackgroundColor(color_id);
+        }
+    }
+
     public void hideKeyboard(Activity activity) {
         Log.i("HideKeyboard", "Called");
         try {
@@ -441,78 +451,71 @@ public class WindowService {
     }
 
     public View getView(int id, Activity activity) {
-        View view = (View) activity.findViewById(id);
-        return view;
+        return activity.findViewById(id);
+    }
+
+    public View getView(int id, ViewGroup viewGroup) {
+        return viewGroup.findViewById(id);
     }
 
     public ProgressBar getProgressBar(int id, Activity activity) {
-        ProgressBar progressBar = (ProgressBar) activity.findViewById(id);
-        return progressBar;
+        return (ProgressBar) activity.findViewById(id);
     }
 
     public Button getButton(int id, Activity activity) {
-        Button button = (Button) activity.findViewById(id);
-        return button;
+        return (Button) activity.findViewById(id);
     }
 
     public ToggleButton getToggleButton(int id, Activity activity) {
-        ToggleButton toggle = (ToggleButton) activity.findViewById(id);
-        return toggle;
+        return (ToggleButton) activity.findViewById(id);
     }
 
     public SwitchCompat getSwitchCompat(int id, Activity activity) {
-        SwitchCompat view = (SwitchCompat) activity.findViewById(id);
-        return view;
+        return (SwitchCompat) activity.findViewById(id);
     }
 
     public ImageView getImageView(int id, Activity activity) {
-        ImageView imageview = (ImageView) activity.findViewById(id);
-        return imageview;
+        return (ImageView) activity.findViewById(id);
     }
 
     public TextView getTextView(int id, Activity activity) {
-        TextView textview = (TextView) activity.findViewById(id);
-        return textview;
+        return (TextView) activity.findViewById(id);
+    }
+
+    public TextView getTextView(int id, ViewGroup viewGroup) {
+        return (TextView) viewGroup.findViewById(id);
     }
 
     public AdView getAdView(int id, Activity activity) {
-        AdView adview = (AdView) activity.findViewById(id);
-        return adview;
+        return (AdView) activity.findViewById(id);
     }
 
     public NativeExpressAdView getNativeAdView(int id, Activity activity) {
-        NativeExpressAdView adview = (NativeExpressAdView) activity.findViewById(id);
-        return adview;
+        return (NativeExpressAdView) activity.findViewById(id);
     }
 
     public RelativeLayout getRelativeLayout(int id, Activity activity) {
-        RelativeLayout relative = (RelativeLayout) activity.findViewById(id);
-        return relative;
+        return (RelativeLayout) activity.findViewById(id);
     }
 
     public LinearLayout getLinearLayout(int id, Activity activity) {
-        LinearLayout linear = (LinearLayout) activity.findViewById(id);
-        return linear;
+        return (LinearLayout) activity.findViewById(id);
     }
 
     public CardView getCardView(int id, Activity activity) {
-        CardView card = (CardView) activity.findViewById(id);
-        return card;
+        return (CardView) activity.findViewById(id);
     }
 
     public VideoView getVideoView(int id, Activity activity) {
-        VideoView video = (VideoView) activity.findViewById(id);
-        return video;
+        return (VideoView) activity.findViewById(id);
     }
 
     public View getViewDialog(int id, Dialog dialog) {
-        View view = (View) dialog.findViewById(id);
-        return view;
+        return dialog.findViewById(id);
     }
 
     public RecyclerView getRecyclerView(int id, Activity activity) {
-        RecyclerView recyclerView = (RecyclerView) activity.findViewById(id);
-        return recyclerView;
+        return (RecyclerView) activity.findViewById(id);
     }
 
     public int getBackgroundColor(int id, Activity activity) {
