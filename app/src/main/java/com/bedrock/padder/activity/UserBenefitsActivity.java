@@ -97,8 +97,8 @@ public class UserBenefitsActivity extends Activity {
         window.setNavigationBar(R.color.transparent, activity);
 
         // Set window margins
-        window.getView(R.id.user_benefits_view_pager, activity).setPadding(0, prefs.getInt("statBarPX", 0), 0, 0);
-        window.getView(R.id.user_benefits_layout, activity).setPadding(0, 0, 0, prefs.getInt("navBarPX", 0));
+        window.getView(R.id.user_benefits_view_pager, activity).setPadding(0, window.getStatusBarFromPrefs(activity), 0, 0);
+        window.getView(R.id.user_benefits_layout, activity).setPadding(0, 0, 0, window.getStatusBarFromPrefs(activity));
 
         // Set taskDesc
         window.setRecentColor(R.string.app_name, 0, R.color.colorPrimary, activity);

@@ -1,7 +1,6 @@
 package com.bedrock.padder.helper;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -229,10 +228,8 @@ public class AppbarService {
     }
 
     public void setStatusHeight(Activity activity){
-        SharedPreferences prefs = activity.getSharedPreferences("com.bedrock.padder", activity.MODE_PRIVATE);
-
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) w.getRelativeLayout(STATUS_LAYOUT, activity).getLayoutParams();
-        params.height = prefs.getInt("statBarPX", 0);
+        params.height = w.getStatusBarFromPrefs(activity);
         w.getRelativeLayout(STATUS_LAYOUT, activity).setLayoutParams(params);
         Log.d("Appbar", "Status bar (layout) height set");
     }

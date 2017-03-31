@@ -69,7 +69,7 @@ public class FeedbackActivity extends AppCompatActivity {
         w.setStatusBar(R.color.transparent, a);
         w.setNavigationBar(R.color.transparent, a);
 
-        w.setMarginRelativePX(R.id.fab, 0, 0, w.convertDPtoPX(20, a), prefs.getInt("navBarPX", 0) + w.convertDPtoPX(20, a), a);
+        w.setMarginRelativePX(R.id.fab, 0, 0, w.convertDPtoPX(20, a), w.getNavigationBarFromPrefs(a) + w.convertDPtoPX(20, a), a);
         ab.setStatusHeight(a);
         ab.setColor(R.color.colorFeedback, a);
         ab.setTitle(w.getStringId("task_feedback_" + MODE_TAG), a);

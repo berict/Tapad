@@ -27,6 +27,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.fragment.AboutFragment;
+import com.bedrock.padder.fragment.SettingsFragment;
 import com.bedrock.padder.helper.AdmobService;
 import com.bedrock.padder.helper.AnimService;
 import com.bedrock.padder.helper.AppbarService;
@@ -56,7 +57,7 @@ import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 public class MainActivity
         extends AppCompatActivity
-        implements ColorChooserDialog.ColorCallback, AboutFragment.OnFragmentInteractionListener {
+        implements ColorChooserDialog.ColorCallback, AboutFragment.OnFragmentInteractionListener, SettingsFragment.OnFragmentInteractionListener {
 
     final Activity a = this;
     final String qs = "quickstart";
@@ -210,23 +211,26 @@ public class MainActivity
         clearToggleButton();
         setFab();
         setToolbar();
-        setAbout();
-        setSettings();
+        //setAbout();
+        //setSettings();
         setSchemeInfo();
-        setAboutFragment();
         setToggleButton(R.color.colorAccent);
         enterAnim();
         setButtonLayout();
 
+        // Set fragments
+        setAboutFragment();
+        setSettingsFragment();
+
         // Request ads
         ad.requestLoadNativeAd(ad.getNativeAdView(R.id.adView_main, a));
 
-        //Set transparent nav bar
+        // Set transparent nav bar
         w.setStatusBar(R.color.transparent, a);
         w.setNavigationBar(R.color.transparent, a);
 
-        w.setMarginRelativePX(R.id.fab, 0, 0, w.convertDPtoPX(20, a), prefs.getInt("navBarPX", 0) + w.convertDPtoPX(20, a), a);
-        w.setMarginRelativePX(R.id.toolbar, 0, 0, 0, prefs.getInt("navBarPX", 0), a);
+        w.setMarginRelativePX(R.id.fab, 0, 0, w.convertDPtoPX(20, a), w.getNavigationBarFromPrefs(a) + w.convertDPtoPX(20, a), a);
+        w.setMarginRelativePX(R.id.toolbar, 0, 0, 0, w.getNavigationBarFromPrefs(a), a);
         ab.setStatusHeight(a);
 
         color = prefs.getInt("color", R.color.red);
@@ -264,6 +268,14 @@ public class MainActivity
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_about_container, aboutFragment)
+                .commit();
+    }
+
+    private void setSettingsFragment() {
+        SettingsFragment settingsFragment = new SettingsFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.fragment_settings_container, settingsFragment)
                 .commit();
     }
 
@@ -407,13 +419,17 @@ public class MainActivity
             } else {
                 if (isAboutVisible == true) {
                     if (isSettingVisible == true) {
+                        Log.d("BackPressed", "close settings");
                         closeSettings();
                     } else {
+                        Log.d("BackPressed", "close about");
                         closeAbout();
                     }
                 } else if (isSettingVisible == true) {
+                    Log.d("BackPressed", "close settings");
                     closeSettings();
                 } else {
+                    Log.d("BackPressed", "close toolbar");
                     closeToolbar(a);
                 }
             }
@@ -1126,7 +1142,7 @@ public class MainActivity
                 preset.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        showDialogPreset();
+                        showDialogPreset(a);
                     }
                 }, circularRevealDuration);
 
@@ -1176,16 +1192,16 @@ public class MainActivity
                 about.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        w.getView(R.id.layout_settings, a).setVisibility(View.VISIBLE);
-                        ab.setNav(1, null, a);
-                        ab.setTitle(R.string.settings, a);
-                        ab.setColor(R.color.colorAccent, a);
+                        w.getView(R.id.fragment_settings_container, a).setVisibility(View.VISIBLE);
+                        //ab.setNav(1, null, a);
+                        //ab.setTitle(R.string.settings, a);
+                        //ab.setColor(R.color.colorAccent, a);
                     }
                 }, circularRevealDuration);
 
                 anim.fadeOut(R.id.placeholder, circularRevealDuration, fadeAnimDuration, a);
 
-                isSettingVisible = true;
+                setSettingVisible(true);
             }
         });
     }
@@ -1217,7 +1233,7 @@ public class MainActivity
         w.getView(R.id.cardview_music_change, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialogPreset();
+                showDialogPreset(a);
             }
         });
 
@@ -1237,6 +1253,7 @@ public class MainActivity
                         R.id.cardview_about_image, "transition", "about", "tapad", 0);
             }
         });
+
         w.getView(R.id.cardview_about_settings, a).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -1340,7 +1357,7 @@ public class MainActivity
         }
     }
 
-    void showDialogColor() {
+    public void showDialogColor() {
         // Color palette
         new ColorChooserDialog.Builder(this, R.string.dialog_color)
                 .accentMode(false)
@@ -1352,7 +1369,7 @@ public class MainActivity
                 .show();
     }
 
-    void toggleTutorial() {
+    public void toggleTutorial() {
         // TODO add 2gb ram limit if statement
         if (w.getView(R.id.progress_bar_layout, a).getVisibility() == View.GONE) {
             // on loading finished
@@ -1437,7 +1454,7 @@ public class MainActivity
         w.getView(R.id.layout_settings_preset, a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialogPreset();
+                showDialogPreset(a);
                 w.setRecentColor(R.string.task_presets, R.color.colorAccent, a);
             }
         });
@@ -1527,9 +1544,10 @@ public class MainActivity
         }, fadeAnimDuration);
     }
 
-    void showDialogPreset() {
+    public void showDialogPreset(final Activity a) {
         tut.tutorialStop(a);
         sound.soundAllStop();
+        final SharedPreferences prefs = a.getSharedPreferences("com.bedrock.padder", MODE_PRIVATE);
 
         int color;
 
@@ -1553,7 +1571,7 @@ public class MainActivity
             anim.fade(R.id.placeholder, 1.0f, 0.5f, 0, 200, "phIN", a);
         }
 
-        PresetDialog = new MaterialDialog.Builder(this)
+        PresetDialog = new MaterialDialog.Builder(a)
                 .title(R.string.dialog_preset_title)
                 .items(R.array.presets)
                 .autoDismiss(false)
@@ -1562,21 +1580,21 @@ public class MainActivity
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         switch (which) {
                             case 0:
-                                setScheme(which);
+                                setScheme(which, prefs);
                                 PresetDialog.getBuilder()
                                         .widgetColorRes(R.color.hello)
                                         .positiveColorRes(R.color.hello);
                                 setSchemeInfo();
                                 break;
                             case 1:
-                                setScheme(which);
+                                setScheme(which, prefs);
                                 PresetDialog.getBuilder()
                                         .widgetColorRes(R.color.roses)
                                         .positiveColorRes(R.color.roses);
                                 setSchemeInfo();
                                 break;
                             case 2:
-                                setScheme(which);
+                                setScheme(which, prefs);
                                 PresetDialog.getBuilder()
                                         .widgetColorRes(R.color.faded)
                                         .positiveColorRes(R.color.faded);
@@ -1612,7 +1630,7 @@ public class MainActivity
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
                         if (isSchemeChanged == false) {
-                            setScheme(defaultScheme);
+                            setScheme(defaultScheme, prefs);
                             setSchemeInfo();
                         } else {
                             loadPreset(circularRevealDuration);
@@ -2155,34 +2173,21 @@ public class MainActivity
     }
 
     void setSchemeInfo() {
-        ab.setNav(0, null, a);
-        currentPreset = presets[getScheme()];
-        themeColor = currentPreset.getAbout().getActionbarColor();
-        w.setRecentColor(0, 0, themeColor, a);
-
-        if (isSettingVisible == false) {
+        if (isSettingVisible == false || isAboutVisible == false) {
+            ab.setNav(0, null, a);
+            w.setRecentColor(0, 0, themeColor, a);
+            currentPreset = presets[getScheme()];
+            themeColor = currentPreset.getAbout().getActionbarColor();
             ab.setColor(themeColor, a);
             ab.setImage(w.getDrawableId("logo_" + currentPreset.getMusic().getNameId().replace("preset_", "")), a);
-        } else {
-            ab.setNav(1, null, a);
-            ab.setTitle(R.string.settings, a);
-            ab.setColor(R.color.colorAccent, a);
         }
-
-        // Cardview
-        w.getImageView(R.id.cardview_music_image, a).setImageResource(w.getDrawableId("about_album_" + currentPreset.getMusic().getNameId().replace("preset_", "")));
-        w.getTextView(R.id.cardview_music_song, a).setText(w.getStringId(currentPreset.getMusic().getNameId() + "_full"));
-        w.getTextView(R.id.cardview_music_explore, a).setTextColor(getResources().getColor(themeColor));
-        w.getTextView(R.id.cardview_music_change, a).setTextColor(getResources().getColor(themeColor));
-
-        w.getTextView(R.id.layout_settings_preset_hint, a).setText(w.getStringId(currentPreset.getMusic().getNameId() + "_full"));
     }
 
     int getScheme() {
         return prefs.getInt("scheme", 0);
     }
 
-    void setScheme(int scheme) {
+    void setScheme(int scheme, SharedPreferences prefs) {
         prefs.edit().putInt("scheme", scheme).apply();
     }
 
@@ -2784,8 +2789,13 @@ public class MainActivity
 //        largeLog("berictAboutJSON", gson.toJson(berictAbout));
     }
 
+    public void setSettingVisible(boolean isVisible) {
+        isSettingVisible = isVisible;
+        Log.d("SettingVisible", String.valueOf(isSettingVisible));
+    }
+
     // TODO change on new preset
-    String fileTag = "omfg_hello_";
+    String fileTag = null;
 
     Deck[] getDeckFromFileName(String fileTag) {
         Pad part1[] = {

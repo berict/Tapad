@@ -3,6 +3,7 @@ package com.bedrock.padder.helper;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -69,7 +70,7 @@ public class WindowService {
     }
 
     public int getNavigationBar(final int id, final Activity activity) {
-        /** Must be a parent view */
+        /* Must be a parent view */
 
         final SharedPreferences prefs = activity.getSharedPreferences("com.bedrock.padder", activity.MODE_PRIVATE);
         final int[] navBarHeight = {-1};
@@ -94,6 +95,19 @@ public class WindowService {
         return navBarHeight[0];
     }
 
+    public int getNavigationBarFromPrefs(Activity activity) {
+        int navigationHeight;
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("com.bedrock.padder", Context.MODE_PRIVATE);
+        navigationHeight = sharedPreferences.getInt("navBarPX", 144);
+        
+        if (navigationHeight >= 540 || navigationHeight <= 0) {
+            // something gone wrong
+            navigationHeight = 144;
+        }
+        
+        return navigationHeight;
+    }
+
     public void setStatusBar(int color_id, Activity activity) {
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = activity.getWindow();
@@ -108,7 +122,7 @@ public class WindowService {
     }
 
     public int getStatusBar(final int id, final Activity activity) {
-        /** Must be a parent view */
+        /* Must be a parent view */
 
         final SharedPreferences prefs = activity.getSharedPreferences("com.bedrock.padder", activity.MODE_PRIVATE);
         final int[] statBarHeight = {-1};
@@ -130,6 +144,19 @@ public class WindowService {
         }, 100);
 
         return statBarHeight[0];
+    }
+
+    public int getStatusBarFromPrefs(Activity activity) {
+        int statusHeight;
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("com.bedrock.padder", Context.MODE_PRIVATE);
+        statusHeight = sharedPreferences.getInt("statBarPX", 144);
+
+        if (statusHeight >= 240 || statusHeight <= 0) {
+            // something gone wrong
+            statusHeight = 72;
+        }
+
+        return statusHeight;
     }
 
     public void setVisible(final int view_id, final int delay, final Activity activity){
@@ -471,6 +498,10 @@ public class WindowService {
 
     public SwitchCompat getSwitchCompat(int id, Activity activity) {
         return (SwitchCompat) activity.findViewById(id);
+    }
+
+    public SwitchCompat getSwitchCompat(int id, View view) {
+        return (SwitchCompat) view.findViewById(id);
     }
 
     public ImageView getImageView(int id, Activity activity) {

@@ -5,15 +5,21 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.bedrock.padder.R;
+import com.bedrock.padder.activity.MainActivity;
 import com.bedrock.padder.helper.AdmobService;
+import com.bedrock.padder.helper.AnimService;
 import com.bedrock.padder.helper.AppbarService;
+import com.bedrock.padder.helper.IntentService;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
@@ -25,6 +31,12 @@ public class AboutFragment extends Fragment {
     private AppbarService ab = new AppbarService();
     private WindowService w = new WindowService();
     private AdmobService ad = new AdmobService();
+    private IntentService intent = new IntentService();
+    private AnimService anim = new AnimService();
+    private MainActivity main = new MainActivity();
+
+    private int circularRevealDuration = 400;
+    private int fadeAnimDuration = 200;
 
     int themeColor = R.color.hello;
     Activity a;
@@ -59,6 +71,27 @@ public class AboutFragment extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        ad.pauseNativeAdView(R.id.adView_about, a);
+
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        ad.resumeNativeAdView(R.id.adView_about, a);
+
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        ad.destroyNativeAdView(R.id.adView_about, a);
+
+        super.onDestroy();
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
@@ -69,6 +102,8 @@ public class AboutFragment extends Fragment {
         }
         a = getActivity();
     }
+
+    private int coord[] = {0, 0};
 
     private void setSchemeInfo() {
         Preset currentPreset = getCurrentPreset();
@@ -85,6 +120,101 @@ public class AboutFragment extends Fragment {
         w.getTextView(R.id.cardview_music_song, v).setText(w.getStringId(currentPreset.getMusic().getNameId() + "_full"));
         w.getTextView(R.id.cardview_music_explore, v).setTextColor(getResources().getColor(themeColor));
         w.getTextView(R.id.cardview_music_change, v).setTextColor(getResources().getColor(themeColor));
+
+        // artist
+        w.getView(R.id.cardview_artist, v).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
+                        R.id.cardview_music_image, "transition", "about", "now_playing", 0, v);
+            }
+        });
+
+        w.getView(R.id.cardview_music_explore, v).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
+                        R.id.cardview_music_image, "transition", "about", "now_playing", 0, v);
+            }
+        });
+
+        w.getView(R.id.cardview_music_change, v).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                main.showDialogPreset(a);
+            }
+        });
+
+        // tapad
+        w.getView(R.id.cardview_about, v).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
+                        R.id.cardview_about_image, "transition", "about", "tapad", 0, v);
+            }
+        });
+
+        w.getView(R.id.cardview_about_explore, v).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
+                        R.id.cardview_about_image, "transition", "about", "tapad", 0, v);
+            }
+        });
+
+        w.getView(R.id.cardview_about_settings, v).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                coord[0] = (int) event.getRawX();
+                coord[1] = (int) event.getRawY();
+
+                return false;
+            }
+        });
+
+        w.getView(R.id.cardview_about_settings, v).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                w.setRecentColor(R.string.settings, 0, R.color.colorAccent, a);
+                anim.circularRevealinpx(R.id.placeholder,
+                        coord[0], coord[1],
+                        0, (int) Math.hypot(coord[0], coord[1]) + 200, new AccelerateDecelerateInterpolator(),
+                        circularRevealDuration, 0, a);
+
+                Handler about = new Handler();
+                about.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d("Settings", "now visible");
+                        w.getView(R.id.layout_settings, a).setVisibility(View.VISIBLE);
+                        ab.setNav(1, null, a);
+                        ab.setTitle(R.string.settings, a);
+                        ab.setColor(R.color.colorAccent, a);
+                    }
+                }, circularRevealDuration);
+
+                anim.fadeOut(R.id.placeholder, circularRevealDuration, fadeAnimDuration, a);
+
+                main.setSettingVisible(true);
+            }
+        });
+
+        // developer
+        w.getView(R.id.cardview_dev, v).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
+                        R.id.cardview_dev_image, "transition", "about", "dev", 0, v);
+            }
+        });
+
+        w.getView(R.id.cardview_dev_explore, v).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
+                        R.id.cardview_dev_image, "transition", "about", "dev", 0, v);
+            }
+        });
     }
 
     private Preset getCurrentPreset() {

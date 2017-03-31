@@ -72,8 +72,6 @@ public class AboutActivity extends AppCompatActivity {
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.collapsedappbar);
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.expandedappbar);
 
-        prefs = getSharedPreferences("com.bedrock.padder", MODE_PRIVATE);
-
         window.setNavigationBar(R.color.transparent, activity);
 
         View statusbar = findViewById(R.id.statusbar);
@@ -81,15 +79,15 @@ public class AboutActivity extends AppCompatActivity {
             statusbar.setVisibility(View.GONE);
         } else {
             try {
-                statusbar.getLayoutParams().height = prefs.getInt("statBarPX", 0);
+                statusbar.getLayoutParams().height = window.getStatusBarFromPrefs(activity);
             } catch (NullPointerException e) {
                 Log.d("NullExp", e.getMessage());
                 statusbar.setVisibility(View.GONE);
             }
         }
 
-        window.setMarginRelativePX(R.id.layout_relative, 0, prefs.getInt("statBarPX", 0), 0, 0, activity);
-        window.getView(R.id.layout_margin, activity).getLayoutParams().height = prefs.getInt("navBarPX", 0) + window.convertDPtoPX(10, activity);
+        window.setMarginRelativePX(R.id.layout_relative, 0, window.getStatusBarFromPrefs(activity), 0, 0, activity);
+        window.getView(R.id.layout_margin, activity).getLayoutParams().height = window.getNavigationBarFromPrefs(activity) + window.convertDPtoPX(10, activity);
 
         enterAnim();
         setUi();
