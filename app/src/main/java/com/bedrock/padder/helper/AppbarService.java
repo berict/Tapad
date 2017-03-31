@@ -29,8 +29,7 @@ public class AppbarService {
     public static int ACTION_2_ICON = R.id.actionbar_action_2_icon;
     public static int ACTION_TEXT   = R.id.actionbar_action_text;
 
-    WindowService w = new WindowService();
-    ThemeService t = new ThemeService();
+    private WindowService w = new WindowService();
 
     public void setTitle(int resid, Activity activity) {
         w.getTextView(TITLE, activity).setText(resid);
