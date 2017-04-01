@@ -3,10 +3,10 @@ package com.bedrock.padder.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.activity.MainActivity;
 import com.bedrock.padder.helper.AnimService;
@@ -24,8 +25,9 @@ import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
 
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends Fragment implements ColorChooserDialog.ColorCallback{
 
     private AppbarService ab = new AppbarService();
     private WindowService w = new WindowService();
@@ -35,6 +37,9 @@ public class SettingsFragment extends Fragment {
 
     private int circularRevealDuration = 400;
     private int fadeAnimDuration = 200;
+    private int color;
+
+    SharedPreferences prefs = null;
 
     int themeColor = R.color.hello;
     Activity a;
@@ -60,6 +65,12 @@ public class SettingsFragment extends Fragment {
     }
 
     @Override
+    public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int colorInt) {
+        prefs.edit().putInt("color", colorInt).apply();
+        color = prefs.getInt("color", colorInt);
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
 
@@ -77,12 +88,12 @@ public class SettingsFragment extends Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
         a = getActivity();
+        prefs = a.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
     }
 
     private int coord[] = {0, 0};
 
     private void setSchemeInfo() {
-        SharedPreferences prefs = a.getSharedPreferences("com.bedrock.padder", MODE_PRIVATE);
         Preset currentPreset = getCurrentPreset();
         w.setRecentColor(R.string.settings, 0, R.color.colorAccent, a);
 
@@ -91,9 +102,6 @@ public class SettingsFragment extends Fragment {
         ab.setTitle(R.string.settings, a, v);
 
         w.getTextView(R.id.layout_settings_preset_hint, v).setText(w.getStringId(currentPreset.getMusic().getNameId() + "_full"));
-
-        Drawable circleBackground = w.getView(R.id.layout_settings_color_circle, a).getBackground();
-        ((GradientDrawable) circleBackground).setColor(prefs.getInt("color", R.color.red));
 
         w.getView(R.id.layout_settings_preset, v).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +114,7 @@ public class SettingsFragment extends Fragment {
         w.getView(R.id.layout_settings_color, v).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                main.showDialogColor();
+                // TODO intent colorActivity
             }
         });
 
@@ -167,7 +175,6 @@ public class SettingsFragment extends Fragment {
     }
 
     private Preset getCurrentPreset() {
-        SharedPreferences prefs = a.getSharedPreferences("com.bedrock.padder", MODE_PRIVATE);
         Preset presets[] = new Preset[] {
                 gson.fromJson(getResources().getString(R.string.json_hello), Preset.class),
                 gson.fromJson(getResources().getString(R.string.json_roses), Preset.class),

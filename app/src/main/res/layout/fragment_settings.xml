@@ -51,9 +51,12 @@
 						
 						<ImageView
 							android:id="@+id/layout_settings_preset_icon"
-							android:layout_width="64dp"
-							android:layout_height="64dp"
-							android:padding="18dp"
+							android:layout_width="48dp"
+							android:layout_height="48dp"
+							android:layout_centerVertical="true"
+							android:layout_marginLeft="8dp"
+							android:layout_marginRight="8dp"
+							android:padding="10dp"
 							android:src="@drawable/settings_preset"/>
 						
 						<LinearLayout
@@ -200,7 +203,7 @@
 					<RelativeLayout
 						android:id="@+id/layout_settings_color"
 						android:layout_width="match_parent"
-						android:layout_height="64dp"
+						android:layout_height="52dp"
 						android:background="?selectableItemBackground"
 						android:clickable="true">
 						
@@ -214,46 +217,16 @@
 							android:padding="10dp"
 							android:src="@drawable/settings_color"/>
 						
-						<LinearLayout
+						<TextView
+							android:id="@+id/layout_settings_color_text"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:layout_centerVertical="true"
 							android:layout_toRightOf="@+id/layout_settings_color_icon"
-							android:orientation="vertical"
-							android:paddingLeft="14dp">
-							
-							<TextView
-								android:id="@+id/layout_settings_color_text"
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"
-								android:layout_marginBottom="4dp"
-								android:text="@string/settings_color"
-								android:textColor="@color/dark_primary"
-								android:textSize="16sp"/>
-							
-							<TextView
-								android:id="@+id/layout_settings_color_hint"
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"
-								android:text="@string/settings_color_hint"
-								android:textColor="@color/dark_secondary"
-								android:textSize="14sp"/>
-						</LinearLayout>
-						
-						<RelativeLayout
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_alignParentRight="true"
-							android:layout_centerVertical="true"
-							android:layout_marginRight="16dp">
-							
-							<View
-								android:id="@+id/layout_settings_color_circle"
-								android:layout_width="32dp"
-								android:layout_height="32dp"
-								android:background="@drawable/fragment_color_picker"/>
-						
-						</RelativeLayout>
+							android:paddingLeft="14dp"
+							android:text="@string/settings_color"
+							android:textColor="@color/dark_primary"
+							android:textSize="16sp"/>
 					
 					</RelativeLayout>
 					

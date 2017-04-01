@@ -30,6 +30,8 @@ import com.bedrock.padder.helper.IntentService;
 import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.WindowService;
 
+import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
+
 public class UserBenefitsActivity extends Activity {
 
     private ViewPager viewPager;
@@ -59,7 +61,7 @@ public class UserBenefitsActivity extends Activity {
         setContentView(R.layout.activity_user_benefits);
 
         activity = this;
-        prefs = getSharedPreferences("com.bedrock.padder", MODE_PRIVATE);
+        prefs = getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
 
         initializeView();
 

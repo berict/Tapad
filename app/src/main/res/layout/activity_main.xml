@@ -67,15 +67,11 @@
 	
 	<include layout="@layout/fragment_actionbar"/>
 	
-	<include layout="@layout/fragment_layout_about"/>
-	
 	<FrameLayout
 		android:id="@+id/fragment_about_container"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:visibility="gone" />
-	
-	<include layout="@layout/fragment_layout_settings"/>
 	
 	<FrameLayout
 		android:id="@+id/fragment_settings_container"

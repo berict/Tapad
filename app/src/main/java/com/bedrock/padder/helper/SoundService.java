@@ -15,6 +15,7 @@ import com.bedrock.padder.activity.MainActivity;
 import com.bedrock.padder.model.preset.Preset;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
 
 public class SoundService {
     //TODO NEW PRESET : update sound count
@@ -864,7 +865,7 @@ public class SoundService {
                 progress.setText(
                         activity.getResources().getString(R.string.progressbar_loading_preset_progress) + " 0 / " + presetSoundCount * 2);
             }
-            prefs = activity.getSharedPreferences("com.bedrock.padder", MODE_PRIVATE);
+            prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
         }
 
         protected String doInBackground(Void... arg0) {

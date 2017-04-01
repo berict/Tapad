@@ -3,7 +3,6 @@ package com.bedrock.padder.helper;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -47,7 +46,11 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class WindowService {
+
+    public static final String APPLICATION_ID = "com.bedrock.padder";
 
     public void setNavigationBar(int color_id, Activity activity) {
         if (Build.VERSION.SDK_INT >= 16) {
@@ -72,7 +75,7 @@ public class WindowService {
     public int getNavigationBar(final int id, final Activity activity) {
         /* Must be a parent view */
 
-        final SharedPreferences prefs = activity.getSharedPreferences("com.bedrock.padder", activity.MODE_PRIVATE);
+        final SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
         final int[] navBarHeight = {-1};
 
         Handler handler = new Handler();
@@ -97,7 +100,7 @@ public class WindowService {
 
     public int getNavigationBarFromPrefs(Activity activity) {
         int navigationHeight;
-        SharedPreferences sharedPreferences = activity.getSharedPreferences("com.bedrock.padder", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
         navigationHeight = sharedPreferences.getInt("navBarPX", 144);
         
         if (navigationHeight >= 540 || navigationHeight <= 0) {
@@ -124,7 +127,7 @@ public class WindowService {
     public int getStatusBar(final int id, final Activity activity) {
         /* Must be a parent view */
 
-        final SharedPreferences prefs = activity.getSharedPreferences("com.bedrock.padder", activity.MODE_PRIVATE);
+        final SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
         final int[] statBarHeight = {-1};
 
         Handler handler = new Handler();
@@ -148,7 +151,7 @@ public class WindowService {
 
     public int getStatusBarFromPrefs(Activity activity) {
         int statusHeight;
-        SharedPreferences sharedPreferences = activity.getSharedPreferences("com.bedrock.padder", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
         statusHeight = sharedPreferences.getInt("statBarPX", 144);
 
         if (statusHeight >= 240 || statusHeight <= 0) {

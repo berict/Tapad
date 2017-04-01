@@ -25,6 +25,7 @@ import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
 
 public class AboutFragment extends Fragment {
 
@@ -174,7 +175,7 @@ public class AboutFragment extends Fragment {
 
         w.getView(R.id.cardview_about_settings, v).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 w.setRecentColor(R.string.settings, 0, R.color.colorAccent, a);
                 anim.circularRevealinpx(R.id.placeholder,
                         coord[0], coord[1],
@@ -185,11 +186,7 @@ public class AboutFragment extends Fragment {
                 about.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Log.d("Settings", "now visible");
-                        w.getView(R.id.layout_settings, a).setVisibility(View.VISIBLE);
-                        ab.setNav(1, null, a);
-                        ab.setTitle(R.string.settings, a);
-                        ab.setColor(R.color.colorAccent, a);
+                        w.getView(R.id.fragment_settings_container, a).setVisibility(View.VISIBLE);
                     }
                 }, circularRevealDuration);
 
@@ -218,7 +215,7 @@ public class AboutFragment extends Fragment {
     }
 
     private Preset getCurrentPreset() {
-        SharedPreferences prefs = a.getSharedPreferences("com.bedrock.padder", MODE_PRIVATE);
+        SharedPreferences prefs = a.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
         Preset presets[] = new Preset[] {
                 gson.fromJson(getResources().getString(R.string.json_hello), Preset.class),
                 gson.fromJson(getResources().getString(R.string.json_roses), Preset.class),

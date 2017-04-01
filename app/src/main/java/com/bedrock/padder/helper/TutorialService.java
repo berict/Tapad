@@ -19,6 +19,7 @@ import com.bedrock.padder.model.preset.Preset;
 import java.util.Arrays;
 
 import static com.bedrock.padder.helper.SoundService.currentPreset;
+import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
 
 public class TutorialService extends Activity {
 
@@ -1205,7 +1206,7 @@ public class TutorialService extends Activity {
         Log.i("TutorialService", "tutorial loaded");
 
         final double array[][];
-        SharedPreferences prefs = activity.getSharedPreferences("com.bedrock.padder", activity.MODE_PRIVATE);
+        SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, activity.MODE_PRIVATE);
         int scheme = prefs.getInt("scheme", 0);
 
         switch (scheme) {

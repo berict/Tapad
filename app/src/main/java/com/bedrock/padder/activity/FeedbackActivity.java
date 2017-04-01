@@ -30,6 +30,8 @@ import com.bedrock.padder.helper.FabService;
 import com.bedrock.padder.helper.IntentService;
 import com.bedrock.padder.helper.WindowService;
 
+import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
+
 public class FeedbackActivity extends AppCompatActivity {
 
     final String TAG = "FeedbackActivity";
@@ -58,7 +60,7 @@ public class FeedbackActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feedback);
 
         Log.d(TAG, "Sharedprefs initialized");
-        prefs = this.getSharedPreferences("com.bedrock.padder", MODE_PRIVATE);
+        prefs = this.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
 
         Intent intent = getIntent();
         MODE_TAG = intent.getExtras().getString("feedbackMode");

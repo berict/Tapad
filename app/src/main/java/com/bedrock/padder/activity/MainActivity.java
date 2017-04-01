@@ -4,14 +4,11 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +21,6 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.fragment.AboutFragment;
 import com.bedrock.padder.fragment.SettingsFragment;
@@ -52,12 +48,14 @@ import java.util.ArrayList;
 
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
+import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
+
 @TargetApi(9)
 @SuppressWarnings("deprecation")
 
 public class MainActivity
         extends AppCompatActivity
-        implements ColorChooserDialog.ColorCallback, AboutFragment.OnFragmentInteractionListener, SettingsFragment.OnFragmentInteractionListener {
+        implements AboutFragment.OnFragmentInteractionListener, SettingsFragment.OnFragmentInteractionListener {
 
     final Activity a = this;
     final String qs = "quickstart";
@@ -198,7 +196,7 @@ public class MainActivity
 
         // sharedPrefs
         Log.d(TAG, "Sharedprefs initialized");
-        prefs = this.getSharedPreferences("com.bedrock.padder", MODE_PRIVATE);
+        prefs = this.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
         // for test
         //prefs.edit().putInt(qs, 0).apply();
         if (prefs.getBoolean("welcome", true)) {
@@ -211,8 +209,6 @@ public class MainActivity
         clearToggleButton();
         setFab();
         setToolbar();
-        //setAbout();
-        //setSettings();
         setSchemeInfo();
         setToggleButton(R.color.colorAccent);
         enterAnim();
@@ -263,152 +259,10 @@ public class MainActivity
         }, a);
     }
 
-    private void setAboutFragment() {
-        AboutFragment aboutFragment = new AboutFragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.fragment_about_container, aboutFragment)
-                .commit();
-    }
-
-    private void setSettingsFragment() {
-        SettingsFragment settingsFragment = new SettingsFragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.fragment_settings_container, settingsFragment)
-                .commit();
-    }
-
     @Override
     public void onFragmentInteraction(Uri uri){
         // you can leave it empty
         // used for fragments
-    }
-
-    // TODO iap launch
-    //    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
-    //        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
-    //            Log.d(TAG, "Query inventory finished.");
-    //
-    //            // Have we been disposed of in the meantime? If so, quit.
-    //            if (mHelper == null) return;
-    //
-    //            // Is it a failure?
-    //            if (result.isFailure()) {
-    //                complain("Failed to query inventory: " + result);
-    //                return;
-    //            }
-    //
-    //            Log.d(TAG, "Query inventory was successful.");
-    //            Log.d(TAG, "Initial inventory query finished; enabling main UI.");
-    //        }
-    //    };
-    //
-    //    @NonNull
-    //    private String constructBase64Key() {
-    //        // TODO work on iap processes
-    //        String encodedString = getResources().getString(R.string.base64_rsa_key);
-    //        int base64Length = encodedString.length();
-    //        char[] encodedStringArray = encodedString.toCharArray();
-    //        char temp;
-    //
-    //        for(int i = 0; i < base64Length / 2; i++) {
-    //            if (i % 2 == 0) {
-    //                // ******   E P I C   D E C O D I N G   M E C H A N I S M   ****** //
-    //                temp = encodedStringArray[i];
-    //                encodedStringArray[i] = encodedStringArray[base64Length - 1 - i];
-    //                encodedStringArray[base64Length - 1 - i] = temp;
-    //            }
-    //        }
-    //
-    //        return String.valueOf(encodedStringArray);
-    //    }
-    //
-    //    void complain(String message) {
-    //        Log.e(TAG, "**** Purchase Error: " + message);
-    //        alert("Error: " + message);
-    //    }
-    //
-    //    void alert(String message) {
-    //        AlertDialog.Builder bld = new AlertDialog.Builder(this);
-    //        bld.setMessage(message);
-    //        bld.setNeutralButton("OK", null);
-    //        Log.d(TAG, "Showing alert dialog: " + message);
-    //        bld.create().show();
-    //    }
-
-    void enterAnim() {
-        anim.fadeIn(R.id.actionbar_layout, 0, 200, "background", a);
-        anim.fadeIn(R.id.actionbar_image, 200, 200, "image", a);
-        //TODO: Remove this to not load preset
-        loadPreset(400);
-        isPresetLoading = true;
-    }
-
-    void setButtonLayout() {
-        int screenWidthPx = w.getWindowWidthPx(a) - ((w.convertDPtoPX(36, a)) * 2);
-        int marginPx = w.convertDPtoPX(2, a);
-        int newWidthPx;
-        int newHeightPx;
-        int buttons[][] = {
-                // first row is root view
-                {R.id.ver0, R.id.tgl1, R.id.tgl2, R.id.tgl3, R.id.tgl4, R.id.btn00},
-                {R.id.ver1, R.id.btn11, R.id.btn12, R.id.btn13, R.id.btn14, R.id.tgl5},
-                {R.id.ver2, R.id.btn21, R.id.btn22, R.id.btn23, R.id.btn24, R.id.tgl6},
-                {R.id.ver3, R.id.btn31, R.id.btn32, R.id.btn33, R.id.btn34, R.id.tgl7},
-                {R.id.ver4, R.id.btn41, R.id.btn42, R.id.btn43, R.id.btn44, R.id.tgl8},
-        };
-
-        int tutorialButtons[][] = {
-                // first row is root view
-                {R.id.ver0_tutorial, R.id.tgl1_tutorial, R.id.tgl2_tutorial, R.id.tgl3_tutorial, R.id.tgl4_tutorial, R.id.btn00_tutorial},
-                {R.id.ver1_tutorial, R.id.btn11_tutorial, R.id.btn12_tutorial, R.id.btn13_tutorial, R.id.btn14_tutorial, R.id.tgl5_tutorial},
-                {R.id.ver2_tutorial, R.id.btn21_tutorial, R.id.btn22_tutorial, R.id.btn23_tutorial, R.id.btn24_tutorial, R.id.tgl6_tutorial},
-                {R.id.ver3_tutorial, R.id.btn31_tutorial, R.id.btn32_tutorial, R.id.btn33_tutorial, R.id.btn34_tutorial, R.id.tgl7_tutorial},
-                {R.id.ver4_tutorial, R.id.btn41_tutorial, R.id.btn42_tutorial, R.id.btn43_tutorial, R.id.btn44_tutorial, R.id.tgl8_tutorial},
-        };
-
-        for (int i = 0; i < 5; i++) {
-            if (i == 0) {
-                newHeightPx = screenWidthPx / 9;
-            } else {
-                newHeightPx = (screenWidthPx / 9) * 2;
-            }
-            for (int j = 0; j < 6; j++) {
-                if (j == 0) {
-                    resizeView(tutorialButtons[i][j], 0, newHeightPx);
-                    resizeView(buttons[i][j], 0, newHeightPx);
-                } else if (j == 5) {
-                    newWidthPx = screenWidthPx / 9;
-                    resizeView(tutorialButtons[i][j], newWidthPx, newHeightPx);
-                    resizeView(buttons[i][j], newWidthPx - (marginPx * 2), newHeightPx - (marginPx * 2));
-                    w.setMarginLinearPX(buttons[i][j], marginPx, marginPx, marginPx, marginPx, a);
-                    if (i != 0) {
-                        w.getTextView(buttons[i][j], a).setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) (newWidthPx / 3));
-                    }
-                } else {
-                    newWidthPx = (screenWidthPx / 9) * 2;
-                    resizeView(tutorialButtons[i][j], newWidthPx, newHeightPx);
-                    resizeView(buttons[i][j], newWidthPx - (marginPx * 2), newHeightPx - (marginPx * 2));
-                    w.setMarginLinearPX(buttons[i][j], marginPx, marginPx, marginPx, marginPx, a);
-                    if (i == 0) {
-                        w.getTextView(buttons[i][j], a).setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) (newHeightPx / 3));
-                    }
-                }
-            }
-        }
-    }
-
-    private void resizeView(int viewId, int newWidth, int newHeight) {
-        View view = a.findViewById(viewId);
-        Log.d("resizeView", "width " + newWidth + " X height " + newHeight);
-        if (newHeight > 0) {
-            view.getLayoutParams().height = newHeight;
-        }
-        if (newWidth > 0) {
-            view.getLayoutParams().width = newWidth;
-        }
-        view.setLayoutParams(view.getLayoutParams());
     }
 
     @Override
@@ -418,10 +272,13 @@ public class MainActivity
                 Log.i("BackPressed", "Quickstart tap target prompt is visible, backpress ignored.");
             } else {
                 if (isAboutVisible == true) {
+                    Log.d("BackPressed", "about is visible");
                     if (isSettingVisible == true) {
+                        Log.d("BackPressed", "setting is visible");
                         Log.d("BackPressed", "close settings");
                         closeSettings();
                     } else {
+                        Log.d("BackPressed", "setting isn't visible");
                         Log.d("BackPressed", "close about");
                         closeAbout();
                     }
@@ -558,8 +415,150 @@ public class MainActivity
         super.onDestroy();
     }
 
+    private void setAboutFragment() {
+        AboutFragment aboutFragment = new AboutFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.fragment_about_container, aboutFragment)
+                .commit();
+    }
+
+    private void setSettingsFragment() {
+        SettingsFragment settingsFragment = new SettingsFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.fragment_settings_container, settingsFragment)
+                .commit();
+    }
+
+    // TODO iap launch
+    //    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
+    //        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
+    //            Log.d(TAG, "Query inventory finished.");
+    //
+    //            // Have we been disposed of in the meantime? If so, quit.
+    //            if (mHelper == null) return;
+    //
+    //            // Is it a failure?
+    //            if (result.isFailure()) {
+    //                complain("Failed to query inventory: " + result);
+    //                return;
+    //            }
+    //
+    //            Log.d(TAG, "Query inventory was successful.");
+    //            Log.d(TAG, "Initial inventory query finished; enabling main UI.");
+    //        }
+    //    };
+    //
+    //    @NonNull
+    //    private String constructBase64Key() {
+    //        // TODO work on iap processes
+    //        String encodedString = getResources().getString(R.string.base64_rsa_key);
+    //        int base64Length = encodedString.length();
+    //        char[] encodedStringArray = encodedString.toCharArray();
+    //        char temp;
+    //
+    //        for(int i = 0; i < base64Length / 2; i++) {
+    //            if (i % 2 == 0) {
+    //                // ******   E P I C   D E C O D I N G   M E C H A N I S M   ****** //
+    //                temp = encodedStringArray[i];
+    //                encodedStringArray[i] = encodedStringArray[base64Length - 1 - i];
+    //                encodedStringArray[base64Length - 1 - i] = temp;
+    //            }
+    //        }
+    //
+    //        return String.valueOf(encodedStringArray);
+    //    }
+    //
+    //    void complain(String message) {
+    //        Log.e(TAG, "**** Purchase Error: " + message);
+    //        alert("Error: " + message);
+    //    }
+    //
+    //    void alert(String message) {
+    //        AlertDialog.Builder bld = new AlertDialog.Builder(this);
+    //        bld.setMessage(message);
+    //        bld.setNeutralButton("OK", null);
+    //        Log.d(TAG, "Showing alert dialog: " + message);
+    //        bld.create().show();
+    //    }
+
+    void enterAnim() {
+        anim.fadeIn(R.id.actionbar_layout, 0, 200, "background", a);
+        anim.fadeIn(R.id.actionbar_image, 200, 200, "image", a);
+        //TODO: Remove this to not load preset
+        loadPreset(400);
+        isPresetLoading = true;
+    }
+
+    void setButtonLayout() {
+        int screenWidthPx = w.getWindowWidthPx(a) - ((w.convertDPtoPX(36, a)) * 2);
+        int marginPx = w.convertDPtoPX(2, a);
+        int newWidthPx;
+        int newHeightPx;
+        int buttons[][] = {
+                // first row is root view
+                {R.id.ver0, R.id.tgl1, R.id.tgl2, R.id.tgl3, R.id.tgl4, R.id.btn00},
+                {R.id.ver1, R.id.btn11, R.id.btn12, R.id.btn13, R.id.btn14, R.id.tgl5},
+                {R.id.ver2, R.id.btn21, R.id.btn22, R.id.btn23, R.id.btn24, R.id.tgl6},
+                {R.id.ver3, R.id.btn31, R.id.btn32, R.id.btn33, R.id.btn34, R.id.tgl7},
+                {R.id.ver4, R.id.btn41, R.id.btn42, R.id.btn43, R.id.btn44, R.id.tgl8},
+        };
+
+        int tutorialButtons[][] = {
+                // first row is root view
+                {R.id.ver0_tutorial, R.id.tgl1_tutorial, R.id.tgl2_tutorial, R.id.tgl3_tutorial, R.id.tgl4_tutorial, R.id.btn00_tutorial},
+                {R.id.ver1_tutorial, R.id.btn11_tutorial, R.id.btn12_tutorial, R.id.btn13_tutorial, R.id.btn14_tutorial, R.id.tgl5_tutorial},
+                {R.id.ver2_tutorial, R.id.btn21_tutorial, R.id.btn22_tutorial, R.id.btn23_tutorial, R.id.btn24_tutorial, R.id.tgl6_tutorial},
+                {R.id.ver3_tutorial, R.id.btn31_tutorial, R.id.btn32_tutorial, R.id.btn33_tutorial, R.id.btn34_tutorial, R.id.tgl7_tutorial},
+                {R.id.ver4_tutorial, R.id.btn41_tutorial, R.id.btn42_tutorial, R.id.btn43_tutorial, R.id.btn44_tutorial, R.id.tgl8_tutorial},
+        };
+
+        for (int i = 0; i < 5; i++) {
+            if (i == 0) {
+                newHeightPx = screenWidthPx / 9;
+            } else {
+                newHeightPx = (screenWidthPx / 9) * 2;
+            }
+            for (int j = 0; j < 6; j++) {
+                if (j == 0) {
+                    resizeView(tutorialButtons[i][j], 0, newHeightPx);
+                    resizeView(buttons[i][j], 0, newHeightPx);
+                } else if (j == 5) {
+                    newWidthPx = screenWidthPx / 9;
+                    resizeView(tutorialButtons[i][j], newWidthPx, newHeightPx);
+                    resizeView(buttons[i][j], newWidthPx - (marginPx * 2), newHeightPx - (marginPx * 2));
+                    w.setMarginLinearPX(buttons[i][j], marginPx, marginPx, marginPx, marginPx, a);
+                    if (i != 0) {
+                        w.getTextView(buttons[i][j], a).setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) (newWidthPx / 3));
+                    }
+                } else {
+                    newWidthPx = (screenWidthPx / 9) * 2;
+                    resizeView(tutorialButtons[i][j], newWidthPx, newHeightPx);
+                    resizeView(buttons[i][j], newWidthPx - (marginPx * 2), newHeightPx - (marginPx * 2));
+                    w.setMarginLinearPX(buttons[i][j], marginPx, marginPx, marginPx, marginPx, a);
+                    if (i == 0) {
+                        w.getTextView(buttons[i][j], a).setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) (newHeightPx / 3));
+                    }
+                }
+            }
+        }
+    }
+
+    private void resizeView(int viewId, int newWidth, int newHeight) {
+        View view = a.findViewById(viewId);
+        Log.d("resizeView", "width " + newWidth + " X height " + newHeight);
+        if (newHeight > 0) {
+            view.getLayoutParams().height = newHeight;
+        }
+        if (newWidth > 0) {
+            view.getLayoutParams().width = newWidth;
+        }
+        view.setLayoutParams(view.getLayoutParams());
+    }
+
     public void setQuickstart(final Activity activity) {
-        final SharedPreferences pref = activity.getSharedPreferences("com.bedrock.padder", MODE_PRIVATE);
+        final SharedPreferences pref = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
         try {
             currentVersionCode = activity.getPackageManager().getPackageInfo(activity.getPackageName(), 0).versionCode;
             Log.i("versionCode", "versionCode retrieved = " + String.valueOf(currentVersionCode));
@@ -1112,10 +1111,9 @@ public class MainActivity
                     }
                 }, circularRevealDuration);
 
-                setSettings();
                 anim.fadeOut(R.id.placeholder, circularRevealDuration, fadeAnimDuration, a);
 
-                isAboutVisible = true;
+                setAboutVisible(true);
             }
         });
 
@@ -1212,103 +1210,8 @@ public class MainActivity
         isToolbarVisible = false;
     }
 
-    void setAbout() {
-        // artist
-        w.getView(R.id.cardview_artist, a).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
-                        R.id.cardview_music_image, "transition", "about", "now_playing", 0);
-            }
-        });
-
-        w.getView(R.id.cardview_music_explore, a).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
-                        R.id.cardview_music_image, "transition", "about", "now_playing", 0);
-            }
-        });
-
-        w.getView(R.id.cardview_music_change, a).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialogPreset(a);
-            }
-        });
-
-        // tapad
-        w.getView(R.id.cardview_about, a).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
-                        R.id.cardview_about_image, "transition", "about", "tapad", 0);
-            }
-        });
-
-        w.getView(R.id.cardview_about_explore, a).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
-                        R.id.cardview_about_image, "transition", "about", "tapad", 0);
-            }
-        });
-
-        w.getView(R.id.cardview_about_settings, a).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                coord[2] = (int) event.getRawX();
-                coord[3] = (int) event.getRawY();
-
-                return false;
-            }
-        });
-
-        w.getView(R.id.cardview_about_settings, a).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                w.setRecentColor(R.string.settings, 0, R.color.colorAccent, a);
-                anim.circularRevealinpx(R.id.placeholder,
-                        coord[2], coord[3],
-                        0, (int) Math.hypot(coord[2], coord[3]) + 200, new AccelerateDecelerateInterpolator(),
-                        circularRevealDuration, 0, a);
-
-                Handler about = new Handler();
-                about.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        w.getView(R.id.layout_settings, a).setVisibility(View.VISIBLE);
-                        ab.setNav(1, null, a);
-                        ab.setTitle(R.string.settings, a);
-                        ab.setColor(R.color.colorAccent, a);
-                    }
-                }, circularRevealDuration);
-
-                anim.fadeOut(R.id.placeholder, circularRevealDuration, fadeAnimDuration, a);
-
-                isSettingVisible = true;
-            }
-        });
-
-        // developer
-        w.getView(R.id.cardview_dev, a).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
-                        R.id.cardview_dev_image, "transition", "about", "dev", 0);
-            }
-        });
-
-        w.getView(R.id.cardview_dev_explore, a).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
-                        R.id.cardview_dev_image, "transition", "about", "dev", 0);
-            }
-        });
-    }
-
     void closeAbout() {
+        Log.d("closeAbout", "triggered");
         anim.circularRevealinpx(R.id.placeholder,
                 coord[0], coord[1],
                 (int) Math.hypot(coord[0], coord[1]) + 200, 0, new AccelerateDecelerateInterpolator(),
@@ -1316,7 +1219,7 @@ public class MainActivity
 
         anim.fadeIn(R.id.placeholder, 0, fadeAnimDuration, "aboutOut", a);
 
-        isAboutVisible = false;
+        setAboutVisible(false);
 
         Handler closeAbout = new Handler();
         closeAbout.postDelayed(new Runnable() {
@@ -1327,6 +1230,7 @@ public class MainActivity
             }
         }, fadeAnimDuration);
 
+        // Firstrun tutorial
         if (prefs.getInt(qs, 0) == 8) {
             promptPreset = new MaterialTapTargetPrompt.Builder(a)
                     .setTarget(a.findViewById(R.id.toolbar_preset))
@@ -1355,18 +1259,6 @@ public class MainActivity
                     })
                     .show();
         }
-    }
-
-    public void showDialogColor() {
-        // Color palette
-        new ColorChooserDialog.Builder(this, R.string.dialog_color)
-                .accentMode(false)
-                .titleSub(R.string.dialog_color)
-                .doneButton(R.string.md_done_label)
-                .cancelButton(R.string.md_cancel_label)
-                .backButton(R.string.md_back_label)
-                .dynamicButtonColor(true)
-                .show();
     }
 
     public void toggleTutorial() {
@@ -1438,92 +1330,6 @@ public class MainActivity
         }
     }
 
-    @Override
-    public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int colorInt) {
-        prefs.edit().putInt("color", colorInt).apply();
-        color = prefs.getInt("color", colorInt);
-        setSettings();
-        clearToggleButton();
-    }
-
-    void setSettings() {
-        // Set circle color
-        Drawable circleBackground = w.getView(R.id.layout_settings_color_circle, a).getBackground();
-        ((GradientDrawable) circleBackground).setColor(prefs.getInt("color", R.color.red));
-
-        w.getView(R.id.layout_settings_preset, a).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialogPreset(a);
-                w.setRecentColor(R.string.task_presets, R.color.colorAccent, a);
-            }
-        });
-
-        w.getView(R.id.layout_settings_color, a).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialogColor();
-            }
-        });
-
-        w.getView(R.id.layout_settings_custom_touch, a).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(a, R.string.settings_custom_touch_error, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        w.getView(R.id.layout_settings_custom_sound, a).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(a, R.string.settings_custom_sound_error, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        w.getView(R.id.layout_settings_layout, a).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(a, R.string.settings_layout_error, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        w.getView(R.id.layout_settings_tutorial, a).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleTutorial();
-            }
-        });
-
-        w.getSwitchCompat(R.id.layout_settings_tutorial_switch, a).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (w.getView(R.id.progress_bar_layout, a).getVisibility() == View.GONE) {
-                    toggleTutorial();
-                } else {
-                    // still loading preset
-                    Toast.makeText(a, R.string.tutorial_loading, Toast.LENGTH_LONG).show();
-                    w.getSwitchCompat(R.id.layout_settings_tutorial_switch, a).toggle();
-                }
-            }
-        });
-
-        w.getView(R.id.layout_settings_about_tapad, a).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
-                        R.id.cardview_about_image, "transition", "about", "tapad", 0);
-            }
-        });
-
-        w.getView(R.id.layout_settings_about_dev, a).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
-                        R.id.cardview_dev_image, "transition", "about", "dev", 0);
-            }
-        });
-    }
-
     void closeSettings() {
         Log.d("closeSettings", "triggered");
         anim.circularRevealinpx(R.id.placeholder,
@@ -1532,14 +1338,15 @@ public class MainActivity
                 circularRevealDuration, fadeAnimDuration, a);
 
         anim.fadeIn(R.id.placeholder, 0, fadeAnimDuration, "settingOut", a);
-        isSettingVisible = false;
+
+        setSettingVisible(false);
 
         Handler closeSettings = new Handler();
         closeSettings.postDelayed(new Runnable() {
             @Override
             public void run() {
                 setSchemeInfo();
-                w.getView(R.id.layout_settings, a).setVisibility(View.GONE);
+                w.getView(R.id.fragment_settings_container, a).setVisibility(View.GONE);
             }
         }, fadeAnimDuration);
     }
@@ -1547,7 +1354,7 @@ public class MainActivity
     public void showDialogPreset(final Activity a) {
         tut.tutorialStop(a);
         sound.soundAllStop();
-        final SharedPreferences prefs = a.getSharedPreferences("com.bedrock.padder", MODE_PRIVATE);
+        final SharedPreferences prefs = a.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
 
         int color;
 
@@ -2150,7 +1957,7 @@ public class MainActivity
         }
     }
 
-    void clearToggleButton() {
+    public void clearToggleButton() {
         w.setViewBackgroundColor(R.id.tgl1, R.color.grey, a);
         w.setViewBackgroundColor(R.id.tgl2, R.color.grey, a);
         w.setViewBackgroundColor(R.id.tgl3, R.color.grey, a);
@@ -2173,7 +1980,7 @@ public class MainActivity
     }
 
     void setSchemeInfo() {
-        if (isSettingVisible == false || isAboutVisible == false) {
+        if (isSettingVisible == false && isAboutVisible == false) {
             ab.setNav(0, null, a);
             w.setRecentColor(0, 0, themeColor, a);
             currentPreset = presets[getScheme()];
@@ -2792,6 +2599,11 @@ public class MainActivity
     public void setSettingVisible(boolean isVisible) {
         isSettingVisible = isVisible;
         Log.d("SettingVisible", String.valueOf(isSettingVisible));
+    }
+
+    public void setAboutVisible(boolean isVisible) {
+        isAboutVisible = isVisible;
+        Log.d("AboutVisible", String.valueOf(isAboutVisible));
     }
 
     // TODO change on new preset

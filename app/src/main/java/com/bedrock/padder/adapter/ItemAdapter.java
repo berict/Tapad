@@ -19,6 +19,8 @@ import com.bedrock.padder.helper.IntentService;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.about.Item;
 
+import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
+
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHolder> {
     private Item[] item;
     private int rowLayout;
@@ -233,7 +235,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                     @Override
                     public void run() {
                         w.setRecentColor(w.getStringId("info_tapad_others_rate"), R.color.colorAccent, a);
-                        intent.intentMarket(a, "com.bedrock.padder", 400);
+                        intent.intentMarket(a, APPLICATION_ID, 400);
                     }
                 };
                 break;
@@ -271,7 +273,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                     @Override
                     public void run() {
                         w.setRecentColor(w.getStringId("info_berict_action_rate"), R.color.colorAccent, a);
-                        intent.intentMarket(a, "com.bedrock.padder", 400);
+                        intent.intentMarket(a, APPLICATION_ID, 400);
                     }
                 };
                 break;

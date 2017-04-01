@@ -97,15 +97,24 @@ public class AppbarService {
                 w.getView(NAV_BACK, activity).setVisibility(View.VISIBLE);
                 w.getView(NAV_NAV, activity).setVisibility(View.GONE);
                 w.getView(NAV_CLOSE, activity).setVisibility(View.GONE);
-                w.getView(NAV_BACK, activity).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        KeyEvent kDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
-                        activity.dispatchKeyEvent(kDown);
-                        KeyEvent kUp = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK);
-                        activity.dispatchKeyEvent(kUp);
-                    }
-                });
+                if (onClick == null) {
+                    w.getView(NAV_BACK, activity).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            KeyEvent kDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
+                            activity.dispatchKeyEvent(kDown);
+                            KeyEvent kUp = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK);
+                            activity.dispatchKeyEvent(kUp);
+                        }
+                    });
+                } else {
+                    w.getView(NAV_BACK, activity).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            onClick.run();
+                        }
+                    });
+                }
                 break;
             case 2:
                 // NAV
@@ -128,15 +137,24 @@ public class AppbarService {
                 w.getView(NAV_NAV, activity).setVisibility(View.GONE);
                 w.getView(NAV_BACK, activity).setVisibility(View.GONE);
                 w.getView(NAV_CLOSE, activity).setVisibility(View.VISIBLE);
-                w.getView(NAV_CLOSE, activity).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        KeyEvent kDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
-                        activity.dispatchKeyEvent(kDown);
-                        KeyEvent kUp = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK);
-                        activity.dispatchKeyEvent(kUp);
-                    }
-                });
+                if (onClick == null) {
+                    w.getView(NAV_BACK, activity).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            KeyEvent kDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
+                            activity.dispatchKeyEvent(kDown);
+                            KeyEvent kUp = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK);
+                            activity.dispatchKeyEvent(kUp);
+                        }
+                    });
+                } else {
+                    w.getView(NAV_BACK, activity).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            onClick.run();
+                        }
+                    });
+                }
                 break;
             default:
                 w.getView(NAV, activity).setVisibility(View.GONE);
@@ -155,15 +173,24 @@ public class AppbarService {
                 w.getView(NAV_BACK, view).setVisibility(View.VISIBLE);
                 w.getView(NAV_NAV, view).setVisibility(View.GONE);
                 w.getView(NAV_CLOSE, view).setVisibility(View.GONE);
-                w.getView(NAV_BACK, view).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        KeyEvent kDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
-                        activity.dispatchKeyEvent(kDown);
-                        KeyEvent kUp = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK);
-                        activity.dispatchKeyEvent(kUp);
-                    }
-                });
+                if (onClick == null) {
+                    w.getView(NAV_BACK, view).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            KeyEvent kDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
+                            activity.dispatchKeyEvent(kDown);
+                            KeyEvent kUp = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK);
+                            activity.dispatchKeyEvent(kUp);
+                        }
+                    });
+                } else {
+                    w.getView(NAV_BACK, view).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            onClick.run();
+                        }
+                    });
+                }
                 break;
             case 2:
                 // NAV
@@ -186,15 +213,24 @@ public class AppbarService {
                 w.getView(NAV_NAV, view).setVisibility(View.GONE);
                 w.getView(NAV_BACK, view).setVisibility(View.GONE);
                 w.getView(NAV_CLOSE, view).setVisibility(View.VISIBLE);
-                w.getView(NAV_CLOSE, view).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        KeyEvent kDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
-                        activity.dispatchKeyEvent(kDown);
-                        KeyEvent kUp = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK);
-                        activity.dispatchKeyEvent(kUp);
-                    }
-                });
+                if (onClick == null) {
+                    w.getView(NAV_BACK, view).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            KeyEvent kDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
+                            activity.dispatchKeyEvent(kDown);
+                            KeyEvent kUp = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK);
+                            activity.dispatchKeyEvent(kUp);
+                        }
+                    });
+                } else {
+                    w.getView(NAV_BACK, view).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            onClick.run();
+                        }
+                    });
+                }
                 break;
             default:
                 w.getView(NAV, view).setVisibility(View.GONE);

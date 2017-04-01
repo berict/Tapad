@@ -12,6 +12,8 @@ import com.bedrock.padder.helper.IntentService;
 import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.WindowService;
 
+import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
+
 public class LauncherActivity extends Activity {
 
     private AnimService anim = new AnimService();
@@ -31,7 +33,7 @@ public class LauncherActivity extends Activity {
 
         activity = this;
 
-        prefs = getSharedPreferences("com.bedrock.padder", MODE_PRIVATE);
+        prefs = getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
 
         //Tester - Set firstrun = true
         //prefs.edit().putBoolean("welcome", true).apply();

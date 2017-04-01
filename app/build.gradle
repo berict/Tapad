@@ -41,6 +41,7 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.5'
     compile 'com.google.firebase:firebase-core:10.2.0'
     compile 'com.google.firebase:firebase-ads:10.2.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }
 
