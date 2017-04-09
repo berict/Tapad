@@ -225,6 +225,8 @@ public class AboutFragment extends Fragment {
         return presets[prefs.getInt("scheme", 0)];
     }
 
+
+
     @Override
     public void onDetach() {
         super.onDetach();

@@ -26,10 +26,32 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
         setContentView(R.layout.activity_color);
 
         prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
+
+        w.setOnClick(R.id.kek, new Runnable() {
+            @Override
+            public void run() {
+                showColorChooserDialog();
+            }
+        }, activity);
+    }
+
+    private void showColorChooserDialog() {
+        new ColorChooserDialog.Builder(this, R.string.dialog_color)
+                .accentMode(false)
+                .titleSub(R.string.dialog_color)
+                .doneButton(R.string.md_done_label)
+                .cancelButton(R.string.md_cancel_label)
+                .backButton(R.string.md_back_label)
+                .dynamicButtonColor(true)
+                .show();
     }
 
     @Override
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int colorInt) {
-        // TODO edit
+        getJson(colorInt);
+    }
+
+    private String getJson(int color) {
+        return "";
     }
 }

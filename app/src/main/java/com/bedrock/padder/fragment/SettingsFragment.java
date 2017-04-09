@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.activity.MainActivity;
 import com.bedrock.padder.helper.AnimService;
@@ -27,7 +24,7 @@ import com.google.gson.Gson;
 import static android.content.Context.MODE_PRIVATE;
 import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
 
-public class SettingsFragment extends Fragment implements ColorChooserDialog.ColorCallback{
+public class SettingsFragment extends Fragment {
 
     private AppbarService ab = new AppbarService();
     private WindowService w = new WindowService();
@@ -37,11 +34,9 @@ public class SettingsFragment extends Fragment implements ColorChooserDialog.Col
 
     private int circularRevealDuration = 400;
     private int fadeAnimDuration = 200;
-    private int color;
 
     SharedPreferences prefs = null;
 
-    int themeColor = R.color.hello;
     Activity a;
     View v;
     Gson gson = new Gson();
@@ -62,12 +57,6 @@ public class SettingsFragment extends Fragment implements ColorChooserDialog.Col
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_settings, container, false);
-    }
-
-    @Override
-    public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int colorInt) {
-        prefs.edit().putInt("color", colorInt).apply();
-        color = prefs.getInt("color", colorInt);
     }
 
     @Override
@@ -114,7 +103,7 @@ public class SettingsFragment extends Fragment implements ColorChooserDialog.Col
         w.getView(R.id.layout_settings_color, v).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO intent colorActivity
+                intent.intent(a, "activity.ColorActivity", 0);
             }
         });
 

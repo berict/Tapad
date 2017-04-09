@@ -23,11 +23,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     // Android Support Lib
-    // Google Gson
-    // Material Quickstart Lib
-    // Material Dialog Lib
-    // Apache Commons Lang
-    // Google Firebase
     compile 'com.android.support:appcompat-v7:25.3.0'
     compile 'com.android.support:support-fragment:25.3.0'
     compile 'com.android.support:support-v4:25.3.0'
@@ -35,14 +30,20 @@ dependencies {
     compile 'com.android.support:design:25.3.0'
     compile 'com.android.support:palette-v7:25.3.0'
     compile 'com.android.support:support-compat:25.3.0'
+    // Google Gson
     compile 'com.google.code.gson:gson:2.8.0'
+    // Material TapTarget Lib
     compile 'uk.co.samuelwall:material-tap-target-prompt:1.2.0'
+    // Material Dialog Lib
     compile 'com.afollestad.material-dialogs:commons:0.9.0.1'
+    // Apache Commons Lang
     compile 'org.apache.commons:commons-lang3:3.5'
+    // Google Firebase
     compile 'com.google.firebase:firebase-core:10.2.0'
     compile 'com.google.firebase:firebase-ads:10.2.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }
 
-apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'
+//TODO use on IAP launch

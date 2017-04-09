@@ -261,7 +261,7 @@ public class MainActivity
 
     @Override
     public void onFragmentInteraction(Uri uri){
-        // you can leave it empty
+        // leave it empty
         // used for fragments
     }
 
@@ -271,22 +271,37 @@ public class MainActivity
             if ((prefs.getInt(qs, 0) != -1) && isAboutVisible == false && isSettingVisible == false) {
                 Log.i("BackPressed", "Quickstart tap target prompt is visible, backpress ignored.");
             } else {
-                if (isAboutVisible == true) {
-                    Log.d("BackPressed", "about is visible");
-                    if (isSettingVisible == true) {
-                        Log.d("BackPressed", "setting is visible");
-                        Log.d("BackPressed", "close settings");
-                        closeSettings();
-                    } else {
-                        Log.d("BackPressed", "setting isn't visible");
-                        Log.d("BackPressed", "close about");
-                        closeAbout();
-                    }
-                } else if (isSettingVisible == true) {
-                    Log.d("BackPressed", "close settings");
+//                if (isAboutVisible == true) {
+//                    Log.d("BackPressed", "about is visible");
+//                    if (isSettingVisible == true) {
+//                        Log.d("BackPressed", "setting is visible");
+//                        Log.d("BackPressed", "close settings");
+//                        closeSettings();
+//                    } else {
+//                        Log.d("BackPressed", "setting isn't visible");
+//                        Log.d("BackPressed", "close about");
+//                        closeAbout();
+//                    }
+//                } else if (isSettingVisible == true) {
+//                    Log.d("BackPressed", "close settings");
+//                    closeSettings();
+//                } else {
+//                    Log.d("BackPressed", "close toolbar");
+//                    closeToolbar(a);
+//                }
+
+                // new structure
+                if (isAboutVisible && isSettingVisible) {
+                    // Setting is visible above about
                     closeSettings();
+                } else if (isSettingVisible) {
+                    // Setting visible alone
+                    closeSettings();
+                } else if (isAboutVisible) {
+                    // About visible alone
+                    closeAbout();
                 } else {
-                    Log.d("BackPressed", "close toolbar");
+                    // Toolbar visible alone
                     closeToolbar(a);
                 }
             }
@@ -1191,9 +1206,6 @@ public class MainActivity
                     @Override
                     public void run() {
                         w.getView(R.id.fragment_settings_container, a).setVisibility(View.VISIBLE);
-                        //ab.setNav(1, null, a);
-                        //ab.setTitle(R.string.settings, a);
-                        //ab.setColor(R.color.colorAccent, a);
                     }
                 }, circularRevealDuration);
 
@@ -1522,112 +1534,6 @@ public class MainActivity
                 tgl7,
                 tgl8
         };
-
-        // TODO REKT
-//        for (final int i[] = {0}; i[0] < 7; i[0]++) {
-//            if (i[0] < 4) {
-//                w.setOnTouch(toggleButtonIds[i[0]], new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        clearDeck();
-//                        if (toggleButtonBool[i[0]] == false) {
-//                            toggleSoundId = i[0] + 1;
-//
-//                            if (tgl5 || tgl6 || tgl7 || tgl8) {
-//                                // TODO CHANGE THIS METHOD
-//                                sound.setButtonTogglePattern(toggleSoundId, color, togglePatternId, a);
-//                            } else {
-//                                sound.setButtonToggle(toggleSoundId, color, a);
-//                            }
-//
-//                            for (int j = 0; j < 4; j++) {
-//                                if (i[0] == j) {
-//                                    // highlight current deck
-//                                    w.setViewBackgroundColor(toggleButtonIds[j], color_id, a);
-//                                } else {
-//                                    // disable all other decks
-//                                    w.setViewBackgroundColor(toggleButtonIds[j], R.color.grey, a);
-//                                }
-//                            }
-//
-//                            for (int j = 0; j < 4; j++) {
-//                                if (i[0] != j) {
-//                                    // except current deck number
-//                                    if (toggleButtonBool[j] == true) {
-//                                        // if other deck was selected before, play deck sound
-//                                        sound.playToggleButtonSound(i[0] + 1);
-//                                        break;
-//                                    }
-//                                }
-//                            }
-//                        } else {
-//                            w.setPadColor(toggleButtonIds[i[0]], R.color.grey, a);
-//                            toggleSoundId = 0;
-//                            clearDeck();
-//                            sound.soundAllStop();
-//                        }
-//                    }
-//                }, new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (toggleButtonBool[i[0]] == false) {
-//                            for (int j = 0; j < 4; j++) {
-//                                if (j != i[0]) {
-//                                    toggleButtonBool[j] = false;
-//                                } else {
-//                                    toggleButtonBool[j] = true;
-//                                }
-//                            }
-//                        } else {
-//                            toggleButtonBool[i[0]] = false;
-//                        }
-//                    }
-//                }, a);
-//            } else {
-//                w.setOnTouch(toggleButtonIds[i[0]], new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (toggleButtonBool[i[0]] == false) {
-//                            togglePatternId = i[0] - 4 + 1;
-//                            if (tgl1 || tgl2 || tgl3 || tgl4) {
-//                                sound.setButtonTogglePattern(toggleSoundId, color, togglePatternId, a);
-//                            }
-//
-//                            for (int j = 4; j < 8; j++) {
-//                                if (i[0] == j) {
-//                                    // highlight current deck
-//                                    w.setViewBackgroundColor(toggleButtonIds[j], color_id, a);
-//                                } else {
-//                                    // disable all other decks
-//                                    w.setViewBackgroundColor(toggleButtonIds[j], R.color.grey, a);
-//                                }
-//                            }
-//                        } else {
-//                            w.setViewBackgroundColor(toggleButtonIds[i[0]], R.color.grey, a);
-//                            togglePatternId = 0;
-//                            if (tgl1 || tgl2 || tgl3 || tgl4) {
-//                                sound.setButtonToggle(toggleSoundId, color, a);
-//                            }
-//                        }
-//                    }
-//                }, new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (toggleButtonBool[i[0]] == false) {
-//                            for (int j = 4; j < 8; j++) {
-//                                if (j != i[0]) {
-//                                    toggleButtonBool[j] = false;
-//                                } else {
-//                                    toggleButtonBool[j] = true;
-//                                }
-//                            }
-//                        } else {
-//                            toggleButtonBool[i[0]] = false;
-//                        }
-//                    }
-//                }, a);
-//            }
-//        }
 
         // 1 - 4
         w.setOnTouch(R.id.tgl1, new Runnable() {
