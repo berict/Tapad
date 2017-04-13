@@ -103,7 +103,7 @@ public class WindowService {
         SharedPreferences sharedPreferences = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
         navigationHeight = sharedPreferences.getInt("navBarPX", 144);
         
-        if (navigationHeight >= 540 || navigationHeight <= 0) {
+        if (navigationHeight >= 540 || navigationHeight < 0) {
             // something gone wrong
             navigationHeight = 144;
         }
@@ -154,7 +154,7 @@ public class WindowService {
         SharedPreferences sharedPreferences = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
         statusHeight = sharedPreferences.getInt("statBarPX", 144);
 
-        if (statusHeight >= 240 || statusHeight <= 0) {
+        if (statusHeight >= 240 || statusHeight < 0) {
             // something gone wrong
             statusHeight = 72;
         }

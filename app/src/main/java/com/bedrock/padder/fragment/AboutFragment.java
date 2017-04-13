@@ -25,6 +25,8 @@ import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.bedrock.padder.activity.MainActivity.coord;
+import static com.bedrock.padder.activity.MainActivity.setSettingVisible;
 import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
 
 public class AboutFragment extends Fragment {
@@ -104,8 +106,6 @@ public class AboutFragment extends Fragment {
         a = getActivity();
     }
 
-    private int coord[] = {0, 0};
-
     private void setSchemeInfo() {
         Preset currentPreset = getCurrentPreset();
         Log.d("currentPreset", "NAME : " + currentPreset.getAbout().getTitle(a));
@@ -166,8 +166,8 @@ public class AboutFragment extends Fragment {
         w.getView(R.id.cardview_about_settings, v).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                coord[0] = (int) event.getRawX();
-                coord[1] = (int) event.getRawY();
+                coord[2] = (int) event.getRawX();
+                coord[3] = (int) event.getRawY();
 
                 return false;
             }
@@ -178,8 +178,8 @@ public class AboutFragment extends Fragment {
             public void onClick(View view) {
                 w.setRecentColor(R.string.settings, 0, R.color.colorAccent, a);
                 anim.circularRevealinpx(R.id.placeholder,
-                        coord[0], coord[1],
-                        0, (int) Math.hypot(coord[0], coord[1]) + 200, new AccelerateDecelerateInterpolator(),
+                        coord[2], coord[3],
+                        0, (int) Math.hypot(coord[2], coord[3]) + 200, new AccelerateDecelerateInterpolator(),
                         circularRevealDuration, 0, a);
 
                 Handler about = new Handler();
@@ -187,12 +187,11 @@ public class AboutFragment extends Fragment {
                     @Override
                     public void run() {
                         w.getView(R.id.fragment_settings_container, a).setVisibility(View.VISIBLE);
+                        setSettingVisible(true);
                     }
                 }, circularRevealDuration);
 
                 anim.fadeOut(R.id.placeholder, circularRevealDuration, fadeAnimDuration, a);
-
-                main.setSettingVisible(true);
             }
         });
 

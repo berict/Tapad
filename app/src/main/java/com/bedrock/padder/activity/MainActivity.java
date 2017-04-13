@@ -97,10 +97,10 @@ public class MainActivity
     private AdmobService ad = new AdmobService();
 
     private boolean isToolbarVisible = false;
-    private boolean isAboutVisible = false;
     private boolean isPresetVisible = false;
-    private boolean isSettingVisible = false;
     private boolean isTutorialVisible = false;
+    public static boolean isAboutVisible = false;
+    public static boolean isSettingVisible = false;
 
     private int circularRevealDuration = 400;
     private int fadeAnimDuration = 200;
@@ -126,7 +126,7 @@ public class MainActivity
 
     // Used for circularReveal
     // End two is for settings coordination
-    private int coord[] = {0, 0, 0, 0};
+    public static int coord[] = {0, 0, 0, 0};
 
     public static void largeLog(String tag, String content) {
         if (content.length() > 4000) {
@@ -233,6 +233,7 @@ public class MainActivity
         clearDeck();
 
         // TODO REMOVE (intent)
+        //checkVisible();
         w.setOnClick(R.id.testFeedbackIntentSong, new Runnable() {
             @Override
             public void run() {
@@ -265,31 +266,30 @@ public class MainActivity
         // used for fragments
     }
 
+//    Runnable test = new Runnable() {
+//        @Override
+//        public void run() {
+//            Log.i("BackPressed", "isAboutVisible " + String.valueOf(isAboutVisible));
+//            Log.i("BackPressed", "isSettingVisible " + String.valueOf(isSettingVisible));
+//            checkVisible();
+//        }
+//    };
+//
+//    Handler handler = new Handler();
+//
+//    private void checkVisible() {
+//        handler.postDelayed(test, 100);
+//    }
+
     @Override
     public void onBackPressed() {
+        Log.i("BackPressed", "isAboutVisible " + String.valueOf(isAboutVisible));
+        Log.i("BackPressed", "isSettingVisible " + String.valueOf(isSettingVisible));
         if (isToolbarVisible == true) {
-            if ((prefs.getInt(qs, 0) != -1) && isAboutVisible == false && isSettingVisible == false) {
+            if (prefs.getInt(qs, 0) > 0 && isAboutVisible == false && isSettingVisible == false) {
+                Log.i("BackPressed", String.valueOf(prefs.getInt(qs, 0)));
                 Log.i("BackPressed", "Quickstart tap target prompt is visible, backpress ignored.");
             } else {
-//                if (isAboutVisible == true) {
-//                    Log.d("BackPressed", "about is visible");
-//                    if (isSettingVisible == true) {
-//                        Log.d("BackPressed", "setting is visible");
-//                        Log.d("BackPressed", "close settings");
-//                        closeSettings();
-//                    } else {
-//                        Log.d("BackPressed", "setting isn't visible");
-//                        Log.d("BackPressed", "close about");
-//                        closeAbout();
-//                    }
-//                } else if (isSettingVisible == true) {
-//                    Log.d("BackPressed", "close settings");
-//                    closeSettings();
-//                } else {
-//                    Log.d("BackPressed", "close toolbar");
-//                    closeToolbar(a);
-//                }
-
                 // new structure
                 if (isAboutVisible && isSettingVisible) {
                     // Setting is visible above about
@@ -306,7 +306,7 @@ public class MainActivity
                 }
             }
         } else {
-            if (prefs.getInt(qs, 0) != -1) {
+            if (prefs.getInt(qs, 0) > 0) {
                 Log.i("BackPressed", "Tutorial prompt is visible, backpress ignored.");
             } else {
                 Log.d("BackPressed", "Down");
@@ -502,7 +502,7 @@ public class MainActivity
         anim.fadeIn(R.id.actionbar_layout, 0, 200, "background", a);
         anim.fadeIn(R.id.actionbar_image, 200, 200, "image", a);
         //TODO: Remove this to not load preset
-        loadPreset(400);
+        //loadPreset(400);
         isPresetLoading = true;
     }
 
@@ -2502,12 +2502,12 @@ public class MainActivity
 //        largeLog("berictAboutJSON", gson.toJson(berictAbout));
     }
 
-    public void setSettingVisible(boolean isVisible) {
+    public static void setSettingVisible(boolean isVisible) {
         isSettingVisible = isVisible;
         Log.d("SettingVisible", String.valueOf(isSettingVisible));
     }
 
-    public void setAboutVisible(boolean isVisible) {
+    public static void setAboutVisible(boolean isVisible) {
         isAboutVisible = isVisible;
         Log.d("AboutVisible", String.valueOf(isAboutVisible));
     }
