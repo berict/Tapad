@@ -119,15 +119,19 @@
         You can view the changelog dialog again at any time from the <b><i>about</i></b> section.\n\n
 
 		<b>Version 2.2 Alpha 2</b>\n\n
-
-		1.	<b>NEW:</b> Square (1:1 ratio) album arts \n
-		2.	<b>NEW:</b> Added preset loading status \n
-		3.	<b>NEW:</b> Song details updated \n
-		4.	<b>IMPROVEMENT:</b> Tutorial mode removed \n
-		5.	<b>IMPROVEMENT:</b> Changelog updated \n
-		6.	<b>FIX:</b> Updated corrupted sound clips \n
-		7.	<b>FIX:</b> Artist details updates \n
-		8.	<b>FIX:</b> Crashing on selecting Tapad / Developer details \n\n
+		
+		1.	<b>NEW</b>: Added preset loading status \n
+		2.	<b>NEW</b>: Song details updated \n
+		3.	<b>NEW</b>: Color customization updated \n
+		4.	<b>IMPROVEMENT</b>: Tutorial mode renewed \n
+		5.	<b>IMPROVEMENT</b>: Changelog updated \n
+		6.	<b>IMPROVEMENT</b>: Light mode updated \n
+		7.	<b>IMPROVEMENT</b>: Tutorial updated \n
+		8.	<b>IMPROVEMENT</b>: Feedback UI updated \n
+		9.	<b>IMPROVEMENT</b>: Libraries updated \n
+		10.	<b>FIX</b>: Updated corrupted sound clips \n
+		11.	<b>FIX</b>: Artist details updates \n
+		12.	<b>FIX</b>: Crashing on selecting Tapad / Developer details \n\n
 
 		<b>Version 2.2 Alpha 1</b>\n\n
 
