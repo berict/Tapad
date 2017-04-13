@@ -52,6 +52,7 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
     }
 
     private String getJson(int color) {
+        
         return "";
     }
 }
