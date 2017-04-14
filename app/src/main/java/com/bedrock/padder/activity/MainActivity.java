@@ -75,7 +75,8 @@ public class MainActivity
 
     int currentVersionCode;
     int themeColor = R.color.hello;
-    int color = R.color.red;
+    // TODO color
+    int color = R.color.cyan_400;
     boolean doubleBackToExitPressedOnce = false;
 
     MaterialDialog ChangelogDialog;
@@ -229,7 +230,9 @@ public class MainActivity
         w.setMarginRelativePX(R.id.toolbar, 0, 0, 0, w.getNavigationBarFromPrefs(a), a);
         ab.setStatusHeight(a);
 
-        color = prefs.getInt("color", R.color.red);
+        // TODO color
+        color = prefs.getInt("color", R.color.cyan_400);
+        color = R.color.cyan_400;
         clearDeck();
 
         // TODO REMOVE (intent)

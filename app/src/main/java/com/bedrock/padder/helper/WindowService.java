@@ -1256,7 +1256,7 @@ public class WindowService {
 //        }
 //    }
 
-    void setButtonPattern(int patternScheme[][][], int btnId, int colorDown, int colorUp, Activity activity) {
+    private void setButtonPattern(int patternScheme[][][], int btnId, int colorDown, int colorUp, Activity activity) {
         for (int i = 0; i < patternScheme[btnId].length; i++) {
             for (int j = 0; j < patternScheme[btnId][i].length; j++) {
                 try {
@@ -1277,7 +1277,7 @@ public class WindowService {
         }
     }
 
-    void setButtonPatternDefault(int patternScheme[][][], int btnId, int colorUp, Activity activity) {
+    private void setButtonPatternDefault(int patternScheme[][][], int btnId, int colorUp, Activity activity) {
         for (int i = 0; i < patternScheme[btnId].length; i++) {
             for (int j = 0; j < patternScheme[btnId][i].length; j++) {
                 try {
@@ -1290,7 +1290,7 @@ public class WindowService {
         }
     }
 
-    int getBlendColor(int color0, int color1, float blendPercent) {
+    private int getBlendColor(int color0, int color1, float blendPercent) {
         String colorString0 = String.format("#%06X", (0xFFFFFF & color0));
         Log.d("color0", colorString0);
         String colorString1 = String.format("#%06X", (0xFFFFFF & color1));
@@ -1340,7 +1340,7 @@ public class WindowService {
         return hexString;
     }
 
-    void setSoundPoolDelay(final SoundPool sp, final int soundId[], final int count, final int delay) {
+    private void setSoundPoolDelay(final SoundPool sp, final int soundId[], final int count, final int delay) {
         Handler delayHandler = new Handler();
         delayHandler.postDelayed(new Runnable() {
             @Override
