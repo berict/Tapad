@@ -26,7 +26,7 @@ import com.google.gson.Gson;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.bedrock.padder.activity.MainActivity.coord;
-import static com.bedrock.padder.activity.MainActivity.setSettingVisible;
+import static com.bedrock.padder.activity.MainActivity.showSettingsFragment;
 import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
 
 public class AboutFragment extends Fragment {
@@ -110,7 +110,6 @@ public class AboutFragment extends Fragment {
         Preset currentPreset = getCurrentPreset();
         Log.d("currentPreset", "NAME : " + currentPreset.getAbout().getTitle(a));
         themeColor = currentPreset.getAbout().getActionbarColor();
-        w.setRecentColor(R.string.about, 0, themeColor, a);
 
         ab.setNav(1, null, a, v);
         ab.setColor(themeColor, a, v);
@@ -176,7 +175,6 @@ public class AboutFragment extends Fragment {
         w.getView(R.id.cardview_about_settings, v).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                w.setRecentColor(R.string.settings, 0, R.color.colorAccent, a);
                 anim.circularRevealinpx(R.id.placeholder,
                         coord[2], coord[3],
                         0, (int) Math.hypot(coord[2], coord[3]) + 200, new AccelerateDecelerateInterpolator(),
@@ -186,8 +184,7 @@ public class AboutFragment extends Fragment {
                 about.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        w.getView(R.id.fragment_settings_container, a).setVisibility(View.VISIBLE);
-                        setSettingVisible(true);
+                        showSettingsFragment(a);
                     }
                 }, circularRevealDuration);
 

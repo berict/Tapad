@@ -232,7 +232,7 @@ public class MainActivity
 
         // TODO color
         color = prefs.getInt("color", R.color.cyan_400);
-        color = R.color.cyan_400;
+        color = R.color.deep_orange_400;
         clearDeck();
 
         // TODO REMOVE (intent)
@@ -440,12 +440,26 @@ public class MainActivity
                 .commit();
     }
 
+    public static void showAboutFragment(int themeColor, Activity a) {
+        WindowService w = new WindowService();
+        w.getView(R.id.fragment_about_container, a).setVisibility(View.VISIBLE);
+        setAboutVisible(true);
+        w.setRecentColor(R.string.about, 0, themeColor, a);
+    }
+
     private void setSettingsFragment() {
         SettingsFragment settingsFragment = new SettingsFragment();
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_settings_container, settingsFragment)
                 .commit();
+    }
+
+    public static void showSettingsFragment(Activity a) {
+        WindowService w = new WindowService();
+        w.getView(R.id.fragment_settings_container, a).setVisibility(View.VISIBLE);
+        setSettingVisible(true);
+        w.setRecentColor(R.string.settings, 0, R.color.colorAccent, a);
     }
 
     // TODO iap launch
@@ -1124,13 +1138,11 @@ public class MainActivity
                 about.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        w.getView(R.id.fragment_about_container, a).setVisibility(View.VISIBLE);
+                        showAboutFragment(themeColor, a);
                     }
                 }, circularRevealDuration);
 
                 anim.fadeOut(R.id.placeholder, circularRevealDuration, fadeAnimDuration, a);
-
-                setAboutVisible(true);
             }
         });
 
@@ -1207,13 +1219,11 @@ public class MainActivity
                 about.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        w.getView(R.id.fragment_settings_container, a).setVisibility(View.VISIBLE);
+                        showSettingsFragment(a);
                     }
                 }, circularRevealDuration);
 
                 anim.fadeOut(R.id.placeholder, circularRevealDuration, fadeAnimDuration, a);
-
-                setSettingVisible(true);
             }
         });
     }
@@ -1359,7 +1369,12 @@ public class MainActivity
         closeSettings.postDelayed(new Runnable() {
             @Override
             public void run() {
-                setSchemeInfo();
+                if (isAboutVisible) {
+                    // about visible set taskdesc
+                    w.setRecentColor(R.string.about, 0, themeColor, a);
+                } else {
+                    setSchemeInfo();
+                }
                 w.getView(R.id.fragment_settings_container, a).setVisibility(View.GONE);
             }
         }, fadeAnimDuration);

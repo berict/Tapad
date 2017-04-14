@@ -80,11 +80,8 @@ public class SettingsFragment extends Fragment {
         prefs = a.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
     }
 
-    private int coord[] = {0, 0};
-
     private void setSchemeInfo() {
         Preset currentPreset = getCurrentPreset();
-        w.setRecentColor(R.string.settings, 0, R.color.colorAccent, a);
 
         ab.setNav(1, null, a, v);
         ab.setColor(R.color.colorAccent, a, v);
