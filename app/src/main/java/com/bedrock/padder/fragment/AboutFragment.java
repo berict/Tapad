@@ -111,7 +111,7 @@ public class AboutFragment extends Fragment {
         Log.d("currentPreset", "NAME : " + currentPreset.getAbout().getTitle(a));
         themeColor = currentPreset.getAbout().getActionbarColor();
 
-        ab.setNav(1, null, a, v);
+        ab.setNav(3, null, a, v);
         ab.setColor(themeColor, a, v);
         ab.setTitle(R.string.about, a, v);
 

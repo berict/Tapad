@@ -13,6 +13,8 @@
 	<string name="confirm_got_it">Got It</string>
 	<string name="explore_ac">EXPLORE</string>
 	<string name="change_ac">CHANGE</string>
+	<string name="make_primary_ac">MAKE PRIMARY</string>
+	<string name="delete_ac">DELETE</string>
 	<string name="settings_ac">SETTINGS</string>
 	<string name="confirm_got_it_ac">GOT IT</string>
 	<string name="confirm_exit">Press back again to exit</string>

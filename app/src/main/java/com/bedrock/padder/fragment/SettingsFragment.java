@@ -83,7 +83,7 @@ public class SettingsFragment extends Fragment {
     private void setSchemeInfo() {
         Preset currentPreset = getCurrentPreset();
 
-        ab.setNav(1, null, a, v);
+        ab.setNav(3, null, a, v);
         ab.setColor(R.color.colorAccent, a, v);
         ab.setTitle(R.string.settings, a, v);
 

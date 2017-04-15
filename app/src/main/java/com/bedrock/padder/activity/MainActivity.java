@@ -226,13 +226,13 @@ public class MainActivity
         w.setStatusBar(R.color.transparent, a);
         w.setNavigationBar(R.color.transparent, a);
 
-        w.setMarginRelativePX(R.id.fab, 0, 0, w.convertDPtoPX(20, a), w.getNavigationBarFromPrefs(a) + w.convertDPtoPX(20, a), a);
-        w.setMarginRelativePX(R.id.toolbar, 0, 0, 0, w.getNavigationBarFromPrefs(a), a);
         ab.setStatusHeight(a);
 
         // TODO color
         color = prefs.getInt("color", R.color.cyan_400);
-        color = R.color.deep_orange_400;
+        if (color == R.color.cyan_400) {
+            prefs.edit().putInt("color", R.color.cyan_400).apply();
+        }
         clearDeck();
 
         // TODO REMOVE (intent)
@@ -1107,9 +1107,15 @@ public class MainActivity
                 }
             }
         });
+
+        // set bottom margin
+        w.setMarginRelativePX(R.id.fab, 0, 0, w.convertDPtoPX(20, a), w.getNavigationBarFromPrefs(a) + w.convertDPtoPX(20, a), a);
     }
 
     void setToolbar() {
+        // set bottom margin
+        w.setMarginRelativePX(R.id.toolbar, 0, 0, 0, w.getNavigationBarFromPrefs(a), a);
+
         View info = findViewById(R.id.toolbar_info);
         View tutorial = findViewById(R.id.toolbar_tutorial);
         View preset = findViewById(R.id.toolbar_preset);

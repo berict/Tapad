@@ -1,44 +1,43 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/layout_color"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <android.support.v7.widget.CardView
+				xmlns:app="http://schemas.android.com/apk/res-auto"
+				android:id="@+id/layout_color"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+	
+	<android.support.v7.widget.CardView
 		android:id="@+id/layout_color_cardview"
-		android:layout_width="match_parent"
+		android:layout_width="360dp"
 		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
 		app:cardBackgroundColor="@color/white"
 		app:cardCornerRadius="4dp"
 		app:cardElevation="4dp"
-		app:cardUseCompatPadding="true"
-		android:layout_alignParentTop="true"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentStart="true">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/layout_color_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-				android:textSize="18sp"
-                android:text="#000000"
-                android:textColor="@color/dark_primary" />
-
-            <View
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/dark_divider" />
-            
-            <LinearLayout
+		app:cardUseCompatPadding="true">
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+			
+			<TextView
+				android:id="@+id/layout_color_title"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="16dp"
+				android:text="#000000"
+				android:textColor="@color/dark_primary"
+				android:textSize="18sp"/>
+			
+			<View
+				android:id="@+id/divider"
 				android:layout_width="match_parent"
-				android:layout_height="160dp"
+				android:layout_height="1dp"
+				android:background="@color/dark_divider"/>
+			
+			<LinearLayout
+				android:id="@+id/layout_color_palette"
+				android:layout_width="match_parent"
+				android:layout_height="200dp"
 				android:orientation="horizontal"
 				android:weightSum="4">
 				
@@ -48,21 +47,21 @@
 					android:layout_height="match_parent"
 					android:layout_weight="1"
 					android:background="@color/blue_500"/>
-	
+				
 				<View
 					android:id="@+id/view_color_2"
 					android:layout_width="0dp"
 					android:layout_height="match_parent"
 					android:layout_weight="1"
 					android:background="@color/blue_400"/>
-	
+				
 				<View
 					android:id="@+id/view_color_3"
 					android:layout_width="0dp"
 					android:layout_height="match_parent"
 					android:layout_weight="1"
 					android:background="@color/blue_300"/>
-	
+				
 				<View
 					android:id="@+id/view_color_4"
 					android:layout_width="0dp"
@@ -70,9 +69,40 @@
 					android:layout_weight="1"
 					android:background="@color/blue_200"/>
 			</LinearLayout>
-
-			<!-- TODO add function buttons -->
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+			
+			<LinearLayout
+				android:id="@+id/layout_color_action"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="left"
+				android:orientation="vertical"
+				android:padding="8dp">
+				
+				<TextView
+					android:id="@+id/layout_color_action_primary"
+					style="@style/ButtonText"
+					android:layout_width="match_parent"
+					android:layout_height="36dp"
+					android:background="?selectableItemBackground"
+					android:clickable="true"
+					android:gravity="center_vertical"
+					android:padding="8dp"
+					android:text="@string/make_primary_ac"
+					android:textColor="@color/dark_primary"/>
+				
+				<TextView
+					android:id="@+id/cardview_about_settings_delete"
+					style="@style/ButtonText"
+					android:layout_width="match_parent"
+					android:layout_height="36dp"
+					android:background="?selectableItemBackground"
+					android:clickable="true"
+					android:gravity="center_vertical"
+					android:padding="8dp"
+					android:text="@string/delete_ac"
+					android:textColor="@color/red"/>
+			</LinearLayout>
+		</LinearLayout>
+	</android.support.v7.widget.CardView>
 
 </RelativeLayout>

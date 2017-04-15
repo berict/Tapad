@@ -6,12 +6,8 @@
 	android:layout_height="match_parent"
 	tools:context="com.bedrock.padder.activity.ColorActivity">
 	
-	<Button
-		android:id="@+id/kek"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="KEK"
-		android:layout_centerInParent="true"
-		android:onClick="kek"/>
+	<include layout="@layout/fragment_fab"/>
+	
+	<include layout="@layout/fragment_actionbar"/>
 
 </RelativeLayout>

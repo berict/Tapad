@@ -10,25 +10,20 @@ import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
-import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.bedrock.padder.R;
 
-import static android.R.attr.tag;
-
 public class FabService {
-    ImageView image;
-    RelativeLayout layout;
-    RelativeLayout button;
+    private ImageView image;
+    private RelativeLayout layout;
+    private RelativeLayout button;
 
-    AnimService anim = new AnimService();
-    WindowService window = new WindowService();
-    ThemeService theme = new ThemeService();
+    private AnimService anim = new AnimService();
+    private WindowService window = new WindowService();
 
     Activity activity;
 
@@ -261,6 +256,14 @@ public class FabService {
         } catch (NullPointerException e) {
             Log.i("Fab", e.getMessage() + "No matching view found on current activity layout. Make sure to call setFab.");
         }
+    }
+
+    public void setImage(int imageId) {
+        image.setImageResource(imageId);
+    }
+
+    public void setButtonColor(int colorId) {
+        button.setBackgroundColor(colorId);
     }
 
     public void move() {

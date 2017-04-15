@@ -9,24 +9,24 @@ import android.widget.LinearLayout;
 import com.bedrock.padder.R;
 
 public class AppbarService {
-    public static int LAYOUT        = R.id.actionbar_layout;
-    public static int STATUS        = R.id.statusbar;
-    public static int STATUS_LAYOUT = R.id.statusbar_layout;
-    public static int NAV_LAYOUT    = R.id.actionbar_nav_layout;
-    public static int NAV           = R.id.actionbar_nav;
-    public static int NAV_BACK      = R.id.actionbar_nav_icon_back;
-    public static int NAV_NAV       = R.id.actionbar_nav_icon_nav;
-    public static int NAV_CLOSE     = R.id.actionbar_nav_icon_close;
-    public static int IMAGE         = R.id.actionbar_image;
-    public static int TITLE         = R.id.actionbar_title;
-    public static int ACTION        = R.id.actionbar_action_layout;
-    public static int MENU          = R.id.actionbar_menu;
-    public static int MENU_ICON     = R.id.actionbar_menu_icon;
-    public static int ACTION_1      = R.id.actionbar_action_1;
-    public static int ACTION_1_ICON = R.id.actionbar_action_1_icon;
-    public static int ACTION_2      = R.id.actionbar_action_2;
-    public static int ACTION_2_ICON = R.id.actionbar_action_2_icon;
-    public static int ACTION_TEXT   = R.id.actionbar_action_text;
+    private static int LAYOUT        = R.id.actionbar_layout;
+    private static int STATUS        = R.id.statusbar;
+    private static int STATUS_LAYOUT = R.id.statusbar_layout;
+    private static int NAV_LAYOUT    = R.id.actionbar_nav_layout;
+    private static int NAV           = R.id.actionbar_nav;
+    private static int NAV_BACK      = R.id.actionbar_nav_icon_back;
+    private static int NAV_NAV       = R.id.actionbar_nav_icon_nav;
+    private static int NAV_CLOSE     = R.id.actionbar_nav_icon_close;
+    private static int IMAGE         = R.id.actionbar_image;
+    private static int TITLE         = R.id.actionbar_title;
+    private static int ACTION        = R.id.actionbar_action_layout;
+    private static int MENU          = R.id.actionbar_menu;
+    private static int MENU_ICON     = R.id.actionbar_menu_icon;
+    private static int ACTION_1      = R.id.actionbar_action_1;
+    private static int ACTION_1_ICON = R.id.actionbar_action_1_icon;
+    private static int ACTION_2      = R.id.actionbar_action_2;
+    private static int ACTION_2_ICON = R.id.actionbar_action_2_icon;
+    private static int ACTION_TEXT   = R.id.actionbar_action_text;
 
     private WindowService w = new WindowService();
 

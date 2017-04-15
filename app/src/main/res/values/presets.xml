@@ -109,10 +109,10 @@
         If you have any questions about these Terms, please contact us to <b><i>berict.bedrock@gmail.com</i></b>.</string>
 	<string name="info_tapad_info_version"          >Tapad version</string>
 	<!-- TODO RELEASE -->
-	<string name="info_tapad_info_version_hint"     >2.2 Alpha 2</string>
+	<string name="info_tapad_info_version_hint"     >2.2 Alpha 3</string>
 	<string name="info_tapad_info_build_date"       >Build date</string>
 	<!-- TODO RELEASE -->
-	<string name="info_tapad_info_build_date_hint"  >Wed Mar 1 01:08:14 KST 2017</string>
+	<string name="info_tapad_info_build_date_hint"  >Wed Apr 15 16:24:12 KST 2017</string>
 	<string name="info_tapad_info_changelog"        >Changelog</string>
 	<!-- TODO RELEASE -->
 	<string name="info_tapad_info_changelog_text"   >

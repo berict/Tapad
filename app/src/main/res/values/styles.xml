@@ -9,6 +9,11 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground">@color/white</item>
     </style>
+	
+	<style name="ButtonText" parent="@android:style/TextAppearance.Medium">
+		<item name="android:textSize">14sp</item>
+		<item name="android:textAllCaps">true</item>
+	</style>
 
     <style name="expandedappbar" parent="@android:style/TextAppearance.Medium">
         <item name="android:textSize">28sp</item>

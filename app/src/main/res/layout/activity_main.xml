@@ -85,48 +85,4 @@
 		android:layout_height="match_parent"
 		android:background="@color/colorAccent"
 		android:visibility="gone"/>
-	
-	<LinearLayout
-		android:layout_width="100dp"
-		android:layout_height="wrap_content"
-		android:layout_alignParentRight="true"
-		android:layout_alignParentTop="true"
-		android:orientation="vertical"
-		android:visibility="gone">
-		
-		<TextView
-			android:id="@+id/testFeedbackIntentSong"
-			android:layout_width="match_parent"
-			android:layout_height="40dp"
-			android:background="@color/amber"
-			android:gravity="center"
-			android:visibility="gone"
-			android:text="song"/>
-		
-		<TextView
-			android:id="@+id/testFeedbackIntentFeedback"
-			android:layout_width="match_parent"
-			android:layout_height="40dp"
-			android:background="@color/blue"
-			android:gravity="center"
-			android:visibility="gone"
-			android:text="feedback"/>
-		
-		<TextView
-			android:id="@+id/testFeedbackIntentBug"
-			android:layout_width="match_parent"
-			android:layout_height="40dp"
-			android:background="@color/green"
-			android:gravity="center"
-			android:visibility="gone"
-			android:text="bug"/>
-		
-		<TextView
-			android:id="@+id/testAboutFragment"
-			android:layout_width="match_parent"
-			android:layout_height="40dp"
-			android:background="@color/red"
-			android:gravity="center"
-			android:text="aboutFrag"/>
-	</LinearLayout>
 </RelativeLayout>
