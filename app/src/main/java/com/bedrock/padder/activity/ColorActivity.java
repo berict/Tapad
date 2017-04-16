@@ -2,16 +2,23 @@ package com.bedrock.padder.activity;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
+import android.view.View;
 
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.bedrock.padder.R;
+import com.bedrock.padder.adapter.ColorAdapter;
 import com.bedrock.padder.helper.AppbarService;
 import com.bedrock.padder.helper.FabService;
 import com.bedrock.padder.helper.WindowService;
+import com.bedrock.padder.model.app.theme.ColorData;
+import com.google.gson.Gson;
 
 import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
 
@@ -23,6 +30,9 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
 
     Activity activity = this;
     SharedPreferences prefs = null;
+    ColorData colorData = null;
+    Gson gson = new Gson();
+    int color;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,17 +41,24 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
 
         prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
 
-        setFab();
-        setAppBar();
-
         // Set transparent nav bar
         w.setStatusBar(R.color.transparent, activity);
         w.setNavigationBar(R.color.transparent, activity);
 
         ab.setStatusHeight(activity);
+        color = prefs.getInt("color", R.color.cyan_400);
+
+        setUi();
     }
 
-    private void setFab() {
+    private void setUi() {
+        // appbar
+        ab.setNav(1, null, activity);
+        ab.setTitle(R.string.task_settings_color, activity);
+        ab.setColor(R.color.colorAccent, activity);
+        w.setRecentColor(R.string.task_settings_color, 0, R.color.colorAccent, activity);
+
+        // fab
         fab.setFab(activity);
         fab.show();
         fab.setImage(R.drawable.icon_add);
@@ -52,24 +69,67 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
             }
         });
 
-        // set bottom margin
-        w.setMarginRelativePX(R.id.fab, 0, 0,
-                w.convertDPtoPX(20, activity),
-                w.getNavigationBarFromPrefs(activity) + w.convertDPtoPX(20, activity),
-                activity);
-    }
+        String colorDataJson = prefs.getString("colorData", null);
+        Log.i("ColorData", colorDataJson);
 
-    private void setAppBar() {
-        ab.setNav(1, null, activity);
-        ab.setTitle(R.string.task_settings_color, activity);
-        ab.setColor(R.color.colorAccent, activity);
-        w.setRecentColor(R.string.task_settings_color, 0, R.color.colorAccent, activity);
+        ColorData colorData = gson.fromJson(colorDataJson, ColorData.class);
+        Log.i("ColorData", colorDataJson);
+
+        // todo edit this
+        colorData.addColorButtonFavorite(R.color.green);
+        colorData.addColorButtonFavorite(R.color.blue);
+        colorData.addColorButtonFavorite(R.color.red);
+        colorData.addColorButtonFavorite(R.color.yellow);
+
+        // adapter
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        w.getRecyclerView(R.id.layout_color_recyclerview, activity).setLayoutManager(layoutManager);
+        w.getRecyclerView(R.id.layout_color_recyclerview, activity).setNestedScrollingEnabled(false);
+        w.getRecyclerView(R.id.layout_color_recyclerview, activity).setAdapter(
+                new ColorAdapter(
+                        colorData.getColorButtonFavorites(),
+                        R.layout.adapter_color,
+                        getApplicationContext(),
+                        activity)
+        );
+
+        // adapter margin
+        w.setMarginLinearPX(R.id.color_bottom_margin, 0, 0, 0, w.getNavigationBarFromPrefs(activity), activity);
+
+        // set primary color
+        View colorView[] = {
+                findViewById(R.id.view_color_1),
+                findViewById(R.id.view_color_2),
+                findViewById(R.id.view_color_3),
+                findViewById(R.id.view_color_4)
+        };
+
+        for (int i = 0; i < 4; i++) {
+            try {
+                colorView[i].setBackgroundColor(
+                        w.getBlendColor(
+                                activity.getResources().getColor(color),
+                                activity.getResources().getColor(R.color.grey),
+                                (0.8f - (0.3f * i))
+                        )
+                );
+            } catch (Resources.NotFoundException e) {
+                colorView[i].setBackgroundColor(
+                        w.getBlendColor(
+                                color,
+                                activity.getResources().getColor(R.color.grey),
+                                (0.8f - (0.3f * i))
+                        )
+                );
+            }
+        }
     }
 
     private void showColorChooserDialog() {
-        new ColorChooserDialog.Builder(this, R.string.dialog_color)
+        new ColorChooserDialog.Builder(this, R.string.settings_color_dialog)
                 .accentMode(false)
-                .titleSub(R.string.dialog_color)
+                .titleSub(R.string.settings_color_dialog)
                 .doneButton(R.string.md_done_label)
                 .cancelButton(R.string.md_cancel_label)
                 .backButton(R.string.md_back_label)
@@ -79,10 +139,10 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
 
     @Override
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int colorInt) {
-        getJson(colorInt);
+        //getJson(colorInt);
     }
 
-    private String getJson(int color) {
+    private String getJson() {
 
         return "";
     }

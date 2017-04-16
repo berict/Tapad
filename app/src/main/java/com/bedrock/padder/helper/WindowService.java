@@ -1275,7 +1275,9 @@ public class WindowService {
                                 getBlendColor(
                                         colorDown,
                                         activity.getResources().getColor(colorUp),
-                                        (0.8f - (0.3f * i))));
+                                        (0.8f - (0.3f * i))
+                                )
+                        );
                     }
                 }
             }
@@ -1297,11 +1299,11 @@ public class WindowService {
         }
     }
 
-    private int getBlendColor(int color0, int color1, float blendPercent) {
+    public int getBlendColor(int color0, int color1, float blendPercent) {
         String colorString0 = String.format("#%06X", (0xFFFFFF & color0));
-        Log.d("color0", colorString0);
+        //Log.d("color0", colorString0);
         String colorString1 = String.format("#%06X", (0xFFFFFF & color1));
-        Log.d("color1", colorString1);
+        //Log.d("color1", colorString1);
 
         int r0 = Integer.parseInt(colorString0.substring(1, 3), 16);
         int g0 = Integer.parseInt(colorString0.substring(3, 5), 16);
@@ -1311,25 +1313,10 @@ public class WindowService {
         int g1 = Integer.parseInt(colorString1.substring(3, 5), 16);
         int b1 = Integer.parseInt(colorString1.substring(5, 7), 16);
 
-        //Log.d("r0", String.valueOf(r0));
-        //Log.d("g0", String.valueOf(g0));
-        //Log.d("b0", String.valueOf(b0));
-        //Log.d("r1", String.valueOf(r1));
-        //Log.d("g1", String.valueOf(g1));
-        //Log.d("b1", String.valueOf(b1));
-        //Log.d("r0", colorString0.substring(1, 3));
-        //Log.d("g0", colorString0.substring(3, 5));
-        //Log.d("b0", colorString0.substring(5, 7));
-        //Log.d("r1", colorString1.substring(1, 3));
-        //Log.d("g1", colorString1.substring(3, 5));
-        //Log.d("b1", colorString1.substring(5, 7));
-
         String blendColorHex = "#" +
                         getTwoDigitHexString(averageIntegerWithPercent(r0, r1, blendPercent)) +
                         getTwoDigitHexString(averageIntegerWithPercent(g0, g1, blendPercent)) +
                         getTwoDigitHexString(averageIntegerWithPercent(b0, b1, blendPercent));
-
-        //Log.d("Color", blendColorHex);
 
         return Color.parseColor(blendColorHex);
     }
@@ -1340,7 +1327,7 @@ public class WindowService {
 
     private String getTwoDigitHexString(int hexValue) {
         String hexString = Integer.toHexString(hexValue);
-        Log.d("hexStringCheck", hexString);
+        //Log.d("hexStringCheck", hexString);
         if (hexString.length() == 1) {
             hexString = "0" + hexString;
         }

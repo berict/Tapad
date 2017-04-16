@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fab"
-    android:layout_width="56dp"
-    android:layout_height="56dp"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentRight="true"
-    android:translationZ="0dp"
-    android:background="@drawable/fragment_fab">
-
-    <RelativeLayout
-        android:id="@+id/fab_button"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:clickable="true"
-        android:background="?selectableItemBackgroundBorderless"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-        <ImageView
-            android:id="@+id/fab_icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/icon_info"/>
-    </RelativeLayout>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/fab"
+	android:layout_width="56dp"
+	android:layout_height="56dp"
+	android:layout_alignParentBottom="true"
+	android:layout_alignParentRight="true"
+	android:background="@drawable/fragment_fab"
+	android:translationZ="0dp">
+	
+	<RelativeLayout
+		android:id="@+id/fab_button"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_centerInParent="true"
+		android:background="?selectableItemBackgroundBorderless"
+		android:clickable="true"
+		android:gravity="center">
+		
+		<ImageView
+			android:id="@+id/fab_icon"
+			android:layout_width="24dp"
+			android:layout_height="24dp"
+			android:src="@drawable/icon_info"/>
+	</RelativeLayout>
 </RelativeLayout>

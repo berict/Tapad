@@ -4,6 +4,8 @@ import android.util.Log;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import java.util.Arrays;
+
 public class ColorData {
 
     private Integer colorButton;
@@ -17,7 +19,17 @@ public class ColorData {
 
     public ColorData(Integer colorButton) {
         this.colorButton = colorButton;
-        this.colorButtonFavorite = null;
+        this.colorButtonFavorite = new Integer[0];
+    }
+
+    public void setColorButton(Integer colorButton) {
+        this.colorButton = colorButton;
+        Log.d("ColorData", "Successfully changed");
+        Log.d("ColorData", "Color : " + colorButton);
+    }
+
+    public void setColorButtonFavorite(Integer[] colorButtonFavorite) {
+        this.colorButtonFavorite = colorButtonFavorite;
     }
 
     public Integer getColorButton() {
@@ -39,8 +51,9 @@ public class ColorData {
     public void addColorButtonFavorite(Integer insertColor) {
         if (!ArrayUtils.contains(colorButtonFavorite, insertColor)) {
             // validated, no duplicates
-            ArrayUtils.add(colorButtonFavorite, insertColor);
+            colorButtonFavorite = ArrayUtils.add(colorButtonFavorite, insertColor);
             Log.d("ColorData", "Successfully inserted");
+            Log.d("ColorData", "Favorite : " + Arrays.deepToString(colorButtonFavorite));
         } else {
             // duplicate exists
             Log.e("ColorData", "Duplicate exists");
@@ -49,11 +62,12 @@ public class ColorData {
 
     public void removeColorButtonFavorite(Integer deleteColor) {
         if (ArrayUtils.contains(colorButtonFavorite, deleteColor)) {
-            // validated, no duplicates
-            ArrayUtils.removeElement(colorButtonFavorite, deleteColor);
+            // validated, value exists
+            colorButtonFavorite = ArrayUtils.removeElement(colorButtonFavorite, deleteColor);
             Log.d("ColorData", "Successfully deleted");
+            Log.d("ColorData", "Favorite : " + Arrays.deepToString(colorButtonFavorite));
         } else {
-            // duplicate exists
+            // value missing
             Log.e("ColorData", "Value doesn't exists");
         }
     }

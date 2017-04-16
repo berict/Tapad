@@ -119,9 +119,6 @@
 	<string name="dialog_feedback_fill_out">Please fill out the form</string>
 	<string name="dialog_feedback_select_email">Select email client to send with</string>
 	
-	<!-- Color Dialog -->
-	<string name="dialog_color">Button Color</string>
-	
 	<!-- Quickstart Dialog -->
 	<string name="dialog_quickstart_welcome_title">Welcome to Tapad!</string>
 	<string name="dialog_quickstart_welcome_text">Walk through how to use Tapad or tap \'Tips\' in Settings when you want this later.</string>
@@ -192,6 +189,10 @@
 	<string name="settings_group_interface">Interface</string>
 	
 	<string name="settings_color">Colors</string>
+	<string name="settings_color_current">Current color</string>
+	<string name="settings_color_dialog">Add new color</string>
+	<string name="settings_color_dialog_delete">Delete this color?</string>
+	
 	<string name="settings_layout">Button layout</string>
 	<string name="settings_layout_error">This feature is under development.</string>
 	<string name="settings_custom_touch">Custom touch pattern</string>

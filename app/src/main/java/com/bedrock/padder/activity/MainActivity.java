@@ -36,6 +36,7 @@ import com.bedrock.padder.model.about.About;
 import com.bedrock.padder.model.about.Bio;
 import com.bedrock.padder.model.about.Detail;
 import com.bedrock.padder.model.about.Item;
+import com.bedrock.padder.model.app.theme.ColorData;
 import com.bedrock.padder.model.preset.Deck;
 import com.bedrock.padder.model.preset.Music;
 import com.bedrock.padder.model.preset.Pad;
@@ -196,10 +197,25 @@ public class MainActivity
         // sharedPrefs
         Log.d(TAG, "Sharedprefs initialized");
         prefs = this.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
-        // for test
+
+        // for quickstart test
         //prefs.edit().putInt(qs, 0).apply();
+
         if (prefs.getBoolean("welcome", true)) {
             prefs.edit().putBoolean("welcome", false).apply();
+        }
+
+        color = prefs.getInt("color", R.color.cyan_400);
+        if (color == R.color.cyan_400) {
+            prefs.edit().putInt("color", R.color.cyan_400).apply();
+        }
+
+        if (prefs.getString("colorData", null) == null) {
+            // First run colorData json set
+            ColorData placeHolderColorData = new ColorData(color);
+            String colorDataJson = gson.toJson(placeHolderColorData);
+            prefs.edit().putString("colorData", colorDataJson).apply();
+            Log.d("ColorData pref", prefs.getString("colorData", null));
         }
 
         a.setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -225,12 +241,6 @@ public class MainActivity
         w.setNavigationBar(R.color.transparent, a);
 
         ab.setStatusHeight(a);
-
-        // TODO color
-        color = prefs.getInt("color", R.color.cyan_400);
-        if (color == R.color.cyan_400) {
-            prefs.edit().putInt("color", R.color.cyan_400).apply();
-        }
         clearDeck();
     }
 
@@ -490,7 +500,7 @@ public class MainActivity
         anim.fadeIn(R.id.actionbar_layout, 0, 200, "background", a);
         anim.fadeIn(R.id.actionbar_image, 200, 200, "image", a);
         //TODO: Remove this to not load preset
-        loadPreset(400);
+        //loadPreset(400);
         isPresetLoading = true;
     }
 
