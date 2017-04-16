@@ -22,6 +22,7 @@ import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.bedrock.padder.activity.MainActivity.isAboutVisible;
 import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
 
 public class SettingsFragment extends Fragment {
@@ -83,7 +84,11 @@ public class SettingsFragment extends Fragment {
     private void setSchemeInfo() {
         Preset currentPreset = getCurrentPreset();
 
-        ab.setNav(3, null, a, v);
+        if (isAboutVisible) {
+            ab.setNav(1, null, a, v);
+        } else {
+            ab.setNav(3, null, a, v);
+        }
         ab.setColor(R.color.colorAccent, a, v);
         ab.setTitle(R.string.settings, a, v);
 

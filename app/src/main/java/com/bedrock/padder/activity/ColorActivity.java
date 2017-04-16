@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.bedrock.padder.R;
+import com.bedrock.padder.helper.AppbarService;
 import com.bedrock.padder.helper.FabService;
 import com.bedrock.padder.helper.WindowService;
 
@@ -18,6 +19,7 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
 
     private WindowService w = new WindowService();
     private FabService fab = new FabService();
+    private AppbarService ab = new AppbarService();
 
     Activity activity = this;
     SharedPreferences prefs = null;
@@ -31,12 +33,17 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
 
         setFab();
         setAppBar();
+
+        // Set transparent nav bar
+        w.setStatusBar(R.color.transparent, activity);
+        w.setNavigationBar(R.color.transparent, activity);
+
+        ab.setStatusHeight(activity);
     }
 
     private void setFab() {
         fab.setFab(activity);
         fab.show();
-        fab.setButtonColor(R.color.colorPrimary);
         fab.setImage(R.drawable.icon_add);
         fab.onClick(new Runnable() {
             @Override
@@ -53,7 +60,10 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
     }
 
     private void setAppBar() {
-
+        ab.setNav(1, null, activity);
+        ab.setTitle(R.string.task_settings_color, activity);
+        ab.setColor(R.color.colorAccent, activity);
+        w.setRecentColor(R.string.task_settings_color, 0, R.color.colorAccent, activity);
     }
 
     private void showColorChooserDialog() {

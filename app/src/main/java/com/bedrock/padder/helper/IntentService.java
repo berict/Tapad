@@ -31,8 +31,6 @@ public class IntentService {
                     Log.i("IntentService", "intent");
                     Intent animActivity = new Intent(activity, classToLoad);
                     activity.startActivity(animActivity);
-
-                    activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 }
             }, delay);
         } catch (ClassNotFoundException e){

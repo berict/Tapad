@@ -138,7 +138,7 @@ public class AppbarService {
                 w.getView(NAV_BACK, activity).setVisibility(View.GONE);
                 w.getView(NAV_CLOSE, activity).setVisibility(View.VISIBLE);
                 if (onClick == null) {
-                    w.getView(NAV_BACK, activity).setOnClickListener(new View.OnClickListener() {
+                    w.getView(NAV_CLOSE, activity).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             KeyEvent kDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
@@ -148,7 +148,7 @@ public class AppbarService {
                         }
                     });
                 } else {
-                    w.getView(NAV_BACK, activity).setOnClickListener(new View.OnClickListener() {
+                    w.getView(NAV_CLOSE, activity).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             onClick.run();
@@ -214,7 +214,7 @@ public class AppbarService {
                 w.getView(NAV_BACK, view).setVisibility(View.GONE);
                 w.getView(NAV_CLOSE, view).setVisibility(View.VISIBLE);
                 if (onClick == null) {
-                    w.getView(NAV_BACK, view).setOnClickListener(new View.OnClickListener() {
+                    w.getView(NAV_CLOSE, view).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             KeyEvent kDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
@@ -224,7 +224,7 @@ public class AppbarService {
                         }
                     });
                 } else {
-                    w.getView(NAV_BACK, view).setOnClickListener(new View.OnClickListener() {
+                    w.getView(NAV_CLOSE, view).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             onClick.run();

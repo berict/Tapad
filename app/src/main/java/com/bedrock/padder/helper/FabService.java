@@ -262,10 +262,6 @@ public class FabService {
         image.setImageResource(imageId);
     }
 
-    public void setButtonColor(int colorId) {
-        button.setBackgroundColor(colorId);
-    }
-
     public void move() {
         if (Build.VERSION.SDK_INT >= 11) {
             float scale = activity.getResources().getDisplayMetrics().density;

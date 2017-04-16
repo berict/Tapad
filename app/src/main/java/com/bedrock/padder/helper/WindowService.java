@@ -1034,6 +1034,9 @@ public class WindowService {
         final boolean isLoopEnabled[] = {false};
         // setButtonPattern button number id
         switch (padId) {
+            case R.id.btn00:
+                btnId[0] = -1;
+                break;
             case R.id.btn11:
                 btnId[0] = 0;
                 break;
@@ -1257,34 +1260,38 @@ public class WindowService {
 //    }
 
     private void setButtonPattern(int patternScheme[][][], int btnId, int colorDown, int colorUp, Activity activity) {
-        for (int i = 0; i < patternScheme[btnId].length; i++) {
-            for (int j = 0; j < patternScheme[btnId][i].length; j++) {
-                try {
-                    getView(patternScheme[btnId][i][j], activity).setBackgroundColor(
-                            getBlendColor(
-                                    activity.getResources().getColor(colorDown),
-                                    activity.getResources().getColor(colorUp),
-                                    (0.8f - (0.3f * i))));
-                } catch (Resources.NotFoundException e) {
-                    Log.i("NotFoundException", "Handling with normal value");
-                    getView(patternScheme[btnId][i][j], activity).setBackgroundColor(
-                            getBlendColor(
-                                    colorDown,
-                                    activity.getResources().getColor(colorUp),
-                                    (0.8f - (0.3f * i))));
+        if (btnId >= 0) {
+            for (int i = 0; i < patternScheme[btnId].length; i++) {
+                for (int j = 0; j < patternScheme[btnId][i].length; j++) {
+                    try {
+                        getView(patternScheme[btnId][i][j], activity).setBackgroundColor(
+                                getBlendColor(
+                                        activity.getResources().getColor(colorDown),
+                                        activity.getResources().getColor(colorUp),
+                                        (0.8f - (0.3f * i))));
+                    } catch (Resources.NotFoundException e) {
+                        Log.i("NotFoundException", "Handling with normal value");
+                        getView(patternScheme[btnId][i][j], activity).setBackgroundColor(
+                                getBlendColor(
+                                        colorDown,
+                                        activity.getResources().getColor(colorUp),
+                                        (0.8f - (0.3f * i))));
+                    }
                 }
             }
         }
     }
 
     private void setButtonPatternDefault(int patternScheme[][][], int btnId, int colorUp, Activity activity) {
-        for (int i = 0; i < patternScheme[btnId].length; i++) {
-            for (int j = 0; j < patternScheme[btnId][i].length; j++) {
-                try {
-                    getView(patternScheme[btnId][i][j], activity).setBackgroundColor(activity.getResources().getColor(colorUp));
-                } catch (Resources.NotFoundException e) {
-                    Log.i("NotFoundException", "Handling with normal value");
-                    getView(patternScheme[btnId][i][j], activity).setBackgroundColor(colorUp);
+        if (btnId >= 0) {
+            for (int i = 0; i < patternScheme[btnId].length; i++) {
+                for (int j = 0; j < patternScheme[btnId][i].length; j++) {
+                    try {
+                        getView(patternScheme[btnId][i][j], activity).setBackgroundColor(activity.getResources().getColor(colorUp));
+                    } catch (Resources.NotFoundException e) {
+                        Log.i("NotFoundException", "Handling with normal value");
+                        getView(patternScheme[btnId][i][j], activity).setBackgroundColor(colorUp);
+                    }
                 }
             }
         }

@@ -217,7 +217,7 @@
 	<string name="task_tutorial_mode">Start tutorial mode?</string>
 	
 	<string name="task_settings">@string/settings</string>
-	<string name="task_settings_button_color">@string/task_settings_button_color</string>
+	<string name="task_settings_color">@string/settings_color</string>
 	
 	<!-- Promote -->
 	<string name="feedback">Feedback</string>

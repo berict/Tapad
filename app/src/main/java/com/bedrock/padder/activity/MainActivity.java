@@ -28,7 +28,6 @@ import com.bedrock.padder.helper.AdmobService;
 import com.bedrock.padder.helper.AnimService;
 import com.bedrock.padder.helper.AppbarService;
 import com.bedrock.padder.helper.FabService;
-import com.bedrock.padder.helper.IntentService;
 import com.bedrock.padder.helper.SoundService;
 import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.TutorialService;
@@ -90,7 +89,6 @@ public class MainActivity
     private AnimService anim = new AnimService();
     private ThemeService t = new ThemeService();
     private SoundService sound = new SoundService();
-    private IntentService intent = new IntentService();
     private WindowService w = new WindowService();
     private FabService fab = new FabService();
     private AppbarService ab = new AppbarService();
@@ -234,32 +232,6 @@ public class MainActivity
             prefs.edit().putInt("color", R.color.cyan_400).apply();
         }
         clearDeck();
-
-        // TODO REMOVE (intent)
-        w.setOnClick(R.id.testFeedbackIntentSong, new Runnable() {
-            @Override
-            public void run() {
-                intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "song", 400);
-            }
-        }, a);
-        w.setOnClick(R.id.testFeedbackIntentFeedback, new Runnable() {
-            @Override
-            public void run() {
-                intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "feedback", 400);
-            }
-        }, a);
-        w.setOnClick(R.id.testFeedbackIntentBug, new Runnable() {
-            @Override
-            public void run() {
-                intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "report_bug", 400);
-            }
-        }, a);
-        w.setOnClick(R.id.testAboutFragment, new Runnable() {
-            @Override
-            public void run() {
-                setAboutFragment();
-            }
-        }, a);
     }
 
     @Override

@@ -71,13 +71,13 @@
 		android:id="@+id/fragment_about_container"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:visibility="gone" />
+		android:visibility="gone"/>
 	
 	<FrameLayout
 		android:id="@+id/fragment_settings_container"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:visibility="gone" />
+		android:visibility="gone"/>
 	
 	<View
 		android:id="@+id/placeholder"
