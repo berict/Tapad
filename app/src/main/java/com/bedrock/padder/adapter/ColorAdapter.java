@@ -1,7 +1,6 @@
 package com.bedrock.padder.adapter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,23 +8,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.helper.WindowService;
+import com.bedrock.padder.model.app.theme.ColorData;
 
 public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHolder> {
-    private Integer[] colorFavorite;
-    //private ColorData colorData;
+    private ColorData colorData;
     private int rowLayout;
-    private Context context;
     private Activity activity;
 
     private WindowService window = new WindowService();
 
     public static class DetailViewHolder extends RecyclerView.ViewHolder {
+        RelativeLayout colorLayout;
         TextView colorTextId;
         View colorView1;
         View colorView2;
@@ -36,6 +36,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
 
         public DetailViewHolder(View view) {
             super(view);
+            colorLayout = (RelativeLayout) view.findViewById(R.id.layout_color);
             colorTextId = (TextView) view.findViewById(R.id.layout_color_title);
             colorView1 = view.findViewById(R.id.view_color_1);
             colorView2 = view.findViewById(R.id.view_color_2);
@@ -46,11 +47,9 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
         }
     }
 
-    public ColorAdapter(Integer[] colorFavorite, int rowLayout, Context context, Activity activity) {
-        this.colorFavorite = colorFavorite;
-        //this.colorData = colorData;
+    public ColorAdapter(ColorData colorData, int rowLayout, Activity activity) {
+        this.colorData = colorData;
         this.rowLayout = rowLayout;
-        this.context = context;
         this.activity = activity;
     }
 
@@ -61,10 +60,9 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
     }
 
     @Override
-    public void onBindViewHolder(final DetailViewHolder holder, int position) {
-        Log.d("Holder", String.valueOf(colorFavorite[position]));
-        Log.d("Holder length", String.valueOf(colorFavorite.length));
-        final int color = colorFavorite[position];
+    public void onBindViewHolder(final DetailViewHolder holder, final int position) {
+        Log.d("Holder", String.valueOf(colorData.getColorButtonFavorite(position)));
+        final int color = colorData.getColorButtonFavorite(position);
 
         // Set the color id title
         try {
@@ -105,8 +103,17 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
         holder.actionPrimary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //colorData.removeColorButtonFavorite(color);
-                //colorData.setColorButton(color);
+                // remove element
+                colorData.removeColorButtonFavorite(color);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, getItemCount());
+                // add primary color to list
+                colorData.addColorButtonFavorite(colorData.getColorButton());
+                notifyItemInserted(getItemCount());
+                notifyItemRangeChanged(getItemCount() - 1, getItemCount());
+                // set color
+                colorData.setColorButton(color);
+                setPrimaryColor();
             }
         });
 
@@ -120,7 +127,10 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                //colorData.removeColorButtonFavorite(color);
+                                // remove element
+                                colorData.removeColorButtonFavorite(color);
+                                notifyItemRemoved(position);
+                                notifyItemRangeChanged(position, getItemCount());
                             }
                         })
                         .negativeText(R.string.dialog_cancel)
@@ -138,6 +148,43 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
 
     @Override
     public int getItemCount() {
-        return colorFavorite.length;
+        return colorData.getColorButtonFavorites().length;
+    }
+
+    private void setPrimaryColor() {
+        int primaryColor = colorData.getColorButton();
+
+        View colorView[] = {
+                activity.findViewById(R.id.view_color_1),
+                activity.findViewById(R.id.view_color_2),
+                activity.findViewById(R.id.view_color_3),
+                activity.findViewById(R.id.view_color_4)
+        };
+
+        for (int i = 0; i < 4; i++) {
+            try {
+                colorView[i].setBackgroundColor(
+                        window.getBlendColor(
+                                activity.getResources().getColor(primaryColor),
+                                activity.getResources().getColor(R.color.grey),
+                                (0.8f - (0.3f * i))
+                        )
+                );
+            } catch (Resources.NotFoundException e) {
+                colorView[i].setBackgroundColor(
+                        window.getBlendColor(
+                                primaryColor,
+                                activity.getResources().getColor(R.color.grey),
+                                (0.8f - (0.3f * i))
+                        )
+                );
+            }
+        }
+
+        try {
+            window.getTextView(R.id.layout_color_id, activity).setText(String.format("#%06X", (0xFFFFFF & activity.getResources().getColor(primaryColor))));
+        } catch (Resources.NotFoundException e) {
+            window.getTextView(R.id.layout_color_id, activity).setText(String.format("#%06X", (0xFFFFFF & primaryColor)));
+        }
     }
 }
