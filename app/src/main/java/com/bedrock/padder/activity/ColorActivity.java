@@ -110,6 +110,9 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
                 .backButton(R.string.md_back_label)
                 .dynamicButtonColor(true)
                 .show();
+        // TODO add to adapter feature
+        // TODO add json to prefs on destroy
+        // TODO set color prefs on primary change
     }
 
     private void setPrimaryColor() {
