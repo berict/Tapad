@@ -1,137 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	tools:context="com.bedrock.padder.activity.ColorActivity">
-	
-	<android.support.v4.widget.NestedScrollView
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentStart="true"
-		android:layout_below="@+id/appbar">
-		
-		<LinearLayout
-			android:id="@+id/layout_color_linear"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:focusable="true"
-			android:focusableInTouchMode="true"
-			android:orientation="vertical">
-			
-			<LinearLayout
-				android:id="@+id/layout_color_palette"
-				android:layout_width="match_parent"
-				android:layout_height="200dp"
-				android:orientation="horizontal"
-				android:weightSum="4">
-				
-				<View
-					android:id="@+id/view_color_1"
-					android:layout_width="0dp"
-					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:background="@color/blue_500"/>
-				
-				<View
-					android:id="@+id/view_color_2"
-					android:layout_width="0dp"
-					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:background="@color/blue_400"/>
-				
-				<View
-					android:id="@+id/view_color_3"
-					android:layout_width="0dp"
-					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:background="@color/blue_300"/>
-				
-				<View
-					android:id="@+id/view_color_4"
-					android:layout_width="0dp"
-					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:background="@color/blue_200"/>
-			</LinearLayout>
-			
-			<LinearLayout
-				android:id="@+id/layout_color_title_layout"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal">
-				
-				<TextView
-					android:id="@+id/layout_color_title"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:padding="16dp"
-					android:text="@string/settings_color_current"
-					android:textColor="@color/dark_primary"
-					android:textSize="24sp"/>
-				
-				<TextView
-					android:id="@+id/layout_color_id"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="#000000"
-					android:textColor="@color/dark_secondary"
-					android:textSize="18sp"
-					android:textStyle="italic"/>
-			</LinearLayout>
-			
-			<View
-				android:id="@+id/divider"
-				android:layout_width="match_parent"
-				android:layout_height="1dp"
-				android:background="@color/dark_divider"/>
-			
-			<RelativeLayout
-				android:id="@+id/fab"
-				android:layout_width="56dp"
-				android:layout_height="56dp"
-				android:background="@drawable/fragment_fab"
-				android:layout_gravity="right"
-				android:layout_marginRight="16dp"
-				android:layout_marginTop="-28dp"
-				android:translationZ="0dp">
-				
-				<RelativeLayout
-					android:id="@+id/fab_button"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:layout_centerInParent="true"
-					android:background="?selectableItemBackgroundBorderless"
-					android:clickable="true"
-					android:gravity="center">
-					
-					<ImageView
-						android:id="@+id/fab_icon"
-						android:layout_width="24dp"
-						android:layout_height="24dp"
-						android:src="@drawable/icon_info"/>
-				</RelativeLayout>
-			</RelativeLayout>
-			
-			<android.support.v7.widget.RecyclerView
-				android:id="@+id/layout_color_recyclerview"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.bedrock.padder.activity.ColorActivity">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/appbar">
+
+        <LinearLayout
+            android:id="@+id/layout_color_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layout_color_palette"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <View
+                    android:id="@+id/view_color_1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/blue_500" />
+
+                <View
+                    android:id="@+id/view_color_2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/blue_400" />
+
+                <View
+                    android:id="@+id/view_color_3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/blue_300" />
+
+                <View
+                    android:id="@+id/view_color_4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/blue_200" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_color_title_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/layout_color_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="@string/settings_color_current"
+                    android:textColor="@color/dark_primary"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/layout_color_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="#000000"
+                    android:textColor="@color/dark_secondary"
+                    android:textSize="18sp"
+                    android:textStyle="italic" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/dark_divider" />
+
+            <RelativeLayout
+                android:id="@+id/fab"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="-28dp"
+                android:background="@drawable/fragment_fab"
+                android:translationZ="0dp">
+
+                <RelativeLayout
+                    android:id="@+id/fab_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/fab_icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/icon_info" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/layout_color_recyclerview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-				android:scrollbars="none"/>
-			
-			<View
-				android:id="@+id/color_bottom_margin"
-				android:layout_width="match_parent"
-				android:layout_height="0dp"/>
-		
-		</LinearLayout>
-	
-	</android.support.v4.widget.NestedScrollView>
-	
-	<include layout="@layout/fragment_actionbar"/>
+                android:scrollbars="none" />
+
+            <LinearLayout
+                android:id="@+id/layout_color_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/layout_color_placeholder_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="@string/settings_color_placeholder_title"
+                    android:textColor="@color/dark_secondary"
+                    android:textSize="22sp" />
+
+                <ImageView
+                    android:id="@+id/layout_color_placeholder_icon"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:alpha="0.3"
+                    android:src="@drawable/icon_color" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/color_bottom_margin"
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <include layout="@layout/fragment_actionbar" />
 
 </RelativeLayout>

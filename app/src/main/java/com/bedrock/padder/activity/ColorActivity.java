@@ -77,12 +77,6 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
         colorData = gson.fromJson(colorDataJson, ColorData.class);
         Log.i("ColorData", colorDataJson);
 
-        // todo edit this
-        colorData.addColorButtonFavorite(R.color.green);
-        colorData.addColorButtonFavorite(R.color.blue);
-        colorData.addColorButtonFavorite(R.color.cyan);
-        colorData.addColorButtonFavorite(R.color.yellow);
-
         // adapter
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -114,14 +108,6 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
                 .dynamicButtonColor(true)
                 .show();
         // TODO add to adapter feature
-    }
-
-    @Override
-    protected void onDestroy() {
-        // save again to json prefs
-        prefs.edit().putString("colorData", gson.toJson(colorData)).apply();
-        Log.d("Prefs", "colorData : " + prefs.getString("colorData", null));
-        super.onDestroy();
     }
 
     private void setPrimaryColor() {
@@ -160,6 +146,16 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
     }
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if (colorData.getColorButtonFavoriteLength() <= 0) {
+            w.setVisible(R.id.layout_color_placeholder, 0, activity);
+        } else {
+            w.setGone(R.id.layout_color_placeholder, 0, activity);
+        }
+        super.onWindowFocusChanged(hasFocus);
+    }
+
+    @Override
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int colorInt) {
         insertNewColor(colorInt);
     }
@@ -167,5 +163,8 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
     private void insertNewColor(int color) {
         colorData.addColorButtonFavorite(color);
         colorAdapter.notifyDataSetChanged();
+        // save again to json prefs
+        prefs.edit().putString("colorData", gson.toJson(colorData)).apply();
+        Log.d("Prefs", "colorData : " + prefs.getString("colorData", null));
     }
 }

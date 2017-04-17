@@ -17,6 +17,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.app.theme.ColorData;
+import com.google.gson.Gson;
 
 public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHolder> {
     private ColorData colorData;
@@ -59,8 +60,11 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
     @Override
     public DetailViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
+
         return new DetailViewHolder(view);
     }
+
+    Gson gson = new Gson();
 
     @Override
     public void onBindViewHolder(final DetailViewHolder holder, int position) {
@@ -117,6 +121,9 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
                 // set color
                 colorData.setColorButton(color);
                 setPrimaryColor();
+                // save again to json prefs
+                prefs.edit().putString("colorData", gson.toJson(colorData)).apply();
+                Log.d("Prefs", "colorData : " + prefs.getString("colorData", null));
             }
         });
 
@@ -134,6 +141,9 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
                                 colorData.removeColorButtonFavorite(color);
                                 notifyItemRemoved(holder.getAdapterPosition());
                                 notifyItemRangeChanged(holder.getAdapterPosition(), getItemCount());
+                                // save again to json prefs
+                                prefs.edit().putString("colorData", gson.toJson(colorData)).apply();
+                                Log.d("Prefs", "colorData : " + prefs.getString("colorData", null));
                             }
                         })
                         .negativeText(R.string.dialog_cancel)
