@@ -1352,6 +1352,9 @@ public class MainActivity
 
         anim.fadeIn(R.id.placeholder, 0, fadeAnimDuration, "settingOut", a);
 
+        color = prefs.getInt("color", R.color.cyan_400);
+        clearToggleButton();
+
         setSettingVisible(false);
 
         Handler closeSettings = new Handler();
@@ -1889,6 +1892,8 @@ public class MainActivity
         tgl8 = false;
 
         sound.setButton(R.color.grey_dark, a);
+        toggleSoundId = 0;
+        sound.soundAllStop();
     }
 
     private void setSchemeInfo() {
