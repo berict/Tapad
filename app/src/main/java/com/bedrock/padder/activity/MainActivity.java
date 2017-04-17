@@ -1118,20 +1118,24 @@ public class MainActivity
         info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                anim.circularRevealinpx(R.id.placeholder,
-                        coord[0], coord[1],
-                        0, (int) Math.hypot(coord[0], coord[1]) + 200, new AccelerateDecelerateInterpolator(),
-                        circularRevealDuration, 0, a);
+                if (isAboutVisible == false) {
+                    anim.circularRevealinpx(R.id.placeholder,
+                            coord[0], coord[1],
+                            0, (int) Math.hypot(coord[0], coord[1]) + 200, new AccelerateDecelerateInterpolator(),
+                            circularRevealDuration, 0, a);
 
-                Handler about = new Handler();
-                about.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        showAboutFragment(themeColor, a);
-                    }
-                }, circularRevealDuration);
+                    Handler about = new Handler();
+                    about.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            showAboutFragment(themeColor, a);
+                        }
+                    }, circularRevealDuration);
 
-                anim.fadeOut(R.id.placeholder, circularRevealDuration, fadeAnimDuration, a);
+                    anim.fadeOut(R.id.placeholder, circularRevealDuration, fadeAnimDuration, a);
+
+                    isAboutVisible = true;
+                }
             }
         });
 
@@ -1149,20 +1153,22 @@ public class MainActivity
         preset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                anim.circularRevealinpx(R.id.placeholder,
-                        coord[0], coord[1],
-                        0, (int) Math.hypot(coord[0], coord[1]) + 200, new AccelerateDecelerateInterpolator(),
-                        circularRevealDuration, 0, a);
+                if (isPresetVisible == false) {
+                    anim.circularRevealinpx(R.id.placeholder,
+                            coord[0], coord[1],
+                            0, (int) Math.hypot(coord[0], coord[1]) + 200, new AccelerateDecelerateInterpolator(),
+                            circularRevealDuration, 0, a);
 
-                Handler preset = new Handler();
-                preset.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        showDialogPreset(a);
-                    }
-                }, circularRevealDuration);
+                    Handler preset = new Handler();
+                    preset.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            showDialogPreset(a);
+                        }
+                    }, circularRevealDuration);
 
-                isPresetVisible = true;
+                    isPresetVisible = true;
+                }
             }
         });
 
@@ -1180,7 +1186,11 @@ public class MainActivity
         tutorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toggleTutorial();
+                Log.d("isTutVisible", String.valueOf(isTutorialVisible));
+                if (isTutorialVisible == false) {
+                    toggleTutorial();
+                    isTutorialVisible = true;
+                }
             }
         });
 
@@ -1198,21 +1208,25 @@ public class MainActivity
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                w.setRecentColor(R.string.settings, 0, R.color.colorAccent, a);
-                anim.circularRevealinpx(R.id.placeholder,
-                        coord[2], coord[3],
-                        0, (int) Math.hypot(coord[2], coord[3]) + 200, new AccelerateDecelerateInterpolator(),
-                        circularRevealDuration, 0, a);
+                if (isSettingVisible == false) {
+                    w.setRecentColor(R.string.settings, 0, R.color.colorAccent, a);
+                    anim.circularRevealinpx(R.id.placeholder,
+                            coord[2], coord[3],
+                            0, (int) Math.hypot(coord[2], coord[3]) + 200, new AccelerateDecelerateInterpolator(),
+                            circularRevealDuration, 0, a);
 
-                Handler about = new Handler();
-                about.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        showSettingsFragment(a);
-                    }
-                }, circularRevealDuration);
+                    Handler about = new Handler();
+                    about.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            showSettingsFragment(a);
+                        }
+                    }, circularRevealDuration);
 
-                anim.fadeOut(R.id.placeholder, circularRevealDuration, fadeAnimDuration, a);
+                    anim.fadeOut(R.id.placeholder, circularRevealDuration, fadeAnimDuration, a);
+
+                    setSettingVisible(true);
+                }
             }
         });
     }
@@ -1267,7 +1281,8 @@ public class MainActivity
 
                         @Override
                         public void onHidePromptComplete() {
-                            isTutorialVisible = false;
+                            // idk why is this here
+                            //isTutorialVisible = false;
                         }
                     })
                     .show();
@@ -1324,10 +1339,17 @@ public class MainActivity
                     .title(R.string.dialog_tutorial_title)
                     .content(tutorialText)
                     .neutralText(R.string.dialog_close)
+                    .dismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            isTutorialVisible = false;
+                        }
+                    })
                     .show();
         } else {
             // still loading preset
             Toast.makeText(a, R.string.tutorial_loading, Toast.LENGTH_LONG).show();
+            isTutorialVisible = false;
         }
     }
 
