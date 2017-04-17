@@ -112,11 +112,19 @@
 	<string name="info_tapad_info_version_hint"     >2.2 Alpha 3</string>
 	<string name="info_tapad_info_build_date"       >Build date</string>
 	<!-- TODO RELEASE -->
-	<string name="info_tapad_info_build_date_hint"  >Wed Apr 15 16:24:12 KST 2017</string>
+	<string name="info_tapad_info_build_date_hint"  >Wed Apr 18 00:18:23 KST 2017</string>
 	<string name="info_tapad_info_changelog"        >Changelog</string>
 	<!-- TODO RELEASE -->
 	<string name="info_tapad_info_changelog_text"   >
         You can view the changelog dialog again at any time from the <b><i>about</i></b> section.\n\n
+		
+		<b>Version 2.2 Alpha 3</b>\n\n
+		
+		1.	<b>IMPROVEMENT</b>: Tapad images updated\n
+		2.	<b>IMPROVEMENT</b>: Color customization updated\n
+		3.	<b>FIX</b>: Light mode 4 fixed \n
+		4.	<b>FIX</b>: Button getting wrong light effects fixed\n
+		5.	<b>FIX</b>: Minor bugs fixed\n\n
 
 		<b>Version 2.2 Alpha 2</b>\n\n
 		

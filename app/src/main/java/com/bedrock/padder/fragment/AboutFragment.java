@@ -124,7 +124,7 @@ public class AboutFragment extends Fragment {
         // artist
         w.getView(R.id.cardview_artist, v).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
                         R.id.cardview_music_image, "transition", "about", "now_playing", 0, v);
             }
@@ -132,7 +132,7 @@ public class AboutFragment extends Fragment {
 
         w.getView(R.id.cardview_music_explore, v).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
                         R.id.cardview_music_image, "transition", "about", "now_playing", 0, v);
             }
@@ -140,7 +140,7 @@ public class AboutFragment extends Fragment {
 
         w.getView(R.id.cardview_music_change, v).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 main.showDialogPreset(a);
             }
         });
@@ -148,7 +148,7 @@ public class AboutFragment extends Fragment {
         // tapad
         w.getView(R.id.cardview_about, v).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
                         R.id.cardview_about_image, "transition", "about", "tapad", 0, v);
             }
@@ -156,7 +156,7 @@ public class AboutFragment extends Fragment {
 
         w.getView(R.id.cardview_about_explore, v).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
                         R.id.cardview_about_image, "transition", "about", "tapad", 0, v);
             }
@@ -195,7 +195,7 @@ public class AboutFragment extends Fragment {
         // developer
         w.getView(R.id.cardview_dev, v).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
                         R.id.cardview_dev_image, "transition", "about", "dev", 0, v);
             }
@@ -203,7 +203,7 @@ public class AboutFragment extends Fragment {
 
         w.getView(R.id.cardview_dev_explore, v).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
                         R.id.cardview_dev_image, "transition", "about", "dev", 0, v);
             }
