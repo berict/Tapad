@@ -31,8 +31,10 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
     Activity activity = this;
     SharedPreferences prefs = null;
     Gson gson = new Gson();
-    public static ColorData colorData;
     int color;
+
+    private ColorData colorData;
+    private ColorAdapter colorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,9 +87,10 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-        ColorAdapter colorAdapter = new ColorAdapter(
+        colorAdapter = new ColorAdapter(
                 colorData,
                 R.layout.adapter_color,
+                prefs,
                 activity
         );
         w.getRecyclerView(R.id.layout_color_recyclerview, activity).setLayoutManager(layoutManager);
@@ -111,8 +114,14 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
                 .dynamicButtonColor(true)
                 .show();
         // TODO add to adapter feature
-        // TODO add json to prefs on destroy
-        // TODO set color prefs on primary change
+    }
+
+    @Override
+    protected void onDestroy() {
+        // save again to json prefs
+        prefs.edit().putString("colorData", gson.toJson(colorData)).apply();
+        Log.d("Prefs", "colorData : " + prefs.getString("colorData", null));
+        super.onDestroy();
     }
 
     private void setPrimaryColor() {
@@ -152,11 +161,11 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
 
     @Override
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int colorInt) {
-        //getJson(colorInt);
+        insertNewColor(colorInt);
     }
 
-    private String getJson() {
-
-        return "";
+    private void insertNewColor(int color) {
+        colorData.addColorButtonFavorite(color);
+        colorAdapter.notifyDataSetChanged();
     }
 }

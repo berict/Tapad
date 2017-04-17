@@ -1,6 +1,7 @@
 package com.bedrock.padder.adapter;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import com.bedrock.padder.model.app.theme.ColorData;
 public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHolder> {
     private ColorData colorData;
     private int rowLayout;
+    private SharedPreferences prefs;
     private Activity activity;
 
     private WindowService window = new WindowService();
@@ -47,9 +49,10 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
         }
     }
 
-    public ColorAdapter(ColorData colorData, int rowLayout, Activity activity) {
+    public ColorAdapter(ColorData colorData, int rowLayout, SharedPreferences prefs, Activity activity) {
         this.colorData = colorData;
         this.rowLayout = rowLayout;
+        this.prefs = prefs;
         this.activity = activity;
     }
 
@@ -60,7 +63,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
     }
 
     @Override
-    public void onBindViewHolder(final DetailViewHolder holder, final int position) {
+    public void onBindViewHolder(final DetailViewHolder holder, int position) {
         Log.d("Holder", String.valueOf(colorData.getColorButtonFavorite(position)));
         final int color = colorData.getColorButtonFavorite(position);
 
@@ -105,8 +108,8 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
             public void onClick(View v) {
                 // remove element
                 colorData.removeColorButtonFavorite(color);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, getItemCount());
+                notifyItemRemoved(holder.getAdapterPosition());
+                notifyItemRangeChanged(holder.getAdapterPosition(), getItemCount());
                 // add primary color to list
                 colorData.addColorButtonFavorite(colorData.getColorButton());
                 notifyItemInserted(getItemCount());
@@ -129,8 +132,8 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                 // remove element
                                 colorData.removeColorButtonFavorite(color);
-                                notifyItemRemoved(position);
-                                notifyItemRangeChanged(position, getItemCount());
+                                notifyItemRemoved(holder.getAdapterPosition());
+                                notifyItemRangeChanged(holder.getAdapterPosition(), getItemCount());
                             }
                         })
                         .negativeText(R.string.dialog_cancel)
@@ -186,5 +189,8 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
         } catch (Resources.NotFoundException e) {
             window.getTextView(R.id.layout_color_id, activity).setText(String.format("#%06X", (0xFFFFFF & primaryColor)));
         }
+
+        // set to prefs color
+        prefs.edit().putInt("color", primaryColor).apply();
     }
 }

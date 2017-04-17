@@ -106,6 +106,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 intent.intent(a, "activity.ColorActivity", 0);
+                main.clearDeck(a);
             }
         });
 

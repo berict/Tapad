@@ -241,7 +241,7 @@ public class MainActivity
         w.setNavigationBar(R.color.transparent, a);
 
         ab.setStatusHeight(a);
-        clearDeck();
+        clearDeck(a);
     }
 
     @Override
@@ -348,7 +348,8 @@ public class MainActivity
         for (int i = 0; i < tutorial.length; i++) {
             t.setInvisible(tutorial[i], 10, a);
         }
-        //Log.d("MainActivity", "tutorial setVisible");
+
+        color = prefs.getInt("color", R.color.cyan_400);
         super.onWindowFocusChanged(hasFocus);
     }
     
@@ -483,12 +484,12 @@ public class MainActivity
     //        return String.valueOf(encodedStringArray);
     //    }
     //
-    //    void complain(String message) {
+    //    private void complain(String message) {
     //        Log.e(TAG, "**** Purchase Error: " + message);
     //        alert("Error: " + message);
     //    }
     //
-    //    void alert(String message) {
+    //    private void alert(String message) {
     //        AlertDialog.Builder bld = new AlertDialog.Builder(this);
     //        bld.setMessage(message);
     //        bld.setNeutralButton("OK", null);
@@ -496,15 +497,15 @@ public class MainActivity
     //        bld.create().show();
     //    }
 
-    void enterAnim() {
+    private void enterAnim() {
         anim.fadeIn(R.id.actionbar_layout, 0, 200, "background", a);
         anim.fadeIn(R.id.actionbar_image, 200, 200, "image", a);
         //TODO: Remove this to not load preset
-        //loadPreset(400);
+        loadPreset(400);
         isPresetLoading = true;
     }
 
-    void setButtonLayout() {
+    private void setButtonLayout() {
         int screenWidthPx = w.getWindowWidthPx(a) - ((w.convertDPtoPX(36, a)) * 2);
         int marginPx = w.convertDPtoPX(2, a);
         int newWidthPx;
@@ -1045,7 +1046,7 @@ public class MainActivity
         }
     }
 
-    void setFab() {
+    private void setFab() {
         fab.setFab(a);
         fab.show();
         fab.onClick(new Runnable() {
@@ -1094,7 +1095,7 @@ public class MainActivity
         w.setMarginRelativePX(R.id.fab, 0, 0, w.convertDPtoPX(20, a), w.getNavigationBarFromPrefs(a) + w.convertDPtoPX(20, a), a);
     }
 
-    void setToolbar() {
+    private void setToolbar() {
         // set bottom margin
         w.setMarginRelativePX(R.id.toolbar, 0, 0, 0, w.getNavigationBarFromPrefs(a), a);
 
@@ -1216,13 +1217,13 @@ public class MainActivity
         });
     }
 
-    void closeToolbar(Activity activity) {
+    private void closeToolbar(Activity activity) {
         anim.fadeOut(R.id.toolbar, 0, 100, activity);
         fab.show(100, 200);
         isToolbarVisible = false;
     }
 
-    void closeAbout() {
+    private void closeAbout() {
         Log.d("closeAbout", "triggered");
         anim.circularRevealinpx(R.id.placeholder,
                 coord[0], coord[1],
@@ -1330,7 +1331,7 @@ public class MainActivity
         }
     }
 
-    void setTutorialUI() {
+    private void setTutorialUI() {
         if (isTutorialVisible == true) {
             w.getImageView(R.id.toolbar_tutorial_icon, a).setImageResource(R.drawable.icon_tutorial_quit);
             w.getImageView(R.id.layout_settings_tutorial_icon, a).setImageResource(R.drawable.settings_tutorial_quit);
@@ -1342,7 +1343,7 @@ public class MainActivity
         }
     }
 
-    void closeSettings() {
+    private void closeSettings() {
         Log.d("closeSettings", "triggered");
         anim.circularRevealinpx(R.id.placeholder,
                 coord[2], coord[3],
@@ -1470,7 +1471,7 @@ public class MainActivity
                 .show();
     }
 
-    void closeDialogPreset() {
+    private void closeDialogPreset() {
         anim.circularRevealinpx(R.id.placeholder,
                 coord[0], coord[1],
                 (int) Math.hypot(coord[0], coord[1]) + 200, 0, new AccelerateDecelerateInterpolator(),
@@ -1507,7 +1508,7 @@ public class MainActivity
         }
     }
 
-    void loadPreset(int delay) {
+    private void loadPreset(int delay) {
         Handler preset = new Handler();
         preset.postDelayed(new Runnable() {
             @Override
@@ -1517,7 +1518,7 @@ public class MainActivity
         }, delay);
     }
 
-    void setToggleButton(final int color_id) {
+    private void setToggleButton(final int color_id) {
         final int toggleButtonIds[] = {
                 R.id.tgl1,
                 R.id.tgl2,
@@ -1544,7 +1545,7 @@ public class MainActivity
         w.setOnTouch(R.id.tgl1, new Runnable() {
             @Override
             public void run() {
-                clearDeck();
+                clearDeck(a);
                 if (tgl1 == false) {
                     toggleSoundId = 1;
                     if (tgl5 || tgl6 || tgl7 || tgl8) {
@@ -1583,7 +1584,7 @@ public class MainActivity
         w.setOnTouch(R.id.tgl2, new Runnable() {
             @Override
             public void run() {
-                clearDeck();
+                clearDeck(a);
                 if (tgl2 == false) {
                     toggleSoundId = 2;
                     if (tgl5 || tgl6 || tgl7 || tgl8) {
@@ -1620,7 +1621,7 @@ public class MainActivity
         w.setOnTouch(R.id.tgl3, new Runnable() {
             @Override
             public void run() {
-                clearDeck();
+                clearDeck(a);
                 if (tgl3 == false) {
                     toggleSoundId = 3;
                     if (tgl5 || tgl6 || tgl7 || tgl8) {
@@ -1657,7 +1658,7 @@ public class MainActivity
         w.setOnTouch(R.id.tgl4, new Runnable() {
             @Override
             public void run() {
-                clearDeck();
+                clearDeck(a);
                 if (tgl4 == false) {
                     toggleSoundId = 4;
                     if (tgl5 || tgl6 || tgl7 || tgl8) {
@@ -1830,7 +1831,7 @@ public class MainActivity
         }, a);
     }
 
-    void clearDeck() {
+    public void clearDeck(Activity activity) {
         // clear button colors
         int buttonIds[] = {
                 R.id.btn00,
@@ -1852,8 +1853,8 @@ public class MainActivity
                 R.id.btn44
         };
         for (int buttonId : buttonIds) {
-            View pad = findViewById(buttonId);
-            pad.setBackgroundColor(a.getResources().getColor(R.color.grey));
+            View pad = activity.findViewById(buttonId);
+            pad.setBackgroundColor(activity.getResources().getColor(R.color.grey));
         }
 
         // stop all looping sounds
@@ -1890,7 +1891,7 @@ public class MainActivity
         sound.setButton(R.color.grey_dark, a);
     }
 
-    void setSchemeInfo() {
+    private void setSchemeInfo() {
         if (isSettingVisible == false && isAboutVisible == false) {
             ab.setNav(0, null, a);
             w.setRecentColor(0, 0, themeColor, a);
@@ -1905,11 +1906,11 @@ public class MainActivity
         return prefs.getInt("scheme", 0);
     }
 
-    void setScheme(int scheme, SharedPreferences prefs) {
+    private void setScheme(int scheme, SharedPreferences prefs) {
         prefs.edit().putInt("scheme", scheme).apply();
     }
 
-    void makeJson() {
+    private void makeJson() {
         Item helloItems[] = {
                 new Item("facebook", "preset_hello_detail_facebook"),
                 new Item("twitter", "preset_hello_detail_twitter"),
