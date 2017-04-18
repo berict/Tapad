@@ -326,6 +326,10 @@
                         android:textSize="12sp"
                         android:textStyle="italic" />
                 </LinearLayout>
+				
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="400dp" />
 
             </LinearLayout>
 
