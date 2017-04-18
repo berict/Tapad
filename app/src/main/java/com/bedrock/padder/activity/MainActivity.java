@@ -97,8 +97,8 @@ public class MainActivity
     private AdmobService ad = new AdmobService();
 
     private boolean isToolbarVisible = false;
-    private boolean isPresetVisible = false;
-    private boolean isTutorialVisible = false;
+    public static boolean isPresetVisible = false;
+    public static boolean isTutorialVisible = false;
     public static boolean isAboutVisible = false;
     public static boolean isSettingVisible = false;
 
@@ -1488,8 +1488,12 @@ public class MainActivity
                         }
                         setSchemeInfo();
                         if (isPresetVisible == true) {
-                            anim.fade(R.id.placeholder, 0.5f, 1.0f, 0, 200, "phOUT", a);
-                            closeDialogPreset();
+                            if (isAboutVisible == false) {
+                                // the dialog is normal from fab
+                                anim.fade(R.id.placeholder, 0.5f, 1.0f, 0, 200, "phOUT", a);
+                                closeDialogPreset();
+                            }
+                            isPresetVisible = false;
                         }
                     }
                 })
@@ -1501,8 +1505,6 @@ public class MainActivity
                 coord[0], coord[1],
                 (int) Math.hypot(coord[0], coord[1]) + 200, 0, new AccelerateDecelerateInterpolator(),
                 circularRevealDuration, 200, a);
-
-        isPresetVisible = false;
 
         if (prefs.getInt(qs, 0) == 7) {
             promptTutorial = new MaterialTapTargetPrompt.Builder(a)
