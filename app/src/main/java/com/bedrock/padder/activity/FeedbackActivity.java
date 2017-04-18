@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -68,7 +69,10 @@ public class FeedbackActivity extends AppCompatActivity {
         setFab();
         initUi();
 
-        w.setStatusBar(R.color.transparent, a);
+        // TODO check http://stackoverflow.com/questions/7417123/android-how-to-adjust-layout-in-full-screen-mode-when-softkeyboard-is-visible
+        // get the keyboard issue
+
+        w.setStatusBar(R.color.colorFeedbackDark, a);
         w.setNavigationBar(R.color.transparent, a);
 
         w.setMarginRelativePX(R.id.fab, 0, 0, w.convertDPtoPX(20, a), w.getNavigationBarFromPrefs(a) + w.convertDPtoPX(20, a), a);

@@ -77,7 +77,9 @@ public class LauncherActivity extends Activity {
             // Normal run, Main transition
             Log.d("FirstRun", "false, intent to MainActivity");
 
-            intent.intentFlag(activity, "activity.MainActivity", 500);
+            // TODO edit to intent normal
+            //intent.intentFlag(activity, "activity.MainActivity", 500);
+            intent.intentWithExtra(activity, "activity.FeedbackActivity", "feedbackMode", "song", 400);
             //prefs.edit().putInt("quickstart", 0).apply();
         } else if (savedVersionCode == 0 || savedVersionCode == -1) {
             // New install / cleared sharedpref, Welcome transition
