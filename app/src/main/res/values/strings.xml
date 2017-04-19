@@ -192,6 +192,8 @@
 	<string name="settings_color_current">Current color</string>
 	<string name="settings_color_dialog">Add new color</string>
 	<string name="settings_color_dialog_delete">Delete this color?</string>
+	<string name="settings_color_dialog_duplicate">You already have this color</string>
+	<string name="settings_color_dialog_duplicate_current">This color is already your current color</string>
 	<string name="settings_color_placeholder_title">You have no colors</string>
 	
 	<string name="settings_layout">Button layout</string>

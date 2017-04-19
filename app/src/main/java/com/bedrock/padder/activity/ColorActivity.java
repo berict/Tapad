@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.bedrock.padder.R;
@@ -19,6 +20,8 @@ import com.bedrock.padder.helper.FabService;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.app.theme.ColorData;
 import com.google.gson.Gson;
+
+import org.apache.commons.lang3.ArrayUtils;
 
 import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
 
@@ -156,7 +159,15 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
 
     @Override
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int colorInt) {
-        insertNewColor(colorInt);
+        if (ArrayUtils.indexOf(colorData.getColorButtonFavorites(), colorInt) >= 0) {
+            // the value exists, show toast
+            Toast.makeText(activity, R.string.settings_color_dialog_duplicate, Toast.LENGTH_SHORT).show();
+        } else if (colorData.getColorButton() == colorInt) {
+            // the value is same to current color
+            Toast.makeText(activity, R.string.settings_color_dialog_duplicate_current, Toast.LENGTH_SHORT).show();
+        } else {
+            insertNewColor(colorInt);
+        }
     }
 
     private void insertNewColor(int color) {

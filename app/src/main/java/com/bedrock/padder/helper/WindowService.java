@@ -91,7 +91,7 @@ public class WindowService {
                 navBarHeight[0] = getWindowHeightPx(activity) - rect.bottom;
 
                 prefs.edit().putInt("navBarPX", navBarHeight[0]).apply();
-                Log.i("SharedPrefs", "navBarPX = " + String.valueOf(prefs.getInt("navBarPX", 0)));
+                Log.i("SharedPrefs", "navBarPX = " + String.valueOf(prefs.getInt("navBarPX", 144)));
             }
         }, 100);
 
@@ -142,7 +142,7 @@ public class WindowService {
                 statBarHeight[0] = rect.top;
 
                 prefs.edit().putInt("statBarPX", statBarHeight[0]).apply();
-                Log.i("SharedPrefs", "statBarPX = " + String.valueOf(prefs.getInt("statBarPX", 0)));
+                Log.i("SharedPrefs", "statBarPX = " + String.valueOf(prefs.getInt("statBarPX", 72)));
             }
         }, 100);
 
