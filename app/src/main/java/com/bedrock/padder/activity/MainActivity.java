@@ -1389,6 +1389,8 @@ public class MainActivity
         final int defaultPreset = getScheme();
         int color = currentPreset.getAbout().getActionbarColor();
 
+        anim.fade(R.id.placeholder, 1.0f, 0.5f, 0, 200, "phIN", a);
+
         PresetDialog = new MaterialDialog.Builder(a)
                 .title(R.string.dialog_preset_title)
                 .items(R.array.presets)
@@ -1421,6 +1423,7 @@ public class MainActivity
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        setScheme(defaultPreset);
                         PresetDialog.dismiss();
                     }
                 })
@@ -1431,9 +1434,6 @@ public class MainActivity
                             // preset changed
                             loadPreset(circularRevealDuration);
                             clearToggleButton();
-                        } else {
-                            // preset is not changed
-                            setScheme(defaultPreset);
                         }
                         anim.fade(R.id.placeholder, 0.5f, 1.0f, 0, 200, "phOUT", a);
                         closeDialogPreset();

@@ -158,6 +158,7 @@ public class AboutFragment extends Fragment {
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        setScheme(defaultPreset);
                         PresetDialog.dismiss();
                     }
                 })
@@ -168,9 +169,6 @@ public class AboutFragment extends Fragment {
                             // preset changed
                             loadPreset();
                             isDeckShouldCleared = true;
-                        } else {
-                            // preset is not changed
-                            setScheme(defaultPreset);
                         }
                         setSchemeInfo();
                         isPresetVisible = false;
