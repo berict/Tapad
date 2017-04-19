@@ -2,10 +2,12 @@ package com.bedrock.padder.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,20 +16,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
-import com.bedrock.padder.activity.MainActivity;
 import com.bedrock.padder.helper.AdmobService;
 import com.bedrock.padder.helper.AnimService;
 import com.bedrock.padder.helper.AppbarService;
 import com.bedrock.padder.helper.IntentService;
+import com.bedrock.padder.helper.SoundService;
+import com.bedrock.padder.helper.TutorialService;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.preset.Preset;
-import com.google.gson.Gson;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.bedrock.padder.activity.MainActivity.coord;
+import static com.bedrock.padder.activity.MainActivity.currentPreset;
+import static com.bedrock.padder.activity.MainActivity.isDeckShouldCleared;
 import static com.bedrock.padder.activity.MainActivity.isPresetVisible;
 import static com.bedrock.padder.activity.MainActivity.isSettingVisible;
+import static com.bedrock.padder.activity.MainActivity.presets;
 import static com.bedrock.padder.activity.MainActivity.setSettingVisible;
 import static com.bedrock.padder.activity.MainActivity.showSettingsFragment;
 import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
@@ -39,7 +46,8 @@ public class AboutFragment extends Fragment {
     private AdmobService ad = new AdmobService();
     private IntentService intent = new IntentService();
     private AnimService anim = new AnimService();
-    private MainActivity main = new MainActivity();
+    private TutorialService tut = new TutorialService();
+    private SoundService sound = new SoundService();
 
     private int circularRevealDuration = 400;
     private int fadeAnimDuration = 200;
@@ -47,9 +55,10 @@ public class AboutFragment extends Fragment {
     int themeColor = R.color.hello;
     Activity a;
     View v;
-    Gson gson = new Gson();
 
     private OnFragmentInteractionListener mListener;
+    private MaterialDialog PresetDialog;
+    private SharedPreferences prefs;
 
     public AboutFragment() {
         // Required empty public constructor
@@ -107,10 +116,71 @@ public class AboutFragment extends Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
         a = getActivity();
+        prefs = a.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
     }
 
-    private void setSchemeInfo() {
-        Preset currentPreset = getCurrentPreset();
+    private void showPresetDialog(Activity a) {
+        tut.tutorialStop(a);
+        sound.soundAllStop();
+
+        final int defaultPreset = getScheme();
+        int color = currentPreset.getAbout().getActionbarColor();
+
+        PresetDialog = new MaterialDialog.Builder(a)
+                .title(R.string.dialog_preset_title)
+                .items(R.array.presets)
+                .autoDismiss(false)
+                .itemsCallbackSingleChoice(defaultPreset, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        setScheme(which);
+                        int selectedPresetColor = presets[which].getAbout().getActionbarColor();
+                        PresetDialog.getBuilder()
+                                .widgetColorRes(selectedPresetColor)
+                                .positiveColorRes(selectedPresetColor);
+                        setSchemeInfo();
+
+                        return true;
+                    }
+                })
+                .alwaysCallSingleChoiceCallback()
+                .widgetColorRes(color)
+                .positiveText(R.string.dialog_preset_positive)
+                .positiveColorRes(color)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        PresetDialog.dismiss();
+                    }
+                })
+                .negativeText(R.string.dialog_preset_negative)
+                .negativeColorRes(R.color.dark_secondary)
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        PresetDialog.dismiss();
+                    }
+                })
+                .dismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        if (defaultPreset != getScheme()) {
+                            // preset changed
+                            loadPreset();
+                            isDeckShouldCleared = true;
+                        } else {
+                            // preset is not changed
+                            setScheme(defaultPreset);
+                        }
+                        setSchemeInfo();
+                        isPresetVisible = false;
+                    }
+                })
+                .show();
+    }
+
+    public void setSchemeInfo() {
+        Preset currentPreset = presets[getScheme()];
         Log.d("currentPreset", "NAME : " + currentPreset.getAbout().getTitle(a));
         themeColor = currentPreset.getAbout().getActionbarColor();
 
@@ -145,7 +215,7 @@ public class AboutFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (isPresetVisible == false) {
-                    main.showDialogPreset(a);
+                    showPresetDialog(a);
                     isPresetVisible = true;
                 }
             }
@@ -220,15 +290,16 @@ public class AboutFragment extends Fragment {
         });
     }
 
-    private Preset getCurrentPreset() {
-        SharedPreferences prefs = a.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
-        Preset presets[] = new Preset[] {
-                gson.fromJson(getResources().getString(R.string.json_hello), Preset.class),
-                gson.fromJson(getResources().getString(R.string.json_roses), Preset.class),
-                gson.fromJson(getResources().getString(R.string.json_faded), Preset.class)
-        };
-        Log.d("currentPreset", "returned preset id " + prefs.getInt("scheme", 0));
-        return presets[prefs.getInt("scheme", 0)];
+    private void setScheme(int scheme) {
+        prefs.edit().putInt("scheme", scheme).apply();
+    }
+
+    int getScheme() {
+        return prefs.getInt("scheme", 0);
+    }
+
+    private void loadPreset() {
+        sound.loadSchemeSound(presets[getScheme()], a);
     }
 
     @Override

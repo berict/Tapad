@@ -50,7 +50,7 @@ import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
 
-@TargetApi(9)
+@TargetApi(14)
 @SuppressWarnings("deprecation")
 
 public class MainActivity
@@ -83,7 +83,7 @@ public class MainActivity
     MaterialDialog QuickstartDialog;
     MaterialDialog PresetDialog;
 
-    boolean isSchemeChanged = false;
+    private boolean isPresetChanged = false;
     int toggleSoundId = 0;
     int togglePatternId = 0;
 
@@ -101,6 +101,7 @@ public class MainActivity
     public static boolean isTutorialVisible = false;
     public static boolean isAboutVisible = false;
     public static boolean isSettingVisible = false;
+    public static boolean isDeckShouldCleared = false;
 
     private int circularRevealDuration = 400;
     private int fadeAnimDuration = 200;
@@ -117,8 +118,8 @@ public class MainActivity
 
     // TODO SET ON INTENT
     Gson gson = new Gson();
-    Preset presets[];
-    Preset currentPreset = null;
+    public static Preset presets[];
+    public static Preset currentPreset = null;
 
     // TODO TAP launch
     //IabHelper mHelper;
@@ -250,21 +251,6 @@ public class MainActivity
         // used for fragments
     }
 
-//    Runnable test = new Runnable() {
-//        @Override
-//        public void run() {
-//            Log.i("BackPressed", "isAboutVisible " + String.valueOf(isAboutVisible));
-//            Log.i("BackPressed", "isSettingVisible " + String.valueOf(isSettingVisible));
-//            checkVisible();
-//        }
-//    };
-//
-//    Handler handler = new Handler();
-//
-//    private void checkVisible() {
-//        handler.postDelayed(test, 100);
-//    }
-
     @Override
     public void onBackPressed() {
         Log.i("BackPressed", "isAboutVisible " + String.valueOf(isAboutVisible));
@@ -350,6 +336,8 @@ public class MainActivity
         }
 
         color = prefs.getInt("color", R.color.cyan_400);
+
+        clearToggleButton();
         super.onWindowFocusChanged(hasFocus);
     }
     
@@ -1163,7 +1151,7 @@ public class MainActivity
                     preset.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            showDialogPreset(a);
+                            showPresetDialog(a);
                         }
                     }, circularRevealDuration);
 
@@ -1394,65 +1382,27 @@ public class MainActivity
         }, fadeAnimDuration);
     }
 
-    public void showDialogPreset(final Activity a) {
+    private void showPresetDialog(final Activity a) {
         tut.tutorialStop(a);
         sound.soundAllStop();
-        final SharedPreferences prefs = a.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
 
-        int color;
-
-        final int defaultScheme = prefs.getInt("scheme", 0);
-        switch (defaultScheme) {
-            case 1:
-                color = R.color.hello;
-                break;
-            case 2:
-                color = R.color.roses;
-                break;
-            case 3:
-                color = R.color.faded;
-                break;
-            default:
-                color = R.color.hello;
-                break;
-        }
-
-        if (isPresetVisible == true) {
-            anim.fade(R.id.placeholder, 1.0f, 0.5f, 0, 200, "phIN", a);
-        }
+        final int defaultPreset = getScheme();
+        int color = currentPreset.getAbout().getActionbarColor();
 
         PresetDialog = new MaterialDialog.Builder(a)
                 .title(R.string.dialog_preset_title)
                 .items(R.array.presets)
                 .autoDismiss(false)
-                .itemsCallbackSingleChoice(defaultScheme, new MaterialDialog.ListCallbackSingleChoice() {
+                .itemsCallbackSingleChoice(defaultPreset, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        switch (which) {
-                            case 0:
-                                setScheme(which, prefs);
-                                PresetDialog.getBuilder()
-                                        .widgetColorRes(R.color.hello)
-                                        .positiveColorRes(R.color.hello);
-                                setSchemeInfo();
-                                break;
-                            case 1:
-                                setScheme(which, prefs);
-                                PresetDialog.getBuilder()
-                                        .widgetColorRes(R.color.roses)
-                                        .positiveColorRes(R.color.roses);
-                                setSchemeInfo();
-                                break;
-                            case 2:
-                                setScheme(which, prefs);
-                                PresetDialog.getBuilder()
-                                        .widgetColorRes(R.color.faded)
-                                        .positiveColorRes(R.color.faded);
-                                setSchemeInfo();
-                                break;
-                            default:
-                                break;
-                        }
+                        setScheme(which);
+                        int selectedPresetColor = presets[which].getAbout().getActionbarColor();
+                        PresetDialog.getBuilder()
+                                .widgetColorRes(selectedPresetColor)
+                                .positiveColorRes(selectedPresetColor);
+                        setSchemeInfo();
+
                         return true;
                     }
                 })
@@ -1464,7 +1414,6 @@ public class MainActivity
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         PresetDialog.dismiss();
-                        isSchemeChanged = true;
                     }
                 })
                 .negativeText(R.string.dialog_preset_negative)
@@ -1473,28 +1422,23 @@ public class MainActivity
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         PresetDialog.dismiss();
-                        isSchemeChanged = false;
                     }
                 })
                 .dismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
-                        if (isSchemeChanged == false) {
-                            setScheme(defaultScheme, prefs);
-                            setSchemeInfo();
-                        } else {
+                        if (defaultPreset != getScheme()) {
+                            // preset changed
                             loadPreset(circularRevealDuration);
                             clearToggleButton();
+                        } else {
+                            // preset is not changed
+                            setScheme(defaultPreset);
                         }
+                        anim.fade(R.id.placeholder, 0.5f, 1.0f, 0, 200, "phOUT", a);
+                        closeDialogPreset();
                         setSchemeInfo();
-                        if (isPresetVisible == true) {
-                            if (isAboutVisible == false) {
-                                // the dialog is normal from fab
-                                anim.fade(R.id.placeholder, 0.5f, 1.0f, 0, 200, "phOUT", a);
-                                closeDialogPreset();
-                            }
-                            isPresetVisible = false;
-                        }
+                        isPresetVisible = false;
                     }
                 })
                 .show();
@@ -1896,28 +1840,32 @@ public class MainActivity
         }
     }
 
-    public void clearToggleButton() {
-        w.setViewBackgroundColor(R.id.tgl1, R.color.grey, a);
-        w.setViewBackgroundColor(R.id.tgl2, R.color.grey, a);
-        w.setViewBackgroundColor(R.id.tgl3, R.color.grey, a);
-        w.setViewBackgroundColor(R.id.tgl4, R.color.grey, a);
-        w.setViewBackgroundColor(R.id.tgl5, R.color.grey, a);
-        w.setViewBackgroundColor(R.id.tgl6, R.color.grey, a);
-        w.setViewBackgroundColor(R.id.tgl7, R.color.grey, a);
-        w.setViewBackgroundColor(R.id.tgl8, R.color.grey, a);
+    private void clearToggleButton() {
+        if (isDeckShouldCleared) {
+            w.setViewBackgroundColor(R.id.tgl1, R.color.grey, a);
+            w.setViewBackgroundColor(R.id.tgl2, R.color.grey, a);
+            w.setViewBackgroundColor(R.id.tgl3, R.color.grey, a);
+            w.setViewBackgroundColor(R.id.tgl4, R.color.grey, a);
+            w.setViewBackgroundColor(R.id.tgl5, R.color.grey, a);
+            w.setViewBackgroundColor(R.id.tgl6, R.color.grey, a);
+            w.setViewBackgroundColor(R.id.tgl7, R.color.grey, a);
+            w.setViewBackgroundColor(R.id.tgl8, R.color.grey, a);
 
-        tgl1 = false;
-        tgl2 = false;
-        tgl3 = false;
-        tgl4 = false;
-        tgl5 = false;
-        tgl6 = false;
-        tgl7 = false;
-        tgl8 = false;
+            tgl1 = false;
+            tgl2 = false;
+            tgl3 = false;
+            tgl4 = false;
+            tgl5 = false;
+            tgl6 = false;
+            tgl7 = false;
+            tgl8 = false;
+            sound.setButton(R.color.grey_dark, a);
 
-        sound.setButton(R.color.grey_dark, a);
-        toggleSoundId = 0;
-        sound.soundAllStop();
+            toggleSoundId = 0;
+            sound.soundAllStop();
+
+            isDeckShouldCleared = false;
+        }
     }
 
     private void setSchemeInfo() {
@@ -1935,7 +1883,7 @@ public class MainActivity
         return prefs.getInt("scheme", 0);
     }
 
-    private void setScheme(int scheme, SharedPreferences prefs) {
+    private void setScheme(int scheme) {
         prefs.edit().putInt("scheme", scheme).apply();
     }
 

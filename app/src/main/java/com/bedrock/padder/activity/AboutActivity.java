@@ -24,7 +24,7 @@ import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.about.About;
 import com.google.gson.Gson;
 
-import static com.bedrock.padder.helper.SoundService.currentPreset;
+import static com.bedrock.padder.activity.MainActivity.currentPreset;
 
 public class AboutActivity extends AppCompatActivity {
 

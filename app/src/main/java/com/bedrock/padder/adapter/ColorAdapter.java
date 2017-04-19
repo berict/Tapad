@@ -19,6 +19,8 @@ import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.app.theme.ColorData;
 import com.google.gson.Gson;
 
+import static com.bedrock.padder.activity.MainActivity.isDeckShouldCleared;
+
 public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHolder> {
     private ColorData colorData;
     private int rowLayout;
@@ -166,6 +168,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
 
     private void setPrimaryColor() {
         int primaryColor = colorData.getColorButton();
+        isDeckShouldCleared = true;
 
         View colorView[] = {
                 activity.findViewById(R.id.view_color_1),
