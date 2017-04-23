@@ -489,7 +489,7 @@ public class MainActivity
         anim.fadeIn(R.id.actionbar_layout, 0, 200, "background", a);
         anim.fadeIn(R.id.actionbar_image, 200, 200, "image", a);
         //TODO: Remove this to not load preset
-        //loadPreset(400);
+        loadPreset(400);
         isPresetLoading = true;
     }
 

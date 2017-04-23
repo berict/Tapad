@@ -27,6 +27,7 @@ import com.bedrock.padder.helper.SoundService;
 import com.bedrock.padder.helper.TutorialService;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.preset.Preset;
+import com.google.android.gms.ads.AdListener;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.bedrock.padder.activity.MainActivity.coord;
@@ -83,6 +84,15 @@ public class AboutFragment extends Fragment {
         v = getView();
         setSchemeInfo();
         ad.requestLoadNativeAd(ad.getNativeAdView(R.id.adView_about, a));
+        ad.getNativeAdView(R.id.adView_about, a).setAdListener(new AdListener() {
+            @Override
+            public void onAdFailedToLoad(int i) {
+                // Ad failed to load
+                Log.d("AdView", "Failed to load");
+                w.getView(R.id.cardview_ad, v).setVisibility(View.GONE);
+                super.onAdFailedToLoad(i);
+            }
+        });
     }
 
     @Override
