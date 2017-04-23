@@ -13,7 +13,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -206,21 +205,21 @@ public class FeedbackActivity extends AppCompatActivity {
                             // custom quickfix
                             reportBugTypeString = getResources().getStringArray(R.array.feedback_report_bug_type_array)[position];
                             if (quickFix.getVisibility() == View.INVISIBLE) {
-                                anim.fadeIn(quickFix, 0, 100, "errorQuickFix");
+                                anim.fadeIn(R.id.feedback_report_bug_type_quickfix, 0, 100, "errorQuickFix", a);
                             }
                         } else if (position != 0) {
                             // not the first item (placeholder)
                             reportBugTypeString = getResources().getStringArray(R.array.feedback_report_bug_type_array)[position];
                             Log.d(TAG, reportBugTypeString);
                             if (quickFix.getVisibility() == View.VISIBLE) {
-                                anim.fadeOutInvisible(quickFix, 0, 100);
+                                anim.fadeOutInvisible(R.id.feedback_report_bug_type_quickfix, 0, 100, a);
                             }
                         } else {
                             // first item
                             reportBugTypeString = "";
                             Log.d(TAG, "null");
                             if (quickFix.getVisibility() == View.VISIBLE) {
-                                anim.fadeOutInvisible(quickFix, 0, 100);
+                                anim.fadeOutInvisible(R.id.feedback_report_bug_type_quickfix, 0, 100, a);
                             }
                         }
                         validateSpinner(reportBugTypeValidateFirstRun, R.id.feedback_report_bug_type_spinner_error, reportBugTypeString);
@@ -275,11 +274,11 @@ public class FeedbackActivity extends AppCompatActivity {
             View errorView = findViewById(errorViewId);
             if (spinnerCurrentItemString.isEmpty()) {
                 // empty, first item
-                anim.fadeIn(errorView, 0, 100, "errorFadeIn");
+                anim.fadeIn(errorViewId, 0, 100, "errorFadeIn", a);
                 return false;
             } else {
                 if (errorView.getVisibility() == View.VISIBLE) {
-                    anim.fadeOutInvisible(errorView, 0, 100);
+                    anim.fadeOutInvisible(errorViewId, 0, 100, a);
                 }
                 return true;
             }
@@ -546,7 +545,7 @@ public class FeedbackActivity extends AppCompatActivity {
             public void onClick(View v) {
                 focusCount = 0;
                 if (send() == true) {
-                    anim.circularRevealinpx(R.id.layout_placeholder,
+                    anim.circularRevealInPx(R.id.layout_placeholder,
                             coord[0], coord[1],
                             0, (int) Math.hypot(coord[0], coord[1]) + 200, new AccelerateDecelerateInterpolator(),
                             circularRevealDuration, 0, a);

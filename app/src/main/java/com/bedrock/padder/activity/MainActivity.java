@@ -489,7 +489,7 @@ public class MainActivity
         anim.fadeIn(R.id.actionbar_layout, 0, 200, "background", a);
         anim.fadeIn(R.id.actionbar_image, 200, 200, "image", a);
         //TODO: Remove this to not load preset
-        loadPreset(400);
+        //loadPreset(400);
         isPresetLoading = true;
     }
 
@@ -1107,7 +1107,7 @@ public class MainActivity
             @Override
             public void onClick(View v) {
                 if (isAboutVisible == false) {
-                    anim.circularRevealinpx(R.id.placeholder,
+                    anim.circularRevealInPx(R.id.placeholder,
                             coord[0], coord[1],
                             0, (int) Math.hypot(coord[0], coord[1]) + 200, new AccelerateDecelerateInterpolator(),
                             circularRevealDuration, 0, a);
@@ -1142,7 +1142,7 @@ public class MainActivity
             @Override
             public void onClick(View v) {
                 if (isPresetVisible == false) {
-                    anim.circularRevealinpx(R.id.placeholder,
+                    anim.circularRevealInPx(R.id.placeholder,
                             coord[0], coord[1],
                             0, (int) Math.hypot(coord[0], coord[1]) + 200, new AccelerateDecelerateInterpolator(),
                             circularRevealDuration, 0, a);
@@ -1198,7 +1198,7 @@ public class MainActivity
             public void onClick(View v) {
                 if (isSettingVisible == false) {
                     w.setRecentColor(R.string.settings, 0, R.color.colorAccent, a);
-                    anim.circularRevealinpx(R.id.placeholder,
+                    anim.circularRevealInPx(R.id.placeholder,
                             coord[2], coord[3],
                             0, (int) Math.hypot(coord[2], coord[3]) + 200, new AccelerateDecelerateInterpolator(),
                             circularRevealDuration, 0, a);
@@ -1227,7 +1227,7 @@ public class MainActivity
 
     private void closeAbout() {
         Log.d("closeAbout", "triggered");
-        anim.circularRevealinpx(R.id.placeholder,
+        anim.circularRevealInPx(R.id.placeholder,
                 coord[0], coord[1],
                 (int) Math.hypot(coord[0], coord[1]) + 200, 0, new AccelerateDecelerateInterpolator(),
                 circularRevealDuration, fadeAnimDuration, a);
@@ -1355,7 +1355,7 @@ public class MainActivity
 
     private void closeSettings() {
         Log.d("closeSettings", "triggered");
-        anim.circularRevealinpx(R.id.placeholder,
+        anim.circularRevealInPx(R.id.placeholder,
                 coord[2], coord[3],
                 (int) Math.hypot(coord[2], coord[3]) + 200, 0, new AccelerateDecelerateInterpolator(),
                 circularRevealDuration, fadeAnimDuration, a);
@@ -1445,7 +1445,7 @@ public class MainActivity
     }
 
     private void closeDialogPreset() {
-        anim.circularRevealinpx(R.id.placeholder,
+        anim.circularRevealInPx(R.id.placeholder,
                 coord[0], coord[1],
                 (int) Math.hypot(coord[0], coord[1]) + 200, 0, new AccelerateDecelerateInterpolator(),
                 circularRevealDuration, 200, a);

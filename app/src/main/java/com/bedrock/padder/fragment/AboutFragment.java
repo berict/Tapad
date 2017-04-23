@@ -250,7 +250,7 @@ public class AboutFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (isSettingVisible == false) {
-                    anim.circularRevealinpx(R.id.placeholder,
+                    anim.circularRevealInPx(R.id.placeholder,
                             coord[2], coord[3],
                             0, (int) Math.hypot(coord[2], coord[3]) + 200, new AccelerateDecelerateInterpolator(),
                             circularRevealDuration, 0, a);

@@ -1729,7 +1729,7 @@ public class TutorialService extends Activity {
 
     void motionAnimation(int id, Activity activity) {
         Log.d("motionAnimation", "at " + id);
-        playAnimation(window.getView(R.id.base_tutorial, activity).findViewById(buttonIds[id]), scaleAnimations[id]);
+        playAnimation(buttonIds[id], scaleAnimations[id], activity);
     }
 
     void playMotionAnimation(int btnId, int phId, int motionId, Activity activity) {
@@ -1744,85 +1744,84 @@ public class TutorialService extends Activity {
 
     //TODO: add swipe tutorials
 
-    public void playMotion(int viewId, int toggleNumber, Activity activity) {
+    public void playMotion(int viewId, Activity activity) {
         // Animator
-        final View view = (View) activity.findViewById(viewId);
 
         switch (viewId) {
             case R.id.btn00_tutorial:
-                playAnimation(view, scaleAnimations[0]);
+                playAnimation(viewId, scaleAnimations[0], activity);
                 break;
             case R.id.tgl1_tutorial:
-                playAnimation(view, scaleAnimations[1]);
+                playAnimation(viewId, scaleAnimations[1], activity);
                 break;
             case R.id.tgl2_tutorial:
-                playAnimation(view, scaleAnimations[2]);
+                playAnimation(viewId, scaleAnimations[2], activity);
                 break;
             case R.id.tgl3_tutorial:
-                playAnimation(view, scaleAnimations[3]);
+                playAnimation(viewId, scaleAnimations[3], activity);
                 break;
             case R.id.tgl4_tutorial:
-                playAnimation(view, scaleAnimations[4]);
+                playAnimation(viewId, scaleAnimations[4], activity);
                 break;
             case R.id.tgl5_tutorial:
-                playAnimation(view, scaleAnimations[5]);
+                playAnimation(viewId, scaleAnimations[5], activity);
                 break;
             case R.id.tgl6_tutorial:
-                playAnimation(view, scaleAnimations[6]);
+                playAnimation(viewId, scaleAnimations[6], activity);
                 break;
             case R.id.tgl7_tutorial:
-                playAnimation(view, scaleAnimations[7]);
+                playAnimation(viewId, scaleAnimations[7], activity);
                 break;
             case R.id.tgl8_tutorial:
-                playAnimation(view, scaleAnimations[8]);
+                playAnimation(viewId, scaleAnimations[8], activity);
                 break;
             case R.id.btn11_tutorial:
-                playAnimation(view, scaleAnimations[9]);
+                playAnimation(viewId, scaleAnimations[9], activity);
                 break;
             case R.id.btn12_tutorial:
-                playAnimation(view, scaleAnimations[10]);
+                playAnimation(viewId, scaleAnimations[10], activity);
                 break;
             case R.id.btn13_tutorial:
-                playAnimation(view, scaleAnimations[11]);
+                playAnimation(viewId, scaleAnimations[11], activity);
                 break;
             case R.id.btn14_tutorial:
-                playAnimation(view, scaleAnimations[12]);
+                playAnimation(viewId, scaleAnimations[12], activity);
                 break;
             case R.id.btn21_tutorial:
-                playAnimation(view, scaleAnimations[13]);
+                playAnimation(viewId, scaleAnimations[13], activity);
                 break;
             case R.id.btn22_tutorial:
-                playAnimation(view, scaleAnimations[14]);
+                playAnimation(viewId, scaleAnimations[14], activity);
                 break;
             case R.id.btn23_tutorial:
-                playAnimation(view, scaleAnimations[15]);
+                playAnimation(viewId, scaleAnimations[15], activity);
                 break;
             case R.id.btn24_tutorial:
-                playAnimation(view, scaleAnimations[16]);
+                playAnimation(viewId, scaleAnimations[16], activity);
                 break;
             case R.id.btn31_tutorial:
-                playAnimation(view, scaleAnimations[17]);
+                playAnimation(viewId, scaleAnimations[17], activity);
                 break;
             case R.id.btn32_tutorial:
-                playAnimation(view, scaleAnimations[18]);
+                playAnimation(viewId, scaleAnimations[18], activity);
                 break;
             case R.id.btn33_tutorial:
-                playAnimation(view, scaleAnimations[19]);
+                playAnimation(viewId, scaleAnimations[19], activity);
                 break;
             case R.id.btn34_tutorial:
-                playAnimation(view, scaleAnimations[20]);
+                playAnimation(viewId, scaleAnimations[20], activity);
                 break;
             case R.id.btn41_tutorial:
-                playAnimation(view, scaleAnimations[21]);
+                playAnimation(viewId, scaleAnimations[21], activity);
                 break;
             case R.id.btn42_tutorial:
-                playAnimation(view, scaleAnimations[22]);
+                playAnimation(viewId, scaleAnimations[22], activity);
                 break;
             case R.id.btn43_tutorial:
-                playAnimation(view, scaleAnimations[23]);
+                playAnimation(viewId, scaleAnimations[23], activity);
                 break;
             case R.id.btn44_tutorial:
-                playAnimation(view, scaleAnimations[24]);
+                playAnimation(viewId, scaleAnimations[24], activity);
                 break;
 
             default:
@@ -1831,7 +1830,8 @@ public class TutorialService extends Activity {
         }
     }
 
-    void playAnimation(final View view, ScaleAnimation animation) {
+    void playAnimation(final int viewId, ScaleAnimation animation, final Activity activity) {
+        View view = window.getView(R.id.base_tutorial, activity).findViewById(viewId);
         animation.setInterpolator(new AccelerateDecelerateInterpolator());
         animation.setDuration(300);
         view.startAnimation(animation);
@@ -1844,7 +1844,7 @@ public class TutorialService extends Activity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                anim.fadeOut(view, 0, 200);
+                anim.fadeOut(viewId, 0, 200, activity);
             }
 
             @Override

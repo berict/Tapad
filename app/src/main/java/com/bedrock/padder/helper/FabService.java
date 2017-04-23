@@ -340,7 +340,7 @@ public class FabService {
             fabCenterY = (window.getView(R.id.fab, activity).getTop() + window.getView(R.id.fab, activity).getBottom()) / 2;
             fabCenterX = (window.getView(R.id.fab, activity).getLeft() + window.getView(R.id.fab, activity).getRight()) / 2;
 
-            anim.circularRevealinpx(R.id.toolbar, fabCenterX, fabCenterY,
+            anim.circularRevealInPx(R.id.toolbar, fabCenterX, fabCenterY,
                     0, window.getView(R.id.toolbar, activity).getWidth(),
                     new AccelerateInterpolator(), 500, 500, activity);
         }
