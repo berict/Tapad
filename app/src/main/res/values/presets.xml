@@ -109,14 +109,22 @@
         If you have any questions about these Terms, please contact us to <b><i>berict.bedrock@gmail.com</i></b>.</string>
 	<string name="info_tapad_info_version"          >Tapad version</string>
 	<!-- TODO RELEASE -->
-	<string name="info_tapad_info_version_hint"     >2.2 Alpha 4</string>
+	<string name="info_tapad_info_version_hint"     >2.2 Beta 1</string>
 	<string name="info_tapad_info_build_date"       >Build date</string>
 	<!-- TODO RELEASE -->
-	<string name="info_tapad_info_build_date_hint"  >Wed Apr 19 00:14:03 KST 2017</string>
+	<string name="info_tapad_info_build_date_hint"  >Wed Apr 25 00:41:10 KST 2017</string>
 	<string name="info_tapad_info_changelog"        >Changelog</string>
 	<!-- TODO RELEASE -->
 	<string name="info_tapad_info_changelog_text"   >
         You can view the changelog dialog again at any time from the <b><i>about</i></b> section.\n\n
+		
+		<b>Version 2.2 Beta 1</b>\n\n
+		
+		1.	<b>IMPROVEMENT</b>: Duplicated colors show messages \n
+		2.	<b>IMPROVEMENT</b>: Empty ad with no connection \n
+		3.	<b>FIX</b>: Crashing on changing preset fixed \n
+		4.	<b>FIX</b>: Power saving mode glitch fixed \n
+		5.	<b>FIX</b>: Minor bugs fixed \n\n
 		
 		<b>Version 2.2 Alpha 4</b>\n\n
 		
@@ -128,7 +136,7 @@
 		
 		1.	<b>IMPROVEMENT</b>: Tapad images updated \n
 		2.	<b>IMPROVEMENT</b>: Color customization updated \n
-		3.	<b>FIX</b>: Light mode 4 fixed  \n
+		3.	<b>FIX</b>: Light mode 4 fixed \n
 		4.	<b>FIX</b>: Button getting wrong light effects fixed \n
 		5.	<b>FIX</b>: Minor bugs fixed \n\n
 
