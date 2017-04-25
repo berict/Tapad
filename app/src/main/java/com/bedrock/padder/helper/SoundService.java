@@ -15,6 +15,7 @@ import com.bedrock.padder.activity.MainActivity;
 import com.bedrock.padder.model.preset.Preset;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.bedrock.padder.activity.MainActivity.currentPreset;
 import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
 
 public class SoundService {
@@ -483,7 +484,6 @@ public class SoundService {
 
     boolean isPresetLoaded = false;
     Activity activity;
-    public static Preset currentPreset = null;
     public static Preset previousPreset = null;
 
     int buttonId[] = {

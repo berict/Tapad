@@ -18,7 +18,7 @@ import com.bedrock.padder.model.preset.Preset;
 
 import java.util.Arrays;
 
-import static com.bedrock.padder.helper.SoundService.currentPreset;
+import static com.bedrock.padder.activity.MainActivity.currentPreset;
 import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
 
 public class TutorialService extends Activity {

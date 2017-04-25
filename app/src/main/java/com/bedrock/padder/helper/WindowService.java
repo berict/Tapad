@@ -152,9 +152,9 @@ public class WindowService {
     public int getStatusBarFromPrefs(Activity activity) {
         int statusHeight;
         SharedPreferences sharedPreferences = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
-        statusHeight = sharedPreferences.getInt("statBarPX", 144);
+        statusHeight = sharedPreferences.getInt("statBarPX", 72);
 
-        if (statusHeight >= 240 || statusHeight < 0) {
+        if (statusHeight >= 240 || statusHeight <= 0) {
             // something gone wrong
             statusHeight = 72;
         }
