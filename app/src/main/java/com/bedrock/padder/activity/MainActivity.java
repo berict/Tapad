@@ -1864,6 +1864,8 @@ public class MainActivity
             toggleSoundId = 0;
             sound.soundAllStop();
 
+            setAboutFragment();
+
             isDeckShouldCleared = false;
         }
     }
