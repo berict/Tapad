@@ -862,6 +862,7 @@ public class SoundService {
                 Log.d(TAG, "ProgressBar fadeIn");
                 //TODO EDIT
                 anim.fadeIn(R.id.progress_bar_layout, 0, 400, "progressIn", activity);
+                window.setInvisible(R.id.base, 400, activity);
                 progress.setText(
                         activity.getResources().getString(R.string.progressbar_loading_preset_progress) + " 0 / " + presetSoundCount * 2);
             }
@@ -1026,6 +1027,7 @@ public class SoundService {
                         window.getImageView(R.id.layout_settings_tutorial_icon, activity).setImageResource(R.drawable.settings_tutorial);
 
                         anim.fadeOut(R.id.progress_bar_layout, 400, 400, activity);
+                        window.setVisible(R.id.base, 400, activity);
                         MainActivity main = new MainActivity();
                         main.setQuickstart(activity);
 

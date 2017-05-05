@@ -82,17 +82,8 @@ public class AboutFragment extends Fragment {
         super.onStart();
 
         v = getView();
-        setSchemeInfo();
         ad.requestLoadNativeAd(ad.getNativeAdView(R.id.adView_about, a));
-        ad.getNativeAdView(R.id.adView_about, a).setAdListener(new AdListener() {
-            @Override
-            public void onAdFailedToLoad(int i) {
-                // Ad failed to load
-                Log.d("AdView", "Failed to load");
-                w.getView(R.id.cardview_ad, v).setVisibility(View.GONE);
-                super.onAdFailedToLoad(i);
-            }
-        });
+        setSchemeInfo();
     }
 
     @Override
@@ -294,6 +285,18 @@ public class AboutFragment extends Fragment {
             public void onClick(View view) {
                 intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
                         R.id.cardview_dev_image, "transition", "about", "dev", 0, v);
+            }
+        });
+
+        // Blank ads
+
+        ad.getNativeAdView(R.id.adView_about, a).setAdListener(new AdListener() {
+            @Override
+            public void onAdFailedToLoad(int i) {
+                // Ad failed to load
+                Log.d("AdView", "Failed to load");
+                w.getView(R.id.cardview_ad, v).setVisibility(View.GONE);
+                super.onAdFailedToLoad(i);
             }
         });
     }

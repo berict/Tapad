@@ -411,7 +411,8 @@ public class MainActivity
                 .commit();
     }
 
-    public static void showAboutFragment(int themeColor, Activity a) {
+    private void showAboutFragment() {
+        setAboutFragment();
         WindowService w = new WindowService();
         w.getView(R.id.fragment_about_container, a).setVisibility(View.VISIBLE);
         setAboutVisible(true);
@@ -494,8 +495,8 @@ public class MainActivity
     }
 
     private void setButtonLayout() {
-        int screenWidthPx = w.getWindowWidthPx(a) - ((w.convertDPtoPX(36, a)) * 2);
-        int marginPx = w.convertDPtoPX(2, a);
+        int screenWidthPx = (int)(w.getWindowWidthPx(a) * (0.8));
+        int marginPx = w.getWindowWidthPx(a) / 160;
         int newWidthPx;
         int newHeightPx;
         int buttons[][] = {
@@ -1116,7 +1117,7 @@ public class MainActivity
                     about.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            showAboutFragment(themeColor, a);
+                            showAboutFragment();
                         }
                     }, circularRevealDuration);
 

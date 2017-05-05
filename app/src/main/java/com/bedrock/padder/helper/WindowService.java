@@ -163,59 +163,48 @@ public class WindowService {
     }
 
     public void setVisible(final int view_id, final int delay, final Activity activity){
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                final View view = (View) activity.findViewById(view_id);
-
-                view.setVisibility(View.VISIBLE);
-            }
-        }, delay);
-    }
-
-    public void setInvisible(final View view, final int delay){
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                view.setVisibility(View.INVISIBLE);
-            }
-        }, delay);
+        final View view = activity.findViewById(view_id);
+        if (delay > 0) {
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    view.setVisibility(View.VISIBLE);
+                }
+            }, delay);
+        } else {
+            view.setVisibility(View.VISIBLE);
+        }
     }
 
     public void setInvisible(final int view_id, final int delay, final Activity activity){
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                final View view = (View) activity.findViewById(view_id);
-
-                view.setVisibility(View.INVISIBLE);
-            }
-        }, delay);
+        final View view = activity.findViewById(view_id);
+        if (delay > 0) {
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    view.setVisibility(View.INVISIBLE);
+                }
+            }, delay);
+        } else {
+            view.setVisibility(View.INVISIBLE);
+        }
     }
 
     public void setGone(final int view_id, final int delay, final Activity activity){
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                final View view = (View) activity.findViewById(view_id);
-
-                view.setVisibility(View.GONE);
-            }
-        }, delay);
-    }
-
-    public void setGone(final View view, final int delay){
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                view.setVisibility(View.GONE);
-            }
-        }, delay);
+        final View view = activity.findViewById(view_id);
+        if (delay > 0) {
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    view.setVisibility(View.GONE);
+                }
+            }, delay);
+        } else {
+            view.setVisibility(View.GONE);
+        }
     }
 
     public void setActionBarBack(final boolean backEnable, final Runnable back, final Activity activity) {

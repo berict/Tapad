@@ -67,8 +67,8 @@
     <string name="info_tapad_bio_name">Remixing X Material Design</string>
     <string name="info_tapad_bio_text">
         Probably the best looking remix app out there.
-        It implemented the Material Design from the Google Design Guideline, and its beautiful.
-        It mainly features song genres like EDM, Dubstep, Progressive House, Electronic.</string>
+		Extended from the instrument LaunchPad, and made mobile friendly with touch gesture support.
+        It mainly features song genres like EDM, Dubstep, Progressive House, Electronic and further more.</string>
     <string name="info_tapad_bio_source">Powered by Studio Berict</string>
 
     <string name="info_tapad_info_title"            >Information</string>
