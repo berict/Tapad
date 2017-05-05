@@ -1,6 +1,9 @@
 package com.bedrock.padder.helper;
 
 import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.google.android.gms.ads.AdRequest;
@@ -9,8 +12,8 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.NativeExpressAdView;
 
 public class AdmobService {
-    WindowService window = new WindowService();
-    String TAG = "AdmobService";
+    private WindowService window = new WindowService();
+    private String TAG = "AdmobService";
     
     public AdView getAdView(int id, Activity activity) {
         return window.getAdView(id, activity);
@@ -60,12 +63,12 @@ public class AdmobService {
     }
 
     public void requestLoadAd(AdView adView) {
-        adView.loadAd(new AdRequest.Builder().build());
+        adView.loadAd(getAdRequest());
         Log.d(TAG, "ad requested and loaded");
     }
 
     public void requestLoadNativeAd(NativeExpressAdView adView) {
-        adView.loadAd(new AdRequest.Builder().build());
+        adView.loadAd(getAdRequest());
         Log.d(TAG, "ad requested and loaded");
     }
 
@@ -104,5 +107,13 @@ public class AdmobService {
 
     public void setNativeAdViewSize(NativeExpressAdView adView, AdSize adSize, Activity activity) {
         adView.setAdSize(adSize);
+    }
+
+    public boolean isConnected(Context context) {
+        // returns whether the device is connected to the internet
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 }

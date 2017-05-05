@@ -3,7 +3,10 @@
 		  package="com.bedrock.padder">
 	
 	<!-- TODO on iap launch -->
-	<!-- <uses-permission android:name="com.android.vending.BILLING" /> -->
+	<!--<uses-permission android:name="com.android.vending.BILLING" />-->
+	<!--<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />-->
+	<!--<uses-permission android:name="android.permission.INTERNET" />-->
+	
 	<application
 		android:allowBackup="true"
 		android:icon="@drawable/ic_launcher"

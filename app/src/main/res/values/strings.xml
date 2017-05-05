@@ -98,27 +98,6 @@
 		<item>Others</item>
 	</string-array>
 	<string name="feedback_report_bug_send_error">Please fill out the form to report a bug</string>
-	
-	<!-- Feedback old -->
-	<string name="dialog_feedback_hint">Studio Berict will reply you back in 1~2 days. If you don\'t receive the reply, please send request again.</string>
-	
-	<string name="dialog_song_hint_subject">E-mail subject</string>
-	<string name="dialog_song_hint_text">Song details</string>
-	<string name="dialog_song_hint_link">YouTube, SoundCloud link (or other links)</string>
-	<string name="dialog_song_hint_wrong_subject">Enter the email subject</string>
-	<string name="dialog_song_hint_wrong_text">Enter the song detail</string>
-	<string name="dialog_song_hint_wrong_link">Enter valid song link</string>
-	
-	<string name="dialog_feedback_hint_text">Feedback details</string>
-	<string name="dialog_feedback_hint_wrong_text">Enter feedback details</string>
-	
-	<string name="dialog_report_bug_hint_text">Bug details</string>
-	<string name="dialog_report_bug_hint_wrong_text">Enter bug details</string>
-	
-	<string name="dialog_feedback_close">Press back again to cancel</string>
-	<string name="dialog_feedback_fill_out">Please fill out the form</string>
-	<string name="dialog_feedback_select_email">Select email client to send with</string>
-	
 	<!-- Quickstart Dialog -->
 	<string name="dialog_quickstart_welcome_title">Welcome to Tapad!</string>
 	<string name="dialog_quickstart_welcome_text">Walk through how to use Tapad or tap \'Tips\' in Settings when you want this later.</string>
@@ -171,11 +150,15 @@
 	<string name="close">Close</string>
 	<string name="about">About</string>
 	<string name="presets">Presets</string>
+	
 	<string name="progressbar_loading_preset">Loading preset</string>
 	<string name="progressbar_loading_preset_progress">Sound loaded</string>
 	<string name="progressbar_loading_preset_progress_placeholder">Sound loaded 0 / 420</string>
 	<string name="progressbar_loading_preset_done">Done!</string>
 	<string name="progressbar_loading_tutorial">Loading tutorial</string>
+	
+	<string name="progressbar_loading_ad">Loading ads</string>
+	<string name="progressbar_loading_ad_failed">Can\'t load ads</string>
 	
 	<!--Settings-->
 	<string name="settings_group_play">Play</string>

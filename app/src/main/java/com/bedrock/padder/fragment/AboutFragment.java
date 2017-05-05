@@ -289,16 +289,31 @@ public class AboutFragment extends Fragment {
         });
 
         // Blank ads
-
-        ad.getNativeAdView(R.id.adView_about, a).setAdListener(new AdListener() {
-            @Override
-            public void onAdFailedToLoad(int i) {
-                // Ad failed to load
-                Log.d("AdView", "Failed to load");
-                w.getView(R.id.cardview_ad, v).setVisibility(View.GONE);
-                super.onAdFailedToLoad(i);
-            }
-        });
+        if (ad.isConnected(a)) {
+            // connected to internet, check ad is working
+            ad.getNativeAdView(R.id.adView_about, a).setAdListener(new AdListener() {
+                @Override
+                public void onAdLoaded() {
+                    // Ad loaded
+                    Log.d("AdView", "Loaded");
+                    anim.fadeOut(R.id.cardview_ad_loading, 0, 400, v, a);
+                    w.getView(R.id.cardview_ad_failed, v).setVisibility(View.GONE);
+                    super.onAdLoaded();
+                }
+                @Override
+                public void onAdFailedToLoad(int i) {
+                    // Ad failed to load
+                    Log.d("AdView", "Failed to load");
+                    anim.fadeOut(R.id.cardview_ad_loading, 0, 400, v, a);
+                    anim.fadeIn(R.id.cardview_ad_failed, 400, 400, "adFailFadeIn", v, a);
+                    super.onAdFailedToLoad(i);
+                }
+            });
+        } else {
+            // not connected to internet
+            Log.d("AdView", "Failed to connect to the internet");
+            w.getView(R.id.cardview_ad, v).setVisibility(View.GONE);
+        }
     }
 
     private void setScheme(int scheme) {

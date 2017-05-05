@@ -169,9 +169,125 @@ public class AnimService {
         }
     }
 
+    public void fadeIn(final int id, final int delay, final long duration, String handlerName, View rootView, Activity activity) {
+        final AlphaAnimation fadeIn = new AlphaAnimation(0.0f, 1.0f);
+        final View view = rootView.findViewById(id);
+        view.setVisibility(View.INVISIBLE);
+        PowerManager powerManager = (PowerManager) activity.getSystemService(POWER_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= 21 && powerManager.isPowerSaveMode()) {
+            // power save mode on
+            if (duration > 0) {
+                // delay, needs an handler
+                Map<String, Handler> handlerCreator = new HashMap<>();
+                handlerCreator.put(handlerName, new Handler());
+
+                handlerCreator.get(handlerName).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.setVisibility(View.VISIBLE);
+
+                        Log.i("AnimService", String.valueOf(id) + " fade IN [VISIBLE] effect for 0ms with " + String.valueOf(delay) + "ms delay");
+                    }
+                }, delay);
+            } else {
+                view.setVisibility(View.VISIBLE);
+                Log.i("AnimService",
+                        String.valueOf(id) + " fade IN effect to 1.0f for 0ms with no delay");
+            }
+        } else {
+            // normal fadeIn IN
+            if (duration > 0) {
+                // delay, needs an handler
+                Map<String, Handler> handlerCreator = new HashMap<>();
+                handlerCreator.put(handlerName, new Handler());
+
+                handlerCreator.get(handlerName).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        fadeIn.setDuration(duration);
+                        view.startAnimation(fadeIn);
+                        view.setVisibility(View.VISIBLE);
+
+                        Log.i("AnimService",
+                                String.valueOf(id) + " fade IN effect for " +
+                                        String.valueOf(duration) + "ms with " +
+                                        String.valueOf(delay) + "ms delay");
+                    }
+                }, delay);
+            } else {
+                fadeIn.setDuration(duration);
+                view.startAnimation(fadeIn);
+                view.setVisibility(View.VISIBLE);
+
+                Log.i("AnimService",
+                        String.valueOf(id) + " fade IN effect for " +
+                                String.valueOf(duration) + "ms with no delay");
+            }
+        }
+    }
+
     public void fadeOut(final int id, final int delay, final long duration, Activity activity) {
         final AlphaAnimation fadeOut = new AlphaAnimation(1.0f, 0.0f);
         final View view = activity.findViewById(id);
+        PowerManager powerManager = (PowerManager) activity.getSystemService(POWER_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= 21 && powerManager.isPowerSaveMode()) {
+            // power save mode on
+            if (duration > 0) {
+                // delay, needs an handler
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.setVisibility(View.GONE);
+
+                        Log.i("AnimService", String.valueOf(id) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+                    }
+                }, delay);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.setVisibility(View.GONE);
+                    }
+                }, delay + 10);
+            } else {
+                view.setVisibility(View.GONE);
+                Log.i("AnimService", String.valueOf(id) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with no delay");
+            }
+        } else {
+            // normal fade out
+            if (duration > 0) {
+                // delay, needs an handler
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        fadeOut.setDuration(duration);
+                        view.startAnimation(fadeOut);
+                        view.setVisibility(View.GONE);
+
+                        Log.i("AnimService", String.valueOf(id) + " fade OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+                    }
+                }, delay);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.setVisibility(View.GONE);
+                    }
+                }, delay + 10);
+            } else {
+                fadeOut.setDuration(duration);
+                view.startAnimation(fadeOut);
+                view.setVisibility(View.GONE);
+                Log.i("AnimService", String.valueOf(id) + " fade OUT effect for " + String.valueOf(duration) + "ms with no delay");
+            }
+        }
+    }
+
+    public void fadeOut(final int id, final int delay, final long duration, View rootView, Activity activity) {
+        final AlphaAnimation fadeOut = new AlphaAnimation(1.0f, 0.0f);
+        final View view = rootView.findViewById(id);
         PowerManager powerManager = (PowerManager) activity.getSystemService(POWER_SERVICE);
 
         if (Build.VERSION.SDK_INT >= 21 && powerManager.isPowerSaveMode()) {
