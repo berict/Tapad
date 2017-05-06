@@ -23,11 +23,11 @@ Tapad informs you about the artist of the song which you are playing. Show them 
 
 #### Featuring
 
-• OMFG - Hello
+• OMFG - Hello (Needs gesture fix)
 
 • The Chainsmokers - Roses (Needs fix)
 
-• Faded - Alan Walker
+• Faded - Alan Walker (Needs vocal updates)
 
 • Marshmello - Alone (On work)
 
