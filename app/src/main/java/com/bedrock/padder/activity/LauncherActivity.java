@@ -74,7 +74,7 @@ public class LauncherActivity extends Activity {
 
         int savedVersionCode = prefs.getInt("versionCode", 0);
 
-        if (savedVersionCode == 13) {
+        if (savedVersionCode == 13 && !(prefs.getInt("scheme", 0) > 0 && prefs.getInt("scheme", 0) < 3)) {
             // TODO needs fix
             prefs.edit().putInt("scheme", 0).apply();
         }
