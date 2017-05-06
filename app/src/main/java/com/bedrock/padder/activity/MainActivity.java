@@ -1666,7 +1666,12 @@ public class MainActivity
     }
 
     int getScheme() {
-        return prefs.getInt("scheme", 0);
+        if (prefs.getInt("scheme", 0) > 2 && prefs.getInt("scheme", 0) < 0) {
+            // TOOD needs fix, why this happens?
+            return 0;
+        } else {
+            return prefs.getInt("scheme", 0);
+        }
     }
 
     private void setScheme(int scheme) {

@@ -109,14 +109,17 @@
         If you have any questions about these Terms, please contact us to <b><i>berict.bedrock@gmail.com</i></b>.</string>
 	<string name="info_tapad_info_version"          >Tapad version</string>
 	<!-- TODO RELEASE -->
-	<string name="info_tapad_info_version_hint"     >2.2</string>
+	<string name="info_tapad_info_version_hint"     >2.2.1</string>
 	<string name="info_tapad_info_build_date"       >Build date</string>
 	<!-- TODO RELEASE -->
-	<string name="info_tapad_info_build_date_hint"  >Fri May 5 18:08:12 KST 2017</string>
+	<string name="info_tapad_info_build_date_hint"  >Fri May 6 15:47:59 KST 2017</string>
 	<string name="info_tapad_info_changelog"        >Changelog</string>
 	<!-- TODO RELEASE -->
 	<string name="info_tapad_info_changelog_text"   >
         You can view the changelog dialog again at any time from the <b><i>about</i></b> section.\n\n
+		
+		<b>Version 2.2.1</b>\n\n
+		1.	<b>FIX</b>: App crashing on startup\n\n
 		
 		<b>Version 2.2</b>\n\n
 		

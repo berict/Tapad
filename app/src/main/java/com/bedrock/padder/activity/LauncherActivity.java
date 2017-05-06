@@ -73,6 +73,12 @@ public class LauncherActivity extends Activity {
         Log.i("VersionCode", "Version code = " + String.valueOf(currentVersionCode));
 
         int savedVersionCode = prefs.getInt("versionCode", 0);
+
+        if (savedVersionCode == 13) {
+            // TODO needs fix
+            prefs.edit().putInt("scheme", 0).apply();
+        }
+
         if (currentVersionCode == savedVersionCode) {
             // Normal run, Main transition
             Log.d("FirstRun", "false, intent to MainActivity");
