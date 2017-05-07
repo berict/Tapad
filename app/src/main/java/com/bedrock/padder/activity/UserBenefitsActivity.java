@@ -212,7 +212,7 @@ public class UserBenefitsActivity extends Activity {
                         .alwaysCallSingleChoiceCallback()
                         .widgetColorRes(color)
                         .positiveText(R.string.user_benefits_dialog_positive)
-                        .positiveColorRes(color)
+                        .positiveColorRes(R.color.colorAccent)
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {

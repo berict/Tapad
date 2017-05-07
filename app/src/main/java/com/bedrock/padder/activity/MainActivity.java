@@ -1195,7 +1195,7 @@ public class MainActivity
                 .alwaysCallSingleChoiceCallback()
                 .widgetColorRes(color)
                 .positiveText(R.string.dialog_preset_positive)
-                .positiveColorRes(color)
+                .positiveColorRes(R.color.colorAccent)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {

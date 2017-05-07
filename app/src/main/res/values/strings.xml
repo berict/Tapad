@@ -28,7 +28,7 @@
 	<string name="user_benefits_page_2_hint">Make your favorites the only remix in the world - by you.</string>
 	<string name="user_benefits_page_3_hint">Set your favorite color and see them on the move.</string>
 	<string name="user_benefits_page_4_hint">Swipe up, down, left, right to make different sounds.\nHold to loop a sound.</string>
-	<string name="user_benefits_dialog_hint">Before you start, select the song to play.</string>
+	<string name="user_benefits_dialog_hint">Before you start, select a preset to play.</string>
 	<string name="user_benefits_dialog_positive">START</string>
 	
 	<!-- Cardview -->
