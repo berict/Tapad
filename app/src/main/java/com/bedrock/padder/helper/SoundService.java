@@ -567,7 +567,7 @@ public class SoundService {
     }
 
     public void playToggleButtonSound(int id) {
-        sp.play(soundPoolId[id - 1][0][id], 1, 1, 1, 0, 1f);
+        sp.play(soundPoolId[id - 1][id][0], 1, 1, 1, 0, 1f);
     }
 
     //    boolean tgl1 = false;
@@ -645,12 +645,12 @@ public class SoundService {
         toggle = id;
         if (isPresetLoading == false) {
             for (int i = 0; i < 21; i++) {
-                if (id >= 1) {
-                    if (i < 1 || i > 4) {
+                if (i >= 1 && i <= 4) {
+                    continue;
+                } else {
+                    if (id >= 1 && id <= 4) {
                         window.setOnGestureSound(buttonId[i], colorId, R.color.grey, sp, soundPoolId[id - 1][i], activity);
                     }
-                } else {
-                    Log.d("Error", "Incorrect id value found");
                 }
             }
             Log.i("SoundService", "ToggleButton sound set id " + String.valueOf(id));
@@ -759,7 +759,7 @@ public class SoundService {
                 if (i >= 1 && i <= 4) {
                     continue;
                 } else {
-                    if (id >= 1) {
+                    if (id >= 1 && id <= 4) {
                         window.setOnGestureSound(buttonId[i], colorId, R.color.grey, sp, soundPoolId[id - 1][i], pattern, activity);
                     }
                 }

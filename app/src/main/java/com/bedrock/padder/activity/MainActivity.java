@@ -490,6 +490,7 @@ public class MainActivity
         anim.fadeIn(R.id.actionbar_image, 200, 200, "image", a);
         //TODO: Remove this to not load preset
         loadPreset(400);
+        //makeJson();
         isPresetLoading = true;
     }
 
@@ -1677,50 +1678,60 @@ public class MainActivity
         prefs.edit().putInt("scheme", scheme).apply();
     }
 
+    public static void setSettingVisible(boolean isVisible) {
+        isSettingVisible = isVisible;
+        Log.d("SettingVisible", String.valueOf(isSettingVisible));
+    }
+
+    public static void setAboutVisible(boolean isVisible) {
+        isAboutVisible = isVisible;
+        Log.d("AboutVisible", String.valueOf(isAboutVisible));
+    }
+
     private void makeJson() {
-        Item helloItems[] = {
-                new Item("facebook", "preset_hello_detail_facebook"),
-                new Item("twitter", "preset_hello_detail_twitter"),
-                new Item("soundcloud", "preset_hello_detail_soundcloud"),
-                new Item("instagram", "preset_hello_detail_instagram"),
-                new Item("google_plus", "preset_hello_detail_google_plus"),
-                new Item("youtube", "preset_hello_detail_youtube"),
-                new Item("twitch", "preset_hello_detail_twitch"), // only hello
-                new Item("web", "preset_hello_detail_web")
+        Item fadedItems[] = {
+                new Item("facebook", "preset_faded_detail_facebook"),
+                new Item("twitter", "preset_faded_detail_twitter"),
+                new Item("soundcloud", "preset_faded_detail_soundcloud"),
+                new Item("instagram", "preset_faded_detail_instagram"),
+                new Item("google_plus", "preset_faded_detail_google_plus"),
+                new Item("youtube", "preset_faded_detail_youtube"),
+                //new Item("twitch", "preset_faded_detail_twitch"), // only faded
+                new Item("web", "preset_faded_detail_web")
         };
 
-        Detail helloDetail = new Detail("preset_hello_detail_title", helloItems);
+        Detail fadedDetail = new Detail("preset_faded_detail_title", fadedItems);
 
-        Item helloSongItems[] = {
-                new Item("soundcloud", "preset_hello_song_detail_soundcloud", false),
-                new Item("youtube", "preset_hello_song_detail_youtube", false),
-                new Item("spotify", "preset_hello_song_detail_spotify", false),
-                new Item("google_play_music", "preset_hello_song_detail_google_play_music", false),
-                new Item("apple", "preset_hello_song_detail_apple", false),
-                new Item("amazon", "preset_hello_song_detail_amazon", false),
-                new Item("pandora", "preset_hello_song_detail_pandora", false)
+        Item fadedSongItems[] = {
+                new Item("soundcloud", "preset_faded_song_detail_soundcloud", false),
+                new Item("youtube", "preset_faded_song_detail_youtube", false),
+                new Item("spotify", "preset_faded_song_detail_spotify", false),
+                new Item("google_play_music", "preset_faded_song_detail_google_play_music", false),
+                new Item("apple", "preset_faded_song_detail_apple", false),
+                new Item("amazon", "preset_faded_song_detail_amazon", false),
+                new Item("pandora", "preset_faded_song_detail_pandora", false)
         };
 
-        Detail helloSongDetail = new Detail("preset_hello_song_detail_title", helloSongItems);
+        Detail fadedSongDetail = new Detail("preset_faded_song_detail_title", fadedSongItems);
 
-        Bio helloBio = new Bio(
-                "preset_hello_bio_title",
-                "about_bio_hello",
-                "preset_hello_bio_name",
-                "preset_hello_bio_text",
-                "preset_hello_bio_source"
+        Bio fadedBio = new Bio(
+                "preset_faded_bio_title",
+                "about_bio_faded",
+                "preset_faded_bio_name",
+                "preset_faded_bio_text",
+                "preset_faded_bio_source"
         );
 
-        Detail helloDetails[] = {
-                helloDetail,
-                helloSongDetail
+        Detail fadedDetails[] = {
+                fadedDetail,
+                fadedSongDetail
         };
 
-        About helloAbout = new About(
-                "preset_hello_title", "about_album_hello",
-                "preset_hello_tutorial_link",
-                helloBio, helloDetails,
-                "preset_hello_color_dark", "preset_hello_color"
+        About fadedAbout = new About(
+                "preset_faded_title", "about_album_faded",
+                "preset_faded_tutorial_link",
+                fadedBio, fadedDetails,
+                "preset_faded_color_dark", "preset_faded_color"
         );
 
         // Timings
@@ -2185,17 +2196,17 @@ public class MainActivity
         //TODO EDIT
         //Log.d("Array", Arrays.deepToString(deckTiming[0].getDeckTiming()));
 
-        Music helloMusic = new Music(
-                "preset_hello",
-                84,
-                105,
+        Music fadedMusic = new Music(
+                "preset_faded",
+                243,
+                90,
                 getDeckFromFileName(fileTag),
                 null
         );
 
-        Preset helloPreset = new Preset(1, helloMusic, helloAbout);
+        Preset fadedPreset = new Preset(3, fadedMusic, fadedAbout);
 
-        largeLog("JSON", gson.toJson(helloPreset));
+        largeLog("JSON", gson.toJson(fadedPreset));
 //        //TODO use this on about screen updates
 //        Bio tapadBio = new Bio(
 //                "info_tapad_bio_title",
@@ -2276,18 +2287,8 @@ public class MainActivity
 //        largeLog("berictAboutJSON", gson.toJson(berictAbout));
     }
 
-    public static void setSettingVisible(boolean isVisible) {
-        isSettingVisible = isVisible;
-        Log.d("SettingVisible", String.valueOf(isSettingVisible));
-    }
-
-    public static void setAboutVisible(boolean isVisible) {
-        isAboutVisible = isVisible;
-        Log.d("AboutVisible", String.valueOf(isAboutVisible));
-    }
-
     // TODO change on new preset
-    String fileTag = null;
+    String fileTag = "alan_walker_faded_";
 
     Deck[] getDeckFromFileName(String fileTag) {
         Pad part1[] = {
@@ -2436,15 +2437,15 @@ public class MainActivity
     }
 
     Pad getPadsFromFile(String fileTag, int deck, int pad) {
-        if (validateFileName(
-                fileTag,
-                Integer.toString(deck + 1),
-                getPadStringFromId(pad),
-                Integer.toString(0)
-        ) == null) {
-            // the pad is empty from the first gesture == empty
-            return new Pad("a0_00");
-        } else {
+//        if (validateFileName(
+//                fileTag,
+//                Integer.toString(deck + 1),
+//                getPadStringFromId(pad),
+//                Integer.toString(0)
+//        ) == null) {
+//            // the pad is empty from the first gesture == empty
+//            return new Pad("a0_00");
+//        } else {
             String fileNameArray[] = {
                     validateFileName(
                             fileTag,
@@ -2478,7 +2479,7 @@ public class MainActivity
                     )
             };
             return getPadFromStringArray(fileNameArray);
-        }
+//        }
     }
 
     Pad getPadFromStringArray(String fileName[]) {
@@ -2486,6 +2487,8 @@ public class MainActivity
         for (int i = 0; i < fileName.length; i++) {
             if (fileName[i] != null) {
                 stringArray.add(fileName[i]);
+            } else if (i == 0) {
+                stringArray.add("a_null");
             }
         }
 

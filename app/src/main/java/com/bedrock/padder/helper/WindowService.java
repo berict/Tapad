@@ -1077,7 +1077,7 @@ public class WindowService {
         // pattern
         final int btnId[] = {getButtonId(padId)};
         final boolean isLoopEnabled[] = {false};
-        
+
         final View pad = activity.findViewById(padId);
         final int streamId[] = {0};
 
