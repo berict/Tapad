@@ -20,17 +20,6 @@ import static com.bedrock.padder.activity.MainActivity.isPresetLoading;
 import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
 
 public class SoundService {
-    //TODO NEW PRESET : update sound count
-    public static final int HELLO_SOUND_COUNT = 84;
-    public static final int ROSES_SOUND_COUNT = 102;
-    public static final int FADED_SOUND_COUNT = 264;
-
-    public static final int PRESET_SOUND_COUNTS[] = {
-            HELLO_SOUND_COUNT,
-            ROSES_SOUND_COUNT,
-            FADED_SOUND_COUNT
-    };
-
     private SoundPool sp = new SoundPool(16, AudioManager.STREAM_MUSIC, 0);
     private int toggle;
 
@@ -882,23 +871,23 @@ public class SoundService {
                         for (int j = 0; j < 21; j++) {
                             Log.i(TAG, "    Pad " + (j + 1));
                             // pad gesture
-                            if (previousPreset.getMusic().getDecks()[i].getPad(j).getRaw() != null) {
+                            if (soundPoolId[i][j][0] != 0 && previousPreset.getMusic().getDecks()[i].getPad(j).getRaw() != null) {
                                 sp.unload(window.getRawId(previousPreset.getMusic().getDecks()[i].getPad(j).getRaw(), activity));
                                 Log.i(TAG, "      Pad " + (j + 1) + "-Normal" + ", Sound unloaded");
                             }
-                            if (previousPreset.getMusic().getDecks()[i].getPad(j).getUp() != null) {
+                            if (soundPoolId[i][j][1] != 0 && previousPreset.getMusic().getDecks()[i].getPad(j).getUp() != null) {
                                 sp.unload(window.getRawId(previousPreset.getMusic().getDecks()[i].getPad(j).getUp(), activity));
                                 Log.i(TAG, "      Pad " + (j + 1) + "-Up" + ", Sound unloaded");
                             }
-                            if (previousPreset.getMusic().getDecks()[i].getPad(j).getRight() != null) {
+                            if (soundPoolId[i][j][2] != 0 && previousPreset.getMusic().getDecks()[i].getPad(j).getRight() != null) {
                                 sp.unload(window.getRawId(previousPreset.getMusic().getDecks()[i].getPad(j).getRight(), activity));
                                 Log.i(TAG, "      Pad " + (j + 1) + "-Right" + ", Sound unloaded");
                             }
-                            if (previousPreset.getMusic().getDecks()[i].getPad(j).getDown() != null) {
+                            if (soundPoolId[i][j][3] != 0 && previousPreset.getMusic().getDecks()[i].getPad(j).getDown() != null) {
                                 sp.unload(window.getRawId(previousPreset.getMusic().getDecks()[i].getPad(j).getDown(), activity));
                                 Log.i(TAG, "      Pad " + (j + 1) + "-Down" + ", Sound unloaded");
                             }
-                            if (previousPreset.getMusic().getDecks()[i].getPad(j).getLeft() != null) {
+                            if (soundPoolId[i][j][4] != 0 && previousPreset.getMusic().getDecks()[i].getPad(j).getLeft() != null) {
                                 sp.unload(window.getRawId(previousPreset.getMusic().getDecks()[i].getPad(j).getLeft(), activity));
                                 Log.i(TAG, "      Pad " + (j + 1) + "-Left" + ", Sound unloaded");
                             }
