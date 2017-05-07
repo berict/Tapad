@@ -2188,6 +2188,7 @@ public class MainActivity
         Music helloMusic = new Music(
                 "preset_hello",
                 84,
+                105,
                 getDeckFromFileName(fileTag),
                 null
         );
