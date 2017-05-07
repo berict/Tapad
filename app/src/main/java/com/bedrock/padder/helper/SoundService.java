@@ -16,6 +16,7 @@ import com.bedrock.padder.model.preset.Preset;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.bedrock.padder.activity.MainActivity.currentPreset;
+import static com.bedrock.padder.activity.MainActivity.isPresetLoading;
 import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
 
 public class SoundService {
@@ -30,7 +31,7 @@ public class SoundService {
             FADED_SOUND_COUNT
     };
 
-    public SoundPool sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+    private SoundPool sp = new SoundPool(16, AudioManager.STREAM_MUSIC, 0);
     private int toggle;
 
     private int sp_id_1_00 = 0;
@@ -482,7 +483,6 @@ public class SoundService {
             }
     };
 
-    boolean isPresetLoaded = false;
     Activity activity;
     public static Preset previousPreset = null;
 
@@ -549,6 +549,7 @@ public class SoundService {
     private AsyncTask loadSound = null;
 
     public void loadSchemeSound(Preset preset, Activity a) {
+        // set the previous preset
         previousPreset = currentPreset;
         currentPreset = preset;
         activity = a;
@@ -642,7 +643,7 @@ public class SoundService {
 
     public void setButtonToggle(int id, int colorId, Activity activity) {
         toggle = id;
-        if (isPresetLoaded == true) {
+        if (isPresetLoading == false) {
             for (int i = 0; i < 21; i++) {
                 if (id >= 1) {
                     if (i < 1 || i > 4) {
@@ -753,7 +754,7 @@ public class SoundService {
                 break;
         }
 
-        if (isPresetLoaded == true) {
+        if (isPresetLoading == false) {
             for (int i = 0; i < 21; i++) {
                 if (i >= 1 && i <= 4) {
                     continue;
@@ -853,7 +854,7 @@ public class SoundService {
 
         protected void onPreExecute() {
             Log.d(TAG, "On preExecute, set prefs");
-            isPresetLoaded = false;
+            isPresetLoading = true;
             progressCount = 0;
             presetSoundCount = currentPreset.getMusic().getSoundCount();
             ad.resumeNativeAdView(R.id.adView_main, activity);
@@ -936,6 +937,8 @@ public class SoundService {
                         + progressCount++ + " / " + presetSoundCount * 2);
     }
 
+    long loadingTime = 0;
+
     private class LoadSound extends AsyncTask<Void, Integer, String> {
         String TAG = "LoadSound";
 
@@ -944,6 +947,9 @@ public class SoundService {
 
             window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.icon_tutorial_disabled);
             window.getImageView(R.id.layout_settings_tutorial_icon, activity).setImageResource(R.drawable.settings_tutorial_disabled);
+
+            //TODO remove
+            loadingTime = System.currentTimeMillis();
         }
 
         protected String doInBackground(Void... arg0) {
@@ -996,6 +1002,7 @@ public class SoundService {
 
         protected void onPostExecute(String result) {
             Log.d(TAG, "sampleId count : " + presetSoundCount);
+            Log.d(TAG, "Loading time : " + String.valueOf(System.currentTimeMillis() - loadingTime));
 
             progress = window.getTextView(R.id.progress_bar_progress_text, activity);
 
@@ -1017,7 +1024,6 @@ public class SoundService {
                         progress.setText(
                                 activity.getResources().getString(R.string.progressbar_loading_preset_progress) + " "
                                         + presetSoundCount * 2 + " / " + presetSoundCount * 2);
-                        isPresetLoaded = true;
 
                         // Load finished, set AsyncTask objects to null
                         loadSound = null;
@@ -1028,6 +1034,7 @@ public class SoundService {
 
                         anim.fadeOut(R.id.progress_bar_layout, 400, 400, activity);
                         window.setVisible(R.id.base, 400, activity);
+
                         MainActivity main = new MainActivity();
                         main.setQuickstart(activity);
 
@@ -1040,7 +1047,7 @@ public class SoundService {
                             }
                         }, 800);
 
-                        main.isPresetLoading = false;
+                        isPresetLoading = false;
                     }
                 }
             });

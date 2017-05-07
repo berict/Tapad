@@ -61,7 +61,6 @@ public class MainActivity
     final String qs = "quickstart";
     public static final String TAG = "MainActivity";
 
-    public boolean isPresetLoading = false;
     public boolean tgl1 = false;
     public boolean tgl2 = false;
     public boolean tgl3 = false;
@@ -83,7 +82,6 @@ public class MainActivity
     MaterialDialog QuickstartDialog;
     MaterialDialog PresetDialog;
 
-    private boolean isPresetChanged = false;
     int toggleSoundId = 0;
     int togglePatternId = 0;
 
@@ -97,6 +95,7 @@ public class MainActivity
     private AdmobService ad = new AdmobService();
 
     private boolean isToolbarVisible = false;
+    public static boolean isPresetLoading = false;
     public static boolean isPresetVisible = false;
     public static boolean isTutorialVisible = false;
     public static boolean isAboutVisible = false;
