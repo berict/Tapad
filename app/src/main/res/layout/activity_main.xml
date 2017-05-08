@@ -65,7 +65,9 @@
 	
 	<include layout="@layout/fragment_toolbar"/>
 	
-	<include layout="@layout/fragment_actionbar"/>
+	<!--<include layout="@layout/fragment_actionbar"/>-->
+	
+	<include layout="@layout/fragment_actionbar_material"/>
 	
 	<FrameLayout
 		android:id="@+id/fragment_about_container"

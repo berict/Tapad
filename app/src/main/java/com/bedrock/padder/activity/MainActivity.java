@@ -4,16 +4,21 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -28,6 +33,7 @@ import com.bedrock.padder.helper.AdmobService;
 import com.bedrock.padder.helper.AnimService;
 import com.bedrock.padder.helper.AppbarService;
 import com.bedrock.padder.helper.FabService;
+import com.bedrock.padder.helper.IntentService;
 import com.bedrock.padder.helper.SoundService;
 import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.TutorialService;
@@ -76,7 +82,7 @@ public class MainActivity
     int themeColor = R.color.hello;
     // TODO color
     int color = R.color.cyan_400;
-    boolean doubleBackToExitPressedOnce = false;
+    Toolbar toolbar;
 
     MaterialDialog ChangelogDialog;
     MaterialDialog QuickstartDialog;
@@ -91,9 +97,11 @@ public class MainActivity
     private WindowService w = new WindowService();
     private FabService fab = new FabService();
     private AppbarService ab = new AppbarService();
-    private TutorialService tut = new TutorialService();
+    private TutorialService tut = new TutorialService();;
+    private IntentService intent = new IntentService();
     private AdmobService ad = new AdmobService();
 
+    private boolean doubleBackToExitPressedOnce = false;
     private boolean isToolbarVisible = false;
     public static boolean isPresetLoading = false;
     public static boolean isPresetVisible = false;
@@ -206,9 +214,8 @@ public class MainActivity
         }
 
         color = prefs.getInt("color", R.color.cyan_400);
-        if (color == R.color.cyan_400) {
-            prefs.edit().putInt("color", R.color.cyan_400).apply();
-        }
+        toolbar = w.getToolbar(R.id.actionbar_layout_toolbar, a);
+        setSupportActionBar(toolbar);
 
         if (prefs.getString("colorData", null) == null) {
             // First run colorData json set
@@ -240,8 +247,33 @@ public class MainActivity
         w.setStatusBar(R.color.transparent, a);
         w.setNavigationBar(R.color.transparent, a);
 
-        ab.setStatusHeight(a);
+        //ab.setStatusHeight(a);
         clearDeck(a);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.actionbar_item, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_about:
+                intent.intentWithExtra(a, "activity.AboutActivity", "about", "tapad", 0);
+                break;
+            case R.id.action_settings:
+                showSettingsFragment(a);
+                break;
+            case R.id.action_help:
+                intent.intent(a, "activity.HelpActivity", 0);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -274,6 +306,9 @@ public class MainActivity
                     closeToolbar(a);
                 }
             }
+        } else if (isSettingVisible == true) {
+            // Setting is visible above about
+            closeSettings();
         } else {
             if (prefs.getInt(qs, 0) > 0) {
                 Log.i("BackPressed", "Tutorial prompt is visible, backpress ignored.");
@@ -1139,12 +1174,16 @@ public class MainActivity
 
     private void closeSettings() {
         Log.d("closeSettings", "triggered");
-        anim.circularRevealInPx(R.id.placeholder,
-                coord[2], coord[3],
-                (int) Math.hypot(coord[2], coord[3]) + 200, 0, new AccelerateDecelerateInterpolator(),
-                circularRevealDuration, fadeAnimDuration, a);
+        if (isToolbarVisible) {
+            anim.circularRevealInPx(R.id.placeholder,
+                    coord[2], coord[3],
+                    (int) Math.hypot(coord[2], coord[3]) + 200, 0, new AccelerateDecelerateInterpolator(),
+                    circularRevealDuration, fadeAnimDuration, a);
 
-        anim.fadeIn(R.id.placeholder, 0, fadeAnimDuration, "settingOut", a);
+            anim.fadeIn(R.id.placeholder, 0, fadeAnimDuration, "settingOut", a);
+        } else {
+            w.getView(R.id.fragment_settings_container, a).setVisibility(View.GONE);
+        }
 
         color = prefs.getInt("color", R.color.cyan_400);
         clearToggleButton();
@@ -1656,17 +1695,26 @@ public class MainActivity
 
     private void setSchemeInfo() {
         if (isSettingVisible == false && isAboutVisible == false) {
-            ab.setNav(0, null, a);
-            w.setRecentColor(0, 0, themeColor, a);
             currentPreset = presets[getScheme()];
             themeColor = currentPreset.getAbout().getActionbarColor();
-            ab.setColor(themeColor, a);
-            ab.setImage(w.getDrawableId("logo_" + currentPreset.getMusic().getNameId().replace("preset_", "")), a);
+            getSupportActionBar().setTitle("");
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, themeColor)));
+            w.getImageView(R.id.actionbar_image, a).setImageResource(w.getDrawableId("logo_" + currentPreset.getMusic().getNameId().replace("preset_", "")));
+            w.setViewBackgroundColor(R.id.statusbar, themeColor, a);
+            w.setRecentColor(0, 0, themeColor, a);
+//            ab.setNav(0, null, a);
+//            ab.setColor(themeColor, a);
+//            ab.setMenu(new Runnable() {
+//                @Override
+//                public void run() {
+//
+//                }
+//            }, a);
         }
     }
 
     int getScheme() {
-        if (prefs.getInt("scheme", 0) > 2 && prefs.getInt("scheme", 0) < 0) {
+        if (prefs.getInt("scheme", 0) > 3 && prefs.getInt("scheme", 0) < 0) {
             // TOOD needs fix, why this happens?
             return 0;
         } else {

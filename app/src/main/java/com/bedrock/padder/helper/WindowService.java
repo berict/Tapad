@@ -17,6 +17,7 @@ import android.os.Handler;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -460,7 +461,7 @@ public class WindowService {
     }
 
     public Rect getRect(int id, Activity activity) {
-        View view = (View) activity.findViewById(id);
+        View view = activity.findViewById(id);
 
         Rect rect = new Rect();
         view.getGlobalVisibleRect(rect);
@@ -482,6 +483,14 @@ public class WindowService {
 
     public Button getButton(int id, Activity activity) {
         return (Button) activity.findViewById(id);
+    }
+
+    public Toolbar getToolbar(int id, Activity activity) {
+        return (Toolbar) activity.findViewById(id);
+    }
+
+    public Toolbar getToolbar(int id, View view) {
+        return (Toolbar) view.findViewById(id);
     }
 
     public ToggleButton getToggleButton(int id, Activity activity) {

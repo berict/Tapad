@@ -107,7 +107,6 @@ public class AboutActivity extends AppCompatActivity {
 
         // title image / text
         window.getImageView(R.id.layout_image, activity).setImageResource(window.getDrawableId(about.getImageId()));
-        //window.getTextView(R.id.layout_text, activity).setText(about.getTitle());
 
         // bio
         window.getTextView(R.id.layout_bio_title, activity).setText(about.getBio().getTitle(activity));

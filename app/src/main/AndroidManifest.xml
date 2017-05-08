@@ -36,7 +36,11 @@
             android:screenOrientation="portrait"
 			android:windowSoftInputMode="stateVisible|adjustResize"/>
 		<activity
-			android:name=".activity.ColorActivity"/>
+			android:name=".activity.ColorActivity"
+			android:screenOrientation="portrait"/>
+		<activity
+			android:name=".activity.HelpActivity"
+			android:screenOrientation="portrait"/>
 	</application>
 
 </manifest>
