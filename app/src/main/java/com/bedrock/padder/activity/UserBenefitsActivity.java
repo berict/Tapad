@@ -91,7 +91,7 @@ public class UserBenefitsActivity extends Activity {
         prefs.edit().putInt("scheme", 0).apply();
         Log.d("SharedPrefs", "Scheme : Hello");
 
-        prefs.edit().putInt("color", R.color.red).apply();
+        prefs.edit().putInt("color", R.color.cyan_400).apply();
     }
 
     private void initializeView() {

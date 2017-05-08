@@ -230,7 +230,8 @@ public class MainActivity
         setButtonLayout();
 
         // Set fragments
-        setAboutFragment();
+        // TODO no need check
+        //setAboutFragment();
         setSettingsFragment();
 
         // Request ads
@@ -1648,7 +1649,8 @@ public class MainActivity
             toggleSoundId = 0;
             sound.soundAllStop();
 
-            setAboutFragment();
+            // TODO no need check
+            //setAboutFragment();
 
             isDeckShouldCleared = false;
         }
