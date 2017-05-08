@@ -221,6 +221,7 @@ public class MainActivity
         a.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         // Set UI
+        isDeckShouldCleared = true;
         clearToggleButton();
         setFab();
         setToolbar();
@@ -230,8 +231,6 @@ public class MainActivity
         setButtonLayout();
 
         // Set fragments
-        // TODO no need check
-        //setAboutFragment();
         setSettingsFragment();
 
         // Request ads
@@ -1218,6 +1217,8 @@ public class MainActivity
                         if (defaultPreset != getScheme()) {
                             // preset changed
                             loadPreset(circularRevealDuration);
+                            // deck should be cleared after the preset is cleaned
+                            isDeckShouldCleared = true;
                             clearToggleButton();
                         }
                         anim.fade(R.id.placeholder, 0.5f, 1.0f, 0, 200, "phOUT", a);
@@ -1648,9 +1649,6 @@ public class MainActivity
 
             toggleSoundId = 0;
             sound.soundAllStop();
-
-            // TODO no need check
-            //setAboutFragment();
 
             isDeckShouldCleared = false;
         }
