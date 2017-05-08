@@ -1,4 +1,9 @@
 # Tapad
+
+<a href="https://goo.gl/pmws51"><img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Tapad is available on Google Play" height="64px"/></a>
+
+[***Be a beta tester***](https://goo.gl/a5V8kc)
+
 ### Remixing X Material Design
 
 ***Probably the best looking remix app out there.***
