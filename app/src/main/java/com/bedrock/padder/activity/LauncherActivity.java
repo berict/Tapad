@@ -74,27 +74,24 @@ public class LauncherActivity extends Activity {
 
         int savedVersionCode = prefs.getInt("versionCode", 0);
 
-        if (savedVersionCode == 13 && !(prefs.getInt("scheme", 0) > 0 && prefs.getInt("scheme", 0) < 3)) {
-            // TODO needs fix
-            prefs.edit().putInt("scheme", 0).apply();
-        }
-
         if (currentVersionCode == savedVersionCode) {
             // Normal run, Main transition
             Log.d("FirstRun", "false, intent to MainActivity");
 
             intent.intentFlag(activity, "activity.MainActivity", 500);
-            //prefs.edit().putInt("quickstart", 0).apply();
         } else if (savedVersionCode == 0 || savedVersionCode == -1) {
             // New install / cleared sharedpref, Welcome transition
             Log.d("FirstRun", "true, intent to UserBenefitsActivity");
 
             intent.intentFlag(activity, "activity.UserBenefitsActivity", 500);
             prefs.edit().putInt("quickstart", 0).apply();
-            prefs.edit().putInt("versionCode", currentVersionCode - 1).apply(); // To show changelog
+            // To show changelog
+            prefs.edit().putInt("versionCode", currentVersionCode - 1).apply();
         } else if (currentVersionCode > savedVersionCode) {
             // Upgrade run
             Log.d("FirstRun", "false (Updated), intent to MainActivity");
+            // set the preset to 0 to avoid crashes
+            prefs.edit().putInt("scheme", 0).apply();
 
             intent.intentFlag(activity, "activity.MainActivity", 500);
         }
