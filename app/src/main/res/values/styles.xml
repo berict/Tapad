@@ -8,6 +8,15 @@
 		<item name="android:colorBackground">@color/white</item>
 	</style>
 	
+	<style name="ActionBar" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar">
+		<item name="colorControlNormal">@color/light_primary</item>
+	</style>
+	
+	<style name="ActionBarPopup" parent="Base.ThemeOverlay.AppCompat.Light">
+		<item name="android:colorBackground">@color/light_primary</item>
+		<item name="android:textColor">@color/dark_primary</item>
+	</style>
+	
 	<style name="ButtonText" parent="@android:style/TextAppearance.Medium">
 		<item name="android:textSize">14sp</item>
 		<item name="android:textAllCaps">true</item>
