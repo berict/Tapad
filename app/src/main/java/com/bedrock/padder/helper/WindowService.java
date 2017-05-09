@@ -14,6 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
@@ -117,7 +118,7 @@ public class WindowService {
             Window window = activity.getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(activity.getResources().getColor(color_id));
+            window.setStatusBarColor(ContextCompat.getColor(activity, color_id));
 
             Log.i("WindowService", "Status bar color applied.");
         } else {
