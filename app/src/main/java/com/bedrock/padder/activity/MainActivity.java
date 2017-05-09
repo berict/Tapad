@@ -261,7 +261,13 @@ public class MainActivity
                 intent.intentWithExtra(a, "activity.AboutActivity", "about", "tapad", 0);
                 break;
             case R.id.action_settings:
-                showSettingsFragment(a);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        showSettingsFragment(a);
+                    }
+                }, 400);
                 break;
             case R.id.action_help:
                 intent.intent(a, "activity.HelpActivity", 0);
