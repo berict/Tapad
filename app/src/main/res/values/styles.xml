@@ -1,49 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryDark">@color/white</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:colorBackground">@color/white</item>
-    </style>
+	<!-- Base application theme. -->
+	<style name="AppTheme" parent="Theme.AppCompat.Light">
+		<item name="colorPrimary">@color/white</item>
+		<item name="colorPrimaryDark">@color/white</item>
+		<item name="colorAccent">@color/colorAccent</item>
+		<item name="android:colorBackground">@color/white</item>
+	</style>
 	
 	<style name="ButtonText" parent="@android:style/TextAppearance.Medium">
 		<item name="android:textSize">14sp</item>
 		<item name="android:textAllCaps">true</item>
 	</style>
-
-    <style name="expandedappbar" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textSize">28sp</item>
-        <item name="android:textColor">@color/light_primary</item>
-    </style>
-
-    <style name="collapsedappbar" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/colorAccent</item>
-    </style>
-
-    <style name="EditText" parent="AppTheme">
-        <item name="colorControlNormal">@color/colorAccent</item>
-        <item name="colorControlActivated">@color/colorAccent</item>
-        <item name="colorControlHighlight">@color/colorAccent</item>
-    </style>
-
-    <style name="SettingsSwitchStyle">
-        <item name="colorControlActivated">@color/colorAccent</item>
-    </style>
-    
-    <style name="editTextErrorDefault">
-        <item name="android:textColor">@color/red</item>
-    </style>
-    
-    <style name="editTextErrorGrey">
-        <item name="android:textColor">@color/dark_secondary</item>
-    </style>
+	
+	<style name="expandedappbar" parent="@android:style/TextAppearance.Medium">
+		<item name="android:textSize">28sp</item>
+		<item name="android:textColor">@color/light_primary</item>
+	</style>
+	
+	<style name="collapsedappbar" parent="@android:style/TextAppearance.Medium">
+		<item name="android:textSize">18sp</item>
+		<item name="android:textColor">@color/white</item>
+	</style>
+	
+	<style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
+		<item name="android:textColor">@color/colorAccent</item>
+	</style>
+	
+	<style name="EditText" parent="AppTheme">
+		<item name="colorControlNormal">@color/colorAccent</item>
+		<item name="colorControlActivated">@color/colorAccent</item>
+		<item name="colorControlHighlight">@color/colorAccent</item>
+	</style>
+	
+	<style name="SettingsSwitchStyle">
+		<item name="colorControlActivated">@color/colorAccent</item>
+	</style>
+	
+	<style name="editTextErrorDefault">
+		<item name="android:textColor">@color/red</item>
+	</style>
+	
+	<style name="editTextErrorGrey">
+		<item name="android:textColor">@color/dark_secondary</item>
+	</style>
 </resources>

@@ -34,6 +34,8 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     // Material TapTarget Lib
     compile 'uk.co.samuelwall:material-tap-target-prompt:1.2.0'
+    // SystemBarTint
+    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     // Material Dialog Lib
     compile 'com.afollestad.material-dialogs:commons:0.9.0.1'
     // Apache Commons Lang
