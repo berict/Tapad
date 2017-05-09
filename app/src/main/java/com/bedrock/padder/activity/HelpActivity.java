@@ -1,18 +1,21 @@
 package com.bedrock.padder.activity;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.bedrock.padder.R;
 import com.bedrock.padder.helper.AnimService;
 import com.bedrock.padder.helper.ThemeService;
-import com.bedrock.padder.helper.ToolbarService;
 import com.bedrock.padder.helper.WindowService;
 
 public class HelpActivity extends AppCompatActivity {
@@ -20,30 +23,37 @@ public class HelpActivity extends AppCompatActivity {
     private Activity activity = this;
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
 
-    private SharedPreferences prefs;
-
     private WindowService window = new WindowService();
     private AnimService anim = new AnimService();
     private ThemeService theme = new ThemeService();
-    private ToolbarService toolbar = new ToolbarService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
 
-        toolbar.setActionBar(this);
-        toolbar.setActionBarColor(R.color.colorAccent, this);
-        toolbar.setActionBarDisplayHomeAsUp(true, this);
-        toolbar.setActionBarTitle(R.string.help_title, this);
-        toolbar.setActionBarPadding(this);
-        toolbar.setStatusBarTint(this);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.actionbar_toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.collapsedappbar);
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.expandedappbar);
 
         window.setNavigationBar(R.color.transparent, activity);
+
+        View statusbar = findViewById(R.id.statusbar);
+        if (Build.VERSION.SDK_INT < 21) {
+            statusbar.setVisibility(View.GONE);
+        } else {
+            try {
+                statusbar.getLayoutParams().height = window.getStatusBarFromPrefs(activity);
+            } catch (NullPointerException e) {
+                Log.d("NullExp", e.getMessage());
+                statusbar.setVisibility(View.GONE);
+            }
+        }
 
         window.setMarginRelativePX(R.id.layout_relative, 0, window.getStatusBarFromPrefs(activity), 0, 0, activity);
         window.getView(R.id.layout_margin, activity).getLayoutParams().height = window.getNavigationBarFromPrefs(activity) + window.convertDPtoPX(10, activity);
@@ -53,6 +63,9 @@ public class HelpActivity extends AppCompatActivity {
     }
 
     private void setUi() {
+        // status bar
+        window.getView(R.id.statusbar, activity).setBackgroundColor(getResources().getColor(R.color.colorAccent));
+
         // action bar
         collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.colorAccent));
         collapsingToolbarLayout.setStatusBarScrimColor(getResources().getColor(R.color.colorAccent));
