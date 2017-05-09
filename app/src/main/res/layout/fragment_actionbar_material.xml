@@ -1,62 +1,36 @@
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:id="@+id/appbar"
+	android:id="@+id/actionbar"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content">
 	
-	<LinearLayout
-		android:id="@+id/actionbar"
+	<RelativeLayout
+		android:id="@+id/actionbar_layout"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:orientation="vertical">
+		android:gravity="center_vertical">
 		
-		<RelativeLayout
-			android:id="@+id/statusbar_layout"
-			android:layout_width="match_parent"
-			android:layout_height="25dp">
-			
-			<!-- Changed programmatically -->
-			
-			<View
-				android:id="@+id/statusbar"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:background="@color/colorPrimary"/>
-			
-			<View
-				android:id="@+id/statusbar_transparent"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:background="@color/dark_status_bar"/>
-		</RelativeLayout>
-		
-		<RelativeLayout
-			android:id="@+id/actionbar_layout"
+		<android.support.v7.widget.Toolbar
+			android:id="@+id/actionbar_toolbar"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:gravity="center_vertical">
-			
-			<android.support.v7.widget.Toolbar
-				android:id="@+id/actionbar_layout_toolbar"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:background="@color/colorPrimary"
-				android:elevation="4dp"
-				app:title="Title"/>
-			
-			<ImageView
-				android:id="@+id/actionbar_image"
-				android:layout_width="?attr/actionBarSize"
-				android:layout_height="?attr/actionBarSize"
-				android:layout_centerInParent="true"
-				android:layout_centerVertical="true"
-				android:padding="6dp"
-				android:elevation="4dp"
-				android:src="@drawable/logo_hello"
-				android:visibility="visible"/>
+			android:background="@color/colorPrimary"
+			app:theme="@style/ActionBar"
+			app:popupTheme="@style/ActionBarPopup"
+			android:elevation="4dp"
+			app:title="Title"/>
 		
-		</RelativeLayout>
-	</LinearLayout>
-
+		<ImageView
+			android:id="@+id/actionbar_image"
+			android:layout_width="?attr/actionBarSize"
+			android:layout_height="?attr/actionBarSize"
+			android:layout_alignBottom="@id/actionbar_toolbar"
+			android:layout_centerHorizontal="true"
+			android:padding="8dp"
+			android:elevation="4dp"
+			app:srcCompat="@drawable/about_detail_web"
+			android:visibility="visible"/>
+		
+	</RelativeLayout>
 </RelativeLayout>

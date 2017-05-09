@@ -4,17 +4,14 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -36,6 +33,7 @@ import com.bedrock.padder.helper.FabService;
 import com.bedrock.padder.helper.IntentService;
 import com.bedrock.padder.helper.SoundService;
 import com.bedrock.padder.helper.ThemeService;
+import com.bedrock.padder.helper.ToolbarService;
 import com.bedrock.padder.helper.TutorialService;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.about.About;
@@ -76,17 +74,14 @@ public class MainActivity
     public boolean tgl7 = false;
     public boolean tgl8 = false;
 
-    SharedPreferences prefs = null;
+    private SharedPreferences prefs = null;
 
     int currentVersionCode;
     int themeColor = R.color.hello;
     // TODO color
     int color = R.color.cyan_400;
-    Toolbar toolbar;
 
-    MaterialDialog ChangelogDialog;
-    MaterialDialog QuickstartDialog;
-    MaterialDialog PresetDialog;
+    private MaterialDialog PresetDialog;
 
     int toggleSoundId = 0;
     int togglePatternId = 0;
@@ -97,7 +92,8 @@ public class MainActivity
     private WindowService w = new WindowService();
     private FabService fab = new FabService();
     private AppbarService ab = new AppbarService();
-    private TutorialService tut = new TutorialService();;
+    private ToolbarService toolbar = new ToolbarService();
+    private TutorialService tut = new TutorialService();
     private IntentService intent = new IntentService();
     private AdmobService ad = new AdmobService();
 
@@ -124,7 +120,7 @@ public class MainActivity
     private MaterialTapTargetPrompt promptTutorial; // 9
 
     // TODO SET ON INTENT
-    Gson gson = new Gson();
+    private Gson gson = new Gson();
     public static Preset presets[];
     public static Preset currentPreset = null;
 
@@ -214,8 +210,8 @@ public class MainActivity
         }
 
         color = prefs.getInt("color", R.color.cyan_400);
-        toolbar = w.getToolbar(R.id.actionbar_layout_toolbar, a);
-        setSupportActionBar(toolbar);
+        toolbar.setActionBar(this);
+        toolbar.setStatusBarTint(this);
 
         if (prefs.getString("colorData", null) == null) {
             // First run colorData json set
@@ -228,7 +224,6 @@ public class MainActivity
         a.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         // Set UI
-        isDeckShouldCleared = true;
         clearToggleButton();
         setFab();
         setToolbar();
@@ -613,7 +608,7 @@ public class MainActivity
 
             if (currentVersionCode > pref.getInt("versionCode", -1)) {
                 // new app and updates
-                ChangelogDialog = new MaterialDialog.Builder(activity)
+                new MaterialDialog.Builder(activity)
                         .title(w.getStringId("info_tapad_info_changelog"))
                         .content(w.getStringId("info_tapad_info_changelog_text"))
                         .contentColorRes(R.color.dark_primary)
@@ -627,7 +622,7 @@ public class MainActivity
                                     closeToolbar(activity);
                                     w.setVisible(R.id.fab, 300, activity);
                                     fab.setFab(activity);
-                                    QuickstartDialog = new MaterialDialog.Builder(activity)
+                                    new MaterialDialog.Builder(activity)
                                             .title(R.string.dialog_quickstart_welcome_title)
                                             .content(R.string.dialog_quickstart_welcome_text)
                                             .positiveText(R.string.dialog_quickstart_welcome_positive)
@@ -1697,19 +1692,13 @@ public class MainActivity
         if (isSettingVisible == false && isAboutVisible == false) {
             currentPreset = presets[getScheme()];
             themeColor = currentPreset.getAbout().getActionbarColor();
-            getSupportActionBar().setTitle("");
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, themeColor)));
-            w.getImageView(R.id.actionbar_image, a).setImageResource(w.getDrawableId("logo_" + currentPreset.getMusic().getNameId().replace("preset_", "")));
-            w.setViewBackgroundColor(R.id.statusbar, themeColor, a);
+            toolbar.setActionBarTitle(0, this);
+            toolbar.setActionBarColor(themeColor, this);
+            toolbar.setActionBarPadding(this);
+            toolbar.setActionBarImage(
+                    w.getDrawableId("logo_" + currentPreset.getMusic().getNameId().replace("preset_", "")),
+                    this);
             w.setRecentColor(0, 0, themeColor, a);
-//            ab.setNav(0, null, a);
-//            ab.setColor(themeColor, a);
-//            ab.setMenu(new Runnable() {
-//                @Override
-//                public void run() {
-//
-//                }
-//            }, a);
         }
     }
 
