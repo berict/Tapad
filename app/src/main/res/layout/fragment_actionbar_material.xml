@@ -16,9 +16,9 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:background="@color/colorPrimary"
-			app:theme="@style/ActionBar"
-			app:popupTheme="@style/ActionBarPopup"
 			android:elevation="4dp"
+			app:popupTheme="@style/ActionBarPopup"
+			app:theme="@style/ActionBar"
 			app:title="Title"/>
 		
 		<ImageView
@@ -27,10 +27,10 @@
 			android:layout_height="?attr/actionBarSize"
 			android:layout_alignBottom="@id/actionbar_toolbar"
 			android:layout_centerHorizontal="true"
-			android:padding="8dp"
 			android:elevation="4dp"
-			app:srcCompat="@drawable/about_detail_web"
-			android:visibility="visible"/>
-		
+			android:padding="8dp"
+			android:visibility="gone"
+			app:srcCompat="@drawable/about_detail_web"/>
+	
 	</RelativeLayout>
 </RelativeLayout>

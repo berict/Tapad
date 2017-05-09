@@ -5,6 +5,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
 
 import com.bedrock.padder.R;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -43,10 +45,17 @@ public class ToolbarService {
     public void setActionBarImage(int imageResId, AppCompatActivity appCompatActivity) {
         WindowService window = new WindowService();
         window.getImageView(IMAGE, appCompatActivity).setImageResource(imageResId);
+        window.getImageView(IMAGE, appCompatActivity).setVisibility(View.VISIBLE);
     }
 
     public void setActionBarDisplayHomeAsUp(boolean displayHomeAsUp, AppCompatActivity appCompatActivity) {
         appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(displayHomeAsUp);
+    }
+
+    public void setActionBarDisplayHomeAsUpIcon(int iconId, AppCompatActivity appCompatActivity) {
+        appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        appCompatActivity.getSupportActionBar().setHomeButtonEnabled(true);
+        appCompatActivity.getSupportActionBar().setHomeAsUpIndicator(iconId);
     }
 
     public ActionBar getActionBar(AppCompatActivity appCompatActivity) {
@@ -58,6 +67,14 @@ public class ToolbarService {
         // set the top padding to the status bar size
         Toolbar toolbar = (Toolbar)appCompatActivity.findViewById(TOOLBAR);
         toolbar.setPadding(0, window.getStatusBarFromPrefs(appCompatActivity), 0, 0);
+    }
+
+    public void setActionBarPadding(AppCompatActivity appCompatActivity, View view) {
+        WindowService window = new WindowService();
+        // set the top padding to the status bar size
+        Toolbar toolbar = (Toolbar)view.findViewById(TOOLBAR);
+        toolbar.setPadding(0, window.getStatusBarFromPrefs(appCompatActivity), 0, 0);
+        Log.d("TAG", String.valueOf(window.getStatusBarFromPrefs(appCompatActivity)));
     }
 
     public void setStatusBarTint(AppCompatActivity appCompatActivity) {
