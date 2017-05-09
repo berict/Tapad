@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -25,14 +26,14 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
-import com.bedrock.padder.helper.AnimService;
 import com.bedrock.padder.helper.IntentService;
 import com.bedrock.padder.helper.ThemeService;
+import com.bedrock.padder.helper.ToolbarService;
 import com.bedrock.padder.helper.WindowService;
 
 import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
 
-public class UserBenefitsActivity extends Activity {
+public class UserBenefitsActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
@@ -42,18 +43,17 @@ public class UserBenefitsActivity extends Activity {
     private Button btnSkip;
     private View reveal;
 
-    MaterialDialog PresetDialog;
+    private MaterialDialog PresetDialog;
 
-    Activity activity;
+    private Activity activity;
+    private SharedPreferences prefs = null;
 
-    SharedPreferences prefs = null;
+    private int position = 0;
 
-    int position = 0;
-
-    ThemeService theme = new ThemeService();
-    AnimService anim = new AnimService();
-    WindowService window = new WindowService();
-    IntentService intent = new IntentService();
+    private ThemeService theme = new ThemeService();
+    private ToolbarService toolbar = new ToolbarService();
+    private WindowService window = new WindowService();
+    private IntentService intent = new IntentService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +62,7 @@ public class UserBenefitsActivity extends Activity {
 
         activity = this;
         prefs = getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
+        toolbar.setStatusBarTint(this);
 
         initializeView();
 
@@ -107,9 +108,6 @@ public class UserBenefitsActivity extends Activity {
 
         // Making status bar transparent
         window.setStatusBar(R.color.transparent, activity);
-
-        // Set status bar height
-        window.getView(R.id.statusbar, activity).getLayoutParams().height = prefs.getInt("statBarPX", 0);
     }
 
     int x, y;
