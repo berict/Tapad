@@ -17,7 +17,6 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.activity.MainActivity;
-import com.bedrock.padder.helper.AnimService;
 import com.bedrock.padder.helper.AppbarService;
 import com.bedrock.padder.helper.IntentService;
 import com.bedrock.padder.helper.SoundService;
@@ -38,15 +37,14 @@ public class SettingsFragment extends Fragment {
     private AppbarService ab = new AppbarService();
     private WindowService w = new WindowService();
     private IntentService intent = new IntentService();
-    private AnimService anim = new AnimService();
     private MainActivity main = new MainActivity();
     private TutorialService tut = new TutorialService();
     private SoundService sound = new SoundService();
 
-    SharedPreferences prefs = null;
+    private SharedPreferences prefs = null;
 
     private Activity a;
-    View v;
+    private View v;
 
     private OnFragmentInteractionListener mListener;
     private MaterialDialog PresetDialog;
