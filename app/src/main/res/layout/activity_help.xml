@@ -9,20 +9,29 @@
 	android:layout_height="match_parent"
 	tools:context="com.bedrock.padder.activity.AboutActivity">
 	
-	<View
-		android:id="@+id/statusbar"
+	<RelativeLayout
+		android:id="@+id/statusbar_layout"
 		android:layout_width="match_parent"
-		android:layout_height="0dp"
 		android:layout_alignParentTop="true"
-		android:background="@color/colorAccent"/>
+		android:layout_height="25dp">
+		
+		<View
+			android:id="@+id/statusbar"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@color/colorAccent"/>
+		
+		<View
+			android:id="@+id/statusbar_transparent"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@color/dark_status_bar"/>
+	</RelativeLayout>
 	
 	<RelativeLayout
 		android:id="@+id/layout_relative"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_alignParentBottom="true"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentStart="true">
+		android:layout_height="match_parent">
 		
 		<android.support.design.widget.CoordinatorLayout
 			android:layout_width="match_parent"
@@ -63,7 +72,7 @@
 					</RelativeLayout>
 					
 					<android.support.v7.widget.Toolbar
-						android:id="@+id/toolbar"
+						android:id="@+id/actionbar_toolbar"
 						android:layout_width="match_parent"
 						android:layout_height="?attr/actionBarSize"
 						app:layout_collapseMode="pin"/>
