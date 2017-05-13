@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_feedback"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="com.bedrock.padder.activity.FeedbackActivity">
+				xmlns:tools="http://schemas.android.com/tools"
+				android:id="@+id/activity_feedback"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:fitsSystemWindows="true"
+				tools:context="com.bedrock.padder.activity.FeedbackActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -333,37 +333,12 @@
 
             </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/fab"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/fragment_fab"
-                android:translationZ="0dp">
-
-                <RelativeLayout
-                    android:id="@+id/fab_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:background="?selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:id="@+id/fab_icon"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/feedback_send" />
-                </RelativeLayout>
-            </RelativeLayout>
-
         </RelativeLayout>
 
     </ScrollView>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -559,6 +534,42 @@
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
+    
+    <RelativeLayout
+		android:id="@+id/fab"
+		android:layout_width="56dp"
+		android:layout_height="56dp"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentRight="true"
+		android:background="@drawable/fragment_fab"
+		android:translationZ="0dp">
+
+		<RelativeLayout
+			android:id="@+id/fab_button"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_centerInParent="true"
+			android:background="?selectableItemBackgroundBorderless"
+			android:clickable="true"
+			android:gravity="center">
+
+			<ImageView
+				android:id="@+id/fab_icon"
+				android:layout_width="24dp"
+				android:layout_height="24dp"
+				android:src="@drawable/feedback_send" />
+		</RelativeLayout>
+	</RelativeLayout>
+    
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--app:fabSize="normal"-->
+        <!--android:layout_margin="@dimen/fab_margin"-->
+        <!--android:src="@drawable/feedback_send" />-->
 
     <View
         android:id="@+id/layout_placeholder"
