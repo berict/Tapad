@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -28,6 +29,7 @@ import com.bedrock.padder.helper.AnimService;
 import com.bedrock.padder.helper.AppbarService;
 import com.bedrock.padder.helper.FabService;
 import com.bedrock.padder.helper.IntentService;
+import com.bedrock.padder.helper.ToolbarService;
 import com.bedrock.padder.helper.WindowService;
 
 import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
@@ -42,6 +44,7 @@ public class FeedbackActivity extends AppCompatActivity {
     private AppbarService ab = new AppbarService();
     private IntentService intent = new IntentService();
     private AnimService anim = new AnimService();
+    private ToolbarService toolbar = new ToolbarService();
 
     Activity a = this;
     SharedPreferences prefs = null;
@@ -68,17 +71,24 @@ public class FeedbackActivity extends AppCompatActivity {
         setFab();
         initUi();
 
-        // TODO check http://stackoverflow.com/questions/7417123/android-how-to-adjust-layout-in-full-screen-mode-when-softkeyboard-is-visible
-        // get the keyboard issue
-
         w.setStatusBar(R.color.colorFeedbackDark, a);
-        w.setNavigationBar(R.color.transparent, a);
 
-        w.setMarginRelativePX(R.id.fab, 0, 0, w.convertDPtoPX(20, a), w.getNavigationBarFromPrefs(a) + w.convertDPtoPX(20, a), a);
+        w.setMarginRelativePX(R.id.fab, 0, 0,
+                w.convertDPtoPX(20, a),
+                w.convertDPtoPX(20, a),
+                a);
         ab.setStatusHeight(a);
         ab.setColor(R.color.colorFeedback, a);
         ab.setTitle(w.getStringId("task_feedback_" + MODE_TAG), a);
         ab.setNav(3, null, a);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+        toolbar.setActionBar(this);
+        toolbar.setStatusBarTint(this);
+        toolbar.setActionBarColor(R.color.colorFeedback, this);
+        toolbar.setActionBarTitle(w.getStringId("task_feedback_" + MODE_TAG), this);
+
         w.setRecentColor(w.getStringId("task_feedback_" + MODE_TAG), 0, R.color.colorFeedback, a);
 
         systemInfo = "Version code = " + BuildConfig.VERSION_CODE + br +
@@ -90,8 +100,6 @@ public class FeedbackActivity extends AppCompatActivity {
                 getWindow().getWindowManager().getDefaultDisplay().getHeight() + " (H)" + br +
                 "Screen density = " + getResources().getDisplayMetrics().densityDpi + " dpi";
     }
-
-    private RelativeLayout songLayout, feedbackLayout, reportBugLayout;
 
     private TextInputLayout songNameLayout, songArtistLayout, songLinkLayout, songMessageLayout;
     private EditText songName, songArtist, songLink, songMessage;
@@ -124,7 +132,7 @@ public class FeedbackActivity extends AppCompatActivity {
         switch (MODE_TAG) {
             case "song":
                 // layout
-                songLayout        = (RelativeLayout) findViewById(R.id.feedback_song);
+                RelativeLayout songLayout = (RelativeLayout) findViewById(R.id.feedback_song);
                 // input layout
                 songNameLayout    = (TextInputLayout) findViewById(R.id.feedback_song_name_input_layout);
                 songArtistLayout  = (TextInputLayout) findViewById(R.id.feedback_song_artist_input_layout);
@@ -138,7 +146,7 @@ public class FeedbackActivity extends AppCompatActivity {
                 // spinner
                 songGenre         = (Spinner) findViewById(R.id.feedback_song_genre_spinner);
 
-                songLayout .setVisibility(View.VISIBLE);
+                songLayout.setVisibility(View.VISIBLE);
                 songName   .addTextChangedListener(new mTextWatcher(songName   ));
                 songArtist .addTextChangedListener(new mTextWatcher(songArtist ));
                 songLink   .addTextChangedListener(new mTextWatcher(songLink   ));
@@ -160,7 +168,7 @@ public class FeedbackActivity extends AppCompatActivity {
                 break;
             case "feedback":
                 // layout
-                feedbackLayout        = (RelativeLayout) findViewById(R.id.feedback_feedback);
+                RelativeLayout feedbackLayout = (RelativeLayout) findViewById(R.id.feedback_feedback);
                 // input layout
                 feedbackMessageLayout = (TextInputLayout) findViewById(R.id.feedback_feedback_message_input_layout);
                 // edittext
@@ -168,7 +176,7 @@ public class FeedbackActivity extends AppCompatActivity {
                 // spinner
                 feedbackType          = (Spinner) findViewById(R.id.feedback_feedback_type_spinner);
 
-                feedbackLayout .setVisibility(View.VISIBLE);
+                feedbackLayout.setVisibility(View.VISIBLE);
                 feedbackMessage.addTextChangedListener(new mTextWatcher(feedbackMessage));
                 feedbackType   .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -188,7 +196,7 @@ public class FeedbackActivity extends AppCompatActivity {
                 break;
             case "report_bug":
                 // layout
-                reportBugLayout        = (RelativeLayout) findViewById(R.id.feedback_report_bug);
+                RelativeLayout reportBugLayout = (RelativeLayout) findViewById(R.id.feedback_report_bug);
                 // input layout
                 reportBugMessageLayout = (TextInputLayout) findViewById(R.id.feedback_report_bug_message_input_layout);
                 // edittext
@@ -196,7 +204,7 @@ public class FeedbackActivity extends AppCompatActivity {
                 // spinner
                 reportBugType          = (Spinner) findViewById(R.id.feedback_report_bug_type_spinner);
 
-                reportBugLayout .setVisibility(View.VISIBLE);
+                reportBugLayout.setVisibility(View.VISIBLE);
                 reportBugMessage.addTextChangedListener(new mTextWatcher(reportBugMessage));
                 reportBugType   .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
