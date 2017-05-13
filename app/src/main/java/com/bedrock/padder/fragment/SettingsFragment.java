@@ -166,7 +166,6 @@ public class SettingsFragment extends Fragment {
                     showPresetDialog(a);
                     isPresetVisible = true;
                 }
-                w.setRecentColor(R.string.task_presets, R.color.colorAccent, a);
             }
         });
 
