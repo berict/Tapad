@@ -322,6 +322,7 @@ public class FeedbackActivity extends AppCompatActivity {
                     } else if (validateMusicUrl(songLink.getText().toString()) == false) {
                         songLinkLayout.setError(getResources().getString(R.string.feedback_song_link_input_url_error));
                         songLink.requestFocus();
+                        return false;
                     } else {
                         songLinkLayout.setErrorEnabled(false);
                         songLinkString = songLink.getText().toString();
@@ -387,13 +388,9 @@ public class FeedbackActivity extends AppCompatActivity {
     }
 
     private boolean validateMusicUrl(String url) {
-        if (validateUrlWithLength(url, "youtube.com/watch?v=", 31) ||
+        return (validateUrlWithLength(url, "youtube.com/watch?v=", 31) ||
                 validateUrlWithLength(url, "youtu.be/", 20) ||
-                validateUrlWithLength(url, "soundcloud.com/", 16)) {
-            // legit url
-            return true;
-        }
-        return false;
+                validateUrlWithLength(url, "soundcloud.com/", 16));
     }
 
     private boolean validateUrlWithLength(String url, String validateUrl, int validateUrlLength) {
