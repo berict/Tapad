@@ -935,7 +935,7 @@ public class SoundService {
             Log.d(TAG, "On preExceute, unloadSchemeSound");
 
             window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.icon_tutorial_disabled);
-            window.getImageView(R.id.layout_settings_tutorial_icon, activity).setImageResource(R.drawable.settings_tutorial_disabled);
+            //window.getImageView(R.id.layout_settings_tutorial_icon, activity).setImageResource(R.drawable.settings_tutorial_disabled);
 
             //TODO remove
             loadingTime = System.currentTimeMillis();

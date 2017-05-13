@@ -61,7 +61,7 @@ public class MainActivity
         extends AppCompatActivity
         implements AboutFragment.OnFragmentInteractionListener, SettingsFragment.OnFragmentInteractionListener {
 
-    final Activity a = this;
+    final AppCompatActivity a = this;
     final String qs = "quickstart";
     public static final String TAG = "MainActivity";
 
@@ -146,9 +146,6 @@ public class MainActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //TODO EDIT
-        //makeJson();
-
         // TODO IAP launch
         //String base64EncodePublicKey = constructBase64Key();
 
@@ -231,9 +228,6 @@ public class MainActivity
         setToggleButton(R.color.colorAccent);
         enterAnim();
         setButtonLayout();
-
-        // Set fragments
-        setSettingsFragment();
 
         // Request ads
         ad.requestLoadNativeAd(ad.getNativeAdView(R.id.adView_main, a));
@@ -438,31 +432,22 @@ public class MainActivity
         super.onDestroy();
     }
 
-    private void setAboutFragment() {
-        AboutFragment aboutFragment = new AboutFragment();
+    private void showAboutFragment() {
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.fragment_about_container, aboutFragment)
+                .add(R.id.fragment_about_container, new AboutFragment())
                 .commit();
-    }
-
-    private void showAboutFragment() {
-        setAboutFragment();
         WindowService w = new WindowService();
         w.getView(R.id.fragment_about_container, a).setVisibility(View.VISIBLE);
         setAboutVisible(true);
         w.setRecentColor(R.string.about, 0, themeColor, a);
     }
 
-    private void setSettingsFragment() {
-        SettingsFragment settingsFragment = new SettingsFragment();
-        getSupportFragmentManager()
+    public static void showSettingsFragment(AppCompatActivity a) {
+        a.getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.fragment_settings_container, settingsFragment)
+                .add(R.id.fragment_settings_container, new SettingsFragment())
                 .commit();
-    }
-
-    public static void showSettingsFragment(Activity a) {
         WindowService w = new WindowService();
         w.getView(R.id.fragment_settings_container, a).setVisibility(View.VISIBLE);
         setSettingVisible(true);

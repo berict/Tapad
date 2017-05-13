@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -54,7 +55,7 @@ public class AboutFragment extends Fragment {
     private int fadeAnimDuration = 200;
 
     int themeColor = R.color.hello;
-    Activity a;
+    AppCompatActivity a;
     View v;
 
     private OnFragmentInteractionListener mListener;
@@ -116,7 +117,7 @@ public class AboutFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-        a = getActivity();
+        a = (AppCompatActivity)getActivity();
         prefs = a.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
     }
 
