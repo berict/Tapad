@@ -1019,7 +1019,7 @@ public class SoundService {
                         unLoadSound = null;
 
                         window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.icon_tutorial);
-                        window.getImageView(R.id.layout_settings_tutorial_icon, activity).setImageResource(R.drawable.settings_tutorial);
+                        //window.getImageView(R.id.layout_settings_tutorial_icon, activity).setImageResource(R.drawable.settings_tutorial);
 
                         anim.fadeOut(R.id.progress_bar_layout, 400, 400, activity);
                         window.setVisible(R.id.base, 400, activity);
