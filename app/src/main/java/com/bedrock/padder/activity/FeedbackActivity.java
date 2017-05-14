@@ -11,10 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.MotionEvent;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -87,6 +87,7 @@ public class FeedbackActivity extends AppCompatActivity {
         toolbar.setActionBar(this);
         toolbar.setStatusBarTint(this);
         toolbar.setActionBarColor(R.color.colorFeedback, this);
+        toolbar.setActionBarDisplayHomeAsUp(true, this);
         toolbar.setActionBarTitle(w.getStringId("task_feedback_" + MODE_TAG), this);
 
         w.setRecentColor(w.getStringId("task_feedback_" + MODE_TAG), 0, R.color.colorFeedback, a);
@@ -99,6 +100,18 @@ public class FeedbackActivity extends AppCompatActivity {
                 getWindow().getWindowManager().getDefaultDisplay().getWidth()  + " (W) X " +
                 getWindow().getWindowManager().getDefaultDisplay().getHeight() + " (H)" + br +
                 "Screen density = " + getResources().getDisplayMetrics().densityDpi + " dpi";
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        pressBack();
+        return true;
+    }
+
+    void pressBack() {
+        KeyEvent kDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
+        this.dispatchKeyEvent(kDown);
+        KeyEvent kUp = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK);
+        this.dispatchKeyEvent(kUp);
     }
 
     private TextInputLayout songNameLayout, songArtistLayout, songLinkLayout, songMessageLayout;
@@ -527,33 +540,17 @@ public class FeedbackActivity extends AppCompatActivity {
         super.onWindowFocusChanged(hasFocus);
     }
 
-    int coord[] = {0, 0};
-
     void setFab() {
         fab.setFab(a);
         fab.show();
 
         View fabView = findViewById(R.id.fab_button);
 
-        fabView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                coord[0] = (int) event.getRawX();
-                coord[1] = (int) event.getRawY();
-
-                return false;
-            }
-        });
-
         fabView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 focusCount = 0;
                 if (send() == true) {
-                    anim.circularRevealInPx(R.id.layout_placeholder,
-                            coord[0], coord[1],
-                            0, (int) Math.hypot(coord[0], coord[1]) + 200, new AccelerateDecelerateInterpolator(),
-                            circularRevealDuration, 0, a);
                     w.setRecentColor(w.getStringId("task_feedback_" + MODE_TAG), 0, R.color.colorAccent, a);
                 }
             }
