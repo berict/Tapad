@@ -921,21 +921,21 @@ public class WindowService {
         pad.setOnTouchListener(new OnSwipeTouchListener(activity) {
             @Override
             public void onTouch() {
-                streamId[0] = sp.play(spid[0], 1, 1, 1, 1, 1);
+                streamId[0] = sp.play(spid[0], 1, 1, 1, -1, 1);
                 setPadColor(pad, colorDown, activity);
             }
 
             @Override
             public void onClick() {
-                sp.stop(streamId[0]);
-                setPadColor(pad, colorDown, activity);
+                sp.pause(streamId[0]);
+                setPadColor(pad, colorUp, activity);
                 Log.d("TouchListener", "Click");
             }
 
             @Override
             public void onSingleClickConfirmed() {
-                sp.stop(streamId[0]);
-                setPadColor(pad, colorDown, activity);
+                sp.pause(streamId[0]);
+                setPadColor(pad, colorUp, activity);
                 Log.d("TouchListener", "SingleClickConfirmed");
             }
         });
@@ -954,7 +954,7 @@ public class WindowService {
         pad.setOnTouchListener(new OnSwipeTouchListener(activity) {
             @Override
             public void onTouch() {
-                streamId[0] = sp.play(spid[0], 1, 1, 1, 1, 1);
+                streamId[0] = sp.play(spid[0], 1, 1, 1, -1, 1);
                 setPadColor(pad, colorDown, activity);
                 setButtonPattern(patternScheme, btnId[0], colorDown, colorUp, activity);
             }
