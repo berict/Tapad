@@ -28,7 +28,6 @@ import com.bedrock.padder.fragment.AboutFragment;
 import com.bedrock.padder.fragment.SettingsFragment;
 import com.bedrock.padder.helper.AdmobService;
 import com.bedrock.padder.helper.AnimService;
-import com.bedrock.padder.helper.AppbarService;
 import com.bedrock.padder.helper.FabService;
 import com.bedrock.padder.helper.IntentService;
 import com.bedrock.padder.helper.SoundService;
@@ -91,7 +90,6 @@ public class MainActivity
     private SoundService sound = new SoundService();
     private WindowService w = new WindowService();
     private FabService fab = new FabService();
-    private AppbarService ab = new AppbarService();
     private ToolbarService toolbar = new ToolbarService();
     private TutorialService tut = new TutorialService();
     private IntentService intent = new IntentService();
@@ -1301,28 +1299,6 @@ public class MainActivity
     }
 
     private void setToggleButton(final int color_id) {
-        final int toggleButtonIds[] = {
-                R.id.tgl1,
-                R.id.tgl2,
-                R.id.tgl3,
-                R.id.tgl4,
-                R.id.tgl5,
-                R.id.tgl6,
-                R.id.tgl7,
-                R.id.tgl8
-        };
-
-        final boolean toggleButtonBool[] = {
-                tgl1,
-                tgl2,
-                tgl3,
-                tgl4,
-                tgl5,
-                tgl6,
-                tgl7,
-                tgl8
-        };
-
         // 1 - 4
         w.setOnTouch(R.id.tgl1, new Runnable() {
             @Override
@@ -1717,606 +1693,67 @@ public class MainActivity
     }
 
     private void makeJson() {
-        Item fadedItems[] = {
-                new Item("facebook", "preset_faded_detail_facebook"),
-                new Item("twitter", "preset_faded_detail_twitter"),
-                new Item("soundcloud", "preset_faded_detail_soundcloud"),
-                new Item("instagram", "preset_faded_detail_instagram"),
-                new Item("google_plus", "preset_faded_detail_google_plus"),
-                new Item("youtube", "preset_faded_detail_youtube"),
-                //new Item("twitch", "preset_faded_detail_twitch"), // only faded
-                new Item("web", "preset_faded_detail_web")
+        Item helloItems[] = {
+                new Item("facebook", "preset_hello_detail_facebook"),
+                new Item("twitter", "preset_hello_detail_twitter"),
+                new Item("soundcloud", "preset_hello_detail_soundcloud"),
+                new Item("instagram", "preset_hello_detail_instagram"),
+                new Item("google_plus", "preset_hello_detail_google_plus"),
+                new Item("youtube", "preset_hello_detail_youtube"),
+                new Item("twitch", "preset_hello_detail_twitch"), // only omfg
+                new Item("web", "preset_hello_detail_web")
         };
 
-        Detail fadedDetail = new Detail("preset_faded_detail_title", fadedItems);
+        Detail helloDetail = new Detail("preset_hello_detail_title", helloItems);
 
-        Item fadedSongItems[] = {
-                new Item("soundcloud", "preset_faded_song_detail_soundcloud", false),
-                new Item("youtube", "preset_faded_song_detail_youtube", false),
-                new Item("spotify", "preset_faded_song_detail_spotify", false),
-                new Item("google_play_music", "preset_faded_song_detail_google_play_music", false),
-                new Item("apple", "preset_faded_song_detail_apple", false),
-                new Item("amazon", "preset_faded_song_detail_amazon", false),
-                new Item("pandora", "preset_faded_song_detail_pandora", false)
+        Item helloSongItems[] = {
+                new Item("soundcloud", "preset_hello_song_detail_soundcloud", false),
+                new Item("youtube", "preset_hello_song_detail_youtube", false),
+                new Item("spotify", "preset_hello_song_detail_spotify", false),
+                new Item("google_play_music", "preset_hello_song_detail_google_play_music", false),
+                new Item("apple", "preset_hello_song_detail_apple", false),
+                new Item("amazon", "preset_hello_song_detail_amazon", false),
+                new Item("pandora", "preset_hello_song_detail_pandora", false)
         };
 
-        Detail fadedSongDetail = new Detail("preset_faded_song_detail_title", fadedSongItems);
+        Detail helloSongDetail = new Detail("preset_hello_song_detail_title", helloSongItems);
 
-        Bio fadedBio = new Bio(
-                "preset_faded_bio_title",
-                "about_bio_faded",
-                "preset_faded_bio_name",
-                "preset_faded_bio_text",
-                "preset_faded_bio_source"
+        Bio helloBio = new Bio(
+                "preset_hello_bio_title",
+                "about_bio_hello",
+                "preset_hello_bio_name",
+                "preset_hello_bio_text",
+                "preset_hello_bio_source"
         );
 
-        Detail fadedDetails[] = {
-                fadedDetail,
-                fadedSongDetail
+        Detail helloDetails[] = {
+                helloDetail,
+                helloSongDetail
         };
 
-        About fadedAbout = new About(
-                "preset_faded_title", "about_album_faded",
-                "preset_faded_tutorial_link",
-                fadedBio, fadedDetails,
-                "preset_faded_color_dark", "preset_faded_color"
+        About helloAbout = new About(
+                "preset_hello_title", "about_album_hello",
+                "preset_hello_tutorial_link",
+                helloBio, helloDetails,
+                "preset_hello_color_dark", "preset_hello_color"
         );
 
-        // Timings
-//        Integer pt1[][] = {
-//                {42660},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {26658},
-//                {0},
-//                {1333},
-//                {2666},
-//                {3998},
-//                {27991},
-//                {10664, 21327},
-//                {11996, 22660},
-//                {13329, 23993},
-//                {14662, 25326},
-//                {29324},
-//                {15995},
-//                {17328},
-//                {18660},
-//                {19993},
-//                {30657},
-//                {5331},
-//                {6664},
-//                {7997},
-//                {9330},
-//                {42660},
-//                {34656},
-//                {37322},
-//                {45320},
-//                {47986},
-//                {47986},
-//                {35989},
-//                {38655},
-//                {46653},
-//                {49318},
-//                {50651},
-//                {36655},
-//                {39321},
-//                {47319},
-//                {49984},
-//                {45320},
-//                {35322},
-//                {37988},
-//                {45986},
-//                {48652},
-//                {31991},
-//                {31991},
-//                {39988},
-//                {42660},
-//                {50651},
-//                {37322},
-//                {33324},
-//                {41320},
-//                {43987},
-//                {51984},
-//                {39988},
-//                {33990},
-//                {41987},
-//                {44653},
-//                {52650},
-//                {34656},
-//                {32657},
-//                {40654},
-//                {43320},
-//                {51317},
-//                {43987},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {10664},
-//                {10664},
-//                {15995},
-//                {21327},
-//                {26658},
-//                {34656},
-//                {34656},
-//                {39988},
-//                {45320},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {null}
-//        };
-//
-//        Integer pt2[][] = {
-//                {54660},
-//                {53318},
-//                {null},
-//                {75993},
-//                {null},
-//                {75993},
-//                {70660},
-//                {54660},
-//                {59993},
-//                {65326},
-//                {78659},
-//                {71326},
-//                {55327},
-//                {60660},
-//                {65993},
-//                {81325},
-//                {71993},
-//                {55994},
-//                {61327},
-//                {66660},
-//                {83992},
-//                {72660},
-//                {56660},
-//                {61993},
-//                {67326},
-//                {86659},
-//                {73326},
-//                {57327},
-//                {62660},
-//                {67993},
-//                {89325},
-//                {73993},
-//                {57993},
-//                {63327},
-//                {68660},
-//                {91992},
-//                {74660},
-//                {58660},
-//                {63993},
-//                {69326},
-//                {94658},
-//                {75326},
-//                {59324},
-//                {64659},
-//                {69991},
-//                {87992},
-//                {57662},
-//                {73660},
-//                {68329},
-//                {62994},
-//                {90658},
-//                {58329},
-//                {74327},
-//                {68995},
-//                {63660},
-//                {93325},
-//                {58995},
-//                {74996},
-//                {69661},
-//                {64330},
-//                {95992},
-//                {59662},
-//                {75663},
-//                {70328},
-//                {64997},
-//                {77326},
-//                {54997},
-//                {70994},
-//                {65663},
-//                {60328},
-//                {79993},
-//                {55664},
-//                {71661},
-//                {66330},
-//                {60995},
-//                {82659},
-//                {56330},
-//                {72327},
-//                {66996},
-//                {61661},
-//                {85326},
-//                {56996},
-//                {72994},
-//                {67663},
-//                {62328}
-//        };
-//
-//        Integer pt3[][] = {
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {139993},
-//                {97325},
-//                {107994},
-//                {118660},
-//                {129327},
-//                {142659},
-//                {99991},
-//                {110660},
-//                {121326},
-//                {131993},
-//                {143992},
-//                {101325},
-//                {111994},
-//                {122660},
-//                {133326},
-//                {141326},
-//                {98658},
-//                {109327},
-//                {119993},
-//                {130659},
-//                {145326},
-//                {102658},
-//                {113327},
-//                {123993},
-//                {134659},
-//                {147992},
-//                {105325},
-//                {115994},
-//                {126660},
-//                {137326},
-//                {149326},
-//                {106658},
-//                {117327},
-//                {127993},
-//                {138659},
-//                {146659},
-//                {103991},
-//                {114660},
-//                {125326},
-//                {135993},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {139993},
-//                {97325},
-//                {107994},
-//                {118660},
-//                {129327},
-//                {142659},
-//                {99991},
-//                {110660},
-//                {121326},
-//                {131993},
-//                {97325},
-//                {102658},
-//                {107994},
-//                {113327},
-//                {118660},
-//                {129327, 130657, 131997, 133327, 134657, 135987, 137327, 138657},
-//                {139997, 141327, 142667, 143987},
-//                {145327, 146657, 147997, 149327},
-//                {null},
-//                {null},
-//                {145326},
-//                {102658},
-//                {113327},
-//                {123993},
-//                {134659},
-//                {147992},
-//                {105325},
-//                {115994},
-//                {126660},
-//                {137326},
-//                {123993},
-//                {129327},
-//                {134659},
-//                {139993},
-//                {145326}
-//        };
-//
-//        Integer pt4[][] = {
-//                {null},
-//                {150650},
-//                {null},
-//                {173325},
-//                {null},
-//                {173325},
-//                {167992},
-//                {151992},
-//                {157325},
-//                {162658},
-//                {175991},
-//                {168658},
-//                {152659},
-//                {157992},
-//                {163325},
-//                {178658},
-//                {169325},
-//                {153326},
-//                {158659},
-//                {163992},
-//                {181324},
-//                {169992},
-//                {153992},
-//                {159326},
-//                {164658},
-//                {183991},
-//                {170658},
-//                {154659},
-//                {159992},
-//                {165325},
-//                {186657},
-//                {171325},
-//                {155326},
-//                {160659},
-//                {165992},
-//                {189324},
-//                {171992},
-//                {155992},
-//                {161326},
-//                {166658},
-//                {191990},
-//                {172658},
-//                {156657},
-//                {161992},
-//                {167323},
-//                {185324},
-//                {154994},
-//                {170992},
-//                {165661},
-//                {160326},
-//                {187990},
-//                {155661},
-//                {171659},
-//                {166327},
-//                {160992},
-//                {190657},
-//                {156327},
-//                {172328},
-//                {166993},
-//                {161662},
-//                {193324},
-//                {156994},
-//                {172995},
-//                {167660},
-//                {162329},
-//                {174658},
-//                {152329},
-//                {168326},
-//                {162995},
-//                {157660},
-//                {177325},
-//                {152996},
-//                {168993},
-//                {163662},
-//                {158327},
-//                {179991},
-//                {153662},
-//                {169659},
-//                {164328},
-//                {158993},
-//                {182658},
-//                {154328},
-//                {170326},
-//                {164995},
-//                {159660}
-//        };
-//
-//        Integer pt5[][] = {
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {194637},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {195993},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {195326},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {196660},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {197326},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {198660},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {197993},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {199324},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {199993},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {201340},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {200682},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {202128},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {203147},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {null},
-//                {null}
-//        };
-//
-//        DeckTiming deckTiming[] = {
-//                new DeckTiming(
-//                        pt1, 1, 0
-//                ),
-//                new DeckTiming(
-//                        pt2, 2, 52949
-//                ),
-//                new DeckTiming(
-//                        pt3, 3, 96379
-//                ),
-//                new DeckTiming(
-//                        pt4, 2, 149947
-//                ),
-//                new DeckTiming(
-//                        pt5, 4, 193772
-//                )
-//        };
-
-        //TODO EDIT
-        //Log.d("Array", Arrays.deepToString(deckTiming[0].getDeckTiming()));
-
-        Music fadedMusic = new Music(
-                "preset_faded",
-                243,
-                90,
+        Music helloMusic = new Music(
+                "preset_hello",
+                true,
+                56,
+                105,
                 getDeckFromFileName(fileTag),
                 null
         );
 
-        Preset fadedPreset = new Preset(3, fadedMusic, fadedAbout);
+        Preset helloPreset = new Preset(2, helloMusic, helloAbout);
 
-        largeLog("JSON", gson.toJson(fadedPreset));
-//        //TODO use this on about screen updates
-//        Bio tapadBio = new Bio(
-//                "info_tapad_bio_title",
-//                "about_bio_tapad",
-//                "info_tapad_bio_name",
-//                "info_tapad_bio_text",
-//                "info_tapad_bio_source"
-//        );
-//
-//        Item tapadInfo[] = {
-//                new Item("info_tapad_info_check_update", "info_tapad_info_check_update_hint", "about_detail_google_play", true),
-//                new Item("info_tapad_info_tester", "info_tapad_info_tester_hint", "about_detail_tester", true),
-//                new Item("info_tapad_info_legal", null, "about_detail_info", false),
-//                new Item("info_tapad_info_version", "info_tapad_info_version_hint", ""),
-//                new Item("info_tapad_info_build_date", "info_tapad_info_build_date_hint", ""),
-//                new Item("info_tapad_info_changelog", null, "about_detail_changelog", false),
-//                new Item("info_tapad_info_thanks", null, "about_detail_thanks", false),
-//                new Item("info_tapad_info_dev", "info_tapad_info_dev_hint", "about_detail_dev", false)
-//                // TODO ADD ITEMS
-//        };
-//
-//        Item tapadOthers[] = {
-//                new Item("info_tapad_others_song", "info_tapad_others_song_hint", "about_detail_others_song", true),
-//                new Item("info_tapad_others_feedback", "info_tapad_others_feedback_hint", "about_detail_others_feedback", true),
-//                new Item("info_tapad_others_report_bug", "info_tapad_others_report_bug_hint", "about_detail_others_report_bug", true),
-//                new Item("info_tapad_others_rate", "info_tapad_others_rate_hint", "about_detail_others_rate", true),
-//                new Item("info_tapad_others_translate", "info_tapad_others_translate_hint", "about_detail_web", false),
-//                new Item("info_tapad_others_recommend", "info_tapad_others_recommend_hint", "about_detail_others_recommend", true)
-//        };
-//
-//        Detail tapadDetails[] = {
-//                new Detail("info_tapad_info_title", tapadInfo),
-//                new Detail("info_tapad_others_title", tapadOthers)
-//        };
-//
-//        About tapadAbout = new About(
-//                "info_tapad_title", "about_image_tapad",
-//                tapadBio, tapadDetails,
-//                "info_tapad_color_dark", "info_tapad_color"
-//        );
-//
-//        largeLog("tapadAboutJSON", gson.toJson(tapadAbout));
-//
-//        Bio berictBio = new Bio(
-//                "info_berict_bio_title",
-//                null,
-//                "info_berict_bio_name",
-//                "info_berict_bio_text",
-//                "info_berict_bio_source"
-//        );
-//
-//        Item devItems[] = {
-//                new Item("facebook", "info_berict_detail_facebook"),
-//                new Item("twitter", "info_berict_detail_twitter"),
-//                new Item("google_plus", "info_berict_detail_google_plus"),
-//                new Item("youtube", "info_berict_detail_youtube"),
-//                new Item("web", "info_berict_detail_web")
-//        };
-//
-//        Item devSupport[] = {
-//                new Item("info_berict_action_report_bug", "info_berict_action_report_bug_hint", "about_detail_others_report_bug", true),
-//                new Item("info_berict_action_rate", "info_berict_action_rate_hint", "about_detail_others_rate", true),
-//                new Item("info_berict_action_translate", "info_berict_action_translate_hint", "about_detail_others_translate", false),
-//                new Item("info_berict_action_donate", "info_berict_action_donate_hint", "about_detail_others_donate", false)
-//        };
-//
-//        Detail berictDetails[] = {
-//                new Detail("info_berict_detail_title", devItems),
-//                new Detail("info_berict_action_title", devSupport)
-//        };
-//
-//        About berictAbout = new About(
-//                "info_berict_title", "about_image_berict",
-//                berictBio, berictDetails,
-//                "info_berict_color_dark", "info_berict_color"
-//        );
-//
-//        largeLog("berictAboutJSON", gson.toJson(berictAbout));
+        largeLog("JSON", gson.toJson(helloPreset));
     }
 
     // TODO change on new preset
-    String fileTag = "alan_walker_faded_";
+    String fileTag = "omfg_hello_";
 
     Deck[] getDeckFromFileName(String fileTag) {
         Pad part1[] = {
