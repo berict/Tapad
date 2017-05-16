@@ -636,7 +636,11 @@ public class SoundService {
             for (int i = 0; i < 21; i++) {
                 if (i == 0 || i > 4) {
                     if (id >= 1 && id <= 4) {
-                        window.setOnGestureSound(buttonId[i], colorId, R.color.grey, sp, soundPoolId[id - 1][i], activity);
+                        if (currentPreset.getMusic().getIsGesture()) {
+                            window.setOnGestureSound(buttonId[i], colorId, R.color.grey, sp, soundPoolId[id - 1][i], activity);
+                        } else {
+                            window.setOnTouchSound(buttonId[i], colorId, R.color.grey, sp, soundPoolId[id - 1][i], activity);
+                        }
                     }
                 }
             }
@@ -745,7 +749,11 @@ public class SoundService {
             for (int i = 0; i < 21; i++) {
                 if (i == 0 || i > 4) {
                     if (id >= 1 && id <= 4) {
-                        window.setOnGestureSound(buttonId[i], colorId, R.color.grey, sp, soundPoolId[id - 1][i], pattern, activity);
+                        if (currentPreset.getMusic().getIsGesture()) {
+                            window.setOnGestureSound(buttonId[i], colorId, R.color.grey, sp, soundPoolId[id - 1][i], pattern, activity);
+                        } else {
+                            window.setOnTouchSound(buttonId[i], colorId, R.color.grey, sp, soundPoolId[id - 1][i], pattern, activity);
+                        }
                     }
                 }
             }
