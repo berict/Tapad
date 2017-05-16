@@ -7,6 +7,9 @@ public class Music {
     @SerializedName("name_id")
     private String nameId;
 
+    @SerializedName("is_gesture")
+    private Boolean isGesture;
+
     @SerializedName("sound_count")
     private Integer soundCount;
 
@@ -16,7 +19,7 @@ public class Music {
     @SerializedName("decks")
     private Deck[] decks;
 
-    @SerializedName("deckTimings")
+    @SerializedName("deck_timings")
     private DeckTiming[] deckTimings;
 
     public Music(String nameId, Integer soundCount, Integer bpm, Deck[] decks, DeckTiming[] deckTimings) {
