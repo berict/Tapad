@@ -1331,7 +1331,7 @@ public class MainActivity
                 if (tgl1 == false) {
                     toggleSoundId = 1;
                     if (tgl5 || tgl6 || tgl7 || tgl8) {
-                        sound.setButtonTogglePattern(toggleSoundId, color, togglePatternId, a);
+                        sound.setButtonToggle(toggleSoundId, color, togglePatternId, a);
                     } else {
                         sound.setButtonToggle(toggleSoundId, color, a);
                     }
@@ -1370,7 +1370,7 @@ public class MainActivity
                 if (tgl2 == false) {
                     toggleSoundId = 2;
                     if (tgl5 || tgl6 || tgl7 || tgl8) {
-                        sound.setButtonTogglePattern(toggleSoundId, color, togglePatternId, a);
+                        sound.setButtonToggle(toggleSoundId, color, togglePatternId, a);
                     } else {
                         sound.setButtonToggle(toggleSoundId, color, a);
                     }
@@ -1407,7 +1407,7 @@ public class MainActivity
                 if (tgl3 == false) {
                     toggleSoundId = 3;
                     if (tgl5 || tgl6 || tgl7 || tgl8) {
-                        sound.setButtonTogglePattern(toggleSoundId, color, togglePatternId, a);
+                        sound.setButtonToggle(toggleSoundId, color, togglePatternId, a);
                     } else {
                         sound.setButtonToggle(toggleSoundId, color, a);
                     }
@@ -1444,7 +1444,7 @@ public class MainActivity
                 if (tgl4 == false) {
                     toggleSoundId = 4;
                     if (tgl5 || tgl6 || tgl7 || tgl8) {
-                        sound.setButtonTogglePattern(toggleSoundId, color, togglePatternId, a);
+                        sound.setButtonToggle(toggleSoundId, color, togglePatternId, a);
                     } else {
                         sound.setButtonToggle(toggleSoundId, color, a);
                     }
@@ -1482,7 +1482,7 @@ public class MainActivity
                 if (tgl5 == false) {
                     togglePatternId = 1;
                     if (tgl1 || tgl2 || tgl3 || tgl4) {
-                        sound.setButtonTogglePattern(toggleSoundId, color, togglePatternId, a);
+                        sound.setButtonToggle(toggleSoundId, color, togglePatternId, a);
                     }
                     w.setViewBackgroundColor(R.id.tgl5, color_id, a);
                     w.setViewBackgroundColor(R.id.tgl6, R.color.grey, a);
@@ -1516,7 +1516,7 @@ public class MainActivity
                 if (tgl6 == false) {
                     togglePatternId = 2;
                     if (tgl1 || tgl2 || tgl3 || tgl4) {
-                        sound.setButtonTogglePattern(toggleSoundId, color, togglePatternId, a);
+                        sound.setButtonToggle(toggleSoundId, color, togglePatternId, a);
                     }
                     w.setViewBackgroundColor(R.id.tgl6, color_id, a);
                     w.setViewBackgroundColor(R.id.tgl5, R.color.grey, a);
@@ -1550,7 +1550,7 @@ public class MainActivity
                 if (tgl7 == false) {
                     togglePatternId = 3;
                     if (tgl1 || tgl2 || tgl3 || tgl4) {
-                        sound.setButtonTogglePattern(toggleSoundId, color, togglePatternId, a);
+                        sound.setButtonToggle(toggleSoundId, color, togglePatternId, a);
                     }
                     w.setViewBackgroundColor(R.id.tgl7, color_id, a);
                     w.setViewBackgroundColor(R.id.tgl6, R.color.grey, a);
@@ -1584,7 +1584,7 @@ public class MainActivity
                 if (tgl8 == false) {
                     togglePatternId = 4;
                     if (tgl1 || tgl2 || tgl3 || tgl4) {
-                        sound.setButtonTogglePattern(toggleSoundId, color, togglePatternId, a);
+                        sound.setButtonToggle(toggleSoundId, color, togglePatternId, a);
                     }
                     w.setViewBackgroundColor(R.id.tgl8, color_id, a);
                     w.setViewBackgroundColor(R.id.tgl6, R.color.grey, a);

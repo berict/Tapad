@@ -444,7 +444,7 @@ public class SoundService {
     private int sp_id_4_44_3 = 0;
     private int sp_id_4_44_4 = 0;
 
-    public int soundPoolId[][][] = {
+    private int soundPoolId[][][] = {
             {
                     {sp_id_1_00, sp_id_1_00_1, sp_id_1_00_2, sp_id_1_00_3, sp_id_1_00_4}, {sp_id_1_01, sp_id_1_01_1, sp_id_1_01_2, sp_id_1_01_3, sp_id_1_01_4}, {sp_id_1_02, sp_id_1_02_1, sp_id_1_02_2, sp_id_1_02_3, sp_id_1_02_4}, {sp_id_1_03, sp_id_1_03_1, sp_id_1_03_2, sp_id_1_03_3, sp_id_1_03_4}, {sp_id_1_04, sp_id_1_04_1, sp_id_1_04_2, sp_id_1_04_3, sp_id_1_04_4},
                     {sp_id_1_11, sp_id_1_11_1, sp_id_1_11_2, sp_id_1_11_3, sp_id_1_11_4}, {sp_id_1_12, sp_id_1_12_1, sp_id_1_12_2, sp_id_1_12_3, sp_id_1_12_4}, {sp_id_1_13, sp_id_1_13_1, sp_id_1_13_2, sp_id_1_13_3, sp_id_1_13_4}, {sp_id_1_14, sp_id_1_14_1, sp_id_1_14_2, sp_id_1_14_3, sp_id_1_14_4},
@@ -472,10 +472,10 @@ public class SoundService {
             }
     };
 
-    Activity activity;
-    public static Preset previousPreset = null;
+    private Activity activity;
+    private static Preset previousPreset = null;
 
-    int buttonId[] = {
+    private int buttonId[] = {
             R.id.btn00,
             R.id.tgl1,
             R.id.tgl2,
@@ -634,9 +634,7 @@ public class SoundService {
         toggle = id;
         if (isPresetLoading == false) {
             for (int i = 0; i < 21; i++) {
-                if (i >= 1 && i <= 4) {
-                    continue;
-                } else {
+                if (i == 0 || i > 4) {
                     if (id >= 1 && id <= 4) {
                         window.setOnGestureSound(buttonId[i], colorId, R.color.grey, sp, soundPoolId[id - 1][i], activity);
                     }
@@ -648,7 +646,7 @@ public class SoundService {
         }
     }
 
-    public void setButtonTogglePattern(int id, int colorId, int patternId, Activity activity) {
+    public void setButtonToggle(int id, int colorId, int patternId, Activity activity) {
 
         int pattern1[][][] = {
                 {{}, {R.id.btn12, R.id.btn21}},
@@ -926,8 +924,6 @@ public class SoundService {
                         + progressCount++ + " / " + presetSoundCount * 2);
     }
 
-    long loadingTime = 0;
-
     private class LoadSound extends AsyncTask<Void, Integer, String> {
         String TAG = "LoadSound";
 
@@ -936,9 +932,6 @@ public class SoundService {
 
             window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.icon_tutorial_disabled);
             //window.getImageView(R.id.layout_settings_tutorial_icon, activity).setImageResource(R.drawable.settings_tutorial_disabled);
-
-            //TODO remove
-            loadingTime = System.currentTimeMillis();
         }
 
         protected String doInBackground(Void... arg0) {
@@ -991,7 +984,6 @@ public class SoundService {
 
         protected void onPostExecute(String result) {
             Log.d(TAG, "sampleId count : " + presetSoundCount);
-            Log.d(TAG, "Loading time : " + String.valueOf(System.currentTimeMillis() - loadingTime));
 
             progress = window.getTextView(R.id.progress_bar_progress_text, activity);
 
@@ -1019,7 +1011,6 @@ public class SoundService {
                         unLoadSound = null;
 
                         window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.icon_tutorial);
-                        //window.getImageView(R.id.layout_settings_tutorial_icon, activity).setImageResource(R.drawable.settings_tutorial);
 
                         anim.fadeOut(R.id.progress_bar_layout, 400, 400, activity);
                         window.setVisible(R.id.base, 400, activity);
