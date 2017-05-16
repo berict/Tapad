@@ -733,48 +733,10 @@ public class WindowService {
         });
     }
 
-    public void setOnTouchSound(int id, final int color_down, final int color_up, final SoundPool sp, final int soundId[], final int length, final Activity activity) {
-        final View view = activity.findViewById(id);
-        view.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    try {
-                        view.setBackgroundColor(activity.getResources().getColor(color_down));
-                    } catch (Resources.NotFoundException e) {
-                        Log.i("NotFoundException", "Handling with normal value");
-                        view.setBackgroundColor(color_down);
-                    }
-                    if (soundId.length == 1) {
-                        sp.play(soundId[0], 1, 1, 1, 0, 1f);
-                    } else {
-                        final int i[] = {0};
-                        Handler repeat = new Handler();
-                        Runnable play = new Runnable() {
-                            @Override
-                            public void run() {
-                                sp.play(soundId[i[0]], 1, 1, 1, 0, 1f);
-                            }
-                        };
-
-                        for (i[0] = 0; i[0] < length; i[0]++) {
-                            if (i[0] == 0) {
-                                play.run();
-                            } else {
-                                repeat.postDelayed(play, 500 * i[0]);
-                            }
-                        }
-                    }
-                }
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    view.setBackgroundColor(activity.getResources().getColor(color_up));
-                }
-                return false;
-            }
-        });
-    }
-
-    public void setOnTouchSoundPattern(int id, final int pattern[][], final int color_down, final int color_up, final SoundPool sp, final int soundId[], final int length, final Activity activity) {
+    public void setOnTouchSoundPattern(int id, final int pattern[][],
+                                       final int color_down, final int color_up,
+                                       final SoundPool sp, final int soundId[],
+                                       final int length, final Activity activity) {
         final View view = activity.findViewById(id);
 
         final int idnum[] = {0};
@@ -948,8 +910,78 @@ public class WindowService {
         }
     }
 
-    public void setOnGestureSound(final int padId, final int colorDown, final int colorUp, final SoundPool sp, final int spid[], final Activity activity) {
-        // normal
+    public void setOnTouchSound(final int padId,
+                                final int colorDown, final int colorUp,
+                                final SoundPool sp, final int spid[],
+                                final Activity activity) {
+        // Normal
+        final View pad = activity.findViewById(padId);
+        final int streamId[] = {0};
+
+        pad.setOnTouchListener(new OnSwipeTouchListener(activity) {
+            @Override
+            public void onTouch() {
+                streamId[0] = sp.play(spid[0], 1, 1, 1, 1, 1);
+                setPadColor(pad, colorDown, activity);
+            }
+
+            @Override
+            public void onClick() {
+                sp.stop(streamId[0]);
+                setPadColor(pad, colorDown, activity);
+                Log.d("TouchListener", "Click");
+            }
+
+            @Override
+            public void onSingleClickConfirmed() {
+                sp.stop(streamId[0]);
+                setPadColor(pad, colorDown, activity);
+                Log.d("TouchListener", "SingleClickConfirmed");
+            }
+        });
+    }
+
+    public void setOnTouchSound(final int padId,
+                                final int colorDown, final int colorUp,
+                                final SoundPool sp, final int spid[],
+                                final int patternScheme[][][], final Activity activity) {
+        // Normal Pattern
+        final int btnId[] = {getButtonId(padId)};
+
+        final View pad = activity.findViewById(padId);
+        final int streamId[] = {0};
+
+        pad.setOnTouchListener(new OnSwipeTouchListener(activity) {
+            @Override
+            public void onTouch() {
+                streamId[0] = sp.play(spid[0], 1, 1, 1, 1, 1);
+                setPadColor(pad, colorDown, activity);
+                setButtonPattern(patternScheme, btnId[0], colorDown, colorUp, activity);
+            }
+
+            @Override
+            public void onClick() {
+                sp.stop(streamId[0]);
+                setPadColor(pad, colorUp, activity);
+                setButtonPatternDefault(patternScheme, btnId[0], colorUp, activity);
+                Log.d("TouchListener", "Click");
+            }
+
+            @Override
+            public void onSingleClickConfirmed() {
+                sp.stop(streamId[0]);
+                setPadColor(pad, colorUp, activity);
+                setButtonPatternDefault(patternScheme, btnId[0], colorUp, activity);
+                Log.d("TouchListener", "SingleClickConfirmed");
+            }
+        });
+    }
+
+    public void setOnGestureSound(final int padId,
+                                  final int colorDown, final int colorUp,
+                                  final SoundPool sp, final int spid[],
+                                  final Activity activity) {
+        // Gesture
         final boolean isLoopEnabled[] = {false};
         final View pad = activity.findViewById(padId);
         final int streamId[] = {0};
@@ -1083,8 +1115,11 @@ public class WindowService {
         });
     }
 
-    public void setOnGestureSound(final int padId, final int colorDown, final int colorUp, final SoundPool sp, final int spid[], final int patternScheme[][][], final Activity activity) {
-        // pattern
+    public void setOnGestureSound(final int padId,
+                                  final int colorDown, final int colorUp,
+                                  final SoundPool sp, final int spid[],
+                                  final int patternScheme[][][], final Activity activity) {
+        // Gesture Pattern
         final int btnId[] = {getButtonId(padId)};
         final boolean isLoopEnabled[] = {false};
 
