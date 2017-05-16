@@ -39,7 +39,7 @@ public class Music {
         return decks;
     }
 
-    public Boolean getGesture() {
+    public Boolean getIsGesture() {
         return isGesture;
     }
 
