@@ -22,8 +22,9 @@ public class Music {
     @SerializedName("deck_timings")
     private DeckTiming[] deckTimings;
 
-    public Music(String nameId, Integer soundCount, Integer bpm, Deck[] decks, DeckTiming[] deckTimings) {
+    public Music(String nameId, Boolean isGesture, Integer soundCount, Integer bpm, Deck[] decks, DeckTiming[] deckTimings) {
         this.nameId = nameId;
+        this.isGesture = isGesture;
         this.soundCount = soundCount;
         this.bpm = bpm;
         this.decks = decks;
@@ -36,6 +37,10 @@ public class Music {
 
     public Deck[] getDecks() {
         return decks;
+    }
+
+    public Boolean getGesture() {
+        return isGesture;
     }
 
     public DeckTiming[] getDeckTimings() {
