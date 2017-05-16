@@ -743,79 +743,13 @@ public class SoundService {
 
         if (isPresetLoading == false) {
             for (int i = 0; i < 21; i++) {
-                if (i >= 1 && i <= 4) {
-                    continue;
-                } else {
+                if (i == 0 || i > 4) {
                     if (id >= 1 && id <= 4) {
                         window.setOnGestureSound(buttonId[i], colorId, R.color.grey, sp, soundPoolId[id - 1][i], pattern, activity);
                     }
                 }
             }
             Log.i("SoundService", "ToggleButton pattern set id " + String.valueOf(patternId));
-//            if (id == 1) {
-//            } else if(id == 2) {
-//                window.setOnTouchSound(R.id.btn00, colorId, R.color.grey, sp_2_00, sp_id_2_00, activity);
-//                window.setOnTouchSound(R.id.btn11, colorId, R.color.grey, sp_2_11, sp_id_2_11, activity);
-//                window.setOnTouchSound(R.id.btn12, colorId, R.color.grey, sp_2_12, sp_id_2_12, activity);
-//                window.setOnTouchSound(R.id.btn13, colorId, R.color.grey, sp_2_13, sp_id_2_13, activity);
-//                window.setOnTouchSound(R.id.btn14, colorId, R.color.grey, sp_2_14, sp_id_2_14, activity);
-//                window.setOnTouchSound(R.id.btn21, colorId, R.color.grey, sp_2_21, sp_id_2_21, activity);
-//                window.setOnTouchSound(R.id.btn22, colorId, R.color.grey, sp_2_22, sp_id_2_22, activity);
-//                window.setOnTouchSound(R.id.btn23, colorId, R.color.grey, sp_2_23, sp_id_2_23, activity);
-//                window.setOnTouchSound(R.id.btn24, colorId, R.color.grey, sp_2_24, sp_id_2_24, activity);
-//                window.setOnTouchSound(R.id.btn31, colorId, R.color.grey, sp_2_31, sp_id_2_31, activity);
-//                window.setOnTouchSound(R.id.btn32, colorId, R.color.grey, sp_2_32, sp_id_2_32, activity);
-//                window.setOnTouchSound(R.id.btn33, colorId, R.color.grey, sp_2_33, sp_id_2_33, activity);
-//                window.setOnTouchSound(R.id.btn34, colorId, R.color.grey, sp_2_34, sp_id_2_34, activity);
-//                window.setOnTouchSound(R.id.btn41, colorId, R.color.grey, sp_2_41, sp_id_2_41, activity);
-//                window.setOnTouchSound(R.id.btn42, colorId, R.color.grey, sp_2_42, sp_id_2_42, activity);
-//                window.setOnTouchSound(R.id.btn43, colorId, R.color.grey, sp_2_43, sp_id_2_43, activity);
-//                window.setOnTouchSound(R.id.btn44, colorId, R.color.grey, sp_2_44, sp_id_2_44, activity);
-//
-//                Log.i("SoundService", "ToggleButton set id 2");
-//            } else if(id == 3) {
-//                window.setOnTouchSound(R.id.btn00, colorId, R.color.grey, sp_3_00, sp_id_3_00, activity);
-//                window.setOnTouchSound(R.id.btn11, colorId, R.color.grey, sp_3_11, sp_id_3_11, activity);
-//                window.setOnTouchSound(R.id.btn12, colorId, R.color.grey, sp_3_12, sp_id_3_12, activity);
-//                window.setOnTouchSound(R.id.btn13, colorId, R.color.grey, sp_3_13, sp_id_3_13, activity);
-//                window.setOnTouchSound(R.id.btn14, colorId, R.color.grey, sp_3_14, sp_id_3_14, activity);
-//                window.setOnTouchSound(R.id.btn21, colorId, R.color.grey, sp_3_21, sp_id_3_21, activity);
-//                window.setOnTouchSound(R.id.btn22, colorId, R.color.grey, sp_3_22, sp_id_3_22, activity);
-//                window.setOnTouchSound(R.id.btn23, colorId, R.color.grey, sp_3_23, sp_id_3_23, activity);
-//                window.setOnTouchSound(R.id.btn24, colorId, R.color.grey, sp_3_24, sp_id_3_24, activity);
-//                window.setOnTouchSound(R.id.btn31, colorId, R.color.grey, sp_3_31, sp_id_3_31, activity);
-//                window.setOnTouchSound(R.id.btn32, colorId, R.color.grey, sp_3_32, sp_id_3_32, activity);
-//                window.setOnTouchSound(R.id.btn33, colorId, R.color.grey, sp_3_33, sp_id_3_33, activity);
-//                window.setOnTouchSound(R.id.btn34, colorId, R.color.grey, sp_3_34, sp_id_3_34, activity);
-//                window.setOnTouchSound(R.id.btn41, colorId, R.color.grey, sp_3_41, sp_id_3_41, activity);
-//                window.setOnTouchSound(R.id.btn42, colorId, R.color.grey, sp_3_42, sp_id_3_42, activity);
-//                window.setOnTouchSound(R.id.btn43, colorId, R.color.grey, sp_3_43, sp_id_3_43, activity);
-//                window.setOnTouchSound(R.id.btn44, colorId, R.color.grey, sp_3_44, sp_id_3_44, activity);
-//
-//                Log.i("SoundService", "ToggleButton set id 3");
-//            } else if(id == 4) {
-//                window.setOnTouchSound(R.id.btn00, colorId, R.color.grey, sp_4_00, sp_id_4_00, activity);
-//                window.setOnTouchSound(R.id.btn11, colorId, R.color.grey, sp_4_11, sp_id_4_11, activity);
-//                window.setOnTouchSound(R.id.btn12, colorId, R.color.grey, sp_4_12, sp_id_4_12, activity);
-//                window.setOnTouchSound(R.id.btn13, colorId, R.color.grey, sp_4_13, sp_id_4_13, activity);
-//                window.setOnTouchSound(R.id.btn14, colorId, R.color.grey, sp_4_14, sp_id_4_14, activity);
-//                window.setOnTouchSound(R.id.btn21, colorId, R.color.grey, sp_4_21, sp_id_4_21, activity);
-//                window.setOnTouchSound(R.id.btn22, colorId, R.color.grey, sp_4_22, sp_id_4_22, activity);
-//                window.setOnTouchSound(R.id.btn23, colorId, R.color.grey, sp_4_23, sp_id_4_23, activity);
-//                window.setOnTouchSound(R.id.btn24, colorId, R.color.grey, sp_4_24, sp_id_4_24, activity);
-//                window.setOnTouchSound(R.id.btn31, colorId, R.color.grey, sp_4_31, sp_id_4_31, activity);
-//                window.setOnTouchSound(R.id.btn32, colorId, R.color.grey, sp_4_32, sp_id_4_32, activity);
-//                window.setOnTouchSound(R.id.btn33, colorId, R.color.grey, sp_4_33, sp_id_4_33, activity);
-//                window.setOnTouchSound(R.id.btn34, colorId, R.color.grey, sp_4_34, sp_id_4_34, activity);
-//                window.setOnTouchSound(R.id.btn41, colorId, R.color.grey, sp_4_41, sp_id_4_41, activity);
-//                window.setOnTouchSound(R.id.btn42, colorId, R.color.grey, sp_4_42, sp_id_4_42, activity);
-//                window.setOnTouchSound(R.id.btn43, colorId, R.color.grey, sp_4_43, sp_id_4_43, activity);
-//                window.setOnTouchSound(R.id.btn44, colorId, R.color.grey, sp_4_44, sp_id_4_44, activity);
-//
-//                Log.i("SoundService", "ToggleButton set id 4");
-//            } else {
-//                Log.i("SoundService", "ToggleButton undefined value");
-//            }
         } else {
             setButton(colorId, activity);
         }
