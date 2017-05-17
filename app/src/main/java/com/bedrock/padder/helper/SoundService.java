@@ -777,7 +777,7 @@ public class SoundService {
     private int progressCount;
     private int presetSoundCount;
 
-    private class UnloadSound extends AsyncTask<Void, Integer, String> {
+    private class UnloadSound extends AsyncTask<Void, Void, String> {
         String TAG = "UnloadSound";
         SharedPreferences prefs;
 
@@ -831,7 +831,6 @@ public class SoundService {
                                 sp.unload(window.getRawId(previousPreset.getMusic().getDecks()[i].getPad(j).getLeft(), activity));
                                 Log.i(TAG, "      Pad " + (j + 1) + "-Left" + ", Sound unloaded");
                             }
-                            publishProgress(i + 1);
                         }
                     }
                 }
@@ -842,8 +841,7 @@ public class SoundService {
             return "You are at PostExecute";
         }
 
-        protected void onProgressUpdate(Integer... a) {
-            //Log.d(TAG, "Sound unloaded " + a[0]);
+        protected void onProgressUpdate(Void... arg0) {
         }
 
         protected void onPostExecute(String result) {
@@ -866,7 +864,7 @@ public class SoundService {
                         + progressCount++ + " / " + presetSoundCount * 2);
     }
 
-    private class LoadSound extends AsyncTask<Void, Integer, String> {
+    private class LoadSound extends AsyncTask<Void, Void, String> {
         String TAG = "LoadSound";
 
         protected void onPreExecute() {
@@ -891,36 +889,35 @@ public class SoundService {
                         if (currentPreset.getMusic().getDecks()[i].getPad(j).getRaw() != null) {
                             soundPoolId[i][j][0] = sp.load(activity, window.getRawId(currentPreset.getMusic().getDecks()[i].getPad(j).getRaw(), activity), 1);
                             Log.i(TAG, "      Pad " + (j + 1) + "-Normal" + ", Sound loaded");
-                            publishProgress(i + 1);
+                            publishProgress();
                         }
                         if (currentPreset.getMusic().getDecks()[i].getPad(j).getUp() != null) {
                             soundPoolId[i][j][1] = sp.load(activity, window.getRawId(currentPreset.getMusic().getDecks()[i].getPad(j).getUp(), activity), 1);
                             Log.i(TAG, "      Pad " + (j + 1) + "-Up" + ", Sound loaded");
-                            publishProgress(i + 1);
+                            publishProgress();
                         }
                         if (currentPreset.getMusic().getDecks()[i].getPad(j).getRight() != null) {
                             soundPoolId[i][j][2] = sp.load(activity, window.getRawId(currentPreset.getMusic().getDecks()[i].getPad(j).getRight(), activity), 1);
                             Log.i(TAG, "      Pad " + (j + 1) + "-Right" + ", Sound loaded");
-                            publishProgress(i + 1);
+                            publishProgress();
                         }
                         if (currentPreset.getMusic().getDecks()[i].getPad(j).getDown() != null) {
                             soundPoolId[i][j][3] = sp.load(activity, window.getRawId(currentPreset.getMusic().getDecks()[i].getPad(j).getDown(), activity), 1);
                             Log.i(TAG, "      Pad " + (j + 1) + "-Down" + ", Sound loaded");
-                            publishProgress(i + 1);
+                            publishProgress();
                         }
                         if (currentPreset.getMusic().getDecks()[i].getPad(j).getLeft() != null) {
                             soundPoolId[i][j][4] = sp.load(activity, window.getRawId(currentPreset.getMusic().getDecks()[i].getPad(j).getLeft(), activity), 1);
                             Log.i(TAG, "      Pad " + (j + 1) + "-Left" + ", Sound loaded");
-                            publishProgress(i + 1);
+                            publishProgress();
                         }
                     }
                 }
             }
-
             return "You are at PostExecute";
         }
 
-        protected void onProgressUpdate(Integer... a) {
+        protected void onProgressUpdate(Void... arg0) {
             progressUpdate();
         }
 
@@ -934,7 +931,7 @@ public class SoundService {
                 public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
                     Log.d(TAG, "Loading Finished, sampleId : " + sampleId);
                     progressUpdate();
-                    if(sampleId == presetSoundCount) {
+                    if(progressCount == presetSoundCount) {
                         // final sampleId
                         Log.d(TAG, "Loading completed, SoundPool successfully loaded "
                                 + presetSoundCount
