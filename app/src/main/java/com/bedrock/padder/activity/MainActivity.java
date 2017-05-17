@@ -97,6 +97,7 @@ public class MainActivity
 
     private boolean doubleBackToExitPressedOnce = false;
     private boolean isToolbarVisible = false;
+    private boolean isSettingsFromMenu = false;
     public static boolean isPresetLoading = false;
     public static boolean isPresetVisible = false;
     public static boolean isTutorialVisible = false;
@@ -258,6 +259,7 @@ public class MainActivity
                     @Override
                     public void run() {
                         showSettingsFragment(a);
+                        isSettingsFromMenu = true;
                     }
                 }, 400);
                 break;
@@ -1158,7 +1160,7 @@ public class MainActivity
 
     private void closeSettings() {
         Log.d("closeSettings", "triggered");
-        if (isToolbarVisible) {
+        if (isToolbarVisible && !isSettingsFromMenu) {
             anim.circularRevealInPx(R.id.placeholder,
                     coord[2], coord[3],
                     (int) Math.hypot(coord[2], coord[3]) + 200, 0, new AccelerateDecelerateInterpolator(),
@@ -1167,6 +1169,7 @@ public class MainActivity
             anim.fadeIn(R.id.placeholder, 0, fadeAnimDuration, "settingOut", a);
         } else {
             w.getView(R.id.fragment_settings_container, a).setVisibility(View.GONE);
+            isSettingsFromMenu = false;
         }
 
         color = prefs.getInt("color", R.color.cyan_400);
