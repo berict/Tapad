@@ -918,25 +918,21 @@ public class WindowService {
         final View pad = activity.findViewById(padId);
         final int streamId[] = {0};
 
-        pad.setOnTouchListener(new OnSwipeTouchListener(activity) {
+        pad.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onTouch() {
-                streamId[0] = sp.play(spid[0], 1, 1, 1, -1, 1);
-                setPadColor(pad, colorDown, activity);
-            }
-
-            @Override
-            public void onClick() {
-                sp.pause(streamId[0]);
-                setPadColor(pad, colorUp, activity);
-                Log.d("TouchListener", "Click");
-            }
-
-            @Override
-            public void onSingleClickConfirmed() {
-                sp.pause(streamId[0]);
-                setPadColor(pad, colorUp, activity);
-                Log.d("TouchListener", "SingleClickConfirmed");
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    // Pressed
+                    streamId[0] = sp.play(spid[0], 1, 1, 1, -1, 1);
+                    setPadColor(pad, colorDown, activity);
+                    Log.d("TouchListener", "TouchDown");
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    // Released
+                    sp.stop(streamId[0]);
+                    setPadColor(pad, colorUp, activity);
+                    Log.d("TouchListener", "TouchUp");
+                }
+                return false;
             }
         });
     }
@@ -951,28 +947,23 @@ public class WindowService {
         final View pad = activity.findViewById(padId);
         final int streamId[] = {0};
 
-        pad.setOnTouchListener(new OnSwipeTouchListener(activity) {
+        pad.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onTouch() {
-                streamId[0] = sp.play(spid[0], 1, 1, 1, -1, 1);
-                setPadColor(pad, colorDown, activity);
-                setButtonPattern(patternScheme, btnId[0], colorDown, colorUp, activity);
-            }
-
-            @Override
-            public void onClick() {
-                sp.stop(streamId[0]);
-                setPadColor(pad, colorUp, activity);
-                setButtonPatternDefault(patternScheme, btnId[0], colorUp, activity);
-                Log.d("TouchListener", "Click");
-            }
-
-            @Override
-            public void onSingleClickConfirmed() {
-                sp.stop(streamId[0]);
-                setPadColor(pad, colorUp, activity);
-                setButtonPatternDefault(patternScheme, btnId[0], colorUp, activity);
-                Log.d("TouchListener", "SingleClickConfirmed");
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    // Pressed
+                    streamId[0] = sp.play(spid[0], 1, 1, 1, -1, 1);
+                    setPadColor(pad, colorDown, activity);
+                    setButtonPattern(patternScheme, btnId[0], colorDown, colorUp, activity);
+                    Log.d("TouchListener", "TouchDown");
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    // Released
+                    sp.stop(streamId[0]);
+                    setPadColor(pad, colorUp, activity);
+                    setButtonPatternDefault(patternScheme, btnId[0], colorUp, activity);
+                    Log.d("TouchListener", "TouchUp");
+                }
+                return false;
             }
         });
     }
