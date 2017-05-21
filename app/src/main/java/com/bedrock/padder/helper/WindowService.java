@@ -225,7 +225,9 @@ public class WindowService {
         }
     }
 
+    @Deprecated
     public void setRecentColor(int titleId, int icon_id, int color_id, Activity activity) {
+        // DEPRECATED
         if (Build.VERSION.SDK_INT >= 21) {
             if (titleId == 0) {
                 // Default app name
@@ -254,6 +256,7 @@ public class WindowService {
         }
     }
 
+    @Deprecated
     public void setRecentColor(int titleId, int color_id, Activity activity) {
         if (Build.VERSION.SDK_INT >= 21) {
             if (titleId == 0) {
@@ -279,6 +282,7 @@ public class WindowService {
         }
     }
 
+    @Deprecated
     public void setRecentColor(int titleId, Activity activity) {
         if (Build.VERSION.SDK_INT >= 21) {
             if (titleId == 0) {
@@ -301,6 +305,29 @@ public class WindowService {
         }
     }
 
+    public void setRecentColor(String title, Activity activity) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            if (title == null) {
+                // Default app name
+                title = activity.getResources().getString(R.string.app_name);
+            }
+
+            Bitmap icon = BitmapFactory.decodeResource(activity.getResources(), R.drawable.ic_launcher);
+
+            ActivityManager.TaskDescription taskDesc =
+                    new ActivityManager.TaskDescription(
+                            title,
+                            icon,
+                            activity.getResources().getColor(R.color.colorPrimary));
+            activity.setTaskDescription(taskDesc);
+
+            Log.i("WindowService", "TaskDescription applied.");
+        } else {
+            Log.i("WindowService", "API doesn't match requirement. (API >= 21)");
+        }
+    }
+
+    @Deprecated
     public void setRecentColor(String titleId, int icon_id, int color_id, Activity activity) {
         if (Build.VERSION.SDK_INT >= 21) {
             if (titleId == null) {
@@ -330,6 +357,7 @@ public class WindowService {
         }
     }
 
+    @Deprecated
     public void setRecentColor(String titleId, int color_id, Activity activity) {
         if (Build.VERSION.SDK_INT >= 21) {
             if (titleId == null) {
@@ -600,6 +628,10 @@ public class WindowService {
             return -1;
         }
         //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
+    }
+
+    public int getColorFromString(String colorString) {
+        return Color.parseColor(colorString);
     }
 
     public int getStringId(String id) {
