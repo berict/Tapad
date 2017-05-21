@@ -14,6 +14,8 @@ import com.bedrock.padder.R;
 import com.bedrock.padder.activity.MainActivity;
 import com.bedrock.padder.model.preset.Preset;
 
+import java.util.Random;
+
 import static android.content.Context.MODE_PRIVATE;
 import static com.bedrock.padder.activity.MainActivity.currentPreset;
 import static com.bedrock.padder.activity.MainActivity.isPresetLoading;
@@ -774,6 +776,7 @@ public class SoundService {
     }
 
     private TextView progress;
+    private TextView progressText;
     private int progressCount;
     private int presetSoundCount;
 
@@ -788,6 +791,7 @@ public class SoundService {
             presetSoundCount = currentPreset.getMusic().getSoundCount();
             ad.resumeNativeAdView(R.id.adView_main, activity);
             progress = window.getTextView(R.id.progress_bar_progress_text, activity);
+            progressText = window.getTextView(R.id.progress_bar_text, activity);
             if (window.getView(R.id.progress_bar_layout, activity).getVisibility() == View.GONE) {
                 Log.d(TAG, "ProgressBar fadeIn");
                 //TODO EDIT
@@ -858,10 +862,47 @@ public class SoundService {
         }
     }
 
+    private void onLoadFinished() {
+        // final sampleId
+        Log.d("LoadSound", "Loading completed, SoundPool successfully loaded "
+                + presetSoundCount
+                + " sounds");
+
+        // pause adViewMain after the loading
+        ad.pauseNativeAdView(R.id.adView_main, activity);
+
+        progressText.setText(R.string.progressbar_loading_preset_done);
+        anim.fadeOutInvisible(R.id.progress_bar_progress_text, 0, 400, activity);
+
+        // Load finished, set AsyncTask objects to null
+        loadSound = null;
+        unLoadSound = null;
+
+        window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.icon_tutorial);
+
+        anim.fadeOut(R.id.progress_bar_layout, 400, 400, activity);
+        window.setVisible(R.id.base, 400, activity);
+
+        MainActivity main = new MainActivity();
+        main.setQuickstart(activity);
+
+        Handler setText = new Handler();
+        setText.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressText.setText(R.string.progressbar_loading_preset);
+                progress.setText(R.string.progressbar_loading_preset_progress_placeholder);
+                progress.setVisibility(View.VISIBLE);
+            }
+        }, 800);
+
+        isPresetLoading = false;
+    }
+
     private void progressUpdate() {
         progress.setText(
                 activity.getResources().getString(R.string.progressbar_loading_preset_progress) + " "
-                        + progressCount++ + " / " + presetSoundCount * 2);
+                        + progressCount++ + " / " + presetSoundCount);
     }
 
     private class LoadSound extends AsyncTask<Void, Void, String> {
@@ -921,55 +962,42 @@ public class SoundService {
             progressUpdate();
         }
 
+        private int savedSampleId = 0;
+        private int savedSampleIdInRunnable = 1;
+        // needs to be different at first to make changes
+
         protected void onPostExecute(String result) {
             Log.d(TAG, "sampleId count : " + presetSoundCount);
 
-            progress = window.getTextView(R.id.progress_bar_progress_text, activity);
+            // gets random funnies
+            progress.setText(getRandomStringFromStringArray(R.array.progressbar_loading_preset_progress_funnies));
+
+            final Handler intervalTimer = new Handler();
 
             sp.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
                 @Override
-                public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                public void onLoadComplete(SoundPool soundPool, final int sampleId, int status) {
                     Log.d(TAG, "Loading Finished, sampleId : " + sampleId);
-                    progressUpdate();
-                    if(progressCount == presetSoundCount) {
-                        // final sampleId
-                        Log.d(TAG, "Loading completed, SoundPool successfully loaded "
-                                + presetSoundCount
-                                + " sounds");
-
-                        // pause adViewMain after the loading
-                        ad.pauseNativeAdView(R.id.adView_main, activity);
-
-                        window.getTextView(R.id.progress_bar_text, activity).setText(R.string.progressbar_loading_preset_done);
-                        progress.setText(
-                                activity.getResources().getString(R.string.progressbar_loading_preset_progress) + " "
-                                        + presetSoundCount * 2 + " / " + presetSoundCount * 2);
-
-                        // Load finished, set AsyncTask objects to null
-                        loadSound = null;
-                        unLoadSound = null;
-
-                        window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.icon_tutorial);
-
-                        anim.fadeOut(R.id.progress_bar_layout, 400, 400, activity);
-                        window.setVisible(R.id.base, 400, activity);
-
-                        MainActivity main = new MainActivity();
-                        main.setQuickstart(activity);
-
-                        Handler setText = new Handler();
-                        setText.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                window.getTextView(R.id.progress_bar_text, activity).setText(R.string.progressbar_loading_preset);
-                                window.getTextView(R.id.progress_bar_progress_text, activity).setText(R.string.progressbar_loading_preset_progress_placeholder);
-                            }
-                        }, 800);
-
-                        isPresetLoading = false;
-                    }
+                    savedSampleId = sampleId;
                 }
             });
+
+            intervalTimer.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // loops while checking the last saved sample id and current one
+                    // if same, break the loop
+                    if (savedSampleId == savedSampleIdInRunnable) {
+                        // finished
+                        Log.d(TAG, "Finished loading all sounds");
+                        onLoadFinished();
+                    } else {
+                        // updated
+                        savedSampleIdInRunnable = savedSampleId;
+                        intervalTimer.postDelayed(this, 100);
+                    }
+                }
+            }, 100);
         }
 
         @Override
@@ -977,5 +1005,11 @@ public class SoundService {
             super.onCancelled();
             Log.d("TAG", "LoadSound successfully canceled");
         }
+    }
+
+    private String getRandomStringFromStringArray(int stringArrayId) {
+        String stringArray[] = activity.getResources().getStringArray(stringArrayId);
+        Random random = new Random();
+        return stringArray[random.nextInt(stringArray.length)];
     }
 }
