@@ -75,7 +75,7 @@ public class Item {
         return hintId;
     }
 
-    public String getImageId() {
+    public String getImage() {
         return imageId;
     }
 

@@ -181,7 +181,7 @@ public class AboutFragment extends Fragment {
 
     public void setSchemeInfo() {
         Preset currentPreset = presets[getScheme()];
-        Log.d("currentPreset", "NAME : " + currentPreset.getAbout().getTitle(a));
+        Log.d("currentPreset", "NAME : " + currentPreset.getAbout().getTitle());
         themeColor = currentPreset.getAbout().getActionbarColor();
 
         ab.setNav(3, null, a, v);
@@ -189,10 +189,10 @@ public class AboutFragment extends Fragment {
         ab.setTitle(R.string.about, a, v);
 
         // Cardview
-        w.getImageView(R.id.cardview_music_image, v).setImageResource(w.getDrawableId("about_album_" + currentPreset.getMusic().getNameId().replace("preset_", "")));
-        w.getTextView(R.id.cardview_music_song, v).setText(w.getStringId(currentPreset.getMusic().getNameId() + "_full"));
-        w.getTextView(R.id.cardview_music_explore, v).setTextColor(getResources().getColor(themeColor));
-        w.getTextView(R.id.cardview_music_change, v).setTextColor(getResources().getColor(themeColor));
+        w.getImageView(R.id.cardview_music_image, v).setImageResource(w.getDrawableId("about_album_" + currentPreset.getMusic().getName().replace("preset_", "")));
+        w.getTextView(R.id.cardview_music_song, v).setText(w.getStringId(currentPreset.getMusic().getName() + "_full"));
+        w.getTextView(R.id.cardview_music_explore, v).setTextColor(themeColor);
+        w.getTextView(R.id.cardview_music_change, v).setTextColor(themeColor);
 
         // artist
         w.getView(R.id.cardview_artist, v).setOnClickListener(new View.OnClickListener() {

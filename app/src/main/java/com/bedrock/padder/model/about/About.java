@@ -1,27 +1,24 @@
 package com.bedrock.padder.model.about;
 
-import android.app.Activity;
+import android.graphics.Color;
 
-import com.bedrock.padder.helper.WindowService;
 import com.google.gson.annotations.SerializedName;
 
 public class About {
 
-    @SerializedName("title_id")
-    private String titleId;
+    @SerializedName("title")
+    private String title;
 
-    @SerializedName("image_id")
-    private String imageId;
+    @SerializedName("image")
+    private String image;
 
-    @SerializedName("tutorial_link_id")
-    private String tutorialLinkId;
+    @SerializedName("tutorial_link")
+    private String tutorialLink;
 
-    @SerializedName("statusbar_color_id")
-    private String statusbarColorId;
-
-    @SerializedName("actionbar_color_id")
-    private String actionbarColorId;
+    @SerializedName("actionbar_color")
+    private String actionbarColor;
     // used as actionbar / taskDesc
+    // formatted in #000000
 
     @SerializedName("bio")
     private Bio bio;
@@ -29,43 +26,29 @@ public class About {
     @SerializedName("details")
     private Detail[] details;
 
-    public About (String titleId, String imageId,
-                  String tutorialLinkId,
-                  Bio bio, Detail[] details,
-                  String statusbarColorId, String actionbarColorId) {
-        this.titleId = titleId;
-        this.imageId = imageId;
-        this.tutorialLinkId = tutorialLinkId;
-        this.statusbarColorId = statusbarColorId;
-        this.actionbarColorId = actionbarColorId;
+    public About(String title, String image, String tutorialLink, String actionbarColor, Bio bio, Detail[] details) {
+        this.title = title;
+        this.image = image;
+        this.tutorialLink = tutorialLink;
+        this.actionbarColor = actionbarColor;
         this.bio = bio;
         this.details = details;
     }
 
-    public String getTitleId() {
-        return titleId;
+    public String getTitle() {
+        return title;
     }
 
-    public String getTitle(Activity activity) {
-        WindowService window = new WindowService();
-        return window.getStringFromId(titleId, activity);
+    public String getImage() {
+        return image;
     }
 
-    public String getImageId() {
-        return imageId;
-    }
-
-    public String getStatusbarColorId() {
-        return statusbarColorId;
-    }
-
-    public String getActionbarColorId() {
-        return actionbarColorId;
+    public String getActionbarColorString() {
+        return actionbarColor;
     }
 
     public int getActionbarColor() {
-        WindowService window = new WindowService();
-        return window.getColorId(actionbarColorId);
+        return Color.parseColor(actionbarColor);
     }
 
     public Bio getBio() {
@@ -80,12 +63,7 @@ public class About {
         return details[index];
     }
 
-    public String getTutorialLinkId() {
-        return tutorialLinkId;
-    }
-
-    public String getTutorialLink(Activity activity) {
-        WindowService window = new WindowService();
-        return window.getStringFromId(tutorialLinkId, activity);
+    public String getTutorialLink() {
+        return tutorialLink;
     }
 }

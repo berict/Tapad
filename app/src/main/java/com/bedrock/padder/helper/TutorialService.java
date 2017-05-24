@@ -907,7 +907,7 @@ public class TutorialService extends Activity {
 //            Log.d(TAG, "On doInBackground, start loading tutorials");
 //
 //            if (currentPreset != null) {
-//                Log.i(TAG, "Preset \"" + window.getStringFromId(currentPreset.getMusic().getNameId(), activity) + "\", id " + currentPreset.getId());
+//                Log.i(TAG, "Preset \"" + window.getStringFromId(currentPreset.getMusic().getName(), activity) + "\", id " + currentPreset.getId());
 //
 //            }
 //

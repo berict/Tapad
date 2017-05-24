@@ -7,10 +7,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -20,6 +18,7 @@ import com.bedrock.padder.R;
 import com.bedrock.padder.adapter.DetailAdapter;
 import com.bedrock.padder.helper.AnimService;
 import com.bedrock.padder.helper.ThemeService;
+import com.bedrock.padder.helper.ToolbarService;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.about.About;
 import com.google.gson.Gson;
@@ -34,9 +33,10 @@ public class AboutActivity extends AppCompatActivity {
 
     SharedPreferences prefs;
 
-    WindowService window = new WindowService();
-    AnimService anim = new AnimService();
-    ThemeService theme = new ThemeService();
+    private WindowService window = new WindowService();
+    private AnimService anim = new AnimService();
+    private ThemeService theme = new ThemeService();
+    private ToolbarService toolbar = new ToolbarService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +63,9 @@ public class AboutActivity extends AppCompatActivity {
                 break;
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.actionbar_toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        toolbar.setActionBar(this);
+        toolbar.setActionBarDisplayHomeAsUp(true, this);
+        toolbar.setStatusBarTint(this);
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.collapsedappbar);
@@ -95,32 +94,32 @@ public class AboutActivity extends AppCompatActivity {
 
     private void setUi() {
         // status bar
-        window.getView(R.id.statusbar, activity).setBackgroundColor(getResources().getColor(window.getColorId(about.getStatusbarColorId())));
+        window.getView(R.id.statusbar, activity).setBackgroundColor(about.getActionbarColor());
 
         // action bar
-        collapsingToolbarLayout.setContentScrimColor(getResources().getColor(window.getColorId(about.getActionbarColorId())));
-        collapsingToolbarLayout.setStatusBarScrimColor(getResources().getColor(window.getColorId(about.getActionbarColorId())));
-        collapsingToolbarLayout.setTitle(about.getTitle(activity));
+        collapsingToolbarLayout.setContentScrimColor(about.getActionbarColor());
+        collapsingToolbarLayout.setStatusBarScrimColor(about.getActionbarColor());
+        collapsingToolbarLayout.setTitle(about.getTitle());
 
         // set taskDesc
-        window.setRecentColor(about.getTitle(activity), window.getColorId(about.getActionbarColorId()), activity);
+        window.setRecentColor(about.getTitle(), about.getActionbarColor(), activity);
 
         // title image / text
-        window.getImageView(R.id.layout_image, activity).setImageResource(window.getDrawableId(about.getImageId()));
+        window.getImageView(R.id.layout_image, activity).setImageResource(window.getDrawableId(about.getImage()));
 
         // bio
-        window.getTextView(R.id.layout_bio_title, activity).setText(about.getBio().getTitle(activity));
-        window.getTextView(R.id.layout_bio_title, activity).setTextColor(getResources().getColor(window.getColorId(about.getActionbarColorId())));
-        if(about.getBio().getImageId() == null) {
+        window.getTextView(R.id.layout_bio_title, activity).setText(about.getBio().getTitle());
+        window.getTextView(R.id.layout_bio_title, activity).setTextColor(about.getActionbarColor());
+        if(about.getBio().getImage() == null) {
             // no bio image exception
             window.getImageView(R.id.layout_bio_image, activity).setVisibility(View.GONE);
             window.getView(R.id.layout_bio_image_divider, activity).setVisibility(View.GONE);
         } else {
-            window.getImageView(R.id.layout_bio_image, activity).setImageResource(window.getDrawableId(about.getBio().getImageId()));
+            window.getImageView(R.id.layout_bio_image, activity).setImageResource(window.getDrawableId(about.getBio().getImage()));
         }
-        window.getTextView(R.id.layout_bio_name, activity).setText(about.getBio().getName(activity));
-        window.getTextView(R.id.layout_bio_text, activity).setText(about.getBio().getText(activity));
-        window.getTextView(R.id.layout_bio_source, activity).setText(about.getBio().getSource(activity));
+        window.getTextView(R.id.layout_bio_name, activity).setText(about.getBio().getName());
+        window.getTextView(R.id.layout_bio_text, activity).setText(about.getBio().getText());
+        window.getTextView(R.id.layout_bio_source, activity).setText(about.getBio().getSource());
 
         // adapter
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -154,7 +153,7 @@ public class AboutActivity extends AppCompatActivity {
         if (hasFocus) {
             theme.setGone(R.id.layout_placeholder, 0, activity);
             // reset taskDesc
-            window.setRecentColor(about.getTitle(activity), window.getColorId(about.getActionbarColorId()), activity);
+            window.setRecentColor(about.getTitle(), about.getActionbarColor(), activity);
         }
     }
 

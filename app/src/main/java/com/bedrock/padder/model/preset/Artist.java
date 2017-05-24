@@ -5,19 +5,19 @@ import com.google.gson.annotations.SerializedName;
 
 public class Artist {
 
-    @SerializedName("name_id")
-    private String nameId;
+    @SerializedName("name")
+    private String name;
 
     @SerializedName("about")
     private About about;
 
-    public Artist(String nameId, About about) {
-        this.nameId = nameId;
+    public Artist(String name, About about) {
+        this.name = name;
         this.about = about;
     }
 
-    public String getNameId() {
-        return nameId;
+    public String getName() {
+        return name;
     }
 
     public About getAbout() {

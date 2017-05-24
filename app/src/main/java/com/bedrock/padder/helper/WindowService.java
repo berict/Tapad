@@ -54,9 +54,9 @@ public class WindowService {
 
     public static final String APPLICATION_ID = "com.bedrock.padder";
 
-    public void setNavigationBar(int color_id, Activity activity) {
+    public void setNavigationBar(int colorId, Activity activity) {
         if (Build.VERSION.SDK_INT >= 16) {
-            if (color_id == R.color.transparent) {
+            if (colorId == R.color.transparent) {
                 activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     Window w = activity.getWindow();
@@ -65,7 +65,7 @@ public class WindowService {
                 Log.i("WindowService", "Transparent navigation bar color applied.");
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    activity.getWindow().setNavigationBarColor(activity.getResources().getColor(color_id));
+                    activity.getWindow().setNavigationBarColor(activity.getResources().getColor(colorId));
                     Log.i("WindowService", "Navigation bar color applied.");
                 }
             }
@@ -113,12 +113,12 @@ public class WindowService {
         return navigationHeight;
     }
 
-    public void setStatusBar(int color_id, Activity activity) {
+    public void setStatusBar(int colorId, Activity activity) {
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = activity.getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(ContextCompat.getColor(activity, color_id));
+            window.setStatusBarColor(ContextCompat.getColor(activity, colorId));
 
             Log.i("WindowService", "Status bar color applied.");
         } else {
@@ -164,8 +164,8 @@ public class WindowService {
         return statusHeight;
     }
 
-    public void setVisible(final int view_id, final int delay, final Activity activity){
-        final View view = activity.findViewById(view_id);
+    public void setVisible(final int viewId, final int delay, final Activity activity){
+        final View view = activity.findViewById(viewId);
         if (delay > 0) {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -179,8 +179,8 @@ public class WindowService {
         }
     }
 
-    public void setInvisible(final int view_id, final int delay, final Activity activity){
-        final View view = activity.findViewById(view_id);
+    public void setInvisible(final int viewId, final int delay, final Activity activity){
+        final View view = activity.findViewById(viewId);
         if (delay > 0) {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -194,8 +194,8 @@ public class WindowService {
         }
     }
 
-    public void setGone(final int view_id, final int delay, final Activity activity){
-        final View view = activity.findViewById(view_id);
+    public void setGone(final int viewId, final int delay, final Activity activity){
+        final View view = activity.findViewById(viewId);
         if (delay > 0) {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -225,64 +225,6 @@ public class WindowService {
         }
     }
 
-    @Deprecated
-    public void setRecentColor(int titleId, int icon_id, int color_id, Activity activity) {
-        // DEPRECATED
-        if (Build.VERSION.SDK_INT >= 21) {
-            if (titleId == 0) {
-                // Default app name
-                titleId = R.string.app_name;
-            }
-            Bitmap icon;
-            if (icon_id == 0) {
-                // Default app icon
-                icon = BitmapFactory.decodeResource(activity.getResources(), R.drawable.ic_launcher);
-            } else {
-                icon = BitmapFactory.decodeResource(activity.getResources(), icon_id);
-            }
-            if (color_id == 0) {
-                color_id = R.color.colorPrimary;
-            }
-            ActivityManager.TaskDescription taskDesc =
-                    new ActivityManager.TaskDescription(
-                            activity.getResources().getString(titleId),
-                            icon,
-                            activity.getResources().getColor(color_id));
-            activity.setTaskDescription(taskDesc);
-
-            Log.i("WindowService", "TaskDescription applied.");
-        } else {
-            Log.i("WindowService", "API doesn't match requirement. (API >= 21)");
-        }
-    }
-
-    @Deprecated
-    public void setRecentColor(int titleId, int color_id, Activity activity) {
-        if (Build.VERSION.SDK_INT >= 21) {
-            if (titleId == 0) {
-                // Default app name
-                titleId = R.string.app_name;
-            }
-
-            Bitmap icon = BitmapFactory.decodeResource(activity.getResources(), R.drawable.ic_launcher);
-
-            if (color_id == 0) {
-                color_id = R.color.colorPrimary;
-            }
-            ActivityManager.TaskDescription taskDesc =
-                    new ActivityManager.TaskDescription(
-                            activity.getResources().getString(titleId),
-                            icon,
-                            activity.getResources().getColor(color_id));
-            activity.setTaskDescription(taskDesc);
-
-            Log.i("WindowService", "TaskDescription applied.");
-        } else {
-            Log.i("WindowService", "API doesn't match requirement. (API >= 21)");
-        }
-    }
-
-    @Deprecated
     public void setRecentColor(int titleId, Activity activity) {
         if (Build.VERSION.SDK_INT >= 21) {
             if (titleId == 0) {
@@ -298,6 +240,72 @@ public class WindowService {
                             icon,
                             activity.getResources().getColor(R.color.colorPrimary));
             activity.setTaskDescription(taskDesc);
+
+            Log.i("WindowService", "TaskDescription applied.");
+        } else {
+            Log.i("WindowService", "API doesn't match requirement. (API >= 21)");
+        }
+    }
+
+    public void setRecentColor(int titleId, int color, Activity activity) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            if (titleId == 0) {
+                // Default app name
+                titleId = R.string.app_name;
+            }
+
+            Bitmap icon = BitmapFactory.decodeResource(activity.getResources(), R.drawable.ic_launcher);
+
+            // color id - color
+            try {
+                ActivityManager.TaskDescription taskDesc =
+                        new ActivityManager.TaskDescription(
+                                activity.getResources().getString(titleId),
+                                icon,
+                                activity.getResources().getColor(color));
+                activity.setTaskDescription(taskDesc);
+            } catch (Resources.NotFoundException e) {
+                Log.i("NotFoundException", "Handling with normal value");
+                ActivityManager.TaskDescription taskDesc =
+                        new ActivityManager.TaskDescription(
+                                activity.getResources().getString(titleId),
+                                icon,
+                                color);
+                activity.setTaskDescription(taskDesc);
+            }
+
+            Log.i("WindowService", "TaskDescription applied.");
+        } else {
+            Log.i("WindowService", "API doesn't match requirement. (API >= 21)");
+        }
+    }
+
+    public void setRecentColor(int titleId, int iconId, int color, Activity activity) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            if (titleId == 0) {
+                // Default app name
+                titleId = R.string.app_name;
+            }
+
+            Bitmap icon = BitmapFactory.decodeResource(activity.getResources(), iconId);
+
+            // color id - color
+            try {
+                ActivityManager.TaskDescription taskDesc =
+                        new ActivityManager.TaskDescription(
+                                activity.getResources().getString(titleId),
+                                icon,
+                                activity.getResources().getColor(color));
+                activity.setTaskDescription(taskDesc);
+            } catch (Resources.NotFoundException e) {
+                Log.i("NotFoundException", "Handling with normal value");
+                ActivityManager.TaskDescription taskDesc =
+                        new ActivityManager.TaskDescription(
+                                activity.getResources().getString(titleId),
+                                icon,
+                                color);
+                activity.setTaskDescription(taskDesc);
+            }
 
             Log.i("WindowService", "TaskDescription applied.");
         } else {
@@ -327,55 +335,32 @@ public class WindowService {
         }
     }
 
-    @Deprecated
-    public void setRecentColor(String titleId, int icon_id, int color_id, Activity activity) {
+    public void setRecentColor(String title, int color, Activity activity) {
         if (Build.VERSION.SDK_INT >= 21) {
-            if (titleId == null) {
+            if (title == null) {
                 // Default app name
-                titleId = activity.getResources().getString(R.string.app_name);
-            }
-            Bitmap icon;
-            if (icon_id == 0) {
-                // Default app icon
-                icon = BitmapFactory.decodeResource(activity.getResources(), R.drawable.ic_launcher);
-            } else {
-                icon = BitmapFactory.decodeResource(activity.getResources(), icon_id);
-            }
-            if (color_id == 0) {
-                color_id = R.color.colorPrimary;
-            }
-            ActivityManager.TaskDescription taskDesc =
-                    new ActivityManager.TaskDescription(
-                            titleId,
-                            icon,
-                            activity.getResources().getColor(color_id));
-            activity.setTaskDescription(taskDesc);
-
-            Log.i("WindowService", "TaskDescription applied.");
-        } else {
-            Log.i("WindowService", "API doesn't match requirement. (API >= 21)");
-        }
-    }
-
-    @Deprecated
-    public void setRecentColor(String titleId, int color_id, Activity activity) {
-        if (Build.VERSION.SDK_INT >= 21) {
-            if (titleId == null) {
-                // Default app name
-                titleId = activity.getResources().getString(R.string.app_name);
+                title = activity.getResources().getString(R.string.app_name);
             }
 
             Bitmap icon = BitmapFactory.decodeResource(activity.getResources(), R.drawable.ic_launcher);
 
-            if (color_id == 0) {
-                color_id = R.color.colorPrimary;
+            // color id - color
+            try {
+                ActivityManager.TaskDescription taskDesc =
+                        new ActivityManager.TaskDescription(
+                                title,
+                                icon,
+                                activity.getResources().getColor(color));
+                activity.setTaskDescription(taskDesc);
+            } catch (Resources.NotFoundException e) {
+                Log.i("NotFoundException", "Handling with normal value");
+                ActivityManager.TaskDescription taskDesc =
+                        new ActivityManager.TaskDescription(
+                                title,
+                                icon,
+                                color);
+                activity.setTaskDescription(taskDesc);
             }
-            ActivityManager.TaskDescription taskDesc =
-                    new ActivityManager.TaskDescription(
-                            titleId,
-                            icon,
-                            activity.getResources().getColor(color_id));
-            activity.setTaskDescription(taskDesc);
 
             Log.i("WindowService", "TaskDescription applied.");
         } else {
@@ -383,21 +368,48 @@ public class WindowService {
         }
     }
 
-    public void setViewBackgroundColor(int view_id, int color_id, Activity activity) {
-        try {
-            getView(view_id, activity).setBackgroundColor(activity.getResources().getColor(color_id));
-        } catch (Resources.NotFoundException e) {
-            Log.i("NotFoundException", "Handling with normal value");
-            getView(view_id, activity).setBackgroundColor(color_id);
+    public void setRecentColor(String title, int iconId, int color, Activity activity) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            if (title == null) {
+                // Default app name
+                title = activity.getResources().getString(R.string.app_name);
+            }
+
+            Bitmap icon = BitmapFactory.decodeResource(activity.getResources(), iconId);
+
+            // color id - color
+            try {
+                ActivityManager.TaskDescription taskDesc =
+                        new ActivityManager.TaskDescription(title, icon, activity.getResources().getColor(color));
+                activity.setTaskDescription(taskDesc);
+            } catch (Resources.NotFoundException e) {
+                Log.i("NotFoundException", "Handling with normal value");
+                ActivityManager.TaskDescription taskDesc =
+                        new ActivityManager.TaskDescription(title, icon, color);
+                activity.setTaskDescription(taskDesc);
+            }
+
+            Log.i("WindowService", "TaskDescription applied.");
+        } else {
+            Log.i("WindowService", "API doesn't match requirement. (API >= 21)");
         }
     }
 
-    public void setViewBackgroundColor(int view_id, int color_id, Activity activity, View view) {
+    public void setViewBackgroundColor(int viewId, int colorId, Activity activity) {
         try {
-            getView(view_id, view).setBackgroundColor(activity.getResources().getColor(color_id));
+            getView(viewId, activity).setBackgroundColor(activity.getResources().getColor(colorId));
         } catch (Resources.NotFoundException e) {
             Log.i("NotFoundException", "Handling with normal value");
-            getView(view_id, view).setBackgroundColor(color_id);
+            getView(viewId, activity).setBackgroundColor(colorId);
+        }
+    }
+
+    public void setViewBackgroundColor(int viewId, int colorId, Activity activity, View view) {
+        try {
+            getView(viewId, view).setBackgroundColor(activity.getResources().getColor(colorId));
+        } catch (Resources.NotFoundException e) {
+            Log.i("NotFoundException", "Handling with normal value");
+            getView(viewId, view).setBackgroundColor(colorId);
         }
     }
 
@@ -670,7 +682,7 @@ public class WindowService {
         //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
     }
 
-    public int getRawId(String id, Activity activity) {
+    public int getRawId(String id) {
         //return activity.getResources().getIdentifier(id, "raw", activity.getPackageName());
         try {
             Class res = R.raw.class;
@@ -728,37 +740,37 @@ public class WindowService {
         v.setLayoutParams(params);
     }
 
-    public void setOnTouch(int id, final Runnable touch_down, final Runnable touch_up, Activity activity) {
+    public void setOnTouch(int id, final Runnable touchDown, final Runnable touchUp, Activity activity) {
         View view = activity.findViewById(id);
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    touch_down.run();
+                    touchDown.run();
                 }
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    touch_up.run();
+                    touchUp.run();
                 }
                 return false;
             }
         });
     }
 
-    public void setOnTouchColor(int id, final int color_down, final int color_up, final Activity activity) {
+    public void setOnTouchColor(int id, final int colorDown, final int colorUp, final Activity activity) {
         final View view = activity.findViewById(id);
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     try {
-                        view.setBackgroundColor(activity.getResources().getColor(color_down));
+                        view.setBackgroundColor(activity.getResources().getColor(colorDown));
                     } catch (Resources.NotFoundException e) {
                         Log.i("NotFoundException", "Handling with normal value");
-                        view.setBackgroundColor(color_down);
+                        view.setBackgroundColor(colorDown);
                     }
                 }
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    view.setBackgroundColor(activity.getResources().getColor(color_up));
+                    view.setBackgroundColor(activity.getResources().getColor(colorUp));
                 }
                 return false;
             }
@@ -766,7 +778,7 @@ public class WindowService {
     }
 
     public void setOnTouchSoundPattern(int id, final int pattern[][],
-                                       final int color_down, final int color_up,
+                                       final int colorDown, final int colorUp,
                                        final SoundPool sp, final int soundId[],
                                        final int length, final Activity activity) {
         final View view = activity.findViewById(id);
@@ -828,17 +840,17 @@ public class WindowService {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     try {
-                        view.setBackgroundColor(activity.getResources().getColor(color_down));
+                        view.setBackgroundColor(activity.getResources().getColor(colorDown));
                     } catch (Resources.NotFoundException e) {
                         Log.i("NotFoundException", "Handling with normal value");
-                        view.setBackgroundColor(color_down);
+                        view.setBackgroundColor(colorDown);
                     }
                     for (int i = 0; i < pattern[idnum[0]].length; i++) {
                         try {
-                            getView(pattern[idnum[0]][i], activity).setBackgroundColor(activity.getResources().getColor(color_down));
+                            getView(pattern[idnum[0]][i], activity).setBackgroundColor(activity.getResources().getColor(colorDown));
                         } catch (Resources.NotFoundException e) {
                             Log.i("NotFoundException", "Handling with normal value");
-                            getView(pattern[idnum[0]][i], activity).setBackgroundColor(color_down);
+                            getView(pattern[idnum[0]][i], activity).setBackgroundColor(colorDown);
                         }
                     }
                     if (soundId.length == 1) {
@@ -850,9 +862,9 @@ public class WindowService {
                     }
                 }
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    view.setBackgroundColor(activity.getResources().getColor(color_up));
+                    view.setBackgroundColor(activity.getResources().getColor(colorUp));
                     for (int i = 0; i < pattern[idnum[0]].length; i++) {
-                        getView(pattern[idnum[0]][i], activity).setBackgroundColor(activity.getResources().getColor(color_up));
+                        getView(pattern[idnum[0]][i], activity).setBackgroundColor(activity.getResources().getColor(colorUp));
                     }
                 }
                 return false;

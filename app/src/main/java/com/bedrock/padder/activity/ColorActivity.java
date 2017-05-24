@@ -61,7 +61,7 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
         ab.setNav(1, null, activity);
         ab.setTitle(R.string.task_settings_color, activity);
         ab.setColor(R.color.colorAccent, activity);
-        w.setRecentColor(R.string.task_settings_color, 0, R.color.colorAccent, activity);
+        w.setRecentColor(R.string.task_settings_color, R.color.colorAccent, activity);
 
         // fab
         fab.setFab(activity);

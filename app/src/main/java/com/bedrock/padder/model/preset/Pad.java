@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class Pad {
 
+    // DEPRECATED
+
     @SerializedName("raw_id")
     private String rawId;
 

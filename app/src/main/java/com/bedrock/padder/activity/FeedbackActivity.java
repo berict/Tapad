@@ -90,7 +90,7 @@ public class FeedbackActivity extends AppCompatActivity {
         toolbar.setActionBarDisplayHomeAsUp(true, this);
         toolbar.setActionBarTitle(w.getStringId("task_feedback_" + MODE_TAG), this);
 
-        w.setRecentColor(w.getStringId("task_feedback_" + MODE_TAG), 0, R.color.colorFeedback, a);
+        w.setRecentColor(w.getStringId("task_feedback_" + MODE_TAG), R.color.colorFeedback, a);
 
         systemInfo = "Version code = " + BuildConfig.VERSION_CODE + br +
                 "Version name = \"" + BuildConfig.VERSION_NAME + "\"" + br +
@@ -533,7 +533,7 @@ public class FeedbackActivity extends AppCompatActivity {
         if (focusCount == 2) {
             if (feedbackSent == true) {
                 w.getView(R.id.layout_placeholder, a).setVisibility(View.GONE);
-                w.setRecentColor(w.getStringId("task_feedback_" + MODE_TAG), 0, R.color.colorFeedback, a);
+                w.setRecentColor(w.getStringId("task_feedback_" + MODE_TAG), R.color.colorFeedback, a);
             }
             focusCount = 0;
         }

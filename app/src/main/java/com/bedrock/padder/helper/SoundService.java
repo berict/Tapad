@@ -638,7 +638,7 @@ public class SoundService {
             for (int i = 0; i < 21; i++) {
                 if (i == 0 || i > 4) {
                     if (id >= 1 && id <= 4) {
-                        if (currentPreset.getMusic().getIsGesture()) {
+                        if (currentPreset.getMusic().getGesture()) {
                             window.setOnGestureSound(buttonId[i], colorId, R.color.grey, sp, soundPoolId[id - 1][i], activity);
                         } else {
                             window.setOnTouchSound(buttonId[i], colorId, R.color.grey, sp, soundPoolId[id - 1][i], activity);
@@ -751,7 +751,7 @@ public class SoundService {
             for (int i = 0; i < 21; i++) {
                 if (i == 0 || i > 4) {
                     if (id >= 1 && id <= 4) {
-                        if (currentPreset.getMusic().getIsGesture()) {
+                        if (currentPreset.getMusic().getGesture()) {
                             window.setOnGestureSound(buttonId[i], colorId, R.color.grey, sp, soundPoolId[id - 1][i], pattern, activity);
                         } else {
                             window.setOnTouchSound(buttonId[i], colorId, R.color.grey, sp, soundPoolId[id - 1][i], pattern, activity);
@@ -807,7 +807,7 @@ public class SoundService {
             Log.d(TAG, "On doInBackground, start unloading sounds");
             try {
                 if (previousPreset != null) {
-                    Log.i(TAG, "Preset \"" + window.getStringFromId(previousPreset.getMusic().getNameId(), activity) + "\", id " + previousPreset.getId());
+                    Log.i(TAG, "Preset \"" + window.getStringFromId(previousPreset.getMusic().getName(), activity) + "\", id " + previousPreset.getId());
                     // deck loop
                     for (int i = 0; i < 4; i++) {
                         Log.i(TAG, "  Deck " + (i + 1));
@@ -815,25 +815,11 @@ public class SoundService {
                         for (int j = 0; j < 21; j++) {
                             Log.i(TAG, "    Pad " + (j + 1));
                             // pad gesture
-                            if (soundPoolId[i][j][0] != 0 && previousPreset.getMusic().getDecks()[i].getPad(j).getRaw() != null) {
-                                sp.unload(window.getRawId(previousPreset.getMusic().getDecks()[i].getPad(j).getRaw(), activity));
-                                Log.i(TAG, "      Pad " + (j + 1) + "-Normal" + ", Sound unloaded");
-                            }
-                            if (soundPoolId[i][j][1] != 0 && previousPreset.getMusic().getDecks()[i].getPad(j).getUp() != null) {
-                                sp.unload(window.getRawId(previousPreset.getMusic().getDecks()[i].getPad(j).getUp(), activity));
-                                Log.i(TAG, "      Pad " + (j + 1) + "-Up" + ", Sound unloaded");
-                            }
-                            if (soundPoolId[i][j][2] != 0 && previousPreset.getMusic().getDecks()[i].getPad(j).getRight() != null) {
-                                sp.unload(window.getRawId(previousPreset.getMusic().getDecks()[i].getPad(j).getRight(), activity));
-                                Log.i(TAG, "      Pad " + (j + 1) + "-Right" + ", Sound unloaded");
-                            }
-                            if (soundPoolId[i][j][3] != 0 && previousPreset.getMusic().getDecks()[i].getPad(j).getDown() != null) {
-                                sp.unload(window.getRawId(previousPreset.getMusic().getDecks()[i].getPad(j).getDown(), activity));
-                                Log.i(TAG, "      Pad " + (j + 1) + "-Down" + ", Sound unloaded");
-                            }
-                            if (soundPoolId[i][j][4] != 0 && previousPreset.getMusic().getDecks()[i].getPad(j).getLeft() != null) {
-                                sp.unload(window.getRawId(previousPreset.getMusic().getDecks()[i].getPad(j).getLeft(), activity));
-                                Log.i(TAG, "      Pad " + (j + 1) + "-Left" + ", Sound unloaded");
+                            for (int k = 0; k < 5; k++) {
+                                if (soundPoolId[i][j][k] != 0 && previousPreset.getMusic().getSound(i, j, k) != null) {
+                                    sp.unload(window.getRawId(previousPreset.getMusic().getSound(i, j, k)));
+                                    Log.i(TAG, "      Pad " + (j + 1) + " Gesture " + k + ", Sound unloaded");
+                                }
                             }
                         }
                     }
@@ -919,7 +905,7 @@ public class SoundService {
             Log.d(TAG, "On doInBackground, start loading sounds");
             
             if (currentPreset != null) {
-                Log.i(TAG, "Preset \"" + window.getStringFromId(currentPreset.getMusic().getNameId(), activity) + "\", id " + currentPreset.getId());
+                Log.i(TAG, "Preset \"" + window.getStringFromId(currentPreset.getMusic().getName(), activity) + "\", id " + currentPreset.getId());
                 // deck loop
                 for (int i = 0; i < 4; i++) {
                     Log.i(TAG, "  Deck " + (i + 1));
@@ -927,30 +913,12 @@ public class SoundService {
                     for (int j = 0; j < 21; j++) {
                         Log.i(TAG, "    Pad " + (j + 1));
                         // pad gesture
-                        if (currentPreset.getMusic().getDecks()[i].getPad(j).getRaw() != null) {
-                            soundPoolId[i][j][0] = sp.load(activity, window.getRawId(currentPreset.getMusic().getDecks()[i].getPad(j).getRaw(), activity), 1);
-                            Log.i(TAG, "      Pad " + (j + 1) + "-Normal" + ", Sound loaded");
-                            publishProgress();
-                        }
-                        if (currentPreset.getMusic().getDecks()[i].getPad(j).getUp() != null) {
-                            soundPoolId[i][j][1] = sp.load(activity, window.getRawId(currentPreset.getMusic().getDecks()[i].getPad(j).getUp(), activity), 1);
-                            Log.i(TAG, "      Pad " + (j + 1) + "-Up" + ", Sound loaded");
-                            publishProgress();
-                        }
-                        if (currentPreset.getMusic().getDecks()[i].getPad(j).getRight() != null) {
-                            soundPoolId[i][j][2] = sp.load(activity, window.getRawId(currentPreset.getMusic().getDecks()[i].getPad(j).getRight(), activity), 1);
-                            Log.i(TAG, "      Pad " + (j + 1) + "-Right" + ", Sound loaded");
-                            publishProgress();
-                        }
-                        if (currentPreset.getMusic().getDecks()[i].getPad(j).getDown() != null) {
-                            soundPoolId[i][j][3] = sp.load(activity, window.getRawId(currentPreset.getMusic().getDecks()[i].getPad(j).getDown(), activity), 1);
-                            Log.i(TAG, "      Pad " + (j + 1) + "-Down" + ", Sound loaded");
-                            publishProgress();
-                        }
-                        if (currentPreset.getMusic().getDecks()[i].getPad(j).getLeft() != null) {
-                            soundPoolId[i][j][4] = sp.load(activity, window.getRawId(currentPreset.getMusic().getDecks()[i].getPad(j).getLeft(), activity), 1);
-                            Log.i(TAG, "      Pad " + (j + 1) + "-Left" + ", Sound loaded");
-                            publishProgress();
+                        for (int k = 0; k < 5; k++) {
+                            if (currentPreset.getMusic().getSound(i, j, k) != null) {
+                                soundPoolId[i][j][k] = sp.load(activity, window.getRawId(currentPreset.getMusic().getSound(i, j, k)), 1);
+                                Log.i(TAG, "      Pad " + (j + 1) + " Gesture " + k + ", Sound loaded");
+                                publishProgress();
+                            }
                         }
                     }
                 }

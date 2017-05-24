@@ -1122,10 +1122,10 @@ public class MainActivity
 //                setTutorialUI();
 //            }
             String tutorialText;
-            if (presets[getScheme()].getAbout().getTutorialLink(a).equals("null")) {
+            if (presets[getScheme()].getAbout().getTutorialLink() == null) {
                 tutorialText = w.getStringFromId("dialog_tutorial_text_error", a);
             } else {
-                tutorialText = presets[getScheme()].getAbout().getTutorialLinkId();
+                tutorialText = presets[getScheme()].getAbout().getTutorialLink();
             }
 
             new MaterialDialog.Builder(a)
@@ -1666,7 +1666,7 @@ public class MainActivity
             toolbar.setActionBarColor(themeColor, this);
             toolbar.setActionBarPadding(this);
             toolbar.setActionBarImage(
-                    w.getDrawableId("logo_" + currentPreset.getMusic().getNameId().replace("preset_", "")),
+                    w.getDrawableId("logo_" + currentPreset.getMusic().getName().replace("preset_", "")),
                     this);
             w.setRecentColor(0, 0, themeColor, a);
         }
@@ -1696,67 +1696,65 @@ public class MainActivity
     }
 
     private void makeJson() {
-        Item helloItems[] = {
-                new Item("facebook", "preset_hello_detail_facebook"),
-                new Item("twitter", "preset_hello_detail_twitter"),
-                new Item("soundcloud", "preset_hello_detail_soundcloud"),
-                new Item("instagram", "preset_hello_detail_instagram"),
-                new Item("google_plus", "preset_hello_detail_google_plus"),
-                new Item("youtube", "preset_hello_detail_youtube"),
-                new Item("twitch", "preset_hello_detail_twitch"), // only omfg
-                new Item("web", "preset_hello_detail_web")
+        Item fadedItems[] = {
+                new Item("facebook", w.getStringFromId("preset_faded_detail_facebook", a)),
+                new Item("twitter", w.getStringFromId("preset_faded_detail_twitter", a)),
+                new Item("soundcloud", w.getStringFromId("preset_faded_detail_soundcloud", a)),
+                new Item("instagram", w.getStringFromId("preset_faded_detail_instagram", a)),
+                new Item("google_plus", w.getStringFromId("preset_faded_detail_google_plus", a)),
+                new Item("youtube", w.getStringFromId("preset_faded_detail_youtube", a)),
+                //new Item("twitch", w.getStringFromId("preset_faded_detail_twitch", a)), // only omfg
+                new Item("web", w.getStringFromId("preset_faded_detail_web", a))
         };
 
-        Detail helloDetail = new Detail("preset_hello_detail_title", helloItems);
+        Detail fadedDetail = new Detail("preset_faded_detail_title", fadedItems);
 
-        Item helloSongItems[] = {
-                new Item("soundcloud", "preset_hello_song_detail_soundcloud", false),
-                new Item("youtube", "preset_hello_song_detail_youtube", false),
-                new Item("spotify", "preset_hello_song_detail_spotify", false),
-                new Item("google_play_music", "preset_hello_song_detail_google_play_music", false),
-                new Item("apple", "preset_hello_song_detail_apple", false),
-                new Item("amazon", "preset_hello_song_detail_amazon", false),
-                new Item("pandora", "preset_hello_song_detail_pandora", false)
+        Item fadedSongItems[] = {
+                new Item("soundcloud", w.getStringFromId("preset_faded_song_detail_soundcloud", a), false),
+                new Item("youtube", w.getStringFromId("preset_faded_song_detail_youtube", a), false),
+                new Item("spotify", w.getStringFromId("preset_faded_song_detail_spotify", a), false),
+                new Item("google_play_music", w.getStringFromId("preset_faded_song_detail_google_play_music", a), false),
+                new Item("apple", w.getStringFromId("preset_faded_song_detail_apple", a), false),
+                new Item("amazon", w.getStringFromId("preset_faded_song_detail_amazon", a), false),
+                new Item("pandora", w.getStringFromId("preset_faded_song_detail_pandora", a), false)
         };
 
-        Detail helloSongDetail = new Detail("preset_hello_song_detail_title", helloSongItems);
+        Detail fadedSongDetail = new Detail("preset_faded_song_detail_title", fadedSongItems);
 
-        Bio helloBio = new Bio(
-                "preset_hello_bio_title",
-                "about_bio_hello",
-                "preset_hello_bio_name",
-                "preset_hello_bio_text",
-                "preset_hello_bio_source"
+        Bio fadedBio = new Bio(
+                w.getStringFromId("preset_faded_bio_title", a),
+                w.getStringFromId("about_bio_faded", a),
+                w.getStringFromId("preset_faded_bio_name", a),
+                w.getStringFromId("preset_faded_bio_text", a),
+                w.getStringFromId("preset_faded_bio_source", a)
         );
 
-        Detail helloDetails[] = {
-                helloDetail,
-                helloSongDetail
+        Detail fadedDetails[] = {
+                fadedDetail,
+                fadedSongDetail
         };
 
-        About helloAbout = new About(
-                "preset_hello_title", "about_album_hello",
-                "preset_hello_tutorial_link",
-                helloBio, helloDetails,
-                "preset_hello_color_dark", "preset_hello_color"
+        About fadedAbout = new About(
+                w.getStringFromId("preset_faded_title", a),
+                "about_album_faded",
+                w.getStringFromId("preset_faded_tutorial_link", a),
+                "#00D3BE",
+                fadedBio, fadedDetails
         );
 
-        Music helloMusic = new Music(
-                "preset_hello",
+        Music fadedMusic = new Music(
+                "preset_faded",
+                "alan_walker_faded",
                 true,
-                56,
-                105,
-                getDeckFromFileName(fileTag),
+                246,
+                90,
                 null
         );
 
-        Preset helloPreset = new Preset(2, helloMusic, helloAbout);
+        Preset fadedPreset = new Preset(2, fadedMusic, fadedAbout);
 
-        largeLog("JSON", gson.toJson(helloPreset));
+        largeLog("JSON", gson.toJson(fadedPreset));
     }
-
-    // TODO change on new preset
-    String fileTag = "omfg_hello_";
 
     Deck[] getDeckFromFileName(String fileTag) {
         Pad part1[] = {

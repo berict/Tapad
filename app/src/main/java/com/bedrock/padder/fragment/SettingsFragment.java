@@ -157,7 +157,7 @@ public class SettingsFragment extends Fragment {
         ab.setColor(R.color.colorAccent, a, v);
         ab.setTitle(R.string.settings, a, v);
 
-        w.getTextView(R.id.layout_settings_preset_hint, v).setText(w.getStringId(currentPreset.getMusic().getNameId() + "_full"));
+        w.getTextView(R.id.layout_settings_preset_hint, v).setText(w.getStringId(currentPreset.getMusic().getName() + "_full"));
 
         w.getView(R.id.layout_settings_preset, v).setOnClickListener(new View.OnClickListener() {
             @Override
