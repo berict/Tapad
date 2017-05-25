@@ -15,6 +15,9 @@ public class About {
     @SerializedName("tutorial_link")
     private String tutorialLink;
 
+    @SerializedName("preset_creator")
+    private String presetCreator;
+
     @SerializedName("actionbar_color")
     private String actionbarColor;
     // used as actionbar / taskDesc
@@ -26,10 +29,11 @@ public class About {
     @SerializedName("details")
     private Detail[] details;
 
-    public About(String title, String image, String tutorialLink, String actionbarColor, Bio bio, Detail[] details) {
+    public About(String title, String image, String tutorialLink, String presetCreator, String actionbarColor, Bio bio, Detail[] details) {
         this.title = title;
         this.image = image;
         this.tutorialLink = tutorialLink;
+        this.presetCreator = presetCreator;
         this.actionbarColor = actionbarColor;
         this.bio = bio;
         this.details = details;
@@ -65,5 +69,9 @@ public class About {
 
     public String getTutorialLink() {
         return tutorialLink;
+    }
+
+    public String getPresetCreator() {
+        return presetCreator;
     }
 }

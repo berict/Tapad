@@ -1738,6 +1738,7 @@ public class MainActivity
                 w.getStringFromId("preset_faded_title", a),
                 "about_album_faded",
                 w.getStringFromId("preset_faded_tutorial_link", a),
+                "Studio Berict",
                 "#00D3BE",
                 fadedBio, fadedDetails
         );
