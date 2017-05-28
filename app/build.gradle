@@ -41,8 +41,9 @@ dependencies {
     // Apache Commons Lang
     compile 'org.apache.commons:commons-lang3:3.5'
     // Google Firebase
-    compile 'com.google.firebase:firebase-core:10.2.0'
-    compile 'com.google.firebase:firebase-ads:10.2.0'
+    compile 'com.google.firebase:firebase-core:10.2.6'
+    compile 'com.google.firebase:firebase-ads:10.2.6'
+    compile 'com.google.firebase:firebase-storage:10.2.6'
 
     testCompile 'junit:junit:4.12'
 }

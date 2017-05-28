@@ -317,6 +317,9 @@ public class MainActivity
                 stringBuilder.append(line).append("\n");
             }
             Log.i(TAG, stringBuilder.toString());
+            inputStream.close();
+            inputStreamReader.close();
+            bufferedReader.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
