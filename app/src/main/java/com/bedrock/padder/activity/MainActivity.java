@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -46,6 +47,10 @@ import com.bedrock.padder.model.preset.Pad;
 import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
@@ -264,11 +269,59 @@ public class MainActivity
                 }, 400);
                 break;
             case R.id.action_help:
-                intent.intent(a, "activity.HelpActivity", 0);
+                //TODO this is for a test
+                //intent.intent(a, "activity.HelpActivity", 0);
+                runFileTest();
                 break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    String string = "Hello";
+
+    private void runFileTest() {
+        //File file = new File(a.getFilesDir(), "test.txt");
+
+        new MaterialDialog.Builder(this)
+                .title("INPUT")
+                .inputType(InputType.TYPE_CLASS_TEXT)
+                .input("ENTER", null, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(MaterialDialog dialog, CharSequence input) {
+                        // Do something
+                        string = input.toString();
+                    }
+                })
+                .show();
+
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput("test.txt", MODE_PRIVATE);
+            outputStream.write(string.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        FileInputStream inputStream;
+
+        try {
+            inputStream = openFileInput("test.txt");
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line).append("\n");
+            }
+            Log.i(TAG, stringBuilder.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // file input output
     }
 
     @Override
@@ -1738,6 +1791,7 @@ public class MainActivity
                 w.getStringFromId("preset_faded_title", a),
                 "about_album_faded",
                 w.getStringFromId("preset_faded_tutorial_link", a),
+                "Studio Berict",
                 "#00D3BE",
                 fadedBio, fadedDetails
         );

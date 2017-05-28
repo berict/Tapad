@@ -38,7 +38,7 @@
 	<!-- Help -->
 	<string name="help_title">Help</string>
 	
-	<!-- Feedback Dialog -->
+	<!-- Feedback -->
 	<string name="feedback_disclaimer_text">Your system info will be sent to Studio Berict.</string>
 	<string name="feedback_disclaimer_action">Learn More</string>
 	<string name="feedback_disclaimer_dialog_title">System information</string>
@@ -102,6 +102,7 @@
 		<item>Others</item>
 	</string-array>
 	<string name="feedback_report_bug_send_error">Please fill out the form to report a bug</string>
+	
 	<!-- Quickstart Dialog -->
 	<string name="dialog_quickstart_welcome_title">Welcome to Tapad!</string>
 	<string name="dialog_quickstart_welcome_text">Walk through how to use Tapad or tap \'Tips\' in Settings when you want this later.</string>
@@ -255,6 +256,9 @@
 	
 	<string name="progressbar_loading_ad">Loading ads</string>
 	<string name="progressbar_loading_ad_failed">Can\'t load ads</string>
+	
+	<!-- About -->
+	<string name="about_bio_preset_by">Preset by </string>
 	
 	<!--Settings-->
 	<string name="settings_group_play">Play</string>
