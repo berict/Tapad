@@ -42,7 +42,6 @@ import com.bedrock.padder.model.about.Detail;
 import com.bedrock.padder.model.about.Item;
 import com.bedrock.padder.model.app.theme.ColorData;
 import com.bedrock.padder.model.preset.Deck;
-import com.bedrock.padder.model.preset.Music;
 import com.bedrock.padder.model.preset.Pad;
 import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
@@ -566,8 +565,8 @@ public class MainActivity
         anim.fadeIn(R.id.actionbar_layout, 0, 200, "background", a);
         anim.fadeIn(R.id.actionbar_image, 200, 200, "image", a);
         //TODO: Remove this to not load preset
-        loadPreset(400);
-        //makeJson();
+        //loadPreset(400);
+        makeJson();
         isPresetLoading = true;
     }
 
@@ -1752,65 +1751,143 @@ public class MainActivity
     }
 
     private void makeJson() {
-        Item fadedItems[] = {
-                new Item("facebook", w.getStringFromId("preset_faded_detail_facebook", a)),
-                new Item("twitter", w.getStringFromId("preset_faded_detail_twitter", a)),
-                new Item("soundcloud", w.getStringFromId("preset_faded_detail_soundcloud", a)),
-                new Item("instagram", w.getStringFromId("preset_faded_detail_instagram", a)),
-                new Item("google_plus", w.getStringFromId("preset_faded_detail_google_plus", a)),
-                new Item("youtube", w.getStringFromId("preset_faded_detail_youtube", a)),
-                //new Item("twitch", w.getStringFromId("preset_faded_detail_twitch", a)), // only omfg
-                new Item("web", w.getStringFromId("preset_faded_detail_web", a))
-        };
-
-        Detail fadedDetail = new Detail("preset_faded_detail_title", fadedItems);
-
-        Item fadedSongItems[] = {
-                new Item("soundcloud", w.getStringFromId("preset_faded_song_detail_soundcloud", a), false),
-                new Item("youtube", w.getStringFromId("preset_faded_song_detail_youtube", a), false),
-                new Item("spotify", w.getStringFromId("preset_faded_song_detail_spotify", a), false),
-                new Item("google_play_music", w.getStringFromId("preset_faded_song_detail_google_play_music", a), false),
-                new Item("apple", w.getStringFromId("preset_faded_song_detail_apple", a), false),
-                new Item("amazon", w.getStringFromId("preset_faded_song_detail_amazon", a), false),
-                new Item("pandora", w.getStringFromId("preset_faded_song_detail_pandora", a), false)
-        };
-
-        Detail fadedSongDetail = new Detail("preset_faded_song_detail_title", fadedSongItems);
-
-        Bio fadedBio = new Bio(
-                w.getStringFromId("preset_faded_bio_title", a),
-                w.getStringFromId("about_bio_faded", a),
-                w.getStringFromId("preset_faded_bio_name", a),
-                w.getStringFromId("preset_faded_bio_text", a),
-                w.getStringFromId("preset_faded_bio_source", a)
+//        Item fadedItems[] = {
+//                new Item("facebook", w.getStringFromId("preset_faded_detail_facebook", a)),
+//                new Item("twitter", w.getStringFromId("preset_faded_detail_twitter", a)),
+//                new Item("soundcloud", w.getStringFromId("preset_faded_detail_soundcloud", a)),
+//                new Item("instagram", w.getStringFromId("preset_faded_detail_instagram", a)),
+//                new Item("google_plus", w.getStringFromId("preset_faded_detail_google_plus", a)),
+//                new Item("youtube", w.getStringFromId("preset_faded_detail_youtube", a)),
+//                //new Item("twitch", w.getStringFromId("preset_faded_detail_twitch", a)), // only omfg
+//                new Item("web", w.getStringFromId("preset_faded_detail_web", a))
+//        };
+//
+//        Detail fadedDetail = new Detail("preset_faded_detail_title", fadedItems);
+//
+//        Item fadedSongItems[] = {
+//                new Item("soundcloud", w.getStringFromId("preset_faded_song_detail_soundcloud", a), false),
+//                new Item("youtube", w.getStringFromId("preset_faded_song_detail_youtube", a), false),
+//                new Item("spotify", w.getStringFromId("preset_faded_song_detail_spotify", a), false),
+//                new Item("google_play_music", w.getStringFromId("preset_faded_song_detail_google_play_music", a), false),
+//                new Item("apple", w.getStringFromId("preset_faded_song_detail_apple", a), false),
+//                new Item("amazon", w.getStringFromId("preset_faded_song_detail_amazon", a), false),
+//                new Item("pandora", w.getStringFromId("preset_faded_song_detail_pandora", a), false)
+//        };
+//
+//        Detail fadedSongDetail = new Detail(w.getStringFromId("preset_faded_song_detail_title", a), fadedSongItems);
+//
+//        Bio fadedBio = new Bio(
+//                w.getStringFromId("preset_faded_bio_title", a),
+//                w.getStringFromId("about_bio_faded", a),
+//                w.getStringFromId("preset_faded_bio_name", a),
+//                w.getStringFromId("preset_faded_bio_text", a),
+//                w.getStringFromId("preset_faded_bio_source", a)
+//        );
+//
+//        Detail fadedDetails[] = {
+//                fadedDetail,
+//                fadedSongDetail
+//        };
+//
+//        About fadedAbout = new About(
+//                w.getStringFromId("preset_faded_title", a),
+//                "about_album_faded",
+//                w.getStringFromId("preset_faded_tutorial_link", a),
+//                "Studio Berict",
+//                "#00D3BE",
+//                fadedBio, fadedDetails
+//        );
+//
+//        Music fadedMusic = new Music(
+//                "preset_faded",
+//                "alan_walker_faded",
+//                true,
+//                246,
+//                90,
+//                null
+//        );
+//
+//        Preset fadedPreset = new Preset(2, fadedMusic, fadedAbout);
+//
+//        largeLog("JSON", gson.toJson(fadedPreset));
+        Bio tapadBio = new Bio(
+                w.getStringFromId("info_tapad_bio_title", a),
+                "about_bio_tapad",
+                w.getStringFromId("info_tapad_bio_name", a),
+                w.getStringFromId("info_tapad_bio_text", a),
+                w.getStringFromId("info_tapad_bio_source", a)
         );
 
-        Detail fadedDetails[] = {
-                fadedDetail,
-                fadedSongDetail
+        Item tapadInfo[] = {
+                new Item("info_tapad_info_check_update", "info_tapad_info_check_update_hint", "about_detail_google_play", true),
+                new Item("info_tapad_info_tester", "info_tapad_info_tester_hint", "about_detail_tester", true),
+                new Item("info_tapad_info_legal", null, "about_detail_info", false),
+                new Item("info_tapad_info_version", "info_tapad_info_version_hint", ""),
+                new Item("info_tapad_info_build_date", "info_tapad_info_build_date_hint", ""),
+                new Item("info_tapad_info_changelog", null, "about_detail_changelog", false),
+                new Item("info_tapad_info_thanks", null, "about_detail_thanks", false),
+                new Item("info_tapad_info_dev", "info_tapad_info_dev_hint", "about_detail_dev", false)
+                // TODO ADD ITEMS
         };
 
-        About fadedAbout = new About(
-                w.getStringFromId("preset_faded_title", a),
-                "about_album_faded",
-                w.getStringFromId("preset_faded_tutorial_link", a),
-                "Studio Berict",
-                "#00D3BE",
-                fadedBio, fadedDetails
+        Item tapadOthers[] = {
+                new Item("info_tapad_others_song", "info_tapad_others_song_hint", "about_detail_others_song", true),
+                new Item("info_tapad_others_feedback", "info_tapad_others_feedback_hint", "about_detail_others_feedback", true),
+                new Item("info_tapad_others_report_bug", "info_tapad_others_report_bug_hint", "about_detail_others_report_bug", true),
+                new Item("info_tapad_others_rate", "info_tapad_others_rate_hint", "about_detail_others_rate", true),
+                new Item("info_tapad_others_translate", "info_tapad_others_translate_hint", "about_detail_web", false),
+                new Item("info_tapad_others_recommend", "info_tapad_others_recommend_hint", "about_detail_others_recommend", true)
+        };
+
+        Detail tapadDetails[] = {
+                new Detail("info_tapad_info_title", tapadInfo),
+                new Detail("info_tapad_others_title", tapadOthers)
+        };
+
+        About tapadAbout = new About(
+                w.getStringFromId("info_tapad_title", a),
+                w.getStringFromId("about_image_tapad", a),
+                "#9C27B0",
+                tapadBio, tapadDetails
         );
 
-        Music fadedMusic = new Music(
-                "preset_faded",
-                "alan_walker_faded",
-                true,
-                246,
-                90,
-                null
+        largeLog("tapadAboutJSON", gson.toJson(tapadAbout));
+
+        Bio berictBio = new Bio(
+                w.getStringFromId("info_berict_bio_title", a),
+                null,
+                w.getStringFromId("info_berict_bio_name", a),
+                w.getStringFromId("info_berict_bio_text", a),
+                w.getStringFromId("info_berict_bio_source", a)
         );
 
-        Preset fadedPreset = new Preset(2, fadedMusic, fadedAbout);
+        Item devItems[] = {
+                new Item("facebook", w.getStringFromId("info_berict_detail_facebook", a)),
+                new Item("twitter", w.getStringFromId("info_berict_detail_twitter", a)),
+                new Item("google_plus", w.getStringFromId("info_berict_detail_google_plus", a)),
+                new Item("youtube", w.getStringFromId("info_berict_detail_youtube", a)),
+                new Item("web", w.getStringFromId("info_berict_detail_web", a))
+        };
 
-        largeLog("JSON", gson.toJson(fadedPreset));
+        Item devSupport[] = {
+                new Item("info_berict_action_report_bug", "info_berict_action_report_bug_hint", "about_detail_others_report_bug", true),
+                new Item("info_berict_action_rate", "info_berict_action_rate_hint", "about_detail_others_rate", true),
+                new Item("info_berict_action_translate", "info_berict_action_translate_hint", "about_detail_others_translate", false),
+                new Item("info_berict_action_donate", "info_berict_action_donate_hint", "about_detail_others_donate", false)
+        };
+
+        Detail berictDetails[] = {
+                new Detail("info_berict_detail_title", devItems),
+                new Detail("info_berict_action_title", devSupport)
+        };
+
+        About berictAbout = new About(
+                "info_berict_title", "about_image_berict",
+                berictBio, berictDetails,
+                "info_berict_color_dark", "info_berict_color"
+        );
+
+        largeLog("berictAboutJSON", gson.toJson(berictAbout));
     }
 
     Deck[] getDeckFromFileName(String fileTag) {
