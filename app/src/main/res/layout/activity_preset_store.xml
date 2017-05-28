@@ -7,7 +7,7 @@
 	android:id="@+id/activity_preset"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	tools:context="com.bedrock.padder.activity.AboutActivity">
+	tools:context="com.bedrock.padder.activity.PresetStoreActivity">
 	
 	<View
 		android:id="@+id/statusbar"
