@@ -39,6 +39,16 @@ public class About {
         this.details = details;
     }
 
+    public About(String title, String image, String actionbarColor, Bio bio, Detail[] details) {
+        this.title = title;
+        this.image = image;
+        this.tutorialLink = null;
+        this.presetCreator = null;
+        this.actionbarColor = actionbarColor;
+        this.bio = bio;
+        this.details = details;
+    }
+
     public String getTitle() {
         return title;
     }
