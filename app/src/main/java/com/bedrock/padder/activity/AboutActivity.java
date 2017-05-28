@@ -110,17 +110,22 @@ public class AboutActivity extends AppCompatActivity {
         // bio
         window.getTextView(R.id.layout_bio_title, activity).setText(about.getBio().getTitle());
         window.getTextView(R.id.layout_bio_title, activity).setTextColor(about.getActionbarColor());
-        if(about.getBio().getImage() == null) {
+        if(about.getBio().getImage() != null) {
+            window.getImageView(R.id.layout_bio_image, activity).setImageResource(window.getDrawableId(about.getBio().getImage()));
+        } else {
             // no bio image exception
             window.getImageView(R.id.layout_bio_image, activity).setVisibility(View.GONE);
             window.getView(R.id.layout_bio_image_divider, activity).setVisibility(View.GONE);
-        } else {
-            window.getImageView(R.id.layout_bio_image, activity).setImageResource(window.getDrawableId(about.getBio().getImage()));
         }
         window.getTextView(R.id.layout_bio_name, activity).setText(about.getBio().getName());
         window.getTextView(R.id.layout_bio_text, activity).setText(about.getBio().getText());
         window.getTextView(R.id.layout_bio_source, activity).setText(about.getBio().getSource());
-        window.getTextView(R.id.layout_bio_preset_creator, activity).setText(window.getStringFromId("about_bio_preset_by", activity) + " " + about.getPresetCreator());
+        if (about.getBio() != null) {
+            window.getTextView(R.id.layout_bio_preset_creator, activity).setText(window.getStringFromId("about_bio_preset_by", activity) + " " + about.getPresetCreator());
+        } else {
+            window.setGone(R.id.layout_bio_preset_creator, 0, activity);
+            window.setGone(R.id.layout_bio_text_divider, 0, activity);
+        }
 
         // adapter
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
