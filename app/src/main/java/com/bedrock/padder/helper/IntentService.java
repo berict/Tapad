@@ -37,6 +37,19 @@ public class IntentService {
             Log.i("IntentService", "Error, there is no such class");
         }
     }
+    public void intent(final Activity activity, String name) {
+        final String classname = "com.bedrock.padder." + name;
+        final Class<Object> classToLoad;
+        try{
+            classToLoad = (Class<Object>)Class.forName(classname);
+
+            Log.i("IntentService", "intent");
+            Intent animActivity = new Intent(activity, classToLoad);
+            activity.startActivity(animActivity);
+        } catch (ClassNotFoundException e){
+            Log.i("IntentService", "Error, there is no such class");
+        }
+    }
 
     public void intentWithExtra(final Activity activity, String name, final String extra_name, final String extra, int delay) {
         final String classname = "com.bedrock.padder." + name;
@@ -101,7 +114,7 @@ public class IntentService {
                                 );
                         ActivityCompat.startActivity(activity, intent, options.toBundle());
                     } else {
-                        intent(activity, target_name, 0);
+                        intent(activity, target_name);
                     }
                 }
             }, delay);

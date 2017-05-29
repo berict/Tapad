@@ -172,7 +172,7 @@ public class SettingsFragment extends Fragment {
         w.getView(R.id.layout_settings_color, v).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.intent(a, "activity.ColorActivity", 0);
+                intent.intent(a, "activity.ColorActivity");
             }
         });
 
