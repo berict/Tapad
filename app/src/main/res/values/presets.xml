@@ -41,6 +41,7 @@
     <string name="info_berict_detail_twitter"    >https://twitter.com/studioberict</string>
     <string name="info_berict_detail_google_plus">https://plus.google.com/u/0/117444496369895524856</string>
     <string name="info_berict_detail_youtube"    >https://youtube.com/channel/UCAXcxUEs9Mc2gN4eWev3mAw</string>
+	<string name="info_berict_detail_discord"    >https://discord.gg/Gewy9GH</string>
     <string name="info_berict_detail_web"        >http://berict.com</string>
 
 	<string name="info_berict_action_title"          >Support Development</string>

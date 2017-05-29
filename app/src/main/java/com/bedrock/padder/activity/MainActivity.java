@@ -1860,6 +1860,7 @@ public class MainActivity
                 new Item("twitter", w.getStringFromId("info_berict_detail_twitter", a)),
                 new Item("google_plus", w.getStringFromId("info_berict_detail_google_plus", a)),
                 new Item("youtube", w.getStringFromId("info_berict_detail_youtube", a)),
+                new Item("discord", w.getStringFromId("info_berict_detail_discord", a)),
                 new Item("web", w.getStringFromId("info_berict_detail_web", a))
         };
 
