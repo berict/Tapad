@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardview_preset_store_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardview_artist"
+        android:layout_width="360dp"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:foreground="?selectableItemBackground"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/cardview_preset_store_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:adjustViewBounds="true"
+                android:src="@drawable/about_image_preset_store"
+                android:transitionName="transition"/>
+
+            <RelativeLayout
+                android:id="@+id/cardview_preset_store_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@id/cardview_preset_store_image"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/cardview_preset_store_now_playing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/preset_store"
+                    android:textColor="@color/dark_primary"
+                    android:textSize="24sp"/>
+
+                <TextView
+                    android:id="@+id/cardview_preset_store_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cardview_preset_store_now_playing"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/preset_store_description"
+                    android:textColor="@color/dark_secondary"
+                    android:textSize="16sp"
+                    android:textStyle="italic"/>
+
+                <LinearLayout
+                    android:id="@+id/cardview_preset_store_more_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/cardview_preset_store_description"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/cardview_preset_store_explore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:padding="10dp"
+                        android:text="@string/explore_ac"
+                        android:textColor="@color/amber"/>
+
+                    <TextView
+                        android:id="@+id/cardview_preset_store_change"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:padding="10dp"
+                        android:text="@string/change_ac"
+                        android:textColor="@color/amber"/>
+                </LinearLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>
