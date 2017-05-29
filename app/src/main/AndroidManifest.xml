@@ -29,6 +29,9 @@
 			android:name=".activity.AboutActivity"
 			android:screenOrientation="portrait"/>
 		<activity
+			android:name=".activity.PresetStoreActivity"
+			android:screenOrientation="portrait"/>
+		<activity
 			android:name=".activity.UserBenefitsActivity"
 			android:screenOrientation="portrait"/>
 		<activity

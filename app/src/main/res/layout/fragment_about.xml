@@ -31,6 +31,8 @@
                     android:orientation="vertical">
 
                     <include layout="@layout/fragment_cardview_music"/>
+    
+                    <include layout="@layout/fragment_cardview_preset_store"/>
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/cardview_ad"
@@ -120,8 +122,6 @@
                             </RelativeLayout>
                         </RelativeLayout>
                     </android.support.v7.widget.CardView>
-
-                    <include layout="@layout/fragment_cardview_preset_store"/>
 
                     <include layout="@layout/fragment_cardview_about"/>
 

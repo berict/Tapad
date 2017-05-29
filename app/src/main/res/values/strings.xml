@@ -34,7 +34,7 @@
 	<string name="user_benefits_dialog_positive">START</string>
 	
 	<!-- Cardview -->
-	<string name="cardview_now_playing">Now Playing</string>
+	<string name="cardview_now_playing">Now playing</string>
 	
 	<!-- Help -->
 	<string name="help_title">Help</string>

@@ -1,34 +1,26 @@
 package com.bedrock.padder.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.bedrock.padder.R;
-import com.bedrock.padder.adapter.DetailAdapter;
 import com.bedrock.padder.helper.AnimService;
 import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.ToolbarService;
 import com.bedrock.padder.helper.WindowService;
-import com.bedrock.padder.model.about.About;
-import com.google.gson.Gson;
-
-import static com.bedrock.padder.activity.MainActivity.currentPreset;
 
 public class PresetStoreActivity extends AppCompatActivity {
 
     Activity activity = this;
-    About about;
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
 
     SharedPreferences prefs;
@@ -38,30 +30,13 @@ public class PresetStoreActivity extends AppCompatActivity {
     private ThemeService theme = new ThemeService();
     private ToolbarService toolbar = new ToolbarService();
 
+    private int themeColor;
+    private String themeTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preset_store);
-
-        Gson gson = new Gson();
-
-        Intent intent = getIntent();
-        String currentAbout = intent.getStringExtra("about");
-
-        switch (currentAbout) {
-            case "now_playing":
-                about = currentPreset.getAbout();
-                break;
-            case "tapad":
-                about = gson.fromJson(getResources().getString(R.string.json_about_tapad), About.class);
-                break;
-            case "dev":
-                about = gson.fromJson(getResources().getString(R.string.json_about_dev  ), About.class);
-                break;
-            default:
-                Log.e("Error", "currentAbout is not specified");
-                break;
-        }
 
         toolbar.setActionBar(this);
         toolbar.setActionBarDisplayHomeAsUp(true, this);
@@ -88,46 +63,27 @@ public class PresetStoreActivity extends AppCompatActivity {
         window.setMarginRelativePX(R.id.layout_relative, 0, window.getStatusBarFromPrefs(activity), 0, 0, activity);
         window.getView(R.id.layout_margin, activity).getLayoutParams().height = window.getNavigationBarFromPrefs(activity) + window.convertDPtoPX(10, activity);
 
+        themeColor = activity.getResources().getColor(R.color.amber);
+        themeTitle = activity.getResources().getString(R.string.preset_store);
+
         enterAnim();
         setUi();
     }
 
     private void setUi() {
         // status bar
-        window.getView(R.id.statusbar, activity).setBackgroundColor(about.getActionbarColor());
+        window.getView(R.id.statusbar, activity).setBackgroundColor(themeColor);
 
         // action bar
-        collapsingToolbarLayout.setContentScrimColor(about.getActionbarColor());
-        collapsingToolbarLayout.setStatusBarScrimColor(about.getActionbarColor());
-        collapsingToolbarLayout.setTitle(about.getTitle());
+        collapsingToolbarLayout.setContentScrimColor(themeColor);
+        collapsingToolbarLayout.setStatusBarScrimColor(themeColor);
+        collapsingToolbarLayout.setTitle(themeTitle);
 
         // set taskDesc
-        window.setRecentColor(about.getTitle(), about.getActionbarColor(), activity);
+        window.setRecentColor(themeTitle, themeColor, activity);
 
         // title image / text
-        window.getImageView(R.id.layout_image, activity).setImageResource(window.getDrawableId(about.getImage()));
-
-        // bio
-        window.getTextView(R.id.layout_bio_title, activity).setText(about.getBio().getTitle());
-        window.getTextView(R.id.layout_bio_title, activity).setTextColor(about.getActionbarColor());
-        if(about.getBio().getImage() == null) {
-            // no bio image exception
-            window.getImageView(R.id.layout_bio_image, activity).setVisibility(View.GONE);
-            window.getView(R.id.layout_bio_image_divider, activity).setVisibility(View.GONE);
-        } else {
-            window.getImageView(R.id.layout_bio_image, activity).setImageResource(window.getDrawableId(about.getBio().getImage()));
-        }
-        window.getTextView(R.id.layout_bio_name, activity).setText(about.getBio().getName());
-        window.getTextView(R.id.layout_bio_text, activity).setText(about.getBio().getText());
-        window.getTextView(R.id.layout_bio_source, activity).setText(about.getBio().getSource());
-        window.getTextView(R.id.layout_bio_preset_creator, activity).setText(window.getStringFromId("about_bio_preset_by", activity) + " " + about.getPresetCreator());
-
-        // adapter
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        window.getRecyclerView(R.id.layout_detail_recyclerview, activity).setLayoutManager(layoutManager);
-        window.getRecyclerView(R.id.layout_detail_recyclerview, activity).setNestedScrollingEnabled(false);
-        window.getRecyclerView(R.id.layout_detail_recyclerview, activity).setAdapter(new DetailAdapter(about, R.layout.adapter_details, getApplicationContext(), activity));
+        window.getImageView(R.id.layout_image, activity).setImageResource(R.drawable.about_image_preset_store);
     }
 
     @Override
@@ -154,14 +110,13 @@ public class PresetStoreActivity extends AppCompatActivity {
         if (hasFocus) {
             theme.setGone(R.id.layout_placeholder, 0, activity);
             // reset taskDesc
-            window.setRecentColor(about.getTitle(), about.getActionbarColor(), activity);
+            window.setRecentColor(themeTitle, themeColor, activity);
         }
     }
 
     void enterAnim() {
         anim.fadeIn(R.id.layout_text, 400, 200, "titleIn", activity);
-        anim.fadeIn(R.id.layout_detail_bio, 500, 200, "bioIn", activity);
-        anim.fadeIn(R.id.layout_detail_recyclerview, 600, 200, "aboutIn", activity);
+        anim.fadeIn(R.id.layout_detail_recyclerview, 500, 200, "aboutIn", activity);
     }
 
     void pressBack() {
