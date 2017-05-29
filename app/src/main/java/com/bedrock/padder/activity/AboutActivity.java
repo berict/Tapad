@@ -120,7 +120,7 @@ public class AboutActivity extends AppCompatActivity {
         window.getTextView(R.id.layout_bio_name, activity).setText(about.getBio().getName());
         window.getTextView(R.id.layout_bio_text, activity).setText(about.getBio().getText());
         window.getTextView(R.id.layout_bio_source, activity).setText(about.getBio().getSource());
-        if (about.getBio() != null) {
+        if (about.getPresetCreator() != null) {
             window.getTextView(R.id.layout_bio_preset_creator, activity).setText(window.getStringFromId("about_bio_preset_by", activity) + " " + about.getPresetCreator());
         } else {
             window.setGone(R.id.layout_bio_preset_creator, 0, activity);
