@@ -15,5 +15,10 @@
 		android:id="@+id/action_help"
 		android:title="@string/help_title"
 		app:showAsAction="never"/>
+	
+	<item
+		android:id="@+id/quickmove"
+		android:title="QUICKMOVE"
+		app:showAsAction="never"/>
 
 </menu>

@@ -85,6 +85,16 @@
 					android:layout_height="match_parent"
 					android:orientation="vertical">
 					
+					<!-- TODO this is a dev only element -->
+					
+					<Button
+						android:id="@+id/do_sth"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="DO STH"
+						android:layout_gravity="center_horizontal"
+						android:padding="20dp"/>
+					
 					<LinearLayout
 						android:id="@+id/layout_detail"
 						android:layout_width="match_parent"

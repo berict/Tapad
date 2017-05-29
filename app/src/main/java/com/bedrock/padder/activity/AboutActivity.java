@@ -2,7 +2,6 @@ package com.bedrock.padder.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,8 +29,6 @@ public class AboutActivity extends AppCompatActivity {
     Activity activity = this;
     About about;
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
-
-    SharedPreferences prefs;
 
     private WindowService window = new WindowService();
     private AnimService anim = new AnimService();
