@@ -32,13 +32,18 @@ public class ToolbarService {
 
     public void setActionBarColor(int color, AppCompatActivity appCompatActivity) {
         try {
-            appCompatActivity.getSupportActionBar().setBackgroundDrawable(
-                    new ColorDrawable(ContextCompat.getColor(appCompatActivity, color))
-            );
-        } catch (Exception e) {
-            appCompatActivity.getSupportActionBar().setBackgroundDrawable(
-                    new ColorDrawable(color)
-            );
+            try {
+                appCompatActivity.getSupportActionBar().setBackgroundDrawable(
+                        new ColorDrawable(ContextCompat.getColor(appCompatActivity, color))
+                );
+            } catch (Exception e) {
+                appCompatActivity.getSupportActionBar().setBackgroundDrawable(
+                        new ColorDrawable(color)
+                );
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            Log.e("setActionBar", "Toolbar is not initialized");
         }
     }
 
