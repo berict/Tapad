@@ -4,22 +4,23 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.bedrock.padder.R;
 import com.bedrock.padder.helper.AnimService;
 import com.bedrock.padder.helper.IntentService;
-import com.bedrock.padder.helper.ThemeService;
+import com.bedrock.padder.helper.ToolbarService;
 import com.bedrock.padder.helper.WindowService;
 
 import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
 
-public class LauncherActivity extends Activity {
+public class LauncherActivity extends AppCompatActivity {
 
     private AnimService anim = new AnimService();
     private IntentService intent = new IntentService();
-    private ThemeService theme = new ThemeService();
     private WindowService window = new WindowService();
+    private ToolbarService toolbar = new ToolbarService();
 
     Activity activity;
 
@@ -40,7 +41,7 @@ public class LauncherActivity extends Activity {
         //prefs.edit().putInt("scheme", 1).apply();
 
         // White screen set
-        theme.color(this, "FFFFFF");
+        toolbar.setStatusBarTint(this);
         window.getNavigationBar(R.id.root, activity);
         window.getStatusBar(R.id.root, activity);
 
@@ -57,7 +58,7 @@ public class LauncherActivity extends Activity {
                 //intent.intentFlag(activity, "activity.UserBenefitsActivity", 500);
                 //prefs.edit().putInt("versionCode", -1).apply();
             }
-        }, 500); //Default 1500
+        }, 500);
     }
 
     void checkVersionCode() {

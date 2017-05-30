@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".activity.LauncherActivity"
-    android:visibility="visible">
+    tools:context=".activity.LauncherActivity">
 
     <ImageView
         android:id="@+id/berict"
@@ -18,7 +17,7 @@
         android:layout_alignParentBottom="true"
         android:src="@drawable/logo_berict"
         android:alpha="0.5"
-        android:visibility="visible" />
+        android:visibility="visible"/>
 
     <ImageView
         android:id="@+id/icon"
@@ -26,6 +25,5 @@
         android:layout_height="150dp"
         android:src="@drawable/ic_launcher"
         android:visibility="visible"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerInParent="true"/>
 </RelativeLayout>
