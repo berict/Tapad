@@ -807,7 +807,7 @@ public class SoundService {
             Log.d(TAG, "On doInBackground, start unloading sounds");
             try {
                 if (previousPreset != null) {
-                    Log.i(TAG, "Preset \"" + window.getStringFromId(previousPreset.getMusic().getName(), activity) + "\", id " + previousPreset.getId());
+                    Log.i(TAG, "Preset \"" + window.getStringFromId(previousPreset.getMusic().getName(), activity));
                     // deck loop
                     for (int i = 0; i < 4; i++) {
                         Log.i(TAG, "  Deck " + (i + 1));
@@ -905,7 +905,7 @@ public class SoundService {
             Log.d(TAG, "On doInBackground, start loading sounds");
             
             if (currentPreset != null) {
-                Log.i(TAG, "Preset \"" + window.getStringFromId(currentPreset.getMusic().getName(), activity) + "\", id " + currentPreset.getId());
+                Log.i(TAG, "Preset \"" + window.getStringFromId(currentPreset.getMusic().getName(), activity));
                 // deck loop
                 for (int i = 0; i < 4; i++) {
                     Log.i(TAG, "  Deck " + (i + 1));

@@ -129,4 +129,8 @@ public class Music {
                 return null;
         }
     }
+
+    public void setDeckTimings(DeckTiming[] deckTimings) {
+        this.deckTimings = deckTimings;
+    }
 }

@@ -8,8 +8,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class Preset {
 
-    @SerializedName("id")
-    private Integer id;
+    @SerializedName("firebase_location")
+    private String firebaseLocation;
 
     @SerializedName("music")
     private Music music;
@@ -17,14 +17,14 @@ public class Preset {
     @SerializedName("about")
     private About about;
 
-    public Preset(Integer id, Music music, About about) {
-        this.id = id;
+    public Preset(String firebaseLocation, Music music, About about) {
+        this.firebaseLocation = firebaseLocation;
         this.music = music;
         this.about = about;
     }
 
-    public Integer getId() {
-        return id;
+    public String getFirebaseLocation() {
+        return firebaseLocation;
     }
 
     public Music getMusic() {

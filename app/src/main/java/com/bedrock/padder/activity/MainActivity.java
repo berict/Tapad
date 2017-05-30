@@ -35,6 +35,7 @@ import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.ToolbarService;
 import com.bedrock.padder.helper.TutorialService;
 import com.bedrock.padder.helper.WindowService;
+import com.bedrock.padder.model.FirebaseMetadata;
 import com.bedrock.padder.model.about.About;
 import com.bedrock.padder.model.about.Bio;
 import com.bedrock.padder.model.about.Detail;
@@ -147,6 +148,8 @@ public class MainActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        makeJson();
 
         // TODO IAP launch
         //String base64EncodePublicKey = constructBase64Key();
@@ -525,7 +528,6 @@ public class MainActivity
         anim.fadeIn(R.id.actionbar_image, 200, 200, "image", a);
         //TODO: Remove this to not load preset
         //loadPreset(400);
-        makeJson();
         isPresetLoading = true;
     }
 
@@ -1766,9 +1768,17 @@ public class MainActivity
                 null
         );
 
-        Preset fadedPreset = new Preset(2, fadedMusic, fadedAbout);
+        Preset fadedPreset = new Preset("alan_walker_faded_gesture", fadedMusic, fadedAbout);
 
         largeLog("JSON", gson.toJson(fadedPreset));
+
+        Preset[] presets = {
+                fadedPreset
+        };
+
+        FirebaseMetadata firebaseMetadata = new FirebaseMetadata(presets, 15);
+        largeLog("Metadata", gson.toJson(firebaseMetadata));
+
         Bio tapadBio = new Bio(
                 w.getStringFromId("info_tapad_bio_title", a),
                 "about_bio_tapad",

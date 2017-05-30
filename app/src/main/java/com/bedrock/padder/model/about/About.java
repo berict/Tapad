@@ -84,4 +84,16 @@ public class About {
     public String getPresetCreator() {
         return presetCreator;
     }
+
+    public void setBio(Bio bio) {
+        this.bio = bio;
+    }
+
+    public void setDetails(Detail[] details) {
+        this.details = details;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 }
