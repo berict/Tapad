@@ -8,11 +8,12 @@
         android:id="@+id/layout_preset_store_cardview"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="4dp"
         app:cardElevation="4dp"
-        app:cardUseCompatPadding="true">
+        app:cardUseCompatPadding="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,6 +61,29 @@
                         android:textColor="@color/dark_hint"
                         android:textSize="12sp"
                         android:textStyle="italic" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_preset_store_gesture_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginLeft="-6dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:paddingBottom="4dp"
+                            app:srcCompat="@drawable/ic_gesture"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:textColor="@color/dark_primary"
+                            android:text="@string/preset_store_action_gesture_enabled"/>
+                    </LinearLayout>
                 </LinearLayout>
 
                 <ImageView
@@ -71,6 +95,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/layout_preset_store_action_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -114,15 +139,6 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/layout_preset_store_action_expand"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_alignParentRight="true"
-                    android:background="?selectableItemBackgroundBorderless"
-                    android:layout_marginRight="16dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/icon_expand_less" />
             </RelativeLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>

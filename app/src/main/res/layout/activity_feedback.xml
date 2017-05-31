@@ -397,7 +397,7 @@
 							android:layout_margin="16dp"
 							android:background="?selectableItemBackgroundBorderless"
 							android:clickable="true"
-							android:src="@drawable/icon_back"/>
+							android:src="@drawable/ic_back"/>
 						
 						<ImageView
 							android:id="@+id/actionbar_nav_icon_nav"
@@ -406,7 +406,7 @@
 							android:layout_margin="16dp"
 							android:background="?selectableItemBackgroundBorderless"
 							android:clickable="true"
-							android:src="@drawable/icon_nav"
+							android:src="@drawable/ic_menu"
 							android:visibility="gone"/>
 						
 						<ImageView
@@ -416,7 +416,7 @@
 							android:layout_margin="16dp"
 							android:background="?selectableItemBackgroundBorderless"
 							android:clickable="true"
-							android:src="@drawable/icon_close"
+							android:src="@drawable/ic_close"
 							android:visibility="gone"/>
 						
 						<!-- Add more nav items -->
@@ -472,7 +472,7 @@
 							android:adjustViewBounds="true"
 							android:background="?selectableItemBackgroundBorderless"
 							android:clickable="true"
-							android:src="@drawable/icon_search"/>
+							android:src="@drawable/ic_search"/>
 					</RelativeLayout>
 					
 					<RelativeLayout
@@ -491,7 +491,7 @@
 							android:adjustViewBounds="true"
 							android:background="?selectableItemBackgroundBorderless"
 							android:clickable="true"
-							android:src="@drawable/icon_fav"/>
+							android:src="@drawable/ic_favorite"/>
 					</RelativeLayout>
 					
 					<RelativeLayout
@@ -513,7 +513,7 @@
 							android:adjustViewBounds="true"
 							android:background="?selectableItemBackgroundBorderless"
 							android:clickable="true"
-							android:src="@drawable/icon_menu"/>
+							android:src="@drawable/ic_menu"/>
 					</RelativeLayout>
 					
 					<TextView

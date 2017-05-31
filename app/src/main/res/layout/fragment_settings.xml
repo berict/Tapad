@@ -57,7 +57,7 @@
 							android:layout_marginLeft="8dp"
 							android:layout_marginRight="8dp"
 							android:padding="10dp"
-							android:src="@drawable/settings_preset"/>
+							android:src="@drawable/ic_music"/>
 						
 						<LinearLayout
 							android:layout_width="wrap_content"
@@ -215,7 +215,7 @@
 							android:layout_marginLeft="8dp"
 							android:layout_marginRight="8dp"
 							android:padding="10dp"
-							android:src="@drawable/settings_color"/>
+							android:src="@drawable/ic_palette"/>
 						
 						<TextView
 							android:id="@+id/layout_settings_color_text"
@@ -346,7 +346,7 @@
 							android:layout_marginLeft="8dp"
 							android:layout_marginRight="8dp"
 							android:padding="10dp"
-							android:src="@drawable/about_detail_info"/>
+							android:src="@drawable/ic_info"/>
 						
 						<TextView
 							android:id="@+id/layout_settings_about_tapad_text"
@@ -381,7 +381,7 @@
 							android:layout_marginLeft="8dp"
 							android:layout_marginRight="8dp"
 							android:padding="10dp"
-							android:src="@drawable/about_detail_dev"/>
+							android:src="@drawable/ic_developer"/>
 						
 						<TextView
 							android:id="@+id/layout_settings_about_dev_text"

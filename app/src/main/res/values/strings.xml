@@ -267,6 +267,7 @@
 	<string name="preset_store_action_download">DOWNLOAD</string>
 	<string name="preset_store_action_remove">REMOVE</string>
 	<string name="preset_store_action_select">SELECT</string>
+	<string name="preset_store_action_gesture_enabled">Gesture preset</string>
 	
 	<!--Settings-->
 	<string name="settings_group_play">Play</string>

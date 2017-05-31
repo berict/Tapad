@@ -899,7 +899,7 @@ public class TutorialService extends Activity {
 //        protected void onPreExecute() {
 //            Log.d(TAG, "On preExceute, set UI");
 //
-//            window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.icon_tutorial_disabled);
+//            window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_disabled);
 //            window.getImageView(R.id.layout_settings_tutorial_icon, activity).setImageResource(R.drawable.settings_tutorial_disabled);
 //        }
 //
@@ -944,7 +944,7 @@ public class TutorialService extends Activity {
 //                        LoadTutorial = null;
 //                        unLoadTutorial = null;
 //
-//                        window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.icon_tutorial);
+//                        window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial);
 //                        window.getImageView(R.id.layout_settings_tutorial_icon, activity).setImageResource(R.drawable.settings_tutorial);
 //
 //                        anim.fadeOut(R.id.progress_bar_layout, 400, 400, activity);
@@ -1275,7 +1275,7 @@ public class TutorialService extends Activity {
     public void tutorialStop(Activity a) {
         try {
             mHandler.removeCallbacksAndMessages(null);
-            window.getImageView(R.id.toolbar_tutorial_icon, a).setImageResource(R.drawable.icon_tutorial);
+            window.getImageView(R.id.toolbar_tutorial_icon, a).setImageResource(R.drawable.ic_tutorial);
             window.getImageView(R.id.layout_settings_tutorial_icon, a).setImageResource(R.drawable.settings_tutorial);
             Log.i("TutorialService", "tutorial finished");
         } catch (NullPointerException e) {

@@ -66,7 +66,7 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
         // fab
         fab.setFab(activity);
         fab.show();
-        fab.setImage(R.drawable.icon_add);
+        fab.setImage(R.drawable.ic_add);
         fab.onClick(new Runnable() {
             @Override
             public void run() {

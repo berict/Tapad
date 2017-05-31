@@ -16,5 +16,5 @@
         android:background="?selectableItemBackgroundBorderless"
         android:clickable="true"
         android:padding="4dp"
-        android:src="@drawable/icon_back" />
+        android:src="@drawable/ic_back" />
 </RelativeLayout>

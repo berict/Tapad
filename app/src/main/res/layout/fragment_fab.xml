@@ -22,6 +22,6 @@
 			android:id="@+id/fab_icon"
 			android:layout_width="24dp"
 			android:layout_height="24dp"
-			android:src="@drawable/icon_info"/>
+			android:src="@drawable/ic_info"/>
 	</RelativeLayout>
 </RelativeLayout>

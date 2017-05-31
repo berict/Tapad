@@ -14,7 +14,7 @@
         android:layout_height="64dp"
 		android:layout_centerVertical="true"
         android:padding="18dp"
-        android:src="@drawable/about_detail_web" />
+        android:src="@drawable/ic_logo_web" />
 
     <LinearLayout
         android:id="@+id/layout_item_text_layout"

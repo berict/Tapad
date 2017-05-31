@@ -112,7 +112,7 @@
                         android:id="@+id/fab_icon"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/icon_info" />
+                        android:src="@drawable/ic_info" />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -146,7 +146,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:alpha="0.3"
-                    android:src="@drawable/icon_color" />
+                    android:src="@drawable/ic_color" />
             </LinearLayout>
 
             <View

@@ -30,7 +30,7 @@
 			android:elevation="4dp"
 			android:padding="8dp"
 			android:visibility="gone"
-			app:srcCompat="@drawable/about_detail_web"/>
+			app:srcCompat="@drawable/ic_logo_web"/>
 	
 	</RelativeLayout>
 </RelativeLayout>
