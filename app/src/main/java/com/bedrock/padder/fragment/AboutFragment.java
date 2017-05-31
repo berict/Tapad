@@ -186,8 +186,11 @@ public class AboutFragment extends Fragment {
                 .show();
     }
 
+    Menu menu;
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        this.menu = menu;
         int i = 0;
         while (true) {
             try {
@@ -200,7 +203,12 @@ public class AboutFragment extends Fragment {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        pressBack();
+        if (item != menu.findItem(R.id.action_about) &&
+                item != menu.findItem(R.id.action_settings) &&
+                item != menu.findItem(R.id.action_help)) {
+            // only the back icon
+            pressBack();
+        }
         return true;
     }
 
