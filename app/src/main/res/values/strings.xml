@@ -263,6 +263,10 @@
 
 	<!-- Preset Store -->
     <string name="preset_store_description">Discover and download new presets</string>
+	<string name="preset_store_action_preset_by">By </string>
+	<string name="preset_store_action_download">DOWNLOAD</string>
+	<string name="preset_store_action_remove">REMOVE</string>
+	<string name="preset_store_action_select">SELECT</string>
 	
 	<!--Settings-->
 	<string name="settings_group_play">Play</string>
