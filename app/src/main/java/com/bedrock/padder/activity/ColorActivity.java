@@ -30,6 +30,7 @@ import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
 public class ColorActivity extends AppCompatActivity implements ColorChooserDialog.ColorCallback {
 
     private WindowService w = new WindowService();
+    //private FabServiceOld fab = new FabServiceOld();
     private FabService fab = new FabService();
     private ToolbarService toolbar = new ToolbarService();
 
@@ -62,16 +63,16 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
         toolbar.setActionBar(this);
         toolbar.setStatusBarTint(this);
         toolbar.setActionBarPadding(this);
-        toolbar.setActionBarDisplayHomeAsUp(true, this);
-        toolbar.setActionBarTitle(R.string.settings_color, this);
+        toolbar.setActionBarDisplayHomeAsUp(true);
+        toolbar.setActionBarTitle(R.string.settings_color);
         toolbar.setActionBarColor(R.color.colorAccent, this);
         w.setRecentColor(R.string.task_settings_color, R.color.colorAccent, activity);
 
         // fab
         fab.setFab(activity);
-        fab.show();
-        fab.setImage(R.drawable.ic_add);
-        fab.onClick(new Runnable() {
+        fab.showFab();
+        fab.setFabIcon(R.drawable.ic_add_white, activity);
+        fab.setFabOnClickListener(new Runnable() {
             @Override
             public void run() {
                 showColorChooserDialog();

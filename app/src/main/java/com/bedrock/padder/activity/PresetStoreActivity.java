@@ -46,7 +46,7 @@ public class PresetStoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_preset_store);
 
         toolbar.setActionBar(this);
-        toolbar.setActionBarDisplayHomeAsUp(true, this);
+        toolbar.setActionBarDisplayHomeAsUp(true);
         toolbar.setStatusBarTint(this);
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
