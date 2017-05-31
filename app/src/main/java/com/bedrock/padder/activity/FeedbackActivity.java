@@ -71,9 +71,10 @@ public class FeedbackActivity extends AppCompatActivity {
 
         toolbar.setActionBar(this);
         toolbar.setActionBarDisplayHomeAsUpIcon(R.drawable.ic_close_white);
-        toolbar.setActionBarPadding(this);
         toolbar.setStatusBarTint(this);
         toolbar.setActionBarTitle(w.getStringId("task_feedback_" + MODE_TAG));
+        toolbar.setActionBarColor(R.color.colorFeedback, a);
+        w.setStatusBar(R.color.colorFeedbackDark, a);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
