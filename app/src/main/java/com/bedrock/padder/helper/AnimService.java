@@ -422,16 +422,24 @@ public class AnimService {
         Map<String, Handler> handlerCreator = new HashMap<>();
         handlerCreator.put(handlerName, new Handler());
 
-        handlerCreator.get(handlerName).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                view.setVisibility(View.VISIBLE);
-                scaleOut.setDuration(duration);
-                view.startAnimation(scaleOut);
+        if (delay > 0) {
+            handlerCreator.get(handlerName).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    view.setVisibility(View.VISIBLE);
+                    scaleOut.setDuration(duration);
+                    view.startAnimation(scaleOut);
 
-                Log.i("AnimService", "scale OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
-            }
-        }, delay);
+                    Log.i("AnimService", "scale OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+                }
+            }, delay);
+        } else {
+            view.setVisibility(View.VISIBLE);
+            scaleOut.setDuration(duration);
+            view.startAnimation(scaleOut);
+
+            Log.i("AnimService", "scale OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+        }
 
         handlerCreator.get(handlerName).postDelayed(new Runnable() {
             @Override
@@ -509,16 +517,24 @@ public class AnimService {
         Map<String, Handler> handlerCreator = new HashMap<>();
         handlerCreator.put(handlerName, new Handler());
 
-        handlerCreator.get(handlerName).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                view.setVisibility(View.VISIBLE);
-                scaleOut.setDuration(duration);
-                view.startAnimation(scaleOut);
+        if (delay > 0) {
+            handlerCreator.get(handlerName).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    view.setVisibility(View.VISIBLE);
+                    scaleOut.setDuration(duration);
+                    view.startAnimation(scaleOut);
 
-                Log.i("AnimService", "scale OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
-            }
-        }, delay);
+                    Log.i("AnimService", "scale OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+                }
+            }, delay);
+        } else {
+            view.setVisibility(View.VISIBLE);
+            scaleOut.setDuration(duration);
+            view.startAnimation(scaleOut);
+
+            Log.i("AnimService", "scale OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+        }
 
         handlerCreator.get(handlerName).postDelayed(new Runnable() {
             @Override
@@ -534,19 +550,27 @@ public class AnimService {
 
         scaleIn.setInterpolator(new AccelerateDecelerateInterpolator());
 
-        Map<String, Handler> handlerCreator = new HashMap<>();
-        handlerCreator.put(handlerName, new Handler());
+        if (delay > 0) {
+            Map<String, Handler> handlerCreator = new HashMap<>();
+            handlerCreator.put(handlerName, new Handler());
 
-        handlerCreator.get(handlerName).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                scaleIn.setDuration(duration);
-                view.startAnimation(scaleIn);
-                view.setVisibility(View.VISIBLE);
+            handlerCreator.get(handlerName).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    scaleIn.setDuration(duration);
+                    view.startAnimation(scaleIn);
+                    view.setVisibility(View.VISIBLE);
 
-                Log.i("AnimService", "scale IN effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
-            }
-        }, delay);
+                    Log.i("AnimService", "scale IN effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+                }
+            }, delay);
+        } else {
+            scaleIn.setDuration(duration);
+            view.startAnimation(scaleIn);
+            view.setVisibility(View.VISIBLE);
+
+            Log.i("AnimService", "scale IN effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+        }
     }
 
     public void scaleIn(final int id, final int delay, final long duration, String handlerName, Activity activity) {
@@ -611,16 +635,24 @@ public class AnimService {
         Map<String, Handler> handlerCreator = new HashMap<>();
         handlerCreator.put(handlerName, new Handler());
 
-        handlerCreator.get(handlerName).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                view.setVisibility(View.VISIBLE);
-                scaleOut.setDuration(duration);
-                view.startAnimation(scaleOut);
+        if (delay > 0) {
+            handlerCreator.get(handlerName).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    view.setVisibility(View.VISIBLE);
+                    scaleOut.setDuration(duration);
+                    view.startAnimation(scaleOut);
 
-                Log.i("AnimService", "scale IN effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
-            }
-        }, delay);
+                    Log.i("AnimService", "scale IN effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+                }
+            }, delay);
+        } else {
+            view.setVisibility(View.VISIBLE);
+            scaleOut.setDuration(duration);
+            view.startAnimation(scaleOut);
+
+            Log.i("AnimService", "scale IN effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+        }
 
         handlerCreator.get(handlerName).postDelayed(new Runnable() {
             @Override
