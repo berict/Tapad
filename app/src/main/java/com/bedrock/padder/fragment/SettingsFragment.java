@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -172,16 +173,22 @@ public class SettingsFragment extends Fragment {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d("itemSelected", item.toString());
         if (item != menu.findItem(R.id.action_about) &&
                 item != menu.findItem(R.id.action_settings) &&
                 item != menu.findItem(R.id.action_help)) {
-            // only the back icon
-            pressBack();
+            if (!item.toString().equals("About") &&
+                    !item.toString().equals("Settings") &&
+                    !item.toString().equals("Help")) {
+                // only the back icon
+                pressBack();
+            }
         }
         return true;
     }
 
     private void pressBack() {
+        Log.d("SettingsFragment", "pressBack");
         KeyEvent kDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
         a.dispatchKeyEvent(kDown);
         KeyEvent kUp = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK);
@@ -193,12 +200,12 @@ public class SettingsFragment extends Fragment {
         toolbar.setActionBar(a, v);
         if (isAboutVisible) {
             // back
-            toolbar.setActionBarDisplayHomeAsUp(true, a);
+            toolbar.setActionBarDisplayHomeAsUp(true);
         } else {
             // close
-            toolbar.setActionBarDisplayHomeAsUpIcon(R.drawable.ic_close, a);
+            toolbar.setActionBarDisplayHomeAsUpIcon(R.drawable.ic_close_white);
         }
-        toolbar.setActionBarTitle(R.string.settings, a);
+        toolbar.setActionBarTitle(R.string.settings);
         toolbar.setActionBarPadding(a, v);
         toolbar.setActionBarColor(R.color.colorAccent, a);
 

@@ -202,11 +202,16 @@ public class AboutFragment extends Fragment {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d("itemSelected", item.toString());
         if (item != menu.findItem(R.id.action_about) &&
                 item != menu.findItem(R.id.action_settings) &&
                 item != menu.findItem(R.id.action_help)) {
-            // only the back icon
-            pressBack();
+            if (!item.toString().equals("About") &&
+                    !item.toString().equals("Settings") &&
+                    !item.toString().equals("Help")) {
+                // only the back icon
+                pressBack();
+            }
         }
         return true;
     }
@@ -224,10 +229,10 @@ public class AboutFragment extends Fragment {
         themeColor = currentPreset.getAbout().getActionbarColor();
 
         toolbar.setActionBar(a, v);
-        toolbar.setActionBarTitle(R.string.about, a);
+        toolbar.setActionBarTitle(R.string.about);
         toolbar.setActionBarPadding(a, v);
         toolbar.setActionBarColor(themeColor, a);
-        toolbar.setActionBarDisplayHomeAsUp(true, a);
+        toolbar.setActionBarDisplayHomeAsUp(true);
 
         // Cardview
         w.getImageView(R.id.cardview_music_image, v).setImageResource(w.getDrawableId("about_album_" + currentPreset.getMusic().getName().replace("preset_", "")));
