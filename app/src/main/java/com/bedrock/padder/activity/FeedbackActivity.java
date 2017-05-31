@@ -26,7 +26,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.BuildConfig;
 import com.bedrock.padder.R;
 import com.bedrock.padder.helper.AnimService;
-import com.bedrock.padder.helper.AppbarService;
 import com.bedrock.padder.helper.FabService;
 import com.bedrock.padder.helper.IntentService;
 import com.bedrock.padder.helper.ToolbarService;
@@ -41,7 +40,6 @@ public class FeedbackActivity extends AppCompatActivity {
 
     private FabService fab = new FabService();
     private WindowService w = new WindowService();
-    private AppbarService ab = new AppbarService();
     private IntentService intent = new IntentService();
     private AnimService anim = new AnimService();
     private ToolbarService toolbar = new ToolbarService();
@@ -71,24 +69,13 @@ public class FeedbackActivity extends AppCompatActivity {
         setFab();
         initUi();
 
-        w.setStatusBar(R.color.colorFeedbackDark, a);
-
-        w.setMarginRelativePX(R.id.fab, 0, 0,
-                w.convertDPtoPX(20, a),
-                w.convertDPtoPX(20, a),
-                a);
-        ab.setStatusHeight(a);
-        ab.setColor(R.color.colorFeedback, a);
-        ab.setTitle(w.getStringId("task_feedback_" + MODE_TAG), a);
-        ab.setNav(3, null, a);
+        toolbar.setActionBar(this);
+        toolbar.setActionBarDisplayHomeAsUpIcon(R.drawable.ic_close_white);
+        toolbar.setActionBarPadding(this);
+        toolbar.setStatusBarTint(this);
+        toolbar.setActionBarTitle(w.getStringId("task_feedback_" + MODE_TAG));
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-
-        toolbar.setActionBar(this);
-        toolbar.setStatusBarTint(this);
-        toolbar.setActionBarColor(R.color.colorFeedback, this);
-        toolbar.setActionBarDisplayHomeAsUp(true, this);
-        toolbar.setActionBarTitle(w.getStringId("task_feedback_" + MODE_TAG), this);
 
         w.setRecentColor(w.getStringId("task_feedback_" + MODE_TAG), R.color.colorFeedback, a);
 
@@ -542,13 +529,11 @@ public class FeedbackActivity extends AppCompatActivity {
 
     void setFab() {
         fab.setFab(a);
-        fab.show();
-
-        View fabView = findViewById(R.id.fab_button);
-
-        fabView.setOnClickListener(new View.OnClickListener() {
+        fab.showFab();
+        fab.setFabIcon(R.drawable.ic_send_white, a);
+        fab.setFabOnClickListener(new Runnable() {
             @Override
-            public void onClick(View v) {
+            public void run() {
                 focusCount = 0;
                 if (send() == true) {
                     w.setRecentColor(w.getStringId("task_feedback_" + MODE_TAG), 0, R.color.colorAccent, a);

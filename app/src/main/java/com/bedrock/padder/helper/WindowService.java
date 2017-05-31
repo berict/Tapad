@@ -221,22 +221,6 @@ public class WindowService {
         }
     }
 
-    public void setActionBarBack(final boolean backEnable, final Runnable back, final Activity activity) {
-        View backLayout = activity.findViewById(R.id.actionbar_back_layout);
-        View backButton = activity.findViewById(R.id.actionbar_back);
-        if (backEnable == true) {
-            backLayout.setVisibility(View.VISIBLE);
-            backButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    back.run();
-                }
-            });
-        } else {
-            backLayout.setVisibility(View.GONE);
-        }
-    }
-
     public void setRecentColor(int titleId, Activity activity) {
         if (Build.VERSION.SDK_INT >= 21) {
             if (titleId == 0) {

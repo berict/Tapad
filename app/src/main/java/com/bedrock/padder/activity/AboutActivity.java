@@ -61,7 +61,7 @@ public class AboutActivity extends AppCompatActivity {
         }
 
         toolbar.setActionBar(this);
-        toolbar.setActionBarDisplayHomeAsUp(true, this);
+        toolbar.setActionBarDisplayHomeAsUp(true);
         toolbar.setStatusBarTint(this);
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);

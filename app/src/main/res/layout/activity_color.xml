@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context="com.bedrock.padder.activity.ColorActivity">
+				xmlns:tools="http://schemas.android.com/tools"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				xmlns:app="http://schemas.android.com/apk/res-auto"
+				android:background="@color/white"
+				tools:context="com.bedrock.padder.activity.ColorActivity">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -88,33 +89,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/dark_divider" />
-
-            <RelativeLayout
-                android:id="@+id/fab"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_gravity="right"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="-28dp"
-                android:background="@drawable/fragment_fab"
-                android:translationZ="0dp">
-
-                <RelativeLayout
-                    android:id="@+id/fab_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:background="?selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:id="@+id/fab_icon"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_info" />
-                </RelativeLayout>
-            </RelativeLayout>
+			
+			<android.support.design.widget.FloatingActionButton
+				android:id="@+id/fab"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				app:fabSize="normal"
+				android:layout_gravity="right"
+				android:layout_marginRight="16dp"
+				android:layout_marginTop="-28dp"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/layout_color_recyclerview"
@@ -146,7 +129,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_color" />
+                    android:src="@drawable/ic_color_black" />
             </LinearLayout>
 
             <View
