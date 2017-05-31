@@ -57,7 +57,7 @@
 							android:layout_marginLeft="8dp"
 							android:layout_marginRight="8dp"
 							android:padding="10dp"
-							android:src="@drawable/ic_music"/>
+							android:src="@drawable/ic_music_black"/>
 						
 						<LinearLayout
 							android:layout_width="wrap_content"
@@ -110,7 +110,7 @@
 							android:layout_marginLeft="8dp"
 							android:layout_marginRight="8dp"
 							android:padding="10dp"
-							android:src="@drawable/ic_tutorial"/>
+							android:src="@drawable/ic_tutorial_black"/>
 						
 						<TextView
 							android:id="@+id/layout_settings_tutorial_text"
@@ -157,7 +157,7 @@
 							android:layout_marginLeft="8dp"
 							android:layout_marginRight="8dp"
 							android:padding="10dp"
-							android:src="@drawable/ic_custom_sound"/>
+							android:src="@drawable/ic_custom_sound_black"/>
 						
 						<TextView
 							android:id="@+id/layout_settings_custom_sound_text"
@@ -215,7 +215,7 @@
 							android:layout_marginLeft="8dp"
 							android:layout_marginRight="8dp"
 							android:padding="10dp"
-							android:src="@drawable/ic_palette"/>
+							android:src="@drawable/ic_palette_black"/>
 						
 						<TextView
 							android:id="@+id/layout_settings_color_text"
@@ -252,7 +252,7 @@
 							android:layout_marginLeft="8dp"
 							android:layout_marginRight="8dp"
 							android:padding="10dp"
-							android:src="@drawable/ic_custom_touch"/>
+							android:src="@drawable/ic_custom_touch_black"/>
 						
 						<TextView
 							android:id="@+id/layout_settings_custom_touch_text"
@@ -290,7 +290,7 @@
 							android:layout_marginLeft="8dp"
 							android:layout_marginRight="8dp"
 							android:padding="10dp"
-							android:src="@drawable/ic_custom_layout"/>
+							android:src="@drawable/ic_custom_layout_black"/>
 						
 						<TextView
 							android:id="@+id/layout_settings_layout_text"
@@ -346,7 +346,7 @@
 							android:layout_marginLeft="8dp"
 							android:layout_marginRight="8dp"
 							android:padding="10dp"
-							android:src="@drawable/ic_info"/>
+							android:src="@drawable/ic_info_black"/>
 						
 						<TextView
 							android:id="@+id/layout_settings_about_tapad_text"
@@ -381,7 +381,7 @@
 							android:layout_marginLeft="8dp"
 							android:layout_marginRight="8dp"
 							android:padding="10dp"
-							android:src="@drawable/ic_developer"/>
+							android:src="@drawable/ic_developer_black"/>
 						
 						<TextView
 							android:id="@+id/layout_settings_about_dev_text"

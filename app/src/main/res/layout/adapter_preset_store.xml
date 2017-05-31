@@ -75,7 +75,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:paddingBottom="4dp"
-                            app:srcCompat="@drawable/ic_gesture"/>
+                            app:srcCompat="@drawable/ic_gesture_black"/>
 
                         <TextView
                             android:layout_width="wrap_content"

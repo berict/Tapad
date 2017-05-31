@@ -21,7 +21,7 @@
         <ImageView
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:src="@drawable/ic_info"/>
+            android:src="@drawable/ic_info_white"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -35,7 +35,7 @@
         <ImageView
             android:layout_width="28dp"
 			android:layout_height="28dp"
-            android:src="@drawable/ic_music"/>
+            android:src="@drawable/ic_music_white"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -51,7 +51,7 @@
             android:id="@+id/toolbar_tutorial_icon"
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:src="@drawable/ic_tutorial"/>
+            android:src="@drawable/ic_tutorial_white"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -65,7 +65,7 @@
         <ImageView
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:src="@drawable/ic_settings"/>
+            android:src="@drawable/ic_settings_white"/>
     </RelativeLayout>
 
 </LinearLayout>
