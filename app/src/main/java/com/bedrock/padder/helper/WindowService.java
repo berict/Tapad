@@ -666,6 +666,10 @@ public class WindowService {
         //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
     }
 
+    public String getStringFromId(int resId, Activity activity) {
+        return activity.getResources().getString(resId);
+    }
+
     public int getDrawableId(String id) {
         try {
             Class res = R.drawable.class;
