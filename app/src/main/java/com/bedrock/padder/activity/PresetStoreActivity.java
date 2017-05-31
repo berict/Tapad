@@ -2,7 +2,10 @@ package com.bedrock.padder.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,19 +15,35 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
+import com.bedrock.padder.adapter.PresetStoreAdapter;
 import com.bedrock.padder.helper.AnimService;
+import com.bedrock.padder.helper.IntentService;
 import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.ToolbarService;
 import com.bedrock.padder.helper.WindowService;
+import com.bedrock.padder.model.FirebaseMetadata;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
+import com.google.firebase.storage.StorageReference;
+import com.google.gson.Gson;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 
 public class PresetStoreActivity extends AppCompatActivity {
 
@@ -35,6 +54,7 @@ public class PresetStoreActivity extends AppCompatActivity {
     private AnimService anim = new AnimService();
     private ThemeService theme = new ThemeService();
     private ToolbarService toolbar = new ToolbarService();
+    private IntentService intent = new IntentService();
 
     private int themeColor;
     private String themeTitle;
@@ -44,6 +64,12 @@ public class PresetStoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preset_store);
+
+        themeColor = getResources().getColor(R.color.amber);
+        themeTitle = getResources().getString(R.string.preset_store);
+
+        // initialize firebase
+        FirebaseApp.initializeApp(activity);
 
         toolbar.setActionBar(this);
         toolbar.setActionBarDisplayHomeAsUp(true);
@@ -73,13 +99,6 @@ public class PresetStoreActivity extends AppCompatActivity {
         themeColor = activity.getResources().getColor(R.color.amber);
         themeTitle = activity.getResources().getString(R.string.preset_store);
 
-        window.setOnClick(R.id.do_sth, new Runnable() {
-            @Override
-            public void run() {
-                doSth();
-            }
-        }, activity);
-
         enterAnim();
         setUi();
     }
@@ -92,16 +111,69 @@ public class PresetStoreActivity extends AppCompatActivity {
         switch (requestCode) {
             case REQUEST_WRITE_STORAGE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //reload my activity with permission granted or use the features what required the permission
-                    doSth();
+                    // reload my activity with permission granted or use the features what required the permission
+                    downloadMetadata();
                 } else {
+                    // show dialog to grant access
+                    new MaterialDialog.Builder(activity)
+                            .title(R.string.preset_store_permission_dialog_title)
+                            .titleColorRes(R.color.dark_primary)
+                            .content(R.string.preset_store_permission_dialog_text)
+                            .contentColorRes(R.color.dark_action)
+                            .positiveText(R.string.preset_store_permission_dialog_positive)
+                            .positiveColorRes(R.color.dark_primary)
+                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                    // go to settings
+                                    intent.intentAppDetailSettings(activity, 0);
+                                }
+                            })
+                            .negativeText(R.string.preset_store_permission_dialog_negative)
+                            .negativeColorRes(R.color.red_400)
+                            .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                    // close current activity
+                                    finish(100);
+                                }
+                            })
+                            .show();
                     Log.e(TAG, "The app was not allowed to write to your storage. Hence, it cannot function properly. Please consider granting it this permission");
                 }
         }
     }
 
-    private void doSth() {
-        // TODO this is a dev only function
+    private void finish(int delay) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, delay);
+    }
+
+    String tapadFolderPath = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
+    String metadataLocation = tapadFolderPath + "/presets/metadata.txt";
+
+    private void setLoadingFinished(boolean isFinished) {
+        if (isFinished) {
+            // finished, hide loading and show recyclerview
+            Log.d(TAG, "Loading finished");
+            anim.fadeOut(R.id.layout_preset_store_recyclerview_loading, 0, 200, activity);
+            anim.fadeIn(R.id.layout_preset_store_recyclerview, 200, 200, "rvIn", activity);
+        } else {
+            // started, show loading
+            anim.fadeOut(R.id.layout_preset_store_recyclerview, 0, 200, activity);
+            anim.fadeIn(R.id.layout_preset_store_recyclerview_loading, 200, 200, "rvLoadingIn", activity);
+        }
+    }
+
+    private void downloadMetadata() {
+        // loading start
+        setLoadingFinished(false);
+        Log.d(TAG, "downloadMetaData");
 
         boolean hasPermission =
                 ContextCompat.checkSelfPermission(
@@ -114,49 +186,63 @@ public class PresetStoreActivity extends AppCompatActivity {
                     REQUEST_WRITE_STORAGE);
         }
 
-        String string = "{\"about\":{\"actionbar_color\":\"#00D3BE\",\"bio\":{\"image\":\"about_bio_faded\",\"name\":\"Alan Olav Walker\",\"source\":\"Powered by Wikipedia X last.fm\",\"text\":\"Alan Walker (Alan Olav Walker) is a British-Norwegian record producer who was born in Northampton, England. He recorded electronic dance music single \\\"Faded\\\" and his song released on NoCopyrightSounds, \\\"Fade\\\".\",\"title\":\"Alan Walker\\u0027s biography\"},\"details\":[{\"items\":[{\"hint\":\"https://facebook.com/alanwalkermusic\",\"hint_is_visible\":true,\"image_id\":\"ic_logo_facebook\",\"runnable_is_with_anim\":false,\"text_id\":\"facebook\"},{\"hint\":\"https://twitter.com/IAmAlanWalker\",\"hint_is_visible\":true,\"image_id\":\"ic_logo_twitter\",\"runnable_is_with_anim\":false,\"text_id\":\"twitter\"},{\"hint\":\"https://soundcloud.com/alanwalker\",\"hint_is_visible\":true,\"image_id\":\"ic_logo_soundcloud\",\"runnable_is_with_anim\":false,\"text_id\":\"soundcloud\"},{\"hint\":\"https://instagram.com/alanwalkermusic\",\"hint_is_visible\":true,\"image_id\":\"ic_logo_instagram\",\"runnable_is_with_anim\":false,\"text_id\":\"instagram\"},{\"hint\":\"https://plus.google.com/u/0/+Alanwalkermusic\",\"hint_is_visible\":true,\"image_id\":\"ic_logo_google_plus\",\"runnable_is_with_anim\":false,\"text_id\":\"google_plus\"},{\"hint\":\"https://youtube.com/user/DjWalkzz\",\"hint_is_visible\":true,\"image_id\":\"ic_logo_youtube\",\"runnable_is_with_anim\":false,\"text_id\":\"youtube\"},{\"hint\":\"http://alanwalkermusic.no\",\"hint_is_visible\":true,\"image_id\":\"ic_logo_web\",\"runnable_is_with_anim\":false,\"text_id\":\"web\"}],\"title\":\"About Alan Walker\"},{\"items\":[{\"hint\":\"https://soundcloud.com/alanwalker/faded-1\",\"hint_is_visible\":false,\"image_id\":\"ic_logo_soundcloud\",\"runnable_is_with_anim\":false,\"text_id\":\"soundcloud\"},{\"hint\":\"https://youtu.be/60ItHLz5WEA\",\"hint_is_visible\":false,\"image_id\":\"ic_logo_youtube\",\"runnable_is_with_anim\":false,\"text_id\":\"youtube\"},{\"hint\":\"https://open.spotify.com/track/1brwdYwjltrJo7WHpIvbYt\",\"hint_is_visible\":false,\"image_id\":\"ic_logo_spotify\",\"runnable_is_with_anim\":false,\"text_id\":\"spotify\"},{\"hint\":\"https://play.google.com/store/music/album/Alan_Walker_Faded?id\\u003dBgdyyljvf7b624pbv5ylcrfevte\",\"hint_is_visible\":false,\"image_id\":\"ic_logo_google_play_music\",\"runnable_is_with_anim\":false,\"text_id\":\"google_play_music\"},{\"hint\":\"https://itunes.apple.com/us/album/faded/id1196294554?i\\u003d1196294581\",\"hint_is_visible\":false,\"image_id\":\"ic_logo_apple\",\"runnable_is_with_anim\":false,\"text_id\":\"apple\"},{\"hint\":\"https://amazon.com/Faded/dp/B01NBYNKWJ\",\"hint_is_visible\":false,\"image_id\":\"ic_logo_amazon\",\"runnable_is_with_anim\":false,\"text_id\":\"amazon\"},{\"hint\":\"https://pandora.com/alan-walker/faded-single/faded\",\"hint_is_visible\":false,\"image_id\":\"ic_logo_pandora\",\"runnable_is_with_anim\":false,\"text_id\":\"pandora\"}],\"title\":\"About this track\"}],\"image\":\"about_album_faded\",\"preset_creator\":\"Studio Berict\",\"title\":\"Alan Walker - Faded\",\"tutorial_link\":\"null\"},\"id\":2,\"music\":{\"bpm\":90,\"file_name\":\"alan_walker_faded\",\"is_gesture\":true,\"name\":\"preset_faded\",\"sound_count\":246}}";
-
-        String sdcardPath = Environment.getExternalStorageDirectory().getPath() + "/";
-        Log.d(TAG, sdcardPath);
-//        FileInputStream inputStream;
-//
-//        try {
-//            inputStream = openFileInput("test.txt");
-//            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-//            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-//            StringBuilder stringBuilder = new StringBuilder();
-//            String line;
-//            while ((line = bufferedReader.readLine()) != null) {
-//                stringBuilder.append(line).append("\n");
-//            }
-//            Log.i(TAG, stringBuilder.toString());
-//            inputStream.close();
-//            inputStreamReader.close();
-//            bufferedReader.close();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-        // make a dir in external sdcard
-        File folder = new File(sdcardPath + "Tapad");
-        if (folder.mkdirs() == false) {
-            // folder exists, wtf?
-            Log.e(TAG, "folder already exists");
-        } else {
+        // Make sdcard/Tapad folder
+        File folder = new File(tapadFolderPath);
+        if (folder.mkdirs()) {
             Log.i(TAG, "folder successfully created");
+        } else {
+            // folder exists
+            Log.e(TAG, "folder already exists");
         }
 
-        FileOutputStream outputStream;
+        // Make sdcard/Tapad/presets folder
+        File presets = new File(tapadFolderPath + "/presets");
+        if (presets.mkdirs()) {
+            Log.i(TAG, "folder successfully created");
+        } else {
+            // folder exists
+            Log.e(TAG, "folder already exists");
+        }
 
+        final File metadata = new File(tapadFolderPath + "/presets/metadata.txt");
+
+        StorageReference metadataReference =
+                FirebaseStorage
+                        .getInstance()
+                        .getReferenceFromUrl("gs://tapad-4d342.appspot.com/presets")
+                        .child("metadata.txt");
+        metadataReference.getFile(metadata).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                Log.d(TAG, "Successful download at " + metadata.toString());
+                setAdapter();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e(TAG, "Failed to download");
+            }
+        });
+    }
+
+    private String getStringFromFile(String fileLocation) {
         try {
-            outputStream = new FileOutputStream(new File(sdcardPath + "Tapad/" + "json.txt"));
-            outputStream.write(string.getBytes());
-            outputStream.close();
+            FileInputStream inputStream = new FileInputStream(new File(fileLocation));
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line).append("\n");
+            }
+            inputStream.close();
+            inputStreamReader.close();
+            bufferedReader.close();
+            return stringBuilder.toString();
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-
-
     }
 
     private void setUi() {
@@ -173,19 +259,108 @@ public class PresetStoreActivity extends AppCompatActivity {
 
         // title image / text
         window.getImageView(R.id.layout_image, activity).setImageResource(R.drawable.about_image_preset_store);
+
+        // adapter
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        window.getRecyclerView(R.id.layout_preset_store_recyclerview, activity).setLayoutManager(layoutManager);
+        window.getRecyclerView(R.id.layout_preset_store_recyclerview, activity).setNestedScrollingEnabled(false);
+        // firebase check
+        setAdapter();
+    }
+
+    private void setAdapter() {
+        Log.d(TAG, "setAdapter");
+        // attach the adapter to the layout
+        if (new File(metadataLocation).exists()) {
+            // metadata file exists
+            String metadata = getStringFromFile(metadataLocation);
+            if (isFirebaseMetadataUpdated(activity)) {
+                // updated, download new one
+                downloadMetadata();
+            } else {
+                Log.d(TAG, "Attached adapter");
+                // offline or not updated, continue
+                Gson gson = new Gson();
+                FirebaseMetadata firebaseMetadata = gson.fromJson(metadata, FirebaseMetadata.class);
+                if (firebaseMetadata.getPresets() == null ||
+                        firebaseMetadata.getVersionCode() == null) {
+                    // corrupted metadata, download again
+                    downloadMetadata();
+                } else {
+                    // attach adapter while its not null
+                    window.getRecyclerView(R.id.layout_preset_store_recyclerview, activity).setAdapter(
+                            new PresetStoreAdapter(
+                                    firebaseMetadata,
+                                    R.layout.activity_preset_store, activity
+                            )
+                    );
+                }
+                setLoadingFinished(true);
+            }
+        } else {
+            downloadMetadata();
+        }
+    }
+
+    private boolean isConnected(Context context) {
+        // returns whether the device is connected to the internet
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
+
+    private boolean isFMUpdated = false;
+
+    private boolean isFirebaseMetadataUpdated(Context context) {
+        isFMUpdated = false;
+        if (isConnected(context)) {
+            Log.d(TAG, "Connected to the internet");
+            StorageReference metadataReference =
+                    FirebaseStorage
+                            .getInstance()
+                            .getReferenceFromUrl("gs://tapad-4d342.appspot.com/presets")
+                            .child("metadata.txt");
+            metadataReference.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
+                @Override
+                public void onSuccess(StorageMetadata storageMetadata) {
+                    Log.d(TAG, "Successful getting metadata");
+                    if (storageMetadata.getUpdatedTimeMillis() > new File(metadataLocation).lastModified()) {
+                        // firebase metadata is updated since last download
+                        // get the new updated metadata
+                        Log.d(TAG, "File updated");
+                        isFMUpdated = true;
+                    } else {
+                        Log.d(TAG, "File not updated");
+                        isFMUpdated = false;
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG, "Failed to get metadata");
+                    isFMUpdated =  false;
+                }
+            });
+            return isFMUpdated;
+        } else {
+            Log.d(TAG, "Disconnected from the internet");
+            return isFMUpdated;
+        }
     }
 
     @Override
     public void onBackPressed() {
-        anim.fadeOut(R.id.layout_text, 0, 200, activity);
-        anim.fadeOut(R.id.layout_detail, 0, 200, activity);
+        anim.fadeOut(R.id.layout_preset_store, 0, 200, activity);
+        anim.fadeOut(R.id.layout_text, 100, 200, activity);
         Handler delay = new Handler();
         delay.postDelayed(new Runnable() {
             @Override
             public void run() {
                 PresetStoreActivity.super.onBackPressed();
             }
-        }, 200);
+        }, 300);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -204,8 +379,8 @@ public class PresetStoreActivity extends AppCompatActivity {
     }
 
     void enterAnim() {
-        anim.fadeIn(R.id.layout_text, 400, 200, "titleIn", activity);
-        anim.fadeIn(R.id.layout_detail_recyclerview, 500, 200, "aboutIn", activity);
+        anim.fadeIn(R.id.layout_text, 0, 200, "titleIn", activity);
+        anim.fadeIn(R.id.layout_preset_store, 100, 200, "presetIn", activity);
     }
 
     void pressBack() {

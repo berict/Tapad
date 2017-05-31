@@ -10,7 +10,6 @@
 	<string name="explore">Explore</string>
 	<string name="change">Change</string>
 	<string name="settings">Settings</string>
-	<string name="preset_store">Preset store</string>
 	<string name="confirm_got_it">Got It</string>
 	<string name="explore_ac">EXPLORE</string>
 	<string name="change_ac">CHANGE</string>
@@ -262,12 +261,29 @@
 	<string name="about_bio_preset_by">Preset by </string>
 
 	<!-- Preset Store -->
+	<string name="preset_store">Preset store</string>
     <string name="preset_store_description">Discover and download new presets</string>
 	<string name="preset_store_action_preset_by">By </string>
 	<string name="preset_store_action_download">DOWNLOAD</string>
 	<string name="preset_store_action_remove">REMOVE</string>
 	<string name="preset_store_action_select">SELECT</string>
 	<string name="preset_store_action_gesture_enabled">Gesture preset</string>
+	<string name="preset_store_loading_metadata">Loading preset store</string>
+	<string name="preset_store_permission_dialog_title">Grant access</string>
+	<string name="preset_store_permission_dialog_text">
+		Preset store needs storage permissions to run.
+		Change permissions in your device\'s app settings.
+		Give Tapad access to Storage.
+	</string>
+	<string name="preset_store_permission_dialog_positive">SETTINGS</string>
+	<string name="preset_store_permission_dialog_negative">EXIT</string>
+	<string name="preset_store_gesture_help_dialog_title">About gesture presets</string>
+	<string name="preset_store_gesture_help_dialog_text">
+		Gesture preset means that the preset is available for gesture mode.
+		Gesture mode is a new feature on Tapad to make playing more dynamic.
+		Not just pressing the buttons, gesture mode makes use of the touchscreen.
+		You can press it, and swipe it in 4 directions.
+	</string>
 	
 	<!--Settings-->
 	<string name="settings_group_play">Play</string>

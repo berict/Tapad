@@ -14,7 +14,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
 		android:layout_alignParentTop="true"
-		android:background="@color/hello"/>
+		android:background="@color/dark_status_bar"/>
 	
 	<RelativeLayout
 		android:id="@+id/layout_relative"
@@ -52,7 +52,7 @@
 							android:adjustViewBounds="true"
 							android:fitsSystemWindows="true"
 							android:scaleType="centerCrop"
-							android:src="@drawable/about_album_hello"
+							android:src="@drawable/about_image_preset_store"
 							android:transitionName="transition"
 							app:layout_collapseMode="parallax"/>
 						
@@ -82,21 +82,11 @@
 				
 				<LinearLayout
 					android:layout_width="match_parent"
-					android:layout_height="match_parent"
+					android:layout_height="wrap_content"
 					android:orientation="vertical">
 					
-					<!-- TODO this is a dev only element -->
-					
-					<Button
-						android:id="@+id/do_sth"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:text="DO STH"
-						android:layout_gravity="center_horizontal"
-						android:padding="20dp"/>
-					
 					<LinearLayout
-						android:id="@+id/layout_detail"
+						android:id="@+id/layout_preset_store"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:focusable="true"
@@ -105,10 +95,35 @@
 						android:orientation="vertical">
 						<!-- focusableInTouchMode for disable auto-scroll to recyclerView -->
 						
+						<LinearLayout
+							android:id="@+id/layout_preset_store_recyclerview_loading"
+							android:layout_width="wrap_content"
+							android:layout_height="match_parent"
+							android:orientation="vertical"
+							android:layout_marginTop="200dp"
+							android:gravity="center_horizontal">
+							
+							<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:textSize="18sp"
+								android:textColor="@color/dark_secondary"
+								android:layout_marginBottom="12dp"
+								android:text="@string/preset_store_loading_metadata"/>
+							
+							<ProgressBar
+								android:layout_width="match_parent"
+								android:layout_height="match_parent"
+								style="?android:attr/progressBarStyleHorizontal"
+								android:indeterminateTint="@color/amber"
+								android:indeterminate="true"/>
+						</LinearLayout>
+						
 						<android.support.v7.widget.RecyclerView
-							android:id="@+id/layout_detail_recyclerview"
+							android:id="@+id/layout_preset_store_recyclerview"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
+							android:visibility="gone"
 							android:scrollbars="none"/>
 					</LinearLayout>
 					

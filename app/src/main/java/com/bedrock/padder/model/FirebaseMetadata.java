@@ -27,6 +27,10 @@ public class FirebaseMetadata {
         return presets;
     }
 
+    public Preset getPreset(int position) {
+        return presets[position];
+    }
+
     public Integer getVersionCode() {
         return versionCode;
     }
