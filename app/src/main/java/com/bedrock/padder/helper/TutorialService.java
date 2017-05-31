@@ -1276,7 +1276,7 @@ public class TutorialService extends Activity {
         try {
             mHandler.removeCallbacksAndMessages(null);
             window.getImageView(R.id.toolbar_tutorial_icon, a).setImageResource(R.drawable.ic_tutorial);
-            window.getImageView(R.id.layout_settings_tutorial_icon, a).setImageResource(R.drawable.settings_tutorial);
+            window.getImageView(R.id.layout_settings_tutorial_icon, a).setImageResource(R.drawable.ic_tutorial);
             Log.i("TutorialService", "tutorial finished");
         } catch (NullPointerException e) {
             Log.e("tutorialService", "NPE, failed to remove callback from handler");

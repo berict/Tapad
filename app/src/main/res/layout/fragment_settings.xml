@@ -110,7 +110,7 @@
 							android:layout_marginLeft="8dp"
 							android:layout_marginRight="8dp"
 							android:padding="10dp"
-							android:src="@drawable/settings_tutorial"/>
+							android:src="@drawable/ic_tutorial"/>
 						
 						<TextView
 							android:id="@+id/layout_settings_tutorial_text"
@@ -157,7 +157,7 @@
 							android:layout_marginLeft="8dp"
 							android:layout_marginRight="8dp"
 							android:padding="10dp"
-							android:src="@drawable/settings_custom_sound"/>
+							android:src="@drawable/ic_custom_sound"/>
 						
 						<TextView
 							android:id="@+id/layout_settings_custom_sound_text"
@@ -252,7 +252,7 @@
 							android:layout_marginLeft="8dp"
 							android:layout_marginRight="8dp"
 							android:padding="10dp"
-							android:src="@drawable/settings_custom_touch"/>
+							android:src="@drawable/ic_custom_touch"/>
 						
 						<TextView
 							android:id="@+id/layout_settings_custom_touch_text"
@@ -290,7 +290,7 @@
 							android:layout_marginLeft="8dp"
 							android:layout_marginRight="8dp"
 							android:padding="10dp"
-							android:src="@drawable/settings_layout"/>
+							android:src="@drawable/ic_custom_layout"/>
 						
 						<TextView
 							android:id="@+id/layout_settings_layout_text"

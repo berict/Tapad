@@ -558,7 +558,7 @@
 				android:id="@+id/fab_icon"
 				android:layout_width="24dp"
 				android:layout_height="24dp"
-				android:src="@drawable/feedback_send"/>
+				android:src="@drawable/ic_send"/>
 		</RelativeLayout>
 	</RelativeLayout>
 	
@@ -570,7 +570,7 @@
 	<!--android:layout_alignParentRight="true"-->
 	<!--app:fabSize="normal"-->
 	<!--android:layout_margin="@dimen/fab_margin"-->
-	<!--android:src="@drawable/feedback_send" />-->
+	<!--android:src="@drawable/ic_send" />-->
 	
 	<View
 		android:id="@+id/layout_placeholder"

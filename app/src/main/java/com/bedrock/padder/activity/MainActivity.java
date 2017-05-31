@@ -1165,11 +1165,11 @@ public class MainActivity
     private void setTutorialUI() {
         if (isTutorialVisible == true) {
             w.getImageView(R.id.toolbar_tutorial_icon, a).setImageResource(R.drawable.ic_tutorial_quit);
-            w.getImageView(R.id.layout_settings_tutorial_icon, a).setImageResource(R.drawable.settings_tutorial_quit);
+            w.getImageView(R.id.layout_settings_tutorial_icon, a).setImageResource(R.drawable.ic_tutorial_quit);
             w.getSwitchCompat(R.id.layout_settings_tutorial_switch, a).setChecked(true);
         } else {
             w.getImageView(R.id.toolbar_tutorial_icon, a).setImageResource(R.drawable.ic_tutorial);
-            w.getImageView(R.id.layout_settings_tutorial_icon, a).setImageResource(R.drawable.settings_tutorial);
+            w.getImageView(R.id.layout_settings_tutorial_icon, a).setImageResource(R.drawable.ic_tutorial);
             w.getSwitchCompat(R.id.layout_settings_tutorial_switch, a).setChecked(false);
         }
     }

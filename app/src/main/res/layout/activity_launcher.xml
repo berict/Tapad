@@ -15,7 +15,7 @@
         android:layout_marginBottom="40dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/logo_berict"
+        android:src="@drawable/ic_logo_berict"
         android:alpha="0.5"
         android:visibility="visible"/>
 
