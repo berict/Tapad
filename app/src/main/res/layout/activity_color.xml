@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/appbar">
+        android:layout_below="@+id/actionbar">
 
         <LinearLayout
             android:id="@+id/layout_color_linear"

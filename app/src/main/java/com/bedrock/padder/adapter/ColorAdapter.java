@@ -37,7 +37,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
         View colorView3;
         View colorView4;
         TextView actionPrimary;
-        TextView actionDelete;
+        TextView actionRemove;
 
         public DetailViewHolder(View view) {
             super(view);
@@ -47,7 +47,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
             colorView2 = view.findViewById(R.id.view_color_2);
             colorView3 = view.findViewById(R.id.view_color_3);
             colorView4 = view.findViewById(R.id.view_color_4);
-            actionDelete = (TextView) view.findViewById(R.id.layout_color_action_delete);
+            actionRemove = (TextView) view.findViewById(R.id.layout_color_action_remove);
             actionPrimary = (TextView) view.findViewById(R.id.layout_color_action_primary);
         }
     }
@@ -129,12 +129,12 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
             }
         });
 
-        holder.actionDelete.setOnClickListener(new View.OnClickListener() {
+        holder.actionRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new MaterialDialog.Builder(activity)
-                        .content(R.string.settings_color_dialog_delete)
-                        .positiveText(R.string.delete_ac)
+                        .content(R.string.settings_color_dialog_remove)
+                        .positiveText(R.string.remove_ac)
                         .positiveColorRes(R.color.red)
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
