@@ -15,7 +15,7 @@
 	<string name="explore_ac">EXPLORE</string>
 	<string name="change_ac">CHANGE</string>
 	<string name="make_primary_ac">MAKE PRIMARY</string>
-	<string name="delete_ac">DELETE</string>
+	<string name="remove_ac">REMOVE</string>
 	<string name="settings_ac">SETTINGS</string>
 	<string name="confirm_got_it_ac">GOT IT</string>
 	<string name="confirm_exit">Press back again to exit</string>
@@ -282,7 +282,7 @@
 	<string name="settings_color">Colors</string>
 	<string name="settings_color_current">Current color</string>
 	<string name="settings_color_dialog">Add new color</string>
-	<string name="settings_color_dialog_delete">Delete this color?</string>
+	<string name="settings_color_dialog_remove">Remove color?</string>
 	<string name="settings_color_dialog_duplicate">You already have this color</string>
 	<string name="settings_color_dialog_duplicate_current">This color is already your current color</string>
 	<string name="settings_color_placeholder_title">You have no colors</string>

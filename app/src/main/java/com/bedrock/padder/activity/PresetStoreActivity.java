@@ -2,7 +2,6 @@ package com.bedrock.padder.activity;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,8 +30,6 @@ public class PresetStoreActivity extends AppCompatActivity {
 
     Activity activity = this;
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
-
-    SharedPreferences prefs;
 
     private WindowService window = new WindowService();
     private AnimService anim = new AnimService();
