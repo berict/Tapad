@@ -199,7 +199,6 @@ public class AboutFragment extends Fragment {
                 break;
             }
         }
-        //super.onCreateOptionsMenu(menu, inflater);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

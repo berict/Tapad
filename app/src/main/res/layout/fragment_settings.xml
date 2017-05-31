@@ -405,7 +405,7 @@
 			</LinearLayout>
 		</ScrollView>
 		
-		<include layout="@layout/fragment_actionbar"/>
+		<include layout="@layout/fragment_actionbar_material"/>
 		
 	</RelativeLayout>
 

@@ -8,7 +8,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -17,9 +22,9 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.activity.MainActivity;
-import com.bedrock.padder.helper.AppbarService;
 import com.bedrock.padder.helper.IntentService;
 import com.bedrock.padder.helper.SoundService;
+import com.bedrock.padder.helper.ToolbarService;
 import com.bedrock.padder.helper.TutorialService;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.preset.Preset;
@@ -34,16 +39,17 @@ import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
 
 public class SettingsFragment extends Fragment {
 
-    private AppbarService ab = new AppbarService();
+    //private AppbarService ab = new AppbarService();
     private WindowService w = new WindowService();
     private IntentService intent = new IntentService();
     private MainActivity main = new MainActivity();
     private TutorialService tut = new TutorialService();
     private SoundService sound = new SoundService();
+    private ToolbarService toolbar = new ToolbarService();
 
     private SharedPreferences prefs = null;
 
-    private Activity a;
+    private AppCompatActivity a;
     private View v;
 
     private OnFragmentInteractionListener mListener;
@@ -59,10 +65,13 @@ public class SettingsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        setHasOptionsMenu(true);
+        return view;
     }
 
     @Override
@@ -82,7 +91,7 @@ public class SettingsFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-        a = getActivity();
+        a = (AppCompatActivity)getActivity();
         prefs = a.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
     }
     
@@ -147,15 +156,51 @@ public class SettingsFragment extends Fragment {
                 .show();
     }
 
+    Menu menu;
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        this.menu = menu;
+        int i = 0;
+        while (true) {
+            try {
+                menu.getItem(i++).setVisible(false);
+            } catch (Exception e) {
+                break;
+            }
+        }
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item != menu.findItem(R.id.action_about) &&
+                item != menu.findItem(R.id.action_settings) &&
+                item != menu.findItem(R.id.action_help)) {
+            // only the back icon
+            pressBack();
+        }
+        return true;
+    }
+
+    private void pressBack() {
+        KeyEvent kDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
+        a.dispatchKeyEvent(kDown);
+        KeyEvent kUp = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK);
+        a.dispatchKeyEvent(kUp);
+    }
+
     public void setSchemeInfo() {
         Preset currentPreset = presets[getScheme()];
+        toolbar.setActionBar(a, v);
         if (isAboutVisible) {
-            ab.setNav(1, null, a, v);
+            // back
+            toolbar.setActionBarDisplayHomeAsUp(true, a);
         } else {
-            ab.setNav(3, null, a, v);
+            // close
+            toolbar.setActionBarDisplayHomeAsUpIcon(R.drawable.ic_close, a);
         }
-        ab.setColor(R.color.colorAccent, a, v);
-        ab.setTitle(R.string.settings, a, v);
+        toolbar.setActionBarTitle(R.string.settings, a);
+        toolbar.setActionBarPadding(a, v);
+        toolbar.setActionBarColor(R.color.colorAccent, a);
 
         w.getTextView(R.id.layout_settings_preset_hint, v).setText(w.getStringId(currentPreset.getMusic().getName() + "_full"));
 
