@@ -22,7 +22,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    // Android Support Lib
+    // Android Support lib
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:support-fragment:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
@@ -32,11 +32,11 @@ dependencies {
     compile 'com.android.support:support-compat:25.3.1'
     // Google Gson
     compile 'com.google.code.gson:gson:2.8.0'
-    // Material TapTarget Lib
+    // Material TapTarget lib
     compile 'uk.co.samuelwall:material-tap-target-prompt:1.2.0'
     // SystemBarTint
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
-    // Material Dialog Lib
+    // Material Dialog lib
     compile 'com.afollestad.material-dialogs:commons:0.9.0.1'
     // Apache Commons Lang
     compile 'org.apache.commons:commons-lang3:3.5'
@@ -44,9 +44,11 @@ dependencies {
     compile 'com.google.firebase:firebase-core:10.2.6'
     compile 'com.google.firebase:firebase-ads:10.2.6'
     compile 'com.google.firebase:firebase-storage:10.2.6'
+    compile 'com.google.firebase:firebase-auth:10.2.6'
+    // Networking lib
+    compile 'com.squareup.picasso:picasso:2.5.2'
 
     testCompile 'junit:junit:4.12'
 }
 
-//TODO use on IAP launch
-//apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.gms.google-services'
