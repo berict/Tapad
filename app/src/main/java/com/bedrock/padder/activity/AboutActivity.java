@@ -160,13 +160,13 @@ public class AboutActivity extends AppCompatActivity {
         }
     }
 
-    void enterAnim() {
+    private void enterAnim() {
         anim.fadeIn(R.id.layout_text, 400, 200, "titleIn", activity);
         anim.fadeIn(R.id.layout_detail_bio, 500, 200, "bioIn", activity);
         anim.fadeIn(R.id.layout_detail_recyclerview, 600, 200, "aboutIn", activity);
     }
 
-    void pressBack() {
+    private void pressBack() {
         KeyEvent kDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
         activity.dispatchKeyEvent(kDown);
         KeyEvent kUp = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK);

@@ -20,6 +20,10 @@ public class ToolbarService {
         appCompatActivity.setSupportActionBar((Toolbar)appCompatActivity.findViewById(TOOLBAR));
     }
 
+    public void setActionBar(AppCompatActivity appCompatActivity, View view) {
+        appCompatActivity.setSupportActionBar((Toolbar)view.findViewById(TOOLBAR));
+    }
+
     public void setActionBarTitle(int titleResId, AppCompatActivity appCompatActivity) {
         if (titleResId == 0) {
             // no title, remove the title
