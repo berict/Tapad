@@ -626,6 +626,7 @@
     <!-- Text -->
     <!-- Dark Text -->
     <item name="dark_primary" type="color">#DE000000</item>
+    <item name="dark_action" type="color">#9c000000</item>
     <item name="dark_secondary" type="color">#8A000000</item>
     <item name="dark_hint" type="color">#42000000</item>
     <item name="dark_divider" type="color">#1F000000</item>

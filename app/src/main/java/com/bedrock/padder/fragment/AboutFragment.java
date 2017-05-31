@@ -195,7 +195,7 @@ public class AboutFragment extends Fragment {
         w.getTextView(R.id.cardview_music_change, v).setTextColor(themeColor);
 
         // artist
-        w.getView(R.id.cardview_artist, v).setOnClickListener(new View.OnClickListener() {
+        w.getView(R.id.cardview_music, v).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
