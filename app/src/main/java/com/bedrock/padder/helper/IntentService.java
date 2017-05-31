@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.util.Log;
@@ -90,6 +91,27 @@ public class IntentService {
             }, delay);
         } catch (ClassNotFoundException e){
             Log.i("IntentService", "Error, there is no such class");
+        }
+    }
+
+    public void intentAppDetailSettings(final Activity activity, int delay) {
+        final Intent intent = new Intent();
+        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", activity.getPackageName(), null);
+        intent.setData(uri);
+
+        if (delay > 0) {
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Log.i("IntentService", "intentAppDetailSettings");
+                    activity.startActivity(intent);
+                }
+            }, delay);
+        } else {
+            Log.i("IntentService", "intentAppDetailSettings");
+            activity.startActivity(intent);
         }
     }
 
