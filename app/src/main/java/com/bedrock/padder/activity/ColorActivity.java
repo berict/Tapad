@@ -9,14 +9,16 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.adapter.ColorAdapter;
-import com.bedrock.padder.helper.AppbarService;
 import com.bedrock.padder.helper.FabService;
+import com.bedrock.padder.helper.ToolbarService;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.app.theme.ColorData;
 import com.google.gson.Gson;
@@ -29,7 +31,7 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
 
     private WindowService w = new WindowService();
     private FabService fab = new FabService();
-    private AppbarService ab = new AppbarService();
+    private ToolbarService toolbar = new ToolbarService();
 
     Activity activity = this;
     SharedPreferences prefs = null;
@@ -50,17 +52,19 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
         w.setStatusBar(R.color.transparent, activity);
         w.setNavigationBar(R.color.transparent, activity);
 
-        ab.setStatusHeight(activity);
         color = prefs.getInt("color", R.color.cyan_400);
 
         setUi();
     }
 
     private void setUi() {
-        // appbar
-        ab.setNav(1, null, activity);
-        ab.setTitle(R.string.task_settings_color, activity);
-        ab.setColor(R.color.colorAccent, activity);
+        // toolbar
+        toolbar.setActionBar(this);
+        toolbar.setStatusBarTint(this);
+        toolbar.setActionBarPadding(this);
+        toolbar.setActionBarDisplayHomeAsUp(true, this);
+        toolbar.setActionBarTitle(R.string.settings_color, this);
+        toolbar.setActionBarColor(R.color.colorAccent, this);
         w.setRecentColor(R.string.task_settings_color, R.color.colorAccent, activity);
 
         // fab
@@ -155,6 +159,18 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
             w.setGone(R.id.layout_color_placeholder, 0, activity);
         }
         super.onWindowFocusChanged(hasFocus);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        pressBack();
+        return true;
+    }
+
+    private void pressBack() {
+        KeyEvent kDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
+        activity.dispatchKeyEvent(kDown);
+        KeyEvent kUp = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK);
+        activity.dispatchKeyEvent(kUp);
     }
 
     @Override
