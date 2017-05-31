@@ -11,7 +11,11 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +26,9 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.helper.AdmobService;
 import com.bedrock.padder.helper.AnimService;
-import com.bedrock.padder.helper.AppbarService;
 import com.bedrock.padder.helper.IntentService;
 import com.bedrock.padder.helper.SoundService;
+import com.bedrock.padder.helper.ToolbarService;
 import com.bedrock.padder.helper.TutorialService;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.preset.Preset;
@@ -43,13 +47,13 @@ import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
 
 public class AboutFragment extends Fragment {
 
-    private AppbarService ab = new AppbarService();
     private WindowService w = new WindowService();
     private AdmobService ad = new AdmobService();
     private IntentService intent = new IntentService();
     private AnimService anim = new AnimService();
     private TutorialService tut = new TutorialService();
     private SoundService sound = new SoundService();
+    private ToolbarService toolbar = new ToolbarService();
 
     private int circularRevealDuration = 400;
     private int fadeAnimDuration = 200;
@@ -72,10 +76,13 @@ public class AboutFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_about, container, false);
+        View view = inflater.inflate(R.layout.fragment_about, container, false);
+        setHasOptionsMenu(true);
+        return view;
     }
 
     @Override
@@ -179,14 +186,41 @@ public class AboutFragment extends Fragment {
                 .show();
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        int i = 0;
+        while (true) {
+            try {
+                menu.getItem(i++).setVisible(false);
+            } catch (Exception e) {
+                break;
+            }
+        }
+        //super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        pressBack();
+        return true;
+    }
+
+    private void pressBack() {
+        KeyEvent kDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
+        a.dispatchKeyEvent(kDown);
+        KeyEvent kUp = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK);
+        a.dispatchKeyEvent(kUp);
+    }
+
     public void setSchemeInfo() {
         Preset currentPreset = presets[getScheme()];
         Log.d("currentPreset", "NAME : " + currentPreset.getAbout().getTitle());
         themeColor = currentPreset.getAbout().getActionbarColor();
 
-        ab.setNav(3, null, a, v);
-        ab.setColor(themeColor, a, v);
-        ab.setTitle(R.string.about, a, v);
+        toolbar.setActionBar(a, v);
+        toolbar.setActionBarTitle(R.string.about, a);
+        toolbar.setActionBarPadding(a, v);
+        toolbar.setActionBarColor(themeColor, a);
+        toolbar.setActionBarDisplayHomeAsUp(true, a);
 
         // Cardview
         w.getImageView(R.id.cardview_music_image, v).setImageResource(w.getDrawableId("about_album_" + currentPreset.getMusic().getName().replace("preset_", "")));
