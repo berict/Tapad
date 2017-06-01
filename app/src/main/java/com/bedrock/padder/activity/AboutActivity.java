@@ -16,10 +16,11 @@ import android.view.View;
 import com.bedrock.padder.R;
 import com.bedrock.padder.adapter.DetailAdapter;
 import com.bedrock.padder.helper.AnimService;
-import com.bedrock.padder.helper.ThemeService;
+import com.bedrock.padder.helper.FirebaseService;
 import com.bedrock.padder.helper.ToolbarService;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.about.About;
+import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
 
 import static com.bedrock.padder.activity.MainActivity.currentPreset;
@@ -32,8 +33,8 @@ public class AboutActivity extends AppCompatActivity {
 
     private WindowService window = new WindowService();
     private AnimService anim = new AnimService();
-    private ThemeService theme = new ThemeService();
     private ToolbarService toolbar = new ToolbarService();
+    private FirebaseService firebase = new FirebaseService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,12 @@ public class AboutActivity extends AppCompatActivity {
                 about = gson.fromJson(getResources().getString(R.string.json_about_dev  ), About.class);
                 break;
             default:
-                Log.e("Error", "currentAbout is not specified");
+                String presetJson = firebase.getPresetJson(currentAbout);
+                if (presetJson != null) {
+                    about = gson.fromJson(firebase.getPresetJson(currentAbout), Preset.class).getAbout();
+                } else {
+                    Log.d("About", "currentAbout wasn't defined");
+                }
                 break;
         }
 
@@ -154,7 +160,7 @@ public class AboutActivity extends AppCompatActivity {
         super.onWindowFocusChanged(hasFocus);
 
         if (hasFocus) {
-            theme.setGone(R.id.layout_placeholder, 0, activity);
+            window.setGone(R.id.layout_placeholder, 0, activity);
             // reset taskDesc
             window.setRecentColor(about.getTitle(), about.getActionbarColor(), activity);
         }

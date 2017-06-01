@@ -31,7 +31,6 @@ import com.bedrock.padder.helper.AnimService;
 import com.bedrock.padder.helper.FabService;
 import com.bedrock.padder.helper.IntentService;
 import com.bedrock.padder.helper.SoundService;
-import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.ToolbarService;
 import com.bedrock.padder.helper.TutorialService;
 import com.bedrock.padder.helper.WindowService;
@@ -87,10 +86,8 @@ public class MainActivity
     int togglePatternId = 0;
 
     private AnimService anim = new AnimService();
-    private ThemeService t = new ThemeService();
     private SoundService sound = new SoundService();
     private WindowService w = new WindowService();
-    //private FabServiceOld fab = new FabServiceOld();
     private FabService fab = new FabService();
     private ToolbarService toolbar = new ToolbarService();
     private TutorialService tut = new TutorialService();
@@ -143,7 +140,7 @@ public class MainActivity
     }
 
     // TODO this is a quickfix
-    String fadedJson = "{\"about\":{\"actionbar_color\":\"#00D3BE\",\"bio\":{\"image\":\"about_bio_faded\",\"name\":\"Alan Olav Walker\",\"source\":\"Powered by Wikipedia X last.fm\",\"text\":\"Alan Walker (Alan Olav Walker) is a British-Norwegian record producer who was born in Northampton, England. He recorded electronic dance music single \\\"Faded\\\" and his song released on NoCopyrightSounds, \\\"Fade\\\".\",\"title\":\"Alan Walker\\u0027s biography\"},\"details\":[{\"items\":[{\"hint\":\"https://facebook.com/alanwalkermusic\",\"hint_is_visible\":true,\"image_id\":\"ic_logo_facebook\",\"runnable_is_with_anim\":false,\"text_id\":\"facebook\"},{\"hint\":\"https://twitter.com/IAmAlanWalker\",\"hint_is_visible\":true,\"image_id\":\"ic_logo_twitter\",\"runnable_is_with_anim\":false,\"text_id\":\"twitter\"},{\"hint\":\"https://soundcloud.com/alanwalker\",\"hint_is_visible\":true,\"image_id\":\"ic_logo_soundcloud\",\"runnable_is_with_anim\":false,\"text_id\":\"soundcloud\"},{\"hint\":\"https://instagram.com/alanwalkermusic\",\"hint_is_visible\":true,\"image_id\":\"ic_logo_instagram\",\"runnable_is_with_anim\":false,\"text_id\":\"instagram\"},{\"hint\":\"https://plus.google.com/u/0/+Alanwalkermusic\",\"hint_is_visible\":true,\"image_id\":\"ic_logo_google_plus\",\"runnable_is_with_anim\":false,\"text_id\":\"google_plus\"},{\"hint\":\"https://youtube.com/user/DjWalkzz\",\"hint_is_visible\":true,\"image_id\":\"ic_logo_youtube\",\"runnable_is_with_anim\":false,\"text_id\":\"youtube\"},{\"hint\":\"http://alanwalkermusic.no\",\"hint_is_visible\":true,\"image_id\":\"ic_logo_web\",\"runnable_is_with_anim\":false,\"text_id\":\"web\"}],\"title\":\"About Alan Walker\"},{\"items\":[{\"hint\":\"https://soundcloud.com/alanwalker/faded-1\",\"hint_is_visible\":false,\"image_id\":\"ic_logo_soundcloud\",\"runnable_is_with_anim\":false,\"text_id\":\"soundcloud\"},{\"hint\":\"https://youtu.be/60ItHLz5WEA\",\"hint_is_visible\":false,\"image_id\":\"ic_logo_youtube\",\"runnable_is_with_anim\":false,\"text_id\":\"youtube\"},{\"hint\":\"https://open.spotify.com/track/1brwdYwjltrJo7WHpIvbYt\",\"hint_is_visible\":false,\"image_id\":\"ic_logo_spotify\",\"runnable_is_with_anim\":false,\"text_id\":\"spotify\"},{\"hint\":\"https://play.google.com/store/music/album/Alan_Walker_Faded?id\\u003dBgdyyljvf7b624pbv5ylcrfevte\",\"hint_is_visible\":false,\"image_id\":\"ic_logo_google_play_music\",\"runnable_is_with_anim\":false,\"text_id\":\"google_play_music\"},{\"hint\":\"https://itunes.apple.com/us/album/faded/id1196294554?i\\u003d1196294581\",\"hint_is_visible\":false,\"image_id\":\"ic_logo_apple\",\"runnable_is_with_anim\":false,\"text_id\":\"apple\"},{\"hint\":\"https://amazon.com/Faded/dp/B01NBYNKWJ\",\"hint_is_visible\":false,\"image_id\":\"ic_logo_amazon\",\"runnable_is_with_anim\":false,\"text_id\":\"amazon\"},{\"hint\":\"https://pandora.com/alan-walker/faded-single/faded\",\"hint_is_visible\":false,\"image_id\":\"ic_logo_pandora\",\"runnable_is_with_anim\":false,\"text_id\":\"pandora\"}],\"title\":\"About this track\"}],\"image\":\"about_album_faded\",\"preset_creator\":\"Studio Berict\",\"title\":\"Alan Walker - Faded\",\"tutorial_link\":\"null\"},\"id\":2,\"music\":{\"bpm\":90,\"file_name\":\"alan_walker_faded\",\"is_gesture\":true,\"name\":\"preset_faded\",\"sound_count\":246}}";
+    String fadedJson = "{\"about\":{\"actionbar_color\":\"#00D3BE\",\"bio\":{\"image\":\"about_bio_faded\",\"name\":\"Alan Olav Walker\",\"source\":\"Powered by Wikipedia X last.fm\",\"text\":\"Alan Walker (Alan Olav Walker) is a British-Norwegian record producer who was born in Northampton, England. He recorded electronic dance music single \\\"Faded\\\" and his song released on NoCopyrightSounds, \\\"Fade\\\".\",\"title\":\"Alan Walker\\u0027s biography\"},\"details\":[{\"items\":[{\"hint\":\"https://facebook.com/alanwalkermusic\",\"hint_is_visible\":true,\"image_id\":\"facebook\",\"runnable_is_with_anim\":false,\"text_id\":\"facebook\"},{\"hint\":\"https://twitter.com/IAmAlanWalker\",\"hint_is_visible\":true,\"image_id\":\"twitter\",\"runnable_is_with_anim\":false,\"text_id\":\"twitter\"},{\"hint\":\"https://soundcloud.com/alanwalker\",\"hint_is_visible\":true,\"image_id\":\"soundcloud\",\"runnable_is_with_anim\":false,\"text_id\":\"soundcloud\"},{\"hint\":\"https://instagram.com/alanwalkermusic\",\"hint_is_visible\":true,\"image_id\":\"instagram\",\"runnable_is_with_anim\":false,\"text_id\":\"instagram\"},{\"hint\":\"https://plus.google.com/u/0/+Alanwalkermusic\",\"hint_is_visible\":true,\"image_id\":\"google_plus\",\"runnable_is_with_anim\":false,\"text_id\":\"google_plus\"},{\"hint\":\"https://youtube.com/user/DjWalkzz\",\"hint_is_visible\":true,\"image_id\":\"youtube\",\"runnable_is_with_anim\":false,\"text_id\":\"youtube\"},{\"hint\":\"http://alanwalkermusic.no\",\"hint_is_visible\":true,\"image_id\":\"web\",\"runnable_is_with_anim\":false,\"text_id\":\"web\"}],\"title\":\"About Alan Walker\"},{\"items\":[{\"hint\":\"https://soundcloud.com/alanwalker/faded-1\",\"hint_is_visible\":false,\"image_id\":\"soundcloud\",\"runnable_is_with_anim\":false,\"text_id\":\"soundcloud\"},{\"hint\":\"https://youtu.be/60ItHLz5WEA\",\"hint_is_visible\":false,\"image_id\":\"youtube\",\"runnable_is_with_anim\":false,\"text_id\":\"youtube\"},{\"hint\":\"https://open.spotify.com/track/1brwdYwjltrJo7WHpIvbYt\",\"hint_is_visible\":false,\"image_id\":\"spotify\",\"runnable_is_with_anim\":false,\"text_id\":\"spotify\"},{\"hint\":\"https://play.google.com/store/music/album/Alan_Walker_Faded?id\\u003dBgdyyljvf7b624pbv5ylcrfevte\",\"hint_is_visible\":false,\"image_id\":\"google_play_music\",\"runnable_is_with_anim\":false,\"text_id\":\"google_play_music\"},{\"hint\":\"https://itunes.apple.com/us/album/faded/id1196294554?i\\u003d1196294581\",\"hint_is_visible\":false,\"image_id\":\"apple\",\"runnable_is_with_anim\":false,\"text_id\":\"apple\"},{\"hint\":\"https://amazon.com/Faded/dp/B01NBYNKWJ\",\"hint_is_visible\":false,\"image_id\":\"amazon\",\"runnable_is_with_anim\":false,\"text_id\":\"amazon\"},{\"hint\":\"https://pandora.com/alan-walker/faded-single/faded\",\"hint_is_visible\":false,\"image_id\":\"pandora\",\"runnable_is_with_anim\":false,\"text_id\":\"pandora\"}],\"title\":\"About this track\"}],\"image\":\"about_album_faded\",\"preset_creator\":\"Studio Berict\",\"title\":\"Alan Walker - Faded\",\"tutorial_link\":\"null\"},\"firebase_location\":\"alan_walker_faded_gesture\",\"music\":{\"bpm\":90,\"file_name\":\"alan_walker_faded\",\"is_gesture\":true,\"name\":\"preset_faded\",\"sound_count\":246}}";
 
     private void quickmove() {
         // TODO this is a dev only function
@@ -379,7 +376,7 @@ public class MainActivity
                 R.id.btn44_tutorial};
 
         for (int i = 0; i < tutorial.length; i++) {
-            t.setInvisible(tutorial[i], 10, a);
+            w.setInvisible(tutorial[i], 10, a);
         }
 
         color = prefs.getInt("color", R.color.cyan_400);
@@ -432,7 +429,7 @@ public class MainActivity
                 R.id.btn44_tutorial};
 
         for (int i = 0; i < tutorial.length; i++) {
-            t.setInvisible(tutorial[i], 10, a);
+            w.setInvisible(tutorial[i], 10, a);
         }
 
         ad.resumeNativeAdView(R.id.adView_main, a);
@@ -1789,24 +1786,24 @@ public class MainActivity
         );
 
         Item tapadInfo[] = {
-                new Item("info_tapad_info_check_update", w.getStringFromId("info_tapad_info_check_update_hint", a), "ic_logo_google_play", true),
-                new Item("info_tapad_info_tester", w.getStringFromId("info_tapad_info_tester_hint", a), "ic_experiment_black", true),
-                new Item("info_tapad_info_legal", null, "ic_info_white", false),
+                new Item("info_tapad_info_check_update", w.getStringFromId("info_tapad_info_check_update_hint", a), "google_play", true),
+                new Item("info_tapad_info_tester", w.getStringFromId("info_tapad_info_tester_hint", a), "experiment", true),
+                new Item("info_tapad_info_legal", null, "info", false),
                 new Item("info_tapad_info_version", w.getStringFromId("info_tapad_info_version_hint", a), ""),
                 new Item("info_tapad_info_build_date", w.getStringFromId("info_tapad_info_build_date_hint", a), ""),
-                new Item("info_tapad_info_changelog", null, "ic_changelog_black", false),
-                new Item("info_tapad_info_thanks", null, "ic_thanks_black", false),
-                new Item("info_tapad_info_dev", w.getStringFromId("info_tapad_info_dev_hint", a), "ic_developer_black", false)
+                new Item("info_tapad_info_changelog", null, "changelog", false),
+                new Item("info_tapad_info_thanks", null, "thanks", false),
+                new Item("info_tapad_info_dev", w.getStringFromId("info_tapad_info_dev_hint", a), "developer", false)
                 // TODO ADD ITEMS
         };
 
         Item tapadOthers[] = {
-                new Item("info_tapad_others_song", w.getStringFromId("info_tapad_others_song_hint", a), "ic_song_black", true),
-                new Item("info_tapad_others_feedback", w.getStringFromId("info_tapad_others_feedback_hint", a), "ic_feedback_black", true),
-                new Item("info_tapad_others_report_bug", w.getStringFromId("info_tapad_others_report_bug_hint", a), "ic_report_bug_black", true),
-                new Item("info_tapad_others_rate", w.getStringFromId("info_tapad_others_rate_hint", a), "ic_rate_black", true),
-                new Item("info_tapad_others_translate", w.getStringFromId("info_tapad_others_translate_hint", a), "ic_logo_web", false),
-                new Item("info_tapad_others_recommend", w.getStringFromId("info_tapad_others_recommend_hint", a), "ic_recommend_black", true)
+                new Item("info_tapad_others_song", w.getStringFromId("info_tapad_others_song_hint", a), "song", true),
+                new Item("info_tapad_others_feedback", w.getStringFromId("info_tapad_others_feedback_hint", a), "feedback", true),
+                new Item("info_tapad_others_report_bug", w.getStringFromId("info_tapad_others_report_bug_hint", a), "report_bug", true),
+                new Item("info_tapad_others_rate", w.getStringFromId("info_tapad_others_rate_hint", a), "rate", true),
+                new Item("info_tapad_others_translate", w.getStringFromId("info_tapad_others_translate_hint", a), "web", false),
+                new Item("info_tapad_others_recommend", w.getStringFromId("info_tapad_others_recommend_hint", a), "recommend", true)
         };
 
         Detail tapadDetails[] = {
@@ -1841,10 +1838,10 @@ public class MainActivity
         };
 
         Item devSupport[] = {
-                new Item("info_berict_action_report_bug", w.getStringFromId("info_berict_action_report_bug_hint", a), "ic_report_bug_black", true),
-                new Item("info_berict_action_rate", w.getStringFromId("info_berict_action_rate_hint", a), "ic_rate_black", true),
-                new Item("info_berict_action_translate", w.getStringFromId("info_berict_action_translate_hint", a), "ic_translate_black", false),
-                new Item("info_berict_action_donate", w.getStringFromId("info_berict_action_donate_hint", a), "ic_donate_black", false)
+                new Item("info_berict_action_report_bug", w.getStringFromId("info_berict_action_report_bug_hint", a), "report_bug", true),
+                new Item("info_berict_action_rate", w.getStringFromId("info_berict_action_rate_hint", a), "rate", true),
+                new Item("info_berict_action_translate", w.getStringFromId("info_berict_action_translate_hint", a), "translate", false),
+                new Item("info_berict_action_donate", w.getStringFromId("info_berict_action_donate_hint", a), "donate", false)
         };
 
         Detail berictDetails[] = {

@@ -27,7 +27,6 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.helper.IntentService;
-import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.ToolbarService;
 import com.bedrock.padder.helper.WindowService;
 
@@ -50,7 +49,6 @@ public class UserBenefitsActivity extends AppCompatActivity {
 
     private int position = 0;
 
-    private ThemeService theme = new ThemeService();
     private ToolbarService toolbar = new ToolbarService();
     private WindowService window = new WindowService();
     private IntentService intent = new IntentService();
@@ -233,9 +231,9 @@ public class UserBenefitsActivity extends AppCompatActivity {
 
         for(int i = 0; i < dot.length; i++) {
             if(i == currentPage) {
-                theme.setBackground(dot[i], R.drawable.tutorial_dots_light, this);
+                window.setViewBackgroundDrawable(dot[i], R.drawable.tutorial_dots_light, this);
             } else {
-                theme.setBackground(dot[i], R.drawable.tutorial_dots_dark, this);
+                window.setViewBackgroundDrawable(dot[i], R.drawable.tutorial_dots_dark, this);
             }
         }
     }

@@ -27,7 +27,6 @@ import com.bedrock.padder.R;
 import com.bedrock.padder.adapter.PresetStoreAdapter;
 import com.bedrock.padder.helper.AnimService;
 import com.bedrock.padder.helper.IntentService;
-import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.ToolbarService;
 import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.FirebaseMetadata;
@@ -52,7 +51,6 @@ public class PresetStoreActivity extends AppCompatActivity {
 
     private WindowService window = new WindowService();
     private AnimService anim = new AnimService();
-    private ThemeService theme = new ThemeService();
     private ToolbarService toolbar = new ToolbarService();
     private IntentService intent = new IntentService();
 
@@ -283,7 +281,8 @@ public class PresetStoreActivity extends AppCompatActivity {
                 // offline or not updated, continue
                 Gson gson = new Gson();
                 FirebaseMetadata firebaseMetadata = gson.fromJson(metadata, FirebaseMetadata.class);
-                if (firebaseMetadata.getPresets() == null ||
+                if (firebaseMetadata == null ||
+                        firebaseMetadata.getPresets() == null ||
                         firebaseMetadata.getVersionCode() == null) {
                     // corrupted metadata, download again
                     downloadMetadata();
@@ -292,7 +291,7 @@ public class PresetStoreActivity extends AppCompatActivity {
                     window.getRecyclerView(R.id.layout_preset_store_recyclerview, activity).setAdapter(
                             new PresetStoreAdapter(
                                     firebaseMetadata,
-                                    R.layout.activity_preset_store, activity
+                                    R.layout.adapter_preset_store, activity
                             )
                     );
                 }
@@ -372,7 +371,7 @@ public class PresetStoreActivity extends AppCompatActivity {
         super.onWindowFocusChanged(hasFocus);
 
         if (hasFocus) {
-            theme.setGone(R.id.layout_placeholder, 0, activity);
+            window.setGone(R.id.layout_placeholder, 0, activity);
             // reset taskDesc
             window.setRecentColor(themeTitle, themeColor, activity);
         }

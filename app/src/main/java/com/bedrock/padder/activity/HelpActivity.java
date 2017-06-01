@@ -15,7 +15,6 @@ import android.view.View;
 
 import com.bedrock.padder.R;
 import com.bedrock.padder.helper.AnimService;
-import com.bedrock.padder.helper.ThemeService;
 import com.bedrock.padder.helper.WindowService;
 
 public class HelpActivity extends AppCompatActivity {
@@ -25,7 +24,6 @@ public class HelpActivity extends AppCompatActivity {
 
     private WindowService window = new WindowService();
     private AnimService anim = new AnimService();
-    private ThemeService theme = new ThemeService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +95,7 @@ public class HelpActivity extends AppCompatActivity {
         super.onWindowFocusChanged(hasFocus);
 
         if (hasFocus) {
-            theme.setGone(R.id.layout_placeholder, 0, activity);
+            window.setGone(R.id.layout_placeholder, 0, activity);
             // reset taskDesc
             window.setRecentColor(window.getStringFromId("help_title", activity), R.color.colorAccent, activity);
         }
