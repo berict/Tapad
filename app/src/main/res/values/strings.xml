@@ -1,7 +1,6 @@
 <resources>
 	<string name="app_name">Tapad</string>
 	
-	<string name="blank"></string>
 	<string name="error">Error</string>
 	
 	<!-- Actions -->
@@ -263,8 +262,9 @@
 	<!-- Preset Store -->
 	<string name="preset_store">Preset store</string>
     <string name="preset_store_description">Discover and download new presets</string>
-	<string name="preset_store_action_preset_by">By </string>
+	<string name="preset_store_preset_by">By </string>
 	<string name="preset_store_action_download">DOWNLOAD</string>
+	<string name="preset_store_action_repair">REPAIR</string>
 	<string name="preset_store_action_remove">REMOVE</string>
 	<string name="preset_store_action_select">SELECT</string>
 	<string name="preset_store_action_gesture_enabled">Gesture preset</string>
@@ -284,6 +284,29 @@
 		Not just pressing the buttons, gesture mode makes use of the touchscreen.
 		You can press it, and swipe it in 4 directions.
 	</string>
+	<string name="preset_store_action_repair_dialog_title">Corrupted preset</string>
+	<string name="preset_store_action_repair_dialog_text">
+		This preset is corrupted and needs repair to play.
+		Repairing the preset will remove the preset and download it again.
+	</string>
+	<string name="preset_store_download_size_downloading">Downloading…</string>
+	<string name="preset_store_download_size_installing">Installing…</string>
+	<string name="preset_store_download_size_placeholder">50 MB/100 MB</string>
+	<string name="preset_store_download_no_connection_dialog_title">No connection</string>
+	<string name="preset_store_download_no_connection_dialog_text">
+		Can\'t connect to the preset store.
+	</string>
+	<string name="preset_store_download_no_space_dialog_title">Can\'t download preset</string>
+	<string name="preset_store_download_no_space_dialog_text">
+		There is no space left on your device. Please free up spaces to download presets.
+	</string>
+	<string name="preset_store_exit_warning_dialog_title">Download in progress</string>
+	<string name="preset_store_exit_warning_dialog_text">
+		Preset download is currently in progress. Do you want to cancel the download and exit?
+	</string>
+	<string name="preset_store_exit_warning_dialog_positive">Continue download</string>
+	<string name="preset_store_exit_warning_dialog_negative">Cancel download</string>
+	<string name="preset_store_remove_warning_dialog_text">Remove preset?</string>
 	
 	<!--Settings-->
 	<string name="settings_group_play">Play</string>
