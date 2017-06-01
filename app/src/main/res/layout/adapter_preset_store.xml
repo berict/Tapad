@@ -10,7 +10,7 @@
 		android:layout_height="wrap_content"
 		android:layout_alignParentTop="true"
 		android:layout_centerHorizontal="true"
-		android:background="?selectableItemBackground"
+		android:foreground="?selectableItemBackground"
 		android:clickable="true"
 		app:cardBackgroundColor="@color/white"
 		app:cardCornerRadius="4dp"
