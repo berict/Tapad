@@ -2,13 +2,16 @@ package com.bedrock.padder.model.about;
 
 import com.google.gson.annotations.SerializedName;
 
+import static com.bedrock.padder.helper.FirebaseService.PROJECT_LOCATION_PRESETS;
+
 public class Bio {
 
     @SerializedName("title")
     private String   title;
 
-    @SerializedName("image")
-    private String   image;
+    // also used as imageResId
+    @SerializedName("preset_name")
+    private String   presetName;
 
     @SerializedName("name")
     private String   name;
@@ -19,9 +22,9 @@ public class Bio {
     @SerializedName("source")
     private String   source;
 
-    public Bio(String title, String image, String name, String text, String source) {
+    public Bio(String title, String presetName, String name, String text, String source) {
         this.title = title;
-        this.image = image;
+        this.presetName = presetName;
         this.name = name;
         this.text = text;
         this.source = source;
@@ -32,7 +35,11 @@ public class Bio {
     }
 
     public String getImage() {
-        return image;
+        if (presetName.equals("about_bio_tapad") || presetName == null) {
+            return presetName;
+        } else {
+            return PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/artist_image.jpg";
+        }
     }
 
     public String getName() {

@@ -29,6 +29,7 @@ import com.bedrock.padder.fragment.SettingsFragment;
 import com.bedrock.padder.helper.AdmobService;
 import com.bedrock.padder.helper.AnimService;
 import com.bedrock.padder.helper.FabService;
+import com.bedrock.padder.helper.FileService;
 import com.bedrock.padder.helper.IntentService;
 import com.bedrock.padder.helper.SoundService;
 import com.bedrock.padder.helper.ToolbarService;
@@ -46,11 +47,13 @@ import com.bedrock.padder.model.preset.Pad;
 import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
+import static com.bedrock.padder.helper.FirebaseService.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
 
 @TargetApi(14)
@@ -93,16 +96,20 @@ public class MainActivity
     private TutorialService tut = new TutorialService();
     private IntentService intent = new IntentService();
     private AdmobService ad = new AdmobService();
+    private FileService file = new FileService();
 
     private boolean doubleBackToExitPressedOnce = false;
     private boolean isToolbarVisible = false;
     private boolean isSettingsFromMenu = false;
     public static boolean isPresetLoading = false;
     public static boolean isPresetVisible = false;
+    public static boolean isPresetChanged = false;
     public static boolean isTutorialVisible = false;
     public static boolean isAboutVisible = false;
     public static boolean isSettingVisible = false;
     public static boolean isDeckShouldCleared = false;
+
+    public static final String PRESET_KEY = "savedPreset";
 
     private int circularRevealDuration = 400;
     private int fadeAnimDuration = 200;
@@ -119,7 +126,7 @@ public class MainActivity
 
     // TODO SET ON INTENT
     private Gson gson = new Gson();
-    public static Preset presets[];
+    public static Preset preset;
     public static Preset currentPreset = null;
 
     // TODO TAP launch
@@ -138,9 +145,6 @@ public class MainActivity
             Log.d(tag, content);
         }
     }
-
-    // TODO this is a quickfix
-    String fadedJson = "{\"about\":{\"actionbar_color\":\"#00D3BE\",\"bio\":{\"image\":\"about_bio_faded\",\"name\":\"Alan Olav Walker\",\"source\":\"Powered by Wikipedia X last.fm\",\"text\":\"Alan Walker (Alan Olav Walker) is a British-Norwegian record producer who was born in Northampton, England. He recorded electronic dance music single \\\"Faded\\\" and his song released on NoCopyrightSounds, \\\"Fade\\\".\",\"title\":\"Alan Walker\\u0027s biography\"},\"details\":[{\"items\":[{\"hint\":\"https://facebook.com/alanwalkermusic\",\"hint_is_visible\":true,\"image_id\":\"facebook\",\"runnable_is_with_anim\":false,\"text_id\":\"facebook\"},{\"hint\":\"https://twitter.com/IAmAlanWalker\",\"hint_is_visible\":true,\"image_id\":\"twitter\",\"runnable_is_with_anim\":false,\"text_id\":\"twitter\"},{\"hint\":\"https://soundcloud.com/alanwalker\",\"hint_is_visible\":true,\"image_id\":\"soundcloud\",\"runnable_is_with_anim\":false,\"text_id\":\"soundcloud\"},{\"hint\":\"https://instagram.com/alanwalkermusic\",\"hint_is_visible\":true,\"image_id\":\"instagram\",\"runnable_is_with_anim\":false,\"text_id\":\"instagram\"},{\"hint\":\"https://plus.google.com/u/0/+Alanwalkermusic\",\"hint_is_visible\":true,\"image_id\":\"google_plus\",\"runnable_is_with_anim\":false,\"text_id\":\"google_plus\"},{\"hint\":\"https://youtube.com/user/DjWalkzz\",\"hint_is_visible\":true,\"image_id\":\"youtube\",\"runnable_is_with_anim\":false,\"text_id\":\"youtube\"},{\"hint\":\"http://alanwalkermusic.no\",\"hint_is_visible\":true,\"image_id\":\"web\",\"runnable_is_with_anim\":false,\"text_id\":\"web\"}],\"title\":\"About Alan Walker\"},{\"items\":[{\"hint\":\"https://soundcloud.com/alanwalker/faded-1\",\"hint_is_visible\":false,\"image_id\":\"soundcloud\",\"runnable_is_with_anim\":false,\"text_id\":\"soundcloud\"},{\"hint\":\"https://youtu.be/60ItHLz5WEA\",\"hint_is_visible\":false,\"image_id\":\"youtube\",\"runnable_is_with_anim\":false,\"text_id\":\"youtube\"},{\"hint\":\"https://open.spotify.com/track/1brwdYwjltrJo7WHpIvbYt\",\"hint_is_visible\":false,\"image_id\":\"spotify\",\"runnable_is_with_anim\":false,\"text_id\":\"spotify\"},{\"hint\":\"https://play.google.com/store/music/album/Alan_Walker_Faded?id\\u003dBgdyyljvf7b624pbv5ylcrfevte\",\"hint_is_visible\":false,\"image_id\":\"google_play_music\",\"runnable_is_with_anim\":false,\"text_id\":\"google_play_music\"},{\"hint\":\"https://itunes.apple.com/us/album/faded/id1196294554?i\\u003d1196294581\",\"hint_is_visible\":false,\"image_id\":\"apple\",\"runnable_is_with_anim\":false,\"text_id\":\"apple\"},{\"hint\":\"https://amazon.com/Faded/dp/B01NBYNKWJ\",\"hint_is_visible\":false,\"image_id\":\"amazon\",\"runnable_is_with_anim\":false,\"text_id\":\"amazon\"},{\"hint\":\"https://pandora.com/alan-walker/faded-single/faded\",\"hint_is_visible\":false,\"image_id\":\"pandora\",\"runnable_is_with_anim\":false,\"text_id\":\"pandora\"}],\"title\":\"About this track\"}],\"image\":\"about_album_faded\",\"preset_creator\":\"Studio Berict\",\"title\":\"Alan Walker - Faded\",\"tutorial_link\":\"null\"},\"firebase_location\":\"alan_walker_faded_gesture\",\"music\":{\"bpm\":90,\"file_name\":\"alan_walker_faded\",\"is_gesture\":true,\"name\":\"preset_faded\",\"sound_count\":246}}";
 
     private void quickmove() {
         // TODO this is a dev only function
@@ -197,17 +201,16 @@ public class MainActivity
         //    }
         //});
 
-        presets = new Preset[] {
-                gson.fromJson(fadedJson, Preset.class),
-                gson.fromJson(fadedJson, Preset.class),
-                gson.fromJson(fadedJson, Preset.class)
-        };
-
-        //TODO needs fix
-
         // sharedPrefs
         Log.d(TAG, "Sharedprefs initialized");
         prefs = this.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
+
+        if (getSavedPreset() != null) {
+            currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json.txt"), Preset.class);
+        } else {
+            // TODO this is a quickfix
+            quickmove();
+        }
 
         // for quickstart test
         //prefs.edit().putInt(qs, 0).apply();
@@ -237,6 +240,7 @@ public class MainActivity
         setSchemeInfo();
         setToggleButton(R.color.colorAccent);
         enterAnim();
+        loadPreset(400);
         setButtonLayout();
 
         // Request ads
@@ -524,8 +528,6 @@ public class MainActivity
     private void enterAnim() {
         anim.fadeIn(R.id.actionbar_layout, 0, 200, "background", a);
         anim.fadeIn(R.id.actionbar_image, 200, 200, "image", a);
-        //TODO: Remove this to not load preset
-        //loadPreset(400);
         isPresetLoading = true;
     }
 
@@ -966,13 +968,7 @@ public class MainActivity
                             0, (int) Math.hypot(coord[0], coord[1]) + 200, new AccelerateDecelerateInterpolator(),
                             circularRevealDuration, 0, a);
 
-                    Handler preset = new Handler();
-                    preset.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            showPresetDialog(a);
-                        }
-                    }, circularRevealDuration);
+                    intent.intent(a, "activity.PresetStoreActivity", circularRevealDuration);
 
                     isPresetVisible = true;
                 }
@@ -1097,49 +1093,12 @@ public class MainActivity
     }
 
     public void toggleTutorial() {
-        // TODO add 2gb ram limit if statement
         if (w.getView(R.id.progress_bar_layout, a).getVisibility() == View.GONE) {
-            // on loading finished
-//            if (isTutorialVisible == false) {
-//                new MaterialDialog.Builder(a)
-//                        .title(R.string.dialog_tutorial_warning_title)
-//                        .content(R.string.dialog_tutorial_warning_text)
-//                        .positiveText(R.string.dialog_tutorial_warning_positive)
-//                        .positiveColorRes(R.color.red_500)
-//                        .negativeText(R.string.dialog_tutorial_warning_negative)
-//                        .negativeColorRes(R.color.dark_secondary)
-//                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-//                            @Override
-//                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-//                                // TODO TUTORIAL
-//                                //tut.tutorialStart(a);
-//                                tut.initCurrentTiming();
-//                                tut.startTutorial(tut.getCurrentTutorialDeckId(), a);
-//                                isTutorialVisible = true;
-//                                setTutorialUI();
-//                                if (isSettingVisible == true) {
-//                                    closeSettings();
-//                                }
-//                            }
-//                        })
-//                        .onNegative(new MaterialDialog.SingleButtonCallback() {
-//                            @Override
-//                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-//                                isTutorialVisible = false;
-//                                setTutorialUI();
-//                            }
-//                        })
-//                        .show();
-//            } else {
-//                tut.tutorialStop(a);
-//                isTutorialVisible = false;
-//                setTutorialUI();
-//            }
-            String tutorialText;
-            if (presets[getScheme()].getAbout().getTutorialLink() == null) {
+            String tutorialText = currentPreset.getAbout().getTutorialLink();
+            if (tutorialText == null || tutorialText.equals("null")) {
                 tutorialText = w.getStringFromId("dialog_tutorial_text_error", a);
             } else {
-                tutorialText = presets[getScheme()].getAbout().getTutorialLink();
+                tutorialText = currentPreset.getAbout().getTutorialLink();
             }
 
             new MaterialDialog.Builder(a)
@@ -1206,70 +1165,6 @@ public class MainActivity
         }, fadeAnimDuration);
     }
 
-    private void showPresetDialog(final Activity a) {
-        tut.tutorialStop(a);
-        sound.soundAllStop();
-
-        final int defaultPreset = getScheme();
-        int color = currentPreset.getAbout().getActionbarColor();
-
-        anim.fade(R.id.placeholder, 1.0f, 0.5f, 0, 200, "phIN", a);
-
-        PresetDialog = new MaterialDialog.Builder(a)
-                .title(R.string.dialog_preset_title)
-                .items(R.array.presets)
-                .autoDismiss(false)
-                .itemsCallbackSingleChoice(defaultPreset, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        setScheme(which);
-                        int selectedPresetColor = presets[which].getAbout().getActionbarColor();
-                        PresetDialog.getBuilder()
-                                .widgetColorRes(selectedPresetColor)
-                                .positiveColorRes(selectedPresetColor);
-                        setSchemeInfo();
-
-                        return true;
-                    }
-                })
-                .alwaysCallSingleChoiceCallback()
-                .widgetColorRes(color)
-                .positiveText(R.string.dialog_preset_positive)
-                .positiveColorRes(R.color.colorAccent)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        PresetDialog.dismiss();
-                    }
-                })
-                .negativeText(R.string.dialog_preset_negative)
-                .negativeColorRes(R.color.dark_secondary)
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        setScheme(defaultPreset);
-                        PresetDialog.dismiss();
-                    }
-                })
-                .dismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
-                        if (defaultPreset != getScheme()) {
-                            // preset changed
-                            loadPreset(circularRevealDuration);
-                            // deck should be cleared after the preset is cleaned
-                            isDeckShouldCleared = true;
-                            clearToggleButton();
-                        }
-                        anim.fade(R.id.placeholder, 0.5f, 1.0f, 0, 200, "phOUT", a);
-                        closeDialogPreset();
-                        setSchemeInfo();
-                        isPresetVisible = false;
-                    }
-                })
-                .show();
-    }
-
     private void closeDialogPreset() {
         anim.circularRevealInPx(R.id.placeholder,
                 coord[0], coord[1],
@@ -1306,13 +1201,17 @@ public class MainActivity
     }
 
     private void loadPreset(int delay) {
-        Handler preset = new Handler();
-        preset.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                sound.loadSchemeSound(presets[getScheme()], a);
-            }
-        }, delay);
+        if (currentPreset != null) {
+            Handler preset = new Handler();
+            preset.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    sound.loadSound(currentPreset, a);
+                }
+            }, delay);
+        } else {
+            // show null preset
+        }
     }
 
     private void setToggleButton(final int color_id) {
@@ -1673,8 +1572,7 @@ public class MainActivity
     }
 
     private void setSchemeInfo() {
-        if (isSettingVisible == false && isAboutVisible == false) {
-            currentPreset = presets[getScheme()];
+        if (isSettingVisible == false && isAboutVisible == false && currentPreset != null) {
             themeColor = currentPreset.getAbout().getActionbarColor();
             toolbar.setActionBarTitle(0);
             toolbar.setActionBarColor(themeColor, a);
@@ -1693,6 +1591,60 @@ public class MainActivity
         } else {
             return prefs.getInt("scheme", 0);
         }
+    }
+
+    public String getCurrentPresetLocation() {
+        if (getSavedPreset() != null) {
+            return PROJECT_LOCATION_PRESETS + "/" + getSavedPreset();
+        } else {
+            return null;
+        }
+    }
+
+    public String getSavedPreset() {
+        String savedPreset = prefs.getString(PRESET_KEY, null);
+        if (savedPreset == null) {
+            prefs.edit().putString(PRESET_KEY, getAvailableDownloadedPreset()).apply();
+        }
+        return prefs.getString(PRESET_KEY, null);
+    }
+
+    private String getAvailableDownloadedPreset() {
+        File directory = new File(PROJECT_LOCATION_PRESETS);
+        File[] files = directory.listFiles();
+        String presetName = null;
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    presetName = file.getName();
+                    if (isPresetExists(presetName)) {
+                        if (isPresetAvailable(presetName)) {
+                            // available preset
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return presetName;
+    }
+
+    private boolean isPresetExists(String presetName) {
+        // preset exist
+        File folder = new File(PROJECT_LOCATION_PRESETS + "/" + presetName); // folder check
+        return folder.isDirectory() && folder.exists();
+    }
+
+    private boolean isPresetAvailable(String presetName) {
+        // preset available
+        File folderSound = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/sounds");
+        File folderTiming = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/timing");
+        File folderAbout = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about");
+        File fileJson = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json.txt");
+        return folderSound.isDirectory() && folderSound.exists() &&
+                folderTiming.isDirectory() && folderTiming.exists() &&
+                folderAbout.isDirectory() && folderAbout.exists() &&
+                fileJson.exists();
     }
 
     private void setScheme(int scheme) {
@@ -1759,7 +1711,7 @@ public class MainActivity
 
         Music fadedMusic = new Music(
                 "preset_faded",
-                "alan_walker_faded",
+                "alan_walker_faded_gesture",
                 true,
                 246,
                 90,

@@ -19,7 +19,6 @@ public class FirebaseMetadata {
             preset.getMusic().setDeckTimings(null);
             preset.getAbout().setBio(null);
             preset.getAbout().setDetails(null);
-            preset.getAbout().setImage(null);
         }
     }
 

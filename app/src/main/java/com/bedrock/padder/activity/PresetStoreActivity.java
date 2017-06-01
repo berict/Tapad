@@ -42,6 +42,8 @@ import com.google.gson.Gson;
 
 import java.io.File;
 
+import static com.bedrock.padder.activity.MainActivity.isDeckShouldCleared;
+
 public class PresetStoreActivity extends AppCompatActivity {
 
     Activity activity = this;
@@ -58,6 +60,7 @@ public class PresetStoreActivity extends AppCompatActivity {
     private String TAG = "PresetStore";
 
     public static boolean isPresetDownloading = false;
+    private boolean shouldAdapterRefreshed = false;
 
     private static final int REQUEST_WRITE_STORAGE = 112;
     public PresetStoreAdapter presetStoreAdapter = null;
@@ -103,6 +106,8 @@ public class PresetStoreActivity extends AppCompatActivity {
 
         enterAnim();
         setUi();
+
+        isDeckShouldCleared = true;
     }
 
     @Override
@@ -127,6 +132,7 @@ public class PresetStoreActivity extends AppCompatActivity {
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                     // go to settings
                                     intent.intentAppDetailSettings(activity, 0);
+                                    shouldAdapterRefreshed = true;
                                 }
                             })
                             .negativeText(R.string.preset_store_permission_dialog_negative)
@@ -371,6 +377,12 @@ public class PresetStoreActivity extends AppCompatActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
 
+        if (shouldAdapterRefreshed) {
+            // reload adapter and download metadata
+            setAdapter();
+            shouldAdapterRefreshed = false;
+        }
+
         if (hasFocus) {
             window.setGone(R.id.layout_placeholder, 0, activity);
             // reset taskDesc
@@ -379,8 +391,8 @@ public class PresetStoreActivity extends AppCompatActivity {
     }
 
     void enterAnim() {
-        anim.fadeIn(R.id.layout_text, 0, 200, "titleIn", activity);
-        anim.fadeIn(R.id.layout_preset_store, 100, 200, "presetIn", activity);
+        anim.fadeIn(R.id.layout_text, 100, 200, "titleIn", activity);
+        anim.fadeIn(R.id.layout_preset_store, 200, 200, "presetIn", activity);
     }
 
     void pressBack() {

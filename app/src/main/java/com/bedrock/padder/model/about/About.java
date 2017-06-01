@@ -4,13 +4,16 @@ import android.graphics.Color;
 
 import com.google.gson.annotations.SerializedName;
 
+import static com.bedrock.padder.helper.FirebaseService.PROJECT_LOCATION_PRESETS;
+
 public class About {
 
     @SerializedName("title")
     private String title;
 
-    @SerializedName("image")
-    private String image;
+    // also used as imageResId
+    @SerializedName("preset_name")
+    private String presetName;
 
     @SerializedName("tutorial_link")
     private String tutorialLink;
@@ -18,10 +21,10 @@ public class About {
     @SerializedName("preset_creator")
     private String presetCreator;
 
-    @SerializedName("actionbar_color")
-    private String actionbarColor;
     // used as actionbar / taskDesc
     // formatted in #000000
+    @SerializedName("actionbar_color")
+    private String actionbarColor;
 
     @SerializedName("bio")
     private Bio bio;
@@ -29,9 +32,15 @@ public class About {
     @SerializedName("details")
     private Detail[] details;
 
-    public About(String title, String image, String tutorialLink, String presetCreator, String actionbarColor, Bio bio, Detail[] details) {
+    public About(String title,
+                 String presetName,
+                 String tutorialLink,
+                 String presetCreator,
+                 String actionbarColor,
+                 Bio bio,
+                 Detail[] details) {
         this.title = title;
-        this.image = image;
+        this.presetName = presetName;
         this.tutorialLink = tutorialLink;
         this.presetCreator = presetCreator;
         this.actionbarColor = actionbarColor;
@@ -39,9 +48,13 @@ public class About {
         this.details = details;
     }
 
-    public About(String title, String image, String actionbarColor, Bio bio, Detail[] details) {
+    public About(String title,
+                 String presetName,
+                 String actionbarColor,
+                 Bio bio,
+                 Detail[] details) {
         this.title = title;
-        this.image = image;
+        this.presetName = presetName;
         this.tutorialLink = null;
         this.presetCreator = null;
         this.actionbarColor = actionbarColor;
@@ -54,7 +67,11 @@ public class About {
     }
 
     public String getImage() {
-        return image;
+        if (presetCreator != null) {
+            return PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/album_art.jpg";
+        } else {
+            return presetName;
+        }
     }
 
     public String getActionbarColorString() {
@@ -91,9 +108,5 @@ public class About {
 
     public void setDetails(Detail[] details) {
         this.details = details;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 }

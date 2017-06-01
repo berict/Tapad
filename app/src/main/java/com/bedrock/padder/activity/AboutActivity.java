@@ -22,6 +22,7 @@ import com.bedrock.padder.helper.WindowService;
 import com.bedrock.padder.model.about.About;
 import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import static com.bedrock.padder.activity.MainActivity.currentPreset;
 
@@ -108,13 +109,25 @@ public class AboutActivity extends AppCompatActivity {
         window.setRecentColor(about.getTitle(), about.getActionbarColor(), activity);
 
         // title image / text
-        window.getImageView(R.id.layout_image, activity).setImageResource(window.getDrawableId(about.getImage()));
+        if (about.getImage().endsWith(".jpg")) {
+            // storage
+            Picasso.with(activity).load(about.getImage()).into(window.getImageView(R.id.layout_image, activity));
+        } else {
+            // res
+            window.getImageView(R.id.layout_image, activity).setImageResource(window.getDrawableId(about.getImage()));
+        }
 
         // bio
         window.getTextView(R.id.layout_bio_title, activity).setText(about.getBio().getTitle());
         window.getTextView(R.id.layout_bio_title, activity).setTextColor(about.getActionbarColor());
         if(about.getBio().getImage() != null) {
-            window.getImageView(R.id.layout_bio_image, activity).setImageResource(window.getDrawableId(about.getBio().getImage()));
+            if (about.getBio().getImage().endsWith(".jpg")) {
+                // storage
+                Picasso.with(activity).load(about.getBio().getImage()).into(window.getImageView(R.id.layout_bio_image, activity));
+            } else {
+                // res
+                window.getImageView(R.id.layout_bio_image, activity).setImageResource(window.getDrawableId(about.getBio().getImage()));
+            }
         } else {
             // no bio image exception
             window.getImageView(R.id.layout_bio_image, activity).setVisibility(View.GONE);
