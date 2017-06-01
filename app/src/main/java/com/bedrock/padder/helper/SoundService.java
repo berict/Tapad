@@ -539,11 +539,20 @@ public class SoundService {
     private AsyncTask unLoadSound = null;
     private AsyncTask loadSound = null;
 
+    @Deprecated
     public void loadSchemeSound(Preset preset, Activity a) {
         // set the previous preset
         previousPreset = currentPreset;
         currentPreset = preset;
         activity = a;
+        unLoadSound = new UnloadSound().execute();
+    }
+
+    public void loadSound(Preset preset, Activity activity) {
+        // set the previous preset
+        previousPreset = currentPreset;
+        currentPreset = preset;
+        this.activity = activity;
         unLoadSound = new UnloadSound().execute();
     }
 
@@ -816,9 +825,11 @@ public class SoundService {
                             Log.i(TAG, "    Pad " + (j + 1));
                             // pad gesture
                             for (int k = 0; k < 5; k++) {
-                                if (soundPoolId[i][j][k] != 0 && previousPreset.getMusic().getSound(i, j, k) != null) {
-                                    sp.unload(window.getRawId(previousPreset.getMusic().getSound(i, j, k)));
-                                    Log.i(TAG, "      Pad " + (j + 1) + " Gesture " + k + ", Sound unloaded");
+                                String sound = previousPreset.getSound(i, j, k);
+                                if (soundPoolId[i][j][k] != 0 && sound != null) {
+                                    if (sp.unload(soundPoolId[i][j][k])) {
+                                        Log.i(TAG, "      Pad " + (j + 1) + " Gesture " + k + ", Sound unloaded");
+                                    }
                                 }
                             }
                         }
@@ -914,8 +925,10 @@ public class SoundService {
                         Log.i(TAG, "    Pad " + (j + 1));
                         // pad gesture
                         for (int k = 0; k < 5; k++) {
-                            if (currentPreset.getMusic().getSound(i, j, k) != null) {
-                                soundPoolId[i][j][k] = sp.load(activity, window.getRawId(currentPreset.getMusic().getSound(i, j, k)), 1);
+                            String sound = currentPreset.getSound(i, j, k);
+                            if (sound != null) {
+                                soundPoolId[i][j][k] = sp.load(sound, 1);
+                                Log.i(TAG, sound + " loaded");
                                 Log.i(TAG, "      Pad " + (j + 1) + " Gesture " + k + ", Sound loaded");
                                 publishProgress();
                             }

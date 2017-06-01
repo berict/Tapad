@@ -1,12 +1,21 @@
 package com.bedrock.padder.model.preset;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.view.View;
 
 import com.bedrock.padder.helper.FirebaseService;
 import com.bedrock.padder.helper.SoundService;
 import com.bedrock.padder.model.about.About;
 import com.google.gson.annotations.SerializedName;
+
+import java.io.File;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.bedrock.padder.activity.MainActivity.PRESET_KEY;
+import static com.bedrock.padder.activity.MainActivity.isPresetChanged;
+import static com.bedrock.padder.helper.FirebaseService.PROJECT_LOCATION_PRESETS;
+import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
 
 public class Preset {
 
@@ -37,9 +46,81 @@ public class Preset {
         return about;
     }
 
+    public String getSound(int deckId, int padId, int gestureId) {
+        String fileName = PROJECT_LOCATION_PRESETS + "/"
+                + firebaseLocation
+                + "/sounds/sound"
+                + "_" + (deckId + 1)
+                + "_" + getPadStringFromId(padId);
+        if (gestureId > 0) {
+            fileName += "_" + gestureId;
+        }
+        File sound = new File(fileName + ".wav");
+        if (sound.exists()) {
+            return fileName + ".wav";
+        } else {
+            return null;
+        }
+    }
+
+    private String getPadStringFromId(int padId) {
+        switch (padId) {
+            case 0:
+                return "00";
+            case 1:
+                return "01";
+            case 2:
+                return "02";
+            case 3:
+                return "03";
+            case 4:
+                return "04";
+            case 5:
+                return "11";
+            case 6:
+                return "12";
+            case 7:
+                return "13";
+            case 8:
+                return "14";
+            case 9:
+                return "21";
+            case 10:
+                return "22";
+            case 11:
+                return "23";
+            case 12:
+                return "24";
+            case 13:
+                return "31";
+            case 14:
+                return "32";
+            case 15:
+                return "33";
+            case 16:
+                return "34";
+            case 17:
+                return "41";
+            case 18:
+                return "42";
+            case 19:
+                return "43";
+            case 20:
+                return "44";
+            default:
+                return null;
+        }
+    }
+
+    public void setLoadPreset(Activity activity) {
+        isPresetChanged = true;
+        SharedPreferences sharedPreferences = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
+        sharedPreferences.edit().putString(PRESET_KEY, firebaseLocation).apply();
+    }
+
     public void loadPreset(Activity activity) {
         SoundService sound = new SoundService();
-        sound.loadSchemeSound(this, activity);
+        sound.loadSound(this, activity);
     }
 
     public void downloadPreset(View parentView, Activity activity, Runnable onFinish) {

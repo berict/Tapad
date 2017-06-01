@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -126,8 +125,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                     @Override
                     public void onClick(View v) {
                         // select and load preset
-                        // TODO need to revise the loading method
-                        Toast.makeText(activity, "SELECTED", Toast.LENGTH_SHORT).show();
+                        preset.setLoadPreset(activity);
                     }
                 });
             } else {
