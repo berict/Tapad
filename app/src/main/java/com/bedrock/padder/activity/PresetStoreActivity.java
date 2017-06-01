@@ -26,6 +26,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.adapter.PresetStoreAdapter;
 import com.bedrock.padder.helper.AnimService;
+import com.bedrock.padder.helper.FileService;
 import com.bedrock.padder.helper.IntentService;
 import com.bedrock.padder.helper.ToolbarService;
 import com.bedrock.padder.helper.WindowService;
@@ -39,10 +40,7 @@ import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 
 public class PresetStoreActivity extends AppCompatActivity {
 
@@ -53,10 +51,16 @@ public class PresetStoreActivity extends AppCompatActivity {
     private AnimService anim = new AnimService();
     private ToolbarService toolbar = new ToolbarService();
     private IntentService intent = new IntentService();
+    private FileService fileService = new FileService();
 
     private int themeColor;
     private String themeTitle;
     private String TAG = "PresetStore";
+
+    public static boolean isPresetDownloading = false;
+
+    private static final int REQUEST_WRITE_STORAGE = 112;
+    public PresetStoreAdapter presetStoreAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,8 +104,6 @@ public class PresetStoreActivity extends AppCompatActivity {
         enterAnim();
         setUi();
     }
-
-    private static final int REQUEST_WRITE_STORAGE = 112;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -223,26 +225,6 @@ public class PresetStoreActivity extends AppCompatActivity {
         });
     }
 
-    private String getStringFromFile(String fileLocation) {
-        try {
-            FileInputStream inputStream = new FileInputStream(new File(fileLocation));
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            StringBuilder stringBuilder = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuilder.append(line).append("\n");
-            }
-            inputStream.close();
-            inputStreamReader.close();
-            bufferedReader.close();
-            return stringBuilder.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     private void setUi() {
         // status bar
         window.getView(R.id.statusbar, activity).setBackgroundColor(themeColor);
@@ -272,7 +254,7 @@ public class PresetStoreActivity extends AppCompatActivity {
         // attach the adapter to the layout
         if (new File(metadataLocation).exists()) {
             // metadata file exists
-            String metadata = getStringFromFile(metadataLocation);
+            String metadata = fileService.getStringFromFile(metadataLocation);
             if (isFirebaseMetadataUpdated(activity)) {
                 // updated, download new one
                 downloadMetadata();
@@ -288,12 +270,11 @@ public class PresetStoreActivity extends AppCompatActivity {
                     downloadMetadata();
                 } else {
                     // attach adapter while its not null
-                    window.getRecyclerView(R.id.layout_preset_store_recyclerview, activity).setAdapter(
-                            new PresetStoreAdapter(
-                                    firebaseMetadata,
-                                    R.layout.adapter_preset_store, activity
-                            )
+                    presetStoreAdapter = new PresetStoreAdapter(
+                            firebaseMetadata,
+                            R.layout.adapter_preset_store, activity
                     );
+                    window.getRecyclerView(R.id.layout_preset_store_recyclerview, activity).setAdapter(presetStoreAdapter);
                 }
                 setLoadingFinished(true);
             }
@@ -360,6 +341,26 @@ public class PresetStoreActivity extends AppCompatActivity {
                 PresetStoreActivity.super.onBackPressed();
             }
         }, 300);
+        // TODO add notification
+//        if (isPresetDownloading) {
+//            new MaterialDialog.Builder(activity)
+//                    .title(R.string.preset_store_exit_warning_dialog_title)
+//                    .content(R.string.preset_store_exit_warning_dialog_text)
+//                    .contentColorRes(R.color.dark_primary)
+//                    .positiveText(R.string.preset_store_exit_warning_dialog_positive)
+//                    .positiveColorRes(R.color.colorAccent)
+//                    .negativeText(R.string.preset_store_exit_warning_dialog_negative)
+//                    .onNegative(new MaterialDialog.SingleButtonCallback() {
+//                        @Override
+//                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//                            // cancel tasks and exit
+//                            currentFirebaseService.cancelDownloadPreset();
+//                            currentFileService.cancelDecompress();
+//                        }
+//                    })
+//                    .show();
+//        } else {
+//        }
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

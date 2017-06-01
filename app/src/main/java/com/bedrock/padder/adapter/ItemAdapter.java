@@ -3,6 +3,7 @@ package com.bedrock.padder.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -128,7 +129,19 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
             // no icon provided
             holder.itemIcon.setVisibility(View.INVISIBLE);
         } else {
-            holder.itemIcon.setImageResource(window.getDrawableId(item[position].getImage()));
+            try {
+                holder.itemIcon.setImageResource(window.getDrawableId(item[position].getImage()));
+            } catch (Exception e1) {
+                try {
+                    // no image res fallback
+                    Log.e("ItemAdapter", "Image res not found, trying with logo prefix");
+                    holder.itemIcon.setImageResource(window.getDrawableId("ic_logo_" + item[position].getImage()));
+                } catch (Exception e2) {
+                    // no image res fallback
+                    Log.e("ItemAdapter", "Image res not found, trying with icon prefix");
+                    holder.itemIcon.setImageResource(window.getDrawableId("ic_" + item[position].getImage() + "_black"));
+                }
+            }
         }
     }
 

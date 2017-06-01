@@ -113,7 +113,7 @@
 							
 							<ProgressBar
 								android:layout_width="match_parent"
-								android:layout_height="match_parent"
+								android:layout_height="wrap_content"
 								style="?android:attr/progressBarStyleHorizontal"
 								android:indeterminateTint="@color/amber"
 								android:indeterminate="true"/>

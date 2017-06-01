@@ -391,6 +391,26 @@ public class WindowService {
         }
     }
 
+    public void setViewBackgroundDrawable (int viewId, int drawableId, Activity activity){
+        View view = activity.findViewById(viewId);
+
+        Drawable drawable;
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            drawable = activity.getResources().getDrawable(drawableId, activity.getTheme());
+        } else {
+            drawable = activity.getResources().getDrawable(drawableId);
+        }
+
+        if (Build.VERSION.SDK_INT >= 16){
+            view.setBackground(drawable);
+        } else {
+            view.setBackgroundDrawable(drawable);
+        }
+
+        /** Dammit google, stop deprecating methods! */
+    }
+
     public void setViewBackgroundColor(int viewId, int colorId, Activity activity) {
         try {
             getView(viewId, activity).setBackgroundColor(activity.getResources().getColor(colorId));
