@@ -23,7 +23,7 @@ public class Item {
         this.textId = textId;
         this.hint = hint;
         this.hintIsVisible = true;
-        this.imageId = "ic_logo_" + textId;
+        this.imageId = textId;
         this.runnableIsWithAnim = false;
     }
 
@@ -39,7 +39,7 @@ public class Item {
         this.textId = textId;
         this.hint = hint;
         this.hintIsVisible = hintIsVisible;
-        this.imageId = "ic_logo_" + textId;
+        this.imageId = textId;
         this.runnableIsWithAnim = false;
     }
 
@@ -63,7 +63,7 @@ public class Item {
         this.textId = textId;
         this.hint = hint;
         this.hintIsVisible = hintIsVisible;
-        this.imageId = "ic_logo_" + textId;
+        this.imageId = textId;
         this.runnableIsWithAnim = runnableIsWithAnim;
     }
 
