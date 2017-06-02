@@ -129,10 +129,13 @@ public class Preset {
         firebase.downloadFirebasePreset(firebaseLocation, parentView, activity, onFinish);
     }
 
-    public void removePreset(Runnable onFinish) {
+    public void removePreset(Runnable onFinish, Activity activity) {
         // remove the preset folder
         FirebaseService firebase = new FirebaseService();
         firebase.removeLocalPreset(firebaseLocation, onFinish, null);
+        // reset the savedPreset
+        SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
+        prefs.edit().putString(PRESET_KEY, null).apply();
     }
 
     public void repairPreset(final View parentView, final Activity activity, final Runnable onFinish) {
@@ -148,5 +151,8 @@ public class Preset {
                 );
             }
         }, null);
+        // reset the savedPreset
+        SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
+        prefs.edit().putString(PRESET_KEY, null).apply();
     }
 }

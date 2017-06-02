@@ -265,8 +265,11 @@
 	<string name="preset_store_preset_by">By </string>
 	<string name="preset_store_action_download">DOWNLOAD</string>
 	<string name="preset_store_action_repair">REPAIR</string>
+	<string name="preset_store_action_repair_needed">Preset repair is needed</string>
 	<string name="preset_store_action_remove">REMOVE</string>
 	<string name="preset_store_action_select">SELECT</string>
+	<string name="preset_store_action_update">UPDATE</string>
+	<string name="preset_store_action_update_available">Preset update is available</string>
 	<string name="preset_store_action_gesture_enabled">Gesture preset</string>
 	<string name="preset_store_loading_metadata">Loading preset store</string>
 	<string name="preset_store_permission_dialog_title">Grant access</string>
