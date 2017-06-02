@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:adjustViewBounds="true"
-                android:src="@drawable/about_album_faded"
+                android:src="@drawable/ic_image_album_placeholder"
                 android:transitionName="tapad" />
 
             <LinearLayout

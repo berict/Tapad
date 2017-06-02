@@ -113,7 +113,7 @@
 					android:layout_width="120dp"
 					android:layout_height="120dp"
 					android:layout_alignParentRight="true"
-					android:src="@drawable/about_album_faded"
+					android:src="@drawable/ic_image_album_placeholder"
 					android:transitionName="preset_image"/>
 			</RelativeLayout>
 			

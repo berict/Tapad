@@ -52,7 +52,7 @@
 							android:adjustViewBounds="true"
 							android:fitsSystemWindows="true"
 							android:scaleType="centerCrop"
-							android:src="@drawable/about_album_hello"
+							android:src="@drawable/ic_image_album_placeholder"
 							android:transitionName="transition"
 							app:layout_collapseMode="parallax"/>
 						
@@ -134,7 +134,7 @@
 										android:layout_width="match_parent"
 										android:layout_height="wrap_content"
 										android:adjustViewBounds="true"
-										android:src="@drawable/about_bio_hello"/>
+										android:src="@drawable/ic_image_album_placeholder"/>
 									
 									<View
 										android:id="@+id/layout_bio_image_divider"
