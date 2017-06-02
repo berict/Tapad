@@ -146,8 +146,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (isPresetVisible == false) {
-                    intent.intent(a, "activity.PresetStoreActivity", 0);
-                    isPresetVisible = true;
+                    intent.intent(a, "activity.PresetStoreActivity");
                 }
             }
         });

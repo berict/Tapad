@@ -43,6 +43,7 @@ import com.google.gson.Gson;
 import java.io.File;
 
 import static com.bedrock.padder.activity.MainActivity.isDeckShouldCleared;
+import static com.bedrock.padder.activity.MainActivity.isPresetVisible;
 
 public class PresetStoreActivity extends AppCompatActivity {
 
@@ -69,6 +70,8 @@ public class PresetStoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preset_store);
+
+        isPresetVisible = true;
 
         themeColor = getResources().getColor(R.color.amber);
         themeTitle = getResources().getString(R.string.preset_store);

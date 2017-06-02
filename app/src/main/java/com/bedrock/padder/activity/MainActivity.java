@@ -385,6 +385,14 @@ public class MainActivity
 
         color = prefs.getInt("color", R.color.cyan_400);
 
+        if (isPresetVisible) {
+            if (!isAboutVisible && !isSettingVisible) {
+                // preset store visible
+                closePresetStore();
+            }
+            isPresetVisible = false;
+        }
+
         clearToggleButton();
         super.onWindowFocusChanged(hasFocus);
     }
@@ -969,8 +977,6 @@ public class MainActivity
                             circularRevealDuration, 0, a);
 
                     intent.intent(a, "activity.PresetStoreActivity", circularRevealDuration);
-
-                    isPresetVisible = true;
                 }
             }
         });
@@ -1165,7 +1171,7 @@ public class MainActivity
         }, fadeAnimDuration);
     }
 
-    private void closeDialogPreset() {
+    private void closePresetStore() {
         anim.circularRevealInPx(R.id.placeholder,
                 coord[0], coord[1],
                 (int) Math.hypot(coord[0], coord[1]) + 200, 0, new AccelerateDecelerateInterpolator(),
@@ -1578,18 +1584,9 @@ public class MainActivity
             toolbar.setActionBarColor(themeColor, a);
             toolbar.setActionBarPadding(a);
             toolbar.setActionBarImage(
-                    w.getDrawableId("logo_" + currentPreset.getMusic().getName().replace("preset_", "")),
+                    PROJECT_LOCATION_PRESETS + "/" + currentPreset.getFirebaseLocation() + "/about/artist_icon.png",
                     this);
             w.setRecentColor(0, 0, themeColor, a);
-        }
-    }
-
-    int getScheme() {
-        if (prefs.getInt("scheme", 0) > 3 && prefs.getInt("scheme", 0) < 0) {
-            // TOOD needs fix, why this happens?
-            return 0;
-        } else {
-            return prefs.getInt("scheme", 0);
         }
     }
 
@@ -1645,10 +1642,6 @@ public class MainActivity
                 folderTiming.isDirectory() && folderTiming.exists() &&
                 folderAbout.isDirectory() && folderAbout.exists() &&
                 fileJson.exists();
-    }
-
-    private void setScheme(int scheme) {
-        prefs.edit().putInt("scheme", scheme).apply();
     }
 
     public static void setSettingVisible(boolean isVisible) {

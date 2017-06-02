@@ -195,8 +195,7 @@ public class AboutFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (isPresetVisible == false) {
-                    intent.intent(a, "activity.PresetStoreActivity", circularRevealDuration);
-                    isPresetVisible = true;
+                    intent.intent(a, "activity.PresetStoreActivity");
                 }
             }
         });
