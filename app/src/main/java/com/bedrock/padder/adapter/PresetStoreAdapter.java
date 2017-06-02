@@ -99,7 +99,6 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                 + preset.getFirebaseLocation()
                 + "%2F" + "album_art.jpg"
                 + "?alt=media";
-        Picasso.with(activity).load(imageUrl).into(holder.presetImage);
 
         String presetName = preset.getAbout().getTitle();
         String presetString[] = presetName.split(" - ");
@@ -128,6 +127,12 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                         preset.setLoadPreset(activity);
                     }
                 });
+                // load local image
+                Picasso.with(activity)
+                        .load("file:" + PROJECT_LOCATION_PRESETS + "/" + preset.getFirebaseLocation() + "/about/album_art.jpg")
+                        .placeholder(R.drawable.ic_image_album_placeholder)
+                        .error(R.drawable.ic_image_album_error)
+                        .into(holder.presetImage);
             } else {
                 // corrupted, disable select
                 holder.presetSelect.setVisibility(View.VISIBLE);
@@ -159,6 +164,12 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                                 .show();
                     }
                 });
+                // load url image
+                Picasso.with(activity)
+                        .load(imageUrl)
+                        .placeholder(R.drawable.ic_image_album_placeholder)
+                        .error(R.drawable.ic_image_album_error)
+                        .into(holder.presetImage);
             }
             holder.presetRemove.setVisibility(View.VISIBLE);
             holder.presetRemove.setOnClickListener(new View.OnClickListener() {
@@ -204,6 +215,12 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                     });
                 }
             });
+            // load url image
+            Picasso.with(activity)
+                    .load(imageUrl)
+                    .placeholder(R.drawable.ic_image_album_placeholder)
+                    .error(R.drawable.ic_image_album_error)
+                    .into(holder.presetImage);
         }
     }
 
