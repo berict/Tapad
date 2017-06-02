@@ -875,7 +875,7 @@ public class SoundService {
         loadSound = null;
         unLoadSound = null;
 
-        window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_black);
+        window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_white);
 
         anim.fadeOut(R.id.progress_bar_layout, 400, 400, activity);
         window.setVisible(R.id.base, 400, activity);
@@ -908,8 +908,7 @@ public class SoundService {
         protected void onPreExecute() {
             Log.d(TAG, "On preExceute, unloadSchemeSound");
 
-            window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_disabled_black);
-            //window.getImageView(R.id.layout_settings_tutorial_icon, activity).setImageResource(R.drawable.settings_tutorial_disabled);
+            window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_disabled_white);
         }
 
         protected String doInBackground(Void... arg0) {
