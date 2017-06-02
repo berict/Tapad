@@ -28,6 +28,7 @@ import com.bedrock.padder.helper.ToolbarService;
 import com.bedrock.padder.helper.TutorialService;
 import com.bedrock.padder.helper.WindowService;
 import com.google.android.gms.ads.AdListener;
+import com.squareup.picasso.Picasso;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.bedrock.padder.activity.MainActivity.coord;
@@ -165,14 +166,18 @@ public class AboutFragment extends Fragment {
         toolbar.setActionBar(a, v);
         toolbar.setActionBarTitle(R.string.about);
         toolbar.setActionBarPadding(a, v);
-        toolbar.setActionBarColor(themeColor, a);
+        toolbar.setActionBarColor(currentPreset.getAbout().getActionbarColor(), a);
         toolbar.setActionBarDisplayHomeAsUp(true);
 
         // Cardview
-        w.getImageView(R.id.cardview_music_image, v).setImageResource(w.getDrawableId("about_album_" + currentPreset.getMusic().getName().replace("preset_", "")));
-        w.getTextView(R.id.cardview_music_song, v).setText(w.getStringId(currentPreset.getMusic().getName() + "_full"));
-        w.getTextView(R.id.cardview_music_explore, v).setTextColor(themeColor);
-        w.getTextView(R.id.cardview_music_change, v).setTextColor(themeColor);
+        Picasso.with(a)
+                .load("file:" + currentPreset.getAbout().getImage())
+                .placeholder(R.drawable.ic_image_album_placeholder)
+                .error(R.drawable.ic_image_album_error)
+                .into(w.getImageView(R.id.cardview_music_image, v));
+        w.getTextView(R.id.cardview_music_song, v).setText(currentPreset.getAbout().getTitle());
+        w.getTextView(R.id.cardview_music_explore, v).setTextColor(currentPreset.getAbout().getActionbarColor());
+        w.getTextView(R.id.cardview_music_change, v).setTextColor(currentPreset.getAbout().getActionbarColor());
 
         // artist
         w.getView(R.id.cardview_music, v).setOnClickListener(new View.OnClickListener() {

@@ -134,11 +134,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
             } catch (Exception e1) {
                 try {
                     // no image res fallback
-                    Log.e("ItemAdapter", "Image res not found, trying with logo prefix");
+                    Log.i("ItemAdapter", "Image res not found, trying with logo prefix");
                     holder.itemIcon.setImageResource(window.getDrawableId("ic_logo_" + item[position].getImage()));
                 } catch (Exception e2) {
                     // no image res fallback
-                    Log.e("ItemAdapter", "Image res not found, trying with icon prefix");
+                    Log.i("ItemAdapter", "Image res not found, trying with icon prefix");
                     holder.itemIcon.setImageResource(window.getDrawableId("ic_" + item[position].getImage() + "_black"));
                 }
             }

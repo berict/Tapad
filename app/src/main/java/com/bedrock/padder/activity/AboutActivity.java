@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.bedrock.padder.R;
 import com.bedrock.padder.adapter.DetailAdapter;
@@ -47,6 +48,7 @@ public class AboutActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String currentAbout = intent.getStringExtra("about");
 
+        Log.d("AA", currentAbout);
         switch (currentAbout) {
             case "now_playing":
                 about = currentPreset.getAbout();
@@ -111,7 +113,11 @@ public class AboutActivity extends AppCompatActivity {
         // title image / text
         if (about.getImage().endsWith(".jpg")) {
             // storage
-            Picasso.with(activity).load(about.getImage()).into(window.getImageView(R.id.layout_image, activity));
+            Picasso.with(activity)
+                    .load("file:" + about.getImage())
+                    .placeholder(R.drawable.ic_image_album_placeholder)
+                    .error(R.drawable.ic_image_album_error)
+                    .into(window.getImageView(R.id.layout_image, activity));
         } else {
             // res
             window.getImageView(R.id.layout_image, activity).setImageResource(window.getDrawableId(about.getImage()));
@@ -121,12 +127,17 @@ public class AboutActivity extends AppCompatActivity {
         window.getTextView(R.id.layout_bio_title, activity).setText(about.getBio().getTitle());
         window.getTextView(R.id.layout_bio_title, activity).setTextColor(about.getActionbarColor());
         if(about.getBio().getImage() != null) {
+            ImageView imageView = window.getImageView(R.id.layout_bio_image, activity);
             if (about.getBio().getImage().endsWith(".jpg")) {
                 // storage
-                Picasso.with(activity).load(about.getBio().getImage()).into(window.getImageView(R.id.layout_bio_image, activity));
+                Picasso.with(activity)
+                        .load("file:" + about.getBio().getImage())
+                        .placeholder(R.drawable.ic_image_album_placeholder)
+                        .error(R.drawable.ic_image_album_error)
+                        .into(imageView);
             } else {
                 // res
-                window.getImageView(R.id.layout_bio_image, activity).setImageResource(window.getDrawableId(about.getBio().getImage()));
+                imageView.setImageResource(window.getDrawableId(about.getBio().getImage()));
             }
         } else {
             // no bio image exception

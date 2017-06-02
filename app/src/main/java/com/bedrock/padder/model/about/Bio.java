@@ -35,7 +35,7 @@ public class Bio {
     }
 
     public String getImage() {
-        if (presetName.equals("about_bio_tapad") || presetName == null) {
+        if (presetName == null || presetName.equals("about_bio_tapad")) {
             return presetName;
         } else {
             return PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/artist_image.jpg";
