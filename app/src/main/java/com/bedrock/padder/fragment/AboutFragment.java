@@ -205,7 +205,8 @@ public class AboutFragment extends Fragment {
             }
         });
 
-        w.getView(R.id.cardview_preset_store_explore, v).setOnClickListener(new View.OnClickListener() {
+        // preset store
+        w.getView(R.id.cardview_preset_store, v).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent.intentSharedElementWithExtra(a, "activity.PresetStoreActivity",
@@ -213,7 +214,7 @@ public class AboutFragment extends Fragment {
             }
         });
 
-        w.getView(R.id.cardview_preset_store, v).setOnClickListener(new View.OnClickListener() {
+        w.getView(R.id.cardview_preset_store_explore, v).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent.intentSharedElementWithExtra(a, "activity.PresetStoreActivity",
