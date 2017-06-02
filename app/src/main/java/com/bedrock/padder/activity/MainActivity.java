@@ -240,7 +240,7 @@ public class MainActivity
         setSchemeInfo();
         setToggleButton(R.color.colorAccent);
         enterAnim();
-        //loadPreset(400);
+        loadPreset(400);
         setButtonLayout();
 
         // Request ads
