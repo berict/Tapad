@@ -240,7 +240,7 @@ public class MainActivity
         setSchemeInfo();
         setToggleButton(R.color.colorAccent);
         enterAnim();
-        loadPreset(400);
+        //loadPreset(400);
         setButtonLayout();
 
         // Request ads
@@ -1682,7 +1682,7 @@ public class MainActivity
 
         Bio fadedBio = new Bio(
                 w.getStringFromId("preset_faded_bio_title", a),
-                "about_bio_faded",
+                "alan_walker_faded_gesture",
                 w.getStringFromId("preset_faded_bio_name", a),
                 w.getStringFromId("preset_faded_bio_text", a),
                 w.getStringFromId("preset_faded_bio_source", a)
@@ -1695,7 +1695,7 @@ public class MainActivity
 
         About fadedAbout = new About(
                 w.getStringFromId("preset_faded_title", a),
-                "about_album_faded",
+                "alan_walker_faded_gesture",
                 w.getStringFromId("preset_faded_tutorial_link", a),
                 "Studio Berict",
                 "#00D3BE",
