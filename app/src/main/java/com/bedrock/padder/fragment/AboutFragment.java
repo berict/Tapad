@@ -205,6 +205,14 @@ public class AboutFragment extends Fragment {
             }
         });
 
+        w.getView(R.id.cardview_preset_store_explore, v).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent.intentSharedElementWithExtra(a, "activity.PresetStoreActivity",
+                        R.id.cardview_preset_store_image, "transition", "about", "now_playing", 0, v);
+            }
+        });
+
         w.getView(R.id.cardview_preset_store, v).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
