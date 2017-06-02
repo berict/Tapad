@@ -108,47 +108,126 @@
 					android:layout_alignParentRight="true"
 					android:src="@drawable/ic_image_album_placeholder"
 					android:transitionName="preset_image"/>
+			
 			</RelativeLayout>
 			
-			<RelativeLayout
+			<LinearLayout
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content">
+				android:layout_height="match_parent"
+				android:orientation="vertical">
 				
 				<LinearLayout
+					android:id="@+id/layout_preset_store_warning_layout"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:orientation="vertical">
+					android:layout_marginBottom="8dp"
+					android:gravity="center_vertical"
+					android:orientation="horizontal"
+					android:paddingLeft="16dp"
+					android:paddingRight="16dp"
+					android:visibility="gone">
 					
-					<LinearLayout
-						android:id="@+id/layout_preset_store_warning_layout"
+					<ImageView
+						android:layout_width="24dp"
+						android:layout_height="24dp"
+						android:layout_marginLeft="-2dp"
+						android:alpha="0.5"
+						android:padding="2dp"
+						app:srcCompat="@drawable/ic_warning_black"/>
+					
+					<TextView
+						android:id="@+id/layout_preset_store_warning_text"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:layout_marginBottom="8dp"
-						android:gravity="center_vertical"
-						android:orientation="horizontal"
+						android:layout_marginLeft="8dp"
+						android:text="@string/preset_store_action_update_available"
+						android:textColor="@color/dark_secondary"
+						android:textSize="14sp"
+						android:textStyle="italic"/>
+				
+				</LinearLayout>
+				
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent">
+					
+					<RelativeLayout
+						android:id="@+id/layout_preset_store_download_layout"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_centerVertical="true"
+						android:background="@color/white"
 						android:paddingLeft="16dp"
 						android:paddingRight="16dp"
 						android:visibility="gone">
 						
-						<ImageView
-							android:layout_width="24dp"
-							android:layout_height="24dp"
-							android:layout_marginLeft="-2dp"
-							android:alpha="0.5"
-							android:padding="2dp"
-							app:srcCompat="@drawable/ic_warning_black"/>
+						<RelativeLayout
+							android:id="@+id/layout_preset_store_download_progress_layout"
+							android:layout_width="match_parent"
+							android:layout_height="30dp">
+							
+							<ProgressBar
+								android:id="@+id/layout_preset_store_download_progressbar"
+								style="?android:attr/progressBarStyleHorizontal"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:layout_alignParentBottom="true"
+								android:layout_marginRight="4dp"
+								android:layout_toLeftOf="@+id/layout_preset_store_download_cancel"
+								android:layout_toStartOf="@+id/layout_preset_store_download_cancel"
+								android:max="100"
+								android:progress="0"/>
+							
+							<ImageView
+								android:id="@+id/layout_preset_store_download_cancel"
+								android:layout_width="32dp"
+								android:layout_height="32dp"
+								android:layout_alignParentRight="true"
+								android:layout_centerVertical="true"
+								android:layout_marginBottom="-2dp"
+								android:layout_marginRight="-2dp"
+								android:layout_marginTop="-2dp"
+								android:alpha="0.6"
+								android:background="?selectableItemBackgroundBorderless"
+								android:padding="2dp"
+								android:src="@drawable/ic_close_black"
+								android:tint="@color/black"/>
+							
+							<TextView
+								android:id="@+id/layout_preset_store_download_size"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_alignParentLeft="true"
+								android:layout_alignParentTop="true"
+								android:fontFamily="sans-serif-light"
+								android:text="@string/preset_store_download_size_downloading"
+								android:textColor="@color/dark_secondary"
+								android:textSize="12sp"/>
+							
+							<TextView
+								android:id="@+id/layout_preset_store_download_percent"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_alignParentTop="true"
+								android:layout_alignRight="@+id/layout_preset_store_download_progressbar"
+								android:fontFamily="sans-serif-light"
+								android:text="50%"
+								android:textColor="@color/dark_secondary"
+								android:textSize="12sp"/>
 						
-						<TextView
-							android:id="@+id/layout_preset_store_warning_text"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_marginLeft="8dp"
-							android:text="@string/preset_store_action_update_available"
-							android:textColor="@color/dark_secondary"
-							android:textSize="14sp"
-							android:textStyle="italic"/>
+						</RelativeLayout>
+					</RelativeLayout>
 					
-					</LinearLayout>
+					<TextView
+						android:id="@+id/layout_preset_store_download_installing"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_centerInParent="true"
+						android:fontFamily="sans-serif-light"
+						android:text="@string/preset_store_download_size_installing"
+						android:textColor="@color/dark_secondary"
+						android:textSize="14sp"
+						android:visibility="gone"/>
 					
 					<LinearLayout
 						android:id="@+id/layout_preset_store_action_layout"
@@ -212,86 +291,10 @@
 							android:textStyle="bold"/>
 					
 					</LinearLayout>
-				</LinearLayout>
-				
-				<RelativeLayout
-					android:id="@+id/layout_preset_store_download_layout"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_centerVertical="true"
-					android:background="@color/white"
-					android:paddingLeft="16dp"
-					android:paddingRight="16dp"
-					android:visibility="gone">
-					
-					<RelativeLayout
-						android:id="@+id/layout_preset_store_download_progress_layout"
-						android:layout_width="match_parent"
-						android:layout_height="30dp">
-						
-						<ProgressBar
-							android:id="@+id/layout_preset_store_download_progressbar"
-							style="?android:attr/progressBarStyleHorizontal"
-							android:layout_width="match_parent"
-							android:layout_height="wrap_content"
-							android:layout_alignParentBottom="true"
-							android:layout_marginRight="4dp"
-							android:layout_toLeftOf="@+id/layout_preset_store_download_cancel"
-							android:layout_toStartOf="@+id/layout_preset_store_download_cancel"
-							android:max="100"
-							android:progress="0"/>
-						
-						<ImageView
-							android:id="@+id/layout_preset_store_download_cancel"
-							android:layout_width="32dp"
-							android:layout_height="32dp"
-							android:layout_alignParentRight="true"
-							android:layout_centerVertical="true"
-							android:alpha="0.6"
-							android:background="?selectableItemBackgroundBorderless"
-							android:padding="2dp"
-							android:layout_marginRight="-2dp"
-							android:layout_marginBottom="-2dp"
-							android:layout_marginTop="-2dp"
-							android:src="@drawable/ic_close_black"
-							android:tint="@color/black"/>
-						
-						<TextView
-							android:id="@+id/layout_preset_store_download_size"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_alignParentLeft="true"
-							android:layout_alignParentTop="true"
-							android:fontFamily="sans-serif-light"
-							android:text="@string/preset_store_download_size_downloading"
-							android:textColor="@color/dark_secondary"
-							android:textSize="12sp"/>
-						
-						<TextView
-							android:id="@+id/layout_preset_store_download_percent"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_alignParentTop="true"
-							android:layout_alignRight="@+id/layout_preset_store_download_progressbar"
-							android:fontFamily="sans-serif-light"
-							android:text="50%"
-							android:textColor="@color/dark_secondary"
-							android:textSize="12sp"/>
-					
-					</RelativeLayout>
 				</RelativeLayout>
-				
-				<TextView
-					android:id="@+id/layout_preset_store_download_installing"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_centerInParent="true"
-					android:fontFamily="sans-serif-light"
-					android:text="@string/preset_store_download_size_installing"
-					android:textColor="@color/dark_secondary"
-					android:textSize="14sp"
-					android:visibility="gone"/>
-			</RelativeLayout>
+			
+			</LinearLayout>
+		
 		</LinearLayout>
 	</android.support.v7.widget.CardView>
 </RelativeLayout>
