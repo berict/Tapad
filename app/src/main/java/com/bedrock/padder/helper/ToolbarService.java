@@ -8,9 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.bedrock.padder.R;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 
 public class ToolbarService {
 
@@ -70,6 +74,13 @@ public class ToolbarService {
         WindowService window = new WindowService();
         window.getImageView(IMAGE, activity).setImageResource(imageResId);
         window.getImageView(IMAGE, activity).setVisibility(View.VISIBLE);
+    }
+
+    public void setActionBarImage(String imageLocation, Activity activity) {
+        WindowService window = new WindowService();
+        ImageView imageView = window.getImageView(IMAGE, activity);
+        Picasso.with(activity).load(new File(imageLocation)).into(imageView);
+        imageView.setVisibility(View.VISIBLE);
     }
 
     public void setActionBarDisplayHomeAsUp(boolean displayHomeAsUp) {
