@@ -26,14 +26,14 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import static com.bedrock.padder.activity.PresetStoreActivity.isPresetDownloading;
-import static com.bedrock.padder.helper.FirebaseService.PROJECT_LOCATION_PRESETS;
+import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
 
-public class FileService {
+public class FileHelper {
 
-    private WindowService window = new WindowService();
-    private AnimService anim = new AnimService();
+    private WindowHelper window = new WindowHelper();
+    private AnimateHelper anim = new AnimateHelper();
 
-    private String TAG = "FileService";
+    private String TAG = "FileHelper";
     private Decompress decompress;
 
     public String getStringFromFile(String fileLocation) {

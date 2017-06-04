@@ -26,15 +26,15 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.fragment.AboutFragment;
 import com.bedrock.padder.fragment.SettingsFragment;
-import com.bedrock.padder.helper.AdmobService;
-import com.bedrock.padder.helper.AnimService;
-import com.bedrock.padder.helper.FabService;
-import com.bedrock.padder.helper.FileService;
-import com.bedrock.padder.helper.IntentService;
-import com.bedrock.padder.helper.SoundService;
-import com.bedrock.padder.helper.ToolbarService;
-import com.bedrock.padder.helper.TutorialService;
-import com.bedrock.padder.helper.WindowService;
+import com.bedrock.padder.helper.AdmobHelper;
+import com.bedrock.padder.helper.AnimateHelper;
+import com.bedrock.padder.helper.FabHelper;
+import com.bedrock.padder.helper.FileHelper;
+import com.bedrock.padder.helper.IntentHelper;
+import com.bedrock.padder.helper.SoundHelper;
+import com.bedrock.padder.helper.ToolbarHelper;
+import com.bedrock.padder.helper.TutorialHelper;
+import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.FirebaseMetadata;
 import com.bedrock.padder.model.about.About;
 import com.bedrock.padder.model.about.Bio;
@@ -53,8 +53,8 @@ import java.util.ArrayList;
 
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
-import static com.bedrock.padder.helper.FirebaseService.PROJECT_LOCATION_PRESETS;
-import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
+import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
+import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 @TargetApi(14)
 @SuppressWarnings("deprecation")
@@ -88,15 +88,15 @@ public class MainActivity
     int toggleSoundId = 0;
     int togglePatternId = 0;
 
-    private AnimService anim = new AnimService();
-    private SoundService sound = new SoundService();
-    private WindowService w = new WindowService();
-    private FabService fab = new FabService();
-    private ToolbarService toolbar = new ToolbarService();
-    private TutorialService tut = new TutorialService();
-    private IntentService intent = new IntentService();
-    private AdmobService ad = new AdmobService();
-    private FileService file = new FileService();
+    private AnimateHelper anim = new AnimateHelper();
+    private SoundHelper sound = new SoundHelper();
+    private WindowHelper w = new WindowHelper();
+    private FabHelper fab = new FabHelper();
+    private ToolbarHelper toolbar = new ToolbarHelper();
+    private TutorialHelper tut = new TutorialHelper();
+    private IntentHelper intent = new IntentHelper();
+    private AdmobHelper ad = new AdmobHelper();
+    private FileHelper file = new FileHelper();
 
     private boolean doubleBackToExitPressedOnce = false;
     private boolean isToolbarVisible = false;
@@ -464,7 +464,7 @@ public class MainActivity
                 .beginTransaction()
                 .add(R.id.fragment_about_container, new AboutFragment())
                 .commit();
-        WindowService w = new WindowService();
+        WindowHelper w = new WindowHelper();
         w.getView(R.id.fragment_about_container, a).setVisibility(View.VISIBLE);
         setAboutVisible(true);
         w.setRecentColor(R.string.about, 0, themeColor, a);
@@ -475,7 +475,7 @@ public class MainActivity
                 .beginTransaction()
                 .add(R.id.fragment_settings_container, new SettingsFragment())
                 .commit();
-        WindowService w = new WindowService();
+        WindowHelper w = new WindowHelper();
         w.getView(R.id.fragment_settings_container, a).setVisibility(View.VISIBLE);
         setSettingVisible(true);
         w.setRecentColor(R.string.settings, 0, R.color.colorAccent, a);

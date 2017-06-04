@@ -8,19 +8,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.bedrock.padder.R;
-import com.bedrock.padder.helper.AnimService;
-import com.bedrock.padder.helper.IntentService;
-import com.bedrock.padder.helper.ToolbarService;
-import com.bedrock.padder.helper.WindowService;
+import com.bedrock.padder.helper.AnimateHelper;
+import com.bedrock.padder.helper.IntentHelper;
+import com.bedrock.padder.helper.ToolbarHelper;
+import com.bedrock.padder.helper.WindowHelper;
 
-import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
+import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class LauncherActivity extends AppCompatActivity {
 
-    private AnimService anim = new AnimService();
-    private IntentService intent = new IntentService();
-    private WindowService window = new WindowService();
-    private ToolbarService toolbar = new ToolbarService();
+    private AnimateHelper anim = new AnimateHelper();
+    private IntentHelper intent = new IntentHelper();
+    private WindowHelper window = new WindowHelper();
+    private ToolbarHelper toolbar = new ToolbarHelper();
 
     Activity activity;
 

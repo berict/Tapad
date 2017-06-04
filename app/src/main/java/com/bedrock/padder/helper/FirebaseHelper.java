@@ -36,13 +36,13 @@ import java.text.DecimalFormat;
 
 import static com.bedrock.padder.activity.PresetStoreActivity.isPresetDownloading;
 
-public class FirebaseService {
+public class FirebaseHelper {
 
-    private WindowService window = new WindowService();
-    private AnimService anim = new AnimService();
-    private FileService fileService = new FileService();
+    private WindowHelper window = new WindowHelper();
+    private AnimateHelper anim = new AnimateHelper();
+    private FileHelper fileHelper = new FileHelper();
 
-    private String TAG = "FirebaseService";
+    private String TAG = "FirebaseHelper";
     private static final int REQUEST_WRITE_STORAGE = 112;
     
     public static String FIREBASE_LOCATION = "gs://tapad-4d342.appspot.com";
@@ -159,7 +159,7 @@ public class FirebaseService {
     }
 
     public String getPresetJson(String presetName) {
-        FileService file = new FileService();
+        FileHelper file = new FileHelper();
         return file.getStringFromFile(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json.txt");
     }
     
@@ -278,7 +278,7 @@ public class FirebaseService {
                     // downloaded
                     anim.fadeOut(R.id.layout_preset_store_download_layout, 0, 200, parentView, activity);
                     anim.fadeIn(R.id.layout_preset_store_download_installing, 200, 200, "installIn", parentView, activity);
-                    fileService.unzip(PROJECT_LOCATION_PRESETS + "/" + presetName + "/preset.zip",
+                    fileHelper.unzip(PROJECT_LOCATION_PRESETS + "/" + presetName + "/preset.zip",
                             PROJECT_LOCATION_PRESETS,
                             presetName,
                             parentView,
@@ -315,7 +315,7 @@ public class FirebaseService {
                         + getReadableFileSize(totalByteCount);
             }
             progressTextSize.setText(progressText);
-            if (totalByteCount > fileService.getAvailableExternalMemorySize()) {
+            if (totalByteCount > fileHelper.getAvailableExternalMemorySize()) {
                 // no space left
                 // cancel the task
                 cancel(true);
@@ -369,7 +369,7 @@ public class FirebaseService {
     }
 
     public void removeLocalPreset(String presetName) {
-        if (fileService.deleteRecursive(new File(PROJECT_LOCATION_PRESETS + "/" + presetName))) {
+        if (fileHelper.deleteRecursive(new File(PROJECT_LOCATION_PRESETS + "/" + presetName))) {
             Log.d(TAG, "Successfully removed preset folder");
         } else {
             Log.d(TAG, "Failed to remove preset folder");
@@ -377,7 +377,7 @@ public class FirebaseService {
     }
 
     public void removeLocalPreset(String presetName, Runnable onSuccess, Runnable onFailure) {
-        if (fileService.deleteRecursive(new File(PROJECT_LOCATION_PRESETS + "/" + presetName))) {
+        if (fileHelper.deleteRecursive(new File(PROJECT_LOCATION_PRESETS + "/" + presetName))) {
             Log.d(TAG, "Successfully removed preset folder");
             onSuccess.run();
         } else {
@@ -413,7 +413,7 @@ public class FirebaseService {
     }
     
     public FirebaseMetadata getFirebaseMetadata(Activity activity) {
-        FileService fileService = new FileService();
+        FileHelper fileHelper = new FileHelper();
 
         FirebaseApp.initializeApp(activity);
         String metadataLocation = PROJECT_LOCATION_PRESET_METADATA;
@@ -423,7 +423,7 @@ public class FirebaseService {
                         .getReferenceFromUrl(FIREBASE_LOCATION_PRESETS_METADATA);
         if (new File(metadataLocation).exists()) {
             // metadata file exists
-            String metadata = fileService.getStringFromFile(metadataLocation);
+            String metadata = fileHelper.getStringFromFile(metadataLocation);
             if (getStorageMetadata(metadataReference, activity).getUpdatedTimeMillis() 
                     > new File(metadataLocation).lastModified()) {
                 // updated, download new one

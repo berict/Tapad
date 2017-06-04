@@ -20,13 +20,13 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
-import com.bedrock.padder.helper.AdmobService;
-import com.bedrock.padder.helper.AnimService;
-import com.bedrock.padder.helper.IntentService;
-import com.bedrock.padder.helper.SoundService;
-import com.bedrock.padder.helper.ToolbarService;
-import com.bedrock.padder.helper.TutorialService;
-import com.bedrock.padder.helper.WindowService;
+import com.bedrock.padder.helper.AdmobHelper;
+import com.bedrock.padder.helper.AnimateHelper;
+import com.bedrock.padder.helper.IntentHelper;
+import com.bedrock.padder.helper.SoundHelper;
+import com.bedrock.padder.helper.ToolbarHelper;
+import com.bedrock.padder.helper.TutorialHelper;
+import com.bedrock.padder.helper.WindowHelper;
 import com.google.android.gms.ads.AdListener;
 import com.squareup.picasso.Picasso;
 
@@ -37,17 +37,17 @@ import static com.bedrock.padder.activity.MainActivity.isPresetVisible;
 import static com.bedrock.padder.activity.MainActivity.isSettingVisible;
 import static com.bedrock.padder.activity.MainActivity.setSettingVisible;
 import static com.bedrock.padder.activity.MainActivity.showSettingsFragment;
-import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
+import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class AboutFragment extends Fragment {
 
-    private WindowService w = new WindowService();
-    private AdmobService ad = new AdmobService();
-    private IntentService intent = new IntentService();
-    private AnimService anim = new AnimService();
-    private TutorialService tut = new TutorialService();
-    private SoundService sound = new SoundService();
-    private ToolbarService toolbar = new ToolbarService();
+    private WindowHelper w = new WindowHelper();
+    private AdmobHelper ad = new AdmobHelper();
+    private IntentHelper intent = new IntentHelper();
+    private AnimateHelper anim = new AnimateHelper();
+    private TutorialHelper tut = new TutorialHelper();
+    private SoundHelper sound = new SoundHelper();
+    private ToolbarHelper toolbar = new ToolbarHelper();
 
     private int circularRevealDuration = 400;
     private int fadeAnimDuration = 200;

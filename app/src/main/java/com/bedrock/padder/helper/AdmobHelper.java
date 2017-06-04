@@ -11,9 +11,9 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.NativeExpressAdView;
 
-public class AdmobService {
-    private WindowService window = new WindowService();
-    private String TAG = "AdmobService";
+public class AdmobHelper {
+    private WindowHelper window = new WindowHelper();
+    private String TAG = "AdmobHelper";
     
     public AdView getAdView(int id, Activity activity) {
         return window.getAdView(id, activity);

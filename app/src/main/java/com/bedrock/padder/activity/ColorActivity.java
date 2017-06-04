@@ -17,22 +17,22 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.adapter.ColorAdapter;
-import com.bedrock.padder.helper.FabService;
-import com.bedrock.padder.helper.ToolbarService;
-import com.bedrock.padder.helper.WindowService;
+import com.bedrock.padder.helper.FabHelper;
+import com.bedrock.padder.helper.ToolbarHelper;
+import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.app.theme.ColorData;
 import com.google.gson.Gson;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
+import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class ColorActivity extends AppCompatActivity implements ColorChooserDialog.ColorCallback {
 
-    private WindowService w = new WindowService();
+    private WindowHelper w = new WindowHelper();
     //private FabServiceOld fab = new FabServiceOld();
-    private FabService fab = new FabService();
-    private ToolbarService toolbar = new ToolbarService();
+    private FabHelper fab = new FabHelper();
+    private ToolbarHelper toolbar = new ToolbarHelper();
 
     Activity activity = this;
     SharedPreferences prefs = null;

@@ -18,7 +18,7 @@ import com.bedrock.padder.R;
 
 @SuppressWarnings("unchecked")
 
-public class IntentService {
+public class IntentHelper {
     public void intent(final Activity activity, String name, int delay) {
         final String classname = "com.bedrock.padder." + name;
         final Class<Object> classToLoad;
@@ -29,13 +29,13 @@ public class IntentService {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Log.i("IntentService", "intent");
+                    Log.i("IntentHelper", "intent");
                     Intent animActivity = new Intent(activity, classToLoad);
                     activity.startActivity(animActivity);
                 }
             }, delay);
         } catch (ClassNotFoundException e){
-            Log.i("IntentService", "Error, there is no such class");
+            Log.i("IntentHelper", "Error, there is no such class");
         }
     }
     public void intent(final Activity activity, String name) {
@@ -44,11 +44,11 @@ public class IntentService {
         try{
             classToLoad = (Class<Object>)Class.forName(classname);
 
-            Log.i("IntentService", "intent");
+            Log.i("IntentHelper", "intent");
             Intent animActivity = new Intent(activity, classToLoad);
             activity.startActivity(animActivity);
         } catch (ClassNotFoundException e){
-            Log.i("IntentService", "Error, there is no such class");
+            Log.i("IntentHelper", "Error, there is no such class");
         }
     }
 
@@ -62,14 +62,14 @@ public class IntentService {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Log.i("IntentService", "intent");
+                    Log.i("IntentHelper", "intent");
                     Intent animActivity = new Intent(activity, classToLoad);
                     animActivity.putExtra(extra_name, extra);
                     activity.startActivity(animActivity);
                 }
             }, delay);
         } catch (ClassNotFoundException e){
-            Log.i("IntentService", "Error, there is no such class");
+            Log.i("IntentHelper", "Error, there is no such class");
         }
     }
 
@@ -83,14 +83,14 @@ public class IntentService {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Log.i("IntentService", "intent");
+                    Log.i("IntentHelper", "intent");
                     Intent animActivity = new Intent(activity, classToLoad);
                     animActivity.putExtra(extra_name, extra);
                     activity.startActivity(animActivity);
                 }
             }, delay);
         } catch (ClassNotFoundException e){
-            Log.i("IntentService", "Error, there is no such class");
+            Log.i("IntentHelper", "Error, there is no such class");
         }
     }
 
@@ -105,12 +105,12 @@ public class IntentService {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Log.i("IntentService", "intentAppDetailSettings");
+                    Log.i("IntentHelper", "intentAppDetailSettings");
                     activity.startActivity(intent);
                 }
             }, delay);
         } else {
-            Log.i("IntentService", "intentAppDetailSettings");
+            Log.i("IntentHelper", "intentAppDetailSettings");
             activity.startActivity(intent);
         }
     }
@@ -141,7 +141,7 @@ public class IntentService {
                 }
             }, delay);
         } catch (ClassNotFoundException e){
-            Log.i("IntentService", "Error, there is no such class");
+            Log.i("IntentHelper", "Error, there is no such class");
         }
     }
 
@@ -172,7 +172,7 @@ public class IntentService {
                 }
             }, delay);
         } catch (ClassNotFoundException e){
-            Log.i("IntentService", "Error, there is no such class");
+            Log.i("IntentHelper", "Error, there is no such class");
         }
     }
 
@@ -203,7 +203,7 @@ public class IntentService {
                 }
             }, delay);
         } catch (ClassNotFoundException e){
-            Log.i("IntentService", "Error, there is no such class");
+            Log.i("IntentHelper", "Error, there is no such class");
         }
     }
 
@@ -234,7 +234,7 @@ public class IntentService {
                 }
             }, delay);
         } catch (ClassNotFoundException e){
-            Log.i("IntentService", "Error, there is no such class");
+            Log.i("IntentHelper", "Error, there is no such class");
         }
     }
 
@@ -248,7 +248,7 @@ public class IntentService {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Log.i("IntentService", "intentFlag");
+                    Log.i("IntentHelper", "intentFlag");
                     Intent animActivity = new Intent(activity, classToLoad);
                     animActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     animActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -258,7 +258,7 @@ public class IntentService {
                 }
             }, delay);
         } catch (ClassNotFoundException e){
-            Log.i("IntentService", "Error, there is no such class");
+            Log.i("IntentHelper", "Error, there is no such class");
         }
     }
 
@@ -267,7 +267,7 @@ public class IntentService {
         finish.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Log.i("IntentService", "intentFinish");
+                Log.i("IntentHelper", "intentFinish");
                 activity.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
                 activity.finish();
             }

@@ -26,11 +26,11 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
-import com.bedrock.padder.helper.IntentService;
-import com.bedrock.padder.helper.ToolbarService;
-import com.bedrock.padder.helper.WindowService;
+import com.bedrock.padder.helper.IntentHelper;
+import com.bedrock.padder.helper.ToolbarHelper;
+import com.bedrock.padder.helper.WindowHelper;
 
-import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
+import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class UserBenefitsActivity extends AppCompatActivity {
 
@@ -49,9 +49,9 @@ public class UserBenefitsActivity extends AppCompatActivity {
 
     private int position = 0;
 
-    private ToolbarService toolbar = new ToolbarService();
-    private WindowService window = new WindowService();
-    private IntentService intent = new IntentService();
+    private ToolbarHelper toolbar = new ToolbarHelper();
+    private WindowHelper window = new WindowHelper();
+    private IntentHelper intent = new IntentHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

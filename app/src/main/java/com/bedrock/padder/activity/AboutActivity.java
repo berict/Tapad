@@ -16,10 +16,10 @@ import android.widget.ImageView;
 
 import com.bedrock.padder.R;
 import com.bedrock.padder.adapter.DetailAdapter;
-import com.bedrock.padder.helper.AnimService;
-import com.bedrock.padder.helper.FirebaseService;
-import com.bedrock.padder.helper.ToolbarService;
-import com.bedrock.padder.helper.WindowService;
+import com.bedrock.padder.helper.AnimateHelper;
+import com.bedrock.padder.helper.FirebaseHelper;
+import com.bedrock.padder.helper.ToolbarHelper;
+import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.about.About;
 import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
@@ -33,10 +33,10 @@ public class AboutActivity extends AppCompatActivity {
     About about;
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
 
-    private WindowService window = new WindowService();
-    private AnimService anim = new AnimService();
-    private ToolbarService toolbar = new ToolbarService();
-    private FirebaseService firebase = new FirebaseService();
+    private WindowHelper window = new WindowHelper();
+    private AnimateHelper anim = new AnimateHelper();
+    private ToolbarHelper toolbar = new ToolbarHelper();
+    private FirebaseHelper firebase = new FirebaseHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

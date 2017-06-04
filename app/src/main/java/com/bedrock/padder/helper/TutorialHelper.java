@@ -19,9 +19,9 @@ import com.bedrock.padder.model.preset.Preset;
 import java.util.Arrays;
 
 import static com.bedrock.padder.activity.MainActivity.currentPreset;
-import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
+import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
-public class TutorialService extends Activity {
+public class TutorialHelper extends Activity {
 
     public double hello[][] = {
                 /* 00 */ {56.867, 184.875, -1},
@@ -645,8 +645,8 @@ public class TutorialService extends Activity {
             btn44_3,
             btn44_4
     };
-    private AnimService anim = new AnimService();
-    private WindowService window = new WindowService();
+    private AnimateHelper anim = new AnimateHelper();
+    private WindowHelper window = new WindowHelper();
     private int count;
     private int i;
     // motionDelays
@@ -1203,7 +1203,7 @@ public class TutorialService extends Activity {
     }
 
     void tutorialLoad(final Activity activity) {
-        Log.i("TutorialService", "tutorial loaded");
+        Log.i("TutorialHelper", "tutorial loaded");
 
         final double array[][];
         SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, activity.MODE_PRIVATE);
@@ -1240,7 +1240,7 @@ public class TutorialService extends Activity {
     }
 
     void tutorialPlay(final double array[][], final Activity activity) {
-        Log.i("TutorialService", "tutorial started");
+        Log.i("TutorialHelper", "tutorial started");
         window.getTextView(R.id.progress_bar_text, activity).setText(R.string.progressbar_loading_preset);
         for (count = 0; count < 24; count++) {
             i = 0;
@@ -1277,7 +1277,7 @@ public class TutorialService extends Activity {
             mHandler.removeCallbacksAndMessages(null);
             window.getImageView(R.id.toolbar_tutorial_icon, a).setImageResource(R.drawable.ic_tutorial_black);
             window.getImageView(R.id.layout_settings_tutorial_icon, a).setImageResource(R.drawable.ic_tutorial_black);
-            Log.i("TutorialService", "tutorial finished");
+            Log.i("TutorialHelper", "tutorial finished");
         } catch (NullPointerException e) {
             Log.e("tutorialService", "NPE, failed to remove callback from handler");
         }
@@ -1663,7 +1663,7 @@ public class TutorialService extends Activity {
         Log.d("removeCallbacks", "Callback removed from " + index);
     }
 
-    private String TAG = "TutorialService";
+    private String TAG = "TutorialHelper";
 
     void setRunnables(final int timing[][], final Activity activity) {
         for (indexI = 0; indexI < 89; indexI++) {

@@ -14,16 +14,16 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.bedrock.padder.R;
-import com.bedrock.padder.helper.AnimService;
-import com.bedrock.padder.helper.WindowService;
+import com.bedrock.padder.helper.AnimateHelper;
+import com.bedrock.padder.helper.WindowHelper;
 
 public class HelpActivity extends AppCompatActivity {
 
     private Activity activity = this;
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
 
-    private WindowService window = new WindowService();
-    private AnimService anim = new AnimService();
+    private WindowHelper window = new WindowHelper();
+    private AnimateHelper anim = new AnimateHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

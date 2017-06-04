@@ -11,7 +11,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
 
-public class TextService {
+public class TextHelper {
     public void setEditText(int editText, int editTextLayout, String type, int hint, int errorMessage, Activity activity) {
         AppCompatEditText text = (AppCompatEditText)activity.findViewById(editText);
         text.addTextChangedListener(new AdvancedTextWatcher(editText, editTextLayout, type, hint, errorMessage, activity));
@@ -41,7 +41,7 @@ public class TextService {
 
     public boolean isvalidAll(int editText[], String type[], Activity activity){
         if((editText.length != type.length) || (editText.length == 0)){
-            Log.d("TextService", "Error : editText object and type doesn't match or editText object has no elements");
+            Log.d("TextHelper", "Error : editText object and type doesn't match or editText object has no elements");
             return false;
         } else {
             boolean vaild = true;
@@ -64,7 +64,7 @@ public class TextService {
 
     public boolean isvalidAll(int editText[], Activity activity){
         if(editText.length == 0){
-            Log.d("TextService", "Error : editText object has no elements");
+            Log.d("TextHelper", "Error : editText object has no elements");
             return false;
         } else {
             boolean vaild = true;

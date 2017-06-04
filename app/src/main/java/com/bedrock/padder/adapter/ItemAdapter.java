@@ -15,12 +15,12 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
-import com.bedrock.padder.helper.AnimService;
-import com.bedrock.padder.helper.IntentService;
-import com.bedrock.padder.helper.WindowService;
+import com.bedrock.padder.helper.AnimateHelper;
+import com.bedrock.padder.helper.IntentHelper;
+import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.about.Item;
 
-import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
+import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHolder> {
     private Item[] item;
@@ -28,7 +28,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
     private Context context;
     private Activity activity;
     
-    private WindowService window = new WindowService();
+    private WindowHelper window = new WindowHelper();
 
     public static class DetailViewHolder extends RecyclerView.ViewHolder {
         ImageView itemIcon;
@@ -60,8 +60,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
         return new DetailViewHolder(view);
     }
 
-    private IntentService intent = new IntentService();
-    private AnimService anim =  new AnimService();
+    private IntentHelper intent = new IntentHelper();
+    private AnimateHelper anim =  new AnimateHelper();
 
     @Override
     public void onBindViewHolder(final DetailViewHolder holder, int position) {
@@ -153,7 +153,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
     private Runnable getExceptionalRunnable(String textId) {
         Runnable exceptionalRunnable;
         final Activity a = activity;
-        final WindowService w = new WindowService();
+        final WindowHelper w = new WindowHelper();
 
         switch (textId) {
             case "info_tapad_info_check_update":

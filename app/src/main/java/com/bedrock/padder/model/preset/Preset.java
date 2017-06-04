@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.view.View;
 
-import com.bedrock.padder.helper.FirebaseService;
-import com.bedrock.padder.helper.SoundService;
+import com.bedrock.padder.helper.FirebaseHelper;
+import com.bedrock.padder.helper.SoundHelper;
 import com.bedrock.padder.model.about.About;
 import com.google.gson.annotations.SerializedName;
 
@@ -14,8 +14,8 @@ import java.io.File;
 import static android.content.Context.MODE_PRIVATE;
 import static com.bedrock.padder.activity.MainActivity.PRESET_KEY;
 import static com.bedrock.padder.activity.MainActivity.isPresetChanged;
-import static com.bedrock.padder.helper.FirebaseService.PROJECT_LOCATION_PRESETS;
-import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
+import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
+import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class Preset {
 
@@ -119,19 +119,19 @@ public class Preset {
     }
 
     public void loadPreset(Activity activity) {
-        SoundService sound = new SoundService();
+        SoundHelper sound = new SoundHelper();
         sound.loadSound(this, activity);
     }
 
     public void downloadPreset(View parentView, Activity activity, Runnable onFinish) {
         // download the preset from firebase
-        FirebaseService firebase = new FirebaseService();
+        FirebaseHelper firebase = new FirebaseHelper();
         firebase.downloadFirebasePreset(firebaseLocation, parentView, activity, onFinish);
     }
 
     public void removePreset(Runnable onFinish, Activity activity) {
         // remove the preset folder
-        FirebaseService firebase = new FirebaseService();
+        FirebaseHelper firebase = new FirebaseHelper();
         firebase.removeLocalPreset(firebaseLocation, onFinish, null);
         // reset the savedPreset
         SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
@@ -140,7 +140,7 @@ public class Preset {
 
     public void repairPreset(final View parentView, final Activity activity, final Runnable onFinish) {
         // remove and download the preset again
-        final FirebaseService firebase = new FirebaseService();
+        final FirebaseHelper firebase = new FirebaseHelper();
         firebase.removeLocalPreset(firebaseLocation, new Runnable() {
             @Override
             public void run() {

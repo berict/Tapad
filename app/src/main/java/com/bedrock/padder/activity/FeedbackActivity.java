@@ -25,24 +25,24 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.BuildConfig;
 import com.bedrock.padder.R;
-import com.bedrock.padder.helper.AnimService;
-import com.bedrock.padder.helper.FabService;
-import com.bedrock.padder.helper.IntentService;
-import com.bedrock.padder.helper.ToolbarService;
-import com.bedrock.padder.helper.WindowService;
+import com.bedrock.padder.helper.AnimateHelper;
+import com.bedrock.padder.helper.FabHelper;
+import com.bedrock.padder.helper.IntentHelper;
+import com.bedrock.padder.helper.ToolbarHelper;
+import com.bedrock.padder.helper.WindowHelper;
 
-import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
+import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class FeedbackActivity extends AppCompatActivity {
 
     final String TAG = "FeedbackActivity";
     String MODE_TAG = "";
 
-    private FabService fab = new FabService();
-    private WindowService w = new WindowService();
-    private IntentService intent = new IntentService();
-    private AnimService anim = new AnimService();
-    private ToolbarService toolbar = new ToolbarService();
+    private FabHelper fab = new FabHelper();
+    private WindowHelper w = new WindowHelper();
+    private IntentHelper intent = new IntentHelper();
+    private AnimateHelper anim = new AnimateHelper();
+    private ToolbarHelper toolbar = new ToolbarHelper();
 
     Activity a = this;
     SharedPreferences prefs = null;

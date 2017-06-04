@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
-public class ToolbarService {
+public class ToolbarHelper {
 
     public static int TOOLBAR = R.id.actionbar_toolbar;
     public static int IMAGE = R.id.actionbar_image;
@@ -71,13 +71,13 @@ public class ToolbarService {
     }
 
     public void setActionBarImage(int imageResId, Activity activity) {
-        WindowService window = new WindowService();
+        WindowHelper window = new WindowHelper();
         window.getImageView(IMAGE, activity).setImageResource(imageResId);
         window.getImageView(IMAGE, activity).setVisibility(View.VISIBLE);
     }
 
     public void setActionBarImage(String imageLocation, Activity activity) {
-        WindowService window = new WindowService();
+        WindowHelper window = new WindowHelper();
         ImageView imageView = window.getImageView(IMAGE, activity);
         Picasso.with(activity).load(new File(imageLocation)).into(imageView);
         imageView.setVisibility(View.VISIBLE);
@@ -98,14 +98,14 @@ public class ToolbarService {
     }
 
     public void setActionBarPadding(Activity activity) {
-        WindowService window = new WindowService();
+        WindowHelper window = new WindowHelper();
         // set the top padding to the status bar size
         Toolbar toolbar = (Toolbar)activity.findViewById(TOOLBAR);
         toolbar.setPadding(0, window.getStatusBarFromPrefs(activity), 0, 0);
     }
 
     public void setActionBarPadding(Activity activity, View view) {
-        WindowService window = new WindowService();
+        WindowHelper window = new WindowHelper();
         // set the top padding to the status bar size
         Toolbar toolbar = (Toolbar)view.findViewById(TOOLBAR);
         toolbar.setPadding(0, window.getStatusBarFromPrefs(activity), 0, 0);

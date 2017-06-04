@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
-import com.bedrock.padder.helper.WindowService;
+import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.app.theme.ColorData;
 import com.google.gson.Gson;
 
@@ -27,7 +27,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
     private SharedPreferences prefs;
     private Activity activity;
 
-    private WindowService window = new WindowService();
+    private WindowHelper window = new WindowHelper();
 
     public static class DetailViewHolder extends RecyclerView.ViewHolder {
         RelativeLayout colorLayout;

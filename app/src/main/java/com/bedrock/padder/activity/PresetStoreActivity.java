@@ -25,11 +25,11 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.adapter.PresetStoreAdapter;
-import com.bedrock.padder.helper.AnimService;
-import com.bedrock.padder.helper.FileService;
-import com.bedrock.padder.helper.IntentService;
-import com.bedrock.padder.helper.ToolbarService;
-import com.bedrock.padder.helper.WindowService;
+import com.bedrock.padder.helper.AnimateHelper;
+import com.bedrock.padder.helper.FileHelper;
+import com.bedrock.padder.helper.IntentHelper;
+import com.bedrock.padder.helper.ToolbarHelper;
+import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.FirebaseMetadata;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -50,11 +50,11 @@ public class PresetStoreActivity extends AppCompatActivity {
     Activity activity = this;
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
 
-    private WindowService window = new WindowService();
-    private AnimService anim = new AnimService();
-    private ToolbarService toolbar = new ToolbarService();
-    private IntentService intent = new IntentService();
-    private FileService fileService = new FileService();
+    private WindowHelper window = new WindowHelper();
+    private AnimateHelper anim = new AnimateHelper();
+    private ToolbarHelper toolbar = new ToolbarHelper();
+    private IntentHelper intent = new IntentHelper();
+    private FileHelper fileHelper = new FileHelper();
 
     private int themeColor;
     private String themeTitle;
@@ -263,7 +263,7 @@ public class PresetStoreActivity extends AppCompatActivity {
         // attach the adapter to the layout
         if (new File(metadataLocation).exists()) {
             // metadata file exists
-            String metadata = fileService.getStringFromFile(metadataLocation);
+            String metadata = fileHelper.getStringFromFile(metadataLocation);
             if (isFirebaseMetadataUpdated(activity)) {
                 // updated, download new one
                 downloadMetadata();

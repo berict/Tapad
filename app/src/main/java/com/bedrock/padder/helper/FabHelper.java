@@ -8,13 +8,13 @@ import android.view.View;
 
 import com.bedrock.padder.R;
 
-public class FabService {
+public class FabHelper {
 
     public static int FAB = R.id.fab;
 
     private FloatingActionButton floatingActionButton;
 
-    private AnimService anim = new AnimService();
+    private AnimateHelper anim = new AnimateHelper();
 
     public void setFab(Activity activity) {
         floatingActionButton = (FloatingActionButton)activity.findViewById(FAB);

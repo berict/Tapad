@@ -50,7 +50,7 @@ import java.util.regex.Pattern;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class WindowService {
+public class WindowHelper {
 
     public static final String APPLICATION_ID = "com.bedrock.padder";
 
@@ -62,15 +62,15 @@ public class WindowService {
                     Window w = activity.getWindow();
                     w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
                 }
-                Log.i("WindowService", "Transparent navigation bar color applied.");
+                Log.i("WindowHelper", "Transparent navigation bar color applied.");
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     activity.getWindow().setNavigationBarColor(activity.getResources().getColor(colorId));
-                    Log.i("WindowService", "Navigation bar color applied.");
+                    Log.i("WindowHelper", "Navigation bar color applied.");
                 }
             }
         } else {
-            Log.i("WindowService", "API doesn't match requirement. (API >= 16)");
+            Log.i("WindowHelper", "API doesn't match requirement. (API >= 16)");
         }
     }
 
@@ -120,9 +120,9 @@ public class WindowService {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(ContextCompat.getColor(activity, colorId));
 
-            Log.i("WindowService", "Status bar color applied.");
+            Log.i("WindowHelper", "Status bar color applied.");
         } else {
-            Log.i("WindowService", "API doesn't match requirement. (API >= 21)");
+            Log.i("WindowHelper", "API doesn't match requirement. (API >= 21)");
         }
     }
 
@@ -237,9 +237,9 @@ public class WindowService {
                             activity.getResources().getColor(R.color.colorPrimary));
             activity.setTaskDescription(taskDesc);
 
-            Log.i("WindowService", "TaskDescription applied.");
+            Log.i("WindowHelper", "TaskDescription applied.");
         } else {
-            Log.i("WindowService", "API doesn't match requirement. (API >= 21)");
+            Log.i("WindowHelper", "API doesn't match requirement. (API >= 21)");
         }
     }
 
@@ -270,9 +270,9 @@ public class WindowService {
                 activity.setTaskDescription(taskDesc);
             }
 
-            Log.i("WindowService", "TaskDescription applied.");
+            Log.i("WindowHelper", "TaskDescription applied.");
         } else {
-            Log.i("WindowService", "API doesn't match requirement. (API >= 21)");
+            Log.i("WindowHelper", "API doesn't match requirement. (API >= 21)");
         }
     }
 
@@ -303,9 +303,9 @@ public class WindowService {
                 activity.setTaskDescription(taskDesc);
             }
 
-            Log.i("WindowService", "TaskDescription applied.");
+            Log.i("WindowHelper", "TaskDescription applied.");
         } else {
-            Log.i("WindowService", "API doesn't match requirement. (API >= 21)");
+            Log.i("WindowHelper", "API doesn't match requirement. (API >= 21)");
         }
     }
 
@@ -325,9 +325,9 @@ public class WindowService {
                             activity.getResources().getColor(R.color.colorPrimary));
             activity.setTaskDescription(taskDesc);
 
-            Log.i("WindowService", "TaskDescription applied.");
+            Log.i("WindowHelper", "TaskDescription applied.");
         } else {
-            Log.i("WindowService", "API doesn't match requirement. (API >= 21)");
+            Log.i("WindowHelper", "API doesn't match requirement. (API >= 21)");
         }
     }
 
@@ -358,9 +358,9 @@ public class WindowService {
                 activity.setTaskDescription(taskDesc);
             }
 
-            Log.i("WindowService", "TaskDescription applied.");
+            Log.i("WindowHelper", "TaskDescription applied.");
         } else {
-            Log.i("WindowService", "API doesn't match requirement. (API >= 21)");
+            Log.i("WindowHelper", "API doesn't match requirement. (API >= 21)");
         }
     }
 
@@ -385,9 +385,9 @@ public class WindowService {
                 activity.setTaskDescription(taskDesc);
             }
 
-            Log.i("WindowService", "TaskDescription applied.");
+            Log.i("WindowHelper", "TaskDescription applied.");
         } else {
-            Log.i("WindowService", "API doesn't match requirement. (API >= 21)");
+            Log.i("WindowHelper", "API doesn't match requirement. (API >= 21)");
         }
     }
 

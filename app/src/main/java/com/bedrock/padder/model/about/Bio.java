@@ -2,7 +2,7 @@ package com.bedrock.padder.model.about;
 
 import com.google.gson.annotations.SerializedName;
 
-import static com.bedrock.padder.helper.FirebaseService.PROJECT_LOCATION_PRESETS;
+import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
 
 public class Bio {
 

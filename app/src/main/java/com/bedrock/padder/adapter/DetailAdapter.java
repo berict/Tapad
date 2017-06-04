@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bedrock.padder.R;
-import com.bedrock.padder.helper.WindowService;
+import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.about.About;
 import com.bedrock.padder.model.about.Item;
 
@@ -20,7 +20,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
     private Context context;
     private Activity activity;
 
-    WindowService window = new WindowService();
+    WindowHelper window = new WindowHelper();
 
     public static class DetailViewHolder extends RecyclerView.ViewHolder {
         TextView detailTitle;

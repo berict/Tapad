@@ -19,9 +19,9 @@ import java.util.Random;
 import static android.content.Context.MODE_PRIVATE;
 import static com.bedrock.padder.activity.MainActivity.currentPreset;
 import static com.bedrock.padder.activity.MainActivity.isPresetLoading;
-import static com.bedrock.padder.helper.WindowService.APPLICATION_ID;
+import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
-public class SoundService {
+public class SoundHelper {
     private SoundPool sp = new SoundPool(16, AudioManager.STREAM_MUSIC, 0);
     private int toggle;
 
@@ -505,9 +505,9 @@ public class SoundService {
         return sp;
     }
 
-    private AdmobService ad = new AdmobService();
-    private AnimService anim = new AnimService();
-    private WindowService window = new WindowService();
+    private AdmobHelper ad = new AdmobHelper();
+    private AnimateHelper anim = new AnimateHelper();
+    private WindowHelper window = new WindowHelper();
 
     //Play SoundPool
     public void soundPlay(SoundPool sp, int soundid) {
@@ -523,7 +523,7 @@ public class SoundService {
         try {
             sp.release();
         } catch (NullPointerException e) {
-            Log.e("SoundService", "NPE, soundPool is null. Cannot release soundPool.");
+            Log.e("SoundHelper", "NPE, soundPool is null. Cannot release soundPool.");
         }
     }
 
@@ -532,7 +532,7 @@ public class SoundService {
         try {
             sp.autoPause();
         } catch (NullPointerException e) {
-            Log.e("SoundService", "NPE, soundPool is null. Cannot autoPause soundPool.");
+            Log.e("SoundHelper", "NPE, soundPool is null. Cannot autoPause soundPool.");
         }
     }
 
@@ -655,7 +655,7 @@ public class SoundService {
                     }
                 }
             }
-            Log.i("SoundService", "ToggleButton sound set id " + String.valueOf(id));
+            Log.i("SoundHelper", "ToggleButton sound set id " + String.valueOf(id));
         } else {
             setButton(colorId, activity);
         }
@@ -768,7 +768,7 @@ public class SoundService {
                     }
                 }
             }
-            Log.i("SoundService", "ToggleButton pattern set id " + String.valueOf(patternId));
+            Log.i("SoundHelper", "ToggleButton pattern set id " + String.valueOf(patternId));
         } else {
             setButton(colorId, activity);
         }

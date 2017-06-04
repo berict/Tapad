@@ -14,8 +14,8 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
-import com.bedrock.padder.helper.FirebaseService;
-import com.bedrock.padder.helper.WindowService;
+import com.bedrock.padder.helper.FirebaseHelper;
+import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.FirebaseMetadata;
 import com.bedrock.padder.model.preset.Preset;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,7 +27,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
-import static com.bedrock.padder.helper.FirebaseService.PROJECT_LOCATION_PRESETS;
+import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
 
 public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.PresetViewHolder> {
 
@@ -37,8 +37,8 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
     private Activity activity;
     private View parentView;
 
-    private WindowService window = new WindowService();
-    private FirebaseService firebase = new FirebaseService();
+    private WindowHelper window = new WindowHelper();
+    private FirebaseHelper firebase = new FirebaseHelper();
 
     public static class PresetViewHolder extends RecyclerView.ViewHolder {
         LinearLayout presetGesture;
