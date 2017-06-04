@@ -169,6 +169,63 @@ public class AnimateHelper {
         }
     }
 
+    public void fadeIn(final View view, final int delay, final long duration, String handlerName, Activity activity) {
+        final AlphaAnimation fadeIn = new AlphaAnimation(0.0f, 1.0f);;
+        view.setVisibility(View.INVISIBLE);
+        PowerManager powerManager = (PowerManager) activity.getSystemService(POWER_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= 21 && powerManager.isPowerSaveMode()) {
+            // power save mode on
+            if (duration > 0) {
+                // delay, needs an handler
+                Map<String, Handler> handlerCreator = new HashMap<>();
+                handlerCreator.put(handlerName, new Handler());
+
+                handlerCreator.get(handlerName).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.setVisibility(View.VISIBLE);
+
+                        Log.i("AnimateHelper", view.toString() + " fade IN [VISIBLE] effect for 0ms with " + String.valueOf(delay) + "ms delay");
+                    }
+                }, delay);
+            } else {
+                view.setVisibility(View.VISIBLE);
+                Log.i("AnimateHelper",
+                        view.toString() + " fade IN effect to 1.0f for 0ms with no delay");
+            }
+        } else {
+            // normal fadeIn IN
+            if (duration > 0) {
+                // delay, needs an handler
+                Map<String, Handler> handlerCreator = new HashMap<>();
+                handlerCreator.put(handlerName, new Handler());
+
+                handlerCreator.get(handlerName).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        fadeIn.setDuration(duration);
+                        view.startAnimation(fadeIn);
+                        view.setVisibility(View.VISIBLE);
+
+                        Log.i("AnimateHelper",
+                                view.toString() + " fade IN effect for " +
+                                        String.valueOf(duration) + "ms with " +
+                                        String.valueOf(delay) + "ms delay");
+                    }
+                }, delay);
+            } else {
+                fadeIn.setDuration(duration);
+                view.startAnimation(fadeIn);
+                view.setVisibility(View.VISIBLE);
+
+                Log.i("AnimateHelper",
+                        view.toString() + " fade IN effect for " +
+                                String.valueOf(duration) + "ms with no delay");
+            }
+        }
+    }
+
     public void fadeIn(final int id, final int delay, final long duration, String handlerName, View parentView, Activity activity) {
         final AlphaAnimation fadeIn = new AlphaAnimation(0.0f, 1.0f);
         final View view = parentView.findViewById(id);

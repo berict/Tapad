@@ -2,6 +2,7 @@ package com.bedrock.padder.helper;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.AsyncTask;
@@ -13,6 +14,8 @@ import android.widget.ProgressBar;
 import com.bedrock.padder.R;
 import com.bedrock.padder.activity.MainActivity;
 import com.bedrock.padder.model.preset.Preset;
+
+import java.util.Random;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.bedrock.padder.activity.MainActivity.currentPreset;
@@ -907,8 +910,6 @@ public class SoundHelper {
             //progress.setText(getRandomStringFromStringArray(R.array.progressbar_loading_preset_progress_funnies));
             // lel removed?
 
-            final Handler intervalTimer = new Handler();
-
             sp.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
                 @Override
                 public void onLoadComplete(SoundPool soundPool, final int sampleId, int status) {
@@ -916,6 +917,8 @@ public class SoundHelper {
                     savedSampleId = sampleId;
                 }
             });
+
+            final Handler intervalTimer = new Handler();
 
             intervalTimer.postDelayed(new Runnable() {
                 @Override
@@ -958,7 +961,16 @@ public class SoundHelper {
 
         anim.fadeOut(R.id.progress_bar_layout, 0, 400, activity);
         anim.fadeOut(R.id.adView_main, 0, 400, activity);
-        window.setVisible(R.id.base, 0, activity);
+
+        final Random random = new Random();
+
+        Handler delay = new Handler();
+        delay.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                buttonRevealAnimation(random.nextInt(25));
+            }
+        }, 400);
 
         MainActivity main = new MainActivity();
         main.setQuickstart(activity);
@@ -966,7 +978,114 @@ public class SoundHelper {
         isPresetLoading = false;
     }
 
-    private void buttonRevealAnimation() {
+    private void buttonRevealAnimation(final int buttonRectIndex) {
+        final Rect buttonRects[] = {
+                window.getRect(R.id.btn00, activity),
+                window.getRect(R.id.tgl1, activity),
+                window.getRect(R.id.tgl2, activity),
+                window.getRect(R.id.tgl3, activity),
+                window.getRect(R.id.tgl4, activity),
+                window.getRect(R.id.tgl5, activity),
+                window.getRect(R.id.tgl6, activity),
+                window.getRect(R.id.tgl7, activity),
+                window.getRect(R.id.tgl8, activity),
+                window.getRect(R.id.btn11, activity),
+                window.getRect(R.id.btn12, activity),
+                window.getRect(R.id.btn13, activity),
+                window.getRect(R.id.btn14, activity),
+                window.getRect(R.id.btn21, activity),
+                window.getRect(R.id.btn22, activity),
+                window.getRect(R.id.btn23, activity),
+                window.getRect(R.id.btn24, activity),
+                window.getRect(R.id.btn31, activity),
+                window.getRect(R.id.btn32, activity),
+                window.getRect(R.id.btn33, activity),
+                window.getRect(R.id.btn34, activity),
+                window.getRect(R.id.btn41, activity),
+                window.getRect(R.id.btn42, activity),
+                window.getRect(R.id.btn43, activity),
+                window.getRect(R.id.btn44, activity)
+        };
 
+        final View buttonViews[] = {
+                window.getView(R.id.btn00, activity),
+                window.getView(R.id.tgl1, activity),
+                window.getView(R.id.tgl2, activity),
+                window.getView(R.id.tgl3, activity),
+                window.getView(R.id.tgl4, activity),
+                window.getView(R.id.tgl5, activity),
+                window.getView(R.id.tgl6, activity),
+                window.getView(R.id.tgl7, activity),
+                window.getView(R.id.tgl8, activity),
+                window.getView(R.id.btn11, activity),
+                window.getView(R.id.btn12, activity),
+                window.getView(R.id.btn13, activity),
+                window.getView(R.id.btn14, activity),
+                window.getView(R.id.btn21, activity),
+                window.getView(R.id.btn22, activity),
+                window.getView(R.id.btn23, activity),
+                window.getView(R.id.btn24, activity),
+                window.getView(R.id.btn31, activity),
+                window.getView(R.id.btn32, activity),
+                window.getView(R.id.btn33, activity),
+                window.getView(R.id.btn34, activity),
+                window.getView(R.id.btn41, activity),
+                window.getView(R.id.btn42, activity),
+                window.getView(R.id.btn43, activity),
+                window.getView(R.id.btn44, activity)
+        };
+
+        final int intervalPixel[] = {(int)Math.hypot(window.getWindowWidthPx(activity), window.getWindowWidthPx(activity)) / 40};
+        Log.i("intervalPixel", String.valueOf(intervalPixel[0]));
+        final int intervalCount[] = {0};
+        // 40 intervals x 10ms = 400ms animation
+
+        anim.fadeIn(buttonViews[buttonRectIndex], 0, 100, "btn" + String.valueOf(buttonRectIndex) + "In", activity);
+
+        final Handler intervalTimer = new Handler();
+        intervalTimer.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (intervalCount[0] <= 40) {
+                    for (int i = 0; i < buttonRects.length; i++) {
+                        if (buttonRectIndex != i) {
+                            Log.i("for", "" + i);
+                            // not the view itself
+                            Log.i("collide", String.valueOf(isAnimationCollides(
+                                    buttonRects[buttonRectIndex],
+                                    buttonRects[i],
+                                    intervalPixel[0] * intervalCount[0])));
+                            Log.i("view visible", String.valueOf(buttonViews[i].getVisibility() != View.VISIBLE));
+                            if (isAnimationCollides(
+                                    buttonRects[buttonRectIndex],
+                                    buttonRects[i],
+                                    intervalPixel[0] * intervalCount[0]) &&
+                                    buttonViews[i].getVisibility() != View.VISIBLE) {
+                                // collides, fadeIn
+                                Log.d("SoundHelper", "button " + i);
+                                anim.fadeIn(buttonViews[i], 0, 50, "btn" + String.valueOf(i) + "In", activity);
+                            }
+                        }
+                    }
+                    intervalCount[0]++;
+                    intervalTimer.postDelayed(this, 10);
+                }
+            }
+        }, 10);
+    }
+
+    private boolean isAnimationCollides(Rect startViewRect, Rect targetViewRect, int distance) {
+        double viewDistance =
+                Math.hypot(
+                        Math.abs(startViewRect.centerX() - targetViewRect.centerX()),
+                        Math.abs(startViewRect.centerY() - targetViewRect.centerY())
+                );
+        // gets view hypot
+        if (viewDistance < distance) {
+            // collided
+            return true;
+        } else {
+            return false;
+        }
     }
 }
