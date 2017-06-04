@@ -702,19 +702,6 @@ public class WindowHelper {
         //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
     }
 
-    public int getRawId(String id) {
-        //return activity.getResources().getIdentifier(id, "raw", activity.getPackageName());
-        try {
-            Class res = R.raw.class;
-            Field field = res.getField(id);
-            return field.getInt(null);
-        } catch (Exception e) {
-            Log.e("getRawId", "Failure to get raw id.", e);
-            return -1;
-        }
-        //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
-    }
-
     // public Z getZ(int id, Activity activity) {
     //     Z z = (Z) activity.findViewById(id);
     //     return z;
@@ -1004,7 +991,7 @@ public class WindowHelper {
     public void setOnTouchSound(final int padId,
                                 final int colorDown, final int colorUp,
                                 final SoundPool sp, final int spid[],
-                                final int patternScheme[][][], final Activity activity) {
+                                final int patternPreset[][][], final Activity activity) {
         // Normal Pattern
         final int btnId[] = {getButtonId(padId)};
 
@@ -1018,13 +1005,13 @@ public class WindowHelper {
                     // Pressed
                     streamId[0] = sp.play(spid[0], 1, 1, 1, -1, 1);
                     setPadColor(pad, colorDown, activity);
-                    setButtonPattern(patternScheme, btnId[0], colorDown, colorUp, activity);
+                    setButtonPattern(patternPreset, btnId[0], colorDown, colorUp, activity);
                     Log.d("TouchListener", "TouchDown");
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     // Released
                     sp.stop(streamId[0]);
                     setPadColor(pad, colorUp, activity);
-                    setButtonPatternDefault(patternScheme, btnId[0], colorUp, activity);
+                    setButtonPatternDefault(patternPreset, btnId[0], colorUp, activity);
                     Log.d("TouchListener", "TouchUp");
                 }
                 return false;
@@ -1173,7 +1160,7 @@ public class WindowHelper {
     public void setOnGestureSound(final int padId,
                                   final int colorDown, final int colorUp,
                                   final SoundPool sp, final int spid[],
-                                  final int patternScheme[][][], final Activity activity) {
+                                  final int patternPreset[][][], final Activity activity) {
         // Gesture Pattern
         final int btnId[] = {getButtonId(padId)};
         final boolean isLoopEnabled[] = {false};
@@ -1195,7 +1182,7 @@ public class WindowHelper {
             @Override
             public void onTouch() {
                 setPadColor(pad, colorDown, activity);
-                setButtonPattern(patternScheme, btnId[0], colorDown, colorUp, activity);
+                setButtonPattern(patternPreset, btnId[0], colorDown, colorUp, activity);
                 if (isLoopEnabled[0] == false) {
                     buttonDelay.postDelayed(clearPad, 500);
                 }
@@ -1207,7 +1194,7 @@ public class WindowHelper {
                 if (isLoopEnabled[0] == false) {
                     setPadColor(pad, colorUp, activity);
                 }
-                setButtonPatternDefault(patternScheme, btnId[0], colorUp, activity);
+                setButtonPatternDefault(patternPreset, btnId[0], colorUp, activity);
                 Log.d("TouchListener", "Click");
             }
 
@@ -1222,7 +1209,7 @@ public class WindowHelper {
                             setPadColor(pad, colorUp, activity);
                             buttonDelay.postDelayed(clearPad, 500);
                         }
-                        setButtonPatternDefault(patternScheme, btnId[0], colorUp, activity);
+                        setButtonPatternDefault(patternPreset, btnId[0], colorUp, activity);
                     }
                 }, 10);
                 Log.d("TouchListener", "Double Click");
@@ -1239,7 +1226,7 @@ public class WindowHelper {
                     setPadColor(pad, colorUp, activity);
                     buttonDelay.postDelayed(clearPad, 500);
                 }
-                setButtonPatternDefault(patternScheme, btnId[0], colorUp, activity);
+                setButtonPatternDefault(patternPreset, btnId[0], colorUp, activity);
                 Log.d("TouchListener", "SwipeUp");
             }
 
@@ -1254,7 +1241,7 @@ public class WindowHelper {
                     setPadColor(pad, colorUp, activity);
                     buttonDelay.postDelayed(clearPad, 500);
                 }
-                setButtonPatternDefault(patternScheme, btnId[0], colorUp, activity);
+                setButtonPatternDefault(patternPreset, btnId[0], colorUp, activity);
                 Log.d("TouchListener", "SwipeRight");
             }
 
@@ -1269,7 +1256,7 @@ public class WindowHelper {
                     setPadColor(pad, colorUp, activity);
                     buttonDelay.postDelayed(clearPad, 500);
                 }
-                setButtonPatternDefault(patternScheme, btnId[0], colorUp, activity);
+                setButtonPatternDefault(patternPreset, btnId[0], colorUp, activity);
                 Log.d("TouchListener", "SwipeDown");
             }
 
@@ -1284,7 +1271,7 @@ public class WindowHelper {
                     setPadColor(pad, colorUp, activity);
                     buttonDelay.postDelayed(clearPad, 500);
                 }
-                setButtonPatternDefault(patternScheme, btnId[0], colorUp, activity);
+                setButtonPatternDefault(patternPreset, btnId[0], colorUp, activity);
                 Log.d("TouchListener", "SwipeLeft");
             }
 
@@ -1307,13 +1294,13 @@ public class WindowHelper {
                     buttonDelay.postDelayed(clearPad, 500);
                     Log.d("TouchListener", "LongClick, loop off");
                 }
-                setButtonPatternDefault(patternScheme, btnId[0], colorUp, activity);
+                setButtonPatternDefault(patternPreset, btnId[0], colorUp, activity);
             }
         });
     }
 
     // TODO NEXT UPDATE check algorithm
-//    void setButtonPattern(int patternScheme[][], int btnId, int colorDown, int colorUp, int mode, Activity activity) {
+//    void setButtonPattern(int patternPreset[][], int btnId, int colorDown, int colorUp, int mode, Activity activity) {
 //        boolean wasAlreadyOn[] = {
 //                false, false, false, false,
 //                false, false, false, false,
@@ -1327,23 +1314,23 @@ public class WindowHelper {
 //                    wasAlreadyOn[btnId] = true;
 //                }
 //            }
-//            for (int i = 0; i < patternScheme[btnId].length; i++) {
+//            for (int i = 0; i < patternPreset[btnId].length; i++) {
 //                try {
-//                    getView(patternScheme[btnId][i], activity).setBackgroundColor(activity.getResources().getColor(colorDown));
+//                    getView(patternPreset[btnId][i], activity).setBackgroundColor(activity.getResources().getColor(colorDown));
 //                } catch (Resources.NotFoundException e) {
 //                    Log.i("NotFoundException", "Handling with normal value");
-//                    getView(patternScheme[btnId][i], activity).setBackgroundColor(colorDown);
+//                    getView(patternPreset[btnId][i], activity).setBackgroundColor(colorDown);
 //                }
 //            }
 //        } else if (mode == 0) {
 //            // button clicked (up)
-//            for (int i = 0; i < patternScheme[btnId].length; i++) {
+//            for (int i = 0; i < patternPreset[btnId].length; i++) {
 //                if (wasAlreadyOn[btnId] == false) {
 //                    try {
-//                        getView(patternScheme[btnId][i], activity).setBackgroundColor(activity.getResources().getColor(colorUp));
+//                        getView(patternPreset[btnId][i], activity).setBackgroundColor(activity.getResources().getColor(colorUp));
 //                    } catch (Resources.NotFoundException e) {
 //                        Log.i("NotFoundException", "Handling with normal value");
-//                        getView(patternScheme[btnId][i], activity).setBackgroundColor(colorUp);
+//                        getView(patternPreset[btnId][i], activity).setBackgroundColor(colorUp);
 //                    }
 //                    wasAlreadyOn[btnId] = true;
 //                }
@@ -1353,19 +1340,19 @@ public class WindowHelper {
 //        }
 //    }
 
-    private void setButtonPattern(int patternScheme[][][], int btnId, int colorDown, int colorUp, Activity activity) {
+    private void setButtonPattern(int patternPreset[][][], int btnId, int colorDown, int colorUp, Activity activity) {
         if (btnId >= 0) {
-            for (int i = 0; i < patternScheme[btnId].length; i++) {
-                for (int j = 0; j < patternScheme[btnId][i].length; j++) {
+            for (int i = 0; i < patternPreset[btnId].length; i++) {
+                for (int j = 0; j < patternPreset[btnId][i].length; j++) {
                     try {
-                        getView(patternScheme[btnId][i][j], activity).setBackgroundColor(
+                        getView(patternPreset[btnId][i][j], activity).setBackgroundColor(
                                 getBlendColor(
                                         activity.getResources().getColor(colorDown),
                                         activity.getResources().getColor(colorUp),
                                         (0.8f - (0.3f * i))));
                     } catch (Resources.NotFoundException e) {
                         Log.i("NotFoundException", "Handling with normal value");
-                        getView(patternScheme[btnId][i][j], activity).setBackgroundColor(
+                        getView(patternPreset[btnId][i][j], activity).setBackgroundColor(
                                 getBlendColor(
                                         colorDown,
                                         activity.getResources().getColor(colorUp),
@@ -1378,15 +1365,15 @@ public class WindowHelper {
         }
     }
 
-    private void setButtonPatternDefault(int patternScheme[][][], int btnId, int colorUp, Activity activity) {
+    private void setButtonPatternDefault(int patternPreset[][][], int btnId, int colorUp, Activity activity) {
         if (btnId >= 0) {
-            for (int i = 0; i < patternScheme[btnId].length; i++) {
-                for (int j = 0; j < patternScheme[btnId][i].length; j++) {
+            for (int i = 0; i < patternPreset[btnId].length; i++) {
+                for (int j = 0; j < patternPreset[btnId][i].length; j++) {
                     try {
-                        getView(patternScheme[btnId][i][j], activity).setBackgroundColor(activity.getResources().getColor(colorUp));
+                        getView(patternPreset[btnId][i][j], activity).setBackgroundColor(activity.getResources().getColor(colorUp));
                     } catch (Resources.NotFoundException e) {
                         Log.i("NotFoundException", "Handling with normal value");
-                        getView(patternScheme[btnId][i][j], activity).setBackgroundColor(colorUp);
+                        getView(patternPreset[btnId][i][j], activity).setBackgroundColor(colorUp);
                     }
                 }
             }
