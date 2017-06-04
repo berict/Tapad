@@ -1094,44 +1094,42 @@ public class MainActivity
                     })
                     .show();
         }
+
+        // reset the touch coords
+        coord[0] = 0;
+        coord[1] = 0;
     }
 
     public void toggleTutorial() {
-        if (!isPresetLoading) {
-            String tutorialText = currentPreset.getAbout().getTutorialLink();
-            if (tutorialText == null || tutorialText.equals("null")) {
-                tutorialText = w.getStringFromId("dialog_tutorial_text_error", a);
+        if (currentPreset != null) {
+            if (!isPresetLoading) {
+                String tutorialText = currentPreset.getAbout().getTutorialLink();
+                if (tutorialText == null || tutorialText.equals("null")) {
+                    tutorialText = w.getStringFromId("dialog_tutorial_text_error", a);
+                } else {
+                    tutorialText = currentPreset.getAbout().getTutorialLink();
+                }
+
+                new MaterialDialog.Builder(a)
+                        .title(R.string.dialog_tutorial_title)
+                        .content(tutorialText)
+                        .neutralText(R.string.dialog_close)
+                        .dismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                isTutorialVisible = false;
+                            }
+                        })
+                        .show();
             } else {
-                tutorialText = currentPreset.getAbout().getTutorialLink();
+                // still loading preset
+                Toast.makeText(a, R.string.tutorial_loading, Toast.LENGTH_LONG).show();
+                isTutorialVisible = false;
             }
-
-            new MaterialDialog.Builder(a)
-                    .title(R.string.dialog_tutorial_title)
-                    .content(tutorialText)
-                    .neutralText(R.string.dialog_close)
-                    .dismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            isTutorialVisible = false;
-                        }
-                    })
-                    .show();
         } else {
-            // still loading preset
-            Toast.makeText(a, R.string.tutorial_loading, Toast.LENGTH_LONG).show();
+            // no preset
+            Toast.makeText(a, R.string.tutorial_no_preset, Toast.LENGTH_LONG).show();
             isTutorialVisible = false;
-        }
-    }
-
-    private void setTutorialUI() {
-        if (isTutorialVisible == true) {
-            w.getImageView(R.id.toolbar_tutorial_icon, a).setImageResource(R.drawable.ic_tutorial_quit_black);
-            w.getImageView(R.id.layout_settings_tutorial_icon, a).setImageResource(R.drawable.ic_tutorial_quit_black);
-            w.getSwitchCompat(R.id.layout_settings_tutorial_switch, a).setChecked(true);
-        } else {
-            w.getImageView(R.id.toolbar_tutorial_icon, a).setImageResource(R.drawable.ic_tutorial_black);
-            w.getImageView(R.id.layout_settings_tutorial_icon, a).setImageResource(R.drawable.ic_tutorial_black);
-            w.getSwitchCompat(R.id.layout_settings_tutorial_switch, a).setChecked(false);
         }
     }
 
@@ -1167,6 +1165,10 @@ public class MainActivity
                 w.getView(R.id.fragment_settings_container, a).setVisibility(View.GONE);
             }
         }, fadeAnimDuration);
+
+        // reset the touch coords
+        coord[2] = 0;
+        coord[3] = 0;
     }
 
     private void closePresetStore() {
