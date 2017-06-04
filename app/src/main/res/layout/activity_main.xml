@@ -3,6 +3,7 @@
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:ads="http://schemas.android.com/apk/res-auto"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
@@ -19,41 +20,125 @@
 		android:layout_height="wrap_content"
 		android:layout_centerInParent="true"
 		android:gravity="center_horizontal"
-		android:orientation="vertical">
+		android:orientation="vertical"
+		android:visibility="gone">
 		
 		<TextView
 			android:id="@+id/progress_bar_text"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:textSize="18sp"
-			android:textColor="@color/dark_secondary"
 			android:layout_marginBottom="12dp"
-			android:text="@string/progressbar_loading_preset"/>
+			android:text="@string/progressbar_loading_preset"
+			android:textColor="@color/dark_secondary"
+			android:textSize="18sp"/>
 		
 		<ProgressBar
 			android:id="@+id/progress_bar"
+			style="?android:attr/progressBarStyleHorizontal"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			style="?android:attr/progressBarStyleHorizontal"
-			android:indeterminateTint="@color/colorAccent"
-			android:indeterminate="true"/>
+			android:indeterminate="true"
+			android:indeterminateTint="@color/colorAccent"/>
 	</LinearLayout>
+	
+	<android.support.v7.widget.CardView
+		android:id="@+id/main_cardview_preset_store"
+		android:layout_width="360dp"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_centerInParent="true"
+		android:clickable="true"
+		android:foreground="?selectableItemBackground"
+		android:visibility="gone"
+		app:cardBackgroundColor="@color/colorPrimaryDark"
+		app:cardCornerRadius="4dp"
+		app:cardElevation="4dp"
+		app:cardUseCompatPadding="true">
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+			
+			<ImageView
+				android:id="@+id/main_cardview_preset_store_image"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:adjustViewBounds="true"
+				android:src="@drawable/about_image_preset_store_get_started"
+				android:transitionName="transition"/>
+			
+			<LinearLayout
+				android:id="@+id/main_cardview_preset_store_description"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="-8dp"
+				android:orientation="vertical"
+				android:paddingBottom="16dp"
+				android:paddingLeft="16dp"
+				android:paddingRight="16dp">
+				
+				<TextView
+					android:id="@+id/main_cardview_preset_store_title"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/user_benefits_get_started_title"
+					android:textColor="@color/light_primary"
+					android:textSize="20sp"/>
+				
+				<TextView
+					android:id="@+id/main_cardview_preset_store_subtitle"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="8dp"
+					android:lineSpacingMultiplier="1.1"
+					android:text="@string/user_benefits_get_started_text"
+					android:textColor="@color/light_secondary"
+					android:textSize="16sp"/>
+			</LinearLayout>
+			
+			<LinearLayout
+				android:id="@+id/main_cardview_preset_store_action_layout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="end"
+				android:orientation="horizontal"
+				android:padding="16dp">
+				
+				<TextView
+					android:id="@+id/main_cardview_preset_store_download"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:background="@color/dark_hint"
+					android:clickable="true"
+					android:fontFamily="sans-serif-light"
+					android:foreground="?selectableItemBackground"
+					android:paddingBottom="8dp"
+					android:paddingLeft="18dp"
+					android:paddingRight="18dp"
+					android:paddingTop="8dp"
+					android:text="@string/download_preset_ac"
+					android:textColor="@color/light_primary"
+					android:textSize="12sp"
+					android:textStyle="bold"/>
+			</LinearLayout>
+		</LinearLayout>
+	</android.support.v7.widget.CardView>
 	
 	<com.google.android.gms.ads.NativeExpressAdView
 		android:id="@+id/adView_main"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="24dp"
 		android:layout_below="@id/progress_bar_layout"
 		android:layout_centerHorizontal="true"
+		android:layout_marginTop="24dp"
+		android:visibility="gone"
 		ads:adSize="300x80"
-		ads:adUnitId="@string/admob_unit_id_native_main" />
+		ads:adUnitId="@string/admob_unit_id_native_main"/>
 	
 	<include layout="@layout/fragment_fab"/>
 	
 	<include layout="@layout/fragment_toolbar"/>
-	
-	<!--<include layout="@layout/fragment_actionbar"/>-->
 	
 	<include layout="@layout/fragment_actionbar_material"/>
 	
@@ -61,12 +146,14 @@
 		android:id="@+id/fragment_about_container"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
+		android:elevation="6dp"
 		android:visibility="gone"/>
 	
 	<FrameLayout
 		android:id="@+id/fragment_settings_container"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
+		android:elevation="6dp"
 		android:visibility="gone"/>
 	
 	<View
@@ -74,5 +161,6 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:background="@color/colorAccent"
+		android:elevation="8dp"
 		android:visibility="gone"/>
 </RelativeLayout>

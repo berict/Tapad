@@ -14,6 +14,7 @@
 	<string name="change_ac">CHANGE</string>
 	<string name="make_primary_ac">MAKE PRIMARY</string>
 	<string name="remove_ac">REMOVE</string>
+	<string name="download_preset_ac">DOWNLOAD PRESETS</string>
 	<string name="settings_ac">SETTINGS</string>
 	<string name="confirm_got_it_ac">GOT IT</string>
 	<string name="confirm_exit">Press back again to exit</string>
@@ -30,6 +31,9 @@
 	<string name="user_benefits_page_4_hint">Swipe in directions to make different sounds.\nHold to loop a sound.</string>
 	<string name="user_benefits_dialog_hint">Before you start, select a preset to play.</string>
 	<string name="user_benefits_dialog_positive">START</string>
+	
+	<string name="user_benefits_get_started_title">@string/confirm_get_started</string>
+	<string name="user_benefits_get_started_text">Discover and download presets from the Preset Store, then play it on Tapad app.</string>
 	
 	<!-- Cardview -->
 	<string name="cardview_now_playing">Now playing</string>
