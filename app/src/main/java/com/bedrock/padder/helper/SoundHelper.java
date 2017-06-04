@@ -8,13 +8,11 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 
 import com.bedrock.padder.R;
 import com.bedrock.padder.activity.MainActivity;
 import com.bedrock.padder.model.preset.Preset;
-
-import java.util.Random;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.bedrock.padder.activity.MainActivity.currentPreset;
@@ -784,12 +782,11 @@ public class SoundHelper {
         }
     }
 
-    private TextView progress;
-    private TextView progressText;
+    private ProgressBar progress;
     private int progressCount;
     private int presetSoundCount;
 
-    private class UnloadSound extends AsyncTask<Void, Void, String> {
+    private class UnloadSound extends AsyncTask<Void, Void, Integer> {
         String TAG = "UnloadSound";
         SharedPreferences prefs;
 
@@ -798,21 +795,17 @@ public class SoundHelper {
             isPresetLoading = true;
             progressCount = 0;
             presetSoundCount = currentPreset.getMusic().getSoundCount();
+            progress = window.getProgressBar(R.id.progress_bar, activity);
             ad.resumeNativeAdView(R.id.adView_main, activity);
-            progress = window.getTextView(R.id.progress_bar_progress_text, activity);
-            progressText = window.getTextView(R.id.progress_bar_text, activity);
             if (window.getView(R.id.progress_bar_layout, activity).getVisibility() == View.GONE) {
-                Log.d(TAG, "ProgressBar fadeIn");
-                //TODO EDIT
-                anim.fadeIn(R.id.progress_bar_layout, 0, 400, "progressIn", activity);
-                window.setInvisible(R.id.base, 400, activity);
-                progress.setText(
-                        activity.getResources().getString(R.string.progressbar_loading_preset_progress) + " 0 / " + presetSoundCount * 2);
+                anim.fadeIn(R.id.progress_bar_layout, 0, 600, "progressIn", activity);
+                window.setInvisible(R.id.base, 600, activity);
+                progress.setIndeterminate(true);
             }
             prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
         }
 
-        protected String doInBackground(Void... arg0) {
+        protected Integer doInBackground(Void... arg0) {
             Log.d(TAG, "On doInBackground, start unloading sounds");
             try {
                 if (previousPreset != null) {
@@ -838,14 +831,14 @@ public class SoundHelper {
             } catch (NullPointerException e) {
                 Log.e(TAG, "NPE, Can't find soundPool");
             }
-
-            return "You are at PostExecute";
+            return 0;
         }
 
         protected void onProgressUpdate(Void... arg0) {
         }
 
-        protected void onPostExecute(String result) {
+        @Override
+        protected void onPostExecute(Integer integer) {
             Log.d(TAG, "Finished unloading sound");
             sp.release();
             sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
@@ -859,55 +852,15 @@ public class SoundHelper {
         }
     }
 
-    private void onLoadFinished() {
-        // final sampleId
-        Log.d("LoadSound", "Loading completed, SoundPool successfully loaded "
-                + presetSoundCount
-                + " sounds");
-
-        // pause adViewMain after the loading
-        ad.pauseNativeAdView(R.id.adView_main, activity);
-
-        progressText.setText(R.string.progressbar_loading_preset_done);
-        anim.fadeOutInvisible(R.id.progress_bar_progress_text, 0, 400, activity);
-
-        // Load finished, set AsyncTask objects to null
-        loadSound = null;
-        unLoadSound = null;
-
-        window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_white);
-
-        anim.fadeOut(R.id.progress_bar_layout, 400, 400, activity);
-        window.setVisible(R.id.base, 400, activity);
-
-        MainActivity main = new MainActivity();
-        main.setQuickstart(activity);
-
-        Handler setText = new Handler();
-        setText.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                progressText.setText(R.string.progressbar_loading_preset);
-                progress.setText(R.string.progressbar_loading_preset_progress_placeholder);
-                progress.setVisibility(View.VISIBLE);
-            }
-        }, 800);
-
-        isPresetLoading = false;
-    }
-
-    private void progressUpdate() {
-        progress.setText(
-                activity.getResources().getString(R.string.progressbar_loading_preset_progress) + " "
-                        + progressCount++ + " / " + presetSoundCount);
-    }
-
     private class LoadSound extends AsyncTask<Void, Void, String> {
         String TAG = "LoadSound";
 
         protected void onPreExecute() {
             Log.d(TAG, "On preExceute, unloadSchemeSound");
 
+            progress.setIndeterminate(false);
+            progress.setMax(presetSoundCount);
+            progress.setProgress(0);
             window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_disabled_white);
         }
 
@@ -939,7 +892,7 @@ public class SoundHelper {
         }
 
         protected void onProgressUpdate(Void... arg0) {
-            progressUpdate();
+            progress.setProgress(progressCount++);
         }
 
         private int savedSampleId = 0;
@@ -948,9 +901,11 @@ public class SoundHelper {
 
         protected void onPostExecute(String result) {
             Log.d(TAG, "sampleId count : " + presetSoundCount);
+            progress.setIndeterminate(true);
 
             // gets random funnies
-            progress.setText(getRandomStringFromStringArray(R.array.progressbar_loading_preset_progress_funnies));
+            //progress.setText(getRandomStringFromStringArray(R.array.progressbar_loading_preset_progress_funnies));
+            // lel removed?
 
             final Handler intervalTimer = new Handler();
 
@@ -966,9 +921,8 @@ public class SoundHelper {
                 @Override
                 public void run() {
                     // loops while checking the last saved sample id and current one
-                    // if same, break the loop
                     if (savedSampleId == savedSampleIdInRunnable) {
-                        // finished
+                        // if same, break the loop
                         Log.d(TAG, "Finished loading all sounds");
                         onLoadFinished();
                     } else {
@@ -987,9 +941,32 @@ public class SoundHelper {
         }
     }
 
-    private String getRandomStringFromStringArray(int stringArrayId) {
-        String stringArray[] = activity.getResources().getStringArray(stringArrayId);
-        Random random = new Random();
-        return stringArray[random.nextInt(stringArray.length)];
+    private void onLoadFinished() {
+        // final sampleId
+        Log.d("LoadSound", "Loading completed, SoundPool successfully loaded "
+                + presetSoundCount
+                + " sounds");
+
+        // pause adViewMain after the loading
+        ad.pauseNativeAdView(R.id.adView_main, activity);
+
+        // Load finished, set AsyncTask objects to null
+        loadSound = null;
+        unLoadSound = null;
+
+        window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_white);
+
+        anim.fadeOut(R.id.progress_bar_layout, 0, 400, activity);
+        anim.fadeOut(R.id.adView_main, 0, 400, activity);
+        window.setVisible(R.id.base, 0, activity);
+
+        MainActivity main = new MainActivity();
+        main.setQuickstart(activity);
+
+        isPresetLoading = false;
+    }
+
+    private void buttonRevealAnimation() {
+
     }
 }
