@@ -10,116 +10,116 @@
 	<color name="bg_screen1">#BA68C8</color>
 
     <!-- Scheme Colors -->
-    <item name="hello" type="color">#FF06DC</item>
-    <item name="hello_dark" type="color">#CC04B0</item>
-    <item name="roses" type="color">#FF73E1</item>
-    <item name="roses_dark" type="color">#CC5CB4</item>
-    <item name="faded" type="color">#00D3BE</item>
-    <item name="faded_dark" type="color">#00A898</item>
+    <color name="hello">#FF06DC</color>
+    <color name="hello_dark">#CC04B0</color>
+    <color name="roses">#FF73E1</color>
+    <color name="roses_dark">#CC5CB4</color>
+    <color name="faded">#00D3BE</color>
+    <color name="faded_dark">#00A898</color>
 
-    <item name="dev" type="color">@color/blue_grey</item>
-    <item name="dev_dark" type="color">@color/blue_grey_dark</item>
+    <color name="dev">@color/blue_grey</color>
+    <color name="dev_dark">@color/blue_grey_dark</color>
 
     <!-- Primary Colors -->
 
     <!-- Red -->
-    <item name="red_light" type="color">#E57373</item>
-    <item name="red" type="color">#F44336</item>
-    <item name="red_dark" type="color">#D32F2F</item>
+    <color name="red_light">#E57373</color>
+    <color name="red">#F44336</color>
+    <color name="red_dark">#D32F2F</color>
 
     <!-- Pink -->
-    <item name="pink_light" type="color">#F06292</item>
-    <item name="pink" type="color">#E91E63</item>
-    <item name="pink_dark" type="color">#C2185B</item>
+    <color name="pink_light">#F06292</color>
+    <color name="pink">#E91E63</color>
+    <color name="pink_dark">#C2185B</color>
 
     <!-- Purple -->
-    <item name="purple_light" type="color">#BA68C8</item>
-    <item name="purple" type="color">#9C27B0</item>
-    <item name="purple_dark" type="color">#7B1FA2</item>
+    <color name="purple_light">#BA68C8</color>
+    <color name="purple">#9C27B0</color>
+    <color name="purple_dark">#7B1FA2</color>
 
     <!-- Deep Purple -->
-    <item name="deep_purple_light" type="color">#9575CD</item>
-    <item name="deep_purple" type="color">#673AB7</item>
-    <item name="deep_purple_dark" type="color">#512DA8</item>
+    <color name="deep_purple_light">#9575CD</color>
+    <color name="deep_purple">#673AB7</color>
+    <color name="deep_purple_dark">#512DA8</color>
 
     <!-- Indigo -->
-    <item name="indigo_light" type="color">#7986CB</item>
-    <item name="indigo" type="color">#3F51B5</item>
-    <item name="indigo_dark" type="color">#303F9F</item>
+    <color name="indigo_light">#7986CB</color>
+    <color name="indigo">#3F51B5</color>
+    <color name="indigo_dark">#303F9F</color>
 
     <!-- Blue -->
-    <item name="blue_light" type="color">#64B5F6</item>
-    <item name="blue" type="color">#2196F3</item>
-    <item name="blue_dark" type="color">#1976D2</item>
+    <color name="blue_light">#64B5F6</color>
+    <color name="blue">#2196F3</color>
+    <color name="blue_dark">#1976D2</color>
 
     <!-- Light Blue -->
-    <item name="light_blue_light" type="color">#4FC3F7</item>
-    <item name="light_blue" type="color">#03A9F4</item>
-    <item name="light_blue_dark" type="color">#0288D1</item>
+    <color name="light_blue_light">#4FC3F7</color>
+    <color name="light_blue">#03A9F4</color>
+    <color name="light_blue_dark">#0288D1</color>
 
     <!-- Cyan -->
-    <item name="cyan_light" type="color">#4DD0E1</item>
-    <item name="cyan" type="color">#00BCD4</item>
-    <item name="cyan_dark" type="color">#0097A7</item>
+    <color name="cyan_light">#4DD0E1</color>
+    <color name="cyan">#00BCD4</color>
+    <color name="cyan_dark">#0097A7</color>
 
     <!-- Teal -->
-    <item name="teal_light" type="color">#4DB6AC</item>
-    <item name="teal" type="color">#009688</item>
-    <item name="teal_dark" type="color">#00796B</item>
+    <color name="teal_light">#4DB6AC</color>
+    <color name="teal">#009688</color>
+    <color name="teal_dark">#00796B</color>
 
     <!-- Green -->
-    <item name="green_light" type="color">#81C784</item>
-    <item name="green" type="color">#4CAF50</item>
-    <item name="green_dark" type="color">#388E3C</item>
+    <color name="green_light">#81C784</color>
+    <color name="green">#4CAF50</color>
+    <color name="green_dark">#388E3C</color>
 
     <!-- Light Green -->
-    <item name="light_green_light" type="color">#AED581</item>
-    <item name="light_green" type="color">#8BC34A</item>
-    <item name="light_green_dark" type="color">#689F38</item>
+    <color name="light_green_light">#AED581</color>
+    <color name="light_green">#8BC34A</color>
+    <color name="light_green_dark">#689F38</color>
 
     <!-- Lime -->
-    <item name="lime_light" type="color">#DCE775</item>
-    <item name="lime" type="color">#CDDC39</item>
-    <item name="lime_dark" type="color">#AFB42B</item>
+    <color name="lime_light">#DCE775</color>
+    <color name="lime">#CDDC39</color>
+    <color name="lime_dark">#AFB42B</color>
 
     <!-- Yellow -->
-    <item name="yellow_light" type="color">#FFF176</item>
-    <item name="yellow" type="color">#FFEB3B</item>
-    <item name="yellow_dark" type="color">#FBC02D</item>
+    <color name="yellow_light">#FFF176</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="yellow_dark">#FBC02D</color>
 
     <!-- Amber -->
-    <item name="amber_light" type="color">#FFD54F</item>
-    <item name="amber" type="color">#FFC107</item>
-    <item name="amber_dark" type="color">#FFA000</item>
+    <color name="amber_light">#FFD54F</color>
+    <color name="amber">#FFC107</color>
+    <color name="amber_dark">#FFA000</color>
 
     <!-- Orange -->
-    <item name="orange_light" type="color">#FFB74D</item>
-    <item name="orange" type="color">#FF9800</item>
-    <item name="orange_dark" type="color">#F57C00</item>
+    <color name="orange_light">#FFB74D</color>
+    <color name="orange">#FF9800</color>
+    <color name="orange_dark">#F57C00</color>
 
     <!-- Deep Orange -->
-    <item name="deep_orange_light" type="color">#FF8A65</item>
-    <item name="deep_orange" type="color">#FF5722</item>
-    <item name="deep_orange_dark" type="color">#E64A19</item>
+    <color name="deep_orange_light">#FF8A65</color>
+    <color name="deep_orange">#FF5722</color>
+    <color name="deep_orange_dark">#E64A19</color>
 
     <!-- Brown -->
-    <item name="brown_light" type="color">#A1887F</item>
-    <item name="brown" type="color">#795548</item>
-    <item name="brown_dark" type="color">#5D4037</item>
+    <color name="brown_light">#A1887F</color>
+    <color name="brown">#795548</color>
+    <color name="brown_dark">#5D4037</color>
 
     <!-- Grey -->
-    <item name="grey_light" type="color">#E0E0E0</item>
-    <item name="grey" type="color">#9E9E9E</item>
-    <item name="grey_dark" type="color">#616161</item>
+    <color name="grey_light">#E0E0E0</color>
+    <color name="grey">#9E9E9E</color>
+    <color name="grey_dark">#616161</color>
 
     <!-- Blue Grey -->
-    <item name="blue_grey_light" type="color">#90A4AE</item>
-    <item name="blue_grey" type="color">#607D8B</item>
-    <item name="blue_grey_dark" type="color">#455A64</item>
+    <color name="blue_grey_light">#90A4AE</color>
+    <color name="blue_grey">#607D8B</color>
+    <color name="blue_grey_dark">#455A64</color>
 
     <!-- Black and White -->
-    <item name="black" type="color">#000000</item>
-    <item name="white" type="color">#FFFFFF</item>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
 
     <!-- All Color Palette colors -->
     <color name="red_50">#FFEBEE</color>
@@ -625,21 +625,21 @@
 
     <!-- Text -->
     <!-- Dark Text -->
-    <item name="dark_primary" type="color">#DE000000</item>
-    <item name="dark_action" type="color">#9c000000</item>
-    <item name="dark_secondary" type="color">#8A000000</item>
-    <item name="dark_hint" type="color">#42000000</item>
-    <item name="dark_divider" type="color">#1F000000</item>
-    <item name="dark_status_bar" type="color">#33000000</item>
+    <color name="dark_primary">#DE000000</color>
+    <color name="dark_action">#9c000000</color>
+    <color name="dark_secondary">#8A000000</color>
+    <color name="dark_hint">#42000000</color>
+    <color name="dark_divider">#1F000000</color>
+    <color name="dark_status_bar">#33000000</color>
 
     <!-- Light Text -->
-    <item name="light_primary" type="color">#FFFFFFFF</item>
-    <item name="light_secondary" type="color">#B3FFFFFF</item>
-    <item name="light_hint" type="color">#4DFFFFFF</item>
-    <item name="light_divider" type="color">#1FFFFFFF</item>
-    <item name="light_status_bar" type="color">#b3ffffff</item>
+    <color name="light_primary">#FFFFFFFF</color>
+    <color name="light_secondary">#B3FFFFFF</color>
+    <color name="light_hint">#4DFFFFFF</color>
+    <color name="light_divider">#1FFFFFFF</color>
+    <color name="light_status_bar">#b3ffffff</color>
 
     <!-- Misc -->
-    <item name="transparent" type="color">#00FFFFFF</item>
+    <color name="transparent">#00FFFFFF</color>
 
 </resources>
