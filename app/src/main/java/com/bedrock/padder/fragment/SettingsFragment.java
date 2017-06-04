@@ -16,13 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.activity.MainActivity;
 import com.bedrock.padder.helper.IntentHelper;
-import com.bedrock.padder.helper.SoundHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
-import com.bedrock.padder.helper.TutorialHelper;
 import com.bedrock.padder.helper.WindowHelper;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -33,12 +30,9 @@ import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class SettingsFragment extends Fragment {
 
-    //private AppbarService ab = new AppbarService();
     private WindowHelper w = new WindowHelper();
     private IntentHelper intent = new IntentHelper();
     private MainActivity main = new MainActivity();
-    private TutorialHelper tut = new TutorialHelper();
-    private SoundHelper sound = new SoundHelper();
     private ToolbarHelper toolbar = new ToolbarHelper();
 
     private SharedPreferences prefs = null;
@@ -47,7 +41,6 @@ public class SettingsFragment extends Fragment {
     private View v;
 
     private OnFragmentInteractionListener mListener;
-    private MaterialDialog PresetDialog;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -140,7 +133,11 @@ public class SettingsFragment extends Fragment {
         toolbar.setActionBarPadding(a, v);
         toolbar.setActionBarColor(R.color.colorAccent, a);
 
-        w.getTextView(R.id.layout_settings_preset_hint, v).setText(w.getStringId(currentPreset.getMusic().getName() + "_full"));
+        if (currentPreset != null) {
+            w.getTextView(R.id.layout_settings_preset_hint, v).setText(currentPreset.getAbout().getTitle());
+        } else {
+            w.getTextView(R.id.layout_settings_preset_hint, v).setText(R.string.settings_preset_hint_no_preset);
+        }
 
         w.getView(R.id.layout_settings_preset, v).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,16 +211,8 @@ public class SettingsFragment extends Fragment {
         });
     }
 
-    private void setPreset(int scheme) {
-        prefs.edit().putInt("scheme", scheme).apply();
-    }
-
     int getPreset() {
         return prefs.getInt("scheme", 0);
-    }
-
-    private void loadPreset() {
-        sound.loadSound(currentPreset, a);
     }
 
     @Override

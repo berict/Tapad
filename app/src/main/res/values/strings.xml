@@ -22,6 +22,7 @@
 	<string name="confirm_get_started_ac">GET STARTED</string>
 	
 	<string name="tutorial_loading">Can\'t start tutorial mode during loading preset</string>
+	<string name="tutorial_no_preset">Can\'t start tutorial mode without a preset</string>
 	
 	<!-- User Benefits -->
 	<string name="user_benefits_page_1_title">Remix for everyone</string>
@@ -225,6 +226,7 @@
 	
 	<string name="settings_preset">Presets</string>
 	<string name="settings_preset_hint">PRESET_NAME_HERE</string>
+	<string name="settings_preset_hint_no_preset">No preset loaded</string>
 	<string name="settings_custom_sound">Custom sound</string>
 	<string name="settings_custom_sound_error">This feature is under development.</string>
 	<string name="settings_tutorial">Tutorial mode</string>
