@@ -41,15 +41,11 @@ import com.bedrock.padder.model.about.Bio;
 import com.bedrock.padder.model.about.Detail;
 import com.bedrock.padder.model.about.Item;
 import com.bedrock.padder.model.app.theme.ColorData;
-import com.bedrock.padder.model.preset.Deck;
 import com.bedrock.padder.model.preset.Music;
-import com.bedrock.padder.model.preset.Pad;
 import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
 
 import java.io.File;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
@@ -80,7 +76,6 @@ public class MainActivity
 
     int currentVersionCode;
     int themeColor = R.color.hello;
-    // TODO color
     int color = R.color.cyan_400;
 
     private MaterialDialog PresetDialog;
@@ -206,10 +201,13 @@ public class MainActivity
         prefs = this.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
 
         if (getSavedPreset() != null) {
-            currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json.txt"), Preset.class);
+            try {
+                currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json.txt"), Preset.class);
+            } catch (Exception e) {
+                // corrupted preset
+            }
         } else {
-            // TODO this is a quickfix
-            quickmove();
+
         }
 
         // for quickstart test
@@ -237,7 +235,7 @@ public class MainActivity
         clearToggleButton();
         setFab();
         setToolbar();
-        setSchemeInfo();
+        setPresetInfo();
         setToggleButton(R.color.colorAccent);
         enterAnim();
         loadPreset(400);
@@ -1061,7 +1059,7 @@ public class MainActivity
         closeAbout.postDelayed(new Runnable() {
             @Override
             public void run() {
-                setSchemeInfo();
+                setPresetInfo();
                 w.getView(R.id.fragment_about_container, a).setVisibility(View.GONE);
             }
         }, fadeAnimDuration);
@@ -1099,7 +1097,7 @@ public class MainActivity
     }
 
     public void toggleTutorial() {
-        if (w.getView(R.id.progress_bar_layout, a).getVisibility() == View.GONE) {
+        if (!isPresetLoading) {
             String tutorialText = currentPreset.getAbout().getTutorialLink();
             if (tutorialText == null || tutorialText.equals("null")) {
                 tutorialText = w.getStringFromId("dialog_tutorial_text_error", a);
@@ -1164,7 +1162,7 @@ public class MainActivity
                     // about visible set taskdesc
                     w.setRecentColor(R.string.about, 0, themeColor, a);
                 } else {
-                    setSchemeInfo();
+                    setPresetInfo();
                 }
                 w.getView(R.id.fragment_settings_container, a).setVisibility(View.GONE);
             }
@@ -1172,10 +1170,14 @@ public class MainActivity
     }
 
     private void closePresetStore() {
-        anim.circularRevealInPx(R.id.placeholder,
-                coord[0], coord[1],
-                (int) Math.hypot(coord[0], coord[1]) + 200, 0, new AccelerateDecelerateInterpolator(),
-                circularRevealDuration, 200, a);
+        setPresetInfo();
+
+        if (coord[0] > 0 && coord[1] > 0) {
+            anim.circularRevealInPx(R.id.placeholder,
+                    coord[0], coord[1],
+                    (int) Math.hypot(coord[0], coord[1]) + 200, 0, new AccelerateDecelerateInterpolator(),
+                    circularRevealDuration, 200, a);
+        }
 
         if (prefs.getInt(qs, 0) == 7) {
             promptTutorial = new MaterialTapTargetPrompt.Builder(a)
@@ -1577,7 +1579,7 @@ public class MainActivity
         }
     }
 
-    private void setSchemeInfo() {
+    private void setPresetInfo() {
         if (isSettingVisible == false && isAboutVisible == false && currentPreset != null) {
             themeColor = currentPreset.getAbout().getActionbarColor();
             toolbar.setActionBarTitle(0);
@@ -1587,6 +1589,24 @@ public class MainActivity
                     PROJECT_LOCATION_PRESETS + "/" + currentPreset.getFirebaseLocation() + "/about/artist_icon.png",
                     this);
             w.setRecentColor(0, 0, themeColor, a);
+        } else if (currentPreset == null) {
+            toolbar.setActionBarTitle(R.string.app_name);
+            toolbar.setActionBarColor(R.color.colorPrimary, a);
+            toolbar.setActionBarPadding(a);
+            w.setRecentColor(0, 0, R.color.colorPrimary, a);
+            w.getView(R.id.main_cardview_preset_store, a).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    intent.intent(a, "activity.PresetStoreActivity");
+                }
+            });
+            w.getView(R.id.main_cardview_preset_store_download, a).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    intent.intent(a, "activity.PresetStoreActivity");
+                }
+            });
+            w.setVisible(R.id.main_cardview_preset_store, 0, a);
         }
     }
 
@@ -1722,329 +1742,85 @@ public class MainActivity
         FirebaseMetadata firebaseMetadata = new FirebaseMetadata(presets, 15);
         largeLog("Metadata", gson.toJson(firebaseMetadata));
 
-        Bio tapadBio = new Bio(
-                w.getStringFromId("info_tapad_bio_title", a),
-                "about_bio_tapad",
-                w.getStringFromId("info_tapad_bio_name", a),
-                w.getStringFromId("info_tapad_bio_text", a),
-                w.getStringFromId("info_tapad_bio_source", a)
-        );
-
-        Item tapadInfo[] = {
-                new Item("info_tapad_info_check_update", w.getStringFromId("info_tapad_info_check_update_hint", a), "google_play", true),
-                new Item("info_tapad_info_tester", w.getStringFromId("info_tapad_info_tester_hint", a), "experiment", true),
-                new Item("info_tapad_info_legal", null, "info", false),
-                new Item("info_tapad_info_version", w.getStringFromId("info_tapad_info_version_hint", a), ""),
-                new Item("info_tapad_info_build_date", w.getStringFromId("info_tapad_info_build_date_hint", a), ""),
-                new Item("info_tapad_info_changelog", null, "changelog", false),
-                new Item("info_tapad_info_thanks", null, "thanks", false),
-                new Item("info_tapad_info_dev", w.getStringFromId("info_tapad_info_dev_hint", a), "developer", false)
-                // TODO ADD ITEMS
-        };
-
-        Item tapadOthers[] = {
-                new Item("info_tapad_others_song", w.getStringFromId("info_tapad_others_song_hint", a), "song", true),
-                new Item("info_tapad_others_feedback", w.getStringFromId("info_tapad_others_feedback_hint", a), "feedback", true),
-                new Item("info_tapad_others_report_bug", w.getStringFromId("info_tapad_others_report_bug_hint", a), "report_bug", true),
-                new Item("info_tapad_others_rate", w.getStringFromId("info_tapad_others_rate_hint", a), "rate", true),
-                new Item("info_tapad_others_translate", w.getStringFromId("info_tapad_others_translate_hint", a), "web", false),
-                new Item("info_tapad_others_recommend", w.getStringFromId("info_tapad_others_recommend_hint", a), "recommend", true)
-        };
-
-        Detail tapadDetails[] = {
-                new Detail(w.getStringFromId("info_tapad_info_title", a), tapadInfo),
-                new Detail(w.getStringFromId("info_tapad_others_title", a), tapadOthers)
-        };
-
-        About tapadAbout = new About(
-                w.getStringFromId("info_tapad_title", a),
-                "about_image_tapad",
-                "#9C27B0",
-                tapadBio, tapadDetails
-        );
-
-        largeLog("tapadAboutJSON", gson.toJson(tapadAbout));
-
-        Bio berictBio = new Bio(
-                w.getStringFromId("info_berict_bio_title", a),
-                null,
-                w.getStringFromId("info_berict_bio_name", a),
-                w.getStringFromId("info_berict_bio_text", a),
-                w.getStringFromId("info_berict_bio_source", a)
-        );
-
-        Item devItems[] = {
-                new Item("facebook", w.getStringFromId("info_berict_detail_facebook", a)),
-                new Item("twitter", w.getStringFromId("info_berict_detail_twitter", a)),
-                new Item("google_plus", w.getStringFromId("info_berict_detail_google_plus", a)),
-                new Item("youtube", w.getStringFromId("info_berict_detail_youtube", a)),
-                new Item("discord", w.getStringFromId("info_berict_detail_discord", a)),
-                new Item("web", w.getStringFromId("info_berict_detail_web", a))
-        };
-
-        Item devSupport[] = {
-                new Item("info_berict_action_report_bug", w.getStringFromId("info_berict_action_report_bug_hint", a), "report_bug", true),
-                new Item("info_berict_action_rate", w.getStringFromId("info_berict_action_rate_hint", a), "rate", true),
-                new Item("info_berict_action_translate", w.getStringFromId("info_berict_action_translate_hint", a), "translate", false),
-                new Item("info_berict_action_donate", w.getStringFromId("info_berict_action_donate_hint", a), "donate", false)
-        };
-
-        Detail berictDetails[] = {
-                new Detail(w.getStringFromId("info_berict_detail_title", a), devItems),
-                new Detail(w.getStringFromId("info_berict_action_title", a), devSupport)
-        };
-
-        About berictAbout = new About(
-                w.getStringFromId("info_berict_title", a),
-                "about_image_berict",
-                "#607D8B",
-                berictBio, berictDetails
-        );
-
-        largeLog("berictAboutJSON", gson.toJson(berictAbout));
-    }
-
-    Deck[] getDeckFromFileName(String fileTag) {
-        Pad part1[] = {
-                getPadsFromFile(fileTag, 0, 0),
-                getPadsFromFile(fileTag, 0, 1),
-                getPadsFromFile(fileTag, 0, 2),
-                getPadsFromFile(fileTag, 0, 3),
-                getPadsFromFile(fileTag, 0, 4),
-                getPadsFromFile(fileTag, 0, 5),
-                getPadsFromFile(fileTag, 0, 6),
-                getPadsFromFile(fileTag, 0, 7),
-                getPadsFromFile(fileTag, 0, 8),
-                getPadsFromFile(fileTag, 0, 9),
-                getPadsFromFile(fileTag, 0, 10),
-                getPadsFromFile(fileTag, 0, 11),
-                getPadsFromFile(fileTag, 0, 12),
-                getPadsFromFile(fileTag, 0, 13),
-                getPadsFromFile(fileTag, 0, 14),
-                getPadsFromFile(fileTag, 0, 15),
-                getPadsFromFile(fileTag, 0, 16),
-                getPadsFromFile(fileTag, 0, 17),
-                getPadsFromFile(fileTag, 0, 18),
-                getPadsFromFile(fileTag, 0, 19),
-                getPadsFromFile(fileTag, 0, 20)
-        };
-        Pad part2[] = {
-                getPadsFromFile(fileTag, 1, 0),
-                getPadsFromFile(fileTag, 1, 1),
-                getPadsFromFile(fileTag, 1, 2),
-                getPadsFromFile(fileTag, 1, 3),
-                getPadsFromFile(fileTag, 1, 4),
-                getPadsFromFile(fileTag, 1, 5),
-                getPadsFromFile(fileTag, 1, 6),
-                getPadsFromFile(fileTag, 1, 7),
-                getPadsFromFile(fileTag, 1, 8),
-                getPadsFromFile(fileTag, 1, 9),
-                getPadsFromFile(fileTag, 1, 10),
-                getPadsFromFile(fileTag, 1, 11),
-                getPadsFromFile(fileTag, 1, 12),
-                getPadsFromFile(fileTag, 1, 13),
-                getPadsFromFile(fileTag, 1, 14),
-                getPadsFromFile(fileTag, 1, 15),
-                getPadsFromFile(fileTag, 1, 16),
-                getPadsFromFile(fileTag, 1, 17),
-                getPadsFromFile(fileTag, 1, 18),
-                getPadsFromFile(fileTag, 1, 19),
-                getPadsFromFile(fileTag, 1, 20)
-        };
-        Pad part3[] = {
-                getPadsFromFile(fileTag, 2, 0),
-                getPadsFromFile(fileTag, 2, 1),
-                getPadsFromFile(fileTag, 2, 2),
-                getPadsFromFile(fileTag, 2, 3),
-                getPadsFromFile(fileTag, 2, 4),
-                getPadsFromFile(fileTag, 2, 5),
-                getPadsFromFile(fileTag, 2, 6),
-                getPadsFromFile(fileTag, 2, 7),
-                getPadsFromFile(fileTag, 2, 8),
-                getPadsFromFile(fileTag, 2, 9),
-                getPadsFromFile(fileTag, 2, 10),
-                getPadsFromFile(fileTag, 2, 11),
-                getPadsFromFile(fileTag, 2, 12),
-                getPadsFromFile(fileTag, 2, 13),
-                getPadsFromFile(fileTag, 2, 14),
-                getPadsFromFile(fileTag, 2, 15),
-                getPadsFromFile(fileTag, 2, 16),
-                getPadsFromFile(fileTag, 2, 17),
-                getPadsFromFile(fileTag, 2, 18),
-                getPadsFromFile(fileTag, 2, 19),
-                getPadsFromFile(fileTag, 2, 20)
-        };
-        Pad part4[] = {
-                getPadsFromFile(fileTag, 3, 0),
-                getPadsFromFile(fileTag, 3, 1),
-                getPadsFromFile(fileTag, 3, 2),
-                getPadsFromFile(fileTag, 3, 3),
-                getPadsFromFile(fileTag, 3, 4),
-                getPadsFromFile(fileTag, 3, 5),
-                getPadsFromFile(fileTag, 3, 6),
-                getPadsFromFile(fileTag, 3, 7),
-                getPadsFromFile(fileTag, 3, 8),
-                getPadsFromFile(fileTag, 3, 9),
-                getPadsFromFile(fileTag, 3, 10),
-                getPadsFromFile(fileTag, 3, 11),
-                getPadsFromFile(fileTag, 3, 12),
-                getPadsFromFile(fileTag, 3, 13),
-                getPadsFromFile(fileTag, 3, 14),
-                getPadsFromFile(fileTag, 3, 15),
-                getPadsFromFile(fileTag, 3, 16),
-                getPadsFromFile(fileTag, 3, 17),
-                getPadsFromFile(fileTag, 3, 18),
-                getPadsFromFile(fileTag, 3, 19),
-                getPadsFromFile(fileTag, 3, 20)
-        };
-
-        return new Deck[]{new Deck(part1), new Deck(part2), new Deck(part3), new Deck(part4)};
-    }
-
-    String getPadStringFromId(int padId) {
-        switch (padId) {
-            case 0:
-                return "00";
-            case 1:
-                return "01";
-            case 2:
-                return "02";
-            case 3:
-                return "03";
-            case 4:
-                return "04";
-            case 5:
-                return "11";
-            case 6:
-                return "12";
-            case 7:
-                return "13";
-            case 8:
-                return "14";
-            case 9:
-                return "21";
-            case 10:
-                return "22";
-            case 11:
-                return "23";
-            case 12:
-                return "24";
-            case 13:
-                return "31";
-            case 14:
-                return "32";
-            case 15:
-                return "33";
-            case 16:
-                return "34";
-            case 17:
-                return "41";
-            case 18:
-                return "42";
-            case 19:
-                return "43";
-            case 20:
-                return "44";
-            default:
-                return null;
-        }
-    }
-
-    Pad getPadsFromFile(String fileTag, int deck, int pad) {
-//        if (validateFileName(
-//                fileTag,
-//                Integer.toString(deck + 1),
-//                getPadStringFromId(pad),
-//                Integer.toString(0)
-//        ) == null) {
-//            // the pad is empty from the first gesture == empty
-//            return new Pad("a0_00");
-//        } else {
-            String fileNameArray[] = {
-                    validateFileName(
-                            fileTag,
-                            Integer.toString(deck + 1),
-                            getPadStringFromId(pad),
-                            Integer.toString(0)
-                    ),
-                    validateFileName(
-                            fileTag,
-                            Integer.toString(deck + 1),
-                            getPadStringFromId(pad),
-                            Integer.toString(1)
-                    ),
-                    validateFileName(
-                            fileTag,
-                            Integer.toString(deck + 1),
-                            getPadStringFromId(pad),
-                            Integer.toString(2)
-                    ),
-                    validateFileName(
-                            fileTag,
-                            Integer.toString(deck + 1),
-                            getPadStringFromId(pad),
-                            Integer.toString(3)
-                    ),
-                    validateFileName(
-                            fileTag,
-                            Integer.toString(deck + 1),
-                            getPadStringFromId(pad),
-                            Integer.toString(4)
-                    )
-            };
-            return getPadFromStringArray(fileNameArray);
-//        }
-    }
-
-    Pad getPadFromStringArray(String fileName[]) {
-        ArrayList<String> stringArray = new ArrayList<>();
-        for (int i = 0; i < fileName.length; i++) {
-            if (fileName[i] != null) {
-                stringArray.add(fileName[i]);
-            } else if (i == 0) {
-                stringArray.add("a_null");
-            }
-        }
-
-        String padStringArray[] = stringArray.toArray(new String[stringArray.size()]);
-
-        switch (padStringArray.length) {
-            case 1:
-                return new Pad(padStringArray[0]);
-            case 2:
-                return new Pad(padStringArray[0], padStringArray[1]);
-            case 3:
-                return new Pad(padStringArray[0], padStringArray[1], padStringArray[2]);
-            case 4:
-                return new Pad(padStringArray[0], padStringArray[1], padStringArray[2], padStringArray[3]);
-            case 5:
-                return new Pad(padStringArray[0], padStringArray[1], padStringArray[2], padStringArray[3], padStringArray[4]);
-            default:
-                Log.d(TAG, "getPadFromStringArray : null array");
-                return null;
-        }
-    }
-
-    String validateFileName(String fileTag, String realPart, String realPad, String realGesture) {
-        String fileName;
-        if (realGesture.equals("0")) {
-            fileName = fileTag + realPart + "_" + realPad;
-        } else {
-            fileName = fileTag + realPart + "_" + realPad + "_" + realGesture;
-        }
-        try {
-            Class res = R.raw.class;
-            Field field = res.getField(fileName);
-            // legit
-            if (field != null) {
-                return fileName;
-            } else {
-                return null;
-            }
-        } catch (Exception e) {
-            Log.e("getColorId", "Failure to get raw id.", e);
-            // fail
-            return null;
-        }
+//        Bio tapadBio = new Bio(
+//                w.getStringFromId("info_tapad_bio_title", a),
+//                "about_bio_tapad",
+//                w.getStringFromId("info_tapad_bio_name", a),
+//                w.getStringFromId("info_tapad_bio_text", a),
+//                w.getStringFromId("info_tapad_bio_source", a)
+//        );
+//
+//        Item tapadInfo[] = {
+//                new Item("info_tapad_info_check_update", w.getStringFromId("info_tapad_info_check_update_hint", a), "google_play", true),
+//                new Item("info_tapad_info_tester", w.getStringFromId("info_tapad_info_tester_hint", a), "experiment", true),
+//                new Item("info_tapad_info_legal", null, "info", false),
+//                new Item("info_tapad_info_version", w.getStringFromId("info_tapad_info_version_hint", a), ""),
+//                new Item("info_tapad_info_build_date", w.getStringFromId("info_tapad_info_build_date_hint", a), ""),
+//                new Item("info_tapad_info_changelog", null, "changelog", false),
+//                new Item("info_tapad_info_thanks", null, "thanks", false),
+//                new Item("info_tapad_info_dev", w.getStringFromId("info_tapad_info_dev_hint", a), "developer", false)
+//                // TODO ADD ITEMS
+//        };
+//
+//        Item tapadOthers[] = {
+//                new Item("info_tapad_others_song", w.getStringFromId("info_tapad_others_song_hint", a), "song", true),
+//                new Item("info_tapad_others_feedback", w.getStringFromId("info_tapad_others_feedback_hint", a), "feedback", true),
+//                new Item("info_tapad_others_report_bug", w.getStringFromId("info_tapad_others_report_bug_hint", a), "report_bug", true),
+//                new Item("info_tapad_others_rate", w.getStringFromId("info_tapad_others_rate_hint", a), "rate", true),
+//                new Item("info_tapad_others_translate", w.getStringFromId("info_tapad_others_translate_hint", a), "web", false),
+//                new Item("info_tapad_others_recommend", w.getStringFromId("info_tapad_others_recommend_hint", a), "recommend", true)
+//        };
+//
+//        Detail tapadDetails[] = {
+//                new Detail(w.getStringFromId("info_tapad_info_title", a), tapadInfo),
+//                new Detail(w.getStringFromId("info_tapad_others_title", a), tapadOthers)
+//        };
+//
+//        About tapadAbout = new About(
+//                w.getStringFromId("info_tapad_title", a),
+//                "about_image_tapad",
+//                "#9C27B0",
+//                tapadBio, tapadDetails
+//        );
+//
+//        largeLog("tapadAboutJSON", gson.toJson(tapadAbout));
+//
+//        Bio berictBio = new Bio(
+//                w.getStringFromId("info_berict_bio_title", a),
+//                null,
+//                w.getStringFromId("info_berict_bio_name", a),
+//                w.getStringFromId("info_berict_bio_text", a),
+//                w.getStringFromId("info_berict_bio_source", a)
+//        );
+//
+//        Item devItems[] = {
+//                new Item("facebook", w.getStringFromId("info_berict_detail_facebook", a)),
+//                new Item("twitter", w.getStringFromId("info_berict_detail_twitter", a)),
+//                new Item("google_plus", w.getStringFromId("info_berict_detail_google_plus", a)),
+//                new Item("youtube", w.getStringFromId("info_berict_detail_youtube", a)),
+//                new Item("discord", w.getStringFromId("info_berict_detail_discord", a)),
+//                new Item("web", w.getStringFromId("info_berict_detail_web", a))
+//        };
+//
+//        Item devSupport[] = {
+//                new Item("info_berict_action_report_bug", w.getStringFromId("info_berict_action_report_bug_hint", a), "report_bug", true),
+//                new Item("info_berict_action_rate", w.getStringFromId("info_berict_action_rate_hint", a), "rate", true),
+//                new Item("info_berict_action_translate", w.getStringFromId("info_berict_action_translate_hint", a), "translate", false),
+//                new Item("info_berict_action_donate", w.getStringFromId("info_berict_action_donate_hint", a), "donate", false)
+//        };
+//
+//        Detail berictDetails[] = {
+//                new Detail(w.getStringFromId("info_berict_detail_title", a), devItems),
+//                new Detail(w.getStringFromId("info_berict_action_title", a), devSupport)
+//        };
+//
+//        About berictAbout = new About(
+//                w.getStringFromId("info_berict_title", a),
+//                "about_image_berict",
+//                "#607D8B",
+//                berictBio, berictDetails
+//        );
+//
+//        largeLog("berictAboutJSON", gson.toJson(berictAbout));
     }
 }

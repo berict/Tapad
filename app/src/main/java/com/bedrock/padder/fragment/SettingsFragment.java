@@ -73,7 +73,7 @@ public class SettingsFragment extends Fragment {
         super.onStart();
 
         v = getView();
-        setSchemeInfo();
+        setPresetInfo();
     }
 
     @Override
@@ -127,7 +127,7 @@ public class SettingsFragment extends Fragment {
         a.dispatchKeyEvent(kUp);
     }
 
-    public void setSchemeInfo() {
+    public void setPresetInfo() {
         toolbar.setActionBar(a, v);
         if (isAboutVisible) {
             // back
@@ -214,11 +214,11 @@ public class SettingsFragment extends Fragment {
         });
     }
 
-    private void setScheme(int scheme) {
+    private void setPreset(int scheme) {
         prefs.edit().putInt("scheme", scheme).apply();
     }
 
-    int getScheme() {
+    int getPreset() {
         return prefs.getInt("scheme", 0);
     }
 

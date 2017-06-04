@@ -541,7 +541,7 @@ public class SoundHelper {
     private AsyncTask loadSound = null;
 
     @Deprecated
-    public void loadSchemeSound(Preset preset, Activity a) {
+    public void loadPresetSound(Preset preset, Activity a) {
         // set the previous preset
         previousPreset = currentPreset;
         currentPreset = preset;
@@ -802,6 +802,7 @@ public class SoundHelper {
             ad.resumeNativeAdView(R.id.adView_main, activity);
             if (window.getView(R.id.progress_bar_layout, activity).getVisibility() == View.GONE) {
                 anim.fadeIn(R.id.progress_bar_layout, 0, 600, "progressIn", activity);
+                anim.fadeIn(R.id.adView_main, 0, 600, "progressIn", activity);
                 window.setInvisible(R.id.base, 600, activity);
                 progress.setIndeterminate(true);
             }
@@ -859,7 +860,7 @@ public class SoundHelper {
         String TAG = "LoadSound";
 
         protected void onPreExecute() {
-            Log.d(TAG, "On preExceute, unloadSchemeSound");
+            Log.d(TAG, "On preExceute, unloadPresetSound");
 
             progress.setIndeterminate(false);
             progress.setMax(presetSoundCount);
@@ -953,14 +954,14 @@ public class SoundHelper {
         // pause adViewMain after the loading
         ad.pauseNativeAdView(R.id.adView_main, activity);
 
+        window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_white);
+
+        anim.fadeOut(R.id.progress_bar_layout, 0, 600, activity);
+        anim.fadeOut(R.id.adView_main, 0, 600, activity);
+
         // Load finished, set AsyncTask objects to null
         loadSound = null;
         unLoadSound = null;
-
-        window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_white);
-
-        anim.fadeOut(R.id.progress_bar_layout, 0, 400, activity);
-        anim.fadeOut(R.id.adView_main, 0, 400, activity);
 
         final Random random = new Random();
 
@@ -970,7 +971,7 @@ public class SoundHelper {
             public void run() {
                 buttonRevealAnimation(random.nextInt(25));
             }
-        }, 400);
+        }, 600);
 
         MainActivity main = new MainActivity();
         main.setQuickstart(activity);
@@ -1060,7 +1061,7 @@ public class SoundHelper {
                                     buttonRects[buttonRectIndex],
                                     buttonRects[i],
                                     intervalPixel[0] * intervalCount[0]) &&
-                                    buttonViews[i].getVisibility() != View.VISIBLE) {
+                                    buttonViews[i].getVisibility() == View.INVISIBLE) {
                                 // collides, fadeIn
                                 Log.d("SoundHelper", "button " + i);
                                 anim.fadeIn(buttonViews[i], 0, 50, "btn" + String.valueOf(i) + "In", activity);

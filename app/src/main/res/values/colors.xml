@@ -9,7 +9,7 @@
 	
 	<color name="bg_screen1">#BA68C8</color>
 
-    <!-- Scheme Colors -->
+    <!-- Preset Colors -->
     <color name="hello">#FF06DC</color>
     <color name="hello_dark">#CC04B0</color>
     <color name="roses">#FF73E1</color>

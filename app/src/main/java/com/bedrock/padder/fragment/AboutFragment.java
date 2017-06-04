@@ -18,14 +18,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.helper.AdmobHelper;
 import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.SoundHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
-import com.bedrock.padder.helper.TutorialHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.google.android.gms.ads.AdListener;
 import com.squareup.picasso.Picasso;
@@ -45,19 +43,16 @@ public class AboutFragment extends Fragment {
     private AdmobHelper ad = new AdmobHelper();
     private IntentHelper intent = new IntentHelper();
     private AnimateHelper anim = new AnimateHelper();
-    private TutorialHelper tut = new TutorialHelper();
     private SoundHelper sound = new SoundHelper();
     private ToolbarHelper toolbar = new ToolbarHelper();
 
     private int circularRevealDuration = 400;
     private int fadeAnimDuration = 200;
 
-    int themeColor = R.color.hello;
     AppCompatActivity a;
     View v;
 
     private OnFragmentInteractionListener mListener;
-    private MaterialDialog PresetDialog;
     private SharedPreferences prefs;
 
     public AboutFragment() {
@@ -85,7 +80,7 @@ public class AboutFragment extends Fragment {
 
         v = getView();
         ad.requestLoadNativeAd(ad.getNativeAdView(R.id.adView_about, a));
-        setSchemeInfo();
+        setPresetInfo();
     }
 
     @Override
@@ -159,25 +154,30 @@ public class AboutFragment extends Fragment {
         a.dispatchKeyEvent(kUp);
     }
 
-    public void setSchemeInfo() {
-        Log.d("currentPreset", "NAME : " + currentPreset.getAbout().getTitle());
-        themeColor = currentPreset.getAbout().getActionbarColor();
-
+    public void setPresetInfo() {
         toolbar.setActionBar(a, v);
         toolbar.setActionBarTitle(R.string.about);
         toolbar.setActionBarPadding(a, v);
-        toolbar.setActionBarColor(currentPreset.getAbout().getActionbarColor(), a);
         toolbar.setActionBarDisplayHomeAsUp(true);
 
-        // Cardview
-        Picasso.with(a)
-                .load("file:" + currentPreset.getAbout().getImage())
-                .placeholder(R.drawable.ic_image_album_placeholder)
-                .error(R.drawable.ic_image_album_error)
-                .into(w.getImageView(R.id.cardview_music_image, v));
-        w.getTextView(R.id.cardview_music_song, v).setText(currentPreset.getAbout().getTitle());
-        w.getTextView(R.id.cardview_music_explore, v).setTextColor(currentPreset.getAbout().getActionbarColor());
-        w.getTextView(R.id.cardview_music_change, v).setTextColor(currentPreset.getAbout().getActionbarColor());
+        if (currentPreset != null) {
+            // Cardview
+            w.getView(R.id.cardview_music_layout, a).setVisibility(View.VISIBLE);
+            Picasso.with(a)
+                    .load("file:" + currentPreset.getAbout().getImage())
+                    .placeholder(R.drawable.ic_image_album_placeholder)
+                    .error(R.drawable.ic_image_album_error)
+                    .into(w.getImageView(R.id.cardview_music_image, v));
+            w.getTextView(R.id.cardview_music_song, v).setText(currentPreset.getAbout().getTitle());
+            w.getTextView(R.id.cardview_music_explore, v).setTextColor(currentPreset.getAbout().getActionbarColor());
+            w.getTextView(R.id.cardview_music_change, v).setTextColor(currentPreset.getAbout().getActionbarColor());
+
+            toolbar.setActionBarColor(currentPreset.getAbout().getActionbarColor(), a);
+        } else {
+            w.getView(R.id.cardview_music_layout, a).setVisibility(View.GONE);
+
+            toolbar.setActionBarColor(R.color.colorPrimary, a);
+        }
 
         // artist
         w.getView(R.id.cardview_music, v).setOnClickListener(new View.OnClickListener() {
@@ -318,11 +318,11 @@ public class AboutFragment extends Fragment {
         }
     }
 
-    private void setScheme(int scheme) {
+    private void setPreset(int scheme) {
         prefs.edit().putInt("scheme", scheme).apply();
     }
 
-    int getScheme() {
+    int getPreset() {
         return prefs.getInt("scheme", 0);
     }
 

@@ -88,7 +88,7 @@ public class UserBenefitsActivity extends AppCompatActivity {
         setIntentMain(btnSkip, reveal);
 
         prefs.edit().putInt("scheme", 0).apply();
-        Log.d("SharedPrefs", "Scheme : Hello");
+        Log.d("SharedPrefs", "Preset : Hello");
 
         prefs.edit().putInt("color", R.color.cyan_400).apply();
     }
@@ -182,7 +182,7 @@ public class UserBenefitsActivity extends AppCompatActivity {
                         .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
                             @Override
                             public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                                setScheme(which);
+                                setPreset(which);
                                 switch (which) {
                                     case 0:
                                         PresetDialog.getBuilder()
@@ -222,7 +222,7 @@ public class UserBenefitsActivity extends AppCompatActivity {
         }, delay);
     }
 
-    void setScheme(int scheme) {
+    void setPreset(int scheme) {
         prefs.edit().putInt("scheme", scheme).apply();
     }
 
