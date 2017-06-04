@@ -295,20 +295,16 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
     private boolean isPresetExists(String presetName) {
         // preset exist
         File folder = new File(PROJECT_LOCATION_PRESETS + "/" + presetName); // folder check
-        Log.d("PSA", folder.toString());
         return folder.isDirectory() && folder.exists();
     }
 
     private boolean isPresetAvailable(String presetName) {
         // preset available
         File folderSound = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/sounds");
-        Log.d("PSA", folderSound.toString());
         File folderTiming = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/timing");
-        Log.d("PSA", folderTiming.toString());
         File folderAbout = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about");
-        Log.d("PSA", folderAbout.toString());
         File fileJson = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json.txt");
-        Log.d("PSA", fileJson.toString());
+        // TODO add 100% available
         return folderSound.isDirectory() && folderSound.exists() &&
                 folderTiming.isDirectory() && folderTiming.exists() &&
                 folderAbout.isDirectory() && folderAbout.exists() &&
