@@ -1,6 +1,7 @@
 package com.bedrock.padder.adapter;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,7 +15,6 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
-import com.bedrock.padder.helper.FirebaseHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.FirebaseMetadata;
 import com.bedrock.padder.model.preset.Preset;
@@ -27,7 +27,10 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
+import static android.content.Context.MODE_PRIVATE;
+import static com.bedrock.padder.activity.MainActivity.PRESET_KEY;
 import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
+import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.PresetViewHolder> {
 
@@ -38,12 +41,14 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
     private View parentView;
 
     private WindowHelper window = new WindowHelper();
-    private FirebaseHelper firebase = new FirebaseHelper();
+
+    private SharedPreferences prefs;
 
     public static class PresetViewHolder extends RecyclerView.ViewHolder {
         LinearLayout presetGesture;
         LinearLayout presetWarningLayout;
         ImageView presetImage;
+        TextView presetCurrentPreset;
         TextView presetTitle;
         TextView presetArtist;
         TextView presetCreator;
@@ -58,6 +63,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
             presetGesture = (LinearLayout) view.findViewById(R.id.layout_preset_store_gesture_layout);
             presetWarningLayout = (LinearLayout) view.findViewById(R.id.layout_preset_store_warning_layout);
             presetImage = (ImageView) view.findViewById(R.id.layout_preset_store_image);
+            presetCurrentPreset = (TextView) view.findViewById(R.id.layout_preset_store_current_preset);
             presetTitle = (TextView) view.findViewById(R.id.layout_preset_store_title);
             presetArtist = (TextView) view.findViewById(R.id.layout_preset_store_artist);
             presetCreator = (TextView) view.findViewById(R.id.layout_preset_store_preset_creator);
@@ -73,6 +79,8 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
         this.firebaseMetadata = firebaseMetadata;
         this.rowLayout = rowLayout;
         this.activity = activity;
+
+        prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
     }
 
     @Override
@@ -137,6 +145,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                     public void onClick(View v) {
                         // select and load preset
                         preset.setLoadPreset(activity);
+                        notifyItemChanged(holder.getAdapterPosition());
                     }
                 });
                 // load local image
@@ -250,7 +259,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                     preset.downloadPreset(parentView, activity, new Runnable() {
                         @Override
                         public void run() {
-                            notifyItemChanged(holder.getAdapterPosition());
+                            makeCurrentPreset(firebaseMetadata.getPresets(), holder.getAdapterPosition());
                         }
                     });
                 }
@@ -262,6 +271,35 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                     .error(R.drawable.ic_image_album_error)
                     .into(holder.presetImage);
         }
+
+        if (getPresetKey() != null &&
+                getPresetKey().equals(preset.getFirebaseLocation()) &&
+                isPresetAvailable(preset.getFirebaseLocation())) {
+            // current preset set, downloaded
+            holder.presetCurrentPreset.setVisibility(View.VISIBLE);
+            holder.presetSelect.setVisibility(View.GONE);
+        } else {
+            holder.presetCurrentPreset.setVisibility(View.GONE);
+        }
+    }
+
+    private String getPresetKey() {
+        return prefs.getString(PRESET_KEY, null);
+    }
+
+    // Swap itemA with itemB
+    private void swapPresetItems(Preset presets[], int itemAIndex, int itemBIndex) {
+        //make sure to check if dataset is null and if itemA and itemB are valid indexes.
+        Preset itemA = presets[itemAIndex];
+        Preset itemB = presets[itemBIndex];
+        presets[itemAIndex] = itemB;
+        presets[itemBIndex] = itemA;
+
+        notifyDataSetChanged(); //This will trigger onBindViewHolder method from the adapter.
+    }
+
+    private void makeCurrentPreset(Preset presets[], int adapterPosition) {
+        swapPresetItems(presets, 0, adapterPosition);
     }
 
     private void onFirebasePresetUpdated(final String presetName, final Runnable onUpdated) {

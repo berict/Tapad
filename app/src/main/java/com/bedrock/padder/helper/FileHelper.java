@@ -25,6 +25,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static com.bedrock.padder.activity.MainActivity.isPresetChanged;
 import static com.bedrock.padder.activity.PresetStoreActivity.isPresetDownloading;
 import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
 
@@ -191,6 +192,7 @@ public class FileHelper {
 
             // finished downloading preset
             isPresetDownloading = false;
+            isPresetChanged = true;
 
             // refresh the preset adapter actions
             Handler handler = new Handler();

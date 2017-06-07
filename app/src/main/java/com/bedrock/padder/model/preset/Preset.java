@@ -130,12 +130,13 @@ public class Preset {
     }
 
     public void removePreset(Runnable onFinish, Activity activity) {
+        // reset the savedPreset
+        isPresetChanged = true;
+        SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
+        prefs.edit().putString(PRESET_KEY, null).apply();
         // remove the preset folder
         FirebaseHelper firebase = new FirebaseHelper();
         firebase.removeLocalPreset(firebaseLocation, onFinish, null);
-        // reset the savedPreset
-        SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
-        prefs.edit().putString(PRESET_KEY, null).apply();
     }
 
     public void repairPreset(final View parentView, final Activity activity, final Runnable onFinish) {

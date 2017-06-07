@@ -173,6 +173,7 @@
 	<string name="preset_store">Preset store</string>
     <string name="preset_store_description">Discover and download new presets</string>
 	<string name="preset_store_preset_by">By </string>
+	<string name="preset_store_current_preset">Current preset</string>
 	<string name="preset_store_action_download">DOWNLOAD</string>
 	<string name="preset_store_action_repair">REPAIR</string>
 	<string name="preset_store_action_repair_needed">Preset repair is needed</string>

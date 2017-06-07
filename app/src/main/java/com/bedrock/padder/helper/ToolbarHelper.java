@@ -72,15 +72,23 @@ public class ToolbarHelper {
 
     public void setActionBarImage(int imageResId, Activity activity) {
         WindowHelper window = new WindowHelper();
-        window.getImageView(IMAGE, activity).setImageResource(imageResId);
-        window.getImageView(IMAGE, activity).setVisibility(View.VISIBLE);
+        if (imageResId != 0) {
+            window.getImageView(IMAGE, activity).setImageResource(imageResId);
+            window.getImageView(IMAGE, activity).setVisibility(View.VISIBLE);
+        } else {
+            window.getImageView(IMAGE, activity).setVisibility(View.GONE);
+        }
     }
 
     public void setActionBarImage(String imageLocation, Activity activity) {
         WindowHelper window = new WindowHelper();
         ImageView imageView = window.getImageView(IMAGE, activity);
-        Picasso.with(activity).load(new File(imageLocation)).into(imageView);
-        imageView.setVisibility(View.VISIBLE);
+        if (imageLocation != null) {
+            Picasso.with(activity).load(new File(imageLocation)).into(imageView);
+            imageView.setVisibility(View.VISIBLE);
+        } else {
+            imageView.setVisibility(View.GONE);
+        }
     }
 
     public void setActionBarDisplayHomeAsUp(boolean displayHomeAsUp) {

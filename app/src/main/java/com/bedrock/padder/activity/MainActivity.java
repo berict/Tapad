@@ -78,8 +78,6 @@ public class MainActivity
     int themeColor = R.color.hello;
     int color = R.color.cyan_400;
 
-    private MaterialDialog PresetDialog;
-
     int toggleSoundId = 0;
     int togglePatternId = 0;
 
@@ -389,6 +387,19 @@ public class MainActivity
                 closePresetStore();
             }
             isPresetVisible = false;
+        }
+
+
+        if (isPresetChanged) {
+            if (getSavedPreset() != null) {
+                // preset loaded
+                currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json.txt"), Preset.class);
+                loadPreset(0);
+            } else {
+                currentPreset = null;
+            }
+            setPresetInfo();
+            isPresetChanged = false;
         }
 
         clearToggleButton();
@@ -1591,10 +1602,12 @@ public class MainActivity
                     PROJECT_LOCATION_PRESETS + "/" + currentPreset.getFirebaseLocation() + "/about/artist_icon.png",
                     this);
             w.setRecentColor(0, 0, themeColor, a);
+            w.setGone(R.id.main_cardview_preset_store, 0, a);
         } else if (currentPreset == null) {
             toolbar.setActionBarTitle(R.string.app_name);
             toolbar.setActionBarColor(R.color.colorPrimary, a);
             toolbar.setActionBarPadding(a);
+            toolbar.setActionBarImage(0, this);
             w.setRecentColor(0, 0, R.color.colorPrimary, a);
             w.getView(R.id.main_cardview_preset_store, a).setOnClickListener(new View.OnClickListener() {
                 @Override

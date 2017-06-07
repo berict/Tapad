@@ -969,6 +969,7 @@ public class SoundHelper {
         delay.postDelayed(new Runnable() {
             @Override
             public void run() {
+                window.setVisible(R.id.base, 0, activity);
                 buttonRevealAnimation(random.nextInt(25));
             }
         }, 600);
@@ -1052,16 +1053,11 @@ public class SoundHelper {
                         if (buttonRectIndex != i) {
                             Log.i("for", "" + i);
                             // not the view itself
-                            Log.i("collide", String.valueOf(isAnimationCollides(
-                                    buttonRects[buttonRectIndex],
-                                    buttonRects[i],
-                                    intervalPixel[0] * intervalCount[0])));
-                            Log.i("view visible", String.valueOf(buttonViews[i].getVisibility() != View.VISIBLE));
                             if (isAnimationCollides(
                                     buttonRects[buttonRectIndex],
                                     buttonRects[i],
                                     intervalPixel[0] * intervalCount[0]) &&
-                                    buttonViews[i].getVisibility() == View.INVISIBLE) {
+                                    buttonViews[i].getVisibility() != View.VISIBLE) {
                                 // collides, fadeIn
                                 Log.d("SoundHelper", "button " + i);
                                 anim.fadeIn(buttonViews[i], 0, 50, "btn" + String.valueOf(i) + "In", activity);
