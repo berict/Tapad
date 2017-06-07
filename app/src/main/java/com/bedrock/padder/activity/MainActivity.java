@@ -1602,6 +1602,7 @@ public class MainActivity
                     PROJECT_LOCATION_PRESETS + "/" + currentPreset.getFirebaseLocation() + "/about/artist_icon.png",
                     this);
             w.setRecentColor(0, 0, themeColor, a);
+            w.setVisible(R.id.base, 0, a);
             w.setGone(R.id.main_cardview_preset_store, 0, a);
         } else if (currentPreset == null) {
             toolbar.setActionBarTitle(R.string.app_name);
@@ -1622,6 +1623,7 @@ public class MainActivity
                 }
             });
             w.setVisible(R.id.main_cardview_preset_store, 0, a);
+            w.setGone(R.id.base, 0, a);
         }
     }
 
