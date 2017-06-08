@@ -55,9 +55,9 @@ public class Preset {
         if (gestureId > 0) {
             fileName += "_" + gestureId;
         }
-        File sound = new File(fileName + ".wav");
+        File sound = new File(fileName);
         if (sound.exists()) {
-            return fileName + ".wav";
+            return fileName;
         } else {
             return null;
         }
@@ -153,6 +153,7 @@ public class Preset {
             }
         }, null);
         // reset the savedPreset
+        isPresetChanged = true;
         SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
         prefs.edit().putString(PRESET_KEY, null).apply();
     }
