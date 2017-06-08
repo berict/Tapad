@@ -1051,7 +1051,6 @@ public class SoundHelper {
                 if (intervalCount[0] <= 40) {
                     for (int i = 0; i < buttonRects.length; i++) {
                         if (buttonRectIndex != i) {
-                            Log.i("for", "" + i);
                             // not the view itself
                             if (isAnimationCollides(
                                     buttonRects[buttonRectIndex],
@@ -1059,7 +1058,6 @@ public class SoundHelper {
                                     intervalPixel[0] * intervalCount[0]) &&
                                     buttonViews[i].getVisibility() != View.VISIBLE) {
                                 // collides, fadeIn
-                                Log.d("SoundHelper", "button " + i);
                                 anim.fadeIn(buttonViews[i], 0, 50, "btn" + String.valueOf(i) + "In", activity);
                             }
                         }
