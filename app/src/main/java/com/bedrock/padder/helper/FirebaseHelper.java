@@ -160,7 +160,7 @@ public class FirebaseHelper {
 
     public String getPresetJson(String presetName) {
         FileHelper file = new FileHelper();
-        return file.getStringFromFile(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json.txt");
+        return file.getStringFromFile(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json");
     }
     
     public void downloadFirebaseMetadata(Activity activity) {

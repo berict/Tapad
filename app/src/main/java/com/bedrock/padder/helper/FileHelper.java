@@ -306,7 +306,7 @@ public class FileHelper {
         return new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/sounds").exists() && // sounds check
                 new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/timing").exists() && // timing check
                 new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about").exists()&& // about check
-                new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json.txt").exists(); // json check
+                new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json").exists(); // json check
     }
 
     public long getAvailableExternalMemorySize() {
