@@ -259,6 +259,20 @@ public class PresetStoreActivity extends AppCompatActivity {
     }
 
     private void setAdapter() {
+        // Make sdcard/Tapad/presets/.nomedia folder
+        File nomedia = new File(tapadFolderPath + "/presets/.nomedia");
+        if (!nomedia.exists()) {
+            // file doesn't exists
+            try {
+                if (nomedia.createNewFile()) {
+                    Log.i(TAG, "nomedia successfully created");
+                } else {
+                    Log.i(TAG, "nomedia failed to create");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         Log.d(TAG, "setAdapter");
         // attach the adapter to the layout
         if (new File(metadataLocation).exists()) {
