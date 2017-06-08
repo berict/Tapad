@@ -164,7 +164,7 @@ public class PresetStoreActivity extends AppCompatActivity {
     }
 
     String tapadFolderPath = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
-    String metadataLocation = tapadFolderPath + "/presets/metadata.txt";
+    String metadataLocation = tapadFolderPath + "/presets/metadata";
 
     private void setLoadingFinished(boolean isFinished) {
         if (isFinished) {
@@ -213,13 +213,13 @@ public class PresetStoreActivity extends AppCompatActivity {
             Log.e(TAG, "folder already exists");
         }
 
-        final File metadata = new File(tapadFolderPath + "/presets/metadata.txt");
+        final File metadata = new File(tapadFolderPath + "/presets/metadata");
 
         StorageReference metadataReference =
                 FirebaseStorage
                         .getInstance()
                         .getReferenceFromUrl("gs://tapad-4d342.appspot.com/presets")
-                        .child("metadata.txt");
+                        .child("metadata");
         metadataReference.getFile(metadata).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
@@ -310,7 +310,7 @@ public class PresetStoreActivity extends AppCompatActivity {
                     FirebaseStorage
                             .getInstance()
                             .getReferenceFromUrl("gs://tapad-4d342.appspot.com/presets")
-                            .child("metadata.txt");
+                            .child("metadata");
             metadataReference.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
                 @Override
                 public void onSuccess(StorageMetadata storageMetadata) {

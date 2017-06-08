@@ -47,11 +47,11 @@ public class FirebaseHelper {
     
     public static String FIREBASE_LOCATION = "gs://tapad-4d342.appspot.com";
     public static String FIREBASE_LOCATION_PRESETS = "gs://tapad-4d342.appspot.com/presets";
-    public static String FIREBASE_LOCATION_PRESETS_METADATA = "gs://tapad-4d342.appspot.com/presets/metadata.txt";
+    public static String FIREBASE_LOCATION_PRESETS_METADATA = "gs://tapad-4d342.appspot.com/presets/metadata";
 
     public static String PROJECT_LOCATION = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
     public static String PROJECT_LOCATION_PRESETS = Environment.getExternalStorageDirectory().getPath() + "/Tapad/presets";
-    public static String PROJECT_LOCATION_PRESET_METADATA = Environment.getExternalStorageDirectory().getPath() + "/Tapad/presets/metadata.txt";
+    public static String PROJECT_LOCATION_PRESET_METADATA = Environment.getExternalStorageDirectory().getPath() + "/Tapad/presets/metadata";
 
     public FileDownloadTask saveFromFirebase(StorageReference storageReference,
                                              final String fileLocation,
@@ -165,8 +165,8 @@ public class FirebaseHelper {
     
     public void downloadFirebaseMetadata(Activity activity) {
         this.downloadFirebase(
-                "presets/metadata.txt",
-                "presets/metadata.txt",
+                "presets/metadata",
+                "presets/metadata",
                 activity
         );
     }
