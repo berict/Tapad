@@ -29,6 +29,7 @@ import java.io.File;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.bedrock.padder.activity.MainActivity.PRESET_KEY;
+import static com.bedrock.padder.activity.MainActivity.isPresetChanged;
 import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
@@ -57,6 +58,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
         TextView presetUpdate;
         TextView presetRemove;
         TextView presetWarning;
+        TextView presetInstalling;
 
         public PresetViewHolder(View view) {
             super(view);
@@ -72,6 +74,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
             presetUpdate = (TextView) view.findViewById(R.id.layout_preset_store_action_update);
             presetRemove = (TextView) view.findViewById(R.id.layout_preset_store_action_remove);
             presetWarning = (TextView) view.findViewById(R.id.layout_preset_store_warning_text);
+            presetInstalling = (TextView) view.findViewById(R.id.layout_preset_store_download_installing);
         }
     }
 
@@ -135,6 +138,8 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                         + " "
                         + preset.getAbout().getPresetCreator());
 
+        holder.presetInstalling.setVisibility(View.INVISIBLE);
+
         // actions
         if (isPresetExists(preset.getFirebaseLocation())) {
             if (isPresetAvailable(preset.getFirebaseLocation())) {
@@ -167,6 +172,10 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                                     @Override
                                     public void run() {
                                         notifyItemChanged(holder.getAdapterPosition());
+                                        // reset the savedPreset
+                                        isPresetChanged = true;
+                                        SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
+                                        prefs.edit().putString(PRESET_KEY, null).apply();
                                     }
                                 });
                             }
@@ -203,6 +212,10 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                                             @Override
                                             public void run() {
                                                 notifyItemChanged(holder.getAdapterPosition());
+                                                // reset the savedPreset
+                                                isPresetChanged = true;
+                                                SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
+                                                prefs.edit().putString(PRESET_KEY, null).apply();
                                             }
                                         });
                                     }
@@ -260,6 +273,11 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                         @Override
                         public void run() {
                             makeCurrentPreset(firebaseMetadata.getPresets(), holder.getAdapterPosition());
+                            // reset the savedPreset
+                            isPresetChanged = true;
+                            SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
+                            prefs.edit().putString(PRESET_KEY, null).apply();
+                            Log.d("run", "key = " + prefs.getString(PRESET_KEY, null));
                         }
                     });
                 }
@@ -313,10 +331,12 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
             public void onSuccess(StorageMetadata storageMetadata) {
                 Log.d(TAG, "Successful getting metadata");
                 if (storageMetadata.getUpdatedTimeMillis() >
-                        new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json.txt").lastModified()) {
+                        new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json").lastModified()) {
                     // firebase preset is updated since last download
                     // get the new updated preset
                     Log.d(TAG, "Preset updated");
+                    Log.d(TAG, "Firebase = " + storageMetadata.getUpdatedTimeMillis());
+                    Log.d(TAG, "Local    = " + new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json").lastModified());
                     onUpdated.run();
                 } else {
                     Log.d(TAG, "Preset not updated");
@@ -341,7 +361,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
         File folderSound = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/sounds");
         File folderTiming = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/timing");
         File folderAbout = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about");
-        File fileJson = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json.txt");
+        File fileJson = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json");
         // TODO add 100% available
         return folderSound.isDirectory() && folderSound.exists() &&
                 folderTiming.isDirectory() && folderTiming.exists() &&

@@ -200,12 +200,11 @@ public class MainActivity
 
         if (getSavedPreset() != null) {
             try {
-                currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json.txt"), Preset.class);
+                currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json"), Preset.class);
             } catch (Exception e) {
                 // corrupted preset
+                currentPreset = null;
             }
-        } else {
-
         }
 
         // for quickstart test
@@ -391,12 +390,14 @@ public class MainActivity
 
 
         if (isPresetChanged) {
+            currentPreset = null;
             if (getSavedPreset() != null) {
                 // preset loaded
-                currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json.txt"), Preset.class);
+                Log.d(TAG, "changed");
+                currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json"), Preset.class);
                 loadPreset(0);
             } else {
-                currentPreset = null;
+                Log.d(TAG, "removed");
             }
             setPresetInfo();
             isPresetChanged = false;
@@ -1604,7 +1605,7 @@ public class MainActivity
             w.setRecentColor(0, 0, themeColor, a);
             w.setVisible(R.id.base, 0, a);
             w.setGone(R.id.main_cardview_preset_store, 0, a);
-        } else if (currentPreset == null) {
+        } else if (currentPreset == null || getSavedPreset() == null) {
             toolbar.setActionBarTitle(R.string.app_name);
             toolbar.setActionBarColor(R.color.colorPrimary, a);
             toolbar.setActionBarPadding(a);
@@ -1636,11 +1637,11 @@ public class MainActivity
     }
 
     public String getSavedPreset() {
-        String savedPreset = prefs.getString(PRESET_KEY, null);
-        if (savedPreset == null) {
-            prefs.edit().putString(PRESET_KEY, getAvailableDownloadedPreset()).apply();
-        }
         return prefs.getString(PRESET_KEY, null);
+    }
+
+    public void setSavedPreset(String savedPreset) {
+        prefs.edit().putString(PRESET_KEY, savedPreset).apply();
     }
 
     private String getAvailableDownloadedPreset() {
@@ -1674,7 +1675,7 @@ public class MainActivity
         File folderSound = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/sounds");
         File folderTiming = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/timing");
         File folderAbout = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about");
-        File fileJson = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json.txt");
+        File fileJson = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json");
         return folderSound.isDirectory() && folderSound.exists() &&
                 folderTiming.isDirectory() && folderTiming.exists() &&
                 folderAbout.isDirectory() && folderAbout.exists() &&
