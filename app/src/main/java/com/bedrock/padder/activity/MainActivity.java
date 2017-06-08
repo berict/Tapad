@@ -203,7 +203,7 @@ public class MainActivity
                 currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json"), Preset.class);
             } catch (Exception e) {
                 // corrupted preset
-                currentPreset = null;
+                e.printStackTrace();
             }
         }
 
