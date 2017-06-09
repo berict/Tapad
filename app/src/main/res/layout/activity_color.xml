@@ -141,6 +141,6 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-    <include layout="@layout/fragment_actionbar_material" />
+    <include layout="@layout/fragment_actionbar" />
 
 </RelativeLayout>

@@ -135,7 +135,7 @@
             </RelativeLayout>
         </ScrollView>
 
-        <include layout="@layout/fragment_actionbar_material"/>
+        <include layout="@layout/fragment_actionbar"/>
 
     </RelativeLayout>
 
