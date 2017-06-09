@@ -42,6 +42,19 @@
 	<!-- Help -->
 	<string name="help_title">Help</string>
 	
+	<string name="help_contact_title">Contact us</string>
+	<string name="help_contact_email">Email</string>
+	<string name="help_contact_send_feedback">Send feedback</string>
+	
+	<string name="help_popular_title">Popular</string>
+	<string name="help_popular_about_tapad">About Tapad</string>
+	<string name="help_popular_about_gesture_mode">Play a gesture preset</string>
+	<string name="help_popular_preset_store_download">Download new presets</string>
+	<string name="help_popular_preset_store_manage">View &amp; delete presets</string>
+	<string name="help_popular_tutorial">Learn to play Tapad</string>
+	
+	<string name="help_popular_browse_all">Browse all articles</string>
+	
 	<!-- Feedback -->
 	<string name="feedback_disclaimer_text">Your system info will be sent to Studio Berict.</string>
 	<string name="feedback_disclaimer_action">Learn More</string>

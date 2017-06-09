@@ -1,149 +1,313 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/activity_about"
+	android:id="@+id/activity_help"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	tools:context="com.bedrock.padder.activity.AboutActivity">
+	android:background="@color/grey_300"
+	tools:context="com.bedrock.padder.activity.HelpActivity">
 	
-	<RelativeLayout
-		android:id="@+id/statusbar_layout"
-		android:layout_width="match_parent"
-		android:layout_alignParentTop="true"
-		android:layout_height="25dp">
-		
-		<View
-			android:id="@+id/statusbar"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:background="@color/colorAccent"/>
-		
-		<View
-			android:id="@+id/statusbar_transparent"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:background="@color/dark_status_bar"/>
-	</RelativeLayout>
-	
-	<RelativeLayout
-		android:id="@+id/layout_relative"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent">
-		
-		<android.support.design.widget.CoordinatorLayout
-			android:layout_width="match_parent"
-			android:layout_height="match_parent">
-			
-			<android.support.design.widget.AppBarLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-				android:visibility="visible">
-				
-				<android.support.design.widget.CollapsingToolbarLayout
-					android:id="@+id/collapsing_toolbar"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					app:contentScrim="?attr/colorPrimary"
-					app:layout_scrollFlags="scroll|exitUntilCollapsed">
-					
-					<RelativeLayout
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content">
-						
-						<View
-							android:id="@+id/layout_placeholder_view"
-							android:layout_width="match_parent"
-							android:layout_height="200dp"
-							android:scaleType="centerCrop"
-							android:background="@color/blue_A400"
-							android:transitionName="transition"
-							app:layout_collapseMode="parallax"/>
-						
-						<View
-							android:id="@+id/layout_text"
-							android:layout_width="match_parent"
-							android:layout_height="90dp"
-							android:layout_alignParentBottom="true"
-							android:background="#28000000"/>
-					</RelativeLayout>
-					
-					<android.support.v7.widget.Toolbar
-						android:id="@+id/actionbar_toolbar"
-						android:layout_width="match_parent"
-						android:layout_height="?attr/actionBarSize"
-						app:layout_collapseMode="pin"/>
-				
-				</android.support.design.widget.CollapsingToolbarLayout>
-			
-			</android.support.design.widget.AppBarLayout>
-			
-			<android.support.v4.widget.NestedScrollView
-				android:id="@+id/layout_nested_scrollview"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				app:layout_behavior="@string/appbar_scrolling_view_behavior">
-				
-				<LinearLayout
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:orientation="vertical">
-					
-					<LinearLayout
-						android:id="@+id/layout_detail"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:focusable="true"
-						android:focusableInTouchMode="true"
-						android:gravity="center_horizontal"
-						android:orientation="vertical">
-						<!-- focusableInTouchMode for disable auto-scroll to recyclerView -->
-						
-						<android.support.v7.widget.CardView
-							android:id="@+id/layout_detail_bio"
-							android:layout_width="360dp"
-							android:layout_height="match_parent"
-							app:cardBackgroundColor="@color/white"
-							app:cardCornerRadius="4dp"
-							app:cardElevation="4dp"
-							app:cardUseCompatPadding="true">
-							
-							<RelativeLayout
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content">
-								
-								
-							</RelativeLayout>
-							
-						</android.support.v7.widget.CardView>
-						
-						<LinearLayout
-							android:id="@+id/layout_help_layout"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:orientation="vertical">
-							
-						</LinearLayout>
-					</LinearLayout>
-					
-					<View
-						android:id="@+id/layout_margin"
-						android:layout_width="match_parent"
-						android:layout_height="0dp"
-						android:background="@color/transparent"/>
-				</LinearLayout>
-			</android.support.v4.widget.NestedScrollView>
-		</android.support.design.widget.CoordinatorLayout>
-	</RelativeLayout>
-	
-	<View
-		android:id="@+id/layout_placeholder"
+	<ScrollView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:background="@color/colorAccent"
-		android:visibility="gone"/>
-
+		android:layout_below="@+id/actionbar">
+		
+		<LinearLayout
+			android:id="@+id/activity_help_layout"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+			
+			<LinearLayout
+				android:id="@+id/activity_help_contact_layout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="8dp"
+				android:background="@color/white"
+				android:orientation="vertical"
+				android:paddingBottom="8dp"
+				android:paddingTop="8dp"
+				android:translationZ="2dp">
+				
+				<TextView
+					android:id="@+id/activity_help_contact_title"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="4dp"
+					android:layout_marginLeft="8dp"
+					android:fontFamily="sans-serif-medium"
+					android:padding="8dp"
+					android:text="@string/help_contact_title"
+					android:textColor="@color/dark_secondary"
+					android:textSize="12sp"/>
+				
+				<LinearLayout
+					android:id="@+id/activity_help_contact_email"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:background="?selectableItemBackground"
+					android:clickable="true"
+					android:gravity="center_vertical"
+					android:orientation="horizontal"
+					android:paddingBottom="12dp"
+					android:paddingLeft="16dp"
+					android:paddingTop="12dp">
+					
+					<ImageView
+						android:layout_width="24dp"
+						android:layout_height="24dp"
+						android:layout_gravity="start"
+						android:src="@drawable/ic_email_blue"/>
+					
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="24dp"
+						android:text="@string/help_contact_email"
+						android:textColor="@color/dark_primary"
+						android:textSize="16sp"/>
+				</LinearLayout>
+				
+				<LinearLayout
+					android:id="@+id/activity_help_contact_send_feedback"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:background="?selectableItemBackground"
+					android:clickable="true"
+					android:gravity="center_vertical"
+					android:orientation="horizontal"
+					android:paddingBottom="12dp"
+					android:paddingLeft="16dp"
+					android:paddingTop="12dp">
+					
+					<ImageView
+						android:layout_width="24dp"
+						android:layout_height="24dp"
+						android:layout_gravity="start"
+						android:src="@drawable/ic_feedback_blue"/>
+					
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="24dp"
+						android:text="@string/help_contact_send_feedback"
+						android:textColor="@color/dark_primary"
+						android:textSize="16sp"/>
+				</LinearLayout>
+			</LinearLayout>
+			
+			<LinearLayout
+				android:id="@+id/activity_help_popular_layout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="8dp"
+				android:background="@color/white"
+				android:orientation="vertical"
+				android:paddingTop="8dp"
+				android:translationZ="2dp">
+				
+				<TextView
+					android:id="@+id/activity_help_popular_title"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="4dp"
+					android:layout_marginLeft="8dp"
+					android:fontFamily="sans-serif-medium"
+					android:padding="8dp"
+					android:text="@string/help_popular_title"
+					android:textColor="@color/dark_secondary"
+					android:textSize="12sp"/>
+				
+				<LinearLayout
+					android:id="@+id/activity_help_popular_about_tapad"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:background="?selectableItemBackground"
+					android:clickable="true"
+					android:gravity="center_vertical"
+					android:orientation="horizontal"
+					android:paddingBottom="12dp"
+					android:paddingLeft="16dp"
+					android:paddingTop="12dp">
+					
+					<ImageView
+						android:layout_width="24dp"
+						android:layout_height="24dp"
+						android:layout_gravity="start"
+						android:src="@drawable/ic_file_document_blue"/>
+					
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="24dp"
+						android:text="@string/help_popular_about_tapad"
+						android:textColor="@color/dark_primary"
+						android:textSize="16sp"/>
+				</LinearLayout>
+				
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="1dp"
+					android:layout_marginLeft="64dp"
+					android:background="@color/dark_divider"/>
+				
+				<LinearLayout
+					android:id="@+id/activity_help_popular_about_gesture_mode"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:background="?selectableItemBackground"
+					android:clickable="true"
+					android:gravity="center_vertical"
+					android:orientation="horizontal"
+					android:paddingBottom="12dp"
+					android:paddingLeft="16dp"
+					android:paddingTop="12dp">
+					
+					<ImageView
+						android:layout_width="24dp"
+						android:layout_height="24dp"
+						android:layout_gravity="start"
+						android:src="@drawable/ic_file_document_blue"/>
+					
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="24dp"
+						android:text="@string/help_popular_about_gesture_mode"
+						android:textColor="@color/dark_primary"
+						android:textSize="16sp"/>
+				</LinearLayout>
+				
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="1dp"
+					android:layout_marginLeft="64dp"
+					android:background="@color/dark_divider"/>
+				
+				<LinearLayout
+					android:id="@+id/activity_help_popular_preset_store_download"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:background="?selectableItemBackground"
+					android:clickable="true"
+					android:gravity="center_vertical"
+					android:orientation="horizontal"
+					android:paddingBottom="12dp"
+					android:paddingLeft="16dp"
+					android:paddingTop="12dp">
+					
+					<ImageView
+						android:layout_width="24dp"
+						android:layout_height="24dp"
+						android:layout_gravity="start"
+						android:src="@drawable/ic_file_document_blue"/>
+					
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="24dp"
+						android:text="@string/help_popular_preset_store_download"
+						android:textColor="@color/dark_primary"
+						android:textSize="16sp"/>
+				</LinearLayout>
+				
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="1dp"
+					android:layout_marginLeft="64dp"
+					android:background="@color/dark_divider"/>
+				
+				<LinearLayout
+					android:id="@+id/activity_help_popular_preset_store_manage"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:background="?selectableItemBackground"
+					android:clickable="true"
+					android:gravity="center_vertical"
+					android:orientation="horizontal"
+					android:paddingBottom="12dp"
+					android:paddingLeft="16dp"
+					android:paddingTop="12dp">
+					
+					<ImageView
+						android:layout_width="24dp"
+						android:layout_height="24dp"
+						android:layout_gravity="start"
+						android:src="@drawable/ic_file_document_blue"/>
+					
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="24dp"
+						android:text="@string/help_popular_preset_store_manage"
+						android:textColor="@color/dark_primary"
+						android:textSize="16sp"/>
+				</LinearLayout>
+				
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="1dp"
+					android:layout_marginLeft="64dp"
+					android:background="@color/dark_divider"/>
+				
+				<LinearLayout
+					android:id="@+id/activity_help_popular_tutorial"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:background="?selectableItemBackground"
+					android:clickable="true"
+					android:gravity="center_vertical"
+					android:orientation="horizontal"
+					android:paddingBottom="12dp"
+					android:paddingLeft="16dp"
+					android:paddingTop="12dp">
+					
+					<ImageView
+						android:layout_width="24dp"
+						android:layout_height="24dp"
+						android:layout_gravity="start"
+						android:src="@drawable/ic_file_document_blue"/>
+					
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="24dp"
+						android:text="@string/help_popular_tutorial"
+						android:textColor="@color/dark_primary"
+						android:textSize="16sp"/>
+				</LinearLayout>
+				
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="1dp"
+					android:background="@color/dark_divider"/>
+				
+				<LinearLayout
+					android:id="@+id/activity_help_browse_all"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:background="?selectableItemBackground"
+					android:clickable="true"
+					android:gravity="center_vertical"
+					android:orientation="horizontal"
+					android:paddingBottom="12dp"
+					android:paddingLeft="4dp"
+					android:paddingTop="12dp">
+					
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:layout_marginLeft="16dp"
+						android:text="@string/help_popular_browse_all"
+						android:textAllCaps="true"
+						android:textColor="@color/colorAccent"
+						android:textSize="12sp"
+						android:textStyle="bold"/>
+				</LinearLayout>
+			</LinearLayout>
+		</LinearLayout>
+	</ScrollView>
+	
+	<include layout="@layout/fragment_actionbar"/>
 </RelativeLayout>
