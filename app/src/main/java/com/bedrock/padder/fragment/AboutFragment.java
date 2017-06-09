@@ -1,7 +1,6 @@
 package com.bedrock.padder.fragment;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,14 +27,12 @@ import com.bedrock.padder.helper.WindowHelper;
 import com.google.android.gms.ads.AdListener;
 import com.squareup.picasso.Picasso;
 
-import static android.content.Context.MODE_PRIVATE;
 import static com.bedrock.padder.activity.MainActivity.coord;
 import static com.bedrock.padder.activity.MainActivity.currentPreset;
 import static com.bedrock.padder.activity.MainActivity.isPresetVisible;
 import static com.bedrock.padder.activity.MainActivity.isSettingVisible;
 import static com.bedrock.padder.activity.MainActivity.setSettingVisible;
 import static com.bedrock.padder.activity.MainActivity.showSettingsFragment;
-import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class AboutFragment extends Fragment {
 
@@ -53,7 +50,6 @@ public class AboutFragment extends Fragment {
     View v;
 
     private OnFragmentInteractionListener mListener;
-    private SharedPreferences prefs;
 
     public AboutFragment() {
         // Required empty public constructor
@@ -114,7 +110,6 @@ public class AboutFragment extends Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
         a = (AppCompatActivity)getActivity();
-        prefs = a.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
     }
 
     Menu menu;
@@ -158,11 +153,11 @@ public class AboutFragment extends Fragment {
         toolbar.setActionBar(a, v);
         toolbar.setActionBarTitle(R.string.about);
         toolbar.setActionBarPadding(a, v);
-        toolbar.setActionBarDisplayHomeAsUp(true);
+        toolbar.setActionBarDisplayHomeAsUpIcon(R.drawable.ic_close_white);
 
         if (currentPreset != null) {
             // Cardview
-            w.getView(R.id.cardview_music_layout, a).setVisibility(View.VISIBLE);
+            w.getView(R.id.cardview_music_layout, v).setVisibility(View.VISIBLE);
             Picasso.with(a)
                     .load("file:" + currentPreset.getAbout().getImage())
                     .placeholder(R.drawable.ic_image_album_placeholder)
@@ -174,7 +169,7 @@ public class AboutFragment extends Fragment {
 
             toolbar.setActionBarColor(currentPreset.getAbout().getActionbarColor(), a);
         } else {
-            w.getView(R.id.cardview_music_layout, a).setVisibility(View.GONE);
+            w.getView(R.id.cardview_music_layout, v).setVisibility(View.GONE);
 
             toolbar.setActionBarColor(R.color.colorPrimary, a);
         }
@@ -316,18 +311,6 @@ public class AboutFragment extends Fragment {
             Log.d("AdView", "Failed to connect to the internet");
             w.getView(R.id.cardview_ad, v).setVisibility(View.GONE);
         }
-    }
-
-    private void setPreset(int scheme) {
-        prefs.edit().putInt("scheme", scheme).apply();
-    }
-
-    int getPreset() {
-        return prefs.getInt("scheme", 0);
-    }
-
-    private void loadPreset() {
-        sound.loadSound(currentPreset, a);
     }
 
     @Override
