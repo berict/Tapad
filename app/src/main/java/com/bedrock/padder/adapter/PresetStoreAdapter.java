@@ -153,6 +153,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                         notifyItemChanged(holder.getAdapterPosition());
                     }
                 });
+                holder.presetWarningLayout.setVisibility(View.GONE);
                 // load local image
                 Picasso.with(activity)
                         .load("file:" + PROJECT_LOCATION_PRESETS + "/" + preset.getFirebaseLocation() + "/about/album_art.jpg")
