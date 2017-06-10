@@ -450,7 +450,7 @@ public class FeedbackActivity extends AppCompatActivity {
                                     "### Do not edit the subject and the message to receive a reply ###";
                     intent.intentEmail(a, R.string.feedback_email,
                             "Tapad Feedback - Song Request", sendMessage,
-                            "Select a email client to send feedback", circularRevealDuration);
+                            R.string.feedback_email_client_feedback, circularRevealDuration);
                     break;
                 case "feedback":
                     sendMessage =   "Feedback type    = \"" + feedbackTypeString    + "\"" + br +
@@ -459,7 +459,7 @@ public class FeedbackActivity extends AppCompatActivity {
                             "### Do not edit the subject and the message to receive a reply ###";
                     intent.intentEmail(a, R.string.feedback_email,
                             "Tapad Feedback - Feedback [" + feedbackTypeString + "]", sendMessage,
-                            "Select a email client to send feedback", circularRevealDuration);
+                            R.string.feedback_email_client_feedback, circularRevealDuration);
                     break;
                 case "report_bug":
                     sendMessage =
@@ -469,7 +469,7 @@ public class FeedbackActivity extends AppCompatActivity {
                             "### Do not edit the subject and the message to receive a reply ###";
                     intent.intentEmail(a, R.string.feedback_email,
                             "Tapad Feedback - Bug Report [" + reportBugTypeString + "]", sendMessage,
-                            "Select a email client to send bug report", circularRevealDuration);
+                            R.string.feedback_email_client_bug_report, circularRevealDuration);
                     break;
             }
             feedbackSent = true;

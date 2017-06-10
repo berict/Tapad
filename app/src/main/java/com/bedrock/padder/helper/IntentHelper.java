@@ -364,8 +364,9 @@ public class IntentHelper {
         }, delay);
     }
 
-    public void intentEmail(final Activity activity, int emailTargetId, String subject, String text, final String hint, int delay) {
+    public void intentEmail(final Activity activity, int emailTargetId, String subject, String text, int hintResId, int delay) {
         final Intent email = new Intent(Intent.ACTION_SEND);
+        final String hint = activity.getResources().getString(hintResId);
         email.setType("message/rfc822");
         email.putExtra(Intent.EXTRA_EMAIL  , new String[]{activity.getResources().getString(emailTargetId)});
         email.putExtra(Intent.EXTRA_SUBJECT, subject);
