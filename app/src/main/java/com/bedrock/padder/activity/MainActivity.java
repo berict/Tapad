@@ -1005,11 +1005,7 @@ public class MainActivity
         tutorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("isTutVisible", String.valueOf(isTutorialVisible));
-                if (isTutorialVisible == false) {
-                    toggleTutorial();
-                    isTutorialVisible = true;
-                }
+                toggleTutorial();
             }
         });
 
@@ -1113,35 +1109,36 @@ public class MainActivity
     }
 
     public void toggleTutorial() {
-        if (currentPreset != null) {
-            if (!isPresetLoading) {
-                String tutorialText = currentPreset.getAbout().getTutorialLink();
-                if (tutorialText == null || tutorialText.equals("null")) {
-                    tutorialText = w.getStringFromId("dialog_tutorial_text_error", a);
-                } else {
-                    tutorialText = currentPreset.getAbout().getTutorialLink();
-                }
+        if (isTutorialVisible == false) {
+            isTutorialVisible = true;
+            if (currentPreset != null) {
+                if (!isPresetLoading) {
+                    String tutorialText = currentPreset.getAbout().getTutorialLink();
+                    if (tutorialText == null || tutorialText.equals("null")) {
+                        tutorialText = w.getStringFromId("dialog_tutorial_text_error", a);
+                    }
 
-                new MaterialDialog.Builder(a)
-                        .title(R.string.dialog_tutorial_title)
-                        .content(tutorialText)
-                        .neutralText(R.string.dialog_close)
-                        .dismissListener(new DialogInterface.OnDismissListener() {
-                            @Override
-                            public void onDismiss(DialogInterface dialog) {
-                                isTutorialVisible = false;
-                            }
-                        })
-                        .show();
+                    new MaterialDialog.Builder(a)
+                            .title(R.string.dialog_tutorial_title)
+                            .content(tutorialText)
+                            .neutralText(R.string.dialog_close)
+                            .dismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface dialog) {
+                                    isTutorialVisible = false;
+                                }
+                            })
+                            .show();
+                } else {
+                    // still loading preset
+                    Toast.makeText(a, R.string.tutorial_loading, Toast.LENGTH_LONG).show();
+                    isTutorialVisible = false;
+                }
             } else {
-                // still loading preset
-                Toast.makeText(a, R.string.tutorial_loading, Toast.LENGTH_LONG).show();
+                // no preset
+                Toast.makeText(a, R.string.tutorial_no_preset, Toast.LENGTH_LONG).show();
                 isTutorialVisible = false;
             }
-        } else {
-            // no preset
-            Toast.makeText(a, R.string.tutorial_no_preset, Toast.LENGTH_LONG).show();
-            isTutorialVisible = false;
         }
     }
 
