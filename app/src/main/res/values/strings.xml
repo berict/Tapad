@@ -85,6 +85,8 @@
 		<item>Pop</item>
 	</string-array>
 	<string name="feedback_song_send_error">Please fill out the form to request a song</string>
+	<string name="feedback_email_client_feedback">Select a email client to send feedback</string>
+	<string name="feedback_email_client_bug_report">Select a email client to send bug report</string>
 	
 	<string name="feedback_feedback_discard">Discard feedback?</string>
 	<string name="feedback_feedback_description">We would love to hear thoughts, ideas, anything from you. We hope we can improve Tapad with you!</string>
