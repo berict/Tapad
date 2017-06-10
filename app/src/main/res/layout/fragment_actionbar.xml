@@ -4,33 +4,48 @@
 	android:id="@+id/actionbar"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:translationZ="4dp">
+	android:layout_marginBottom="-4dp">
 	
-	<RelativeLayout
-		android:id="@+id/actionbar_layout"
+	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:gravity="center_vertical">
+		android:orientation="vertical">
 		
-		<android.support.v7.widget.Toolbar
-			android:id="@+id/actionbar_toolbar"
+		<android.support.v7.widget.CardView
+			android:id="@+id/actionbar_layout"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:background="@color/colorPrimary"
-			android:elevation="4dp"
-			app:popupTheme="@style/ActionBarPopup"
-			app:theme="@style/ActionBar"
-			app:title="Title"/>
+			app:cardBackgroundColor="@color/white"
+			app:cardCornerRadius="0dp"
+			app:cardElevation="4dp">
+			
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center_vertical">
+				
+				<android.support.v7.widget.Toolbar
+					android:id="@+id/actionbar_toolbar"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:background="@color/colorPrimary"
+					app:popupTheme="@style/ActionBarPopup"
+					app:theme="@style/ActionBar"
+					app:title="Title"/>
+				
+				<ImageView
+					android:id="@+id/actionbar_image"
+					android:layout_width="?attr/actionBarSize"
+					android:layout_height="?attr/actionBarSize"
+					android:layout_alignBottom="@id/actionbar_toolbar"
+					android:layout_centerHorizontal="true"
+					android:padding="8dp"
+					android:visibility="gone"/>
+			</RelativeLayout>
+		</android.support.v7.widget.CardView>
 		
-		<ImageView
-			android:id="@+id/actionbar_image"
-			android:layout_width="?attr/actionBarSize"
-			android:layout_height="?attr/actionBarSize"
-			android:layout_alignBottom="@id/actionbar_toolbar"
-			android:layout_centerHorizontal="true"
-			android:elevation="4dp"
-			android:padding="8dp"
-			android:visibility="gone"/>
-	
-	</RelativeLayout>
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="4dp"/>
+	</LinearLayout>
 </RelativeLayout>
