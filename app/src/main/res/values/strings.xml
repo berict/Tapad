@@ -48,10 +48,24 @@
 	
 	<string name="help_popular_title">Popular</string>
 	<string name="help_popular_about_tapad">About Tapad</string>
-	<string name="help_popular_about_gesture_mode">Play a gesture preset</string>
+	<string name="help_popular_about_gesture_mode">About gesture mode</string>
 	<string name="help_popular_preset_store_download">Download new presets</string>
-	<string name="help_popular_preset_store_manage">View &amp; delete presets</string>
+	<string name="help_popular_preset_store_manage">View &amp; delete installed presets</string>
 	<string name="help_popular_tutorial">Learn to play Tapad</string>
+	
+	<string name="help_popular_about_tapad_detail">
+		<b><i>Tapad</i></b> is a mobile remix application. \n\n
+		Extended from the instrument <i>LaunchPad</i>, and made mobile friendly with touch gesture support.
+        It mainly features song genres like EDM, Dubstep, Progressive House, Electronic and further more.
+	</string>
+	<string name="help_popular_about_gesture_mode_detail">
+		<b><i>Gesture mode</i></b> is a new feature in <i>Tapad</i>. \n
+		In gesture mode, you can swipe in 4 directions and press a pad. Gesture presets have different sounds playing on these 5 actions.
+		LaunchPad and other applications have 1 input / pad. But Tapad have gesture mode to get maximum 5 input / pad.
+	</string>
+	<string name="help_popular_preset_store_download_detail">Download new presets</string>
+	<string name="help_popular_preset_store_manage_detail">View &amp; delete presets</string>
+	<string name="help_popular_tutorial_detail">Learn to play Tapad</string>
 	
 	<string name="help_popular_browse_all">Browse all articles</string>
 	

@@ -28,7 +28,7 @@
 				android:orientation="vertical"
 				android:paddingBottom="8dp"
 				android:paddingTop="8dp"
-				android:translationZ="2dp">
+				android:elevation="2dp">
 				
 				<TextView
 					android:id="@+id/activity_help_contact_title"
@@ -105,7 +105,7 @@
 				android:background="@color/white"
 				android:orientation="vertical"
 				android:paddingTop="8dp"
-				android:translationZ="2dp">
+				android:elevation="2dp">
 				
 				<TextView
 					android:id="@+id/activity_help_popular_title"
@@ -291,23 +291,52 @@
 					android:clickable="true"
 					android:gravity="center_vertical"
 					android:orientation="horizontal"
-					android:paddingBottom="12dp"
+					android:paddingBottom="14dp"
 					android:paddingLeft="4dp"
-					android:paddingTop="12dp">
+					android:paddingTop="14dp">
 					
 					<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="match_parent"
 						android:layout_marginLeft="16dp"
+						android:fontFamily="sans-serif-medium"
 						android:text="@string/help_popular_browse_all"
 						android:textAllCaps="true"
 						android:textColor="@color/colorAccent"
-						android:textSize="12sp"
-						android:textStyle="bold"/>
+						android:textSize="14sp"/>
 				</LinearLayout>
 			</LinearLayout>
 		</LinearLayout>
 	</ScrollView>
+	
+	<LinearLayout
+		android:id="@+id/activity_help_detail"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_below="@id/actionbar"
+		android:background="@color/white"
+		android:padding="16dp"
+		android:visibility="gone"
+		android:orientation="vertical">
+		
+		<TextView
+			android:id="@+id/activity_help_detail_title"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/help_popular_about_tapad"
+			android:textColor="@color/dark_primary"
+			android:layout_marginBottom="16dp"
+			android:textSize="24sp"/>
+		
+		<TextView
+			android:id="@+id/activity_help_detail_text"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:textColor="@color/dark_primary"
+			android:lineSpacingMultiplier="1.15"
+			android:textSize="14sp"
+			android:text="@string/placeholder"/>
+	</LinearLayout>
 	
 	<include layout="@layout/fragment_actionbar"/>
 </RelativeLayout>

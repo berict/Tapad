@@ -2,10 +2,12 @@ package com.bedrock.padder.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.bedrock.padder.R;
+import com.bedrock.padder.helper.AnimateHelper;
+import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
 
@@ -15,11 +17,21 @@ public class HelpActivity extends AppCompatActivity {
 
     private WindowHelper window = new WindowHelper();
     private ToolbarHelper toolbar = new ToolbarHelper();
+    private IntentHelper intent = new IntentHelper();
+    private AnimateHelper anim = new AnimateHelper();
+
+    private TextView detailTitle;
+    private TextView detailText;
+
+    private boolean isDetailVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
+
+        detailTitle = window.getTextView(R.id.activity_help_detail_title, activity);
+        detailText = window.getTextView(R.id.activity_help_detail_text, activity);
 
         setUi();
     }
@@ -38,10 +50,56 @@ public class HelpActivity extends AppCompatActivity {
 
         // set taskDesc
         window.setRecentColor(R.string.help_title, R.color.colorAccent, activity);
+
+        setActions();
+    }
+
+    private void setActions() {
+        window.setOnClick(R.id.activity_help_contact_email, new Runnable() {
+            @Override
+            public void run() {
+                intent.intentEmail(activity, R.string.feedback_email,
+                        "Tapad Feedback - Feedback [Email]", null,
+                        R.string.feedback_email_client_feedback, 0);
+            }
+        }, activity);
+        window.setOnClick(R.id.activity_help_contact_send_feedback, new Runnable() {
+            @Override
+            public void run() {
+                intent.intentWithExtra(activity, "activity.FeedbackActivity", "feedbackMode", "feedback", 0);
+            }
+        }, activity);
+
+        String helpItems[] = {
+                "about_tapad",
+                "about_gesture_mode",
+                "preset_store_download",
+                "preset_store_manage",
+                "tutorial"
+        };
+
+        for (final String helpItem : helpItems) {
+            // set onclick items
+            window.setOnClick(window.getId("activity_help_popular_" + helpItem), new Runnable() {
+                @Override
+                public void run() {
+                    showDetailHelp(helpItem);
+                }
+            }, activity);
+        }
+    }
+
+    private void showDetailHelp(String helpResId) {
+        if (!isDetailVisible) {
+            isDetailVisible = true;
+            detailTitle.setText(window.getStringFromId("help_popular_" + helpResId, activity));
+            detailText.setText(window.getStringFromId("help_popular_" + helpResId + "_detail", activity));
+            anim.fadeIn(R.id.activity_help_detail, 0, 200, "detailIn", activity);
+        }
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        pressBack();
+        finish();
         return true;
     }
 
@@ -50,14 +108,18 @@ public class HelpActivity extends AppCompatActivity {
 
         if (hasFocus) {
             // reset taskDesc
-            window.setRecentColor(window.getStringFromId("help_title", activity), R.color.colorAccent, activity);
+            window.setRecentColor(R.string.help_title, R.color.colorAccent, activity);
         }
     }
 
-    void pressBack() {
-        KeyEvent kDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
-        activity.dispatchKeyEvent(kDown);
-        KeyEvent kUp = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK);
-        activity.dispatchKeyEvent(kUp);
+    @Override
+    public void onBackPressed() {
+        if (isDetailVisible) {
+            // visible, close detail
+            anim.fadeOut(R.id.activity_help_detail, 0, 200, activity);
+            isDetailVisible = false;
+        } else {
+            super.onBackPressed();
+        }
     }
 }
