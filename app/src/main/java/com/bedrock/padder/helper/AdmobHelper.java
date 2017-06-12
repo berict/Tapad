@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -69,7 +70,13 @@ public class AdmobHelper {
 
     public void requestLoadNativeAd(NativeExpressAdView adView) {
         Log.d(TAG, "native ad requested and loaded");
-        adView.loadAd(getAdRequest());
+        if (adView != null) {
+            if (adView.getVisibility() == View.VISIBLE) {
+                adView.loadAd(getAdRequest());
+            } else {
+                Log.e(TAG, "native ad is not visible");
+            }
+        }
     }
 
     public NativeExpressAdView getNativeAdView(int id, Activity activity) {

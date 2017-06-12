@@ -802,7 +802,9 @@ public class SoundHelper {
             ad.resumeNativeAdView(R.id.adView_main, activity);
             if (window.getView(R.id.progress_bar_layout, activity).getVisibility() == View.GONE) {
                 anim.fadeIn(R.id.progress_bar_layout, 0, 600, "progressIn", activity);
-                anim.fadeIn(R.id.adView_main, 0, 600, "progressIn", activity);
+                // Request ads
+                anim.fadeIn(R.id.adView_main, 0, 600, "adViewIn", activity);
+                ad.requestLoadNativeAd(ad.getNativeAdView(R.id.adView_main, activity));
                 window.setInvisible(R.id.base, 600, activity);
                 progress.setIndeterminate(true);
             }

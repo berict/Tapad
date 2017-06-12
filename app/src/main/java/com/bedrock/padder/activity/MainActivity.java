@@ -1225,8 +1225,6 @@ public class MainActivity
                     sound.loadSound(currentPreset, a);
                 }
             }, delay);
-            // Request ads
-            ad.requestLoadNativeAd(ad.getNativeAdView(R.id.adView_main, a));
         }
     }
 

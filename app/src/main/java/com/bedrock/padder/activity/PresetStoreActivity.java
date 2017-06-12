@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -179,6 +180,15 @@ public class PresetStoreActivity extends AppCompatActivity {
         }
     }
 
+    private void onDownloadMetadataSuccess() {
+        setLoadingFinished(true);
+    }
+
+    private void onDownloadMetadataFailure() {
+        setLoadingFinished(true);
+        Toast.makeText(activity, R.string.preset_store_loading_metadata_failure, Toast.LENGTH_LONG).show();
+    }
+
     private void downloadMetadata() {
         // loading start
         setLoadingFinished(false);
@@ -225,11 +235,13 @@ public class PresetStoreActivity extends AppCompatActivity {
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                 Log.d(TAG, "Successful download at " + metadata.toString());
                 setAdapter();
+                onDownloadMetadataSuccess();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.e(TAG, "Failed to download");
+                onDownloadMetadataFailure();
             }
         });
     }
@@ -285,7 +297,6 @@ public class PresetStoreActivity extends AppCompatActivity {
                     );
                     window.getRecyclerView(R.id.layout_preset_store_recyclerview, activity).setAdapter(presetStoreAdapter);
                 }
-                setLoadingFinished(true);
             }
         } else {
             downloadMetadata();
@@ -323,6 +334,7 @@ public class PresetStoreActivity extends AppCompatActivity {
                     } else {
                         Log.d(TAG, "File not updated");
                         isFMUpdated = false;
+                        onDownloadMetadataSuccess();
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -330,6 +342,7 @@ public class PresetStoreActivity extends AppCompatActivity {
                 public void onFailure(@NonNull Exception e) {
                     Log.d(TAG, "Failed to get metadata");
                     isFMUpdated =  false;
+                    onDownloadMetadataFailure();
                 }
             });
             return isFMUpdated;
