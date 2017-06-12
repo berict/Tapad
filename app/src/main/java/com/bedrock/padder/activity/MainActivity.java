@@ -238,9 +238,6 @@ public class MainActivity
         loadPreset(400);
         setButtonLayout();
 
-        // Request ads
-        ad.requestLoadNativeAd(ad.getNativeAdView(R.id.adView_main, a));
-
         // Set transparent nav bar
         w.setStatusBar(R.color.transparent, a);
         w.setNavigationBar(R.color.transparent, a);
@@ -1228,8 +1225,8 @@ public class MainActivity
                     sound.loadSound(currentPreset, a);
                 }
             }, delay);
-        } else {
-            // show null preset
+            // Request ads
+            ad.requestLoadNativeAd(ad.getNativeAdView(R.id.adView_main, a));
         }
     }
 
