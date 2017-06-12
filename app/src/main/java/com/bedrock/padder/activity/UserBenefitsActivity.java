@@ -138,9 +138,9 @@ public class UserBenefitsActivity extends AppCompatActivity {
                         if (Build.VERSION.SDK_INT >= 21) {
                             user_benefits_reveal_view.setVisibility(View.VISIBLE);
                             revealAnim[0].start();
-                            showDialogPreset(400);
+                            intent.intentFlag(activity, "activity.MainActivity", 400);
                         } else {
-                            showDialogPreset(0);
+                            intent.intentFlag(activity, "activity.MainActivity", 0);
                         }
                     }
                     return false;
@@ -149,77 +149,6 @@ public class UserBenefitsActivity extends AppCompatActivity {
         }
 
         prefs.edit().putBoolean("welcome", false).apply();
-    }
-    
-    private void showDialogPreset(int delay) {
-        Handler dialogDelay = new Handler();
-        dialogDelay.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                int color;
-
-                switch (prefs.getInt("scheme", 0)) {
-                    case 1:
-                        color = R.color.hello;
-                        break;
-                    case 2:
-                        color = R.color.roses;
-                        break;
-                    case 3:
-                        color = R.color.faded;
-                        break;
-                    default:
-                        color = R.color.hello;
-                        break;
-                }
-
-                PresetDialog = new MaterialDialog.Builder(activity)
-                        .title(R.string.dialog_preset_title)
-                        .content(R.string.user_benefits_dialog_hint)
-                        .items(R.array.presets)
-                        .cancelable(false)
-                        .autoDismiss(false)
-                        .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
-                            @Override
-                            public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                                setPreset(which);
-                                switch (which) {
-                                    case 0:
-                                        PresetDialog.getBuilder()
-                                                .widgetColorRes(R.color.hello)
-                                                .positiveColorRes(R.color.hello);
-                                        break;
-                                    case 1:
-                                        PresetDialog.getBuilder()
-                                                .widgetColorRes(R.color.roses)
-                                                .positiveColorRes(R.color.roses);
-                                        break;
-                                    case 2:
-                                        PresetDialog.getBuilder()
-                                                .widgetColorRes(R.color.faded)
-                                                .positiveColorRes(R.color.faded);
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                return true;
-                            }
-                        })
-                        .alwaysCallSingleChoiceCallback()
-                        .widgetColorRes(color)
-                        .positiveText(R.string.user_benefits_dialog_positive)
-                        .positiveColorRes(R.color.colorAccent)
-                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                PresetDialog.dismiss();
-                                intent.intentFlag(activity, "activity.MainActivity", 0);
-                                prefs.edit().putInt("quickstart", 0).apply();
-                            }
-                        })
-                        .show();
-            }
-        }, delay);
     }
 
     void setPreset(int scheme) {
