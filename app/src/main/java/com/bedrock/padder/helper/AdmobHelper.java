@@ -63,13 +63,13 @@ public class AdmobHelper {
     }
 
     public void requestLoadAd(AdView adView) {
-        adView.loadAd(getAdRequest());
         Log.d(TAG, "ad requested and loaded");
+        adView.loadAd(getAdRequest());
     }
 
     public void requestLoadNativeAd(NativeExpressAdView adView) {
+        Log.d(TAG, "native ad requested and loaded");
         adView.loadAd(getAdRequest());
-        Log.d(TAG, "ad requested and loaded");
     }
 
     public NativeExpressAdView getNativeAdView(int id, Activity activity) {
@@ -80,7 +80,7 @@ public class AdmobHelper {
         NativeExpressAdView adView = window.getNativeAdView(id, activity);
         if (adView != null) {
             adView.pause();
-            Log.d(TAG, "ad paused");
+            Log.d(TAG, "native ad paused");
         }
     }
 
@@ -88,7 +88,7 @@ public class AdmobHelper {
         NativeExpressAdView adView = window.getNativeAdView(id, activity);
         if (adView != null) {
             adView.resume();
-            Log.d(TAG, "ad resumed");
+            Log.d(TAG, "native ad resumed");
         }
     }
 
@@ -96,7 +96,7 @@ public class AdmobHelper {
         NativeExpressAdView adView = window.getNativeAdView(id, activity);
         if (adView != null) {
             adView.destroy();
-            Log.d(TAG, "ad destroyed");
+            Log.d(TAG, "native ad destroyed");
         }
     }
 
