@@ -111,7 +111,7 @@ public class AboutActivity extends AppCompatActivity {
         window.setRecentColor(about.getTitle(), about.getActionbarColor(), activity);
 
         // title image / text
-        if (about.getImage().endsWith(".jpg")) {
+        if (about.getImage().endsWith("album_art")) {
             // storage
             Picasso.with(activity)
                     .load("file:" + about.getImage())
@@ -128,7 +128,7 @@ public class AboutActivity extends AppCompatActivity {
         window.getTextView(R.id.layout_bio_title, activity).setTextColor(about.getActionbarColor());
         if(about.getBio().getImage() != null) {
             ImageView imageView = window.getImageView(R.id.layout_bio_image, activity);
-            if (about.getBio().getImage().endsWith(".jpg")) {
+            if (about.getBio().getImage().endsWith("artist_image")) {
                 // storage
                 Picasso.with(activity)
                         .load("file:" + about.getBio().getImage())

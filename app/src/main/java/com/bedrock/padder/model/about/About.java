@@ -67,8 +67,8 @@ public class About {
     }
 
     public String getImage() {
-        if (presetCreator != null) {
-            return PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/album_art.jpg";
+        if (presetName != null) {
+            return PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/album_art";
         } else {
             return presetName;
         }

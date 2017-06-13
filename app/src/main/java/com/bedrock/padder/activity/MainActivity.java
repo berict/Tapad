@@ -204,7 +204,13 @@ public class MainActivity
             } catch (Exception e) {
                 // corrupted preset
                 e.printStackTrace();
+                currentPreset = null;
             }
+        }
+
+        if (!file.isPresetAvailable(currentPreset)) {
+            // preset corrupted or doesn't exist
+            currentPreset = null;
         }
 
         // for quickstart test
@@ -1588,7 +1594,7 @@ public class MainActivity
             toolbar.setActionBarColor(themeColor, a);
             toolbar.setActionBarPadding(a);
             toolbar.setActionBarImage(
-                    PROJECT_LOCATION_PRESETS + "/" + currentPreset.getFirebaseLocation() + "/about/artist_icon.png",
+                    PROJECT_LOCATION_PRESETS + "/" + currentPreset.getFirebaseLocation() + "/about/artist_icon",
                     this);
             w.setRecentColor(0, 0, themeColor, a);
             w.setVisible(R.id.base, 0, a);

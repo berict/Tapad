@@ -38,7 +38,7 @@ public class Bio {
         if (presetName == null || presetName.equals("about_bio_tapad")) {
             return presetName;
         } else {
-            return PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/artist_image.jpg";
+            return PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/artist_image";
         }
     }
 
