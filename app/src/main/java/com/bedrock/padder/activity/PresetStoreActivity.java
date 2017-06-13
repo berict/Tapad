@@ -342,7 +342,6 @@ public class PresetStoreActivity extends AppCompatActivity {
                 public void onFailure(@NonNull Exception e) {
                     Log.d(TAG, "Failed to get metadata");
                     isFMUpdated =  false;
-                    onDownloadMetadataFailure();
                 }
             });
             return isFMUpdated;
