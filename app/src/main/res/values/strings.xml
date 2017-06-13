@@ -223,10 +223,8 @@
 	<string name="preset_store_permission_dialog_negative">EXIT</string>
 	<string name="preset_store_gesture_help_dialog_title">About gesture presets</string>
 	<string name="preset_store_gesture_help_dialog_text">
-		Gesture preset means that the preset is available for gesture mode.
-		Gesture mode is a new feature on Tapad to make playing more dynamic.
-		Not just pressing the buttons, gesture mode makes use of the touchscreen.
-		You can press it, and swipe it in 4 directions.
+		This preset is available in <i>gesture mode</i>.\n
+		Gesture mode enables to swipe the pad in 4 directions to make more sounds.
 	</string>
 	<string name="preset_store_action_repair_dialog_title">Corrupted preset</string>
 	<string name="preset_store_action_repair_dialog_text">
