@@ -111,14 +111,24 @@
         If you have any questions about these Terms, please contact us to <b><i>berict.bedrock@gmail.com</i></b>.</string>
 	<string name="info_tapad_info_version"          >Tapad version</string>
 	<!-- TODO RELEASE -->
-	<string name="info_tapad_info_version_hint"     >2.3</string>
+	<string name="info_tapad_info_version_hint"     >2.3 Alpha 1</string>
 	<string name="info_tapad_info_build_date"       >Build date</string>
 	<!-- TODO RELEASE -->
-	<string name="info_tapad_info_build_date_hint"  >TODO</string>
+	<string name="info_tapad_info_build_date_hint"  >2017 06 14</string>
 	<string name="info_tapad_info_changelog"        >Changelog</string>
 	<!-- TODO RELEASE -->
 	<string name="info_tapad_info_changelog_text"   >
         You can view the changelog dialog again at any time from the <b><i>about</i></b> section.\n\n
+		
+		<b>Version 2.3 Alpha 1</b>\n\n
+		1.	<b>NEW</b>: Preset store (Beta) \n
+		2.	<b>NEW</b>: Added Studio Berict Discord channel \n
+		3.	<b>IMPORTANT</b>: Tapad is free and open source now at <i>https://github.com/berict/Tapad</i> \n
+		4.	<b>IMPROVEMENT</b>: Changed progress bar style \n
+		5.	<b>IMPROVEMENT</b>: Faster loading \n
+		6.	<b>IMPROVEMENT</b>: Updated libraries  \n
+		7.	<b>IMPROVEMENT</b>: Changed icons \n
+		8.	<b>FIX</b>: Alan Walker – Faded preset \n\n
 		
 		<b>Version 2.2.1</b>\n\n
 		1.	<b>FIX</b>: App crashing on startup\n\n
