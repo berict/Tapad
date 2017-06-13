@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
+import com.bedrock.padder.model.preset.Preset;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -311,5 +312,31 @@ public class FileHelper {
 
     public long getAvailableExternalMemorySize() {
         return new File(PROJECT_LOCATION_PRESETS).getFreeSpace();
+    }
+
+    public boolean isPresetAvailable(Preset preset) {
+        if (preset != null) {
+            String presetName = preset.getFirebaseLocation();
+            // preset available
+            File folderSound = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/sounds");
+            File folderTiming = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/timing");
+            File folderAbout = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about");
+            File fileJson = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json");
+            File fileAlbum = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/album_art");
+            File fileIcon = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/artist_icon");
+            File fileImage = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/artist_image");
+            Log.d(TAG, "SoundCountPreset = " + preset.getMusic().getSoundCount() + ", SoundCountFound = " + folderSound.listFiles().length);
+            // should be 100%
+            return folderSound.isDirectory() && folderSound.exists() &&
+                    preset.getMusic().getSoundCount() == folderSound.listFiles().length &&
+                    folderTiming.isDirectory() && folderTiming.exists() &&
+                    folderAbout.isDirectory() && folderAbout.exists() &&
+                    fileJson.exists() &&
+                    fileAlbum.exists() &&
+                    fileIcon.exists() &&
+                    fileImage.exists();
+        } else {
+            return false;
+        }
     }
 }

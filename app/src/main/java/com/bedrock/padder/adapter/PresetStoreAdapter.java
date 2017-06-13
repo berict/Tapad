@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
+import com.bedrock.padder.helper.FileHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.FirebaseMetadata;
 import com.bedrock.padder.model.preset.Preset;
@@ -42,6 +43,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
     private View parentView;
 
     private WindowHelper window = new WindowHelper();
+    private FileHelper file = new FileHelper();
 
     private SharedPreferences prefs;
 
@@ -142,7 +144,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
 
         // actions
         if (isPresetExists(preset.getFirebaseLocation())) {
-            if (isPresetAvailable(preset.getFirebaseLocation())) {
+            if (file.isPresetAvailable(preset)) {
                 // exists, select | remove action
                 holder.presetSelect.setVisibility(View.VISIBLE);
                 holder.presetSelect.setOnClickListener(new View.OnClickListener() {
@@ -156,7 +158,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                 holder.presetWarningLayout.setVisibility(View.GONE);
                 // load local image
                 Picasso.with(activity)
-                        .load("file:" + PROJECT_LOCATION_PRESETS + "/" + preset.getFirebaseLocation() + "/about/album_art.jpg")
+                        .load("file:" + PROJECT_LOCATION_PRESETS + "/" + preset.getFirebaseLocation() + "/about/album_art")
                         .placeholder(R.drawable.ic_image_album_placeholder)
                         .error(R.drawable.ic_image_album_error)
                         .into(holder.presetImage);
@@ -293,7 +295,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
 
         if (getPresetKey() != null &&
                 getPresetKey().equals(preset.getFirebaseLocation()) &&
-                isPresetAvailable(preset.getFirebaseLocation())) {
+                file.isPresetAvailable(preset)) {
             // current preset set, downloaded
             holder.presetCurrentPreset.setVisibility(View.VISIBLE);
             holder.presetSelect.setVisibility(View.GONE);
@@ -355,19 +357,6 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
         // preset exist
         File folder = new File(PROJECT_LOCATION_PRESETS + "/" + presetName); // folder check
         return folder.isDirectory() && folder.exists();
-    }
-
-    private boolean isPresetAvailable(String presetName) {
-        // preset available
-        File folderSound = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/sounds");
-        File folderTiming = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/timing");
-        File folderAbout = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about");
-        File fileJson = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json");
-        // TODO add 100% available
-        return folderSound.isDirectory() && folderSound.exists() &&
-                folderTiming.isDirectory() && folderTiming.exists() &&
-                folderAbout.isDirectory() && folderAbout.exists() &&
-                fileJson.exists();
     }
 
     @Override
