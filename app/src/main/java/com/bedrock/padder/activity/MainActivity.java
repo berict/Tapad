@@ -273,10 +273,6 @@ public class MainActivity
             case R.id.action_help:
                 intent.intent(a, "activity.HelpActivity");
                 break;
-            // TODO this is a dev only function
-            case R.id.quickmove:
-                quickmove();
-                break;
         }
 
         return super.onOptionsItemSelected(item);
