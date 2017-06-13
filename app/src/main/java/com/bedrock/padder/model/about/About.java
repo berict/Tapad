@@ -67,9 +67,11 @@ public class About {
     }
 
     public String getImage() {
-        if (presetName != null) {
+        if (presetCreator != null) {
+            // normal preset
             return PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/album_art";
         } else {
+            // in-app about
             return presetName;
         }
     }
