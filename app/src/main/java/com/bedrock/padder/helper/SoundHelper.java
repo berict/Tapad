@@ -909,10 +909,6 @@ public class SoundHelper {
             Log.d(TAG, "sampleId count : " + presetSoundCount);
             progress.setIndeterminate(true);
 
-            // gets random funnies
-            //progress.setText(getRandomStringFromStringArray(R.array.progressbar_loading_preset_progress_funnies));
-            // lel removed?
-
             sp.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
                 @Override
                 public void onLoadComplete(SoundPool soundPool, final int sampleId, int status) {
