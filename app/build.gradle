@@ -8,8 +8,8 @@ android {
         applicationId "com.bedrock.padder"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 15
-        versionName "2.3 Alpha 1"
+        versionCode 16
+        versionName "2.3 Alpha 2"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {

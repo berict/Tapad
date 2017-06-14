@@ -112,13 +112,15 @@
 	<string name="info_tapad_info_version"          >Tapad version</string>
 	<!-- TODO RELEASE -->
 	<string name="info_tapad_info_version_hint"     >2.3 Alpha 1</string>
-	<string name="info_tapad_info_build_date"       >Build date</string>
-	<!-- TODO RELEASE -->
-	<string name="info_tapad_info_build_date_hint"  >2017 06 14</string>
 	<string name="info_tapad_info_changelog"        >Changelog</string>
 	<!-- TODO RELEASE -->
 	<string name="info_tapad_info_changelog_text"   >
         You can view the changelog dialog again at any time from the <b><i>about</i></b> section.\n\n
+
+		<b>Version 2.3 Alpha 2</b>\n\n
+		1.	<b>NEW</b>: Pad reveal animations \n
+        2.	<b>IMPROVEMENT</b>: Added no connection support on Preset store \n
+        3.	<b>IMPROVEMENT</b>: Preset download cancel fixed \n\n
 		
 		<b>Version 2.3 Alpha 1</b>\n\n
 		1.	<b>NEW</b>: Preset store (Beta) \n
