@@ -305,7 +305,7 @@ public class PresetStoreActivity extends AppCompatActivity {
 
     private boolean isConnected(Context context) {
         // returns whether the device is connected to the internet
-        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
@@ -341,7 +341,7 @@ public class PresetStoreActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Log.d(TAG, "Failed to get metadata");
-                    isFMUpdated =  false;
+                    isFMUpdated = false;
                 }
             });
             return isFMUpdated;
