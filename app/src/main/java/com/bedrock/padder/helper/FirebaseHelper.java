@@ -14,6 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -198,6 +199,7 @@ public class FirebaseHelper {
         private ProgressBar progressBar;
         private TextView progressTextPercent;
         private TextView progressTextSize;
+        private ImageView cancelDownload;
 
         private StorageReference storageReference;
         private long bytesTransferred = 0;
@@ -238,6 +240,14 @@ public class FirebaseHelper {
                 progressTextSize = (TextView) parentView.findViewById(R.id.layout_preset_store_download_size);
                 progressTextPercent = (TextView) parentView.findViewById(R.id.layout_preset_store_download_percent);
                 window.getView(R.id.layout_preset_store_download_cancel, parentView).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cancel(true);
+                    }
+                });
+
+                cancelDownload = window.getImageView(R.id.layout_preset_store_download_cancel, activity);
+                cancelDownload.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         cancel(true);

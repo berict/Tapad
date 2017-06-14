@@ -1,6 +1,7 @@
 package com.bedrock.padder.helper;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -1206,7 +1207,7 @@ public class TutorialHelper extends Activity {
         Log.i("TutorialHelper", "tutorial loaded");
 
         final double array[][];
-        SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, activity.MODE_PRIVATE);
+        SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
         int scheme = prefs.getInt("scheme", 0);
 
         switch (scheme) {

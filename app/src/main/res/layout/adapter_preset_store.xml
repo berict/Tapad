@@ -172,6 +172,8 @@
 						android:background="@color/white"
 						android:paddingLeft="16dp"
 						android:paddingRight="16dp"
+						android:paddingTop="4dp"
+						android:paddingBottom="8dp"
 						android:visibility="gone">
 						
 						<RelativeLayout
