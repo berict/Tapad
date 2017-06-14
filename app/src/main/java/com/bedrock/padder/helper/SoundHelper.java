@@ -809,6 +809,39 @@ public class SoundHelper {
                 progress.setIndeterminate(true);
             }
             prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
+
+            // initialize view
+            View buttonViews[] = {
+                    window.getView(R.id.btn00, activity),
+                    window.getView(R.id.tgl1, activity),
+                    window.getView(R.id.tgl2, activity),
+                    window.getView(R.id.tgl3, activity),
+                    window.getView(R.id.tgl4, activity),
+                    window.getView(R.id.tgl5, activity),
+                    window.getView(R.id.tgl6, activity),
+                    window.getView(R.id.tgl7, activity),
+                    window.getView(R.id.tgl8, activity),
+                    window.getView(R.id.btn11, activity),
+                    window.getView(R.id.btn12, activity),
+                    window.getView(R.id.btn13, activity),
+                    window.getView(R.id.btn14, activity),
+                    window.getView(R.id.btn21, activity),
+                    window.getView(R.id.btn22, activity),
+                    window.getView(R.id.btn23, activity),
+                    window.getView(R.id.btn24, activity),
+                    window.getView(R.id.btn31, activity),
+                    window.getView(R.id.btn32, activity),
+                    window.getView(R.id.btn33, activity),
+                    window.getView(R.id.btn34, activity),
+                    window.getView(R.id.btn41, activity),
+                    window.getView(R.id.btn42, activity),
+                    window.getView(R.id.btn43, activity),
+                    window.getView(R.id.btn44, activity)
+            };
+
+            for (View view : buttonViews) {
+                view.setVisibility(View.INVISIBLE);
+            }
         }
 
         protected Integer doInBackground(Void... arg0) {
@@ -978,6 +1011,10 @@ public class SoundHelper {
         isPresetLoading = false;
     }
 
+    private int intervalPixel;
+
+    private int intervalCount;
+
     private void buttonRevealAnimation(final int buttonRectIndex) {
         final Rect buttonRects[] = {
                 window.getRect(R.id.btn00, activity),
@@ -1035,9 +1072,9 @@ public class SoundHelper {
                 window.getView(R.id.btn44, activity)
         };
 
-        final int intervalPixel[] = {(int)Math.hypot(window.getWindowWidthPx(activity), window.getWindowWidthPx(activity)) / 40};
-        Log.i("intervalPixel", String.valueOf(intervalPixel[0]));
-        final int intervalCount[] = {0};
+        intervalPixel = (int)Math.hypot(window.getWindowWidthPx(activity), window.getWindowWidthPx(activity)) / 40;
+        Log.i("intervalPixel", String.valueOf(intervalPixel));
+        intervalCount = 0;
         // 40 intervals x 10ms = 400ms animation
 
         anim.fadeIn(buttonViews[buttonRectIndex], 0, 100, "btn" + String.valueOf(buttonRectIndex) + "In", activity);
@@ -1046,21 +1083,21 @@ public class SoundHelper {
         intervalTimer.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (intervalCount[0] <= 40) {
+                if (intervalCount <= 40) {
                     for (int i = 0; i < buttonRects.length; i++) {
                         if (buttonRectIndex != i) {
                             // not the view itself
                             if (isAnimationCollides(
                                     buttonRects[buttonRectIndex],
                                     buttonRects[i],
-                                    intervalPixel[0] * intervalCount[0]) &&
+                                    intervalPixel * intervalCount) &&
                                     buttonViews[i].getVisibility() != View.VISIBLE) {
                                 // collides, fadeIn
                                 anim.fadeIn(buttonViews[i], 0, 50, "btn" + String.valueOf(i) + "In", activity);
                             }
                         }
                     }
-                    intervalCount[0]++;
+                    intervalCount++;
                     intervalTimer.postDelayed(this, 10);
                 }
             }
