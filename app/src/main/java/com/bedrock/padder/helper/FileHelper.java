@@ -325,7 +325,11 @@ public class FileHelper {
             File fileAlbum = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/album_art");
             File fileIcon = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/artist_icon");
             File fileImage = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/artist_image");
-            Log.d(TAG, "SoundCountPreset = " + preset.getMusic().getSoundCount() + ", SoundCountFound = " + folderSound.listFiles().length);
+            if (folderSound.listFiles() != null) {
+                Log.d(TAG, "SoundCountPreset = " + preset.getMusic().getSoundCount() + ", SoundCountFound = " + folderSound.listFiles().length);
+            } else {
+                return false;
+            }
             // should be 100%
             return folderSound.isDirectory() && folderSound.exists() &&
                     preset.getMusic().getSoundCount() == folderSound.listFiles().length &&

@@ -14,7 +14,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -45,7 +44,7 @@ public class FirebaseHelper {
 
     private String TAG = "FirebaseHelper";
     private static final int REQUEST_WRITE_STORAGE = 112;
-    
+
     public static String FIREBASE_LOCATION = "gs://tapad-4d342.appspot.com";
     public static String FIREBASE_LOCATION_PRESETS = "gs://tapad-4d342.appspot.com/presets";
     public static String FIREBASE_LOCATION_PRESETS_METADATA = "gs://tapad-4d342.appspot.com/presets/metadata";
@@ -122,7 +121,7 @@ public class FirebaseHelper {
         }
     }
 
-    public FirebaseMetadata saveFirebaseMetadata(StorageReference storageReference, 
+    public FirebaseMetadata saveFirebaseMetadata(StorageReference storageReference,
                                                  final String fileLocation,
                                                  Activity activity) {
         // permission check
@@ -163,7 +162,7 @@ public class FirebaseHelper {
         FileHelper file = new FileHelper();
         return file.getStringFromFile(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json");
     }
-    
+
     public void downloadFirebaseMetadata(Activity activity) {
         this.downloadFirebase(
                 "presets/metadata",
@@ -183,6 +182,8 @@ public class FirebaseHelper {
     public void cancelDownloadPreset() {
         if (downloadPreset != null) {
             downloadPreset.cancel(true);
+            downloadPreset.downloadTask.cancel();
+            downloadPreset.onCancelled();
         } else {
             Log.e(TAG, "DownloadPreset is not initialized");
         }
@@ -199,7 +200,6 @@ public class FirebaseHelper {
         private ProgressBar progressBar;
         private TextView progressTextPercent;
         private TextView progressTextSize;
-        private ImageView cancelDownload;
 
         private StorageReference storageReference;
         private long bytesTransferred = 0;
@@ -242,21 +242,13 @@ public class FirebaseHelper {
                 window.getView(R.id.layout_preset_store_download_cancel, parentView).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        cancel(true);
-                    }
-                });
-
-                cancelDownload = window.getImageView(R.id.layout_preset_store_download_cancel, activity);
-                cancelDownload.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        cancel(true);
+                        cancelDownloadPreset();
                     }
                 });
             } else {
                 // no internet connection
                 // cancel the task
-                cancel(true);
+                cancelDownloadPreset();
                 // no connection dialog
                 new MaterialDialog.Builder(activity)
                         .title(R.string.preset_store_download_no_connection_dialog_title)
@@ -284,32 +276,34 @@ public class FirebaseHelper {
             }).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Log.d(TAG, "Successful download at " + fileLocation);
-                    // downloaded
-                    anim.fadeOut(R.id.layout_preset_store_download_layout, 0, 200, parentView, activity);
-                    anim.fadeIn(R.id.layout_preset_store_download_installing, 200, 200, "installIn", parentView, activity);
-                    fileHelper.unzip(PROJECT_LOCATION_PRESETS + "/" + presetName + "/preset.zip",
-                            PROJECT_LOCATION_PRESETS,
-                            presetName,
-                            parentView,
-                            activity,
-                            onFinish
-                    );
+                    if (!isCancelled()) {
+                        Log.d(TAG, "Successful download at " + fileLocation);
+                        // downloaded
+                        anim.fadeOut(R.id.layout_preset_store_download_layout, 0, 200, parentView, activity);
+                        anim.fadeIn(R.id.layout_preset_store_download_installing, 200, 200, "installIn", parentView, activity);
+                        fileHelper.unzip(PROJECT_LOCATION_PRESETS + "/" + presetName + "/preset.zip",
+                                PROJECT_LOCATION_PRESETS,
+                                presetName,
+                                parentView,
+                                activity,
+                                onFinish
+                        );
+                    }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Log.e(TAG, "Failed to download");
-                    cancel(true);
+                    cancelDownloadPreset();
                 }
             });
-            return (int)(100 * (bytesTransferred / totalByteCount));
+            return (int) (100 * (bytesTransferred / totalByteCount));
         }
 
         @Override
         protected void onProgressUpdate(Void... args) {
             // update progress
-            int mProgress = (int)((100 * bytesTransferred) / totalByteCount);
+            int mProgress = (int) ((100 * bytesTransferred) / totalByteCount);
             progressTextPercent.setText(String.valueOf(mProgress) + "%");
             if (progressBar.isIndeterminate()) {
                 progressBar.setIndeterminate(false);
@@ -328,7 +322,6 @@ public class FirebaseHelper {
             if (totalByteCount > fileHelper.getAvailableExternalMemorySize()) {
                 // no space left
                 // cancel the task
-                cancel(true);
                 // no space dialog
                 if (isSpaceDialogVisible == false) {
                     isSpaceDialogVisible = true;
@@ -341,15 +334,14 @@ public class FirebaseHelper {
                                 @Override
                                 public void onDismiss(DialogInterface dialog) {
                                     isSpaceDialogVisible = false;
-                                    cancel(true);
+                                    cancelDownloadPreset();
                                 }
                             })
                             .show();
                 }
             }
             if (isCancelled()) {
-                downloadTask.cancel();
-                onCancelled();
+                cancelDownloadPreset();
             }
         }
 
@@ -369,12 +361,12 @@ public class FirebaseHelper {
         }
 
         private String getReadableFileSize(long size) {
-            if(size <= 0) {
+            if (size <= 0) {
                 return "0 B";
             }
-            final String[] units = new String[] { "B", "KB", "MB", "GB", "TB" };
-            int digitGroups = (int) (Math.log10(size)/Math.log10(1024));
-            return new DecimalFormat("#,##0.0").format(size/Math.pow(1024, digitGroups)) + " " + units[digitGroups];
+            final String[] units = new String[]{"B", "KB", "MB", "GB", "TB"};
+            int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
+            return new DecimalFormat("#,##0.0").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
         }
     }
 
@@ -395,13 +387,13 @@ public class FirebaseHelper {
             onFailure.run();
         }
     }
-    
+
     public void downloadFirebase(String firebaseLocation,
                                  String fileLocation,
                                  Activity activity) {
         FirebaseApp.initializeApp(activity);
-        
-        StorageReference storageReference = 
+
+        StorageReference storageReference =
                 FirebaseStorage
                         .getInstance()
                         .getReferenceFromUrl(FIREBASE_LOCATION + "/" + firebaseLocation);
@@ -421,7 +413,7 @@ public class FirebaseHelper {
                         .getReferenceFromUrl(FIREBASE_LOCATION + "/" + firebaseLocation);
         this.saveFromFirebase(storageReference, PROJECT_LOCATION + "/" + fileLocation, onSuccess, onFailure, activity);
     }
-    
+
     public FirebaseMetadata getFirebaseMetadata(Activity activity) {
         FileHelper fileHelper = new FileHelper();
 
@@ -434,7 +426,7 @@ public class FirebaseHelper {
         if (new File(metadataLocation).exists()) {
             // metadata file exists
             String metadata = fileHelper.getStringFromFile(metadataLocation);
-            if (getStorageMetadata(metadataReference, activity).getUpdatedTimeMillis() 
+            if (getStorageMetadata(metadataReference, activity).getUpdatedTimeMillis()
                     > new File(metadataLocation).lastModified()) {
                 // updated, download new one
                 return saveFirebaseMetadata(
@@ -467,7 +459,7 @@ public class FirebaseHelper {
         }
     }
 
-    public StorageMetadata getStorageMetadata(StorageReference storageReference, 
+    public StorageMetadata getStorageMetadata(StorageReference storageReference,
                                               Activity activity) {
         FirebaseApp.initializeApp(activity);
         final StorageMetadata[] mStorageMetadata = {null};
@@ -488,7 +480,7 @@ public class FirebaseHelper {
 
     private boolean isConnected(Context context) {
         // returns whether the device is connected to the internet
-        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();

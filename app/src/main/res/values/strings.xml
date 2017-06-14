@@ -236,7 +236,7 @@
 	<string name="preset_store_download_size_placeholder">50 MB/100 MB</string>
 	<string name="preset_store_download_no_connection_dialog_title">No connection</string>
 	<string name="preset_store_download_no_connection_dialog_text">
-		Can\'t connect to the preset store.
+		Can\'t connect to the preset store. Please check your internet connection.
 	</string>
 	<string name="preset_store_download_no_space_dialog_title">Can\'t download preset</string>
 	<string name="preset_store_download_no_space_dialog_text">

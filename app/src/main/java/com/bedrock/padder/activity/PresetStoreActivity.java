@@ -180,6 +180,24 @@ public class PresetStoreActivity extends AppCompatActivity {
         }
     }
 
+    private void setLoadingFailed() {
+        Log.d(TAG, "Loading failed");
+        anim.fadeOut(R.id.layout_preset_store_recyclerview_loading, 0, 200, activity);
+        anim.fadeIn(R.id.layout_preset_store_recyclerview_failed, 200, 200, "rvIn", activity);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                new MaterialDialog.Builder(activity)
+                        .title(R.string.preset_store_download_no_connection_dialog_title)
+                        .content(R.string.preset_store_download_no_connection_dialog_text)
+                        .contentColorRes(R.color.dark_primary)
+                        .neutralText(R.string.dialog_close)
+                        .show();
+            }
+        }, 200);
+    }
+
     private void onDownloadMetadataSuccess() {
         setLoadingFinished(true);
     }
@@ -266,40 +284,45 @@ public class PresetStoreActivity extends AppCompatActivity {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         window.getRecyclerView(R.id.layout_preset_store_recyclerview, activity).setLayoutManager(layoutManager);
         window.getRecyclerView(R.id.layout_preset_store_recyclerview, activity).setNestedScrollingEnabled(false);
+
         // firebase check
         setAdapter();
     }
 
     private void setAdapter() {
-        Log.d(TAG, "setAdapter");
-        // attach the adapter to the layout
-        if (new File(metadataLocation).exists()) {
-            // metadata file exists
-            String metadata = fileHelper.getStringFromFile(metadataLocation);
-            if (isFirebaseMetadataUpdated(activity)) {
-                // updated, download new one
-                downloadMetadata();
-            } else {
-                Log.d(TAG, "Attached adapter");
-                // offline or not updated, continue
-                Gson gson = new Gson();
-                FirebaseMetadata firebaseMetadata = gson.fromJson(metadata, FirebaseMetadata.class);
-                if (firebaseMetadata == null ||
-                        firebaseMetadata.getPresets() == null ||
-                        firebaseMetadata.getVersionCode() == null) {
-                    // corrupted metadata, download again
+        if (isConnected(activity)) {
+            Log.d(TAG, "setAdapter");
+            // attach the adapter to the layout
+            if (new File(metadataLocation).exists()) {
+                // metadata file exists
+                String metadata = fileHelper.getStringFromFile(metadataLocation);
+                if (isFirebaseMetadataUpdated(activity)) {
+                    // updated, download new one
                     downloadMetadata();
                 } else {
-                    // attach adapter while its not null
-                    presetStoreAdapter = new PresetStoreAdapter(
-                            firebaseMetadata,
-                            R.layout.adapter_preset_store, activity
-                    );
-                    window.getRecyclerView(R.id.layout_preset_store_recyclerview, activity).setAdapter(presetStoreAdapter);
+                    Log.d(TAG, "Attached adapter");
+                    // offline or not updated, continue
+                    Gson gson = new Gson();
+                    FirebaseMetadata firebaseMetadata = gson.fromJson(metadata, FirebaseMetadata.class);
+                    if (firebaseMetadata == null ||
+                            firebaseMetadata.getPresets() == null ||
+                            firebaseMetadata.getVersionCode() == null) {
+                        // corrupted metadata, download again
+                        downloadMetadata();
+                    } else {
+                        // attach adapter while its not null
+                        presetStoreAdapter = new PresetStoreAdapter(
+                                firebaseMetadata,
+                                R.layout.adapter_preset_store, activity
+                        );
+                        window.getRecyclerView(R.id.layout_preset_store_recyclerview, activity).setAdapter(presetStoreAdapter);
+                    }
                 }
+            } else {
+                downloadMetadata();
             }
         } else {
-            downloadMetadata();
+            setLoadingFailed();
         }
     }
 
