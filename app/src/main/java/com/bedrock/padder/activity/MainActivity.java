@@ -59,10 +59,22 @@ public class MainActivity
         extends AppCompatActivity
         implements AboutFragment.OnFragmentInteractionListener, SettingsFragment.OnFragmentInteractionListener {
 
+    public static final String TAG = "MainActivity";
+    public static final String PRESET_KEY = "savedPreset";
+    public static boolean isPresetLoading = false;
+    public static boolean isPresetVisible = false;
+    public static boolean isPresetChanged = false;
+    public static boolean isTutorialVisible = false;
+    public static boolean isAboutVisible = false;
+    public static boolean isSettingVisible = false;
+    public static boolean isDeckShouldCleared = false;
+    public static Preset preset;
+    public static Preset currentPreset = null;
+    // Used for circularReveal
+    // End two is for settings coordination
+    public static int coord[] = {0, 0, 0, 0};
     final AppCompatActivity a = this;
     final String qs = "quickstart";
-    public static final String TAG = "MainActivity";
-
     public boolean tgl1 = false;
     public boolean tgl2 = false;
     public boolean tgl3 = false;
@@ -71,16 +83,12 @@ public class MainActivity
     public boolean tgl6 = false;
     public boolean tgl7 = false;
     public boolean tgl8 = false;
-
-    private SharedPreferences prefs = null;
-
     int currentVersionCode;
     int themeColor = R.color.hello;
     int color = R.color.cyan_400;
-
     int toggleSoundId = 0;
     int togglePatternId = 0;
-
+    private SharedPreferences prefs = null;
     private AnimateHelper anim = new AnimateHelper();
     private SoundHelper sound = new SoundHelper();
     private WindowHelper w = new WindowHelper();
@@ -90,23 +98,11 @@ public class MainActivity
     private IntentHelper intent = new IntentHelper();
     private AdmobHelper ad = new AdmobHelper();
     private FileHelper file = new FileHelper();
-
     private boolean doubleBackToExitPressedOnce = false;
     private boolean isToolbarVisible = false;
     private boolean isSettingsFromMenu = false;
-    public static boolean isPresetLoading = false;
-    public static boolean isPresetVisible = false;
-    public static boolean isPresetChanged = false;
-    public static boolean isTutorialVisible = false;
-    public static boolean isAboutVisible = false;
-    public static boolean isSettingVisible = false;
-    public static boolean isDeckShouldCleared = false;
-
-    public static final String PRESET_KEY = "savedPreset";
-
     private int circularRevealDuration = 400;
     private int fadeAnimDuration = 200;
-
     private MaterialTapTargetPrompt promptToggle;   // 1
     private MaterialTapTargetPrompt promptButton;   // 2
     private MaterialTapTargetPrompt promptSwipe;    // 3
@@ -117,18 +113,11 @@ public class MainActivity
     private MaterialTapTargetPrompt promptInfo;     // 8
     private MaterialTapTargetPrompt promptTutorial; // 9
 
-    // TODO SET ON INTENT
-    private Gson gson = new Gson();
-    public static Preset preset;
-    public static Preset currentPreset = null;
-
     // TODO TAP launch
     //IabHelper mHelper;
     //IabBroadcastReceiver mBroadcastReceiver;
-
-    // Used for circularReveal
-    // End two is for settings coordination
-    public static int coord[] = {0, 0, 0, 0};
+    // TODO SET ON INTENT
+    private Gson gson = new Gson();
 
     public static void largeLog(String tag, String content) {
         if (content.length() > 4000) {
@@ -139,9 +128,25 @@ public class MainActivity
         }
     }
 
-    private void quickmove() {
-        // TODO this is a dev only function
-        intent.intent(a, "activity.PresetStoreActivity");
+    public static void showSettingsFragment(AppCompatActivity a) {
+        a.getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.fragment_settings_container, new SettingsFragment())
+                .commit();
+        WindowHelper w = new WindowHelper();
+        w.getView(R.id.fragment_settings_container, a).setVisibility(View.VISIBLE);
+        setSettingVisible(true);
+        w.setRecentColor(R.string.settings, 0, R.color.colorAccent, a);
+    }
+
+    public static void setSettingVisible(boolean isVisible) {
+        isSettingVisible = isVisible;
+        Log.d("SettingVisible", String.valueOf(isSettingVisible));
+    }
+
+    public static void setAboutVisible(boolean isVisible) {
+        isAboutVisible = isVisible;
+        Log.d("AboutVisible", String.valueOf(isAboutVisible));
     }
 
     @Override
@@ -405,7 +410,7 @@ public class MainActivity
         clearToggleButton();
         super.onWindowFocusChanged(hasFocus);
     }
-    
+
     @Override
     public void onPause() {
         ad.pauseNativeAdView(R.id.adView_main, a);
@@ -454,40 +459,6 @@ public class MainActivity
         }
 
         ad.resumeNativeAdView(R.id.adView_main, a);
-    }
-
-    @Override
-    protected void onDestroy() {
-        Log.d(TAG, "onDestroy");
-
-        sound.soundAllStop();
-        sound.cancelLoading();
-
-        ad.destroyNativeAdView(R.id.adView_main, a);
-        
-        super.onDestroy();
-    }
-
-    private void showAboutFragment() {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.fragment_about_container, new AboutFragment())
-                .commit();
-        WindowHelper w = new WindowHelper();
-        w.getView(R.id.fragment_about_container, a).setVisibility(View.VISIBLE);
-        setAboutVisible(true);
-        w.setRecentColor(R.string.about, 0, themeColor, a);
-    }
-
-    public static void showSettingsFragment(AppCompatActivity a) {
-        a.getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.fragment_settings_container, new SettingsFragment())
-                .commit();
-        WindowHelper w = new WindowHelper();
-        w.getView(R.id.fragment_settings_container, a).setVisibility(View.VISIBLE);
-        setSettingVisible(true);
-        w.setRecentColor(R.string.settings, 0, R.color.colorAccent, a);
     }
 
     // TODO iap launch
@@ -541,6 +512,29 @@ public class MainActivity
     //        Log.d(TAG, "Showing alert dialog: " + message);
     //        bld.create().show();
     //    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d(TAG, "onDestroy");
+
+        sound.soundAllStop();
+        sound.cancelLoading();
+
+        ad.destroyNativeAdView(R.id.adView_main, a);
+
+        super.onDestroy();
+    }
+
+    private void showAboutFragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.fragment_about_container, new AboutFragment())
+                .commit();
+        WindowHelper w = new WindowHelper();
+        w.getView(R.id.fragment_about_container, a).setVisibility(View.VISIBLE);
+        setAboutVisible(true);
+        w.setRecentColor(R.string.about, 0, themeColor, a);
+    }
 
     private void enterAnim() {
         anim.fadeIn(R.id.actionbar_layout, 0, 200, "background", a);
@@ -1674,16 +1668,6 @@ public class MainActivity
                 folderTiming.isDirectory() && folderTiming.exists() &&
                 folderAbout.isDirectory() && folderAbout.exists() &&
                 fileJson.exists();
-    }
-
-    public static void setSettingVisible(boolean isVisible) {
-        isSettingVisible = isVisible;
-        Log.d("SettingVisible", String.valueOf(isSettingVisible));
-    }
-
-    public static void setAboutVisible(boolean isVisible) {
-        isAboutVisible = isVisible;
-        Log.d("AboutVisible", String.valueOf(isAboutVisible));
     }
 
     private void makeJson() {
