@@ -9,8 +9,6 @@ import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
@@ -21,7 +19,6 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.fragment.AboutFragment;
@@ -46,8 +43,6 @@ import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
 
 import java.io.File;
-
-import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
@@ -291,7 +286,7 @@ public class MainActivity
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri){
+    public void onFragmentInteraction(Uri uri) {
         // leave it empty
         // used for fragments
     }
@@ -544,7 +539,7 @@ public class MainActivity
     }
 
     private void setButtonLayout() {
-        int screenWidthPx = (int)(w.getWindowWidthPx(a) * (0.8));
+        int screenWidthPx = (int) (w.getWindowWidthPx(a) * (0.8));
         int marginPx = w.getWindowWidthPx(a) / 160;
         int newWidthPx;
         int newHeightPx;
