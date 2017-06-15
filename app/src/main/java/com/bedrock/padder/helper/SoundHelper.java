@@ -540,15 +540,6 @@ public class SoundHelper {
     private AsyncTask unLoadSound = null;
     private AsyncTask loadSound = null;
 
-    @Deprecated
-    public void loadPresetSound(Preset preset, Activity a) {
-        // set the previous preset
-        previousPreset = currentPreset;
-        currentPreset = preset;
-        activity = a;
-        unLoadSound = new UnloadSound().execute();
-    }
-
     public void loadSound(Preset preset, Activity activity) {
         // set the previous preset
         previousPreset = currentPreset;
@@ -1005,9 +996,6 @@ public class SoundHelper {
             }
         }, 600);
 
-        MainActivity main = new MainActivity();
-        main.setQuickstart(activity);
-
         isPresetLoading = false;
     }
 
@@ -1111,11 +1099,6 @@ public class SoundHelper {
                         Math.abs(startViewRect.centerY() - targetViewRect.centerY())
                 );
         // gets view hypot
-        if (viewDistance < distance) {
-            // collided
-            return true;
-        } else {
-            return false;
-        }
+        return viewDistance < distance;
     }
 }
