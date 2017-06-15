@@ -202,11 +202,6 @@ public class PresetStoreActivity extends AppCompatActivity {
         setLoadingFinished(true);
     }
 
-    private void onDownloadMetadataFailure() {
-        setLoadingFinished(true);
-        Toast.makeText(activity, R.string.preset_store_loading_metadata_failure, Toast.LENGTH_LONG).show();
-    }
-
     private void downloadMetadata() {
         // loading start
         setLoadingFinished(false);
@@ -259,7 +254,7 @@ public class PresetStoreActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.e(TAG, "Failed to download");
-                onDownloadMetadataFailure();
+                setLoadingFinished(true);
             }
         });
     }
