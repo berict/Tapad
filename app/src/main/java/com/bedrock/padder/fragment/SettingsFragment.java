@@ -176,26 +176,6 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        w.getView(R.id.layout_settings_tutorial, v).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                main.toggleTutorial();
-            }
-        });
-
-        w.getSwitchCompat(R.id.layout_settings_tutorial_switch, v).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (w.getView(R.id.progress_bar_layout, v).getVisibility() == View.GONE) {
-                    main.toggleTutorial();
-                } else {
-                    // still loading preset
-                    Toast.makeText(a, R.string.tutorial_loading, Toast.LENGTH_LONG).show();
-                    w.getSwitchCompat(R.id.layout_settings_tutorial_switch, v).toggle();
-                }
-            }
-        });
-
         w.getView(R.id.layout_settings_about_tapad, v).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
