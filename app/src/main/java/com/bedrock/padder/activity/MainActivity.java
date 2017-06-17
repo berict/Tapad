@@ -343,6 +343,7 @@ public class MainActivity
         }
     }
 
+    @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         Log.i("MainActivity", "onWindowFocusChanged");
         sound.soundAllStop();
@@ -374,8 +375,8 @@ public class MainActivity
                 R.id.btn43_tutorial,
                 R.id.btn44_tutorial};
 
-        for (int i = 0; i < tutorial.length; i++) {
-            w.setInvisible(tutorial[i], 10, a);
+        for (int view : tutorial) {
+            w.setInvisible(view, 10, a);
         }
 
         color = prefs.getInt("color", R.color.cyan_400);
@@ -387,7 +388,6 @@ public class MainActivity
             }
             isPresetVisible = false;
         }
-
 
         if (isPresetChanged) {
             currentPreset = null;
@@ -455,6 +455,8 @@ public class MainActivity
         }
 
         ad.resumeNativeAdView(R.id.adView_main, a);
+
+        setPresetInfo();
     }
 
     // TODO iap launch
@@ -1415,11 +1417,11 @@ public class MainActivity
         File[] files = directory.listFiles();
         String presetName = null;
         if (files != null) {
-            for (File file : files) {
-                if (file.isDirectory()) {
-                    presetName = file.getName();
+            for (File dir : files) {
+                if (dir.isDirectory()) {
+                    presetName = dir.getName();
                     if (isPresetExists(presetName)) {
-                        if (isPresetAvailable(presetName)) {
+                        if (file.isPresetAvailable(presetName)) {
                             // available preset
                             break;
                         }
@@ -1434,18 +1436,6 @@ public class MainActivity
         // preset exist
         File folder = new File(PROJECT_LOCATION_PRESETS + "/" + presetName); // folder check
         return folder.isDirectory() && folder.exists();
-    }
-
-    private boolean isPresetAvailable(String presetName) {
-        // preset available
-        File folderSound = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/sounds");
-        File folderTiming = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/timing");
-        File folderAbout = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about");
-        File fileJson = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json");
-        return folderSound.isDirectory() && folderSound.exists() &&
-                folderTiming.isDirectory() && folderTiming.exists() &&
-                folderAbout.isDirectory() && folderAbout.exists() &&
-                fileJson.exists();
     }
 
     private void makeJson() {
