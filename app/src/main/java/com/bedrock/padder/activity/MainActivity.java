@@ -456,6 +456,10 @@ public class MainActivity
 
         ad.resumeNativeAdView(R.id.adView_main, a);
 
+        if (currentPreset != null && !file.isPresetAvailable(currentPreset)) {
+            currentPreset = null;
+        }
+
         setPresetInfo();
     }
 
