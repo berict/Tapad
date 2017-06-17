@@ -2,6 +2,7 @@ package com.bedrock.padder.helper;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -112,6 +113,26 @@ public class IntentHelper {
         } else {
             Log.i("IntentHelper", "intentAppDetailSettings");
             activity.startActivity(intent);
+        }
+    }
+
+    public void intentWiFiSettings(final Context context, int delay) {
+        try {
+            if (delay > 0) {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i("IntentHelper", "intentWiFiSettings");
+                        context.startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                    }
+                }, delay);
+            } else {
+                Log.i("IntentHelper", "intentWiFiSettings");
+                context.startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

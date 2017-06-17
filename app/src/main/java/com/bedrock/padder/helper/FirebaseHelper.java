@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.model.FirebaseMetadata;
@@ -41,6 +42,7 @@ public class FirebaseHelper {
     private WindowHelper window = new WindowHelper();
     private AnimateHelper anim = new AnimateHelper();
     private FileHelper fileHelper = new FileHelper();
+    private IntentHelper intent = new IntentHelper();
 
     private String TAG = "FirebaseHelper";
     private static final int REQUEST_WRITE_STORAGE = 112;
@@ -173,9 +175,55 @@ public class FirebaseHelper {
 
     private DownloadPreset downloadPreset = null;
 
-    public DownloadPreset downloadFirebasePreset(String presetName, View parentView, Activity activity, Runnable onFinish) {
-        downloadPreset = new DownloadPreset(presetName, parentView, activity, onFinish);
-        downloadPreset.execute();
+    public DownloadPreset downloadFirebasePreset(final String presetName, final View parentView, final Activity activity, final Runnable onFinish) {
+        if (isConnected(activity)) {
+            if (isWifiConnected(activity)) {
+                downloadPreset = new DownloadPreset(presetName, parentView, activity, onFinish);
+                downloadPreset.execute();
+            } else {
+                // not connected with wifi, show dialog
+                new MaterialDialog.Builder(activity)
+                        .title(R.string.preset_store_download_data_usage_title)
+                        .content(R.string.preset_store_download_data_usage_text)
+                        .contentColorRes(R.color.dark_secondary)
+                        .positiveText(R.string.proceed_ac)
+                        .positiveColorRes(R.color.colorAccent)
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                // download with cellular
+                                downloadPreset = new DownloadPreset(presetName, parentView, activity, onFinish);
+                                downloadPreset.execute();
+                            }
+                        })
+                        .negativeText(R.string.dialog_close)
+                        .negativeColorRes(R.color.dark_secondary)
+                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .neutralText(R.string.preset_store_download_data_usage_neutral)
+                        .neutralColorRes(R.color.dark_secondary)
+                        .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                // intent wifi
+                                intent.intentWiFiSettings(activity, 0);
+                            }
+                        })
+                        .show();
+            }
+        } else {
+            // no connection dialog
+            new MaterialDialog.Builder(activity)
+                    .title(R.string.preset_store_download_no_connection_dialog_title)
+                    .content(R.string.preset_store_download_no_connection_dialog_text)
+                    .contentColorRes(R.color.dark_primary)
+                    .neutralText(R.string.dialog_close)
+                    .show();
+        }
         return downloadPreset;
     }
 
@@ -484,5 +532,12 @@ public class FirebaseHelper {
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
+
+    public boolean isWifiConnected(Context context) {
+        ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+        return mWifi.isConnected();
     }
 }

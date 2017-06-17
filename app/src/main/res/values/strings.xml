@@ -16,6 +16,7 @@
 	<string name="remove_ac">REMOVE</string>
 	<string name="download_preset_ac">DOWNLOAD PRESETS</string>
 	<string name="settings_ac">SETTINGS</string>
+	<string name="proceed_ac">PROCEED</string>
 	<string name="confirm_got_it_ac">GOT IT</string>
 	<string name="confirm_exit">Press back again to exit</string>
 	<string name="confirm_get_started">Get Started</string>
@@ -242,6 +243,11 @@
 	<string name="preset_store_download_no_space_dialog_text">
 		There is no space left on your device. Please free up spaces to download presets.
 	</string>
+	<string name="preset_store_download_data_usage_title">Downloading a large preset</string>
+	<string name="preset_store_download_data_usage_text">
+		This preset is large. To avoid potential delays or extra data usage charges, use Wi-Fi to download.
+	</string>
+	<string name="preset_store_download_data_usage_neutral">SET UP WI-FI</string>
 	<string name="preset_store_exit_warning_dialog_title">Download in progress</string>
 	<string name="preset_store_exit_warning_dialog_text">
 		Preset download is currently in progress. Do you want to cancel the download and exit?

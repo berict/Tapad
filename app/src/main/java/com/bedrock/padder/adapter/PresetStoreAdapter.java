@@ -310,13 +310,15 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
 
     // Swap itemA with itemB
     private void swapPresetItems(Preset presets[], int itemAIndex, int itemBIndex) {
-        //make sure to check if dataset is null and if itemA and itemB are valid indexes.
-        Preset itemA = presets[itemAIndex];
-        Preset itemB = presets[itemBIndex];
-        presets[itemAIndex] = itemB;
-        presets[itemBIndex] = itemA;
+        if (presets.length > 0) {
+            //make sure to check if data set is null and if itemA and itemB are valid indexes.
+            Preset itemA = presets[itemAIndex];
+            Preset itemB = presets[itemBIndex];
+            presets[itemAIndex] = itemB;
+            presets[itemBIndex] = itemA;
 
-        notifyDataSetChanged(); //This will trigger onBindViewHolder method from the adapter.
+            notifyDataSetChanged(); //This will trigger onBindViewHolder method from the adapter.
+        }
     }
 
     private void makeCurrentPreset(Preset presets[], int adapterPosition) {
