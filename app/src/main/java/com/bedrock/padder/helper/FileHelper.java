@@ -164,7 +164,8 @@ public class FileHelper {
         }
 
         @Override
-        protected void onProgressUpdate(Void... args) {}
+        protected void onProgressUpdate(Void... args) {
+        }
 
         @Override
         protected void onPostExecute(Integer integer) {
@@ -306,7 +307,7 @@ public class FileHelper {
         // preset not corrupted
         return new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/sounds").exists() && // sounds check
                 new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/timing").exists() && // timing check
-                new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about").exists()&& // about check
+                new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about").exists() && // about check
                 new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json").exists(); // json check
     }
 
