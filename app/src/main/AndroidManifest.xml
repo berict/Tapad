@@ -46,6 +46,9 @@
 		<activity
 			android:name=".activity.HelpActivity"
 			android:screenOrientation="portrait"/>
-	</application>
+	    <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="b07abd5ed5e39c5184eacf640f4c620707e52781" />
+    </application>
 
 </manifest>
