@@ -303,19 +303,12 @@ public class FileHelper {
         return new File(PROJECT_LOCATION_PRESETS + "/" + presetName).exists(); // folder check
     }
 
-    private boolean isPresetAvailable(String presetName) {
-        // preset not corrupted
-        return new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/sounds").exists() && // sounds check
-                new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/timing").exists() && // timing check
-                new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about").exists() && // about check
-                new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json").exists(); // json check
-    }
-
-    public long getAvailableExternalMemorySize() {
+    long getAvailableExternalMemorySize() {
         return new File(PROJECT_LOCATION_PRESETS).getFreeSpace();
     }
 
     public boolean isPresetAvailable(Preset preset) {
+        // with sound count check
         if (preset != null) {
             String presetName = preset.getFirebaseLocation();
             // preset available
@@ -334,6 +327,29 @@ public class FileHelper {
             // should be 100%
             return folderSound.isDirectory() && folderSound.exists() &&
                     preset.getMusic().getSoundCount() == folderSound.listFiles().length &&
+                    folderTiming.isDirectory() && folderTiming.exists() &&
+                    folderAbout.isDirectory() && folderAbout.exists() &&
+                    fileJson.exists() &&
+                    fileAlbum.exists() &&
+                    fileIcon.exists() &&
+                    fileImage.exists();
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isPresetAvailable(String presetName) {
+        if (presetName != null) {
+            // preset available
+            File folderSound = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/sounds");
+            File folderTiming = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/timing");
+            File folderAbout = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about");
+            File fileJson = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json");
+            File fileAlbum = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/album_art");
+            File fileIcon = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/artist_icon");
+            File fileImage = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/artist_image");
+            // should be 100%
+            return folderSound.isDirectory() && folderSound.exists() &&
                     folderTiming.isDirectory() && folderTiming.exists() &&
                     folderAbout.isDirectory() && folderAbout.exists() &&
                     fileJson.exists() &&
