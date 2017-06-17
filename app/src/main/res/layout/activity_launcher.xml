@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:id="@+id/root"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -12,18 +13,18 @@
         android:id="@+id/berict"
         android:layout_width="match_parent"
         android:layout_height="25dp"
-        android:layout_marginBottom="40dp"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/ic_logo_berict"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
         android:alpha="0.5"
-        android:visibility="visible"/>
+        android:visibility="visible"
+        app:srcCompat="@drawable/ic_logo_berict"/>
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/ic_launcher"
+        android:layout_centerInParent="true"
         android:visibility="visible"
-        android:layout_centerInParent="true"/>
+        app:srcCompat="@drawable/ic_launcher"/>
 </RelativeLayout>

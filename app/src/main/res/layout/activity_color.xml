@@ -129,7 +129,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:alpha="0.3"
-                    android:src="@drawable/ic_color_black" />
+                    app:srcCompat="@drawable/ic_color_black" />
             </LinearLayout>
 
             <View

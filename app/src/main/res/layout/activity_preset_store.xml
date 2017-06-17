@@ -142,7 +142,7 @@
                                     android:layout_height="64dp"
                                     android:alpha="0.5"
                                     android:layout_marginBottom="8dp"
-                                    android:src="@drawable/ic_disconnected_black"/>
+                                    app:srcCompat="@drawable/ic_disconnected_black"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"

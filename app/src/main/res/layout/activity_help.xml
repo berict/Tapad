@@ -1,342 +1,343 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/activity_help"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:background="@color/grey_300"
-	tools:context="com.bedrock.padder.activity.HelpActivity">
-	
-	<ScrollView
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_below="@+id/actionbar">
-		
-		<LinearLayout
-			android:id="@+id/activity_help_layout"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:orientation="vertical">
-			
-			<LinearLayout
-				android:id="@+id/activity_help_contact_layout"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="8dp"
-				android:background="@color/white"
-				android:orientation="vertical"
-				android:paddingBottom="8dp"
-				android:paddingTop="8dp"
-				android:elevation="2dp">
-				
-				<TextView
-					android:id="@+id/activity_help_contact_title"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginBottom="4dp"
-					android:layout_marginLeft="8dp"
-					android:fontFamily="sans-serif-medium"
-					android:padding="8dp"
-					android:text="@string/help_contact_title"
-					android:textColor="@color/dark_secondary"
-					android:textSize="12sp"/>
-				
-				<LinearLayout
-					android:id="@+id/activity_help_contact_email"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:background="?selectableItemBackground"
-					android:clickable="true"
-					android:gravity="center_vertical"
-					android:orientation="horizontal"
-					android:paddingBottom="12dp"
-					android:paddingLeft="16dp"
-					android:paddingTop="12dp">
-					
-					<ImageView
-						android:layout_width="24dp"
-						android:layout_height="24dp"
-						android:layout_gravity="start"
-						android:src="@drawable/ic_email_blue"/>
-					
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginLeft="24dp"
-						android:text="@string/help_contact_email"
-						android:textColor="@color/dark_primary"
-						android:textSize="16sp"/>
-				</LinearLayout>
-				
-				<LinearLayout
-					android:id="@+id/activity_help_contact_send_feedback"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:background="?selectableItemBackground"
-					android:clickable="true"
-					android:gravity="center_vertical"
-					android:orientation="horizontal"
-					android:paddingBottom="12dp"
-					android:paddingLeft="16dp"
-					android:paddingTop="12dp">
-					
-					<ImageView
-						android:layout_width="24dp"
-						android:layout_height="24dp"
-						android:layout_gravity="start"
-						android:src="@drawable/ic_feedback_blue"/>
-					
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginLeft="24dp"
-						android:text="@string/help_contact_send_feedback"
-						android:textColor="@color/dark_primary"
-						android:textSize="16sp"/>
-				</LinearLayout>
-			</LinearLayout>
-			
-			<LinearLayout
-				android:id="@+id/activity_help_popular_layout"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="8dp"
-				android:background="@color/white"
-				android:orientation="vertical"
-				android:paddingTop="8dp"
-				android:elevation="2dp">
-				
-				<TextView
-					android:id="@+id/activity_help_popular_title"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginBottom="4dp"
-					android:layout_marginLeft="8dp"
-					android:fontFamily="sans-serif-medium"
-					android:padding="8dp"
-					android:text="@string/help_popular_title"
-					android:textColor="@color/dark_secondary"
-					android:textSize="12sp"/>
-				
-				<LinearLayout
-					android:id="@+id/activity_help_popular_about_tapad"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:background="?selectableItemBackground"
-					android:clickable="true"
-					android:gravity="center_vertical"
-					android:orientation="horizontal"
-					android:paddingBottom="12dp"
-					android:paddingLeft="16dp"
-					android:paddingTop="12dp">
-					
-					<ImageView
-						android:layout_width="24dp"
-						android:layout_height="24dp"
-						android:layout_gravity="start"
-						android:src="@drawable/ic_file_document_blue"/>
-					
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginLeft="24dp"
-						android:text="@string/help_popular_about_tapad"
-						android:textColor="@color/dark_primary"
-						android:textSize="16sp"/>
-				</LinearLayout>
-				
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="1dp"
-					android:layout_marginLeft="64dp"
-					android:background="@color/dark_divider"/>
-				
-				<LinearLayout
-					android:id="@+id/activity_help_popular_about_gesture_mode"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:background="?selectableItemBackground"
-					android:clickable="true"
-					android:gravity="center_vertical"
-					android:orientation="horizontal"
-					android:paddingBottom="12dp"
-					android:paddingLeft="16dp"
-					android:paddingTop="12dp">
-					
-					<ImageView
-						android:layout_width="24dp"
-						android:layout_height="24dp"
-						android:layout_gravity="start"
-						android:src="@drawable/ic_file_document_blue"/>
-					
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginLeft="24dp"
-						android:text="@string/help_popular_about_gesture_mode"
-						android:textColor="@color/dark_primary"
-						android:textSize="16sp"/>
-				</LinearLayout>
-				
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="1dp"
-					android:layout_marginLeft="64dp"
-					android:background="@color/dark_divider"/>
-				
-				<LinearLayout
-					android:id="@+id/activity_help_popular_preset_store_download"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:background="?selectableItemBackground"
-					android:clickable="true"
-					android:gravity="center_vertical"
-					android:orientation="horizontal"
-					android:paddingBottom="12dp"
-					android:paddingLeft="16dp"
-					android:paddingTop="12dp">
-					
-					<ImageView
-						android:layout_width="24dp"
-						android:layout_height="24dp"
-						android:layout_gravity="start"
-						android:src="@drawable/ic_file_document_blue"/>
-					
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginLeft="24dp"
-						android:text="@string/help_popular_preset_store_download"
-						android:textColor="@color/dark_primary"
-						android:textSize="16sp"/>
-				</LinearLayout>
-				
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="1dp"
-					android:layout_marginLeft="64dp"
-					android:background="@color/dark_divider"/>
-				
-				<LinearLayout
-					android:id="@+id/activity_help_popular_preset_store_manage"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:background="?selectableItemBackground"
-					android:clickable="true"
-					android:gravity="center_vertical"
-					android:orientation="horizontal"
-					android:paddingBottom="12dp"
-					android:paddingLeft="16dp"
-					android:paddingTop="12dp">
-					
-					<ImageView
-						android:layout_width="24dp"
-						android:layout_height="24dp"
-						android:layout_gravity="start"
-						android:src="@drawable/ic_file_document_blue"/>
-					
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginLeft="24dp"
-						android:text="@string/help_popular_preset_store_manage"
-						android:textColor="@color/dark_primary"
-						android:textSize="16sp"/>
-				</LinearLayout>
-				
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="1dp"
-					android:layout_marginLeft="64dp"
-					android:background="@color/dark_divider"/>
-				
-				<LinearLayout
-					android:id="@+id/activity_help_popular_tutorial"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:background="?selectableItemBackground"
-					android:clickable="true"
-					android:gravity="center_vertical"
-					android:orientation="horizontal"
-					android:paddingBottom="12dp"
-					android:paddingLeft="16dp"
-					android:paddingTop="12dp">
-					
-					<ImageView
-						android:layout_width="24dp"
-						android:layout_height="24dp"
-						android:layout_gravity="start"
-						android:src="@drawable/ic_file_document_blue"/>
-					
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginLeft="24dp"
-						android:text="@string/help_popular_tutorial"
-						android:textColor="@color/dark_primary"
-						android:textSize="16sp"/>
-				</LinearLayout>
-				
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="1dp"
-					android:background="@color/dark_divider"/>
-				
-				<LinearLayout
-					android:id="@+id/activity_help_browse_all"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:background="?selectableItemBackground"
-					android:clickable="true"
-					android:gravity="center_vertical"
-					android:orientation="horizontal"
-					android:paddingBottom="14dp"
-					android:paddingLeft="4dp"
-					android:paddingTop="14dp">
-					
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="match_parent"
-						android:layout_marginLeft="16dp"
-						android:fontFamily="sans-serif-medium"
-						android:text="@string/help_popular_browse_all"
-						android:textAllCaps="true"
-						android:textColor="@color/colorAccent"
-						android:textSize="14sp"/>
-				</LinearLayout>
-			</LinearLayout>
-		</LinearLayout>
-	</ScrollView>
-	
-	<LinearLayout
-		android:id="@+id/activity_help_detail"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_below="@id/actionbar"
-		android:background="@color/white"
-		android:padding="16dp"
-		android:visibility="gone"
-		android:orientation="vertical">
-		
-		<TextView
-			android:id="@+id/activity_help_detail_title"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/help_popular_about_tapad"
-			android:textColor="@color/dark_primary"
-			android:layout_marginBottom="16dp"
-			android:textSize="24sp"/>
-		
-		<TextView
-			android:id="@+id/activity_help_detail_text"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:textColor="@color/dark_primary"
-			android:lineSpacingMultiplier="1.15"
-			android:textSize="14sp"
-			android:text="@string/placeholder"/>
-	</LinearLayout>
-	
-	<include layout="@layout/fragment_actionbar"/>
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_help"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_300"
+    tools:context="com.bedrock.padder.activity.HelpActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/actionbar">
+
+        <LinearLayout
+            android:id="@+id/activity_help_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/activity_help_contact_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@color/white"
+                android:elevation="2dp"
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:id="@+id/activity_help_contact_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:padding="8dp"
+                    android:text="@string/help_contact_title"
+                    android:textColor="@color/dark_secondary"
+                    android:textSize="12sp"/>
+
+                <LinearLayout
+                    android:id="@+id/activity_help_contact_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="12dp"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="start"
+                        app:srcCompat="@drawable/ic_email_blue"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="24dp"
+                        android:text="@string/help_contact_email"
+                        android:textColor="@color/dark_primary"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/activity_help_contact_send_feedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="12dp"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="start"
+                        app:srcCompat="@drawable/ic_feedback_blue"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="24dp"
+                        android:text="@string/help_contact_send_feedback"
+                        android:textColor="@color/dark_primary"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/activity_help_popular_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@color/white"
+                android:elevation="2dp"
+                android:orientation="vertical"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:id="@+id/activity_help_popular_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:padding="8dp"
+                    android:text="@string/help_popular_title"
+                    android:textColor="@color/dark_secondary"
+                    android:textSize="12sp"/>
+
+                <LinearLayout
+                    android:id="@+id/activity_help_popular_about_tapad"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="12dp"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="start"
+                        app:srcCompat="@drawable/ic_file_document_blue"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="24dp"
+                        android:text="@string/help_popular_about_tapad"
+                        android:textColor="@color/dark_primary"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="64dp"
+                    android:background="@color/dark_divider"/>
+
+                <LinearLayout
+                    android:id="@+id/activity_help_popular_about_gesture_mode"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="12dp"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="start"
+                        app:srcCompat="@drawable/ic_file_document_blue"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="24dp"
+                        android:text="@string/help_popular_about_gesture_mode"
+                        android:textColor="@color/dark_primary"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="64dp"
+                    android:background="@color/dark_divider"/>
+
+                <LinearLayout
+                    android:id="@+id/activity_help_popular_preset_store_download"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="12dp"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="start"
+                        app:srcCompat="@drawable/ic_file_document_blue"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="24dp"
+                        android:text="@string/help_popular_preset_store_download"
+                        android:textColor="@color/dark_primary"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="64dp"
+                    android:background="@color/dark_divider"/>
+
+                <LinearLayout
+                    android:id="@+id/activity_help_popular_preset_store_manage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="12dp"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="start"
+                        app:srcCompat="@drawable/ic_file_document_blue"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="24dp"
+                        android:text="@string/help_popular_preset_store_manage"
+                        android:textColor="@color/dark_primary"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="64dp"
+                    android:background="@color/dark_divider"/>
+
+                <LinearLayout
+                    android:id="@+id/activity_help_popular_tutorial"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="12dp"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="start"
+                        app:srcCompat="@drawable/ic_file_document_blue"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="24dp"
+                        android:text="@string/help_popular_tutorial"
+                        android:textColor="@color/dark_primary"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/dark_divider"/>
+
+                <LinearLayout
+                    android:id="@+id/activity_help_browse_all"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="14dp"
+                    android:paddingLeft="4dp"
+                    android:paddingTop="14dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/help_popular_browse_all"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/activity_help_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/actionbar"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/activity_help_detail_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/help_popular_about_tapad"
+            android:textColor="@color/dark_primary"
+            android:textSize="24sp"/>
+
+        <TextView
+            android:id="@+id/activity_help_detail_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.15"
+            android:text="@string/placeholder"
+            android:textColor="@color/dark_primary"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+    <include layout="@layout/fragment_actionbar"/>
 </RelativeLayout>

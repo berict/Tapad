@@ -29,7 +29,6 @@ public class LauncherActivity extends AppCompatActivity {
 
     SharedPreferences prefs = null;
 
-    //@TargetApi(21)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
