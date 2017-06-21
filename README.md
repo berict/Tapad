@@ -40,6 +40,6 @@ Tapad informs you about the artist of the song which you are playing. Show them 
 
 #### Communicate with Devs
 
-E-mail with dev, request songs and features. Play your favorite song on Tapad!
+E-mail with dev, request songs and features.
 
 *Disclaimer - Every song / audio clip and its copyright belongs to its original artist. This app or its developer don't have copyright to all songs.*
