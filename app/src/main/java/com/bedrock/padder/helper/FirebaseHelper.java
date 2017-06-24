@@ -2,8 +2,11 @@ package com.bedrock.padder.helper;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -11,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +24,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
+import com.bedrock.padder.activity.PresetStoreActivity;
 import com.bedrock.padder.model.FirebaseMetadata;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -227,16 +232,6 @@ public class FirebaseHelper {
         return downloadPreset;
     }
 
-    public void cancelDownloadPreset() {
-        if (downloadPreset != null) {
-            downloadPreset.cancel(true);
-            downloadPreset.downloadTask.cancel();
-            downloadPreset.onCancelled();
-        } else {
-            Log.e(TAG, "DownloadPreset is not initialized");
-        }
-    }
-
     public class DownloadPreset extends AsyncTask<Void, Void, Integer> {
 
         private Activity activity;
@@ -253,12 +248,20 @@ public class FirebaseHelper {
         private long bytesTransferred = 0;
         private long totalByteCount = 0;
 
+        private int id = 1;
+
+        private NotificationManager notificationManager;
+        private NotificationCompat.Builder mBuilder;
+
         public DownloadPreset(String presetName, View parentView, Activity activity, Runnable onFinish) {
             this.activity = activity;
             this.onFinish = onFinish;
             this.parentView = parentView;
             this.presetName = presetName;
             fileLocation = PROJECT_LOCATION_PRESETS + "/" + presetName + "/preset.zip";
+
+            notificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
+            mBuilder = new NotificationCompat.Builder(activity);
         }
 
         @Override
@@ -293,6 +296,13 @@ public class FirebaseHelper {
                         cancelDownloadPreset();
                     }
                 });
+
+                Intent intentPresetStore = new Intent(activity, PresetStoreActivity.class);
+                PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, intentPresetStore, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                mBuilder.setContentTitle(window.getStringFromId(R.string.preset_store_download_notification_title, activity))
+                        .setContentText(window.getStringFromId(R.string.preset_store_download_notification_title, activity))
+                        .setSmallIcon(R.drawable.ic_file_download);
             } else {
                 // no internet connection
                 // cancel the task
@@ -336,6 +346,9 @@ public class FirebaseHelper {
                                 activity,
                                 onFinish
                         );
+                        mBuilder.setProgress(0, 0, false)
+                                .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_complete, activity));
+                        notificationManager.notify(id, mBuilder.build());
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -357,6 +370,8 @@ public class FirebaseHelper {
                 progressBar.setIndeterminate(false);
             }
             progressBar.setProgress(mProgress);
+            mBuilder.setProgress(1000, (int)((1000 * bytesTransferred) / totalByteCount), false);
+            notificationManager.notify(id, mBuilder.build());
 
             String progressText;
             if (bytesTransferred == 0) {
@@ -406,6 +421,19 @@ public class FirebaseHelper {
             anim.fadeOut(R.id.layout_preset_store_download_layout, 0, 200, parentView, activity);
             anim.fadeIn(R.id.layout_preset_store_action_layout, 200, 200, "actionIn", parentView, activity);
             super.onCancelled();
+        }
+
+        void cancelDownloadPreset() {
+            if (downloadPreset != null) {
+                downloadPreset.cancel(true);
+                downloadPreset.downloadTask.cancel();
+                downloadPreset.onCancelled();
+                mBuilder.setProgress(0, 0, false)
+                        .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_failed, activity));
+                notificationManager.notify(id, mBuilder.build());
+            } else {
+                Log.e(TAG, "DownloadPreset is not initialized");
+            }
         }
 
         private String getReadableFileSize(long size) {
