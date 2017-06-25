@@ -283,6 +283,31 @@ public class IntentHelper {
         }
     }
 
+    public void intentFlagWithExtra(final Activity activity, String name, final String extra_name, final String extra, int delay) {
+        final String classname = "com.bedrock.padder." + name;
+        final Class<Object> classToLoad;
+        try{
+            classToLoad = (Class<Object>)Class.forName(classname);
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Log.i("IntentHelper", "intentFlag");
+                    Intent animActivity = new Intent(activity, classToLoad);
+                    animActivity.putExtra(extra_name, extra);
+                    animActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    animActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    activity.startActivity(animActivity);
+
+                    activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                }
+            }, delay);
+        } catch (ClassNotFoundException e){
+            Log.i("IntentHelper", "Error, there is no such class");
+        }
+    }
+
     public void intentFinish(final Activity activity, int delay){
         Handler finish = new Handler();
         finish.postDelayed(new Runnable() {
