@@ -1,8 +1,8 @@
 <resources>
 	<string name="app_name">Tapad</string>
-	
+
 	<string name="error">Error</string>
-	
+
 	<!-- Actions -->
 	<string name="next">Next</string>
 	<string name="skip">Skip</string>
@@ -21,39 +21,46 @@
 	<string name="confirm_exit">Press back again to exit</string>
 	<string name="confirm_get_started">Get Started</string>
 	<string name="confirm_get_started_ac">GET STARTED</string>
-	
+
 	<string name="tutorial_loading">Can\'t start tutorial mode during loading preset</string>
 	<string name="tutorial_no_preset">Can\'t start tutorial mode without a preset</string>
-	
-	<!-- User Benefits -->
-	<string name="user_benefits_page_1_title">Remix for everyone</string>
-	<string name="user_benefits_page_1_hint">Play your favorite songs on your phone.</string>
-	<string name="user_benefits_page_2_hint">Make your favorites the only remix in the world - by you.</string>
-	<string name="user_benefits_page_3_hint">Set your favorite color and see them on the move.</string>
-	<string name="user_benefits_page_4_hint">Swipe in directions to make different sounds.\nHold to loop a sound.</string>
-	<string name="user_benefits_dialog_hint">Before you start, select a preset to play.</string>
-	<string name="user_benefits_dialog_positive">START</string>
-	
-	<string name="user_benefits_get_started_title">@string/confirm_get_started</string>
-	<string name="user_benefits_get_started_text">Discover and download presets from the Preset Store, then play it on Tapad app.</string>
-	
+
+	<!-- Intro -->
+	<string   name="intro_1_title">@string/app_name</string>
+    <string   name="intro_1_text">Welcome to Tapad, the new grid instrument for Android.</string>
+    <color    name="intro_1_color">@color/purple_300</color>
+    <color    name="intro_1_color_dark">@color/purple_400</color>
+    <drawable name="intro_1_drawable">@drawable/ic_launcher</drawable>
+    <string   name="intro_2_title">Gesture mode</string>
+    <string   name="intro_2_text">Make use of your touchscreen.</string>
+    <color    name="intro_2_color">@color/blue_500</color>
+    <color    name="intro_2_color_dark">@color/blue_700</color>
+    <string   name="intro_3_title">Preset store</string>
+    <string   name="intro_3_text">@string/preset_store_description</string>
+    <color    name="intro_3_color">@color/amber_300</color>
+    <color    name="intro_3_color_dark">@color/amber_500</color>
+    <string   name="intro_4_title">Customize</string>
+    <string   name="intro_4_text">Color your pads, patterns and more.</string>
+    <color    name="intro_4_color">@color/light_green_800</color>
+    <color    name="intro_4_color_dark">@color/light_green_900</color>
+
 	<!-- Cardview -->
 	<string name="cardview_now_playing">Now playing</string>
-	
+
 	<!-- Help -->
 	<string name="help_title">Help</string>
-	
+
 	<string name="help_contact_title">Contact us</string>
 	<string name="help_contact_email">Email</string>
 	<string name="help_contact_send_feedback">Send feedback</string>
-	
+
 	<string name="help_popular_title">Popular</string>
 	<string name="help_popular_about_tapad">About Tapad</string>
 	<string name="help_popular_about_gesture_mode">About gesture mode</string>
 	<string name="help_popular_preset_store_download">Download new presets</string>
 	<string name="help_popular_preset_store_manage">View &amp; delete installed presets</string>
 	<string name="help_popular_tutorial">Learn to play Tapad</string>
-	
+
 	<string name="help_popular_about_tapad_detail">
 		<b><i>Tapad</i></b> is a mobile remix application. \n\n
 		Extended from the instrument <i>LaunchPad</i>, and made mobile friendly with touch gesture support.
@@ -67,9 +74,9 @@
 	<string name="help_popular_preset_store_download_detail">Download new presets</string>
 	<string name="help_popular_preset_store_manage_detail">View &amp; delete presets</string>
 	<string name="help_popular_tutorial_detail">Learn to play Tapad</string>
-	
+
 	<string name="help_popular_browse_all">Browse all articles</string>
-	
+
 	<!-- Feedback -->
 	<string name="feedback_disclaimer_text">Your system info will be sent to Studio Berict.</string>
 	<string name="feedback_disclaimer_action">Learn More</string>
@@ -77,7 +84,7 @@
 	<string name="feedback_disclaimer_dialog_action">Close</string>
 	<string name="feedback_quit_dialog_positive">KEEP WRITING</string>
 	<string name="feedback_quit_dialog_negative">DISCARD</string>
-	
+
 	<string name="feedback_song_discard">Discard song request?</string>
 	<string name="feedback_song_description">We would love new presets! Please let us know what song would fit in Tapad.</string>
 	<string name="feedback_song_name_input_hint">Song title</string>
@@ -102,7 +109,7 @@
 	<string name="feedback_song_send_error">Please fill out the form to request a song</string>
 	<string name="feedback_email_client_feedback">Select a email client to send feedback</string>
 	<string name="feedback_email_client_bug_report">Select a email client to send bug report</string>
-	
+
 	<string name="feedback_feedback_discard">Discard feedback?</string>
 	<string name="feedback_feedback_description">We would love to hear thoughts, ideas, anything from you. We hope we can improve Tapad with you!</string>
 	<string name="feedback_feedback_message_input_hint">Feedback message</string>
@@ -117,7 +124,7 @@
 		<item>Others</item>
 	</string-array>
 	<string name="feedback_feedback_send_error">Please fill out the form to send a feedback</string>
-	
+
 	<string name="feedback_report_bug_discard">Discard bug report?</string>
 	<string name="feedback_report_bug_description">Our priority is on you. We are not letting you to see any of those errors. Let us know and fix them.</string>
 	<string name="feedback_report_bug_message_input_hint">Bug details</string>
@@ -136,13 +143,13 @@
 		<item>Others</item>
 	</string-array>
 	<string name="feedback_report_bug_send_error">Please fill out the form to report a bug</string>
-	
+
 	<!-- Quickstart Dialog -->
 	<string name="dialog_quickstart_welcome_title">Welcome to Tapad!</string>
 	<string name="dialog_quickstart_welcome_text">Walk through how to use Tapad or tap \'Tips\' in Settings when you want this later.</string>
 	<string name="dialog_quickstart_welcome_negative">NO THANKS</string>
 	<string name="dialog_quickstart_welcome_positive">SHOW ME HOW</string>
-	
+
 	<!-- Tutorial -->
 	<string name="dialog_tutorial_warning_title">Start tutorial mode?</string>
 	<string name="dialog_tutorial_warning_text">This is an experimental feature. It may cause huge frame drops and glitches on low-ram devices. Use at your own risk.</string>
@@ -151,7 +158,7 @@
 	<string name="dialog_tutorial_warning_positive">CONTINUE</string>
 	<string name="dialog_tutorial_title">Tutorial mode</string>
 	<string name="dialog_tutorial_text_error">Sorry, there is no tutorial for this preset for now. Check again later.</string>
-	
+
 	<!-- TapTarget Dialog -->
 	<string name="dialog_tap_target_toggle_primary">Select deck</string>
 	<string name="dialog_tap_target_toggle_secondary">Tap the toggle button to load sounds to pads.</string>
@@ -172,30 +179,30 @@
 	<string name="dialog_tap_target_preset_primary">Change now playing preset</string>
 	<string name="dialog_tap_target_preset_secondary">Discover different presets and its artists.</string>
 	<string name="dialog_thanks_positive">CLOSE</string>
-	
+
 	<string name="dialog_preset_title">Presets</string>
 	<string name="dialog_preset_positive">SAVE</string>
 	<string name="dialog_preset_negative">CANCEL</string>
-	
+
 	<!-- Dialog Actions -->
 	<string name="dialog_cancel">CANCEL</string>
 	<string name="dialog_save">SAVE</string>
 	<string name="dialog_close">CLOSE</string>
 	<string name="dialog_send">SEND</string>
-	
+
 	<!-- Main Screen -->
 	<string name="warning">Please select a deck to play</string>
 	<string name="tutorial">Tutorial</string>
 	<string name="close">Close</string>
 	<string name="about">About</string>
 	<string name="presets">Presets</string>
-	
+
 	<string name="progressbar_loading_preset">Loading preset</string>
 	<string name="progressbar_loading_tutorial">Loading tutorial</string>
-	
+
 	<string name="progressbar_loading_ad">Loading ads</string>
 	<string name="progressbar_loading_ad_failed">Can\'t load ads</string>
-	
+
 	<!-- About -->
 	<string name="about_bio_preset_by">Preset by </string>
 
@@ -260,19 +267,19 @@
     <string name="preset_store_download_notification_text_cancelled">Download cancelled</string>
     <string name="preset_store_download_notification_text_failed">Download failed</string>
 	<string name="preset_store_remove_warning_dialog_text">Remove preset?</string>
-	
+
 	<!--Settings-->
 	<string name="settings_group_play">Play</string>
-	
+
 	<string name="settings_preset">Presets</string>
 	<string name="settings_preset_hint">PRESET_NAME_HERE</string>
 	<string name="settings_preset_hint_no_preset">No preset loaded</string>
 	<string name="settings_custom_sound">Custom sound</string>
 	<string name="settings_custom_sound_error">This feature is under development.</string>
 	<string name="settings_tutorial">Tutorial mode</string>
-	
+
 	<string name="settings_group_interface">Interface</string>
-	
+
 	<string name="settings_color">Colors</string>
 	<string name="settings_color_current">Current color</string>
 	<string name="settings_color_dialog">Add new color</string>
@@ -280,34 +287,34 @@
 	<string name="settings_color_dialog_duplicate">You already have this color</string>
 	<string name="settings_color_dialog_duplicate_current">This color is already your current color</string>
 	<string name="settings_color_placeholder_title">You have no colors</string>
-	
+
 	<string name="settings_layout">Button layout</string>
 	<string name="settings_layout_error">This feature is under development.</string>
 	<string name="settings_custom_touch">Custom touch pattern</string>
 	<string name="settings_custom_touch_error">This feature is under development.</string>
-	
+
 	<string name="settings_group_about">About</string>
-	
+
 	<string name="settings_about_tapad">About Tapad</string>
 	<string name="settings_about_dev">About developer</string>
-	
+
 	<!-- TaskDescription -->
 	<string name="task_welcome">Welcome to Tapad</string>
 	<string name="task_main">Tapad</string>
-	
+
 	<string name="task_about_tapad">Tapad</string>
 	<string name="task_about_dev">Studio Berict</string>
-	
+
 	<string name="task_feedback_song">@string/info_tapad_others_song</string>
 	<string name="task_feedback_feedback">@string/info_tapad_others_feedback</string>
 	<string name="task_feedback_report_bug">@string/info_tapad_others_report_bug</string>
-	
+
 	<string name="task_presets">@string/settings_preset</string>
 	<string name="task_tutorial_mode">Start tutorial mode?</string>
-	
+
 	<string name="task_settings">@string/settings</string>
 	<string name="task_settings_color">@string/settings_color</string>
-	
+
 	<!-- Promote -->
 	<string name="feedback">Feedback</string>
 	<string name="request">Ask for new feature or song</string>
@@ -317,18 +324,18 @@
 	<string name="no_email_client">There are no email clients installed.</string>
 	<string name="discard">Discard</string>
 	<string name="send">Send</string>
-	
+
 	<string name="dev_email">dev.bedrock@gmail.com</string>
 	<string name="feedback_email">berict.bedrock@gmail.com</string>
-	
+
 	<string name="app_link_long">https://play.google.com/store/apps/details?id=com.bedrock.padder</string>
 	<string name="app_link_short">https://goo.gl/pmws51</string>
 	<string name="app_package_name">com.bedrock.padder</string>
-	
+
 	<string name="placeholder">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet felis blandit, iaculis odio sit amet, aliquam lacus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed interdum posuere est, nec vehicula felis elementum ac. Nulla aliquet libero semper vehicula consectetur. Aliquam eget luctus felis, pulvinar euismod lectus. Morbi mattis eros non fermentum imperdiet. Praesent cursus urna ligula, ac porttitor purus posuere nec. Phasellus quis purus quis dolor tempus volutpat eu luctus leo. Nulla facilisi. Nullam facilisis pellentesque massa in laoreet. Nulla facilisi. Aenean et fermentum nunc.
     </string>
-	
+
 	<!-- Encoded version RSA Key -->
 	<string name="base64_rsa_key">BIQBDjQNEgtqUkwGqwxBUQSFVADC+QDAGIzBtggCoQeAdLok2Z2y3ywS2WYNw5nmXnRn+68iZP5/WwNjPMqRxrOuudFqWK4yU308muWps1fmMZAobxn+rQpcbvAiWjCBFcx+B5Vnsm9onJJT5I/YPckqdVKN5AivMevQNCOPS1aJe5ayUvaQptOtmH8do//SuGEJ4WZ7LKNr4fNx2ZMmdBYV+dMkKDQDUUPT3d4dPF1Nbn8l9/igtt53OmnsM88LdiAnxhDPN/Xxg4mwP1nS0iplJ/vqD9IEDJ8gLMxeoF468HdUQ6T3XZBmA7j2avoHNuU/AGTdjIGfo4Kgjf0WvGmA0gBn/EdAgKmCyIJMV8dAoOIAUEoA/0U9HixhRk6BAAIIAIAM</string>
 	<string name="admob_unit_id_native_main">ca-app-pub-4284148629649013/8479481484</string>

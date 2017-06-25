@@ -3,6 +3,7 @@ package com.bedrock.padder.activity;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -198,6 +199,44 @@ public class MainActivity
         Log.d(TAG, "Sharedprefs initialized");
         prefs = this.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
 
+        try {
+            currentVersionCode = a.getPackageManager().getPackageInfo(a.getPackageName(), 0).versionCode;
+            Log.i("versionCode", "versionCode retrieved = " + String.valueOf(currentVersionCode));
+        } catch (android.content.pm.PackageManager.NameNotFoundException e) {
+            // handle exception
+            currentVersionCode = -1;
+            Log.e("NameNotFound", "NNFE, currentVersionCode = -1");
+        }
+
+        // version checks
+        Intent launcherIntent = getIntent();
+        if (launcherIntent != null &&
+                launcherIntent.getStringExtra("version") != null) {
+            String version = launcherIntent.getStringExtra("version");
+            if (version.equals("new")) {
+                // new install, show intro
+                intent.intent(a, "activity.MainIntroActivity");
+                prefs.edit().putInt("versionCode", currentVersionCode).apply();
+                Log.d("VersionCode", "putInt " + String.valueOf(prefs.getInt("versionCode", -1)));
+            } else if (version.equals("updated")) {
+                // updated, show changelog
+                new MaterialDialog.Builder(a)
+                        .title(w.getStringId("info_tapad_info_changelog"))
+                        .content(w.getStringId("info_tapad_info_changelog_text"))
+                        .contentColorRes(R.color.dark_primary)
+                        .positiveText(R.string.dialog_close)
+                        .positiveColorRes(R.color.colorAccent)
+                        .dismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialogInterface) {
+                                prefs.edit().putInt("versionCode", currentVersionCode).apply();
+                                Log.d("VersionCode", "putInt " + String.valueOf(prefs.getInt("versionCode", -1)));
+                            }
+                        })
+                        .show();
+            }
+        }
+
         if (getSavedPreset() != null) {
             try {
                 currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json"), Preset.class);
@@ -236,7 +275,6 @@ public class MainActivity
 
         // Set UI
         clearToggleButton();
-        setQuickstart(a);
         setFab();
         setToolbar();
         setPresetInfo();
@@ -608,44 +646,6 @@ public class MainActivity
             view.getLayoutParams().width = newWidth;
         }
         view.setLayoutParams(view.getLayoutParams());
-    }
-
-    private void setQuickstart(final Activity activity) {
-        final SharedPreferences pref = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
-        try {
-            currentVersionCode = activity.getPackageManager().getPackageInfo(activity.getPackageName(), 0).versionCode;
-            Log.i("versionCode", "versionCode retrieved = " + String.valueOf(currentVersionCode));
-        } catch (android.content.pm.PackageManager.NameNotFoundException e) {
-            // handle exception
-            currentVersionCode = -1;
-            Log.e("NameNotFound", "NNFE, currentVersionCode = -1");
-        }
-
-        try {
-            Log.d("VersionCode", "sharedPrefs versionCode = " + String.valueOf(pref.getInt("versionCode", -1))
-                    + " , currentVersionCode = " + String.valueOf(currentVersionCode));
-            Log.d("VersionCode", "Updated, show changelog");
-
-            if (currentVersionCode > pref.getInt("versionCode", -1)) {
-                // new app and updates
-                new MaterialDialog.Builder(activity)
-                        .title(w.getStringId("info_tapad_info_changelog"))
-                        .content(w.getStringId("info_tapad_info_changelog_text"))
-                        .contentColorRes(R.color.dark_primary)
-                        .positiveText(R.string.dialog_close)
-                        .positiveColorRes(R.color.colorAccent)
-                        .dismissListener(new DialogInterface.OnDismissListener() {
-                            @Override
-                            public void onDismiss(DialogInterface dialogInterface) {
-                                pref.edit().putInt("versionCode", currentVersionCode).apply(); // Change this
-                                Log.d("VersionCode", "putInt " + String.valueOf(pref.getInt("versionCode", -1)));
-                            }
-                        })
-                        .show();
-            }
-        } catch (Exception e) {
-            Log.e("QuickstartException", e.getMessage());
-        }
     }
 
     private void setFab() {

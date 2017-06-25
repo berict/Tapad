@@ -39,10 +39,6 @@ public class LauncherActivity extends AppCompatActivity {
 
         prefs = getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
 
-        //Tester - Set firstrun = true
-        //prefs.edit().putBoolean("welcome", true).apply();
-        //prefs.edit().putInt("scheme", 1).apply();
-
         // White screen set
         toolbar.setStatusBarTint(this);
         window.getNavigationBar(R.id.root, activity);
@@ -58,14 +54,14 @@ public class LauncherActivity extends AppCompatActivity {
                 checkVersionCode();
 
                 // edit this to intent to welcome activity always
-                //intent.intentFlag(activity, "activity.UserBenefitsActivity", 500);
-                //prefs.edit().putInt("versionCode", -1).apply();
+                //intent.intentFlagWithExtra(activity, "activity.MainActivity", "version", "new", 500);
+                //intent.intentFlagWithExtra(activity, "activity.MainActivity", "version", "updated", 500);
             }
         }, 500);
     }
 
     void checkVersionCode() {
-        int currentVersionCode = 0;
+        int currentVersionCode;
         try {
             currentVersionCode = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
         } catch (android.content.pm.PackageManager.NameNotFoundException e) {
@@ -84,20 +80,17 @@ public class LauncherActivity extends AppCompatActivity {
 
             intent.intentFlag(activity, "activity.MainActivity", 500);
         } else if (savedVersionCode == 0 || savedVersionCode == -1) {
-            // New install / cleared sharedpref, Welcome transition
-            Log.d("FirstRun", "true, intent to UserBenefitsActivity");
+            // New install / cleared cache, Welcome transition
+            Log.d("FirstRun", "true, intent to MainActivity");
 
-            intent.intentFlag(activity, "activity.UserBenefitsActivity", 500);
-            prefs.edit().putInt("quickstart", 0).apply();
+            intent.intentFlagWithExtra(activity, "activity.MainActivity", "version", "new", 500);
             // To show changelog
             prefs.edit().putInt("versionCode", currentVersionCode - 1).apply();
         } else if (currentVersionCode > savedVersionCode) {
             // Upgrade run
             Log.d("FirstRun", "false (Updated), intent to MainActivity");
-            // set the preset to 0 to avoid crashes
-            prefs.edit().putInt("scheme", 0).apply();
 
-            intent.intentFlag(activity, "activity.MainActivity", 500);
+            intent.intentFlagWithExtra(activity, "activity.MainActivity", "version", "updated", 500);
         }
     }
 }
