@@ -297,8 +297,7 @@ public class FirebaseHelper {
                     }
                 });
 
-                Intent intentPresetStore = new Intent(activity, PresetStoreActivity.class);
-                PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, intentPresetStore, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, new Intent(activity, PresetStoreActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
 
                 mBuilder.setContentTitle(window.getStringFromId(R.string.preset_store_download_notification_title, activity))
                         .setContentText(window.getStringFromId(R.string.preset_store_download_notification_title, activity))
@@ -336,6 +335,9 @@ public class FirebaseHelper {
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     if (!isCancelled()) {
                         Log.d(TAG, "Successful download at " + fileLocation);
+                        mBuilder.setProgress(0, 0, false)
+                                .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_complete, activity));
+                        notificationManager.cancel(id);
                         // downloaded
                         anim.fadeOut(R.id.layout_preset_store_download_layout, 0, 200, parentView, activity);
                         anim.fadeIn(R.id.layout_preset_store_download_installing, 200, 200, "installIn", parentView, activity);
@@ -346,9 +348,6 @@ public class FirebaseHelper {
                                 activity,
                                 onFinish
                         );
-                        mBuilder.setProgress(0, 0, false)
-                                .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_complete, activity));
-                        notificationManager.notify(id, mBuilder.build());
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -428,8 +427,15 @@ public class FirebaseHelper {
                 downloadPreset.cancel(true);
                 downloadPreset.downloadTask.cancel();
                 downloadPreset.onCancelled();
-                mBuilder.setProgress(0, 0, false)
-                        .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_failed, activity));
+                if (isCancelled()) {
+                    mBuilder.setProgress(0, 0, false)
+                            .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_cancelled, activity))
+                            .setAutoCancel(true);
+                } else {
+                    mBuilder.setProgress(0, 0, false)
+                            .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_failed, activity))
+                            .setAutoCancel(true);
+                }
                 notificationManager.notify(id, mBuilder.build());
             } else {
                 Log.e(TAG, "DownloadPreset is not initialized");
