@@ -613,6 +613,10 @@ public class WindowHelper {
         return (RecyclerView) activity.findViewById(id);
     }
 
+    public RecyclerView getRecyclerView(int id, View view) {
+        return (RecyclerView) view.findViewById(id);
+    }
+
     public int getBackgroundColor(int id, Activity activity) {
         View view = getView(id, activity);
         Drawable drawable = view.getBackground();

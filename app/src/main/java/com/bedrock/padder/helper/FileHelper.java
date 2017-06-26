@@ -12,6 +12,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.model.preset.Preset;
+import com.google.gson.Gson;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -358,6 +359,28 @@ public class FileHelper {
                     fileImage.exists();
         } else {
             return false;
+        }
+    }
+
+    public boolean isPresetMetadataAvailable(String presetName) {
+        if (presetName != null) {
+            File fileJson = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json");
+            // should be 100%
+            return fileJson.exists();
+        } else {
+            return false;
+        }
+    }
+
+    public Preset getPresetFromMetadata(String presetName, Gson gson) {
+        if (presetName != null) {
+            Preset preset = gson.fromJson(
+                    this.getStringFromFile(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json"),
+                    Preset.class
+            );
+            return preset;
+        } else {
+            return null;
         }
     }
 }

@@ -20,7 +20,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -30,6 +29,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.adapter.PresetStoreAdapter;
+import com.bedrock.padder.fragment.PresetStoreInstalledFragment;
 import com.bedrock.padder.fragment.PresetStoreOnlineFragment;
 import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.FileHelper;
@@ -268,7 +268,7 @@ public class PresetStoreActivity extends AppCompatActivity {
     private void setViewPager() {
         viewPager = (ViewPager) findViewById(R.id.layout_viewpager);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new PresetStoreOnlineFragment(), window.getStringFromId(R.string.tab_1, activity));
+        viewPagerAdapter.addFragment(new PresetStoreInstalledFragment(), window.getStringFromId(R.string.tab_1, activity));
         viewPagerAdapter.addFragment(new PresetStoreOnlineFragment(), window.getStringFromId(R.string.tab_2, activity));
         viewPager.setAdapter(viewPagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.layout_tab_layout);
@@ -320,13 +320,13 @@ public class PresetStoreActivity extends AppCompatActivity {
         window.getImageView(R.id.layout_image, activity).setImageResource(R.drawable.about_image_preset_store);
 
         // adapter
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        window.getRecyclerView(R.id.layout_preset_store_recyclerview, activity).setLayoutManager(layoutManager);
-        window.getRecyclerView(R.id.layout_preset_store_recyclerview, activity).setNestedScrollingEnabled(false);
+        //LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        //layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        //window.getRecyclerView(R.id.layout_preset_store_recyclerview, activity).setLayoutManager(layoutManager);
+        //window.getRecyclerView(R.id.layout_preset_store_recyclerview, activity).setNestedScrollingEnabled(false);
 
         // firebase check
-        setAdapter();
+        //setAdapter();
 
         // viewpager
         setViewPager();
@@ -474,12 +474,6 @@ public class PresetStoreActivity extends AppCompatActivity {
 
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-
-        if (shouldAdapterRefreshed) {
-            // reload adapter and download metadata
-            setAdapter();
-            shouldAdapterRefreshed = false;
-        }
 
         if (hasFocus) {
             window.setGone(R.id.layout_placeholder, 0, activity);

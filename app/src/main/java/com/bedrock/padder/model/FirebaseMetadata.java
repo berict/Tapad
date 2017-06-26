@@ -14,11 +14,13 @@ public class FirebaseMetadata {
     public FirebaseMetadata(Preset[] presets, Integer versionCode) {
         this.presets = presets;
         this.versionCode = versionCode;
-        for (Preset preset : this.presets) {
-            // null values to shorten the json
-            preset.getMusic().setDeckTimings(null);
-            preset.getAbout().setBio(null);
-            preset.getAbout().setDetails(null);
+        if (presets != null) {
+            for (Preset preset : this.presets) {
+                // null values to shorten the json
+                preset.getMusic().setDeckTimings(null);
+                preset.getAbout().setBio(null);
+                preset.getAbout().setDetails(null);
+            }
         }
     }
 
