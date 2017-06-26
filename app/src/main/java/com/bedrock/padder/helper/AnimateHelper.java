@@ -49,13 +49,13 @@ public class AnimateHelper {
                     public void run() {
                         view.setAlpha(endAlpha);
 
-                        Log.i("AnimateHelper", String.valueOf(id) + " fade OUT [GONE] effect for 0ms with " + String.valueOf(delay) + "ms delay");
+                        Log.i("AnimateHelper", String.valueOf(view) + " fade OUT [GONE] effect for 0ms with " + String.valueOf(delay) + "ms delay");
                     }
                 }, delay);
             } else {
                 view.setAlpha(endAlpha);
                 Log.i("AnimateHelper",
-                        String.valueOf(id) + " fade effect to " +
+                        String.valueOf(view) + " fade effect to " +
                                 String.valueOf(endAlpha) + "f for 0ms with no delay");
             }
         } else {
@@ -73,7 +73,7 @@ public class AnimateHelper {
                         view.setVisibility(View.VISIBLE);
 
                         Log.i("AnimateHelper",
-                                String.valueOf(id) + " fade effect from " +
+                                String.valueOf(view) + " fade effect from " +
                                         String.valueOf(startAlpha) + "f to " +
                                         String.valueOf(endAlpha) + "f for " +
                                         String.valueOf(duration) + "ms with " +
@@ -86,7 +86,7 @@ public class AnimateHelper {
                 view.setVisibility(View.VISIBLE);
 
                 Log.i("AnimateHelper",
-                        String.valueOf(id) + " fade effect from " +
+                        String.valueOf(view) + " fade effect from " +
                                 String.valueOf(startAlpha) + "f to " +
                                 String.valueOf(endAlpha) + "f for " +
                                 String.valueOf(duration) + "ms with no delay");
@@ -129,13 +129,13 @@ public class AnimateHelper {
                     public void run() {
                         view.setVisibility(View.VISIBLE);
 
-                        Log.i("AnimateHelper", String.valueOf(id) + " fade IN [VISIBLE] effect for 0ms with " + String.valueOf(delay) + "ms delay");
+                        Log.i("AnimateHelper", String.valueOf(view) + " fade IN [VISIBLE] effect for 0ms with " + String.valueOf(delay) + "ms delay");
                     }
                 }, delay);
             } else {
                 view.setVisibility(View.VISIBLE);
                 Log.i("AnimateHelper",
-                        String.valueOf(id) + " fade IN effect to 1.0f for 0ms with no delay");
+                        String.valueOf(view) + " fade IN effect to 1.0f for 0ms with no delay");
             }
         } else {
             // normal fadeIn IN
@@ -152,7 +152,7 @@ public class AnimateHelper {
                         view.setVisibility(View.VISIBLE);
 
                         Log.i("AnimateHelper",
-                                String.valueOf(id) + " fade IN effect for " +
+                                String.valueOf(view) + " fade IN effect for " +
                                         String.valueOf(duration) + "ms with " +
                                         String.valueOf(delay) + "ms delay");
                     }
@@ -163,7 +163,7 @@ public class AnimateHelper {
                 view.setVisibility(View.VISIBLE);
 
                 Log.i("AnimateHelper",
-                        String.valueOf(id) + " fade IN effect for " +
+                        String.valueOf(view) + " fade IN effect for " +
                                 String.valueOf(duration) + "ms with no delay");
             }
         }
@@ -244,13 +244,13 @@ public class AnimateHelper {
                     public void run() {
                         view.setVisibility(View.VISIBLE);
 
-                        Log.i("AnimateHelper", String.valueOf(id) + " fade IN [VISIBLE] effect for 0ms with " + String.valueOf(delay) + "ms delay");
+                        Log.i("AnimateHelper", String.valueOf(view) + " fade IN [VISIBLE] effect for 0ms with " + String.valueOf(delay) + "ms delay");
                     }
                 }, delay);
             } else {
                 view.setVisibility(View.VISIBLE);
                 Log.i("AnimateHelper",
-                        String.valueOf(id) + " fade IN effect to 1.0f for 0ms with no delay");
+                        String.valueOf(view) + " fade IN effect to 1.0f for 0ms with no delay");
             }
         } else {
             // normal fadeIn IN
@@ -267,7 +267,7 @@ public class AnimateHelper {
                         view.setVisibility(View.VISIBLE);
 
                         Log.i("AnimateHelper",
-                                String.valueOf(id) + " fade IN effect for " +
+                                String.valueOf(view) + " fade IN effect for " +
                                         String.valueOf(duration) + "ms with " +
                                         String.valueOf(delay) + "ms delay");
                     }
@@ -278,7 +278,7 @@ public class AnimateHelper {
                 view.setVisibility(View.VISIBLE);
 
                 Log.i("AnimateHelper",
-                        String.valueOf(id) + " fade IN effect for " +
+                        String.valueOf(view) + " fade IN effect for " +
                                 String.valueOf(duration) + "ms with no delay");
             }
         }
@@ -299,7 +299,7 @@ public class AnimateHelper {
                     public void run() {
                         view.setVisibility(View.GONE);
 
-                        Log.i("AnimateHelper", String.valueOf(id) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+                        Log.i("AnimateHelper", String.valueOf(view) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
                     }
                 }, delay);
                 handler.postDelayed(new Runnable() {
@@ -310,7 +310,7 @@ public class AnimateHelper {
                 }, delay + 10);
             } else {
                 view.setVisibility(View.GONE);
-                Log.i("AnimateHelper", String.valueOf(id) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with no delay");
+                Log.i("AnimateHelper", String.valueOf(view) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with no delay");
             }
         } else {
             // normal fade out
@@ -324,7 +324,7 @@ public class AnimateHelper {
                         view.startAnimation(fadeOut);
                         view.setVisibility(View.GONE);
 
-                        Log.i("AnimateHelper", String.valueOf(id) + " fade OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+                        Log.i("AnimateHelper", String.valueOf(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
                     }
                 }, delay);
                 handler.postDelayed(new Runnable() {
@@ -337,7 +337,7 @@ public class AnimateHelper {
                 fadeOut.setDuration(duration);
                 view.startAnimation(fadeOut);
                 view.setVisibility(View.GONE);
-                Log.i("AnimateHelper", String.valueOf(id) + " fade OUT effect for " + String.valueOf(duration) + "ms with no delay");
+                Log.i("AnimateHelper", String.valueOf(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with no delay");
             }
         }
     }
@@ -357,7 +357,7 @@ public class AnimateHelper {
                     public void run() {
                         view.setVisibility(View.GONE);
 
-                        Log.i("AnimateHelper", String.valueOf(id) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+                        Log.i("AnimateHelper", String.valueOf(view) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
                     }
                 }, delay);
                 handler.postDelayed(new Runnable() {
@@ -368,7 +368,7 @@ public class AnimateHelper {
                 }, delay + 10);
             } else {
                 view.setVisibility(View.GONE);
-                Log.i("AnimateHelper", String.valueOf(id) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with no delay");
+                Log.i("AnimateHelper", String.valueOf(view) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with no delay");
             }
         } else {
             // normal fade out
@@ -382,7 +382,7 @@ public class AnimateHelper {
                         view.startAnimation(fadeOut);
                         view.setVisibility(View.GONE);
 
-                        Log.i("AnimateHelper", String.valueOf(id) + " fade OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+                        Log.i("AnimateHelper", String.valueOf(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
                     }
                 }, delay);
                 handler.postDelayed(new Runnable() {
@@ -395,7 +395,7 @@ public class AnimateHelper {
                 fadeOut.setDuration(duration);
                 view.startAnimation(fadeOut);
                 view.setVisibility(View.GONE);
-                Log.i("AnimateHelper", String.valueOf(id) + " fade OUT effect for " + String.valueOf(duration) + "ms with no delay");
+                Log.i("AnimateHelper", String.valueOf(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with no delay");
             }
         }
     }
@@ -415,12 +415,12 @@ public class AnimateHelper {
                     public void run() {
                         view.setVisibility(View.INVISIBLE);
 
-                        Log.i("AnimateHelper", String.valueOf(id) + " fade OUT [INVISIBLE] effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+                        Log.i("AnimateHelper", String.valueOf(view) + " fade OUT [INVISIBLE] effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
                     }
                 }, delay);
             } else {
                 view.setVisibility(View.INVISIBLE);
-                Log.i("AnimateHelper", String.valueOf(id) + " fade OUT [INVISIBLE] effect for " + String.valueOf(duration) + "ms with no delay");
+                Log.i("AnimateHelper", String.valueOf(view) + " fade OUT [INVISIBLE] effect for " + String.valueOf(duration) + "ms with no delay");
             }
         } else {
             // normal fade out
@@ -434,14 +434,14 @@ public class AnimateHelper {
                         view.startAnimation(fadeOut);
                         view.setVisibility(View.INVISIBLE);
 
-                        Log.i("AnimateHelper", String.valueOf(id) + " fade OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+                        Log.i("AnimateHelper", String.valueOf(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
                     }
                 }, delay);
             } else {
                 fadeOut.setDuration(duration);
                 view.startAnimation(fadeOut);
                 view.setVisibility(View.INVISIBLE);
-                Log.i("AnimateHelper", String.valueOf(id) + " fade OUT effect for " + String.valueOf(duration) + "ms with no delay");
+                Log.i("AnimateHelper", String.valueOf(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with no delay");
             }
         }
     }
@@ -461,12 +461,12 @@ public class AnimateHelper {
                     public void run() {
                         view.setVisibility(View.INVISIBLE);
 
-                        Log.i("AnimateHelper", String.valueOf(id) + " fade OUT [INVISIBLE] effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+                        Log.i("AnimateHelper", String.valueOf(view) + " fade OUT [INVISIBLE] effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
                     }
                 }, delay);
             } else {
                 view.setVisibility(View.INVISIBLE);
-                Log.i("AnimateHelper", String.valueOf(id) + " fade OUT [INVISIBLE] effect for " + String.valueOf(duration) + "ms with no delay");
+                Log.i("AnimateHelper", String.valueOf(view) + " fade OUT [INVISIBLE] effect for " + String.valueOf(duration) + "ms with no delay");
             }
         } else {
             // normal fade out
@@ -480,14 +480,14 @@ public class AnimateHelper {
                         view.startAnimation(fadeOut);
                         view.setVisibility(View.INVISIBLE);
 
-                        Log.i("AnimateHelper", String.valueOf(id) + " fade OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+                        Log.i("AnimateHelper", String.valueOf(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
                     }
                 }, delay);
             } else {
                 fadeOut.setDuration(duration);
                 view.startAnimation(fadeOut);
                 view.setVisibility(View.INVISIBLE);
-                Log.i("AnimateHelper", String.valueOf(id) + " fade OUT effect for " + String.valueOf(duration) + "ms with no delay");
+                Log.i("AnimateHelper", String.valueOf(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with no delay");
             }
         }
     }
