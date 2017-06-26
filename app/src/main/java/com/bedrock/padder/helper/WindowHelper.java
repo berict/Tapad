@@ -126,9 +126,7 @@ public class WindowHelper {
         }
     }
 
-    public int getStatusBar(final int id, final Activity activity) {
-        /* Must be a parent view */
-
+    public int getStatusBar(final Activity activity) {
         final SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
         final int[] statBarHeight = {-1};
 
@@ -139,26 +137,6 @@ public class WindowHelper {
 
         prefs.edit().putInt("statBarPX", statBarHeight[0]).apply();
         Log.i("SharedPrefs", "statBarPX = " + String.valueOf(prefs.getInt("statBarPX", 72)));
-
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-////                Rect rectangle = new Rect();
-////                Window window = activity.getWindow();
-////                window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
-////                int statusBar = rectangle.top;
-////                Log.i("Status Bar Height", String.valueOf(statusBar));
-////                statBarHeight[0] = statusBar;
-//
-////                View view = activity.findViewById(id);
-////                Rect rect = new Rect();
-////                view.getGlobalVisibleRect(rect);
-////
-////                Log.i("Status Bar Height", String.valueOf(rect.top));
-////                statBarHeight[0] = rect.top;
-//            }
-//        }, 10);
 
         return statBarHeight[0];
     }
