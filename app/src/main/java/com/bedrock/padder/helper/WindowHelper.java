@@ -104,12 +104,12 @@ public class WindowHelper {
         int navigationHeight;
         SharedPreferences sharedPreferences = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
         navigationHeight = sharedPreferences.getInt("navBarPX", 144);
-        
+
         if (navigationHeight >= 540 || navigationHeight < 0) {
             // something gone wrong
             navigationHeight = 144;
         }
-        
+
         return navigationHeight;
     }
 
@@ -126,13 +126,38 @@ public class WindowHelper {
         }
     }
 
-    public int getStatusBar(final Activity activity) {
+    public int getStatusBar(final int id, final Activity activity) {
+        /* Must be a parent view */
+
         final SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
         final int[] statBarHeight = {-1};
 
         int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
             statBarHeight[0] = activity.getResources().getDimensionPixelSize(resourceId);
+        }
+
+        if (statBarHeight[0] <= 0) {
+            // error with above method
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Rect rectangle = new Rect();
+                    Window window = activity.getWindow();
+                    window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
+                    int statusBar = rectangle.top;
+                    Log.i("Status Bar Height", String.valueOf(statusBar));
+                    statBarHeight[0] = statusBar;
+
+                    View view = activity.findViewById(id);
+                    Rect rect = new Rect();
+                    view.getGlobalVisibleRect(rect);
+
+                    Log.i("Status Bar Height", String.valueOf(rect.top));
+                    statBarHeight[0] = rect.top;
+                }
+            }, 10);
         }
 
         prefs.edit().putInt("statBarPX", statBarHeight[0]).apply();
@@ -154,7 +179,7 @@ public class WindowHelper {
         return statusHeight;
     }
 
-    public void setVisible(final int viewId, final int delay, final Activity activity){
+    public void setVisible(final int viewId, final int delay, final Activity activity) {
         final View view = activity.findViewById(viewId);
         if (delay > 0) {
             Handler handler = new Handler();
@@ -169,7 +194,7 @@ public class WindowHelper {
         }
     }
 
-    public void setInvisible(final int viewId, final int delay, final Activity activity){
+    public void setInvisible(final int viewId, final int delay, final Activity activity) {
         final View view = activity.findViewById(viewId);
         if (delay > 0) {
             Handler handler = new Handler();
@@ -184,7 +209,7 @@ public class WindowHelper {
         }
     }
 
-    public void setGone(final int viewId, final int delay, final Activity activity){
+    public void setGone(final int viewId, final int delay, final Activity activity) {
         final View view = activity.findViewById(viewId);
         if (delay > 0) {
             Handler handler = new Handler();
@@ -369,7 +394,7 @@ public class WindowHelper {
         }
     }
 
-    public void setViewBackgroundDrawable (int viewId, int drawableId, Activity activity){
+    public void setViewBackgroundDrawable(int viewId, int drawableId, Activity activity) {
         View view = activity.findViewById(viewId);
 
         Drawable drawable;
@@ -380,7 +405,7 @@ public class WindowHelper {
             drawable = activity.getResources().getDrawable(drawableId);
         }
 
-        if (Build.VERSION.SDK_INT >= 16){
+        if (Build.VERSION.SDK_INT >= 16) {
             view.setBackground(drawable);
         } else {
             view.setBackgroundDrawable(drawable);
@@ -897,7 +922,7 @@ public class WindowHelper {
             pad.setBackgroundColor(color);
         }
     }
-    
+
     private int getButtonId(int padId) {
         switch (padId) {
             case R.id.btn00:
@@ -1373,9 +1398,9 @@ public class WindowHelper {
         int b1 = Integer.parseInt(colorString1.substring(5, 7), 16);
 
         String blendColorHex = "#" +
-                        getTwoDigitHexString(averageIntegerWithPercent(r0, r1, blendPercent)) +
-                        getTwoDigitHexString(averageIntegerWithPercent(g0, g1, blendPercent)) +
-                        getTwoDigitHexString(averageIntegerWithPercent(b0, b1, blendPercent));
+                getTwoDigitHexString(averageIntegerWithPercent(r0, r1, blendPercent)) +
+                getTwoDigitHexString(averageIntegerWithPercent(g0, g1, blendPercent)) +
+                getTwoDigitHexString(averageIntegerWithPercent(b0, b1, blendPercent));
 
         return Color.parseColor(blendColorHex);
     }

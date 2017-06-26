@@ -42,7 +42,7 @@ public class LauncherActivity extends AppCompatActivity {
         // White screen set
         toolbar.setStatusBarTint(this);
         window.getNavigationBar(R.id.root, activity);
-        window.getStatusBar(activity);
+        window.getStatusBar(R.id.root, activity);
 
         // Logo fade out + intent
         Handler handler = new Handler();
