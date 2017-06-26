@@ -6,6 +6,8 @@
     <color name="colorAccentDark">#2962FF</color>
     <color name="colorFeedback">@color/pink</color>
     <color name="colorFeedbackDark">@color/pink_dark</color>
+    <color name="colorPresetStore">#DAA406</color>
+    <color name="colorPresetStoreDark">@color/amber_800</color>
 	
 	<color name="bg_screen1">#BA68C8</color>
 

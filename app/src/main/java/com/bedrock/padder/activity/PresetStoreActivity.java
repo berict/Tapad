@@ -12,20 +12,25 @@ import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.adapter.PresetStoreAdapter;
+import com.bedrock.padder.fragment.PresetStoreOnlineFragment;
 import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.FileHelper;
 import com.bedrock.padder.helper.IntentHelper;
@@ -42,6 +47,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.bedrock.padder.activity.MainActivity.isDeckShouldCleared;
 import static com.bedrock.padder.activity.MainActivity.isPresetVisible;
@@ -74,7 +81,7 @@ public class PresetStoreActivity extends AppCompatActivity {
 
         isPresetVisible = true;
 
-        themeColor = getResources().getColor(R.color.amber);
+        themeColor = getResources().getColor(R.color.colorPresetStore);
         themeTitle = getResources().getString(R.string.preset_store);
 
         // initialize firebase
@@ -104,9 +111,6 @@ public class PresetStoreActivity extends AppCompatActivity {
 
         window.setMarginRelativePX(R.id.layout_relative, 0, window.getStatusBarFromPrefs(activity), 0, 0, activity);
         window.getView(R.id.layout_margin, activity).getLayoutParams().height = window.getNavigationBarFromPrefs(activity) + window.convertDPtoPX(10, activity);
-
-        themeColor = activity.getResources().getColor(R.color.amber);
-        themeTitle = activity.getResources().getString(R.string.preset_store);
 
         enterAnim();
         setUi();
@@ -259,6 +263,47 @@ public class PresetStoreActivity extends AppCompatActivity {
         });
     }
 
+    ViewPager viewPager;
+
+    private void setViewPager() {
+        viewPager = (ViewPager) findViewById(R.id.layout_viewpager);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter.addFragment(new PresetStoreOnlineFragment(), window.getStringFromId(R.string.tab_1, activity));
+        viewPagerAdapter.addFragment(new PresetStoreOnlineFragment(), window.getStringFromId(R.string.tab_2, activity));
+        viewPager.setAdapter(viewPagerAdapter);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.layout_tab_layout);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    private class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
+
     private void setUi() {
         // status bar
         window.getView(R.id.statusbar, activity).setBackgroundColor(themeColor);
@@ -282,6 +327,9 @@ public class PresetStoreActivity extends AppCompatActivity {
 
         // firebase check
         setAdapter();
+
+        // viewpager
+        setViewPager();
     }
 
     private Handler connectionTimeout = new Handler();
