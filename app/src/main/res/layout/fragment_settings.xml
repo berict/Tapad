@@ -186,7 +186,8 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/dark_divider"/>
+                        android:background="@color/dark_divider"
+                        android:visibility="gone"/>
 
                     <RelativeLayout
                         android:id="@+id/layout_settings_custom_touch"
