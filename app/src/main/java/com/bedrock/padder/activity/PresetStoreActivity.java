@@ -284,8 +284,9 @@ public class PresetStoreActivity extends AppCompatActivity {
         setAdapter();
     }
 
+    private Handler connectionTimeout = new Handler();
+
     private void setAdapter() {
-        Handler connectionTimeout = new Handler();
         connectionTimeout.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -301,6 +302,12 @@ public class PresetStoreActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                     setAdapter();
+                                }
+                            })
+                            .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                    setLoadingFailed();
                                 }
                             })
                             .show();
@@ -390,6 +397,13 @@ public class PresetStoreActivity extends AppCompatActivity {
             Log.d(TAG, "Disconnected from the internet");
             return isFMUpdated;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        // remove all callbacks
+        connectionTimeout.removeCallbacksAndMessages(null);
+        super.onDestroy();
     }
 
     @Override
