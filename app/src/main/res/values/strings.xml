@@ -232,6 +232,12 @@
 	</string>
 	<string name="preset_store_permission_dialog_positive">SETTINGS</string>
 	<string name="preset_store_permission_dialog_negative">EXIT</string>
+	<string name="preset_store_connection_timeout_dialog_title">Loading preset store</string>
+	<string name="preset_store_connection_timeout_dialog_text">
+		Connecting to the preset store takes longer than usual. Do you want to retry connecting?
+	</string>
+	<string name="preset_store_connection_timeout_dialog_positive">RETRY</string>
+	<string name="preset_store_connection_timeout_dialog_negative">@string/dialog_cancel</string>
 	<string name="preset_store_gesture_help_dialog_title">About gesture presets</string>
 	<string name="preset_store_gesture_help_dialog_text">
 		This preset is available in <i>gesture mode</i>.\n

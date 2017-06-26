@@ -285,6 +285,29 @@ public class PresetStoreActivity extends AppCompatActivity {
     }
 
     private void setAdapter() {
+        Handler connectionTimeout = new Handler();
+        connectionTimeout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (window.getView(R.id.layout_preset_store_recyclerview_loading, activity).getVisibility() == View.VISIBLE) {
+                    // loading for 10 seconds, prompt user to retry or not
+                    new MaterialDialog.Builder(activity)
+                            .title(R.string.preset_store_connection_timeout_dialog_title)
+                            .content(R.string.preset_store_connection_timeout_dialog_text)
+                            .contentColorRes(R.color.dark_primary)
+                            .positiveText(R.string.preset_store_connection_timeout_dialog_positive)
+                            .negativeText(R.string.preset_store_connection_timeout_dialog_negative)
+                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                    setAdapter();
+                                }
+                            })
+                            .show();
+                }
+            }
+        }, 10000);
+
         if (isConnected(activity)) {
             Log.d(TAG, "setAdapter");
             // attach the adapter to the layout
@@ -380,26 +403,6 @@ public class PresetStoreActivity extends AppCompatActivity {
                 PresetStoreActivity.super.onBackPressed();
             }
         }, 300);
-        // TODO add notification
-//        if (isPresetDownloading) {
-//            new MaterialDialog.Builder(activity)
-//                    .title(R.string.preset_store_exit_warning_dialog_title)
-//                    .content(R.string.preset_store_exit_warning_dialog_text)
-//                    .contentColorRes(R.color.dark_primary)
-//                    .positiveText(R.string.preset_store_exit_warning_dialog_positive)
-//                    .positiveColorRes(R.color.colorAccent)
-//                    .negativeText(R.string.preset_store_exit_warning_dialog_negative)
-//                    .onNegative(new MaterialDialog.SingleButtonCallback() {
-//                        @Override
-//                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-//                            // cancel tasks and exit
-//                            currentFirebaseService.cancelDownloadPreset();
-//                            currentFileService.cancelDecompress();
-//                        }
-//                    })
-//                    .show();
-//        } else {
-//        }
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
