@@ -152,19 +152,24 @@ public class PresetStoreInstalledFragment extends Fragment {
         // loading start
         setLoadingFinished(false);
         // get metadata locally
-        Log.d(TAG, "Initialized arraylist");
-        ArrayList<Preset> presetArrayList = new ArrayList<>();
+        File[] presets = new File(tapadFolderPath + "/presets").listFiles();
+        if (presets.length > 0) {
+            Log.d(TAG, "Initialized arraylist");
+            ArrayList<Preset> presetArrayList = new ArrayList<>();
 
-        for (File presetFolder : new File(tapadFolderPath + "/presets").listFiles()) {
-            if (fileHelper.isPresetMetadataAvailable(presetFolder.getName())) {
-                // check folder's presets
-                Log.d(TAG, "Filename = " + presetFolder.getName());
-                presetArrayList.add(fileHelper.getPresetFromMetadata(presetFolder.getName(), gson));
+            for (File presetFolder : presets) {
+                if (fileHelper.isPresetMetadataAvailable(presetFolder.getName())) {
+                    // check folder's presets
+                    Log.d(TAG, "Filename = " + presetFolder.getName());
+                    presetArrayList.add(fileHelper.getPresetFromMetadata(presetFolder.getName(), gson));
+                }
             }
-        }
 
-        // create metadata
-        firebaseMetadata = new FirebaseMetadata(presetArrayList.toArray(new Preset[presetArrayList.size()]), 0);
+            // create metadata
+            firebaseMetadata = new FirebaseMetadata(presetArrayList.toArray(new Preset[presetArrayList.size()]), 0);
+        } else {
+            firebaseMetadata = new FirebaseMetadata(null, 0);
+        }
         setAdapter();
     }
 
