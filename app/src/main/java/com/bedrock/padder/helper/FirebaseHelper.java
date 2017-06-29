@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -301,7 +302,10 @@ public class FirebaseHelper {
 
                 mBuilder.setContentTitle(window.getStringFromId(R.string.preset_store_download_notification_title, activity))
                         .setContentText(window.getStringFromId(R.string.preset_store_download_notification_title, activity))
-                        .setSmallIcon(R.drawable.ic_file_download);
+                        .setSmallIcon(android.R.drawable.stat_sys_download)
+                        .setLargeIcon(BitmapFactory.decodeResource(activity.getResources(), android.R.drawable.stat_sys_download))
+                        .setOngoing(true)
+                        .setOnlyAlertOnce(true);
             } else {
                 // no internet connection
                 // cancel the task
