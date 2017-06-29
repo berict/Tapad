@@ -85,9 +85,9 @@ public class PresetStoreInstalledFragment extends Fragment {
         setAdapter();
     }
 
-    private static final int REQUEST_WRITE_STORAGE = 112;
-
     private boolean shouldAdapterRefreshed = false;
+
+    private static final int REQUEST_WRITE_STORAGE = 112;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -153,7 +153,7 @@ public class PresetStoreInstalledFragment extends Fragment {
         setLoadingFinished(false);
         // get metadata locally
         File[] presets = new File(tapadFolderPath + "/presets").listFiles();
-        if (presets.length > 0) {
+        if (presets != null && presets.length > 0) {
             Log.d(TAG, "Initialized arraylist");
             ArrayList<Preset> presetArrayList = new ArrayList<>();
 

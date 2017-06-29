@@ -97,45 +97,6 @@ public class PresetStoreOnlineFragment extends Fragment {
 
     private boolean shouldAdapterRefreshed = false;
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case REQUEST_WRITE_STORAGE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // reload my a with permission granted or use the features what required the permission
-                    downloadMetadata();
-                } else {
-                    // show dialog to grant access
-                    new MaterialDialog.Builder(a)
-                            .title(R.string.preset_store_permission_dialog_title)
-                            .titleColorRes(R.color.dark_primary)
-                            .content(R.string.preset_store_permission_dialog_text)
-                            .contentColorRes(R.color.dark_action)
-                            .positiveText(R.string.preset_store_permission_dialog_positive)
-                            .positiveColorRes(R.color.dark_primary)
-                            .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    // go to settings
-                                    intent.intentAppDetailSettings(a, 0);
-                                    shouldAdapterRefreshed = true;
-                                }
-                            })
-                            .negativeText(R.string.preset_store_permission_dialog_negative)
-                            .negativeColorRes(R.color.red_400)
-                            .onNegative(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    // TODO show no permission error state
-                                }
-                            })
-                            .show();
-                    Log.e(TAG, "The app was not allowed to write to your storage. Hence, it cannot function properly. Please consider granting it this permission");
-                }
-        }
-    }
-
     String tapadFolderPath = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
     String metadataLocation = tapadFolderPath + "/presets/metadata";
 
@@ -188,24 +149,6 @@ public class PresetStoreOnlineFragment extends Fragment {
                     a,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_WRITE_STORAGE);
-        }
-
-        // Make sdcard/Tapad folder
-        File folder = new File(tapadFolderPath);
-        if (folder.mkdirs()) {
-            Log.i(TAG, "folder successfully created");
-        } else {
-            // folder exists
-            Log.e(TAG, "folder already exists");
-        }
-
-        // Make sdcard/Tapad/presets folder
-        File presets = new File(tapadFolderPath + "/presets");
-        if (presets.mkdirs()) {
-            Log.i(TAG, "folder successfully created");
-        } else {
-            // folder exists
-            Log.e(TAG, "folder already exists");
         }
 
         final File metadata = new File(tapadFolderPath + "/presets/metadata");

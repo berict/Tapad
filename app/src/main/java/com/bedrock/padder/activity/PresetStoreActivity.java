@@ -125,7 +125,7 @@ public class PresetStoreActivity extends AppCompatActivity {
             case REQUEST_WRITE_STORAGE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // reload my activity with permission granted or use the features what required the permission
-                    downloadMetadata();
+                    // TODO refresh fragments
                 } else {
                     // show dialog to grant access
                     new MaterialDialog.Builder(activity)
@@ -171,45 +171,9 @@ public class PresetStoreActivity extends AppCompatActivity {
     String tapadFolderPath = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
     String metadataLocation = tapadFolderPath + "/presets/metadata";
 
-    private void setLoadingFinished(boolean isFinished) {
-        if (isFinished) {
-            // finished, hide loading and show recyclerview
-            Log.d(TAG, "Loading finished");
-            anim.fadeOut(R.id.layout_preset_store_recyclerview_loading, 0, 200, activity);
-            anim.fadeIn(R.id.layout_preset_store_recyclerview, 200, 200, "rvIn", activity);
-        } else {
-            // started, show loading
-            anim.fadeOut(R.id.layout_preset_store_recyclerview, 0, 200, activity);
-            anim.fadeIn(R.id.layout_preset_store_recyclerview_loading, 200, 200, "rvLoadingIn", activity);
-        }
-    }
-
-    private void setLoadingFailed() {
-        Log.d(TAG, "Loading failed");
-        anim.fadeOut(R.id.layout_preset_store_recyclerview_loading, 0, 200, activity);
-        anim.fadeIn(R.id.layout_preset_store_recyclerview_failed, 200, 200, "rvIn", activity);
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                new MaterialDialog.Builder(activity)
-                        .title(R.string.preset_store_download_no_connection_dialog_title)
-                        .content(R.string.preset_store_download_no_connection_dialog_text)
-                        .contentColorRes(R.color.dark_primary)
-                        .neutralText(R.string.dialog_close)
-                        .show();
-            }
-        }, 200);
-    }
-
-    private void onDownloadMetadataSuccess() {
-        setLoadingFinished(true);
-    }
-
-    private void downloadMetadata() {
+    private void setDirectory() {
         // loading start
-        setLoadingFinished(false);
-        Log.d(TAG, "downloadMetaData");
+        Log.d(TAG, "setDirectory");
 
         boolean hasPermission =
                 ContextCompat.checkSelfPermission(
@@ -239,28 +203,6 @@ public class PresetStoreActivity extends AppCompatActivity {
             // folder exists
             Log.e(TAG, "folder already exists");
         }
-
-        final File metadata = new File(tapadFolderPath + "/presets/metadata");
-
-        StorageReference metadataReference =
-                FirebaseStorage
-                        .getInstance()
-                        .getReferenceFromUrl("gs://tapad-4d342.appspot.com/presets")
-                        .child("metadata");
-        metadataReference.getFile(metadata).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                Log.d(TAG, "Successful download at " + metadata.toString());
-                setAdapter();
-                onDownloadMetadataSuccess();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.e(TAG, "Failed to download");
-                setLoadingFinished(true);
-            }
-        });
     }
 
     ViewPager viewPager;
@@ -319,138 +261,13 @@ public class PresetStoreActivity extends AppCompatActivity {
         // title image / text
         window.getImageView(R.id.layout_image, activity).setImageResource(R.drawable.about_image_preset_store);
 
-        // adapter
-        //LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        //layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        //window.getRecyclerView(R.id.layout_preset_store_recyclerview, activity).setLayoutManager(layoutManager);
-        //window.getRecyclerView(R.id.layout_preset_store_recyclerview, activity).setNestedScrollingEnabled(false);
-
-        // firebase check
-        //setAdapter();
-
         // viewpager
         setViewPager();
-    }
-
-    private Handler connectionTimeout = new Handler();
-
-    private void setAdapter() {
-        connectionTimeout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (window.getView(R.id.layout_preset_store_recyclerview_loading, activity).getVisibility() == View.VISIBLE) {
-                    // loading for 10 seconds, prompt user to retry or not
-                    new MaterialDialog.Builder(activity)
-                            .title(R.string.preset_store_connection_timeout_dialog_title)
-                            .content(R.string.preset_store_connection_timeout_dialog_text)
-                            .contentColorRes(R.color.dark_primary)
-                            .positiveText(R.string.preset_store_connection_timeout_dialog_positive)
-                            .negativeText(R.string.preset_store_connection_timeout_dialog_negative)
-                            .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    setAdapter();
-                                }
-                            })
-                            .onNegative(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    setLoadingFailed();
-                                }
-                            })
-                            .show();
-                }
-            }
-        }, 10000);
-
-        if (isConnected(activity)) {
-            Log.d(TAG, "setAdapter");
-            // attach the adapter to the layout
-            if (new File(metadataLocation).exists()) {
-                // metadata file exists
-                String metadata = fileHelper.getStringFromFile(metadataLocation);
-                if (isFirebaseMetadataUpdated(activity)) {
-                    // updated, download new one
-                    downloadMetadata();
-                } else {
-                    Log.d(TAG, "Attached adapter");
-                    // offline or not updated, continue
-                    Gson gson = new Gson();
-                    FirebaseMetadata firebaseMetadata = gson.fromJson(metadata, FirebaseMetadata.class);
-                    if (firebaseMetadata == null ||
-                            firebaseMetadata.getPresets() == null ||
-                            firebaseMetadata.getVersionCode() == null) {
-                        // corrupted metadata, download again
-                        downloadMetadata();
-                    } else {
-                        // attach adapter while its not null
-                        presetStoreAdapter = new PresetStoreAdapter(
-                                firebaseMetadata,
-                                R.layout.adapter_preset_store, activity
-                        );
-                        window.getRecyclerView(R.id.layout_preset_store_recyclerview, activity).setAdapter(presetStoreAdapter);
-                    }
-                }
-            } else {
-                downloadMetadata();
-            }
-        } else {
-            setLoadingFailed();
-        }
-    }
-
-    private boolean isConnected(Context context) {
-        // returns whether the device is connected to the internet
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-    }
-
-    private boolean isFMUpdated = false;
-
-    private boolean isFirebaseMetadataUpdated(Context context) {
-        isFMUpdated = false;
-        if (isConnected(context)) {
-            Log.d(TAG, "Connected to the internet");
-            StorageReference metadataReference =
-                    FirebaseStorage
-                            .getInstance()
-                            .getReferenceFromUrl("gs://tapad-4d342.appspot.com/presets")
-                            .child("metadata");
-            metadataReference.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
-                @Override
-                public void onSuccess(StorageMetadata storageMetadata) {
-                    Log.d(TAG, "Successful getting metadata");
-                    if (storageMetadata.getUpdatedTimeMillis() > new File(metadataLocation).lastModified()) {
-                        // firebase metadata is updated since last download
-                        // get the new updated metadata
-                        Log.d(TAG, "File updated");
-                        isFMUpdated = true;
-                    } else {
-                        Log.d(TAG, "File not updated");
-                        isFMUpdated = false;
-                        onDownloadMetadataSuccess();
-                    }
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.d(TAG, "Failed to get metadata");
-                    isFMUpdated = false;
-                }
-            });
-            return isFMUpdated;
-        } else {
-            Log.d(TAG, "Disconnected from the internet");
-            return isFMUpdated;
-        }
     }
 
     @Override
     protected void onDestroy() {
         // remove all callbacks
-        connectionTimeout.removeCallbacksAndMessages(null);
         super.onDestroy();
     }
 
