@@ -100,15 +100,15 @@ public class PresetStoreActivity extends AppCompatActivity {
         window.setMarginRelativePX(R.id.layout_relative, 0, window.getStatusBarFromPrefs(activity), 0, 0, activity);
         window.getView(R.id.layout_margin, activity).getLayoutParams().height = window.getNavigationBarFromPrefs(activity) + window.convertDPtoPX(10, activity);
 
-        enterAnim();
-        setUi();
-        setDirectory();
-
         isDeckShouldCleared = true;
 
         hasPermission = ContextCompat.checkSelfPermission(
                 activity,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+
+        enterAnim();
+        setUi();
+        setDirectory();
     }
 
     @Override
@@ -195,17 +195,51 @@ public class PresetStoreActivity extends AppCompatActivity {
     }
 
     ViewPager viewPager;
+    ViewPagerAdapter viewPagerAdapter;
 
     private void setViewPager() {
         if (hasPermission) {
             viewPager = (ViewPager) findViewById(R.id.layout_viewpager);
-            ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+            viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
             viewPagerAdapter.addFragment(new PresetStoreInstalledFragment(), window.getStringFromId(R.string.tab_1, activity));
             viewPagerAdapter.addFragment(new PresetStoreOnlineFragment(), window.getStringFromId(R.string.tab_2, activity));
             viewPager.setAdapter(viewPagerAdapter);
+            viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    if (position == 0) {
+                        viewPagerAdapter.notifyDataSetChanged();
+                    }
+                    Log.d(TAG, "onPageSelected");
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+                }
+            });
 
             TabLayout tabLayout = (TabLayout) findViewById(R.id.layout_tab_layout);
             tabLayout.setupWithViewPager(viewPager);
+        }
+    }
+
+    public void refreshAdapter(int position) {
+        if (viewPager != null) {
+            viewPager.setCurrentItem(position);
+        }
+        if (viewPagerAdapter != null) {
+            viewPagerAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public void refreshAdapter() {
+        if (viewPagerAdapter != null) {
+            Log.d(TAG, "refreshed all");
+            viewPagerAdapter.notifyDataSetChanged();
         }
     }
 
@@ -235,6 +269,11 @@ public class PresetStoreActivity extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
         }
     }
 
