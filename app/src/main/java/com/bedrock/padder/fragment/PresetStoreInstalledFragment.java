@@ -130,31 +130,12 @@ public class PresetStoreInstalledFragment extends Fragment {
 
     String tapadFolderPath = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
 
-    private void setLoadingFinished(boolean isFinished) {
-        // TODO edit
-        if (isFinished) {
-            // finished, hide loading and show recyclerview
-            Log.d(TAG, "Loading finished");
-            //anim.fadeOut(R.id.layout_installed_preset_store_recyclerview_loading, 0, 200, v, a);
-            //anim.fadeIn(R.id.layout_installed_preset_store_recyclerview, 200, 200, "rvInstallIn", v, a);
-        } else {
-            // started, show loading
-            //anim.fadeOut(R.id.layout_installed_preset_store_recyclerview, 0, 200, v, a);
-            //anim.fadeIn(R.id.layout_installed_preset_store_recyclerview_loading, 200, 200, "rvLoadingInstallIn", v, a);
-        }
-    }
-
-    private void onSearchMetadataSuccess() {
-        setLoadingFinished(true);
-    }
-
     private void searchMetadata() {
-        // loading start
-        setLoadingFinished(false);
         // get metadata locally
         File[] presets = new File(tapadFolderPath + "/presets").listFiles();
-        if (presets != null && presets.length > 0) {
-            Log.d(TAG, "Initialized arraylist");
+        if (presets != null && presets.length > 1) {
+            // length contains the metadata file
+            Log.d(TAG, "Initialized arraylist, length is " + presets.length);
             ArrayList<Preset> presetArrayList = new ArrayList<>();
 
             for (File presetFolder : presets) {
@@ -182,12 +163,10 @@ public class PresetStoreInstalledFragment extends Fragment {
             // not initialized
             searchMetadata();
         } else if (firebaseMetadata.getPresets() == null) {
-            // TODO show no preset installed empty state
-            Log.d(TAG, "No installed preset");
-            onSearchMetadataSuccess();
+            anim.fadeOut(R.id.layout_installed_preset_store_recyclerview, 0, 200, v, a);
+            anim.fadeIn(R.id.layout_installed_preset_store_recyclerview_no_preset, 200, 200, "rvNoPresetIn", v, a);
         } else {
             Log.d(TAG, "Attached adapter");
-            onSearchMetadataSuccess();
             // attach adapter while its not null
             presetStoreAdapter = new PresetStoreAdapter(
                     firebaseMetadata,

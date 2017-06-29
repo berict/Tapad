@@ -38,27 +38,26 @@
                     android:layout_marginTop="200dp">
 
                     <LinearLayout
-                        android:id="@+id/layout_installed_preset_store_recyclerview_loading"
+                        android:id="@+id/layout_installed_preset_store_recyclerview_no_preset"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
+                        android:gravity="center_horizontal"
                         android:orientation="vertical"
                         android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_marginBottom="8dp"
+                            android:alpha="0.5"
+                            app:srcCompat="@drawable/ic_find_in_page_black"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="12dp"
-                            android:text="@string/preset_store_loading_metadata"
+                            android:text="@string/preset_store_loading_no_preset"
                             android:textColor="@color/dark_secondary"
                             android:textSize="18sp"/>
-
-                        <ProgressBar
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:indeterminate="true"
-                            android:indeterminateTint="@color/colorAccent"/>
                     </LinearLayout>
                 </RelativeLayout>
             </RelativeLayout>

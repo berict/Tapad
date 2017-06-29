@@ -227,6 +227,7 @@
     <string name="preset_store_action_gesture_enabled">Gesture preset</string>
     <string name="preset_store_loading_metadata">Loading preset store</string>
     <string name="preset_store_loading_metadata_failure">Failed to load preset store</string>
+    <string name="preset_store_loading_no_preset">No preset installed</string>
     <string name="preset_store_permission_dialog_title">Grant access</string>
     <string name="preset_store_permission_dialog_text">
 		Preset store needs storage permissions to run.

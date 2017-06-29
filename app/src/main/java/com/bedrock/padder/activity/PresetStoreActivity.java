@@ -2,10 +2,7 @@ package com.bedrock.padder.activity;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -28,7 +25,6 @@ import android.view.View;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
-import com.bedrock.padder.adapter.PresetStoreAdapter;
 import com.bedrock.padder.fragment.PresetStoreInstalledFragment;
 import com.bedrock.padder.fragment.PresetStoreOnlineFragment;
 import com.bedrock.padder.helper.AnimateHelper;
@@ -36,15 +32,7 @@ import com.bedrock.padder.helper.FileHelper;
 import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
-import com.bedrock.padder.model.FirebaseMetadata;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageMetadata;
-import com.google.firebase.storage.StorageReference;
-import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -69,10 +57,10 @@ public class PresetStoreActivity extends AppCompatActivity {
     private String TAG = "PresetStore";
 
     public static boolean isPresetDownloading = false;
-    private boolean shouldAdapterRefreshed = false;
 
     private static final int REQUEST_WRITE_STORAGE = 112;
-    public PresetStoreAdapter presetStoreAdapter = null;
+
+    private boolean hasPermission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,8 +102,13 @@ public class PresetStoreActivity extends AppCompatActivity {
 
         enterAnim();
         setUi();
+        setDirectory();
 
         isDeckShouldCleared = true;
+
+        hasPermission = ContextCompat.checkSelfPermission(
+                activity,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
     @Override
@@ -125,7 +118,8 @@ public class PresetStoreActivity extends AppCompatActivity {
             case REQUEST_WRITE_STORAGE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // reload my activity with permission granted or use the features what required the permission
-                    // TODO refresh fragments
+                    // TODO refresh fragments, check working
+                    setViewPager();
                 } else {
                     // show dialog to grant access
                     new MaterialDialog.Builder(activity)
@@ -140,7 +134,6 @@ public class PresetStoreActivity extends AppCompatActivity {
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                     // go to settings
                                     intent.intentAppDetailSettings(activity, 0);
-                                    shouldAdapterRefreshed = true;
                                 }
                             })
                             .negativeText(R.string.preset_store_permission_dialog_negative)
@@ -153,7 +146,7 @@ public class PresetStoreActivity extends AppCompatActivity {
                                 }
                             })
                             .show();
-                    Log.e(TAG, "The app was not allowed to write to your storage. Hence, it cannot function properly. Please consider granting it this permission");
+                    Log.e(TAG, "Permission error");
                 }
         }
     }
@@ -169,52 +162,51 @@ public class PresetStoreActivity extends AppCompatActivity {
     }
 
     String tapadFolderPath = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
-    String metadataLocation = tapadFolderPath + "/presets/metadata";
 
     private void setDirectory() {
         // loading start
         Log.d(TAG, "setDirectory");
-
-        boolean hasPermission =
-                ContextCompat.checkSelfPermission(
-                        activity,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
         if (!hasPermission) {
+            // no permission granted
             ActivityCompat.requestPermissions(
                     activity,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_WRITE_STORAGE);
-        }
-
-        // Make sdcard/Tapad folder
-        File folder = new File(tapadFolderPath);
-        if (folder.mkdirs()) {
-            Log.i(TAG, "folder successfully created");
         } else {
-            // folder exists
-            Log.e(TAG, "folder already exists");
-        }
+            // got the permission
+            // Make sdcard/Tapad folder
+            File folder = new File(tapadFolderPath);
+            if (folder.mkdirs()) {
+                Log.i(TAG, "folder successfully created");
+            } else {
+                // folder exists
+                Log.e(TAG, "folder already exists");
+            }
 
-        // Make sdcard/Tapad/presets folder
-        File presets = new File(tapadFolderPath + "/presets");
-        if (presets.mkdirs()) {
-            Log.i(TAG, "folder successfully created");
-        } else {
-            // folder exists
-            Log.e(TAG, "folder already exists");
+            // Make sdcard/Tapad/presets folder
+            File presets = new File(tapadFolderPath + "/presets");
+            if (presets.mkdirs()) {
+                Log.i(TAG, "folder successfully created");
+            } else {
+                // folder exists
+                Log.e(TAG, "folder already exists");
+            }
         }
     }
 
     ViewPager viewPager;
 
     private void setViewPager() {
-        viewPager = (ViewPager) findViewById(R.id.layout_viewpager);
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new PresetStoreInstalledFragment(), window.getStringFromId(R.string.tab_1, activity));
-        viewPagerAdapter.addFragment(new PresetStoreOnlineFragment(), window.getStringFromId(R.string.tab_2, activity));
-        viewPager.setAdapter(viewPagerAdapter);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.layout_tab_layout);
-        tabLayout.setupWithViewPager(viewPager);
+        if (hasPermission) {
+            viewPager = (ViewPager) findViewById(R.id.layout_viewpager);
+            ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+            viewPagerAdapter.addFragment(new PresetStoreInstalledFragment(), window.getStringFromId(R.string.tab_1, activity));
+            viewPagerAdapter.addFragment(new PresetStoreOnlineFragment(), window.getStringFromId(R.string.tab_2, activity));
+            viewPager.setAdapter(viewPagerAdapter);
+
+            TabLayout tabLayout = (TabLayout) findViewById(R.id.layout_tab_layout);
+            tabLayout.setupWithViewPager(viewPager);
+        }
     }
 
     private class ViewPagerAdapter extends FragmentStatePagerAdapter {
