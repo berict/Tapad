@@ -1,17 +1,13 @@
 package com.bedrock.padder.fragment;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -93,10 +89,6 @@ public class PresetStoreOnlineFragment extends Fragment {
         setAdapter();
     }
 
-    private static final int REQUEST_WRITE_STORAGE = 112;
-
-    private boolean shouldAdapterRefreshed = false;
-
     String tapadFolderPath = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
     String metadataLocation = tapadFolderPath + "/presets/metadata";
 
@@ -139,17 +131,6 @@ public class PresetStoreOnlineFragment extends Fragment {
         // loading start
         setLoadingFinished(false);
         Log.d(TAG, "downloadMetaData");
-
-        boolean hasPermission =
-                ContextCompat.checkSelfPermission(
-                        a,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-        if (!hasPermission) {
-            ActivityCompat.requestPermissions(
-                    a,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    REQUEST_WRITE_STORAGE);
-        }
 
         final File metadata = new File(tapadFolderPath + "/presets/metadata");
 
