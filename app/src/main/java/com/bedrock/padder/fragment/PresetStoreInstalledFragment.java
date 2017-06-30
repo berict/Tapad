@@ -24,7 +24,7 @@ import com.google.gson.Gson;
 import java.io.File;
 import java.util.ArrayList;
 
-public class PresetStoreInstalledFragment extends Fragment {
+public class PresetStoreInstalledFragment extends Fragment implements Refreshable {
 
     private WindowHelper window = new WindowHelper();
     private AnimateHelper anim = new AnimateHelper();
@@ -83,11 +83,12 @@ public class PresetStoreInstalledFragment extends Fragment {
     String tapadFolderPath = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
 
     private void searchMetadata() {
+        Log.d(TAG, "searchMetadata");
         // get metadata locally
-        File[] presets = new File(tapadFolderPath + "/presets").listFiles();
+        File[] presets = getPresetFolderList();
         if (presets != null && presets.length > 1) {
             // length contains the metadata file
-            Log.d(TAG, "Initialized arraylist, length is " + presets.length);
+            Log.d(TAG, "Initialized arraylist, length is " + (presets.length - 1));
             ArrayList<Preset> presetArrayList = new ArrayList<>();
 
             for (File presetFolder : presets) {
@@ -107,6 +108,10 @@ public class PresetStoreInstalledFragment extends Fragment {
         setAdapter();
     }
 
+    private File[] getPresetFolderList() {
+        return new File(tapadFolderPath + "/presets").listFiles();
+    }
+
     private FirebaseMetadata firebaseMetadata = null;
 
     private void setAdapter() {
@@ -116,16 +121,59 @@ public class PresetStoreInstalledFragment extends Fragment {
             // not initialized
             searchMetadata();
         } else if (firebaseMetadata.getPresets() == null) {
+            // clear the recycler view
+            attachAdapter();
             anim.fadeOut(R.id.layout_installed_preset_store_recyclerview, 0, 200, v, a);
             anim.fadeIn(R.id.layout_installed_preset_store_recyclerview_no_preset, 200, 200, "rvNoPresetIn", v, a);
         } else {
+            if (window.getView(R.id.layout_installed_preset_store_recyclerview_no_preset, v).getVisibility()
+                    == View.VISIBLE) {
+                // no preset visible
+                anim.fadeOut(R.id.layout_installed_preset_store_recyclerview_no_preset, 0, 200, v, a);
+                anim.fadeIn(R.id.layout_installed_preset_store_recyclerview, 200, 200, "rvNoPresetIn", v, a);
+            }
+            attachAdapter();
+        }
+    }
+
+    private void attachAdapter() {
+        // attach adapter while its not null
+        if (firebaseMetadata != null && firebaseMetadata.getPresets() != null) {
             Log.d(TAG, "Attached adapter");
-            // attach adapter while its not null
             presetStoreAdapter = new PresetStoreAdapter(
                     firebaseMetadata,
                     R.layout.adapter_preset_store, a
             );
             window.getRecyclerView(R.id.layout_installed_preset_store_recyclerview, v).setAdapter(presetStoreAdapter);
+        } else {
+            Log.d(TAG, "Metadata is null");
+        }
+    }
+
+    @Override
+    public void refresh() {
+        if (firebaseMetadata == null) {
+            setAdapter();
+        } else {
+            if (firebaseMetadata.getPresets() != null) {
+                // new download or remove
+                if ((getPresetFolderList().length - 1) != firebaseMetadata.getPresets().length) {
+                    // updated
+                    Log.d(TAG, "Updated, preset not null");
+                    searchMetadata();
+                } else {
+                    Log.d(TAG, "Not updated");
+                }
+            } else {
+                // preset download from none
+                if (getPresetFolderList().length > 1) {
+                    // updated
+                    Log.d(TAG, "Updated, preset null");
+                    searchMetadata();
+                } else {
+                    Log.d(TAG, "Not updated");
+                }
+            }
         }
     }
 }

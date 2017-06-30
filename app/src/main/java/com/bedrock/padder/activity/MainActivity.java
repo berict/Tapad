@@ -150,6 +150,9 @@ public class MainActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // TODO remove
+        intent.intent(a, "activity.PresetStoreActivity");
+
         makeJson();
 
         // TODO IAP launch

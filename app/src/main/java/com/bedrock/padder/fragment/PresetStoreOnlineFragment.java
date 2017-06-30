@@ -34,7 +34,7 @@ import com.google.gson.Gson;
 
 import java.io.File;
 
-public class PresetStoreOnlineFragment extends Fragment {
+public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
 
     private WindowHelper window = new WindowHelper();
     private AnimateHelper anim = new AnimateHelper();
@@ -157,6 +157,8 @@ public class PresetStoreOnlineFragment extends Fragment {
 
     private Handler connectionTimeout = new Handler();
 
+    FirebaseMetadata firebaseMetadata;
+
     private void setAdapter() {
         connectionTimeout.postDelayed(new Runnable() {
             @Override
@@ -199,7 +201,7 @@ public class PresetStoreOnlineFragment extends Fragment {
                     Log.d(TAG, "Attached adapter");
                     // offline or not updated, continue
                     Gson gson = new Gson();
-                    FirebaseMetadata firebaseMetadata = gson.fromJson(metadata, FirebaseMetadata.class);
+                    firebaseMetadata = gson.fromJson(metadata, FirebaseMetadata.class);
                     if (firebaseMetadata == null ||
                             firebaseMetadata.getPresets() == null ||
                             firebaseMetadata.getVersionCode() == null) {
@@ -253,7 +255,11 @@ public class PresetStoreOnlineFragment extends Fragment {
                     } else {
                         Log.d(TAG, "File not updated");
                         isFMUpdated = false;
-                        onDownloadMetadataSuccess();
+                        if (window.getView(R.id.layout_online_preset_store_recyclerview_loading, v).getVisibility()
+                                == View.VISIBLE) {
+                            // loading
+                            onDownloadMetadataSuccess();
+                        }
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -267,6 +273,22 @@ public class PresetStoreOnlineFragment extends Fragment {
         } else {
             Log.d(TAG, "Disconnected from the internet");
             return isFMUpdated;
+        }
+    }
+
+    @Override
+    public void refresh() {
+        if (isFirebaseMetadataUpdated(a)) {
+            // on updated
+            setAdapter();
+        } else {
+            if (firebaseMetadata != null) {
+                presetStoreAdapter = new PresetStoreAdapter(
+                        firebaseMetadata,
+                        R.layout.adapter_preset_store, a
+                );
+                window.getRecyclerView(R.id.layout_online_preset_store_recyclerview, v).setAdapter(presetStoreAdapter);
+            }
         }
     }
 }

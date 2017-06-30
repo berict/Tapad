@@ -199,20 +199,29 @@ public class PresetStoreActivity extends AppCompatActivity {
 
     private void setViewPager() {
         if (hasPermission) {
-            viewPager = (ViewPager) findViewById(R.id.layout_viewpager);
             viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
             viewPagerAdapter.addFragment(new PresetStoreInstalledFragment(), window.getStringFromId(R.string.tab_1, activity));
             viewPagerAdapter.addFragment(new PresetStoreOnlineFragment(), window.getStringFromId(R.string.tab_2, activity));
+
+            viewPager = (ViewPager) findViewById(R.id.layout_viewpager);
             viewPager.setAdapter(viewPagerAdapter);
-            viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 }
 
                 @Override
                 public void onPageSelected(int position) {
-                    if (position == 0) {
-                        viewPagerAdapter.notifyDataSetChanged();
+                    // from: https://stackoverflow.com/questions/20412379/viewpager-update-fragment-on-swipe
+                    Fragment fragment = (Fragment) viewPagerAdapter.instantiateItem(viewPager, position);
+                    if (fragment != null) {
+                        if (fragment instanceof PresetStoreInstalledFragment) {
+                            ((PresetStoreInstalledFragment) fragment).refresh();
+                        } else if (fragment instanceof  PresetStoreOnlineFragment) {
+                            ((PresetStoreOnlineFragment) fragment).refresh();
+                        } else {
+                            Log.d(TAG, "Not an instance of any sub fragment");
+                        }
                     }
                     Log.d(TAG, "onPageSelected");
                 }
@@ -224,22 +233,6 @@ public class PresetStoreActivity extends AppCompatActivity {
 
             TabLayout tabLayout = (TabLayout) findViewById(R.id.layout_tab_layout);
             tabLayout.setupWithViewPager(viewPager);
-        }
-    }
-
-    public void refreshAdapter(int position) {
-        if (viewPager != null) {
-            viewPager.setCurrentItem(position);
-        }
-        if (viewPagerAdapter != null) {
-            viewPagerAdapter.notifyDataSetChanged();
-        }
-    }
-
-    public void refreshAdapter() {
-        if (viewPagerAdapter != null) {
-            Log.d(TAG, "refreshed all");
-            viewPagerAdapter.notifyDataSetChanged();
         }
     }
 
