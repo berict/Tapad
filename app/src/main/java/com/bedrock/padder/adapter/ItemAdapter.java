@@ -105,6 +105,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                             }
                         }, 400, 0, activity);
             }
+
+            if(item[position].getHintId().startsWith("info_tapad_info_version_hint")) {
+                // version code hint
+                holder.itemHint.setText(window.getStringFromId(item[position].getHintId(), activity));
+            }
         }
 
         if(getExceptionalRunnable(item[position].getTextId()) != null) {
