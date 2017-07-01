@@ -45,12 +45,11 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.MainIntroActivity"
-            android:theme="@style/Theme.Intro">
+            android:theme="@style/Theme.Intro"/>
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="b07abd5ed5e39c5184eacf640f4c620707e52781"/>
-        </activity>
     </application>
 
 </manifest>
