@@ -181,10 +181,10 @@ public class FirebaseHelper {
 
     private DownloadPreset downloadPreset = null;
 
-    public DownloadPreset downloadFirebasePreset(final String presetName, final View parentView, final Activity activity, final Runnable onFinish) {
+    public DownloadPreset downloadFirebasePreset(final String presetName, final String presetTitle, final View parentView, final Activity activity, final Runnable onFinish) {
         if (isConnected(activity)) {
             if (isWifiConnected(activity)) {
-                downloadPreset = new DownloadPreset(presetName, parentView, activity, onFinish);
+                downloadPreset = new DownloadPreset(presetName, presetTitle, parentView, activity, onFinish);
                 downloadPreset.execute();
             } else {
                 // not connected with wifi, show dialog
@@ -198,7 +198,7 @@ public class FirebaseHelper {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                 // download with cellular
-                                downloadPreset = new DownloadPreset(presetName, parentView, activity, onFinish);
+                                downloadPreset = new DownloadPreset(presetName, presetTitle, parentView, activity, onFinish);
                                 downloadPreset.execute();
                             }
                         })
@@ -238,6 +238,7 @@ public class FirebaseHelper {
         private Activity activity;
         private View parentView;
         private String presetName;
+        private String presetTitle;
         private String fileLocation = null;
         private Runnable onFinish;
 
@@ -254,16 +255,19 @@ public class FirebaseHelper {
         private NotificationManager notificationManager;
         private NotificationCompat.Builder mBuilder;
 
-        public DownloadPreset(String presetName, View parentView, Activity activity, Runnable onFinish) {
+        public DownloadPreset(String presetName, String presetTitle, View parentView, Activity activity, Runnable onFinish) {
             this.activity = activity;
             this.onFinish = onFinish;
             this.parentView = parentView;
             this.presetName = presetName;
+            this.presetTitle = presetTitle;
             fileLocation = PROJECT_LOCATION_PRESETS + "/" + presetName + "/preset.zip";
 
             notificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
             mBuilder = new NotificationCompat.Builder(activity);
         }
+
+        private boolean isDownloading = false;
 
         @Override
         protected void onPreExecute() {
@@ -300,12 +304,13 @@ public class FirebaseHelper {
 
                 PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, new Intent(activity, PresetStoreActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
 
-                mBuilder.setContentTitle(window.getStringFromId(R.string.preset_store_download_notification_title, activity))
-                        .setContentText(window.getStringFromId(R.string.preset_store_download_notification_title, activity))
+                mBuilder.setContentTitle(presetTitle)
+                        .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_downloading, activity))
                         .setSmallIcon(android.R.drawable.stat_sys_download)
                         .setLargeIcon(BitmapFactory.decodeResource(activity.getResources(), android.R.drawable.stat_sys_download))
                         .setOngoing(true)
                         .setOnlyAlertOnce(true);
+                notificationManager.notify(id, mBuilder.build());
             } else {
                 // no internet connection
                 // cancel the task
@@ -327,6 +332,7 @@ public class FirebaseHelper {
         @SuppressWarnings("VisibleForTests")
         @Override
         protected Integer doInBackground(Void... params) {
+            isDownloading = true;
             downloadTask = saveFromFirebase(storageReference, fileLocation, activity).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
@@ -338,10 +344,15 @@ public class FirebaseHelper {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     if (!isCancelled()) {
+                        // Completed downloading
+                        isDownloading = false;
                         Log.d(TAG, "Successful download at " + fileLocation);
-                        mBuilder.setProgress(0, 0, false)
-                                .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_complete, activity));
                         notificationManager.cancel(id);
+                        mBuilder.setContentTitle(presetTitle)
+                                .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_installing, activity))
+                                .setProgress(0, 0, false)
+                                .setOngoing(true)
+                                .setOnlyAlertOnce(true);
                         // downloaded
                         anim.fadeOut(R.id.layout_preset_store_download_layout, 0, 200, parentView, activity);
                         anim.fadeIn(R.id.layout_preset_store_download_installing, 200, 200, "installIn", parentView, activity);
@@ -350,7 +361,20 @@ public class FirebaseHelper {
                                 presetName,
                                 parentView,
                                 activity,
-                                onFinish
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        notificationManager.cancel(id);
+                                        mBuilder.setContentTitle(presetTitle)
+                                                .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_complete, activity))
+                                                .setSmallIcon(android.R.drawable.stat_sys_download_done)
+                                                .setLargeIcon(BitmapFactory.decodeResource(activity.getResources(), android.R.drawable.stat_sys_download_done))
+                                                .setOngoing(false)
+                                                .setAutoCancel(true);
+                                        notificationManager.notify(id, mBuilder.build());
+                                        onFinish.run();
+                                    }
+                                }
                         );
                     }
                 }
@@ -373,7 +397,10 @@ public class FirebaseHelper {
                 progressBar.setIndeterminate(false);
             }
             progressBar.setProgress(mProgress);
-            mBuilder.setProgress(1000, (int)((1000 * bytesTransferred) / totalByteCount), false);
+            if (isDownloading) {
+                // only notify when it is downloading
+                mBuilder.setProgress(1000, (int) ((1000 * bytesTransferred) / totalByteCount), false);
+            }
             notificationManager.notify(id, mBuilder.build());
 
             String progressText;
@@ -431,13 +458,21 @@ public class FirebaseHelper {
                 downloadPreset.cancel(true);
                 downloadPreset.downloadTask.cancel();
                 downloadPreset.onCancelled();
+                // cancelled / failed notification
+                notificationManager.cancel(id);
                 if (isCancelled()) {
                     mBuilder.setProgress(0, 0, false)
                             .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_cancelled, activity))
+                            .setSmallIcon(android.R.drawable.stat_sys_download_done)
+                            .setLargeIcon(BitmapFactory.decodeResource(activity.getResources(), android.R.drawable.stat_sys_download_done))
+                            .setOngoing(false)
                             .setAutoCancel(true);
                 } else {
                     mBuilder.setProgress(0, 0, false)
                             .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_failed, activity))
+                            .setSmallIcon(android.R.drawable.stat_sys_download_done)
+                            .setLargeIcon(BitmapFactory.decodeResource(activity.getResources(), android.R.drawable.stat_sys_download_done))
+                            .setOngoing(false)
                             .setAutoCancel(true);
                 }
                 notificationManager.notify(id, mBuilder.build());

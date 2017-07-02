@@ -274,9 +274,9 @@
 	</string>
     <string name="preset_store_exit_warning_dialog_positive">Continue download</string>
     <string name="preset_store_exit_warning_dialog_negative">Cancel download</string>
-    <string name="preset_store_download_notification_title">Preset download</string>
-    <string name="preset_store_download_notification_text">Download in progress</string>
-    <string name="preset_store_download_notification_text_complete">Download complete</string>
+    <string name="preset_store_download_notification_text_downloading">Downloading preset</string>
+    <string name="preset_store_download_notification_text_installing">Installing preset</string>
+    <string name="preset_store_download_notification_text_complete">Successfully downloaded</string>
     <string name="preset_store_download_notification_text_cancelled">Download cancelled</string>
     <string name="preset_store_download_notification_text_failed">Download failed</string>
     <string name="preset_store_remove_warning_dialog_text">Remove preset?</string>

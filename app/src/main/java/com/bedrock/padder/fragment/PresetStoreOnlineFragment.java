@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
+import com.bedrock.padder.activity.PresetStoreActivity;
 import com.bedrock.padder.adapter.PresetStoreAdapter;
 import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.FileHelper;
@@ -282,16 +283,19 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
 
     @Override
     public void refresh() {
-        if (isFirebaseMetadataUpdated(a)) {
-            // on updated
-            setAdapter();
-        } else {
-            if (firebaseMetadata != null) {
-                presetStoreAdapter = new PresetStoreAdapter(
-                        firebaseMetadata,
-                        R.layout.adapter_preset_store, a
-                );
-                window.getRecyclerView(R.id.layout_online_preset_store_recyclerview, v).setAdapter(presetStoreAdapter);
+        if (!PresetStoreActivity.isPresetDownloading) {
+            // only update when the preset is not downloading
+            if (isFirebaseMetadataUpdated(a)) {
+                // on updated
+                setAdapter();
+            } else {
+                if (firebaseMetadata != null) {
+                    presetStoreAdapter = new PresetStoreAdapter(
+                            firebaseMetadata,
+                            R.layout.adapter_preset_store, a
+                    );
+                    window.getRecyclerView(R.id.layout_online_preset_store_recyclerview, v).setAdapter(presetStoreAdapter);
+                }
             }
         }
     }

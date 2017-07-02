@@ -126,7 +126,7 @@ public class Preset {
     public void downloadPreset(View parentView, Activity activity, Runnable onFinish) {
         // download the preset from firebase
         FirebaseHelper firebase = new FirebaseHelper();
-        firebase.downloadFirebasePreset(firebaseLocation, parentView, activity, onFinish);
+        firebase.downloadFirebasePreset(firebaseLocation, about.getTitle(), parentView, activity, onFinish);
     }
 
     public void removePreset(Runnable onFinish, Activity activity) {
@@ -146,6 +146,7 @@ public class Preset {
             @Override
             public void run() {
                 firebase.downloadFirebasePreset(firebaseLocation,
+                        about.getTitle(),
                         parentView,
                         activity,
                         onFinish
