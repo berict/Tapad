@@ -19,16 +19,12 @@ public class Music {
     @SerializedName("bpm")
     private Integer bpm;
 
-    @SerializedName("deck_timings")
-    private DeckTiming[] deckTimings;
-
-    public Music(String name, String fileName, Boolean isGesture, Integer soundCount, Integer bpm, DeckTiming[] deckTimings) {
+    public Music(String name, String fileName, Boolean isGesture, Integer soundCount, Integer bpm) {
         this.name = name;
         this.fileName = fileName;
         this.isGesture = isGesture;
         this.soundCount = soundCount;
         this.bpm = bpm;
-        this.deckTimings = deckTimings;
     }
 
     public String getName() {
@@ -49,13 +45,5 @@ public class Music {
 
     public Integer getBpm() {
         return bpm;
-    }
-
-    public DeckTiming[] getDeckTimings() {
-        return deckTimings;
-    }
-
-    public void setDeckTimings(DeckTiming[] deckTimings) {
-        this.deckTimings = deckTimings;
     }
 }

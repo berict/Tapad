@@ -1,12 +1,9 @@
-package com.bedrock.padder.model.preset;
+package com.bedrock.padder.model;
 
 import android.util.Log;
 
-import com.google.gson.annotations.SerializedName;
-
 public class Deck {
 
-    @SerializedName("pad")
     private Pad pad[];
 
     public Deck (Pad[] pad) {
