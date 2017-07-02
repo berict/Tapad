@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -165,25 +166,28 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
             public void run() {
                 if (window.getView(R.id.layout_online_preset_store_recyclerview_loading, v).getVisibility() == View.VISIBLE) {
                     // loading for 10 seconds, prompt user to retry or not
-                    new MaterialDialog.Builder(a)
-                            .title(R.string.preset_store_connection_timeout_dialog_title)
-                            .content(R.string.preset_store_connection_timeout_dialog_text)
-                            .contentColorRes(R.color.dark_primary)
-                            .positiveText(R.string.preset_store_connection_timeout_dialog_positive)
-                            .negativeText(R.string.preset_store_connection_timeout_dialog_negative)
-                            .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    setAdapter();
-                                }
-                            })
-                            .onNegative(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    setLoadingFailed();
-                                }
-                            })
-                            .show();
+                    if (((TabLayout)window.getView(R.id.layout_tab_layout, a)).getSelectedTabPosition() == 1) {
+                        // only when the online page is visible
+                        new MaterialDialog.Builder(a)
+                                .title(R.string.preset_store_connection_timeout_dialog_title)
+                                .content(R.string.preset_store_connection_timeout_dialog_text)
+                                .contentColorRes(R.color.dark_primary)
+                                .positiveText(R.string.preset_store_connection_timeout_dialog_positive)
+                                .negativeText(R.string.preset_store_connection_timeout_dialog_negative)
+                                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                        setAdapter();
+                                    }
+                                })
+                                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                        setLoadingFailed();
+                                    }
+                                })
+                                .show();
+                    }
                 }
             }
         }, 10000);
