@@ -1,7 +1,6 @@
 package com.bedrock.padder.helper;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -14,10 +13,7 @@ import android.view.animation.ScaleAnimation;
 import android.widget.VideoView;
 
 import com.bedrock.padder.R;
-import com.bedrock.padder.model.preset.DeckTiming;
 import com.bedrock.padder.model.preset.Preset;
-
-import java.util.Arrays;
 
 import static com.bedrock.padder.activity.MainActivity.currentPreset;
 import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
@@ -1284,132 +1280,7 @@ public class TutorialHelper extends Activity {
     }
 
     // new methods
-
-    public void startTutorial(final int index, Activity activity) {
-        DeckTiming deckTiming = getCurrentPreset().getMusic().getDeckTimings()[index];
-        Integer currentTiming[][] = deckTiming.getDeckTiming();
-
-        this.a = activity;
-
-        int deckTimingIds[] = new int[4];
-        for (int j = 0; j < 4; j++) {
-            if (j == deckTiming.getDeckStartingId()) {
-                deckTimingIds[j] = deckTiming.getDeckStartTiming();
-                Log.d("deckTiming", "selected deck is " + deckTiming.getDeckStartingId() + " at " + deckTiming.getDeckStartTiming());
-            } else {
-                deckTimingIds[j] = -1;
-            }
-        }
-
-        // initialize the array with actual values
-        int timingInit[][] = {
-                getIntArray(currentTiming[0]),
-                getIntArray(currentTiming[1]),
-                getIntArray(currentTiming[2]),
-                getIntArray(currentTiming[3]),
-                getIntArray(currentTiming[4]),
-                {deckTimingIds[0]},
-                {deckTimingIds[0]},
-                {deckTimingIds[0]},
-                {deckTimingIds[0]},
-                getIntArray(currentTiming[5]),
-                getIntArray(currentTiming[6]),
-                getIntArray(currentTiming[7]),
-                getIntArray(currentTiming[8]),
-                getIntArray(currentTiming[9]),
-                getIntArray(currentTiming[10]),
-                getIntArray(currentTiming[11]),
-                getIntArray(currentTiming[12]),
-                getIntArray(currentTiming[13]),
-                getIntArray(currentTiming[14]),
-                getIntArray(currentTiming[15]),
-                getIntArray(currentTiming[16]),
-                getIntArray(currentTiming[17]),
-                getIntArray(currentTiming[18]),
-                getIntArray(currentTiming[19]),
-                getIntArray(currentTiming[20]),
-                getIntArray(currentTiming[21]),
-                getIntArray(currentTiming[22]),
-                getIntArray(currentTiming[23]),
-                getIntArray(currentTiming[24]),
-                getIntArray(currentTiming[25]),
-                getIntArray(currentTiming[26]),
-                getIntArray(currentTiming[27]),
-                getIntArray(currentTiming[28]),
-                getIntArray(currentTiming[29]),
-                getIntArray(currentTiming[30]),
-                getIntArray(currentTiming[31]),
-                getIntArray(currentTiming[32]),
-                getIntArray(currentTiming[33]),
-                getIntArray(currentTiming[34]),
-                getIntArray(currentTiming[35]),
-                getIntArray(currentTiming[36]),
-                getIntArray(currentTiming[37]),
-                getIntArray(currentTiming[38]),
-                getIntArray(currentTiming[39]),
-                getIntArray(currentTiming[40]),
-                getIntArray(currentTiming[41]),
-                getIntArray(currentTiming[42]),
-                getIntArray(currentTiming[43]),
-                getIntArray(currentTiming[44]),
-                getIntArray(currentTiming[45]),
-                getIntArray(currentTiming[46]),
-                getIntArray(currentTiming[47]),
-                getIntArray(currentTiming[48]),
-                getIntArray(currentTiming[49]),
-                getIntArray(currentTiming[50]),
-                getIntArray(currentTiming[51]),
-                getIntArray(currentTiming[52]),
-                getIntArray(currentTiming[53]),
-                getIntArray(currentTiming[54]),
-                getIntArray(currentTiming[55]),
-                getIntArray(currentTiming[56]),
-                getIntArray(currentTiming[57]),
-                getIntArray(currentTiming[58]),
-                getIntArray(currentTiming[59]),
-                getIntArray(currentTiming[60]),
-                getIntArray(currentTiming[61]),
-                getIntArray(currentTiming[62]),
-                getIntArray(currentTiming[63]),
-                getIntArray(currentTiming[64]),
-                getIntArray(currentTiming[65]),
-                getIntArray(currentTiming[66]),
-                getIntArray(currentTiming[67]),
-                getIntArray(currentTiming[68]),
-                getIntArray(currentTiming[69]),
-                getIntArray(currentTiming[70]),
-                getIntArray(currentTiming[71]),
-                getIntArray(currentTiming[72]),
-                getIntArray(currentTiming[73]),
-                getIntArray(currentTiming[74]),
-                getIntArray(currentTiming[75]),
-                getIntArray(currentTiming[76]),
-                getIntArray(currentTiming[77]),
-                getIntArray(currentTiming[78]),
-                getIntArray(currentTiming[79]),
-                getIntArray(currentTiming[80]),
-                getIntArray(currentTiming[81]),
-                getIntArray(currentTiming[82]),
-                getIntArray(currentTiming[83]),
-                getIntArray(currentTiming[84])
-        };
-        // Overwrite the timing with new values
-        timing = timingInit;
-        Log.d("timing", Arrays.deepToString(timing));
-        //setRunnables(timing, activity);
-
-        //if(tutorialCurrentIndex >= 1 && tutorialCurrentIndex <= 4) {
-        //    // if tutorial is ongoing, set next deck button id
-        //    window.getView(deckButtonIds[tutorialCurrentIndex - 1], a).setOnClickListener(new View.OnClickListener() {
-        //        public void onClick(View v) {
-        //            startTutorial(index + 1);
-        //            Log.d("tutorialService", "tutorial deck " + index + " finished");
-        //        }
-        //    });
-        //}
-
-        setRunnable();
-    }
+    // TODO work on tutorials
 
     void setRunnable() {
         // initialize motion runnables
@@ -1607,23 +1478,9 @@ public class TutorialHelper extends Activity {
         return btnNum;
     }
 
-    public int getCurrentTutorialDeckId() {
-        if (tutorialCurrentIndex < getMaxTutorialCount()) {
-            // legit
-            return tutorialCurrentIndex++;
-        } else {
-            // tutorial ended
-            return -1;
-        }
-    }
-
     public void initCurrentTiming() {
         Log.d("init", "tutorialCurrentIndex set to 0");
         tutorialCurrentIndex = 0;
-    }
-
-    public int getMaxTutorialCount() {
-        return currentPreset.getMusic().getDeckTimings().length;
     }
 
     int[][] setFinalItemInArray(int timing[][]) {

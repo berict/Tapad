@@ -1495,8 +1495,7 @@ public class MainActivity
                 "alan_walker_faded_gesture",
                 true,
                 246,
-                90,
-                null
+                90
         );
 
         Preset fadedPreset = new Preset("alan_walker_faded_gesture", fadedMusic, fadedAbout);
