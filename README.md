@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/berict/Tapad.svg?branch=master)](https://travis-ci.org/berict/Tapad)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/fbf48cff762f476293f755d05c439946)](https://www.codacy.com/app/BedrockDev/Tapad?)
+[![Code Climate](https://codeclimate.com/github/berict/Tapad/badges/gpa.svg)](https://codeclimate.com/github/berict/Tapad)
 
 [***Get it on Google Play***](https://goo.gl/pmws51)
  | 
