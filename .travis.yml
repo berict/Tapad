@@ -18,3 +18,6 @@ android:
     - sys-img-armeabi-v7a-android-19
 jdk:
   - oraclejdk8
+notifications:
+  # webhooks
+  webhooks: https://discordapp.com/api/webhooks/332530653440770048/-oZ1JcdaJ4bmGxiK8GvCalAB-c8Y6nZjerYQ-MJkYbiMzi58ItdsMgGECj5FCFONLQxk
