@@ -1,7 +1,10 @@
 # Tapad
 
-<a href="https://goo.gl/pmws51"><img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Tapad is available on Google Play" height="64px"/></a>
+[![Build Status](https://travis-ci.org/berict/Tapad.svg?branch=master)](https://travis-ci.org/berict/Tapad)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fbf48cff762f476293f755d05c439946)](https://www.codacy.com/app/BedrockDev/Tapad?)
 
+[***Get it on Google Play***](https://goo.gl/pmws51)
+ | 
 [***Be a beta tester***](https://goo.gl/a5V8kc)
 
 ### Remixing X Material Design
@@ -28,15 +31,9 @@ Tapad informs you about the artist of the song which you are playing. Show them 
 
 #### Featuring
 
-• OMFG - Hello (Needs gesture fix)
+• Faded - Alan Walker
 
-• The Chainsmokers - Roses (Needs fix)
-
-• Faded - Alan Walker (Needs vocal updates)
-
-• Marshmello - Alone (On work)
-
-• More songs coming soon!
+• [More songs](https://github.com/berict/Tapad/projects/3) coming soon!
 
 #### Communicate with Devs
 
