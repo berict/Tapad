@@ -21,3 +21,4 @@ jdk:
 notifications:
   # webhooks
   webhooks: https://discordapp.com/api/webhooks/332530653440770048/-oZ1JcdaJ4bmGxiK8GvCalAB-c8Y6nZjerYQ-MJkYbiMzi58ItdsMgGECj5FCFONLQxk/slack
+  on_start: always   # default: never
