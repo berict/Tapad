@@ -51,24 +51,24 @@ before_install:
 
 install:
   # List and delete unnecessary components to free space
-  - sdkmanager --list || true
-  - sdkmanager --uninstall "system-images;android-19;default;armeabi-v7a"
-  - sdkmanager --uninstall "system-images;android-21;default;armeabi-v7a"
-  - sdkmanager --uninstall "extras;google;google_play_services"
-  - sdkmanager --uninstall "extras;android;support"
-  - sdkmanager --uninstall "platforms;android-19"
-  - sdkmanager --uninstall "platforms;android-20"
-  - sdkmanager --uninstall "platforms;android-21"
-  - sdkmanager --uninstall "build-tools;21.1.2"
+  - $ANDROID_HOME/tools/bin/sdkmanager --list || true
+  - $ANDROID_HOME/tools/bin/sdkmanager --uninstall "system-images;android-19;default;armeabi-v7a"
+  - $ANDROID_HOME/tools/bin/sdkmanager --uninstall "system-images;android-21;default;armeabi-v7a"
+  - $ANDROID_HOME/tools/bin/sdkmanager --uninstall "extras;google;google_play_services"
+  - $ANDROID_HOME/tools/bin/sdkmanager --uninstall "extras;android;support"
+  - $ANDROID_HOME/tools/bin/sdkmanager --uninstall "platforms;android-19"
+  - $ANDROID_HOME/tools/bin/sdkmanager --uninstall "platforms;android-20"
+  - $ANDROID_HOME/tools/bin/sdkmanager --uninstall "platforms;android-21"
+  - $ANDROID_HOME/tools/bin/sdkmanager --uninstall "build-tools;21.1.2"
   # Update sdk tools to latest version and install/update components
-  - echo yes | sdkmanager "tools"
-  - echo yes | sdkmanager "platforms;android-26" # Latest platform required by SDK tools
-  - echo yes | sdkmanager "platforms;android-${API}" # Android platform required by emulator
-  - echo yes | sdkmanager "extras;android;m2repository"
-  - echo yes | sdkmanager "extras;google;m2repository"
-  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
-  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
-  - echo yes | sdkmanager "$EMULATOR" # Install emulator system image
+  - echo yes | $ANDROID_HOME/tools/bin/sdkmanager "tools"
+  - echo yes | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-26" # Latest platform required by SDK tools
+  - echo yes | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-${API}" # Android platform required by emulator
+  - echo yes | $ANDROID_HOME/tools/bin/sdkmanager "extras;android;m2repository"
+  - echo yes | $ANDROID_HOME/tools/bin/sdkmanager "extras;google;m2repository"
+  - echo yes | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
+  - echo yes | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
+  - echo yes | $ANDROID_HOME/tools/bin/sdkmanager "$EMULATOR" # Install emulator system image
   # Create and start emulator
   - echo no | avdmanager create avd -n acib -k "$EMULATOR" -f --abi "$ABI" --tag "$TAG"
   - emulator -avd acib -engine classic -no-window -camera-back none -camera-front none -verbose -qemu -m 512 &
@@ -79,7 +79,7 @@ install:
   # Clean project and download missing dependencies and components
   - cd ${TRAVIS_BUILD_DIR}/${DIR} && ./gradlew clean build
   # Check components status
-  - sdkmanager --list || true
+  - $ANDROID_HOME/tools/bin/sdkmanager --list || true
 
 before_script:
   # Wait for emulator fully-booted and disable animations
