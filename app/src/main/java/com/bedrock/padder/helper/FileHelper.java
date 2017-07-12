@@ -89,6 +89,7 @@ public class FileHelper {
     public boolean deleteRecursive(File fileOrDirectory) {
         boolean recursive = true;
         if (fileOrDirectory.isDirectory())
+            if (fileOrDirectory.listFiles() != null && fileOrDirectory.listFiles().length > 0)
             for (File child : fileOrDirectory.listFiles())
                 recursive = deleteRecursive(child);
 
