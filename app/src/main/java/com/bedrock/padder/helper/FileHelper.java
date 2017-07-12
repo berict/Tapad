@@ -204,7 +204,6 @@ public class FileHelper {
 
             anim.fadeOut(R.id.layout_preset_store_download_installing, 100, 200, parentView, activity);
             anim.fadeIn(R.id.layout_preset_store_action_layout, 300, 200, "actionIn", parentView, activity);
-            window.getProgressBar(R.id.layout_preset_store_download_progressbar, activity).setIndeterminate(true);
         }
 
         @Override
