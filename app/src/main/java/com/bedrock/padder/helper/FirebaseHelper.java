@@ -89,11 +89,11 @@ public class FirebaseHelper {
         }
     }
 
-    public void saveFromFirebase(StorageReference storageReference,
-                                 final String fileLocation,
-                                 final Runnable onSuccess,
-                                 final Runnable onFailure,
-                                 Activity activity) {
+    private void saveFromFirebase(StorageReference storageReference,
+                                  final String fileLocation,
+                                  final Runnable onSuccess,
+                                  final Runnable onFailure,
+                                  Activity activity) {
         // permission check
         boolean hasPermission = ContextCompat.checkSelfPermission(
                 activity,
@@ -502,10 +502,14 @@ public class FirebaseHelper {
     public void removeLocalPreset(String presetName, Runnable onSuccess, Runnable onFailure) {
         if (fileHelper.deleteRecursive(new File(PROJECT_LOCATION_PRESETS + "/" + presetName))) {
             Log.d(TAG, "Successfully removed preset folder");
-            onSuccess.run();
+            if (onSuccess != null) {
+                onSuccess.run();
+            }
         } else {
             Log.d(TAG, "Failed to remove preset folder");
-            onFailure.run();
+            if (onFailure != null) {
+                onFailure.run();
+            }
         }
     }
 
