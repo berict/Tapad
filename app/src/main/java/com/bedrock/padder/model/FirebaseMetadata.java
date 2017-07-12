@@ -17,7 +17,6 @@ public class FirebaseMetadata {
         if (presets != null) {
             for (Preset preset : this.presets) {
                 // null values to shorten the json
-                preset.getMusic().setDeckTimings(null);
                 preset.getAbout().setBio(null);
                 preset.getAbout().setDetails(null);
             }
