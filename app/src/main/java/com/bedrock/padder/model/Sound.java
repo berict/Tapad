@@ -48,6 +48,14 @@ public class Sound {
         this.soundPoolId = soundPool.load(path, 1);
     }
 
+    void unload() {
+        if (soundPoolId != 0 && soundPool != null) {
+            this.soundPool.unload(soundPoolId);
+            soundPoolId = 0;
+            streamId = 0;
+        }
+    }
+
     void setRate(float rate) {
         try {
             if (streamId != 0) {
@@ -60,8 +68,8 @@ public class Sound {
         }
     }
 
-    protected class NullStreamException extends Exception {
-        public NullStreamException() {
+    private class NullStreamException extends Exception {
+        NullStreamException() {
             super("streamID is not initialized");
         }
     }

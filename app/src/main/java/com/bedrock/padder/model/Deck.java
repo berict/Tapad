@@ -4,22 +4,42 @@ import android.util.Log;
 
 public class Deck {
 
-    private Pad pad[];
+    private Pad pads[];
 
-    public Deck (Pad[] pad) {
-        if(pad.length == 21) {
-            this.pad = pad;
+    public Deck (Pad[] pads) {
+        if(pads.length == 21) {
+            this.pads = pads;
         } else {
-            Log.e("Deck", "Not enough pads");
-            this.pad = null;
+            Log.e("Deck", "Not enough padss");
+            this.pads = null;
         }
     }
 
     public Pad[] getPads() {
-        return pad;
+        return pads;
     }
 
     public Pad getPad(int index) {
-        return pad[index];
+        return pads[index];
+    }
+
+    public void setPad(Pad pad, int index) {
+        pads[index] = pad;
+    }
+
+    public void pause() {
+        if (pads != null && pads.length >= 21) {
+            for (Pad pad : pads) {
+                pad.stop();
+            }
+        }
+    }
+
+    public void unload() {
+        if (pads != null && pads.length >= 21) {
+            for (Pad pad : pads) {
+                pad.unload();
+            }
+        }
     }
 }

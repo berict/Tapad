@@ -115,4 +115,28 @@ public class GesturePad extends Pad {
             });
         }
     }
+
+    @Override
+    void unload() {
+        super.unload();
+
+        Sound sounds[] = {
+                up, right, down, left
+        };
+        for (Sound sound : sounds) {
+            sound.unload();
+        }
+    }
+
+    @Override
+    void stop() {
+        super.stop();
+
+        Sound sounds[] = {
+                up, right, down, left
+        };
+        for (Sound sound : sounds) {
+            sound.stop();
+        }
+    }
 }

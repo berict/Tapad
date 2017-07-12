@@ -90,4 +90,12 @@ public class Pad {
             });
         }
     }
+
+    void unload() {
+        getNormal().unload();
+    }
+
+    void stop() {
+        getNormal().stop();
+    }
 }

@@ -12,11 +12,12 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.bedrock.padder.R;
-import com.bedrock.padder.activity.MainActivity;
 import com.bedrock.padder.model.Deck;
 import com.bedrock.padder.model.Pad;
+import com.bedrock.padder.model.Sound;
 import com.bedrock.padder.model.preset.Preset;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -314,6 +315,196 @@ public class SoundHelper {
     private ProgressBar progress;
     private int progressCount;
     private int presetSoundCount;
+
+    private int color = R.color.cyan_400;
+    private int coloeDef = R.color.grey;
+
+    private class Unload extends AsyncTask<Void, Void, Void> {
+
+        String TAG = "UnLoad";
+        SharedPreferences prefs;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            // started loading
+            isPresetLoading = true;
+            presetSoundCount = currentPreset.getMusic().getSoundCount();
+            // set progress
+            progressCount = 0;
+            progress = window.getProgressBar(R.id.progress_bar, activity);
+            ad.resumeNativeAdView(R.id.adView_main, activity);
+            if (window.getView(R.id.progress_bar_layout, activity).getVisibility() == View.GONE) {
+                anim.fadeIn(R.id.progress_bar_layout, 0, 600, "progressIn", activity);
+                // request ads
+                anim.fadeIn(R.id.adView_main, 0, 600, "adViewIn", activity);
+                ad.requestLoadNativeAd(ad.getNativeAdView(R.id.adView_main, activity));
+                window.setInvisible(R.id.base, 600, activity);
+                progress.setIndeterminate(true);
+            }
+            prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
+
+            // initialize view
+            View buttonViews[] = {
+                    window.getView(R.id.btn00, activity),
+                    window.getView(R.id.tgl1, activity),
+                    window.getView(R.id.tgl2, activity),
+                    window.getView(R.id.tgl3, activity),
+                    window.getView(R.id.tgl4, activity),
+                    window.getView(R.id.tgl5, activity),
+                    window.getView(R.id.tgl6, activity),
+                    window.getView(R.id.tgl7, activity),
+                    window.getView(R.id.tgl8, activity),
+                    window.getView(R.id.btn11, activity),
+                    window.getView(R.id.btn12, activity),
+                    window.getView(R.id.btn13, activity),
+                    window.getView(R.id.btn14, activity),
+                    window.getView(R.id.btn21, activity),
+                    window.getView(R.id.btn22, activity),
+                    window.getView(R.id.btn23, activity),
+                    window.getView(R.id.btn24, activity),
+                    window.getView(R.id.btn31, activity),
+                    window.getView(R.id.btn32, activity),
+                    window.getView(R.id.btn33, activity),
+                    window.getView(R.id.btn34, activity),
+                    window.getView(R.id.btn41, activity),
+                    window.getView(R.id.btn42, activity),
+                    window.getView(R.id.btn43, activity),
+                    window.getView(R.id.btn44, activity)
+            };
+
+            for (View view : buttonViews) {
+                view.setVisibility(View.INVISIBLE);
+            }
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            if (previousPreset != null) {
+                Log.i(TAG, "Preset \"" + previousPreset.getMusic().getName() + "\" unloading");
+                for (int i = 0; i < 4; i++) {
+                    Log.i(TAG, "Deck " + (i + 1));
+                    decks[i].unload();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            // start loading sound
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onCancelled(Void aVoid) {
+            super.onCancelled(aVoid);
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+        }
+    }
+
+    private class Load extends AsyncTask<Void, Void, Void> {
+
+        String TAG = "Load";
+
+        View buttonViews[];
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            // started loading sounds
+            progress.setIndeterminate(false);
+            progress.setMax(presetSoundCount);
+            progress.setProgress(0);
+            window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_disabled_white);
+
+            // initialize view
+            buttonViews = new View[] {
+                    window.getView(R.id.btn00, activity),
+                    window.getView(R.id.tgl1, activity),
+                    window.getView(R.id.tgl2, activity),
+                    window.getView(R.id.tgl3, activity),
+                    window.getView(R.id.tgl4, activity),
+                    window.getView(R.id.tgl5, activity),
+                    window.getView(R.id.tgl6, activity),
+                    window.getView(R.id.tgl7, activity),
+                    window.getView(R.id.tgl8, activity),
+                    window.getView(R.id.btn11, activity),
+                    window.getView(R.id.btn12, activity),
+                    window.getView(R.id.btn13, activity),
+                    window.getView(R.id.btn14, activity),
+                    window.getView(R.id.btn21, activity),
+                    window.getView(R.id.btn22, activity),
+                    window.getView(R.id.btn23, activity),
+                    window.getView(R.id.btn24, activity),
+                    window.getView(R.id.btn31, activity),
+                    window.getView(R.id.btn32, activity),
+                    window.getView(R.id.btn33, activity),
+                    window.getView(R.id.btn34, activity),
+                    window.getView(R.id.btn41, activity),
+                    window.getView(R.id.btn42, activity),
+                    window.getView(R.id.btn43, activity),
+                    window.getView(R.id.btn44, activity)
+            };
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            if (previousPreset != null) {
+                Log.i(TAG, "Preset \"" + currentPreset.getMusic().getName() + "\" loading");
+                for (int i = 0; i < 4; i++) {
+                    Log.i(TAG, "  Deck " + (i + 1));
+                    // pad loop
+                    for (int j = 0; j < 21; j++) {
+                        Log.i(TAG, "    Pad " + (j + 1));
+                        // pad gesture
+                        ArrayList<String> sounds = new ArrayList<>();
+                        for (int k = 0; k < 5; k++) {
+                            String sound = currentPreset.getSound(i, j, k);
+                            if (sound != null) {
+                                sounds.add(sound);
+                            }
+                        }
+                        if (sounds.size() == 1) {
+                            // only one sound, use sound
+                            decks[i].setPad(new Pad(new Sound(sp, sounds.get(0)), buttonViews[j], color, coloeDef, activity), j);
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            // start loading sound
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onCancelled(Void aVoid) {
+            super.onCancelled(aVoid);
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+        }
+    }
 
     private class UnloadSound extends AsyncTask<Void, Void, Integer> {
         String TAG = "UnloadSound";
