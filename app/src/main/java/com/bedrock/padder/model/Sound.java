@@ -4,9 +4,9 @@ import android.media.SoundPool;
 
 public class Sound {
 
-    int soundPoolId = 0;
+    private int soundPoolId = 0;
 
-    int streamId = 0;
+    private int streamId = 0;
 
     boolean isLooping = false;
 

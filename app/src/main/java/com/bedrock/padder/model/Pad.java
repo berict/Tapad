@@ -63,7 +63,7 @@ public class Pad {
     }
 
     void setPad() {
-        if (normal != null && view != null && color != 0 && defColor != 0 && activity != null) {
+        if (view != null && color != 0 && defColor != 0 && activity != null) {
             // initialized check
             view.setOnTouchListener(new OnSwipeTouchListener(activity) {
                 @Override

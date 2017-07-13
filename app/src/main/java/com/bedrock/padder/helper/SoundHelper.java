@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 
 import com.bedrock.padder.R;
 import com.bedrock.padder.model.Deck;
+import com.bedrock.padder.model.GesturePad;
 import com.bedrock.padder.model.Pad;
 import com.bedrock.padder.model.Sound;
 import com.bedrock.padder.model.preset.Preset;
@@ -76,6 +77,34 @@ public class SoundHelper {
     private AsyncTask unLoadSound = null;
     private AsyncTask loadSound = null;
 
+    private AsyncTask unload = null;
+    private AsyncTask load = null;
+
+    public void load(Preset preset, int color, int colorDef, Activity activity) {
+        // set the previous preset
+        this.color = color;
+        this.colorDef = colorDef;
+        previousPreset = currentPreset;
+        currentPreset = preset;
+        this.activity = activity;
+        unload = new Unload().execute();
+    }
+
+    public void cancelLoad() {
+        try {
+            unload.cancel(true);
+            load.cancel(true);
+            Log.d("TAG", "Loading canceled");
+        } catch (NullPointerException e) {
+            Log.d("NPE", "AsyncTask is null");
+        }
+    }
+
+    public void pauseSounds() {
+
+    }
+
+    @Deprecated
     public void loadSound(Preset preset, Activity activity) {
         // set the previous preset
         previousPreset = currentPreset;
@@ -84,6 +113,7 @@ public class SoundHelper {
         unLoadSound = new UnloadSound().execute();
     }
 
+    @Deprecated
     public void cancelLoading() {
         try {
             unLoadSound.cancel(true);
@@ -317,7 +347,7 @@ public class SoundHelper {
     private int presetSoundCount;
 
     private int color = R.color.cyan_400;
-    private int coloeDef = R.color.grey;
+    private int colorDef = R.color.grey;
 
     private class Unload extends AsyncTask<Void, Void, Void> {
 
@@ -394,6 +424,10 @@ public class SoundHelper {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             // start loading sound
+            Log.d(TAG, "Finished unloading sounds");
+            sp.release();
+            sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+            load = new Load().execute();
         }
 
         @Override
@@ -404,18 +438,19 @@ public class SoundHelper {
         @Override
         protected void onCancelled(Void aVoid) {
             super.onCancelled(aVoid);
+            onLoadFinished();
         }
 
         @Override
         protected void onCancelled() {
             super.onCancelled();
+            onLoadFinished();
         }
     }
 
     private class Load extends AsyncTask<Void, Void, Void> {
 
         String TAG = "Load";
-
         View buttonViews[];
 
         @Override
@@ -428,7 +463,7 @@ public class SoundHelper {
             window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_disabled_white);
 
             // initialize view
-            buttonViews = new View[] {
+            buttonViews = new View[]{
                     window.getView(R.id.btn00, activity),
                     window.getView(R.id.tgl1, activity),
                     window.getView(R.id.tgl2, activity),
@@ -466,7 +501,7 @@ public class SoundHelper {
                     // pad loop
                     for (int j = 0; j < 21; j++) {
                         Log.i(TAG, "    Pad " + (j + 1));
-                        // pad gesture
+                        // pad read from file
                         ArrayList<String> sounds = new ArrayList<>();
                         for (int k = 0; k < 5; k++) {
                             String sound = currentPreset.getSound(i, j, k);
@@ -476,7 +511,13 @@ public class SoundHelper {
                         }
                         if (sounds.size() == 1) {
                             // only one sound, use sound
-                            decks[i].setPad(new Pad(new Sound(sp, sounds.get(0)), buttonViews[j], color, coloeDef, activity), j);
+                            decks[i].setPad(new Pad(new Sound(sp, sounds.get(0)), buttonViews[j], color, colorDef, activity), j);
+                        } else if (sounds.size() > 1) {
+                            // gesture pad
+                            decks[i].setPad(getGesturePadFromArray(sounds.toArray(new String[5]), sp, buttonViews[j], color, colorDef, activity), j);
+                        } else {
+                            // no sounds
+                            decks[i].setPad(new Pad(null, buttonViews[j], color, colorDef, activity), j);
                         }
                     }
                 }
@@ -485,14 +526,8 @@ public class SoundHelper {
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            // start loading sound
-        }
-
-        @Override
         protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
+            progress.setProgress(progressCount++);
         }
 
         @Override
@@ -504,8 +539,100 @@ public class SoundHelper {
         protected void onCancelled() {
             super.onCancelled();
         }
+
+        private int savedSampleId = 0;
+        private int savedSampleIdInRunnable = 1;
+        // needs to be different at first to make changes
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            if (isCancelled()) {
+                onLoadFinish();
+            } else {
+                // loading finish listener
+                Log.d(TAG, "sampleId count : " + presetSoundCount);
+                progress.setIndeterminate(true);
+
+                sp.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+                    @Override
+                    public void onLoadComplete(SoundPool soundPool, final int sampleId, int status) {
+                        Log.d(TAG, "Loading Finished, sampleId : " + sampleId);
+                        savedSampleId = sampleId;
+                    }
+                });
+
+                final Handler intervalTimer = new Handler();
+
+                intervalTimer.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // loops while checking the last saved sample id and current one
+                        if (savedSampleId == savedSampleIdInRunnable) {
+                            // if same, break the loop
+                            Log.d(TAG, "Finished loading all sounds");
+                            onLoadFinished();
+                        } else {
+                            // updated
+                            savedSampleIdInRunnable = savedSampleId;
+                            intervalTimer.postDelayed(this, 100);
+                        }
+                    }
+                }, 100);
+            }
+        }
     }
 
+    private GesturePad getGesturePadFromArray(String soundPaths[],
+                                              SoundPool soundPool,
+                                              View buttonView,
+                                              int color, int colorDef,
+                                              Activity activity) {
+        Sound sounds[] = new Sound[5];
+        for (int i = 0; i < 5; i++) {
+            if (i < soundPaths.length) {
+                // sounds exists
+                sounds[i] = new Sound(soundPool, soundPaths[i]);
+            } else {
+                // no sound gesture
+                sounds[i] = new Sound(soundPool, null);
+            }
+        }
+        return new GesturePad(sounds, buttonView, color, colorDef, activity);
+    }
+
+    private void onLoadFinish() {
+        // final sampleId
+        Log.d("LoadSound", "Loading completed, SoundPool successfully loaded "
+                + presetSoundCount
+                + " sounds");
+
+        // pause adViewMain after the loading
+        ad.pauseNativeAdView(R.id.adView_main, activity);
+
+        window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_white);
+
+        anim.fadeOut(R.id.progress_bar_layout, 0, 600, activity);
+        anim.fadeOut(R.id.adView_main, 0, 600, activity);
+
+        // Load finished, set AsyncTask objects to null
+        load = null;
+        unload = null;
+
+        final Random random = new Random();
+
+        Handler delay = new Handler();
+        delay.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                window.setVisible(R.id.base, 0, activity);
+                buttonRevealAnimation(random.nextInt(25));
+            }
+        }, 600);
+
+        isPresetLoading = false;
+    }
+
+    @Deprecated
     private class UnloadSound extends AsyncTask<Void, Void, Integer> {
         String TAG = "UnloadSound";
         SharedPreferences prefs;
@@ -608,6 +735,7 @@ public class SoundHelper {
         }
     }
 
+    @Deprecated
     private class LoadSound extends AsyncTask<Void, Void, String> {
         String TAG = "LoadSound";
 
@@ -622,7 +750,7 @@ public class SoundHelper {
 
         protected String doInBackground(Void... arg0) {
             Log.d(TAG, "On doInBackground, start loading sounds");
-            
+
             if (currentPreset != null) {
                 Log.i(TAG, "Preset \"" + window.getStringFromId(currentPreset.getMusic().getName(), activity));
                 // deck loop
@@ -693,6 +821,7 @@ public class SoundHelper {
         }
     }
 
+    @Deprecated
     private void onLoadFinished() {
         // final sampleId
         Log.d("LoadSound", "Loading completed, SoundPool successfully loaded "
@@ -786,7 +915,7 @@ public class SoundHelper {
                 window.getView(R.id.btn44, activity)
         };
 
-        intervalPixel = (int)Math.hypot(window.getWindowWidthPx(activity), window.getWindowWidthPx(activity)) / 40;
+        intervalPixel = (int) Math.hypot(window.getWindowWidthPx(activity), window.getWindowWidthPx(activity)) / 40;
         Log.i("intervalPixel", String.valueOf(intervalPixel));
         intervalCount = 0;
         // 40 intervals x 10ms = 400ms animation
