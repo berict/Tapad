@@ -60,7 +60,7 @@ public class FeedbackActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
 
-        Log.d(TAG, "Sharedprefs initialized");
+        Log.d(TAG, "SharedPrefs initialized");
         prefs = this.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
 
         Intent intent = getIntent();
@@ -139,7 +139,7 @@ public class FeedbackActivity extends AppCompatActivity {
                 songArtistLayout  = (TextInputLayout) findViewById(R.id.feedback_song_artist_input_layout);
                 songLinkLayout    = (TextInputLayout) findViewById(R.id.feedback_song_link_input_layout);
                 songMessageLayout = (TextInputLayout) findViewById(R.id.feedback_song_message_input_layout);
-                // edittext
+                // editText
                 songName          = (EditText) findViewById(R.id.feedback_song_name_input);
                 songArtist        = (EditText) findViewById(R.id.feedback_song_artist_input);
                 songLink          = (EditText) findViewById(R.id.feedback_song_link_input);
@@ -172,7 +172,7 @@ public class FeedbackActivity extends AppCompatActivity {
                 RelativeLayout feedbackLayout = (RelativeLayout) findViewById(R.id.feedback_feedback);
                 // input layout
                 feedbackMessageLayout = (TextInputLayout) findViewById(R.id.feedback_feedback_message_input_layout);
-                // edittext
+                // editText
                 feedbackMessage       = (EditText) findViewById(R.id.feedback_feedback_message_input);
                 // spinner
                 feedbackType          = (Spinner) findViewById(R.id.feedback_feedback_type_spinner);
@@ -200,7 +200,7 @@ public class FeedbackActivity extends AppCompatActivity {
                 RelativeLayout reportBugLayout = (RelativeLayout) findViewById(R.id.feedback_report_bug);
                 // input layout
                 reportBugMessageLayout = (TextInputLayout) findViewById(R.id.feedback_report_bug_message_input_layout);
-                // edittext
+                // editText
                 reportBugMessage       = (EditText) findViewById(R.id.feedback_report_bug_message_input);
                 // spinner
                 reportBugType          = (Spinner) findViewById(R.id.feedback_report_bug_type_spinner);

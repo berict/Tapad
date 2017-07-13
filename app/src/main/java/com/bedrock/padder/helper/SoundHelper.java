@@ -105,7 +105,7 @@ public class SoundHelper {
     void select(int index) {
         // index starts from 0
         if (index == 0) {
-            // unselect all
+            // disable all
             for (Deck deck : decks) {
                 deck.setSelected(false);
                 deck.stop();
@@ -802,7 +802,7 @@ public class SoundHelper {
         String TAG = "LoadSound";
 
         protected void onPreExecute() {
-            Log.d(TAG, "On preExceute, unloadPresetSound");
+            Log.d(TAG, "On preExecute, unloadPresetSound");
 
             progress.setIndeterminate(false);
             progress.setMax(presetSoundCount);
@@ -1015,7 +1015,7 @@ public class SoundHelper {
                         Math.abs(startViewRect.centerX() - targetViewRect.centerX()),
                         Math.abs(startViewRect.centerY() - targetViewRect.centerY())
                 );
-        // gets view hypot
+        // gets view hypothesis
         return viewDistance < distance;
     }
 }

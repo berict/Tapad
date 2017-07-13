@@ -797,55 +797,55 @@ public class WindowHelper {
                                        final int length, final Activity activity) {
         final View view = activity.findViewById(id);
 
-        final int idnum[] = {0};
+        final int idNum[] = {0};
         switch (id) {
             case R.id.btn11:
-                idnum[0] = 0;
+                idNum[0] = 0;
                 break;
             case R.id.btn12:
-                idnum[0] = 1;
+                idNum[0] = 1;
                 break;
             case R.id.btn13:
-                idnum[0] = 2;
+                idNum[0] = 2;
                 break;
             case R.id.btn14:
-                idnum[0] = 3;
+                idNum[0] = 3;
                 break;
             case R.id.btn21:
-                idnum[0] = 4;
+                idNum[0] = 4;
                 break;
             case R.id.btn22:
-                idnum[0] = 5;
+                idNum[0] = 5;
                 break;
             case R.id.btn23:
-                idnum[0] = 6;
+                idNum[0] = 6;
                 break;
             case R.id.btn24:
-                idnum[0] = 7;
+                idNum[0] = 7;
                 break;
             case R.id.btn31:
-                idnum[0] = 8;
+                idNum[0] = 8;
                 break;
             case R.id.btn32:
-                idnum[0] = 9;
+                idNum[0] = 9;
                 break;
             case R.id.btn33:
-                idnum[0] = 10;
+                idNum[0] = 10;
                 break;
             case R.id.btn34:
-                idnum[0] = 11;
+                idNum[0] = 11;
                 break;
             case R.id.btn41:
-                idnum[0] = 12;
+                idNum[0] = 12;
                 break;
             case R.id.btn42:
-                idnum[0] = 13;
+                idNum[0] = 13;
                 break;
             case R.id.btn43:
-                idnum[0] = 14;
+                idNum[0] = 14;
                 break;
             case R.id.btn44:
-                idnum[0] = 15;
+                idNum[0] = 15;
                 break;
         }
 
@@ -859,12 +859,12 @@ public class WindowHelper {
                         Log.i("NotFoundException", "Handling with normal value");
                         view.setBackgroundColor(colorDown);
                     }
-                    for (int i = 0; i < pattern[idnum[0]].length; i++) {
+                    for (int i = 0; i < pattern[idNum[0]].length; i++) {
                         try {
-                            getView(pattern[idnum[0]][i], activity).setBackgroundColor(activity.getResources().getColor(colorDown));
+                            getView(pattern[idNum[0]][i], activity).setBackgroundColor(activity.getResources().getColor(colorDown));
                         } catch (Resources.NotFoundException e) {
                             Log.i("NotFoundException", "Handling with normal value");
-                            getView(pattern[idnum[0]][i], activity).setBackgroundColor(colorDown);
+                            getView(pattern[idNum[0]][i], activity).setBackgroundColor(colorDown);
                         }
                     }
                     if (soundId.length == 1) {
@@ -877,8 +877,8 @@ public class WindowHelper {
                 }
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     view.setBackgroundColor(activity.getResources().getColor(colorUp));
-                    for (int i = 0; i < pattern[idnum[0]].length; i++) {
-                        getView(pattern[idnum[0]][i], activity).setBackgroundColor(activity.getResources().getColor(colorUp));
+                    for (int i = 0; i < pattern[idNum[0]].length; i++) {
+                        getView(pattern[idNum[0]][i], activity).setBackgroundColor(activity.getResources().getColor(colorUp));
                     }
                 }
                 return false;
@@ -970,7 +970,7 @@ public class WindowHelper {
 
     public void setOnTouchSound(final int padId,
                                 final int colorDown, final int colorUp,
-                                final SoundPool sp, final int spid[],
+                                final SoundPool sp, final int spId[],
                                 final Activity activity) {
         // Normal
         final View pad = activity.findViewById(padId);
@@ -981,7 +981,7 @@ public class WindowHelper {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     // Pressed
-                    streamId[0] = sp.play(spid[0], 1, 1, 1, -1, 1);
+                    streamId[0] = sp.play(spId[0], 1, 1, 1, -1, 1);
                     setPadColor(pad, colorDown, activity);
                     Log.d("TouchListener", "TouchDown");
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -997,7 +997,7 @@ public class WindowHelper {
 
     public void setOnTouchSound(final int padId,
                                 final int colorDown, final int colorUp,
-                                final SoundPool sp, final int spid[],
+                                final SoundPool sp, final int spId[],
                                 final int patternPreset[][][], final Activity activity) {
         // Normal Pattern
         final int btnId[] = {getButtonId(padId)};
@@ -1010,7 +1010,7 @@ public class WindowHelper {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     // Pressed
-                    streamId[0] = sp.play(spid[0], 1, 1, 1, -1, 1);
+                    streamId[0] = sp.play(spId[0], 1, 1, 1, -1, 1);
                     setPadColor(pad, colorDown, activity);
                     setButtonPattern(patternPreset, btnId[0], colorDown, colorUp, activity);
                     Log.d("TouchListener", "TouchDown");
@@ -1028,7 +1028,7 @@ public class WindowHelper {
 
     public void setOnGestureSound(final int padId,
                                   final int colorDown, final int colorUp,
-                                  final SoundPool sp, final int spid[],
+                                  final SoundPool sp, final int spId[],
                                   final Activity activity) {
         // Gesture
         final boolean isLoopEnabled[] = {false};
@@ -1056,7 +1056,7 @@ public class WindowHelper {
 
             @Override
             public void onClick() {
-                sp.play(spid[0], 1, 1, 1, 0, 1);
+                sp.play(spId[0], 1, 1, 1, 0, 1);
                 if (isLoopEnabled[0] == false) {
                     setPadColor(pad, colorUp, activity);
                 }
@@ -1065,7 +1065,7 @@ public class WindowHelper {
 
             @Override
             public void onDoubleClick() {
-                sp.play(spid[0], 1, 1, 1, 0, 1);
+                sp.play(spId[0], 1, 1, 1, 0, 1);
                 Handler backgroundChangeHandler = new Handler();
                 backgroundChangeHandler.postDelayed(new Runnable() {
                     @Override
@@ -1089,10 +1089,10 @@ public class WindowHelper {
 
             @Override
             public void onSwipeUp() {
-                if (spid[1] != 0) {
-                    sp.play(spid[1], 1, 1, 1, 0, 1);
+                if (spId[1] != 0) {
+                    sp.play(spId[1], 1, 1, 1, 0, 1);
                 } else {
-                    sp.play(spid[0], 1, 1, 1, 0, 1);
+                    sp.play(spId[0], 1, 1, 1, 0, 1);
                 }
                 if (isLoopEnabled[0] == false) {
                     setPadColor(pad, colorUp, activity);
@@ -1103,10 +1103,10 @@ public class WindowHelper {
 
             @Override
             public void onSwipeRight() {
-                if (spid[2] != 0) {
-                    sp.play(spid[2], 1, 1, 1, 0, 1);
+                if (spId[2] != 0) {
+                    sp.play(spId[2], 1, 1, 1, 0, 1);
                 } else {
-                    sp.play(spid[0], 1, 1, 1, 0, 1);
+                    sp.play(spId[0], 1, 1, 1, 0, 1);
                 }
                 if (isLoopEnabled[0] == false) {
                     setPadColor(pad, colorUp, activity);
@@ -1117,10 +1117,10 @@ public class WindowHelper {
 
             @Override
             public void onSwipeDown() {
-                if (spid[3] != 0) {
-                    sp.play(spid[3], 1, 1, 1, 0, 1);
+                if (spId[3] != 0) {
+                    sp.play(spId[3], 1, 1, 1, 0, 1);
                 } else {
-                    sp.play(spid[0], 1, 1, 1, 0, 1);
+                    sp.play(spId[0], 1, 1, 1, 0, 1);
                 }
                 if (isLoopEnabled[0] == false) {
                     setPadColor(pad, colorUp, activity);
@@ -1131,10 +1131,10 @@ public class WindowHelper {
 
             @Override
             public void onSwipeLeft() {
-                if (spid[4] != 0) {
-                    sp.play(spid[4], 1, 1, 1, 0, 1);
+                if (spId[4] != 0) {
+                    sp.play(spId[4], 1, 1, 1, 0, 1);
                 } else {
-                    sp.play(spid[0], 1, 1, 1, 0, 1);
+                    sp.play(spId[0], 1, 1, 1, 0, 1);
                 }
                 if (isLoopEnabled[0] == false) {
                     setPadColor(pad, colorUp, activity);
@@ -1146,8 +1146,8 @@ public class WindowHelper {
             @Override
             public void onLongClick() {
                 if (isLoopEnabled[0] == false) {
-                    streamId[0] = sp.play(spid[0], 1, 1, 1, -1, 1);
-                    // add item to arraylist to reset loop sounds on deck change
+                    streamId[0] = sp.play(spId[0], 1, 1, 1, -1, 1);
+                    // add item to arrayList to reset loop sounds on deck change
                     addLoopStreamId(streamId[0]);
                     isLoopEnabled[0] = true;
                     setPadColor(pad, colorDown, activity);
@@ -1166,7 +1166,7 @@ public class WindowHelper {
 
     public void setOnGestureSound(final int padId,
                                   final int colorDown, final int colorUp,
-                                  final SoundPool sp, final int spid[],
+                                  final SoundPool sp, final int spId[],
                                   final int patternPreset[][][], final Activity activity) {
         // Gesture Pattern
         final int btnId[] = {getButtonId(padId)};
@@ -1197,7 +1197,7 @@ public class WindowHelper {
 
             @Override
             public void onClick() {
-                sp.play(spid[0], 1, 1, 1, 0, 1);
+                sp.play(spId[0], 1, 1, 1, 0, 1);
                 if (isLoopEnabled[0] == false) {
                     setPadColor(pad, colorUp, activity);
                 }
@@ -1207,7 +1207,7 @@ public class WindowHelper {
 
             @Override
             public void onDoubleClick() {
-                sp.play(spid[0], 1, 1, 1, 0, 1);
+                sp.play(spId[0], 1, 1, 1, 0, 1);
                 Handler backgroundChangeHandler = new Handler();
                 backgroundChangeHandler.postDelayed(new Runnable() {
                     @Override
@@ -1224,10 +1224,10 @@ public class WindowHelper {
 
             @Override
             public void onSwipeUp() {
-                if (spid[1] != 0) {
-                    sp.play(spid[1], 1, 1, 1, 0, 1);
+                if (spId[1] != 0) {
+                    sp.play(spId[1], 1, 1, 1, 0, 1);
                 } else {
-                    sp.play(spid[0], 1, 1, 1, 0, 1);
+                    sp.play(spId[0], 1, 1, 1, 0, 1);
                 }
                 if (isLoopEnabled[0] == false) {
                     setPadColor(pad, colorUp, activity);
@@ -1239,10 +1239,10 @@ public class WindowHelper {
 
             @Override
             public void onSwipeRight() {
-                if (spid[2] != 0) {
-                    sp.play(spid[2], 1, 1, 1, 0, 1);
+                if (spId[2] != 0) {
+                    sp.play(spId[2], 1, 1, 1, 0, 1);
                 } else {
-                    sp.play(spid[0], 1, 1, 1, 0, 1);
+                    sp.play(spId[0], 1, 1, 1, 0, 1);
                 }
                 if (isLoopEnabled[0] == false) {
                     setPadColor(pad, colorUp, activity);
@@ -1254,10 +1254,10 @@ public class WindowHelper {
 
             @Override
             public void onSwipeDown() {
-                if (spid[3] != 0) {
-                    sp.play(spid[3], 1, 1, 1, 0, 1);
+                if (spId[3] != 0) {
+                    sp.play(spId[3], 1, 1, 1, 0, 1);
                 } else {
-                    sp.play(spid[0], 1, 1, 1, 0, 1);
+                    sp.play(spId[0], 1, 1, 1, 0, 1);
                 }
                 if (isLoopEnabled[0] == false) {
                     setPadColor(pad, colorUp, activity);
@@ -1269,10 +1269,10 @@ public class WindowHelper {
 
             @Override
             public void onSwipeLeft() {
-                if (spid[4] != 0) {
-                    sp.play(spid[4], 1, 1, 1, 0, 1);
+                if (spId[4] != 0) {
+                    sp.play(spId[4], 1, 1, 1, 0, 1);
                 } else {
-                    sp.play(spid[0], 1, 1, 1, 0, 1);
+                    sp.play(spId[0], 1, 1, 1, 0, 1);
                 }
                 if (isLoopEnabled[0] == false) {
                     setPadColor(pad, colorUp, activity);
@@ -1287,8 +1287,8 @@ public class WindowHelper {
                 //pad.setBackgroundColor(activity.getResources().getColor(colorUp));
                 buttonDelay.removeCallbacks(clearPad);
                 if (isLoopEnabled[0] == false) {
-                    streamId[0] = sp.play(spid[0], 1, 1, 1, -1, 1);
-                    // add item to arraylist to reset loop sounds on deck change
+                    streamId[0] = sp.play(spId[0], 1, 1, 1, -1, 1);
+                    // add item to arrayList to reset loop sounds on deck change
                     addLoopStreamId(streamId[0]);
                     isLoopEnabled[0] = true;
                     setPadColor(pad, colorDown, activity);

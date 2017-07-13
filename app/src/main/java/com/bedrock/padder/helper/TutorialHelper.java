@@ -877,107 +877,10 @@ public class TutorialHelper extends Activity {
     private short motionDelayIndex12 = 0;
     private short motionDelayIndex13 = 0;
 
-    //Asynctask
-//    private TextView progress;
-//    private int progressCount;
-//    private int presetTutorialCount = 85;
-//
-//    private void progressUpdate() {
-//        progress.setText(
-//                activity.getResources().getString(R.string.progressbar_loading_preset_progress) + " "
-//                        + progressCount++ + " / " + presetTutorialCount);
-//    }
-//
-//    private AsyncTask loadTutorial = null;
-//
-//    private class LoadTutorial extends AsyncTask<Void, Integer, String> {
-//        String TAG = "LoadTutorial";
-//
-//        protected void onPreExecute() {
-//            Log.d(TAG, "On preExceute, set UI");
-//
-//            window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_disabled_black);
-//            window.getImageView(R.id.layout_settings_tutorial_icon, activity).setImageResource(R.drawable.settings_tutorial_disabled);
-//        }
-//
-//        protected String doInBackground(Void... arg0) {
-//            Log.d(TAG, "On doInBackground, start loading tutorials");
-//
-//            if (currentPreset != null) {
-//                Log.i(TAG, "Preset \"" + window.getStringFromId(currentPreset.getMusic().getName(), activity) + "\", id " + currentPreset.getId());
-//
-//            }
-//
-//            return "You are at PostExecute";
-//        }
-//
-//        protected void onProgressUpdate(Integer... a) {
-//            progressUpdate();
-//        }
-//
-//        protected void onPostExecute(String result) {
-//            Log.d(TAG, "sampleId count : " + presetTutorialCount);
-//
-//            progress = window.getTextView(R.id.progress_bar_progress_text, activity);
-//
-//            sp.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-//                @Override
-//                public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-//                    Log.d(TAG, "Loading Finished, sampleId : " + sampleId);
-//                    progressUpdate();
-//                    if(sampleId == presetTutorialCount) {
-//                        // final sampleId
-//                        Log.d(TAG, "Loading completed, SoundPool successfully loaded "
-//                                + presetTutorialCount
-//                                + " tutorials");
-//
-//                        window.getTextView(R.id.progress_bar_text, activity).setText(R.string.progressbar_loading_preset_done);
-//                        progress.setText(
-//                                activity.getResources().getString(R.string.progressbar_loading_preset_progress) + " "
-//                                        + presetTutorialCount * 2 + " / " + presetTutorialCount * 2);
-//                        isPresetLoaded = true;
-//
-//                        // Load finished, set AsyncTask objects to null
-//                        LoadTutorial = null;
-//                        unLoadTutorial = null;
-//
-//                        window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_black);
-//                        window.getImageView(R.id.layout_settings_tutorial_icon, activity).setImageResource(R.drawable.settings_tutorial);
-//
-//                        anim.fadeOut(R.id.progress_bar_layout, 400, 400, activity);
-//                        MainActivity main = new MainActivity();
-//                        main.setQuickstart(activity);
-//
-//                        Handler setText = new Handler();
-//                        setText.postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                window.getTextView(R.id.progress_bar_text, activity).setText(R.string.progressbar_loading_preset);
-//                                window.getTextView(R.id.progress_bar_progress_text, activity).setText(R.string.progressbar_loading_preset_progress_placeholder);
-//                            }
-//                        }, 800);
-//
-//                        main.isPresetLoading = false;
-//                    }
-//                }
-//            });
-//        }
-//
-//        @Override
-//        protected void onCancelled() {
-//            super.onCancelled();
-//            Log.d("TAG", "LoadTutorial successfully canceled");
-//        }
-//    }
-//
-//    void startTutorial(Activity activity) {
-//        this.activity = activity;
-//    }
-
     void resetMotionDelayIndexes() {
         for (int i = 0; i < motionDelayIndexes.length; i++) {
             motionDelayIndexes[i] = 0;
-            Log.d("MDIS", "Cleared at [" + i + "]");
+            Log.d("TAG", "Cleared at [" + i + "]");
         }
     }
 
@@ -1283,7 +1186,7 @@ public class TutorialHelper extends Activity {
     // TODO work on tutorials
 
     void setRunnable() {
-        // initialize motion runnables
+        // initialize motion runnable
         motions = new Runnable[]{
                 getRunnable(0),
                 getRunnable(1),
@@ -1594,7 +1497,7 @@ public class TutorialHelper extends Activity {
         View placeholder;
 
         videoView = (VideoView) activity.findViewById(btnId);
-        placeholder = (View) activity.findViewById(phId);
+        placeholder = activity.findViewById(phId);
         animator(videoView, placeholder, motionId, activity);
         Log.i("MotionAnimation", "Animation played on " + activity.getResources().getResourceEntryName(phId));
     }
@@ -1732,7 +1635,7 @@ public class TutorialHelper extends Activity {
         videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
-                Log.i("Animator", "Animation started - OnPreparedListner");
+                Log.i("Animator", "Animation started - OnPreparedListener");
                 if (state[0] == 1) {
                     placeholder.setVisibility(View.GONE);
                 } else {
@@ -1745,7 +1648,7 @@ public class TutorialHelper extends Activity {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 placeholder.setVisibility(View.VISIBLE);
-                Log.i("Animator", "Animation finished - OnCompletionListner");
+                Log.i("Animator", "Animation finished - OnCompletionListener");
                 state[0] = 0;
             }
         });

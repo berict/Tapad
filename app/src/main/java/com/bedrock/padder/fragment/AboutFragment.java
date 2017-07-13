@@ -27,7 +27,7 @@ import com.bedrock.padder.helper.WindowHelper;
 import com.google.android.gms.ads.AdListener;
 import com.squareup.picasso.Picasso;
 
-import static com.bedrock.padder.activity.MainActivity.coord;
+import static com.bedrock.padder.activity.MainActivity.coordinate;
 import static com.bedrock.padder.activity.MainActivity.currentPreset;
 import static com.bedrock.padder.activity.MainActivity.isPresetVisible;
 import static com.bedrock.padder.activity.MainActivity.isSettingVisible;
@@ -156,7 +156,7 @@ public class AboutFragment extends Fragment {
         toolbar.setActionBarDisplayHomeAsUpIcon(R.drawable.ic_close_white);
 
         if (currentPreset != null) {
-            // Cardview
+            // CardView
             w.getView(R.id.cardview_music_layout, v).setVisibility(View.VISIBLE);
             Picasso.with(a)
                     .load("file:" + currentPreset.getAbout().getImage())
@@ -237,8 +237,8 @@ public class AboutFragment extends Fragment {
         w.getView(R.id.cardview_about_settings, v).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                coord[2] = (int) event.getRawX();
-                coord[3] = (int) event.getRawY();
+                coordinate[2] = (int) event.getRawX();
+                coordinate[3] = (int) event.getRawY();
 
                 return false;
             }
@@ -249,8 +249,8 @@ public class AboutFragment extends Fragment {
             public void onClick(View view) {
                 if (isSettingVisible == false) {
                     anim.circularRevealInPx(R.id.placeholder,
-                            coord[2], coord[3],
-                            0, (int) Math.hypot(coord[2], coord[3]) + 200, new AccelerateDecelerateInterpolator(),
+                            coordinate[2], coordinate[3],
+                            0, (int) Math.hypot(coordinate[2], coordinate[3]) + 200, new AccelerateDecelerateInterpolator(),
                             circularRevealDuration, 0, a);
 
                     Handler about = new Handler();

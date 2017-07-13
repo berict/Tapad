@@ -40,6 +40,6 @@
         android:layout_marginTop="@dimen/mi_baseline"
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        tools:text="Lorem ipsum dolor sit amet, consectetur, adipisci velit, …"/>
+        tools:text="Lorem ipsum"/>
 
 </com.heinrichreimersoftware.materialintro.view.parallax.ParallaxLinearLayout>

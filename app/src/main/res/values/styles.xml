@@ -22,17 +22,17 @@
 		<item name="android:textAllCaps">true</item>
 	</style>
 	
-	<style name="expandedappbar" parent="@android:style/TextAppearance.Medium">
+	<style name="expandedAppBar" parent="@android:style/TextAppearance.Medium">
 		<item name="android:textSize">28sp</item>
 		<item name="android:textColor">@color/light_primary</item>
 	</style>
 	
-	<style name="collapsedappbar" parent="@android:style/TextAppearance.Medium">
+	<style name="collapsedAppBar" parent="@android:style/TextAppearance.Medium">
 		<item name="android:textSize">18sp</item>
 		<item name="android:textColor">@color/white</item>
 	</style>
 	
-	<style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
+	<style name="TextAppearance.App.TextInputLayout" parent="@android:style/TextAppearance">
 		<item name="android:textColor">@color/colorAccent</item>
 	</style>
 	

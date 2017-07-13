@@ -17,7 +17,7 @@ public class MainIntroActivity extends IntroActivity {
         setButtonCtaVisible(true);
         setButtonCtaTintMode(BUTTON_CTA_TINT_MODE_TEXT);
 
-        // start autoplay
+        // start auto play
         autoplay(2500, 1);
 
         addSlide(new SimpleSlide.Builder()

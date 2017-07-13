@@ -50,7 +50,7 @@
     <string name="tab_1">Installed</string>
     <string name="tab_2">Online</string>
 
-    <!-- Cardview -->
+    <!-- CardView -->
     <string name="cardview_now_playing">Now playing</string>
 
     <!-- Help -->

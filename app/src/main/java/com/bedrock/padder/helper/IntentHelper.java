@@ -148,7 +148,7 @@ public class IntentHelper {
                 public void run() {
                     if(Build.VERSION.SDK_INT >= 21) {
                         Intent intent = new Intent(activity, classToLoad);
-                        View view = (View) activity.findViewById(start_element_id);
+                        View view = activity.findViewById(start_element_id);
 
                         ActivityOptionsCompat options =
                                 ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
@@ -179,7 +179,7 @@ public class IntentHelper {
                     if(Build.VERSION.SDK_INT >= 21) {
                         Intent intent = new Intent(activity, classToLoad);
                         intent.putExtra(extraName, extra);
-                        View view = (View) activity.findViewById(start_element_id);
+                        View view = activity.findViewById(start_element_id);
 
                         ActivityOptionsCompat options =
                                 ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
@@ -210,7 +210,7 @@ public class IntentHelper {
                     if(Build.VERSION.SDK_INT >= 21) {
                         Intent intent = new Intent(activity, classToLoad);
                         intent.putExtra(extraName, extra);
-                        View view = (View) activity.findViewById(start_element_id);
+                        View view = activity.findViewById(start_element_id);
 
                         ActivityOptionsCompat options =
                                 ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
@@ -357,7 +357,7 @@ public class IntentHelper {
     public void intentMarket(final Activity activity, final String appPackage, int delay) {
         Uri uri = Uri.parse("market://details?id=" + appPackage);
         final Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-        // To count with Play market backstack, After pressing back button,
+        // To count with Play market back stack, After pressing back button,
         // to taken back to our application, we need to add following flags to intent.
         if(Build.VERSION.SDK_INT >= 21) {
             goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |

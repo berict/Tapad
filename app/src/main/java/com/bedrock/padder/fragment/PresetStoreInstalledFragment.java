@@ -88,7 +88,7 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
         File[] presets = getPresetFolderList();
         if (presets != null && presets.length > 1) {
             // length contains the metadata file
-            Log.d(TAG, "Initialized arraylist, length is " + (presets.length - 1));
+            Log.d(TAG, "Initialized arrayList, length is " + (presets.length - 1));
             ArrayList<Preset> presetArrayList = new ArrayList<>();
 
             for (File presetFolder : presets) {
@@ -102,7 +102,7 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
             // create metadata
             firebaseMetadata = new FirebaseMetadata(presetArrayList.toArray(new Preset[presetArrayList.size()]), 0);
         } else {
-            Log.d(TAG, "null arraylist");
+            Log.d(TAG, "null arrayList");
             firebaseMetadata = new FirebaseMetadata(null, 0);
         }
         setAdapter();

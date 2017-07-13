@@ -553,7 +553,7 @@ public class AnimateHelper {
     }
 
     public void scaleOut(final int id, final int delay, final long duration, String handlerName, Activity activity) {
-        final View view = (View) activity.findViewById(id);
+        final View view = activity.findViewById(id);
         final ScaleAnimation scaleOut = new ScaleAnimation(1, 0, 1, 0, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 
         scaleOut.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -610,7 +610,7 @@ public class AnimateHelper {
     }
 
     public void scaleOut(final int id, int touchX, int touchY, final int delay, final long duration, String handlerName, Activity activity) {
-        final View view = (View) activity.findViewById(id);
+        final View view = activity.findViewById(id);
         float x = touchX / window.getWindowWidthPx(activity);
         float y = touchY / window.getWindowHeightPx(activity);
         final ScaleAnimation scaleOut = new ScaleAnimation(1, 0, 1, 0, Animation.ABSOLUTE, x, Animation.ABSOLUTE, y);
@@ -677,7 +677,7 @@ public class AnimateHelper {
     }
 
     public void scaleIn(final int id, final int delay, final long duration, String handlerName, Activity activity) {
-        final View view = (View) activity.findViewById(id);
+        final View view = activity.findViewById(id);
         final ScaleAnimation scaleIn = new ScaleAnimation(0, 1, 0, 1, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         view.setVisibility(View.INVISIBLE);
 
@@ -728,7 +728,7 @@ public class AnimateHelper {
     }
 
     public void scaleIn(final int id, int touchX, int touchY, final int delay, final long duration, String handlerName, Activity activity) {
-        final View view = (View) activity.findViewById(id);
+        final View view = activity.findViewById(id);
         float x = touchX / window.getWindowWidthPx(activity);
         float y = touchY / window.getWindowHeightPx(activity);
         final ScaleAnimation scaleOut = new ScaleAnimation(0, 1, 0, 1, Animation.ABSOLUTE, x, Animation.ABSOLUTE, y);
@@ -809,7 +809,7 @@ public class AnimateHelper {
 
     // Object Animations
 
-    public void moveXYinpx(View view,
+    public void moveXYinPX(View view,
                            int fromX, int toX,
                            int durationX, int delayX, TimeInterpolator intX,
                            int fromY, int toY,
@@ -836,7 +836,7 @@ public class AnimateHelper {
         }
     }
 
-    public void moveXYinpx(int view,
+    public void moveXYinPX(int view,
                            int fromX, int toX,
                            int durationX, int delayX, TimeInterpolator intX,
                            int fromY, int toY,
@@ -866,7 +866,7 @@ public class AnimateHelper {
         }
     }
 
-    public void moveXYindp(View view,
+    public void moveXYinDP(View view,
                            int fromX, int toX,
                            int durationX, int delayX, TimeInterpolator intX,
                            int fromY, int toY,
@@ -896,7 +896,7 @@ public class AnimateHelper {
         }
     }
 
-    public void moveXYindp(int view,
+    public void moveXYinDP(int view,
                            int fromX, int toX,
                            int durationX, int delayX, TimeInterpolator intX,
                            int fromY, int toY,
@@ -1035,7 +1035,7 @@ public class AnimateHelper {
         }
     }
 
-    public void circularRevealindp(int view,
+    public void circularRevealinDP(int view,
                                    int centerX, int centerY,
                                    int startRad, int endRad, TimeInterpolator interpolator,
                                    int duration, int delay, Activity activity) {
@@ -1090,13 +1090,13 @@ public class AnimateHelper {
                                     final TimeInterpolator interpolator, final Runnable onClick,
                                     final int duration, final int delay, final Activity activity) {
         View touch = activity.findViewById(touch_view);
-        final int coord[] = {0, 0};
+        final int coordinate[] = {0, 0};
 
         touch.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                coord[0] = (int) event.getRawX();
-                coord[1] = (int) event.getRawY();
+                coordinate[0] = (int) event.getRawX();
+                coordinate[1] = (int) event.getRawY();
 
                 return false;
             }
@@ -1106,7 +1106,7 @@ public class AnimateHelper {
             @Override
             public void onClick(View v) {
                 circularRevealInPx(reveal_view,
-                        coord[0], coord[1],
+                        coordinate[0], coordinate[1],
                         0, (int) Math.hypot(window.getWindowWidthPx(activity), window.getWindowHeightPx(activity)) + 200, interpolator,
                         duration, delay, activity);
                 onClick.run();
@@ -1117,13 +1117,13 @@ public class AnimateHelper {
     public void circularRevealTouch(View touch_view, final int reveal_view,
                                     final TimeInterpolator interpolator, final Runnable onClick,
                                     final int duration, final int delay, final Activity activity) {
-        final int coord[] = {0, 0};
+        final int coordinate[] = {0, 0};
 
         touch_view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                coord[0] = (int) event.getRawX();
-                coord[1] = (int) event.getRawY();
+                coordinate[0] = (int) event.getRawX();
+                coordinate[1] = (int) event.getRawY();
 
                 return false;
             }
@@ -1133,7 +1133,7 @@ public class AnimateHelper {
             @Override
             public void onClick(View v) {
                 circularRevealInPx(reveal_view,
-                        coord[0], coord[1],
+                        coordinate[0], coordinate[1],
                         0, (int) Math.hypot(window.getWindowWidthPx(activity), window.getWindowHeightPx(activity)) + 200, interpolator,
                         duration, delay, activity);
                 onClick.run();

@@ -80,20 +80,20 @@ public class PresetStoreActivity extends AppCompatActivity {
         toolbar.setStatusBarTint(this);
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.collapsedappbar);
-        collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.expandedappbar);
+        collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.collapsedAppBar);
+        collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.expandedAppBar);
 
         window.setNavigationBar(R.color.transparent, activity);
 
-        View statusbar = findViewById(R.id.statusbar);
+        View statusBar = findViewById(R.id.statusBar);
         if (Build.VERSION.SDK_INT < 21) {
-            statusbar.setVisibility(View.GONE);
+            statusBar.setVisibility(View.GONE);
         } else {
             try {
-                statusbar.getLayoutParams().height = window.getStatusBarFromPrefs(activity);
+                statusBar.getLayoutParams().height = window.getStatusBarFromPrefs(activity);
             } catch (NullPointerException e) {
                 Log.d("NullExp", e.getMessage());
-                statusbar.setVisibility(View.GONE);
+                statusBar.setVisibility(View.GONE);
             }
         }
 
@@ -272,7 +272,7 @@ public class PresetStoreActivity extends AppCompatActivity {
 
     private void setUi() {
         // status bar
-        window.getView(R.id.statusbar, activity).setBackgroundColor(themeColor);
+        window.getView(R.id.statusBar, activity).setBackgroundColor(themeColor);
 
         // action bar
         collapsingToolbarLayout.setContentScrimColor(themeColor);

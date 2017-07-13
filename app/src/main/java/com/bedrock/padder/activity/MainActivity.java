@@ -66,8 +66,8 @@ public class MainActivity
     public static Preset preset;
     public static Preset currentPreset = null;
     // Used for circularReveal
-    // End two is for settings coordination
-    public static int coord[] = {0, 0, 0, 0};
+    // End two is for settings coordinateination
+    public static int coordinate[] = {0, 0, 0, 0};
     final AppCompatActivity a = this;
     final String qs = "quickstart";
     public boolean tgl1 = false;
@@ -137,7 +137,7 @@ public class MainActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d(TAG, "Sharedprefs initialized");
+        Log.d(TAG, "SharedPrefs initialized");
         prefs = this.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
 
         try {
@@ -276,7 +276,7 @@ public class MainActivity
         Log.i("BackPressed", "isSettingVisible " + String.valueOf(isSettingVisible));
         if (isToolbarVisible == true) {
             if (isAboutVisible == false && isSettingVisible == false) {
-                Log.i("BackPressed", "Quickstart tap target prompt is visible, backpress ignored.");
+                Log.i("BackPressed", "Quickstart tap target prompt is visible, backPress ignored.");
             } else {
                 // new structure
                 if (isAboutVisible && isSettingVisible) {
@@ -565,8 +565,8 @@ public class MainActivity
         info.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                coord[0] = (int) event.getRawX();
-                coord[1] = (int) event.getRawY();
+                coordinate[0] = (int) event.getRawX();
+                coordinate[1] = (int) event.getRawY();
 
                 return false;
             }
@@ -577,8 +577,8 @@ public class MainActivity
             public void onClick(View v) {
                 if (isAboutVisible == false) {
                     anim.circularRevealInPx(R.id.placeholder,
-                            coord[0], coord[1],
-                            0, (int) Math.hypot(coord[0], coord[1]) + 200, new AccelerateDecelerateInterpolator(),
+                            coordinate[0], coordinate[1],
+                            0, (int) Math.hypot(coordinate[0], coordinate[1]) + 200, new AccelerateDecelerateInterpolator(),
                             circularRevealDuration, 0, a);
 
                     Handler about = new Handler();
@@ -600,8 +600,8 @@ public class MainActivity
         preset.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                coord[0] = (int) event.getRawX();
-                coord[1] = (int) event.getRawY();
+                coordinate[0] = (int) event.getRawX();
+                coordinate[1] = (int) event.getRawY();
 
                 return false;
             }
@@ -612,8 +612,8 @@ public class MainActivity
             public void onClick(View v) {
                 if (isPresetVisible == false) {
                     anim.circularRevealInPx(R.id.placeholder,
-                            coord[0], coord[1],
-                            0, (int) Math.hypot(coord[0], coord[1]) + 200, new AccelerateDecelerateInterpolator(),
+                            coordinate[0], coordinate[1],
+                            0, (int) Math.hypot(coordinate[0], coordinate[1]) + 200, new AccelerateDecelerateInterpolator(),
                             circularRevealDuration, 0, a);
 
                     intent.intent(a, "activity.PresetStoreActivity", circularRevealDuration);
@@ -625,8 +625,8 @@ public class MainActivity
         tutorial.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                coord[0] = (int) event.getRawX();
-                coord[1] = (int) event.getRawY();
+                coordinate[0] = (int) event.getRawX();
+                coordinate[1] = (int) event.getRawY();
 
                 return false;
             }
@@ -643,8 +643,8 @@ public class MainActivity
         settings.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                coord[2] = (int) event.getRawX();
-                coord[3] = (int) event.getRawY();
+                coordinate[2] = (int) event.getRawX();
+                coordinate[3] = (int) event.getRawY();
 
                 return false;
             }
@@ -656,8 +656,8 @@ public class MainActivity
                 if (isSettingVisible == false) {
                     w.setRecentColor(R.string.settings, 0, R.color.colorAccent, a);
                     anim.circularRevealInPx(R.id.placeholder,
-                            coord[2], coord[3],
-                            0, (int) Math.hypot(coord[2], coord[3]) + 200, new AccelerateDecelerateInterpolator(),
+                            coordinate[2], coordinate[3],
+                            0, (int) Math.hypot(coordinate[2], coordinate[3]) + 200, new AccelerateDecelerateInterpolator(),
                             circularRevealDuration, 0, a);
 
                     Handler about = new Handler();
@@ -685,8 +685,8 @@ public class MainActivity
     private void closeAbout() {
         Log.d("closeAbout", "triggered");
         anim.circularRevealInPx(R.id.placeholder,
-                coord[0], coord[1],
-                (int) Math.hypot(coord[0], coord[1]) + 200, 0, new AccelerateDecelerateInterpolator(),
+                coordinate[0], coordinate[1],
+                (int) Math.hypot(coordinate[0], coordinate[1]) + 200, 0, new AccelerateDecelerateInterpolator(),
                 circularRevealDuration, fadeAnimDuration, a);
 
         anim.fadeIn(R.id.placeholder, 0, fadeAnimDuration, "aboutOut", a);
@@ -702,9 +702,9 @@ public class MainActivity
             }
         }, fadeAnimDuration);
 
-        // reset the touch coords
-        coord[0] = 0;
-        coord[1] = 0;
+        // reset the touch coordinates
+        coordinate[0] = 0;
+        coordinate[1] = 0;
     }
 
     private void showTutorial() {
@@ -745,8 +745,8 @@ public class MainActivity
         Log.d("closeSettings", "triggered");
         if (isToolbarVisible && !isSettingsFromMenu) {
             anim.circularRevealInPx(R.id.placeholder,
-                    coord[2], coord[3],
-                    (int) Math.hypot(coord[2], coord[3]) + 200, 0, new AccelerateDecelerateInterpolator(),
+                    coordinate[2], coordinate[3],
+                    (int) Math.hypot(coordinate[2], coordinate[3]) + 200, 0, new AccelerateDecelerateInterpolator(),
                     circularRevealDuration, fadeAnimDuration, a);
 
             anim.fadeIn(R.id.placeholder, 0, fadeAnimDuration, "settingOut", a);
@@ -765,7 +765,7 @@ public class MainActivity
             @Override
             public void run() {
                 if (isAboutVisible) {
-                    // about visible set taskdesc
+                    // about visible set taskDesc
                     w.setRecentColor(R.string.about, 0, themeColor, a);
                 } else {
                     setPresetInfo();
@@ -774,18 +774,18 @@ public class MainActivity
             }
         }, fadeAnimDuration);
 
-        // reset the touch coords
-        coord[2] = 0;
-        coord[3] = 0;
+        // reset the touch coordinates
+        coordinate[2] = 0;
+        coordinate[3] = 0;
     }
 
     private void closePresetStore() {
         setPresetInfo();
 
-        if (coord[0] > 0 && coord[1] > 0) {
+        if (coordinate[0] > 0 && coordinate[1] > 0) {
             anim.circularRevealInPx(R.id.placeholder,
-                    coord[0], coord[1],
-                    (int) Math.hypot(coord[0], coord[1]) + 200, 0, new AccelerateDecelerateInterpolator(),
+                    coordinate[0], coordinate[1],
+                    (int) Math.hypot(coordinate[0], coordinate[1]) + 200, 0, new AccelerateDecelerateInterpolator(),
                     circularRevealDuration, 200, a);
         }
     }
