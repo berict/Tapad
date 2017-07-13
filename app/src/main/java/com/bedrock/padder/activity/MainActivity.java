@@ -219,7 +219,7 @@ public class MainActivity
         setFab();
         setToolbar();
         setPresetInfo();
-        sound.setButtonToggle();
+        sound.setDecks(R.color.colorAccent, R.color.grey, a);
         enterAnim();
         loadPreset(400);
         setButtonLayout();
@@ -275,8 +275,7 @@ public class MainActivity
         Log.i("BackPressed", "isAboutVisible " + String.valueOf(isAboutVisible));
         Log.i("BackPressed", "isSettingVisible " + String.valueOf(isSettingVisible));
         if (isToolbarVisible == true) {
-            if (prefs.getInt(qs, 0) > 0 && isAboutVisible == false && isSettingVisible == false) {
-                Log.i("BackPressed", String.valueOf(prefs.getInt(qs, 0)));
+            if (isAboutVisible == false && isSettingVisible == false) {
                 Log.i("BackPressed", "Quickstart tap target prompt is visible, backpress ignored.");
             } else {
                 // new structure
@@ -298,27 +297,23 @@ public class MainActivity
             // Setting is visible above about
             closeSettings();
         } else {
-            if (prefs.getInt(qs, 0) > 0) {
-                Log.i("BackPressed", "Tutorial prompt is visible, backpress ignored.");
-            } else {
-                Log.d("BackPressed", "Down");
-                if (doubleBackToExitPressedOnce) {
-                    super.onBackPressed();
-                    finish();
-                }
-
-                doubleBackToExitPressedOnce = true;
-
-                Toast.makeText(this, R.string.confirm_exit, Toast.LENGTH_SHORT).show();
-
-                new Handler().postDelayed(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        doubleBackToExitPressedOnce = false;
-                    }
-                }, 2000);
+            Log.d("BackPressed", "Down");
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                finish();
             }
+
+            doubleBackToExitPressedOnce = true;
+
+            Toast.makeText(this, R.string.confirm_exit, Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
         }
     }
 
@@ -547,37 +542,6 @@ public class MainActivity
                 if (isToolbarVisible == false) {
                     fab.hideFab(0, 200);
                     anim.fadeIn(R.id.toolbar, 200, 100, "toolbarIn", a);
-//                    if (prefs.getInt(qs, 0) == 7) {
-//                        Log.i("setQuickstart", "Quickstart started");
-//                        if (promptInfo != null) {
-//                            return;
-//                        }
-//                        promptInfo = new MaterialTapTargetPrompt.Builder(a)
-//                                .setTarget(a.findViewById(R.id.toolbar_info))
-//                                .setPrimaryText(R.string.dialog_tap_target_info_primary)
-//                                .setSecondaryText(R.string.dialog_tap_target_info_secondary)
-//                                .setAnimationInterpolator(new FastOutSlowInInterpolator())
-//                                .setFocalColourFromRes(R.color.blue_500)
-//                                .setAutoDismiss(false)
-//                                .setAutoFinish(false)
-//                                .setCaptureTouchEventOutsidePrompt(true)
-//                                .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
-//                                    @Override
-//                                    public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
-//                                        if (tappedTarget) {
-//                                            promptInfo.finish();
-//                                            promptInfo = null;
-//                                            prefs.edit().putInt(qs, 8).apply();
-//                                            Log.i("sharedPrefs", "quickstart edited to 8");
-//                                        }
-//                                    }
-//
-//                                    @Override
-//                                    public void onHidePromptComplete() {
-//                                    }
-//                                })
-//                                .show();
-//                    }
                     isToolbarVisible = true;
                 }
 
@@ -737,37 +701,6 @@ public class MainActivity
                 w.getView(R.id.fragment_about_container, a).setVisibility(View.GONE);
             }
         }, fadeAnimDuration);
-
-        // Firstrun tutorial
-//        if (prefs.getInt(qs, 0) == 8) {
-//            promptPreset = new MaterialTapTargetPrompt.Builder(a)
-//                    .setTarget(a.findViewById(R.id.toolbar_preset))
-//                    .setPrimaryText(R.string.dialog_tap_target_preset_primary)
-//                    .setSecondaryText(R.string.dialog_tap_target_preset_secondary)
-//                    .setAnimationInterpolator(new FastOutSlowInInterpolator())
-//                    .setFocalColourFromRes(R.color.blue_500)
-//                    .setAutoDismiss(false)
-//                    .setAutoFinish(false)
-//                    .setCaptureTouchEventOutsidePrompt(true)
-//                    .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
-//                        @Override
-//                        public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
-//                            if (tappedTarget) {
-//                                promptPreset.finish();
-//                                promptPreset = null;
-//                                prefs.edit().putInt(qs, 9).apply();
-//                                Log.i("sharedPrefs", "quickstart edited to 9");
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onHidePromptComplete() {
-//                            // idk why is this here
-//                            //isTutorialVisible = false;
-//                        }
-//                    })
-//                    .show();
-//        }
 
         // reset the touch coords
         coord[0] = 0;
