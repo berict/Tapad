@@ -66,7 +66,7 @@ public class MainActivity
     public static Preset preset;
     public static Preset currentPreset = null;
     // Used for circularReveal
-    // End two is for settings coordinateination
+    // End two is for settings coordinate animation
     public static int coordinate[] = {0, 0, 0, 0};
     final AppCompatActivity a = this;
     final String qs = "quickstart";
@@ -1245,7 +1245,7 @@ public class MainActivity
                 new Item("instagram", w.getStringFromId("preset_faded_detail_instagram", a)),
                 new Item("google_plus", w.getStringFromId("preset_faded_detail_google_plus", a)),
                 new Item("youtube", w.getStringFromId("preset_faded_detail_youtube", a)),
-                //new Item("twitch", w.getStringFromId("preset_faded_detail_twitch", a)), // only omfg
+                //new Item("twitch", w.getStringFromId("preset_faded_detail_twitch", a)),
                 new Item("web", w.getStringFromId("preset_faded_detail_web", a))
         };
 

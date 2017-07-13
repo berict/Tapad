@@ -170,7 +170,7 @@ public class AnimateHelper {
     }
 
     public void fadeIn(final View view, final int delay, final long duration, String handlerName, Activity activity) {
-        final AlphaAnimation fadeIn = new AlphaAnimation(0.0f, 1.0f);;
+        final AlphaAnimation fadeIn = new AlphaAnimation(0.0f, 1.0f);
         view.setVisibility(View.INVISIBLE);
         PowerManager powerManager = (PowerManager) activity.getSystemService(POWER_SERVICE);
 
