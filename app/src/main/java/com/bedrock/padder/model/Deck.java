@@ -27,7 +27,7 @@ public class Deck {
         pads[index] = pad;
     }
 
-    public void pause() {
+    public void stop() {
         if (pads != null && pads.length >= 21) {
             for (Pad pad : pads) {
                 pad.stop();

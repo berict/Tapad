@@ -82,6 +82,7 @@ public class MainActivity
     int currentVersionCode;
     int themeColor = R.color.hello;
     int color = R.color.cyan_400;
+    int colorDef = R.color.grey;
     int toggleSoundId = 0;
     int togglePatternId = 0;
     private SharedPreferences prefs = null;
@@ -384,7 +385,7 @@ public class MainActivity
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         Log.i("MainActivity", "onWindowFocusChanged");
-        sound.soundAllStop();
+        sound.stop();
 
         int tutorial[] = {
                 R.id.btn00_tutorial,
@@ -460,7 +461,7 @@ public class MainActivity
         }
 
         Log.d("MainActivity", "onResume");
-        sound.soundAllStop();
+        sound.stop();
         int tutorial[] = {
                 R.id.btn00_tutorial,
                 R.id.tgl1_tutorial,
@@ -557,8 +558,8 @@ public class MainActivity
     protected void onDestroy() {
         Log.d(TAG, "onDestroy");
 
-        sound.soundAllStop();
-        sound.cancelLoading();
+        sound.stop();
+        sound.cancelLoad();
 
         ad.destroyNativeAdView(R.id.adView_main, a);
 
@@ -1002,7 +1003,7 @@ public class MainActivity
             preset.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    sound.loadSound(currentPreset, a);
+                    sound.load(currentPreset, colorDef, prefs.getInt("color", R.color.cyan_400), a);
                 }
             }, delay);
         }
@@ -1022,17 +1023,17 @@ public class MainActivity
                         sound.setButtonToggle(toggleSoundId, color, a);
                     }
                     w.setViewBackgroundColor(R.id.tgl1, color_id, a);
-                    w.setViewBackgroundColor(R.id.tgl2, R.color.grey, a);
-                    w.setViewBackgroundColor(R.id.tgl3, R.color.grey, a);
-                    w.setViewBackgroundColor(R.id.tgl4, R.color.grey, a);
+                    w.setViewBackgroundColor(R.id.tgl2, colorDef, a);
+                    w.setViewBackgroundColor(R.id.tgl3, colorDef, a);
+                    w.setViewBackgroundColor(R.id.tgl4, colorDef, a);
                     if (tgl2 || tgl3 || tgl4) {
                         sound.playToggleButtonSound(1);
                     }
                 } else {
-                    w.setViewBackgroundColor(R.id.tgl1, R.color.grey, a);
+                    w.setViewBackgroundColor(R.id.tgl1, colorDef, a);
                     toggleSoundId = 0;
-                    sound.setButton(R.color.grey_dark, a);
-                    sound.soundAllStop();
+                    sound.setButton(colorDef, a);
+                    sound.stop();
                 }
             }
         }, new Runnable() {
@@ -1061,15 +1062,15 @@ public class MainActivity
                         sound.setButtonToggle(toggleSoundId, color, a);
                     }
                     w.setViewBackgroundColor(R.id.tgl2, color_id, a);
-                    w.setViewBackgroundColor(R.id.tgl1, R.color.grey, a);
-                    w.setViewBackgroundColor(R.id.tgl3, R.color.grey, a);
-                    w.setViewBackgroundColor(R.id.tgl4, R.color.grey, a);
+                    w.setViewBackgroundColor(R.id.tgl1, colorDef, a);
+                    w.setViewBackgroundColor(R.id.tgl3, colorDef, a);
+                    w.setViewBackgroundColor(R.id.tgl4, colorDef, a);
                     sound.playToggleButtonSound(2);
                 } else {
-                    w.setViewBackgroundColor(R.id.tgl2, R.color.grey, a);
+                    w.setViewBackgroundColor(R.id.tgl2, colorDef, a);
                     toggleSoundId = 0;
-                    sound.setButton(R.color.grey_dark, a);
-                    sound.soundAllStop();
+                    sound.setButton(colorDef, a);
+                    sound.stop();
                 }
             }
         }, new Runnable() {
@@ -1098,15 +1099,15 @@ public class MainActivity
                         sound.setButtonToggle(toggleSoundId, color, a);
                     }
                     w.setViewBackgroundColor(R.id.tgl3, color_id, a);
-                    w.setViewBackgroundColor(R.id.tgl2, R.color.grey, a);
-                    w.setViewBackgroundColor(R.id.tgl1, R.color.grey, a);
-                    w.setViewBackgroundColor(R.id.tgl4, R.color.grey, a);
+                    w.setViewBackgroundColor(R.id.tgl2, colorDef, a);
+                    w.setViewBackgroundColor(R.id.tgl1, colorDef, a);
+                    w.setViewBackgroundColor(R.id.tgl4, colorDef, a);
                     sound.playToggleButtonSound(3);
                 } else {
-                    w.setViewBackgroundColor(R.id.tgl3, R.color.grey, a);
+                    w.setViewBackgroundColor(R.id.tgl3, colorDef, a);
                     toggleSoundId = 0;
-                    sound.setButton(R.color.grey_dark, a);
-                    sound.soundAllStop();
+                    sound.setButton(colorDef, a);
+                    sound.stop();
                 }
             }
         }, new Runnable() {
@@ -1135,15 +1136,15 @@ public class MainActivity
                         sound.setButtonToggle(toggleSoundId, color, a);
                     }
                     w.setViewBackgroundColor(R.id.tgl4, color_id, a);
-                    w.setViewBackgroundColor(R.id.tgl2, R.color.grey, a);
-                    w.setViewBackgroundColor(R.id.tgl3, R.color.grey, a);
-                    w.setViewBackgroundColor(R.id.tgl1, R.color.grey, a);
+                    w.setViewBackgroundColor(R.id.tgl2, colorDef, a);
+                    w.setViewBackgroundColor(R.id.tgl3, colorDef, a);
+                    w.setViewBackgroundColor(R.id.tgl1, colorDef, a);
                     sound.playToggleButtonSound(4);
                 } else {
-                    w.setViewBackgroundColor(R.id.tgl4, R.color.grey, a);
+                    w.setViewBackgroundColor(R.id.tgl4, colorDef, a);
                     toggleSoundId = 0;
-                    sound.setButton(R.color.grey_dark, a);
-                    sound.soundAllStop();
+                    sound.setButton(colorDef, a);
+                    sound.stop();
                 }
             }
         }, new Runnable() {
@@ -1171,11 +1172,11 @@ public class MainActivity
                         sound.setButtonToggle(toggleSoundId, color, togglePatternId, a);
                     }
                     w.setViewBackgroundColor(R.id.tgl5, color_id, a);
-                    w.setViewBackgroundColor(R.id.tgl6, R.color.grey, a);
-                    w.setViewBackgroundColor(R.id.tgl7, R.color.grey, a);
-                    w.setViewBackgroundColor(R.id.tgl8, R.color.grey, a);
+                    w.setViewBackgroundColor(R.id.tgl6, colorDef, a);
+                    w.setViewBackgroundColor(R.id.tgl7, colorDef, a);
+                    w.setViewBackgroundColor(R.id.tgl8, colorDef, a);
                 } else {
-                    w.setViewBackgroundColor(R.id.tgl5, R.color.grey, a);
+                    w.setViewBackgroundColor(R.id.tgl5, colorDef, a);
                     togglePatternId = 0;
                     if (tgl1 || tgl2 || tgl3 || tgl4) {
                         sound.setButtonToggle(toggleSoundId, color, a);
@@ -1205,11 +1206,11 @@ public class MainActivity
                         sound.setButtonToggle(toggleSoundId, color, togglePatternId, a);
                     }
                     w.setViewBackgroundColor(R.id.tgl6, color_id, a);
-                    w.setViewBackgroundColor(R.id.tgl5, R.color.grey, a);
-                    w.setViewBackgroundColor(R.id.tgl7, R.color.grey, a);
-                    w.setViewBackgroundColor(R.id.tgl8, R.color.grey, a);
+                    w.setViewBackgroundColor(R.id.tgl5, colorDef, a);
+                    w.setViewBackgroundColor(R.id.tgl7, colorDef, a);
+                    w.setViewBackgroundColor(R.id.tgl8, colorDef, a);
                 } else {
-                    w.setViewBackgroundColor(R.id.tgl6, R.color.grey, a);
+                    w.setViewBackgroundColor(R.id.tgl6, colorDef, a);
                     togglePatternId = 0;
                     if (tgl1 || tgl2 || tgl3 || tgl4) {
                         sound.setButtonToggle(toggleSoundId, color, a);
@@ -1239,11 +1240,11 @@ public class MainActivity
                         sound.setButtonToggle(toggleSoundId, color, togglePatternId, a);
                     }
                     w.setViewBackgroundColor(R.id.tgl7, color_id, a);
-                    w.setViewBackgroundColor(R.id.tgl6, R.color.grey, a);
-                    w.setViewBackgroundColor(R.id.tgl5, R.color.grey, a);
-                    w.setViewBackgroundColor(R.id.tgl8, R.color.grey, a);
+                    w.setViewBackgroundColor(R.id.tgl6, colorDef, a);
+                    w.setViewBackgroundColor(R.id.tgl5, colorDef, a);
+                    w.setViewBackgroundColor(R.id.tgl8, colorDef, a);
                 } else {
-                    w.setViewBackgroundColor(R.id.tgl7, R.color.grey, a);
+                    w.setViewBackgroundColor(R.id.tgl7, colorDef, a);
                     togglePatternId = 0;
                     if (tgl1 || tgl2 || tgl3 || tgl4) {
                         sound.setButtonToggle(toggleSoundId, color, a);
@@ -1273,11 +1274,11 @@ public class MainActivity
                         sound.setButtonToggle(toggleSoundId, color, togglePatternId, a);
                     }
                     w.setViewBackgroundColor(R.id.tgl8, color_id, a);
-                    w.setViewBackgroundColor(R.id.tgl6, R.color.grey, a);
-                    w.setViewBackgroundColor(R.id.tgl7, R.color.grey, a);
-                    w.setViewBackgroundColor(R.id.tgl5, R.color.grey, a);
+                    w.setViewBackgroundColor(R.id.tgl6, colorDef, a);
+                    w.setViewBackgroundColor(R.id.tgl7, colorDef, a);
+                    w.setViewBackgroundColor(R.id.tgl5, colorDef, a);
                 } else {
-                    w.setViewBackgroundColor(R.id.tgl8, R.color.grey, a);
+                    w.setViewBackgroundColor(R.id.tgl8, colorDef, a);
                     togglePatternId = 0;
                     if (tgl1 || tgl2 || tgl3 || tgl4) {
                         sound.setButtonToggle(toggleSoundId, color, a);
@@ -1322,7 +1323,7 @@ public class MainActivity
         };
         for (int buttonId : buttonIds) {
             View pad = activity.findViewById(buttonId);
-            pad.setBackgroundColor(activity.getResources().getColor(R.color.grey));
+            pad.setBackgroundColor(activity.getResources().getColor(colorDef));
         }
 
         // stop all looping sounds
@@ -1339,14 +1340,14 @@ public class MainActivity
 
     private void clearToggleButton() {
         if (isDeckShouldCleared) {
-            w.setViewBackgroundColor(R.id.tgl1, R.color.grey, a);
-            w.setViewBackgroundColor(R.id.tgl2, R.color.grey, a);
-            w.setViewBackgroundColor(R.id.tgl3, R.color.grey, a);
-            w.setViewBackgroundColor(R.id.tgl4, R.color.grey, a);
-            w.setViewBackgroundColor(R.id.tgl5, R.color.grey, a);
-            w.setViewBackgroundColor(R.id.tgl6, R.color.grey, a);
-            w.setViewBackgroundColor(R.id.tgl7, R.color.grey, a);
-            w.setViewBackgroundColor(R.id.tgl8, R.color.grey, a);
+            w.setViewBackgroundColor(R.id.tgl1, colorDef, a);
+            w.setViewBackgroundColor(R.id.tgl2, colorDef, a);
+            w.setViewBackgroundColor(R.id.tgl3, colorDef, a);
+            w.setViewBackgroundColor(R.id.tgl4, colorDef, a);
+            w.setViewBackgroundColor(R.id.tgl5, colorDef, a);
+            w.setViewBackgroundColor(R.id.tgl6, colorDef, a);
+            w.setViewBackgroundColor(R.id.tgl7, colorDef, a);
+            w.setViewBackgroundColor(R.id.tgl8, colorDef, a);
 
             tgl1 = false;
             tgl2 = false;
@@ -1356,10 +1357,10 @@ public class MainActivity
             tgl6 = false;
             tgl7 = false;
             tgl8 = false;
-            sound.setButton(R.color.grey_dark, a);
+            sound.setButton(colorDef, a);
 
             toggleSoundId = 0;
-            sound.soundAllStop();
+            sound.stop();
 
             isDeckShouldCleared = false;
         }

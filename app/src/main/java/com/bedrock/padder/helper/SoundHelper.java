@@ -100,8 +100,10 @@ public class SoundHelper {
         }
     }
 
-    public void pauseSounds() {
-
+    public void stop() {
+        for (Deck deck : decks) {
+            deck.stop();
+        }
     }
 
     @Deprecated
