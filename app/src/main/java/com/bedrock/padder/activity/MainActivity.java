@@ -49,7 +49,6 @@ import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 @TargetApi(14)
-@SuppressWarnings("deprecation")
 
 public class MainActivity
         extends AppCompatActivity
@@ -100,15 +99,6 @@ public class MainActivity
     private boolean isSettingsFromMenu = false;
     private int circularRevealDuration = 400;
     private int fadeAnimDuration = 200;
-//    private MaterialTapTargetPrompt promptToggle;   // 1
-//    private MaterialTapTargetPrompt promptButton;   // 2
-//    private MaterialTapTargetPrompt promptSwipe;    // 3
-//    private MaterialTapTargetPrompt promptLoop;     // 4
-//    private MaterialTapTargetPrompt promptPattern;  // 5
-//    private MaterialTapTargetPrompt promptFab;      // 6
-//    private MaterialTapTargetPrompt promptPreset;   // 7
-//    private MaterialTapTargetPrompt promptInfo;     // 8
-//    private MaterialTapTargetPrompt promptTutorial; // 9
 
     private Gson gson = new Gson();
 
@@ -146,8 +136,6 @@ public class MainActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        makeJson();
 
         Log.d(TAG, "Sharedprefs initialized");
         prefs = this.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
@@ -231,7 +219,7 @@ public class MainActivity
         setFab();
         setToolbar();
         setPresetInfo();
-        setToggleButton(R.color.colorAccent);
+        sound.setButtonToggle();
         enterAnim();
         loadPreset(400);
         setButtonLayout();
@@ -867,34 +855,6 @@ public class MainActivity
                     (int) Math.hypot(coord[0], coord[1]) + 200, 0, new AccelerateDecelerateInterpolator(),
                     circularRevealDuration, 200, a);
         }
-
-//        if (prefs.getInt(qs, 0) == 7) {
-//            promptTutorial = new MaterialTapTargetPrompt.Builder(a)
-//                    .setTarget(a.findViewById(R.id.toolbar_tutorial))
-//                    .setPrimaryText(R.string.dialog_tap_target_tutorial_primary)
-//                    .setSecondaryText(R.string.dialog_tap_target_tutorial_secondary)
-//                    .setAnimationInterpolator(new FastOutSlowInInterpolator())
-//                    .setFocalColourFromRes(R.color.blue_500)
-//                    .setAutoDismiss(false)
-//                    .setAutoFinish(false)
-//                    .setCaptureTouchEventOutsidePrompt(true)
-//                    .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
-//                        @Override
-//                        public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
-//                            if (tappedTarget) {
-//                                promptTutorial.finish();
-//                                promptTutorial = null;
-//                                prefs.edit().putInt(qs, -1).apply();
-//                                Log.i("sharedPrefs", "quickstart edited to -1, completed");
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onHidePromptComplete() {
-//                        }
-//                    })
-//                    .show();
-//        }
     }
 
     private void loadPreset(int delay) {
@@ -909,6 +869,7 @@ public class MainActivity
         }
     }
 
+    @Deprecated
     private void setToggleButton(final int color_id) {
         // 1 - 4
         w.setOnTouch(R.id.tgl1, new Runnable() {
@@ -1200,6 +1161,7 @@ public class MainActivity
         }, a);
     }
 
+    @Deprecated
     public void clearDeck(Activity activity) {
         // clear button colors
         int buttonIds[] = {

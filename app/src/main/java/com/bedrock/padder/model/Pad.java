@@ -2,6 +2,7 @@ package com.bedrock.padder.model;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.os.Handler;
 import android.view.View;
 
 import com.bedrock.padder.helper.OnSwipeTouchListener;
@@ -14,15 +15,15 @@ public class Pad {
 
     protected int color = 0;
 
-    protected int defColor = 0;
+    protected int colorDef = 0;
 
     protected Activity activity = null;
 
-    public Pad(Sound normal, View view, int color, int defColor, Activity activity) {
+    public Pad(Sound normal, View view, int color, int colorDef, Activity activity) {
         this.normal = normal;
         this.view = view;
         this.color = color;
-        this.defColor = defColor;
+        this.colorDef = colorDef;
         this.activity = activity;
     }
 
@@ -38,8 +39,8 @@ public class Pad {
         this.color = color;
     }
 
-    public void setDefColor(int defColor) {
-        this.defColor = defColor;
+    public void setDefColor(int colorDef) {
+        this.colorDef = colorDef;
     }
 
     void setPadColor(int color) {
@@ -55,15 +56,29 @@ public class Pad {
         setPadColor(color);
     }
 
+    private Handler handler = new Handler();
+
     void setPadColorToDefault() {
-        if (!normal.isLooping) {
+        if (!normal.isLooping && view != null) {
             // while not looping
-            setPadColor(defColor);
+            setPadColor(colorDef);
+        }
+    }
+
+    void setPadColorToDefault(int delay) {
+        if (!normal.isLooping && view != null) {
+            // while not looping
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    setPadColorToDefault();
+                }
+            }, delay);
         }
     }
 
     void setPad() {
-        if (view != null && color != 0 && defColor != 0 && activity != null) {
+        if (view != null && color != 0 && colorDef != 0 && activity != null) {
             // initialized check
             view.setOnTouchListener(new OnSwipeTouchListener(activity) {
                 @Override
@@ -93,9 +108,11 @@ public class Pad {
 
     void unload() {
         getNormal().unload();
+        setPadColorToDefault();
     }
 
-    void stop() {
+    public void stop() {
         getNormal().stop();
+        setPadColorToDefault();
     }
 }

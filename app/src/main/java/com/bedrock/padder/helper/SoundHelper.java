@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.media.AudioManager;
+import android.media.MediaMetadataRetriever;
 import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -28,16 +29,12 @@ import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class SoundHelper {
     private SoundPool sp = new SoundPool(16, AudioManager.STREAM_MUSIC, 0);
+    private MediaMetadataRetriever mmr = new MediaMetadataRetriever();
     private int toggle;
 
     private int soundPoolId[][][] = new int[4][21][5];
 
-    private Deck decks[] = {
-            new Deck(new Pad[21]),
-            new Deck(new Pad[21]),
-            new Deck(new Pad[21]),
-            new Deck(new Pad[21])
-    };
+    private Deck decks[];
 
     private Activity activity;
     private static Preset previousPreset = null;
@@ -79,6 +76,65 @@ public class SoundHelper {
 
     private AsyncTask unload = null;
     private AsyncTask load = null;
+
+    public void setDecks(int color, int colorDef, Activity activity) {
+        decks = new Deck[] {
+                new Deck(new Pad[21], null, window.getView(buttonId[1], activity), color, colorDef, activity),
+                new Deck(new Pad[21], null, window.getView(buttonId[2], activity), color, colorDef, activity),
+                new Deck(new Pad[21], null, window.getView(buttonId[3], activity), color, colorDef, activity),
+                new Deck(new Pad[21], null, window.getView(buttonId[4], activity), color, colorDef, activity),
+        };
+
+        for (int i = 1; i <= 4; i++) {
+            final int index = i - 1;
+            window.setOnTouch(buttonId[i], new Runnable() {
+                @Override
+                public void run() {
+                    // set onTouch events
+                    if (decks[index].isSelected()) {
+                        // was already selected
+                        select(0);
+                    } else {
+                        select(index);
+                    }
+                }
+            }, activity);
+        }
+    }
+
+    void select(int index) {
+        // index starts from 0
+        if (index == 0) {
+            // unselect all
+            for (Deck deck : decks) {
+                deck.setSelected(false);
+                deck.stop();
+            }
+        } else {
+            if (index < decks.length) {
+                for (int i = 0; i < decks.length; i++) {
+                    decks[i].setSound(new Sound(sp, currentPreset.getSound(index + 1, i + 1), mmr));
+                    if (i == index - 1) {
+                        // selected
+                        decks[i].setSelected(true);
+                    } else {
+                        decks[i].setSelected(false);
+                    }
+                }
+            } else {
+                throw new IndexOutOfBoundsException();
+            }
+        }
+    }
+
+    public void clear() {
+        // clear buttons
+        for (Deck deck : decks) {
+            for (Pad pad : deck.getPads()) {
+                pad.stop();
+            }
+        }
+    }
 
     public void load(Preset preset, int color, int colorDef, Activity activity) {
         // set the previous preset
@@ -126,6 +182,7 @@ public class SoundHelper {
         }
     }
 
+    @Deprecated
     public void playToggleButtonSound(int id) {
         sp.play(soundPoolId[id - 1][id][0], 1, 1, 1, 0, 1f);
     }
@@ -201,6 +258,7 @@ public class SoundHelper {
     //        }
     //    }
 
+    @Deprecated
     public void setButtonToggle(int id, int colorId, Activity activity) {
         toggle = id;
         if (isPresetLoading == false) {
@@ -221,6 +279,7 @@ public class SoundHelper {
         }
     }
 
+    @Deprecated
     public void setButtonToggle(int id, int colorId, int patternId, Activity activity) {
 
         int pattern1[][][] = {
@@ -334,6 +393,7 @@ public class SoundHelper {
         }
     }
 
+    @Deprecated
     public void setButton(final int colorId, final Activity activity) {
         for (int i = 0; i < buttonId.length - 4; i++) {
             if (i == 0) {
@@ -513,7 +573,7 @@ public class SoundHelper {
                         }
                         if (sounds.size() == 1) {
                             // only one sound, use sound
-                            decks[i].setPad(new Pad(new Sound(sp, sounds.get(0)), buttonViews[j], color, colorDef, activity), j);
+                            decks[i].setPad(new Pad(new Sound(sp, sounds.get(0), mmr), buttonViews[j], color, colorDef, activity), j);
                         } else if (sounds.size() > 1) {
                             // gesture pad
                             decks[i].setPad(getGesturePadFromArray(sounds.toArray(new String[5]), sp, buttonViews[j], color, colorDef, activity), j);
@@ -593,10 +653,10 @@ public class SoundHelper {
         for (int i = 0; i < 5; i++) {
             if (i < soundPaths.length) {
                 // sounds exists
-                sounds[i] = new Sound(soundPool, soundPaths[i]);
+                sounds[i] = new Sound(soundPool, soundPaths[i], mmr);
             } else {
                 // no sound gesture
-                sounds[i] = new Sound(soundPool, null);
+                sounds[i] = new Sound(soundPool, null, mmr);
             }
         }
         return new GesturePad(sounds, buttonView, color, colorDef, activity);

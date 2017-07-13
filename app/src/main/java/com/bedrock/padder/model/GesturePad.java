@@ -17,8 +17,8 @@ public class GesturePad extends Pad {
 
     public GesturePad(Sound normal,
                       Sound up, Sound right, Sound down, Sound left,
-                      View view, int color, int defColor, Activity activity) {
-        super(normal, view, color, defColor, activity);
+                      View view, int color, int colorDef, Activity activity) {
+        super(normal, view, color, colorDef, activity);
         this.up = up;
         this.right = right;
         this.down = down;
@@ -26,8 +26,8 @@ public class GesturePad extends Pad {
     }
 
     public GesturePad(Sound sounds[],
-                      View view, int color, int defColor, Activity activity) {
-        super(sounds[0], view, color, defColor, activity);
+                      View view, int color, int colorDef, Activity activity) {
+        super(sounds[0], view, color, colorDef, activity);
         this.up = sounds[1];
         this.right = sounds[2];
         this.down = sounds[3];
@@ -73,7 +73,7 @@ public class GesturePad extends Pad {
 
     @Override
     void setPad() {
-        if (normal != null && view != null && color != 0 && defColor != 0 && activity != null) {
+        if (normal != null && view != null && color != 0 && colorDef != 0 && activity != null) {
             // initialized check, normal should be not null
             view.setOnTouchListener(new OnSwipeTouchListener(activity) {
                 @Override

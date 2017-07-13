@@ -1,6 +1,8 @@
 package com.bedrock.padder.model;
 
+import android.media.MediaMetadataRetriever;
 import android.media.SoundPool;
+import android.util.Log;
 
 public class Sound {
 
@@ -8,15 +10,32 @@ public class Sound {
 
     private int streamId = 0;
 
+    private int duration = -1;
+
     boolean isLooping = false;
 
     private SoundPool soundPool;
 
     String TAG = "Sound";
 
-    public Sound(SoundPool soundPool, String path) {
+    public Sound(SoundPool soundPool, String path, MediaMetadataRetriever mmr) {
         this.soundPool = soundPool;
+        this.duration = getDurationFromFile(path, mmr);
         this.load(path);
+    }
+
+    int getDurationFromFile(String path, MediaMetadataRetriever mmr) {
+        if (path != null) {
+            try {
+                mmr.setDataSource(path);
+                return Integer.parseInt(mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
+            } catch (IllegalArgumentException e) {
+                Log.d(TAG, "IAE");
+                return -1;
+            }
+        } else {
+            return -1;
+        }
     }
 
     void play() {

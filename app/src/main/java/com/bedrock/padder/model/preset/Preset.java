@@ -63,6 +63,20 @@ public class Preset {
         }
     }
 
+    public String getSound(int deckId, int padId) {
+        String fileName = PROJECT_LOCATION_PRESETS + "/"
+                + firebaseLocation
+                + "/sounds/sound"
+                + "_" + (deckId + 1)
+                + "_" + getPadStringFromId(padId);
+        File sound = new File(fileName);
+        if (sound.exists()) {
+            return fileName;
+        } else {
+            return null;
+        }
+    }
+
     private String getPadStringFromId(int padId) {
         switch (padId) {
             case 0:
@@ -118,9 +132,9 @@ public class Preset {
         sharedPreferences.edit().putString(PRESET_KEY, firebaseLocation).apply();
     }
 
-    public void loadPreset(Activity activity) {
+    public void load(int color, int colorDef, Activity activity) {
         SoundHelper sound = new SoundHelper();
-        sound.loadSound(this, activity);
+        sound.load(this, color, colorDef, activity);
     }
 
     public void downloadPreset(View parentView, Activity activity, Runnable onFinish) {
