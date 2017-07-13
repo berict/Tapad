@@ -354,7 +354,4 @@
     <string name="admob_unit_id_native_main">ca-app-pub-4284148629649013/8479481484</string>
     <string name="admob_unit_id_native_about">ca-app-pub-4284148629649013/1028436683</string>
     <string name="google_firebase_link_root">https://firebasestorage.googleapis.com/v0/b/tapad-4d342.appspot.com/o</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

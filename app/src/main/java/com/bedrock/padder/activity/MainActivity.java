@@ -112,10 +112,6 @@ public class MainActivity
 
     private Gson gson = new Gson();
 
-    // TODO TAP launch
-    //IabHelper mHelper;
-    //IabBroadcastReceiver mBroadcastReceiver;
-
     public static void largeLog(String tag, String content) {
         if (content.length() > 4000) {
             Log.d(tag, content.substring(0, 4000));
@@ -153,50 +149,6 @@ public class MainActivity
 
         makeJson();
 
-        // TODO IAP launch
-        //String base64EncodePublicKey = constructBase64Key();
-
-        //mHelper = new IabHelper(this, base64EncodePublicKey);
-        //mHelper.enableDebugLogging(true);
-
-        // Start setup. This is asynchronous and the specified listener
-        // will be called once setup completes.
-        //Log.d(TAG, "Starting setup.");
-        //mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
-        //    public void onIabSetupFinished(IabResult result) {
-        //        Log.d(TAG, "Setup finished.");
-
-        //        if (!result.isSuccess()) {
-        //            // Oh noes, there was a problem.
-        //            complain("Problem setting up in-app billing: " + result);
-        //            return;
-        //        }
-
-        //        // Have we been disposed of in the meantime? If so, quit.
-        //        if (mHelper == null) return;
-
-        //        // Important: Dynamically register for broadcast messages about updated purchases.
-        //        // We register the receiver here instead of as a <receiver> in the Manifest
-        //        // because we always call getPurchases() at startup, so therefore we can ignore
-        //        // any broadcasts sent while the app isn't running.
-        //        // Note: registering this listener in an Activity is a bad idea, but is done here
-        //        // because this is a SAMPLE. Regardless, the receiver must be registered after
-        //        // IabHelper is setup, but before first call to getPurchases().
-        //        mBroadcastReceiver = new IabBroadcastReceiver(MainActivity.this);
-        //        IntentFilter broadcastFilter = new IntentFilter(IabBroadcastReceiver.ACTION);
-        //        registerReceiver(mBroadcastReceiver, broadcastFilter);
-
-        //        // IAB is fully set up. Now, let's get an inventory of stuff we own.
-        //        //Log.d(TAG, "Setup successful. Querying inventory.");
-        //        //try {
-        //        //    mHelper.queryInventoryAsync(mGotInventoryListener);
-        //        //} catch (IabAsyncInProgressException e) {
-        //        //    complain("Error querying inventory. Another async operation in progress.");
-        //        //}
-        //    }
-        //});
-
-        // sharedPrefs
         Log.d(TAG, "Sharedprefs initialized");
         prefs = this.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
 
@@ -501,58 +453,6 @@ public class MainActivity
 
         setPresetInfo();
     }
-
-    // TODO iap launch
-    //    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
-    //        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
-    //            Log.d(TAG, "Query inventory finished.");
-    //
-    //            // Have we been disposed of in the meantime? If so, quit.
-    //            if (mHelper == null) return;
-    //
-    //            // Is it a failure?
-    //            if (result.isFailure()) {
-    //                complain("Failed to query inventory: " + result);
-    //                return;
-    //            }
-    //
-    //            Log.d(TAG, "Query inventory was successful.");
-    //            Log.d(TAG, "Initial inventory query finished; enabling main UI.");
-    //        }
-    //    };
-    //
-    //    @NonNull
-    //    private String constructBase64Key() {
-    //        // TODO work on iap processes
-    //        String encodedString = getResources().getString(R.string.base64_rsa_key);
-    //        int base64Length = encodedString.length();
-    //        char[] encodedStringArray = encodedString.toCharArray();
-    //        char temp;
-    //
-    //        for(int i = 0; i < base64Length / 2; i++) {
-    //            if (i % 2 == 0) {
-    //                // ******   E P I C   D E C O D I N G   M E C H A N I S M   ****** //
-    //                temp = encodedStringArray[i];
-    //                encodedStringArray[i] = encodedStringArray[base64Length - 1 - i];
-    //                encodedStringArray[base64Length - 1 - i] = temp;
-    //            }
-    //        }
-    //
-    //        return String.valueOf(encodedStringArray);
-    //    }
-    //
-    //    private void complain(String message) {
-    //        Log.e(TAG, "**** Purchase Error: " + message);
-    //        alert("Error: " + message);
-    //    }
-    //
-    //    private void alert(String message) {
-    //        AlertDialog.Builder bld = new AlertDialog.Builder(this);
-    //        bld.setMessage(message);
-    //        bld.setNeutralButton("OK", null);
-    //        Log.d(TAG, "Showing alert dialog: " + message);
-    //        bld.create().show();
-    //    }
 
     @Override
     protected void onDestroy() {

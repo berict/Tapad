@@ -303,15 +303,6 @@
 	<string name="info_tapad_others_recommend_share_text"   >Check out this awesome app! : https://goo.gl/pmws51</string>
 	<string name="info_tapad_others_recommend_share_hint"   >Share this awesome app to everyone!</string>
 
-    <!-- TODO NEW PRESET ADD STRING VALUE-->
-
-    <!-- TODO PROTO -->
-    <string-array name="presets">
-        <item>@string/preset_hello_full</item>
-        <item>@string/preset_roses_full</item>
-        <item>@string/preset_faded_full</item>
-    </string-array>
-
     <!-- Hello -->
 
     <string name="preset_hello_full">OMFG - Hello</string>
