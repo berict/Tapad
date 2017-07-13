@@ -229,7 +229,7 @@ public class MainActivity
         w.setNavigationBar(R.color.transparent, a);
 
         //ab.setStatusHeight(a);
-        clearDeck(a);
+        sound.clear();
     }
 
     @Override
@@ -1152,10 +1152,9 @@ public class MainActivity
             tgl6 = false;
             tgl7 = false;
             tgl8 = false;
-            sound.setButton(colorDef, a);
+            sound.clear();
 
             toggleSoundId = 0;
-            sound.stop();
 
             isDeckShouldCleared = false;
         }
