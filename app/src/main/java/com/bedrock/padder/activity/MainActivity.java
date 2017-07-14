@@ -1239,36 +1239,36 @@ public class MainActivity
 
     private void makeJson() {
         Item fadedItems[] = {
-                new Item("facebook", w.getStringFromId("preset_faded_detail_facebook", a)),
-                new Item("twitter", w.getStringFromId("preset_faded_detail_twitter", a)),
-                new Item("soundcloud", w.getStringFromId("preset_faded_detail_soundcloud", a)),
-                new Item("instagram", w.getStringFromId("preset_faded_detail_instagram", a)),
-                new Item("google_plus", w.getStringFromId("preset_faded_detail_google_plus", a)),
-                new Item("youtube", w.getStringFromId("preset_faded_detail_youtube", a)),
-                //new Item("twitch", w.getStringFromId("preset_faded_detail_twitch", a)),
-                new Item("web", w.getStringFromId("preset_faded_detail_web", a))
+                new Item("facebook", w.getStringFromId("preset_placeholder_detail_facebook", a)),
+                new Item("twitter", w.getStringFromId("preset_placeholder_detail_twitter", a)),
+                new Item("soundcloud", w.getStringFromId("preset_placeholder_detail_soundcloud", a)),
+                new Item("instagram", w.getStringFromId("preset_placeholder_detail_instagram", a)),
+                new Item("google_plus", w.getStringFromId("preset_placeholder_detail_google_plus", a)),
+                new Item("youtube", w.getStringFromId("preset_placeholder_detail_youtube", a)),
+                //new Item("twitch", w.getStringFromId("preset_placeholder_detail_twitch", a)),
+                new Item("web", w.getStringFromId("preset_placeholder_detail_web", a))
         };
 
-        Detail fadedDetail = new Detail(w.getStringFromId("preset_faded_detail_title", a), fadedItems);
+        Detail fadedDetail = new Detail(w.getStringFromId("preset_placeholder_detail_title", a), fadedItems);
 
         Item fadedSongItems[] = {
-                new Item("soundcloud", w.getStringFromId("preset_faded_song_detail_soundcloud", a), false),
-                new Item("youtube", w.getStringFromId("preset_faded_song_detail_youtube", a), false),
-                new Item("spotify", w.getStringFromId("preset_faded_song_detail_spotify", a), false),
-                new Item("google_play_music", w.getStringFromId("preset_faded_song_detail_google_play_music", a), false),
-                new Item("apple", w.getStringFromId("preset_faded_song_detail_apple", a), false),
-                new Item("amazon", w.getStringFromId("preset_faded_song_detail_amazon", a), false),
-                new Item("pandora", w.getStringFromId("preset_faded_song_detail_pandora", a), false)
+                new Item("soundcloud", w.getStringFromId("preset_placeholder_song_detail_soundcloud", a), false),
+                new Item("youtube", w.getStringFromId("preset_placeholder_song_detail_youtube", a), false),
+                new Item("spotify", w.getStringFromId("preset_placeholder_song_detail_spotify", a), false),
+                new Item("google_play_music", w.getStringFromId("preset_placeholder_song_detail_google_play_music", a), false),
+                new Item("apple", w.getStringFromId("preset_placeholder_song_detail_apple", a), false),
+                new Item("amazon", w.getStringFromId("preset_placeholder_song_detail_amazon", a), false),
+                new Item("pandora", w.getStringFromId("preset_placeholder_song_detail_pandora", a), false)
         };
 
-        Detail fadedSongDetail = new Detail(w.getStringFromId("preset_faded_song_detail_title", a), fadedSongItems);
+        Detail fadedSongDetail = new Detail(w.getStringFromId("preset_placeholder_song_detail_title", a), fadedSongItems);
 
         Bio fadedBio = new Bio(
-                w.getStringFromId("preset_faded_bio_title", a),
+                w.getStringFromId("preset_placeholder_bio_title", a),
                 "alan_walker_faded_gesture",
-                w.getStringFromId("preset_faded_bio_name", a),
-                w.getStringFromId("preset_faded_bio_text", a),
-                w.getStringFromId("preset_faded_bio_source", a)
+                w.getStringFromId("preset_placeholder_bio_name", a),
+                w.getStringFromId("preset_placeholder_bio_text", a),
+                w.getStringFromId("preset_placeholder_bio_source", a)
         );
 
         Detail fadedDetails[] = {
@@ -1277,16 +1277,16 @@ public class MainActivity
         };
 
         About fadedAbout = new About(
-                w.getStringFromId("preset_faded_title", a),
+                w.getStringFromId("preset_placeholder_title", a),
                 "alan_walker_faded_gesture",
-                w.getStringFromId("preset_faded_tutorial_link", a),
+                w.getStringFromId("preset_placeholder_tutorial_link", a),
                 "Studio Berict",
                 "#00D3BE",
                 fadedBio, fadedDetails
         );
 
         Music fadedMusic = new Music(
-                "preset_faded",
+                "preset_placeholder",
                 "alan_walker_faded_gesture",
                 true,
                 246,
