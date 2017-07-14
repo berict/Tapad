@@ -3,6 +3,7 @@ package com.bedrock.padder.model;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 
 import com.bedrock.padder.helper.OnSwipeTouchListener;
@@ -17,6 +18,8 @@ public class Pad {
 
     protected int colorDef = 0;
 
+    protected Handler handler;
+
     protected Activity activity = null;
 
     public Pad(Sound normal, View view, int color, int colorDef, Activity activity) {
@@ -25,6 +28,7 @@ public class Pad {
         this.color = color;
         this.colorDef = colorDef;
         this.activity = activity;
+        handler = new Handler(Looper.getMainLooper());
     }
 
     public Sound getNormal() {
@@ -56,17 +60,27 @@ public class Pad {
         setPadColor(color);
     }
 
-    private Handler handler = new Handler();
-
     void setPadColorToDefault() {
-        if (!normal.isLooping && view != null) {
+        if (normal != null && !normal.isLooping && view != null) {
             // while not looping
             setPadColor(colorDef);
         }
     }
 
+    void setPadColorToDefault(boolean isForced) {
+        if (isForced && view != null) {
+            // forced change
+            setPadColor(colorDef);
+        } else {
+            if (normal != null && !normal.isLooping) {
+                // while not looping
+                setPadColor(colorDef);
+            }
+        }
+    }
+
     void setPadColorToDefault(int delay) {
-        if (!normal.isLooping && view != null) {
+        if (normal != null && !normal.isLooping && view != null) {
             // while not looping
             handler.postDelayed(new Runnable() {
                 @Override

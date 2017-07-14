@@ -95,7 +95,7 @@ public class SoundHelper {
                         // was already selected
                         select(0);
                     } else {
-                        select(index);
+                        select(index + 1);
                     }
                 }
             }, activity);

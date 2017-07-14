@@ -112,7 +112,9 @@ public class Deck {
     public void unload() {
         if (pads != null && pads.length >= 21) {
             for (Pad pad : pads) {
-                pad.unload();
+                if (pad != null) {
+                    pad.unload();
+                }
             }
         }
     }

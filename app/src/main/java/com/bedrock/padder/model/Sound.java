@@ -45,6 +45,7 @@ public class Sound {
             } else {
                 streamId = soundPool.play(soundPoolId, 1, 1, 1, 0, 1);
             }
+            Log.i(TAG, "Attempted to play " + soundPoolId);
         } catch (NullPointerException e) {
             Log.e(TAG, "Sound was not initialized");
             e.getMessage();
@@ -72,7 +73,10 @@ public class Sound {
     }
 
     void load(String path) {
-        this.soundPoolId = soundPool.load(path, 1);
+        if (path != null) {
+            this.soundPoolId = soundPool.load(path, 1);
+            Log.d(TAG, "Sound [" + path + "] length is " + duration + "ms");
+        }
     }
 
     void unload() {
