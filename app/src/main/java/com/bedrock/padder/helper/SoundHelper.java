@@ -131,7 +131,9 @@ public class SoundHelper {
         // clear buttons
         for (Deck deck : decks) {
             for (Pad pad : deck.getPads()) {
-                pad.stop();
+                if (pad != null) {
+                    pad.stop();
+                }
             }
         }
     }

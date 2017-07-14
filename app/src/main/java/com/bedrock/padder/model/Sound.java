@@ -39,10 +39,15 @@ public class Sound {
     }
 
     void play() {
-        if (isLooping) {
-            streamId = soundPool.play(soundPoolId, 1, 1, 1, -1, 1);
-        } else {
-            streamId = soundPool.play(soundPoolId, 1, 1, 1, 0, 1);
+        try {
+            if (isLooping) {
+                streamId = soundPool.play(soundPoolId, 1, 1, 1, -1, 1);
+            } else {
+                streamId = soundPool.play(soundPoolId, 1, 1, 1, 0, 1);
+            }
+        } catch (NullPointerException e) {
+            Log.e(TAG, "Sound was not initialized");
+            e.getMessage();
         }
     }
 
@@ -54,6 +59,9 @@ public class Sound {
                 throw new NullStreamException();
             }
         } catch (NullStreamException e) {
+            e.getMessage();
+        } catch (NullPointerException e) {
+            Log.e(TAG, "Sound was not initialized");
             e.getMessage();
         }
     }

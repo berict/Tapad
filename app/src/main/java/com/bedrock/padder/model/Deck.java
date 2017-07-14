@@ -102,7 +102,9 @@ public class Deck {
     public void stop() {
         if (pads != null && pads.length >= 21) {
             for (Pad pad : pads) {
-                pad.stop();
+                if (pad != null) {
+                    pad.stop();
+                }
             }
         }
     }

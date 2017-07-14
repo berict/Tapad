@@ -133,19 +133,23 @@ public class GesturePad extends Pad {
                 up, right, down, left
         };
         for (Sound sound : sounds) {
-            sound.unload();
+            if (sound != null) {
+                sound.unload();
+            }
         }
     }
 
     @Override
-    void stop() {
+    public void stop() {
         super.stop();
 
         Sound sounds[] = {
                 up, right, down, left
         };
         for (Sound sound : sounds) {
-            sound.stop();
+            if (sound != null) {
+                sound.stop();
+            }
         }
     }
 }
