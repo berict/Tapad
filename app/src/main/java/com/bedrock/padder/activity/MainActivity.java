@@ -544,7 +544,6 @@ public class MainActivity
                     anim.fadeIn(R.id.toolbar, 200, 100, "toolbarIn", a);
                     isToolbarVisible = true;
                 }
-
             }
         });
 

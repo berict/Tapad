@@ -85,7 +85,7 @@ public class PresetStoreActivity extends AppCompatActivity {
 
         window.setNavigationBar(R.color.transparent, activity);
 
-        View statusBar = findViewById(R.id.statusBar);
+        View statusBar = findViewById(R.id.status_bar);
         if (Build.VERSION.SDK_INT < 21) {
             statusBar.setVisibility(View.GONE);
         } else {
@@ -119,6 +119,7 @@ public class PresetStoreActivity extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // reload my activity with permission granted or use the features what required the permission
                     // TODO refresh fragments, check working
+                    hasPermission = true;
                     setViewPager();
                 } else {
                     // show dialog to grant access
@@ -199,6 +200,7 @@ public class PresetStoreActivity extends AppCompatActivity {
 
     private void setViewPager() {
         if (hasPermission) {
+            Log.d(TAG, "setViewPager");
             viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
             viewPagerAdapter.addFragment(new PresetStoreInstalledFragment(), window.getStringFromId(R.string.tab_1, activity));
             viewPagerAdapter.addFragment(new PresetStoreOnlineFragment(), window.getStringFromId(R.string.tab_2, activity));
@@ -272,7 +274,7 @@ public class PresetStoreActivity extends AppCompatActivity {
 
     private void setUi() {
         // status bar
-        window.getView(R.id.statusBar, activity).setBackgroundColor(themeColor);
+        window.getView(R.id.status_bar, activity).setBackgroundColor(themeColor);
 
         // action bar
         collapsingToolbarLayout.setContentScrimColor(themeColor);
