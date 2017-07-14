@@ -24,7 +24,7 @@ public class Sound {
         this.load(path);
     }
 
-    int getDurationFromFile(String path, MediaMetadataRetriever mmr) {
+    private int getDurationFromFile(String path, MediaMetadataRetriever mmr) {
         if (path != null) {
             try {
                 mmr.setDataSource(path);
@@ -73,6 +73,10 @@ public class Sound {
             soundPoolId = 0;
             streamId = 0;
         }
+    }
+
+    int getDuration() {
+        return duration;
     }
 
     void setRate(float rate) {

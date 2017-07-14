@@ -102,7 +102,7 @@ public class SoundHelper {
         }
     }
 
-    void select(int index) {
+    private void select(int index) {
         // index starts from 0
         if (index == 0) {
             // disable all
