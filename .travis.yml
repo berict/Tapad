@@ -1,7 +1,10 @@
 language: android
 sudo: false
-before_script:
+before_install:
  - chmod +x gradlew
+install:
+  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
+  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
 android:
   components:
     - tools
