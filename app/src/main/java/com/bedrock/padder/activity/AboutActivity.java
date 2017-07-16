@@ -79,7 +79,7 @@ public class AboutActivity extends AppCompatActivity {
 
         window.setNavigationBar(R.color.transparent, activity);
 
-        View statusBar = findViewById(R.id.statusBar);
+        View statusBar = findViewById(R.id.status_bar);
         if (Build.VERSION.SDK_INT < 21) {
             statusBar.setVisibility(View.GONE);
         } else {
@@ -100,7 +100,7 @@ public class AboutActivity extends AppCompatActivity {
 
     private void setUi() {
         // status bar
-        window.getView(R.id.statusBar, activity).setBackgroundColor(about.getActionbarColor());
+        window.getView(R.id.status_bar, activity).setBackgroundColor(about.getActionbarColor());
 
         // action bar
         collapsingToolbarLayout.setContentScrimColor(about.getActionbarColor());

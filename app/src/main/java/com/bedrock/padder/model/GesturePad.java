@@ -138,7 +138,7 @@ public class GesturePad extends Pad {
     }
 
     @Override
-    void stop() {
+    public void stop() {
         super.stop();
 
         Sound sounds[] = {

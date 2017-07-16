@@ -43,23 +43,21 @@ import static com.bedrock.padder.activity.MainActivity.isPresetVisible;
 
 public class PresetStoreActivity extends AppCompatActivity {
 
+    private static final int REQUEST_WRITE_STORAGE = 112;
+    public static boolean isPresetDownloading = false;
     Activity activity = this;
+    String tapadFolderPath = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
+    ViewPager viewPager;
+    ViewPagerAdapter viewPagerAdapter;
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
-
     private WindowHelper window = new WindowHelper();
     private AnimateHelper anim = new AnimateHelper();
     private ToolbarHelper toolbar = new ToolbarHelper();
     private IntentHelper intent = new IntentHelper();
     private FileHelper fileHelper = new FileHelper();
-
     private int themeColor;
     private String themeTitle;
     private String TAG = "PresetStore";
-
-    public static boolean isPresetDownloading = false;
-
-    private static final int REQUEST_WRITE_STORAGE = 112;
-
     private boolean hasPermission;
 
     @Override
@@ -85,7 +83,7 @@ public class PresetStoreActivity extends AppCompatActivity {
 
         window.setNavigationBar(R.color.transparent, activity);
 
-        View statusBar = findViewById(R.id.statusBar);
+        View statusBar = findViewById(R.id.status_bar);
         if (Build.VERSION.SDK_INT < 21) {
             statusBar.setVisibility(View.GONE);
         } else {
@@ -161,8 +159,6 @@ public class PresetStoreActivity extends AppCompatActivity {
         }, delay);
     }
 
-    String tapadFolderPath = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
-
     private void setDirectory() {
         // loading start
         Log.d(TAG, "setDirectory");
@@ -193,9 +189,6 @@ public class PresetStoreActivity extends AppCompatActivity {
             }
         }
     }
-
-    ViewPager viewPager;
-    ViewPagerAdapter viewPagerAdapter;
 
     private void setViewPager() {
         if (hasPermission) {
@@ -236,43 +229,9 @@ public class PresetStoreActivity extends AppCompatActivity {
         }
     }
 
-    private class ViewPagerAdapter extends FragmentStatePagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
-
-        @Override
-        public int getItemPosition(Object object) {
-            return POSITION_NONE;
-        }
-    }
-
     private void setUi() {
         // status bar
-        window.getView(R.id.statusBar, activity).setBackgroundColor(themeColor);
+        window.getView(R.id.status_bar, activity).setBackgroundColor(themeColor);
 
         // action bar
         collapsingToolbarLayout.setContentScrimColor(themeColor);
@@ -333,5 +292,39 @@ public class PresetStoreActivity extends AppCompatActivity {
         activity.dispatchKeyEvent(kDown);
         KeyEvent kUp = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK);
         activity.dispatchKeyEvent(kUp);
+    }
+
+    private class ViewPagerAdapter extends FragmentStatePagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
     }
 }
