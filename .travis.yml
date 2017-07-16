@@ -1,5 +1,7 @@
 language: android
 sudo: false
+before_script:
+ - chmod +x gradlew
 android:
   components:
     - tools
