@@ -670,6 +670,7 @@ public class SoundHelper {
                             String sound = currentPreset.getSound(i, j, k);
                             if (sound != null) {
                                 sounds.add(sound);
+                                publishProgress();
                             }
                         }
                         if (sounds.size() == 1) {
