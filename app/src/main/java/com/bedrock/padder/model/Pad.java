@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 
 import com.bedrock.padder.helper.OnSwipeTouchListener;
@@ -54,6 +55,7 @@ public class Pad {
             // no res value
             view.setBackgroundColor(color);
         }
+        Log.d("setPadColor", view.toString() + " color set to " + color);
     }
 
     void setPadColor() {

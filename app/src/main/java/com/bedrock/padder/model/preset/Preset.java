@@ -134,7 +134,9 @@ public class Preset {
 
     public void load(int color, int colorDef, Activity activity) {
         SoundHelper sound = new SoundHelper();
+        // TODO #149
         sound.load(this, color, colorDef, activity);
+        //sound.loadSound(this, activity);
     }
 
     public void downloadPreset(View parentView, Activity activity, Runnable onFinish) {

@@ -219,7 +219,9 @@ public class MainActivity
         setFab();
         setToolbar();
         setPresetInfo();
+        // TODO #149
         sound.setDecks(R.color.colorAccent, R.color.grey, a);
+        //setToggleButton(R.color.colorAccent);
         enterAnim();
         loadPreset(400);
         setButtonLayout();
@@ -441,8 +443,10 @@ public class MainActivity
     protected void onDestroy() {
         Log.d(TAG, "onDestroy");
 
+        // TODO #149
         sound.stop();
         sound.cancelLoad();
+        //sound.cancelLoading();
 
         ad.destroyNativeAdView(R.id.adView_main, a);
 
@@ -795,7 +799,9 @@ public class MainActivity
             preset.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    // TODO #149
                     sound.load(currentPreset, colorDef, prefs.getInt("color", R.color.cyan_400), a);
+                    //sound.loadSound(currentPreset, a);
                 }
             }, delay);
         }

@@ -90,12 +90,14 @@ public class Deck {
 
     void setDeck() {
         if (isSelected) {
-            // selected
+            // select
             setDeckColor();
             playSound();
         } else {
-            // unselected
+            // unselect
+            Log.d("Deck", "Unselected deck");
             setDeckColorToDefault();
+            //stop();
         }
     }
 

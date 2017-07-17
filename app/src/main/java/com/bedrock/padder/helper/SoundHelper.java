@@ -87,15 +87,15 @@ public class SoundHelper {
 
         for (int i = 1; i <= 4; i++) {
             final int index = i - 1;
-            window.setOnTouch(buttonId[i], new Runnable() {
+            window.setOnClick(buttonId[i], new Runnable() {
                 @Override
                 public void run() {
                     // set onTouch events
                     if (decks[index].isSelected()) {
                         // was already selected
-                        select(0);
+                        select(-1);
                     } else {
-                        select(index + 1);
+                        select(index);
                     }
                 }
             }, activity);
@@ -103,26 +103,22 @@ public class SoundHelper {
     }
 
     private void select(int index) {
+        Log.d("SH", "Index selected " + index);
         // index starts from 0
-        if (index == 0) {
+        if (index == -1) {
             // disable all
             for (Deck deck : decks) {
                 deck.setSelected(false);
-                deck.stop();
             }
         } else {
-            if (index < decks.length) {
-                for (int i = 0; i < decks.length; i++) {
-                    decks[i].setSound(new Sound(sp, currentPreset.getSound(index + 1, i + 1), mmr));
-                    if (i == index - 1) {
-                        // selected
-                        decks[i].setSelected(true);
-                    } else {
-                        decks[i].setSelected(false);
-                    }
+            for (int i = 0; i < decks.length; i++) {
+                decks[i].setSound(new Sound(sp, currentPreset.getSound(index, i + 1), mmr));
+                if (i == index) {
+                    // selected
+                    decks[i].setSelected(true);
+                } else {
+                    decks[i].setSelected(false);
                 }
-            } else {
-                throw new IndexOutOfBoundsException();
             }
         }
     }
