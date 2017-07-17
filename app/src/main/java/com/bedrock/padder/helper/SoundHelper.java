@@ -28,17 +28,13 @@ import static com.bedrock.padder.activity.MainActivity.isPresetLoading;
 import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class SoundHelper {
+    private static Preset previousPreset = null;
     private SoundPool sp = new SoundPool(16, AudioManager.STREAM_MUSIC, 0);
     private MediaMetadataRetriever mmr = new MediaMetadataRetriever();
     private int toggle;
-
     private int soundPoolId[][][] = new int[4][21][5];
-
     private Deck decks[];
-
     private Activity activity;
-    private static Preset previousPreset = null;
-
     private int buttonId[] = {
             R.id.btn00,
             R.id.tgl1,
@@ -62,20 +58,24 @@ public class SoundHelper {
             R.id.btn43,
             R.id.btn44
     };
+    private AdmobHelper ad = new AdmobHelper();
+    private AnimateHelper anim = new AnimateHelper();
+    private WindowHelper window = new WindowHelper();
+    private AsyncTask unLoadSound = null;
+    private AsyncTask loadSound = null;
+    private AsyncTask unload = null;
+    private AsyncTask load = null;
+    private ProgressBar progress;
+    private int progressCount;
+    private int presetSoundCount;
+    private int color = R.color.cyan_400;
+    private int colorDef = R.color.grey;
+    private int intervalPixel;
+    private int intervalCount;
 
     public SoundPool getSoundPool() {
         return sp;
     }
-
-    private AdmobHelper ad = new AdmobHelper();
-    private AnimateHelper anim = new AnimateHelper();
-    private WindowHelper window = new WindowHelper();
-
-    private AsyncTask unLoadSound = null;
-    private AsyncTask loadSound = null;
-
-    private AsyncTask unload = null;
-    private AsyncTask load = null;
 
     public void setDecks(int color, int colorDef, Activity activity) {
         decks = new Deck[] {
@@ -127,6 +127,7 @@ public class SoundHelper {
         }
     }
 
+<<<<<<< HEAD
     public void clear() {
         // clear buttons
         for (Deck deck : decks) {
@@ -189,6 +190,8 @@ public class SoundHelper {
         sp.play(soundPoolId[id - 1][id][0], 1, 1, 1, 0, 1f);
     }
 
+=======
+>>>>>>> 38fba417d005a7714f14289f5bf0a0ef98181f29
     //    boolean tgl1 = false;
     //    boolean tgl2 = false;
     //    boolean tgl3 = false;
@@ -259,6 +262,68 @@ public class SoundHelper {
     //            }, a);
     //        }
     //    }
+
+    public void clear() {
+        // clear buttons
+        for (Deck deck : decks) {
+            for (Pad pad : deck.getPads()) {
+                if (pad != null) {
+                    pad.stop();
+                }
+            }
+        }
+    }
+
+    public void load(Preset preset, int color, int colorDef, Activity activity) {
+        // set the previous preset
+        this.color = color;
+        this.colorDef = colorDef;
+        previousPreset = currentPreset;
+        currentPreset = preset;
+        this.activity = activity;
+        unload = new Unload().execute();
+    }
+
+    public void cancelLoad() {
+        try {
+            unload.cancel(true);
+            load.cancel(true);
+            Log.d("TAG", "Loading canceled");
+        } catch (NullPointerException e) {
+            Log.d("NPE", "AsyncTask is null");
+        }
+    }
+
+    public void stop() {
+        for (Deck deck : decks) {
+            deck.stop();
+        }
+    }
+
+    @Deprecated
+    public void loadSound(Preset preset, Activity activity) {
+        // set the previous preset
+        previousPreset = currentPreset;
+        currentPreset = preset;
+        this.activity = activity;
+        unLoadSound = new UnloadSound().execute();
+    }
+
+    @Deprecated
+    public void cancelLoading() {
+        try {
+            unLoadSound.cancel(true);
+            loadSound.cancel(true);
+            Log.d("TAG", "AsyncTask canceled");
+        } catch (NullPointerException e) {
+            Log.d("NPE", "AsyncTask is null");
+        }
+    }
+
+    @Deprecated
+    public void playToggleButtonSound(int id) {
+        sp.play(soundPoolId[id - 1][id][0], 1, 1, 1, 0, 1f);
+    }
 
     @Deprecated
     public void setButtonToggle(int id, int colorId, Activity activity) {
@@ -406,12 +471,187 @@ public class SoundHelper {
         }
     }
 
-    private ProgressBar progress;
-    private int progressCount;
-    private int presetSoundCount;
+    private GesturePad getGesturePadFromArray(String soundPaths[],
+                                              SoundPool soundPool,
+                                              View buttonView,
+                                              int color, int colorDef,
+                                              Activity activity) {
+        Sound sounds[] = new Sound[5];
+        for (int i = 0; i < 5; i++) {
+            if (i < soundPaths.length) {
+                // sounds exists
+                sounds[i] = new Sound(soundPool, soundPaths[i], mmr);
+            } else {
+                // no sound gesture
+                sounds[i] = new Sound(soundPool, null, mmr);
+            }
+        }
+        return new GesturePad(sounds, buttonView, color, colorDef, activity);
+    }
 
-    private int color = R.color.cyan_400;
-    private int colorDef = R.color.grey;
+    private void onLoadFinish() {
+        // final sampleId
+        Log.d("LoadSound", "Loading completed, SoundPool successfully loaded "
+                + presetSoundCount
+                + " sounds");
+
+        // pause adViewMain after the loading
+        ad.pauseNativeAdView(R.id.adView_main, activity);
+
+        window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_white);
+
+        anim.fadeOut(R.id.progress_bar_layout, 0, 600, activity);
+        anim.fadeOut(R.id.adView_main, 0, 600, activity);
+
+        // Load finished, set AsyncTask objects to null
+        load = null;
+        unload = null;
+
+        final Random random = new Random();
+
+        Handler delay = new Handler();
+        delay.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                window.setVisible(R.id.base, 0, activity);
+                buttonRevealAnimation(random.nextInt(25));
+            }
+        }, 600);
+
+        isPresetLoading = false;
+    }
+
+    @Deprecated
+    private void onLoadFinished() {
+        // final sampleId
+        Log.d("LoadSound", "Loading completed, SoundPool successfully loaded "
+                + presetSoundCount
+                + " sounds");
+
+        // pause adViewMain after the loading
+        ad.pauseNativeAdView(R.id.adView_main, activity);
+
+        window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_white);
+
+        anim.fadeOut(R.id.progress_bar_layout, 0, 600, activity);
+        anim.fadeOut(R.id.adView_main, 0, 600, activity);
+
+        // Load finished, set AsyncTask objects to null
+        loadSound = null;
+        unLoadSound = null;
+
+        final Random random = new Random();
+
+        Handler delay = new Handler();
+        delay.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                window.setVisible(R.id.base, 0, activity);
+                buttonRevealAnimation(random.nextInt(25));
+            }
+        }, 600);
+
+        isPresetLoading = false;
+    }
+
+    private void buttonRevealAnimation(final int buttonRectIndex) {
+        final Rect buttonRects[] = {
+                window.getRect(R.id.btn00, activity),
+                window.getRect(R.id.tgl1, activity),
+                window.getRect(R.id.tgl2, activity),
+                window.getRect(R.id.tgl3, activity),
+                window.getRect(R.id.tgl4, activity),
+                window.getRect(R.id.tgl5, activity),
+                window.getRect(R.id.tgl6, activity),
+                window.getRect(R.id.tgl7, activity),
+                window.getRect(R.id.tgl8, activity),
+                window.getRect(R.id.btn11, activity),
+                window.getRect(R.id.btn12, activity),
+                window.getRect(R.id.btn13, activity),
+                window.getRect(R.id.btn14, activity),
+                window.getRect(R.id.btn21, activity),
+                window.getRect(R.id.btn22, activity),
+                window.getRect(R.id.btn23, activity),
+                window.getRect(R.id.btn24, activity),
+                window.getRect(R.id.btn31, activity),
+                window.getRect(R.id.btn32, activity),
+                window.getRect(R.id.btn33, activity),
+                window.getRect(R.id.btn34, activity),
+                window.getRect(R.id.btn41, activity),
+                window.getRect(R.id.btn42, activity),
+                window.getRect(R.id.btn43, activity),
+                window.getRect(R.id.btn44, activity)
+        };
+
+        final View buttonViews[] = {
+                window.getView(R.id.btn00, activity),
+                window.getView(R.id.tgl1, activity),
+                window.getView(R.id.tgl2, activity),
+                window.getView(R.id.tgl3, activity),
+                window.getView(R.id.tgl4, activity),
+                window.getView(R.id.tgl5, activity),
+                window.getView(R.id.tgl6, activity),
+                window.getView(R.id.tgl7, activity),
+                window.getView(R.id.tgl8, activity),
+                window.getView(R.id.btn11, activity),
+                window.getView(R.id.btn12, activity),
+                window.getView(R.id.btn13, activity),
+                window.getView(R.id.btn14, activity),
+                window.getView(R.id.btn21, activity),
+                window.getView(R.id.btn22, activity),
+                window.getView(R.id.btn23, activity),
+                window.getView(R.id.btn24, activity),
+                window.getView(R.id.btn31, activity),
+                window.getView(R.id.btn32, activity),
+                window.getView(R.id.btn33, activity),
+                window.getView(R.id.btn34, activity),
+                window.getView(R.id.btn41, activity),
+                window.getView(R.id.btn42, activity),
+                window.getView(R.id.btn43, activity),
+                window.getView(R.id.btn44, activity)
+        };
+
+        intervalPixel = (int) Math.hypot(window.getWindowWidthPx(activity), window.getWindowWidthPx(activity)) / 40;
+        Log.i("intervalPixel", String.valueOf(intervalPixel));
+        intervalCount = 0;
+        // 40 intervals x 10ms = 400ms animation
+
+        anim.fadeIn(buttonViews[buttonRectIndex], 0, 100, "btn" + String.valueOf(buttonRectIndex) + "In", activity);
+
+        final Handler intervalTimer = new Handler();
+        intervalTimer.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (intervalCount <= 40) {
+                    for (int i = 0; i < buttonRects.length; i++) {
+                        if (buttonRectIndex != i) {
+                            // not the view itself
+                            if (isAnimationCollides(
+                                    buttonRects[buttonRectIndex],
+                                    buttonRects[i],
+                                    intervalPixel * intervalCount) &&
+                                    buttonViews[i].getVisibility() != View.VISIBLE) {
+                                // collides, fadeIn
+                                anim.fadeIn(buttonViews[i], 0, 50, "btn" + String.valueOf(i) + "In", activity);
+                            }
+                        }
+                    }
+                    intervalCount++;
+                    intervalTimer.postDelayed(this, 10);
+                }
+            }
+        }, 10);
+    }
+
+    private boolean isAnimationCollides(Rect startViewRect, Rect targetViewRect, int distance) {
+        double viewDistance =
+                Math.hypot(
+                        Math.abs(startViewRect.centerX() - targetViewRect.centerX()),
+                        Math.abs(startViewRect.centerY() - targetViewRect.centerY())
+                );
+        // gets view hypothesis
+        return viewDistance < distance;
+    }
 
     private class Unload extends AsyncTask<Void, Void, Void> {
 
@@ -516,6 +756,8 @@ public class SoundHelper {
 
         String TAG = "Load";
         View buttonViews[];
+        private int savedSampleId = 0;
+        private int savedSampleIdInRunnable = 1;
 
         @Override
         protected void onPreExecute() {
@@ -603,9 +845,6 @@ public class SoundHelper {
         protected void onCancelled() {
             super.onCancelled();
         }
-
-        private int savedSampleId = 0;
-        private int savedSampleIdInRunnable = 1;
         // needs to be different at first to make changes
 
         @Override
@@ -644,56 +883,6 @@ public class SoundHelper {
                 }, 100);
             }
         }
-    }
-
-    private GesturePad getGesturePadFromArray(String soundPaths[],
-                                              SoundPool soundPool,
-                                              View buttonView,
-                                              int color, int colorDef,
-                                              Activity activity) {
-        Sound sounds[] = new Sound[5];
-        for (int i = 0; i < 5; i++) {
-            if (i < soundPaths.length) {
-                // sounds exists
-                sounds[i] = new Sound(soundPool, soundPaths[i], mmr);
-            } else {
-                // no sound gesture
-                sounds[i] = new Sound(soundPool, null, mmr);
-            }
-        }
-        return new GesturePad(sounds, buttonView, color, colorDef, activity);
-    }
-
-    private void onLoadFinish() {
-        // final sampleId
-        Log.d("LoadSound", "Loading completed, SoundPool successfully loaded "
-                + presetSoundCount
-                + " sounds");
-
-        // pause adViewMain after the loading
-        ad.pauseNativeAdView(R.id.adView_main, activity);
-
-        window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_white);
-
-        anim.fadeOut(R.id.progress_bar_layout, 0, 600, activity);
-        anim.fadeOut(R.id.adView_main, 0, 600, activity);
-
-        // Load finished, set AsyncTask objects to null
-        load = null;
-        unload = null;
-
-        final Random random = new Random();
-
-        Handler delay = new Handler();
-        delay.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                window.setVisible(R.id.base, 0, activity);
-                buttonRevealAnimation(random.nextInt(25));
-            }
-        }, 600);
-
-        isPresetLoading = false;
     }
 
     @Deprecated
@@ -802,6 +991,8 @@ public class SoundHelper {
     @Deprecated
     private class LoadSound extends AsyncTask<Void, Void, String> {
         String TAG = "LoadSound";
+        private int savedSampleId = 0;
+        private int savedSampleIdInRunnable = 1;
 
         protected void onPreExecute() {
             Log.d(TAG, "On preExecute, unloadPresetSound");
@@ -842,9 +1033,6 @@ public class SoundHelper {
         protected void onProgressUpdate(Void... arg0) {
             progress.setProgress(progressCount++);
         }
-
-        private int savedSampleId = 0;
-        private int savedSampleIdInRunnable = 1;
         // needs to be different at first to make changes
 
         protected void onPostExecute(String result) {
@@ -883,141 +1071,5 @@ public class SoundHelper {
             super.onCancelled();
             Log.d("TAG", "LoadSound successfully canceled");
         }
-    }
-
-    @Deprecated
-    private void onLoadFinished() {
-        // final sampleId
-        Log.d("LoadSound", "Loading completed, SoundPool successfully loaded "
-                + presetSoundCount
-                + " sounds");
-
-        // pause adViewMain after the loading
-        ad.pauseNativeAdView(R.id.adView_main, activity);
-
-        window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_white);
-
-        anim.fadeOut(R.id.progress_bar_layout, 0, 600, activity);
-        anim.fadeOut(R.id.adView_main, 0, 600, activity);
-
-        // Load finished, set AsyncTask objects to null
-        loadSound = null;
-        unLoadSound = null;
-
-        final Random random = new Random();
-
-        Handler delay = new Handler();
-        delay.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                window.setVisible(R.id.base, 0, activity);
-                buttonRevealAnimation(random.nextInt(25));
-            }
-        }, 600);
-
-        isPresetLoading = false;
-    }
-
-    private int intervalPixel;
-
-    private int intervalCount;
-
-    private void buttonRevealAnimation(final int buttonRectIndex) {
-        final Rect buttonRects[] = {
-                window.getRect(R.id.btn00, activity),
-                window.getRect(R.id.tgl1, activity),
-                window.getRect(R.id.tgl2, activity),
-                window.getRect(R.id.tgl3, activity),
-                window.getRect(R.id.tgl4, activity),
-                window.getRect(R.id.tgl5, activity),
-                window.getRect(R.id.tgl6, activity),
-                window.getRect(R.id.tgl7, activity),
-                window.getRect(R.id.tgl8, activity),
-                window.getRect(R.id.btn11, activity),
-                window.getRect(R.id.btn12, activity),
-                window.getRect(R.id.btn13, activity),
-                window.getRect(R.id.btn14, activity),
-                window.getRect(R.id.btn21, activity),
-                window.getRect(R.id.btn22, activity),
-                window.getRect(R.id.btn23, activity),
-                window.getRect(R.id.btn24, activity),
-                window.getRect(R.id.btn31, activity),
-                window.getRect(R.id.btn32, activity),
-                window.getRect(R.id.btn33, activity),
-                window.getRect(R.id.btn34, activity),
-                window.getRect(R.id.btn41, activity),
-                window.getRect(R.id.btn42, activity),
-                window.getRect(R.id.btn43, activity),
-                window.getRect(R.id.btn44, activity)
-        };
-
-        final View buttonViews[] = {
-                window.getView(R.id.btn00, activity),
-                window.getView(R.id.tgl1, activity),
-                window.getView(R.id.tgl2, activity),
-                window.getView(R.id.tgl3, activity),
-                window.getView(R.id.tgl4, activity),
-                window.getView(R.id.tgl5, activity),
-                window.getView(R.id.tgl6, activity),
-                window.getView(R.id.tgl7, activity),
-                window.getView(R.id.tgl8, activity),
-                window.getView(R.id.btn11, activity),
-                window.getView(R.id.btn12, activity),
-                window.getView(R.id.btn13, activity),
-                window.getView(R.id.btn14, activity),
-                window.getView(R.id.btn21, activity),
-                window.getView(R.id.btn22, activity),
-                window.getView(R.id.btn23, activity),
-                window.getView(R.id.btn24, activity),
-                window.getView(R.id.btn31, activity),
-                window.getView(R.id.btn32, activity),
-                window.getView(R.id.btn33, activity),
-                window.getView(R.id.btn34, activity),
-                window.getView(R.id.btn41, activity),
-                window.getView(R.id.btn42, activity),
-                window.getView(R.id.btn43, activity),
-                window.getView(R.id.btn44, activity)
-        };
-
-        intervalPixel = (int) Math.hypot(window.getWindowWidthPx(activity), window.getWindowWidthPx(activity)) / 40;
-        Log.i("intervalPixel", String.valueOf(intervalPixel));
-        intervalCount = 0;
-        // 40 intervals x 10ms = 400ms animation
-
-        anim.fadeIn(buttonViews[buttonRectIndex], 0, 100, "btn" + String.valueOf(buttonRectIndex) + "In", activity);
-
-        final Handler intervalTimer = new Handler();
-        intervalTimer.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (intervalCount <= 40) {
-                    for (int i = 0; i < buttonRects.length; i++) {
-                        if (buttonRectIndex != i) {
-                            // not the view itself
-                            if (isAnimationCollides(
-                                    buttonRects[buttonRectIndex],
-                                    buttonRects[i],
-                                    intervalPixel * intervalCount) &&
-                                    buttonViews[i].getVisibility() != View.VISIBLE) {
-                                // collides, fadeIn
-                                anim.fadeIn(buttonViews[i], 0, 50, "btn" + String.valueOf(i) + "In", activity);
-                            }
-                        }
-                    }
-                    intervalCount++;
-                    intervalTimer.postDelayed(this, 10);
-                }
-            }
-        }, 10);
-    }
-
-    private boolean isAnimationCollides(Rect startViewRect, Rect targetViewRect, int distance) {
-        double viewDistance =
-                Math.hypot(
-                        Math.abs(startViewRect.centerX() - targetViewRect.centerX()),
-                        Math.abs(startViewRect.centerY() - targetViewRect.centerY())
-                );
-        // gets view hypothesis
-        return viewDistance < distance;
     }
 }
