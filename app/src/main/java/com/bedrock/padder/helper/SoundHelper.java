@@ -113,6 +113,7 @@ public class SoundHelper {
             // disable all
             for (Deck deck : decks) {
                 deck.setUnselected();
+                deck.setSelected(false);
             }
         } else {
             for (int i = 0; i < decks.length; i++) {
