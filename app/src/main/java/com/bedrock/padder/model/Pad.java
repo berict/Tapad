@@ -40,10 +40,6 @@ public class Pad {
         this.normal = normal;
     }
 
-    public void setColor(int color) {
-        this.color = color;
-    }
-
     public void setDefColor(int colorDef) {
         this.colorDef = colorDef;
     }
@@ -55,7 +51,6 @@ public class Pad {
             // no res value
             view.setBackgroundColor(color);
         }
-        Log.d("setPadColor", view.toString() + " color set to " + color);
     }
 
     void setPadColor() {

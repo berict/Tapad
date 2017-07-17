@@ -68,16 +68,20 @@ public class SoundHelper {
     private ProgressBar progress;
     private int progressCount;
     private int presetSoundCount;
-    private int color = R.color.cyan_400;
-    private int colorDef = R.color.grey;
+    private int color = 0;
+    private int colorDef = 0;
     private int intervalPixel;
     private int intervalCount;
+    private SharedPreferences prefs;
 
     public SoundPool getSoundPool() {
         return sp;
     }
 
     public void setDecks(int color, int colorDef, Activity activity) {
+        prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
+        this.color = prefs.getInt("color", R.color.cyan_400);
+        this.colorDef = colorDef;
         decks = new Deck[] {
                 new Deck(new Pad[17], null, window.getView(buttonId[1], activity), color, colorDef, activity),
                 new Deck(new Pad[17], null, window.getView(buttonId[2], activity), color, colorDef, activity),
@@ -669,13 +673,16 @@ public class SoundHelper {
                         }
                         if (sounds.size() == 1) {
                             // only one sound, use sound
-                            decks[i].setPad(new Pad(new Sound(sp, sounds.get(0), mmr), buttonViews[j], color, colorDef, activity), j);
+                            decks[i].setPad(new Pad(new Sound(sp, sounds.get(0), mmr), buttonViews[j],
+                                    color, colorDef, activity), j);
                         } else if (sounds.size() > 1) {
                             // gesture pad
-                            decks[i].setPad(getGesturePadFromArray(sounds.toArray(new String[5]), sp, buttonViews[j], color, colorDef, activity), j);
+                            decks[i].setPad(getGesturePadFromArray(sounds.toArray(new String[5]), sp, buttonViews[j],
+                                    color, colorDef, activity), j);
                         } else {
                             // no sounds
-                            decks[i].setPad(new Pad(null, buttonViews[j], color, colorDef, activity), j);
+                            decks[i].setPad(new Pad(null, buttonViews[j],
+                                    color, colorDef, activity), j);
                         }
                     }
                 }

@@ -800,7 +800,7 @@ public class MainActivity
                 @Override
                 public void run() {
                     // TODO #149
-                    sound.load(currentPreset, colorDef, prefs.getInt("color", R.color.cyan_400), a);
+                    sound.load(currentPreset, prefs.getInt("color", R.color.cyan_400), colorDef, a);
                     //sound.loadSound(currentPreset, a);
                 }
             }, delay);
