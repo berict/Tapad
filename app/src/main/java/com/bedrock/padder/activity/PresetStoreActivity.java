@@ -28,7 +28,6 @@ import com.bedrock.padder.R;
 import com.bedrock.padder.fragment.PresetStoreInstalledFragment;
 import com.bedrock.padder.fragment.PresetStoreOnlineFragment;
 import com.bedrock.padder.helper.AnimateHelper;
-import com.bedrock.padder.helper.FileHelper;
 import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
@@ -54,7 +53,6 @@ public class PresetStoreActivity extends AppCompatActivity {
     private AnimateHelper anim = new AnimateHelper();
     private ToolbarHelper toolbar = new ToolbarHelper();
     private IntentHelper intent = new IntentHelper();
-    private FileHelper fileHelper = new FileHelper();
     private int themeColor;
     private String themeTitle;
     private String TAG = "PresetStore";

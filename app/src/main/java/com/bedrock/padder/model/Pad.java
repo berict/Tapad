@@ -94,31 +94,58 @@ public class Pad {
     }
 
     void setPad() {
+        // set the onTouchListener
         if (view != null && color != 0 && colorDef != 0 && activity != null) {
             // initialized check
             view.setOnTouchListener(new OnSwipeTouchListener(activity) {
                 @Override
                 public void onTouch() {
                     setPadColor();
+                    Log.d("Pad [Normal]", "onTouch");
                 }
 
                 @Override
                 public void onClick() {
-                    getNormal().play();
+                    playNormal();
                     setPadColorToDefault();
                 }
 
                 @Override
                 public void onDoubleClick() {
-                    getNormal().play();
+                    playNormal();
                     setPadColorToDefault();
                 }
 
                 @Override
                 public void onLongClick() {
-                    getNormal().loop();
+                    loopNormal();
                 }
             });
+            Log.d("Pad", "setOnTouchListener [Normal] on view " + view.toString());
+        }
+    }
+
+    void loopNormal() {
+        if (getNormal() != null) {
+            getNormal().loop();
+        } else {
+            Log.d("Pad [Gesture]", "Sound is null, can't loop.");
+        }
+    }
+
+    void playNormal() {
+        if (getNormal() != null) {
+            getNormal().play();
+        } else {
+            Log.d("Pad [Normal]", "Sound is null, can't play.");
+        }
+    }
+
+    void resetPad() {
+        // removes the allocated onTouchListener
+        if (view != null && color != 0 && colorDef != 0 && activity != null) {
+            // initialized check
+            view.setOnTouchListener(null);
         }
     }
 

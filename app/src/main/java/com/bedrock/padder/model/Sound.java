@@ -6,17 +6,12 @@ import android.util.Log;
 
 public class Sound {
 
-    private int soundPoolId = 0;
-
-    private int streamId = 0;
-
-    private int duration = -1;
-
     boolean isLooping = false;
-
-    private SoundPool soundPool;
-
     String TAG = "Sound";
+    private int soundPoolId = 0;
+    private int streamId = 0;
+    private int duration = -1;
+    private SoundPool soundPool;
 
     public Sound(SoundPool soundPool, String path, MediaMetadataRetriever mmr) {
         this.soundPool = soundPool;
@@ -40,12 +35,12 @@ public class Sound {
 
     void play() {
         try {
+            Log.i(TAG, "Attempted to play " + soundPoolId);
             if (isLooping) {
                 streamId = soundPool.play(soundPoolId, 1, 1, 1, -1, 1);
             } else {
                 streamId = soundPool.play(soundPoolId, 1, 1, 1, 0, 1);
             }
-            Log.i(TAG, "Attempted to play " + soundPoolId);
         } catch (NullPointerException e) {
             Log.e(TAG, "Sound was not initialized");
             e.getMessage();

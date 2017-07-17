@@ -1,6 +1,7 @@
 package com.bedrock.padder.model;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 
 import com.bedrock.padder.helper.OnSwipeTouchListener;
@@ -79,6 +80,7 @@ public class GesturePad extends Pad {
                 @Override
                 public void onTouch() {
                     setPadColor();
+                    Log.d("Pad [Gesture]", "onTouch");
                 }
 
                 @Override
@@ -89,40 +91,94 @@ public class GesturePad extends Pad {
 
                 @Override
                 public void onDoubleClick() {
-                    getNormal().play();
+                    playNormal();
                     setPadColorToDefault();
                 }
 
                 @Override
                 public void onLongClick() {
-                    getNormal().loop();
+                    loopNormal();
                 }
 
                 @Override
                 public void onSwipeUp() {
-                    getUp().play();
+                    playUp();
                     setPadColorToDefault();
                 }
 
                 @Override
                 public void onSwipeLeft() {
-                    getLeft().play();
+                    playLeft();
                     setPadColorToDefault();
                 }
 
                 @Override
                 public void onSwipeDown() {
-                    getDown().play();
+                    playDown();
                     setPadColorToDefault();
                 }
 
                 @Override
                 public void onSwipeRight() {
-                    getRight().play();
+                    playRight();
                     setPadColorToDefault();
                 }
             });
+            Log.d("Pad", "setOnTouchListener [Gesture] on view " + view.toString());
         }
+    }
+
+    void loopNormal() {
+        if (getNormal() != null) {
+            getNormal().loop();
+        } else {
+            Log.d("Pad [Gesture]", "Sound is null, can't loop.");
+        }
+    }
+
+    void playNormal() {
+        if (getNormal() != null) {
+            getNormal().play();
+        } else {
+            Log.d("Pad [Gesture]", "Sound is null, can't play.");
+        }
+    }
+
+    void playUp() {
+        if (getUp() != null) {
+            getUp().play();
+        } else {
+            Log.d("Pad [Gesture]", "Sound is null, can't play.");
+        }
+    }
+
+    void playRight() {
+        if (getRight() != null) {
+            getRight().play();
+        } else {
+            Log.d("Pad [Gesture]", "Sound is null, can't play.");
+        }
+    }
+
+    void playDown() {
+        if (getDown() != null) {
+            getDown().play();
+        } else {
+            Log.d("Pad [Gesture]", "Sound is null, can't play.");
+        }
+    }
+
+    void playLeft() {
+        if (getLeft() != null) {
+            getLeft().play();
+        } else {
+            Log.d("Pad [Gesture]", "Sound is null, can't play.");
+        }
+    }
+
+    @Override
+    void resetPad() {
+        super.resetPad();
     }
 
     @Override

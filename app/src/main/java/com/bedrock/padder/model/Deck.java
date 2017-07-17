@@ -7,22 +7,16 @@ import android.view.View;
 
 public class Deck {
 
+    Activity activity = null;
     private Pad pads[];
-
     private Sound sound;
-
     private View view = null;
-
     private int color = 0;
-
     private int colorDef = 0;
-
     private boolean isSelected = false;
 
-    Activity activity = null;
-
     public Deck(Pad[] pads, Sound sound, View view, int color, int colorDef, Activity activity) {
-        if (pads.length == 21) {
+        if (pads.length == 17) {
             this.pads = pads;
         } else {
             Log.e("Deck", "Not enough pads");
@@ -45,6 +39,22 @@ public class Deck {
 
     public void setPad(Pad pad, int index) {
         pads[index] = pad;
+    }
+
+    public void setPads() {
+        for (Pad pad : pads) {
+            if (pad != null) {
+                pad.setPad();
+            }
+        }
+    }
+
+    public void resetPads() {
+        for (Pad pad : pads) {
+            if (pad != null) {
+                pad.resetPad();
+            }
+        }
     }
 
     public void setSound(Sound sound) {
@@ -88,16 +98,24 @@ public class Deck {
         setDeck();
     }
 
+    public void setUnselected() {
+        // unselect
+        Log.d("Deck", "Unselected all deck");
+        setDeckColorToDefault();
+        resetPads();
+        stop();
+    }
+
     void setDeck() {
         if (isSelected) {
             // select
             setDeckColor();
             playSound();
+            setPads();
         } else {
             // unselect
             Log.d("Deck", "Unselected deck");
             setDeckColorToDefault();
-            //stop();
         }
     }
 

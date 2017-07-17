@@ -32,7 +32,7 @@ public class SoundHelper {
     private SoundPool sp = new SoundPool(16, AudioManager.STREAM_MUSIC, 0);
     private MediaMetadataRetriever mmr = new MediaMetadataRetriever();
     private int toggle;
-    private int soundPoolId[][][] = new int[4][21][5];
+    private int soundPoolId[][][] = new int[4][17][5];
     private Deck decks[];
     private Activity activity;
     private int buttonId[] = {
@@ -79,10 +79,10 @@ public class SoundHelper {
 
     public void setDecks(int color, int colorDef, Activity activity) {
         decks = new Deck[] {
-                new Deck(new Pad[21], null, window.getView(buttonId[1], activity), color, colorDef, activity),
-                new Deck(new Pad[21], null, window.getView(buttonId[2], activity), color, colorDef, activity),
-                new Deck(new Pad[21], null, window.getView(buttonId[3], activity), color, colorDef, activity),
-                new Deck(new Pad[21], null, window.getView(buttonId[4], activity), color, colorDef, activity),
+                new Deck(new Pad[17], null, window.getView(buttonId[1], activity), color, colorDef, activity),
+                new Deck(new Pad[17], null, window.getView(buttonId[2], activity), color, colorDef, activity),
+                new Deck(new Pad[17], null, window.getView(buttonId[3], activity), color, colorDef, activity),
+                new Deck(new Pad[17], null, window.getView(buttonId[4], activity), color, colorDef, activity),
         };
 
         for (int i = 1; i <= 4; i++) {
@@ -108,7 +108,7 @@ public class SoundHelper {
         if (index == -1) {
             // disable all
             for (Deck deck : decks) {
-                deck.setSelected(false);
+                deck.setUnselected();
             }
         } else {
             for (int i = 0; i < decks.length; i++) {
@@ -631,14 +631,6 @@ public class SoundHelper {
             // initialize view
             buttonViews = new View[]{
                     window.getView(R.id.btn00, activity),
-                    window.getView(R.id.tgl1, activity),
-                    window.getView(R.id.tgl2, activity),
-                    window.getView(R.id.tgl3, activity),
-                    window.getView(R.id.tgl4, activity),
-                    window.getView(R.id.tgl5, activity),
-                    window.getView(R.id.tgl6, activity),
-                    window.getView(R.id.tgl7, activity),
-                    window.getView(R.id.tgl8, activity),
                     window.getView(R.id.btn11, activity),
                     window.getView(R.id.btn12, activity),
                     window.getView(R.id.btn13, activity),
@@ -665,7 +657,7 @@ public class SoundHelper {
                 for (int i = 0; i < 4; i++) {
                     Log.i(TAG, "  Deck " + (i + 1));
                     // pad loop
-                    for (int j = 0; j < 21; j++) {
+                    for (int j = 0; j < 17; j++) {
                         Log.i(TAG, "    Pad " + (j + 1));
                         // pad read from file
                         ArrayList<String> sounds = new ArrayList<>();

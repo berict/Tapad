@@ -82,44 +82,36 @@ public class Preset {
             case 0:
                 return "00";
             case 1:
-                return "01";
-            case 2:
-                return "02";
-            case 3:
-                return "03";
-            case 4:
-                return "04";
-            case 5:
                 return "11";
-            case 6:
+            case 2:
                 return "12";
-            case 7:
+            case 3:
                 return "13";
-            case 8:
+            case 4:
                 return "14";
-            case 9:
+            case 5:
                 return "21";
-            case 10:
+            case 6:
                 return "22";
-            case 11:
+            case 7:
                 return "23";
-            case 12:
+            case 8:
                 return "24";
-            case 13:
+            case 9:
                 return "31";
-            case 14:
+            case 10:
                 return "32";
-            case 15:
+            case 11:
                 return "33";
-            case 16:
+            case 12:
                 return "34";
-            case 17:
+            case 13:
                 return "41";
-            case 18:
+            case 14:
                 return "42";
-            case 19:
+            case 15:
                 return "43";
-            case 20:
+            case 16:
                 return "44";
             default:
                 return null;
