@@ -45,21 +45,19 @@ import static com.bedrock.padder.activity.PresetStoreActivity.isPresetDownloadin
 
 public class FirebaseHelper {
 
+    private static final int REQUEST_WRITE_STORAGE = 112;
+    public static String FIREBASE_LOCATION = "gs://tapad-4d342.appspot.com";
+    public static String FIREBASE_LOCATION_PRESETS = "gs://tapad-4d342.appspot.com/presets";
+    public static String FIREBASE_LOCATION_PRESETS_METADATA = "gs://tapad-4d342.appspot.com/presets/metadata";
+    public static String PROJECT_LOCATION = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
+    public static String PROJECT_LOCATION_PRESETS = Environment.getExternalStorageDirectory().getPath() + "/Tapad/presets";
+    public static String PROJECT_LOCATION_PRESET_METADATA = Environment.getExternalStorageDirectory().getPath() + "/Tapad/presets/metadata";
     private WindowHelper window = new WindowHelper();
     private AnimateHelper anim = new AnimateHelper();
     private FileHelper fileHelper = new FileHelper();
     private IntentHelper intent = new IntentHelper();
-
     private String TAG = "FirebaseHelper";
-    private static final int REQUEST_WRITE_STORAGE = 112;
-
-    public static String FIREBASE_LOCATION = "gs://tapad-4d342.appspot.com";
-    public static String FIREBASE_LOCATION_PRESETS = "gs://tapad-4d342.appspot.com/presets";
-    public static String FIREBASE_LOCATION_PRESETS_METADATA = "gs://tapad-4d342.appspot.com/presets/metadata";
-
-    public static String PROJECT_LOCATION = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
-    public static String PROJECT_LOCATION_PRESETS = Environment.getExternalStorageDirectory().getPath() + "/Tapad/presets";
-    public static String PROJECT_LOCATION_PRESET_METADATA = Environment.getExternalStorageDirectory().getPath() + "/Tapad/presets/metadata";
+    private DownloadPreset downloadPreset = null;
 
     public FileDownloadTask saveFromFirebase(StorageReference storageReference,
                                              final String fileLocation,
@@ -179,8 +177,6 @@ public class FirebaseHelper {
         );
     }
 
-    private DownloadPreset downloadPreset = null;
-
     public DownloadPreset downloadFirebasePreset(final String presetName, final String presetTitle, final View parentView, final Activity activity, final Runnable onFinish) {
         if (isConnected(activity)) {
             if (isWifiConnected(activity)) {
@@ -231,264 +227,6 @@ public class FirebaseHelper {
                     .show();
         }
         return downloadPreset;
-    }
-
-    public class DownloadPreset extends AsyncTask<Void, Void, Integer> {
-
-        private Activity activity;
-        private View parentView;
-        private String presetName;
-        private String presetTitle;
-        private String fileLocation = null;
-        private Runnable onFinish;
-
-        private ProgressBar progressBar;
-        private TextView progressTextPercent;
-        private TextView progressTextSize;
-
-        private StorageReference storageReference;
-        private long bytesTransferred = 0;
-        private long totalByteCount = 0;
-
-        private int id = 1;
-
-        private NotificationManager notificationManager;
-        private NotificationCompat.Builder mBuilder;
-
-        public DownloadPreset(String presetName, String presetTitle, View parentView, Activity activity, Runnable onFinish) {
-            this.activity = activity;
-            this.onFinish = onFinish;
-            this.parentView = parentView;
-            this.presetName = presetName;
-            this.presetTitle = presetTitle;
-            fileLocation = PROJECT_LOCATION_PRESETS + "/" + presetName + "/preset.zip";
-
-            notificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
-            mBuilder = new NotificationCompat.Builder(activity);
-        }
-
-        private boolean isDownloading = false;
-
-        @Override
-        protected void onPreExecute() {
-            Log.d(TAG, "onPreExecute");
-            if (isConnected(activity)) {
-                // reference initialize
-                FirebaseApp.initializeApp(activity);
-                storageReference =
-                        FirebaseStorage
-                                .getInstance()
-                                .getReferenceFromUrl(FIREBASE_LOCATION_PRESETS + "/" + presetName + "/preset.zip");
-
-                // create preset project folder
-                new File(PROJECT_LOCATION_PRESETS + "/" + presetName).mkdirs();
-
-                // storage available
-                // start download
-                isPresetDownloading = true;
-
-                anim.fadeOutInvisible(R.id.layout_preset_store_action_layout, 0, 200, parentView, activity);
-                anim.fadeIn(R.id.layout_preset_store_download_layout, 200, 200, "progressIn", parentView, activity);
-                // progressbar initialize
-                progressBar = (ProgressBar) parentView.findViewById(R.id.layout_preset_store_download_progressbar);
-                progressBar.setMax(100);
-
-                progressTextSize = (TextView) parentView.findViewById(R.id.layout_preset_store_download_size);
-                progressTextPercent = (TextView) parentView.findViewById(R.id.layout_preset_store_download_percent);
-                window.getView(R.id.layout_preset_store_download_cancel, parentView).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        cancelDownloadPreset();
-                    }
-                });
-
-                PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, new Intent(activity, PresetStoreActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
-
-                mBuilder.setContentTitle(presetTitle)
-                        .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_downloading, activity))
-                        .setSmallIcon(android.R.drawable.stat_sys_download)
-                        .setLargeIcon(BitmapFactory.decodeResource(activity.getResources(), android.R.drawable.stat_sys_download))
-                        .setOngoing(true)
-                        .setOnlyAlertOnce(true);
-                notificationManager.notify(id, mBuilder.build());
-            } else {
-                // no internet connection
-                // cancel the task
-                cancelDownloadPreset();
-                // no connection dialog
-                new MaterialDialog.Builder(activity)
-                        .title(R.string.preset_store_download_no_connection_dialog_title)
-                        .content(R.string.preset_store_download_no_connection_dialog_text)
-                        .contentColorRes(R.color.dark_primary)
-                        .neutralText(R.string.dialog_close)
-                        .show();
-            }
-        }
-
-        private boolean isSpaceDialogVisible = false;
-
-        private StorageTask downloadTask = null;
-
-        @SuppressWarnings("VisibleForTests")
-        @Override
-        protected Integer doInBackground(Void... params) {
-            isDownloading = true;
-            downloadTask = saveFromFirebase(storageReference, fileLocation, activity).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    bytesTransferred = taskSnapshot.getBytesTransferred();
-                    totalByteCount = taskSnapshot.getTotalByteCount();
-                    publishProgress();
-                }
-            }).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    if (!isCancelled()) {
-                        // Completed downloading
-                        isDownloading = false;
-                        Log.d(TAG, "Successful download at " + fileLocation);
-                        notificationManager.cancel(id);
-                        mBuilder.setContentTitle(presetTitle)
-                                .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_installing, activity))
-                                .setProgress(0, 0, false)
-                                .setOngoing(true)
-                                .setOnlyAlertOnce(true);
-                        // downloaded
-                        anim.fadeOut(R.id.layout_preset_store_download_layout, 0, 200, parentView, activity);
-                        anim.fadeIn(R.id.layout_preset_store_download_installing, 200, 200, "installIn", parentView, activity);
-                        fileHelper.unzip(PROJECT_LOCATION_PRESETS + "/" + presetName + "/preset.zip",
-                                PROJECT_LOCATION_PRESETS,
-                                presetName,
-                                parentView,
-                                activity,
-                                new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        notificationManager.cancel(id);
-                                        mBuilder.setContentTitle(presetTitle)
-                                                .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_complete, activity))
-                                                .setSmallIcon(android.R.drawable.stat_sys_download_done)
-                                                .setLargeIcon(BitmapFactory.decodeResource(activity.getResources(), android.R.drawable.stat_sys_download_done))
-                                                .setOngoing(false)
-                                                .setAutoCancel(true);
-                                        notificationManager.notify(id, mBuilder.build());
-                                        onFinish.run();
-                                    }
-                                }
-                        );
-                    }
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.e(TAG, "Failed to download");
-                    cancelDownloadPreset();
-                }
-            });
-            return (int) (100 * (bytesTransferred / totalByteCount));
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... args) {
-            // update progress
-            int mProgress = (int) ((100 * bytesTransferred) / totalByteCount);
-            progressTextPercent.setText(String.valueOf(mProgress) + "%");
-            if (progressBar.isIndeterminate()) {
-                progressBar.setIndeterminate(false);
-            }
-            progressBar.setProgress(mProgress);
-            if (isDownloading) {
-                // only notify when it is downloading
-                mBuilder.setProgress(1000, (int) ((1000 * bytesTransferred) / totalByteCount), false);
-            }
-            notificationManager.notify(id, mBuilder.build());
-
-            String progressText;
-            if (bytesTransferred == 0) {
-                progressText = window.getStringFromId(R.string.preset_store_download_size_downloading, activity);
-            } else {
-                progressText = getReadableFileSize(bytesTransferred)
-                        + "/"
-                        + getReadableFileSize(totalByteCount);
-            }
-            progressTextSize.setText(progressText);
-            if (totalByteCount > fileHelper.getAvailableExternalMemorySize()) {
-                // no space left
-                // cancel the task
-                // no space dialog
-                if (isSpaceDialogVisible == false) {
-                    isSpaceDialogVisible = true;
-                    new MaterialDialog.Builder(activity)
-                            .title(R.string.preset_store_download_no_space_dialog_title)
-                            .content(R.string.preset_store_download_no_space_dialog_text)
-                            .contentColorRes(R.color.dark_primary)
-                            .neutralText(R.string.dialog_close)
-                            .dismissListener(new DialogInterface.OnDismissListener() {
-                                @Override
-                                public void onDismiss(DialogInterface dialog) {
-                                    isSpaceDialogVisible = false;
-                                    cancelDownloadPreset();
-                                }
-                            })
-                            .show();
-                }
-            }
-            if (isCancelled()) {
-                cancelDownloadPreset();
-            }
-        }
-
-        @Override
-        protected void onPostExecute(Integer integer) {
-            Log.d(TAG, "onPostExecute");
-        }
-
-        @Override
-        protected void onCancelled() {
-            Log.d(TAG, "DownloadPreset cancelled");
-            removeLocalPreset(presetName);
-            isPresetDownloading = false;
-            anim.fadeOut(R.id.layout_preset_store_download_layout, 0, 200, parentView, activity);
-            anim.fadeIn(R.id.layout_preset_store_action_layout, 200, 200, "actionIn", parentView, activity);
-            super.onCancelled();
-        }
-
-        void cancelDownloadPreset() {
-            if (downloadPreset != null) {
-                downloadPreset.cancel(true);
-                downloadPreset.downloadTask.cancel();
-                downloadPreset.onCancelled();
-                // cancelled / failed notification
-                notificationManager.cancel(id);
-                if (isCancelled()) {
-                    mBuilder.setProgress(0, 0, false)
-                            .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_cancelled, activity))
-                            .setSmallIcon(android.R.drawable.stat_sys_download_done)
-                            .setLargeIcon(BitmapFactory.decodeResource(activity.getResources(), android.R.drawable.stat_sys_download_done))
-                            .setOngoing(false)
-                            .setAutoCancel(true);
-                } else {
-                    mBuilder.setProgress(0, 0, false)
-                            .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_failed, activity))
-                            .setSmallIcon(android.R.drawable.stat_sys_download_done)
-                            .setLargeIcon(BitmapFactory.decodeResource(activity.getResources(), android.R.drawable.stat_sys_download_done))
-                            .setOngoing(false)
-                            .setAutoCancel(true);
-                }
-                notificationManager.notify(id, mBuilder.build());
-            } else {
-                Log.e(TAG, "DownloadPreset is not initialized");
-            }
-        }
-
-        private String getReadableFileSize(long size) {
-            if (size <= 0) {
-                return "0 B";
-            }
-            final String[] units = new String[]{"B", "KB", "MB", "GB", "TB"};
-            int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
-            return new DecimalFormat("#,##0.0").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
-        }
     }
 
     public void removeLocalPreset(String presetName) {
@@ -616,5 +354,258 @@ public class FirebaseHelper {
         NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
         return mWifi.isConnected();
+    }
+
+    public class DownloadPreset extends AsyncTask<Void, Void, Integer> {
+
+        private Activity activity;
+        private View parentView;
+        private String presetName;
+        private String presetTitle;
+        private String fileLocation = null;
+        private Runnable onFinish;
+
+        private ProgressBar progressBar;
+        private TextView progressTextPercent;
+        private TextView progressTextSize;
+
+        private StorageReference storageReference;
+        private long bytesTransferred = 0;
+        private long totalByteCount = 0;
+
+        private int id = 1;
+
+        private NotificationManager notificationManager;
+        private NotificationCompat.Builder mBuilder;
+        private boolean isDownloading = false;
+        private boolean isSpaceDialogVisible = false;
+        private StorageTask downloadTask = null;
+
+        public DownloadPreset(String presetName, String presetTitle, View parentView, Activity activity, Runnable onFinish) {
+            this.activity = activity;
+            this.onFinish = onFinish;
+            this.parentView = parentView;
+            this.presetName = presetName;
+            this.presetTitle = presetTitle;
+            fileLocation = PROJECT_LOCATION_PRESETS + "/" + presetName + "/preset.zip";
+
+            notificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
+            mBuilder = new NotificationCompat.Builder(activity);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            Log.d(TAG, "onPreExecute");
+            if (isConnected(activity)) {
+                // reference initialize
+                FirebaseApp.initializeApp(activity);
+                storageReference =
+                        FirebaseStorage
+                                .getInstance()
+                                .getReferenceFromUrl(FIREBASE_LOCATION_PRESETS + "/" + presetName + "/preset.zip");
+
+                // create preset project folder
+                new File(PROJECT_LOCATION_PRESETS + "/" + presetName).mkdirs();
+
+                // storage available
+                // start download
+                isPresetDownloading = true;
+
+                anim.fadeOutInvisible(R.id.layout_preset_store_action_layout, 0, 200, parentView, activity);
+                anim.fadeIn(R.id.layout_preset_store_download_layout, 200, 200, "progressIn", parentView, activity);
+                // progressbar initialize
+                progressBar = (ProgressBar) parentView.findViewById(R.id.layout_preset_store_download_progressbar);
+                progressBar.setMax(100);
+
+                progressTextSize = (TextView) parentView.findViewById(R.id.layout_preset_store_download_size);
+                progressTextPercent = (TextView) parentView.findViewById(R.id.layout_preset_store_download_percent);
+                window.getView(R.id.layout_preset_store_download_cancel, parentView).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cancelDownloadPreset();
+                    }
+                });
+
+                PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, new Intent(activity, PresetStoreActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+
+                mBuilder.setContentTitle(presetTitle)
+                        .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_downloading, activity))
+                        .setSmallIcon(android.R.drawable.stat_sys_download)
+                        .setLargeIcon(BitmapFactory.decodeResource(activity.getResources(), android.R.drawable.stat_sys_download))
+                        .setOngoing(true)
+                        .setOnlyAlertOnce(true);
+                notificationManager.notify(id, mBuilder.build());
+            } else {
+                // no internet connection
+                // cancel the task
+                cancelDownloadPreset();
+                // no connection dialog
+                new MaterialDialog.Builder(activity)
+                        .title(R.string.preset_store_download_no_connection_dialog_title)
+                        .content(R.string.preset_store_download_no_connection_dialog_text)
+                        .contentColorRes(R.color.dark_primary)
+                        .neutralText(R.string.dialog_close)
+                        .show();
+            }
+        }
+
+        @SuppressWarnings("VisibleForTests")
+        @Override
+        protected Integer doInBackground(Void... params) {
+            isDownloading = true;
+            downloadTask = saveFromFirebase(storageReference, fileLocation, activity).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    bytesTransferred = taskSnapshot.getBytesTransferred();
+                    totalByteCount = taskSnapshot.getTotalByteCount();
+                    publishProgress();
+                }
+            }).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    if (!isCancelled()) {
+                        // Completed downloading
+                        isDownloading = false;
+                        Log.d(TAG, "Successful download at " + fileLocation);
+                        notificationManager.cancel(id);
+                        mBuilder.setContentTitle(presetTitle)
+                                .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_installing, activity))
+                                .setProgress(0, 0, false)
+                                .setOngoing(true)
+                                .setOnlyAlertOnce(true);
+                        // downloaded
+                        anim.fadeOut(R.id.layout_preset_store_download_layout, 0, 200, parentView, activity);
+                        anim.fadeIn(R.id.layout_preset_store_download_installing, 200, 200, "installIn", parentView, activity);
+                        fileHelper.unzip(PROJECT_LOCATION_PRESETS + "/" + presetName + "/preset.zip",
+                                PROJECT_LOCATION_PRESETS,
+                                presetName,
+                                parentView,
+                                activity,
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        notificationManager.cancel(id);
+                                        mBuilder.setContentTitle(presetTitle)
+                                                .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_complete, activity))
+                                                .setSmallIcon(android.R.drawable.stat_sys_download_done)
+                                                .setLargeIcon(BitmapFactory.decodeResource(activity.getResources(), android.R.drawable.stat_sys_download_done))
+                                                .setOngoing(false)
+                                                .setAutoCancel(true);
+                                        notificationManager.notify(id, mBuilder.build());
+                                        onFinish.run();
+                                    }
+                                }
+                        );
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.e(TAG, "Failed to download");
+                    cancelDownloadPreset();
+                }
+            });
+            return (int) (100 * (bytesTransferred / totalByteCount));
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... args) {
+            // update progress
+            int mProgress = (int) ((100 * bytesTransferred) / totalByteCount);
+            progressTextPercent.setText(String.valueOf(mProgress) + "%");
+            if (progressBar.isIndeterminate()) {
+                progressBar.setIndeterminate(false);
+            }
+            progressBar.setProgress(mProgress);
+            if (isDownloading) {
+                // only notify when it is downloading
+                mBuilder.setProgress(1000, (int) ((1000 * bytesTransferred) / totalByteCount), false);
+            }
+            notificationManager.notify(id, mBuilder.build());
+
+            String progressText;
+            if (bytesTransferred == 0) {
+                progressText = window.getStringFromId(R.string.preset_store_download_size_downloading, activity);
+            } else {
+                progressText = getReadableFileSize(bytesTransferred)
+                        + "/"
+                        + getReadableFileSize(totalByteCount);
+            }
+            progressTextSize.setText(progressText);
+            if (totalByteCount > fileHelper.getAvailableExternalMemorySize()) {
+                // no space left dialog, cancel the task
+                if (isSpaceDialogVisible == false) {
+                    isSpaceDialogVisible = true;
+                    new MaterialDialog.Builder(activity)
+                            .title(R.string.preset_store_download_no_space_dialog_title)
+                            .content(R.string.preset_store_download_no_space_dialog_text)
+                            .contentColorRes(R.color.dark_primary)
+                            .neutralText(R.string.dialog_close)
+                            .dismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface dialog) {
+                                    isSpaceDialogVisible = false;
+                                    cancelDownloadPreset();
+                                }
+                            })
+                            .show();
+                }
+            }
+            if (isCancelled()) {
+                cancelDownloadPreset();
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            Log.d(TAG, "onPostExecute");
+        }
+
+        @Override
+        protected void onCancelled() {
+            Log.d(TAG, "DownloadPreset cancelled");
+            removeLocalPreset(presetName);
+            isPresetDownloading = false;
+            anim.fadeOut(R.id.layout_preset_store_download_layout, 0, 200, parentView, activity);
+            anim.fadeIn(R.id.layout_preset_store_action_layout, 200, 200, "actionIn", parentView, activity);
+            super.onCancelled();
+        }
+
+        void cancelDownloadPreset() {
+            if (downloadPreset != null) {
+                downloadPreset.cancel(true);
+                downloadPreset.downloadTask.cancel();
+                downloadPreset.onCancelled();
+                // cancelled / failed notification
+                notificationManager.cancel(id);
+                if (isCancelled()) {
+                    mBuilder.setProgress(0, 0, false)
+                            .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_cancelled, activity))
+                            .setSmallIcon(android.R.drawable.stat_sys_download_done)
+                            .setLargeIcon(BitmapFactory.decodeResource(activity.getResources(), android.R.drawable.stat_sys_download_done))
+                            .setOngoing(false)
+                            .setAutoCancel(true);
+                } else {
+                    mBuilder.setProgress(0, 0, false)
+                            .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_failed, activity))
+                            .setSmallIcon(android.R.drawable.stat_sys_download_done)
+                            .setLargeIcon(BitmapFactory.decodeResource(activity.getResources(), android.R.drawable.stat_sys_download_done))
+                            .setOngoing(false)
+                            .setAutoCancel(true);
+                }
+                notificationManager.notify(id, mBuilder.build());
+            } else {
+                Log.e(TAG, "DownloadPreset is not initialized");
+            }
+        }
+
+        private String getReadableFileSize(long size) {
+            if (size <= 0) {
+                return "0 B";
+            }
+            final String[] units = new String[]{"B", "KB", "MB", "GB", "TB"};
+            int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
+            return new DecimalFormat("#,##0.0").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
+        }
     }
 }

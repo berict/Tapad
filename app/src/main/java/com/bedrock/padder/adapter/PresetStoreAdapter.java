@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
+import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.FileHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.FirebaseMetadata;
@@ -31,6 +32,7 @@ import java.io.File;
 import static android.content.Context.MODE_PRIVATE;
 import static com.bedrock.padder.activity.MainActivity.PRESET_KEY;
 import static com.bedrock.padder.activity.MainActivity.isPresetChanged;
+import static com.bedrock.padder.activity.PresetStoreActivity.isPresetDownloading;
 import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
@@ -43,42 +45,10 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
     private View parentView;
 
     private WindowHelper window = new WindowHelper();
+    private AnimateHelper anim = new AnimateHelper();
     private FileHelper file = new FileHelper();
 
     private SharedPreferences prefs;
-
-    public static class PresetViewHolder extends RecyclerView.ViewHolder {
-        LinearLayout presetGesture;
-        LinearLayout presetWarningLayout;
-        ImageView presetImage;
-        TextView presetCurrentPreset;
-        TextView presetTitle;
-        TextView presetArtist;
-        TextView presetCreator;
-        TextView presetDownload;
-        TextView presetSelect;
-        TextView presetUpdate;
-        TextView presetRemove;
-        TextView presetWarning;
-        TextView presetInstalling;
-
-        public PresetViewHolder(View view) {
-            super(view);
-            presetGesture = (LinearLayout) view.findViewById(R.id.layout_preset_store_gesture_layout);
-            presetWarningLayout = (LinearLayout) view.findViewById(R.id.layout_preset_store_warning_layout);
-            presetImage = (ImageView) view.findViewById(R.id.layout_preset_store_image);
-            presetCurrentPreset = (TextView) view.findViewById(R.id.layout_preset_store_current_preset);
-            presetTitle = (TextView) view.findViewById(R.id.layout_preset_store_title);
-            presetArtist = (TextView) view.findViewById(R.id.layout_preset_store_artist);
-            presetCreator = (TextView) view.findViewById(R.id.layout_preset_store_preset_creator);
-            presetDownload = (TextView) view.findViewById(R.id.layout_preset_store_action_download);
-            presetSelect = (TextView) view.findViewById(R.id.layout_preset_store_action_select);
-            presetUpdate = (TextView) view.findViewById(R.id.layout_preset_store_action_update);
-            presetRemove = (TextView) view.findViewById(R.id.layout_preset_store_action_remove);
-            presetWarning = (TextView) view.findViewById(R.id.layout_preset_store_warning_text);
-            presetInstalling = (TextView) view.findViewById(R.id.layout_preset_store_download_installing);
-        }
-    }
 
     public PresetStoreAdapter(FirebaseMetadata firebaseMetadata, int rowLayout, Activity activity) {
         this.firebaseMetadata = firebaseMetadata;
@@ -189,50 +159,57 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                     }
                 });
             } else {
-                // corrupted, show repair
-                holder.presetSelect.setVisibility(View.VISIBLE);
-                holder.presetSelect.setTextColor(activity.getResources().getColor(R.color.colorAccent));
-                holder.presetSelect.setText(R.string.preset_store_action_repair);
-                // show warning
-                holder.presetWarningLayout.setVisibility(View.VISIBLE);
-                holder.presetWarning.setText(R.string.preset_store_action_repair_needed);
-                holder.presetSelect.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // show repair dialog
-                        new MaterialDialog.Builder(activity)
-                                .title(R.string.preset_store_action_repair_dialog_title)
-                                .content(R.string.preset_store_action_repair_dialog_text)
-                                .contentColorRes(R.color.dark_primary)
-                                .positiveText(R.string.preset_store_action_repair)
-                                .positiveColorRes(R.color.colorAccent)
-                                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                    @Override
-                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                        dialog.dismiss();
-                                        // repair the preset
-                                        preset.repairPreset(parentView, activity, new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                notifyItemChanged(holder.getAdapterPosition());
-                                                // reset the savedPreset
-                                                isPresetChanged = true;
-                                                SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
-                                                prefs.edit().putString(PRESET_KEY, null).apply();
-                                            }
-                                        });
-                                    }
-                                })
-                                .negativeText(R.string.dialog_cancel)
-                                .show();
-                    }
-                });
-                // load url image
-                Picasso.with(activity)
-                        .load(imageUrl)
-                        .placeholder(R.drawable.ic_image_album_placeholder)
-                        .error(R.drawable.ic_image_album_error)
-                        .into(holder.presetImage);
+                if (isPresetDownloading) {
+                    holder.presetInstalling.setText(R.string.preset_store_download_size_downloading);
+                    anim.fadeOut(R.id.layout_preset_store_download_layout, 0, 200, parentView, activity);
+                    anim.fadeIn(R.id.layout_preset_store_download_installing, 200, 200, "installIn", parentView, activity);
+                    window.getView(R.id.layout_preset_store_action_layout, parentView).setVisibility(View.INVISIBLE);
+                } else {
+                    // corrupted, show repair
+                    holder.presetSelect.setVisibility(View.VISIBLE);
+                    holder.presetSelect.setTextColor(activity.getResources().getColor(R.color.colorAccent));
+                    holder.presetSelect.setText(R.string.preset_store_action_repair);
+                    // show warning
+                    holder.presetWarningLayout.setVisibility(View.VISIBLE);
+                    holder.presetWarning.setText(R.string.preset_store_action_repair_needed);
+                    holder.presetSelect.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // show repair dialog
+                            new MaterialDialog.Builder(activity)
+                                    .title(R.string.preset_store_action_repair_dialog_title)
+                                    .content(R.string.preset_store_action_repair_dialog_text)
+                                    .contentColorRes(R.color.dark_primary)
+                                    .positiveText(R.string.preset_store_action_repair)
+                                    .positiveColorRes(R.color.colorAccent)
+                                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                        @Override
+                                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                            dialog.dismiss();
+                                            // repair the preset
+                                            preset.repairPreset(parentView, activity, new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    notifyItemChanged(holder.getAdapterPosition());
+                                                    // reset the savedPreset
+                                                    isPresetChanged = true;
+                                                    SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
+                                                    prefs.edit().putString(PRESET_KEY, null).apply();
+                                                }
+                                            });
+                                        }
+                                    })
+                                    .negativeText(R.string.dialog_cancel)
+                                    .show();
+                        }
+                    });
+                    // load url image
+                    Picasso.with(activity)
+                            .load(imageUrl)
+                            .placeholder(R.drawable.ic_image_album_placeholder)
+                            .error(R.drawable.ic_image_album_error)
+                            .into(holder.presetImage);
+                }
             }
             holder.presetRemove.setVisibility(View.VISIBLE);
             holder.presetRemove.setOnClickListener(new View.OnClickListener() {
@@ -364,5 +341,38 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
     @Override
     public int getItemCount() {
         return firebaseMetadata.getPresets().length;
+    }
+
+    public static class PresetViewHolder extends RecyclerView.ViewHolder {
+        LinearLayout presetGesture;
+        LinearLayout presetWarningLayout;
+        ImageView presetImage;
+        TextView presetCurrentPreset;
+        TextView presetTitle;
+        TextView presetArtist;
+        TextView presetCreator;
+        TextView presetDownload;
+        TextView presetSelect;
+        TextView presetUpdate;
+        TextView presetRemove;
+        TextView presetWarning;
+        TextView presetInstalling;
+
+        public PresetViewHolder(View view) {
+            super(view);
+            presetGesture = (LinearLayout) view.findViewById(R.id.layout_preset_store_gesture_layout);
+            presetWarningLayout = (LinearLayout) view.findViewById(R.id.layout_preset_store_warning_layout);
+            presetImage = (ImageView) view.findViewById(R.id.layout_preset_store_image);
+            presetCurrentPreset = (TextView) view.findViewById(R.id.layout_preset_store_current_preset);
+            presetTitle = (TextView) view.findViewById(R.id.layout_preset_store_title);
+            presetArtist = (TextView) view.findViewById(R.id.layout_preset_store_artist);
+            presetCreator = (TextView) view.findViewById(R.id.layout_preset_store_preset_creator);
+            presetDownload = (TextView) view.findViewById(R.id.layout_preset_store_action_download);
+            presetSelect = (TextView) view.findViewById(R.id.layout_preset_store_action_select);
+            presetUpdate = (TextView) view.findViewById(R.id.layout_preset_store_action_update);
+            presetRemove = (TextView) view.findViewById(R.id.layout_preset_store_action_remove);
+            presetWarning = (TextView) view.findViewById(R.id.layout_preset_store_warning_text);
+            presetInstalling = (TextView) view.findViewById(R.id.layout_preset_store_download_installing);
+        }
     }
 }
