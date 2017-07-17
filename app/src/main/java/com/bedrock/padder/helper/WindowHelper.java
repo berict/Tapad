@@ -53,6 +53,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class WindowHelper {
 
     public static final String APPLICATION_ID = "com.bedrock.padder";
+    private ArrayList<Integer> loopStreamIds = new ArrayList<>();
 
     public void setNavigationBar(int colorId, Activity activity) {
         if (Build.VERSION.SDK_INT >= 16) {
@@ -697,6 +698,11 @@ public class WindowHelper {
         return activity.getResources().getString(resId);
     }
 
+    // public Z getZ(int id, Activity activity) {
+    //     Z z = (Z) activity.findViewById(id);
+    //     return z;
+    // }
+
     public int getDrawableId(String id) {
         try {
             Class res = R.drawable.class;
@@ -708,11 +714,6 @@ public class WindowHelper {
         }
         //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
     }
-
-    // public Z getZ(int id, Activity activity) {
-    //     Z z = (Z) activity.findViewById(id);
-    //     return z;
-    // }
 
     public void setMarginRelativePX(int id, int left, int top, int right, int bottom, Activity activity) {
         View v = activity.findViewById(id);
@@ -885,8 +886,6 @@ public class WindowHelper {
             }
         });
     }
-
-    private ArrayList<Integer> loopStreamIds = new ArrayList<>();
 
     private void addLoopStreamId(Integer id) {
         Log.d("addLoopStreamId", "added " + id);
@@ -1492,8 +1491,6 @@ public class WindowHelper {
             totRamMb = totRam / 1024.0;
         } catch (IOException ex) {
             ex.printStackTrace();
-        } finally {
-            // Streams.close(reader);
         }
 
         Log.i("getDeviceRam", "Device Ram requested = returned " + String.valueOf(totRamMb));
