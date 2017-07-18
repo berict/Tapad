@@ -184,6 +184,8 @@
         </android.support.design.widget.CoordinatorLayout>
     </RelativeLayout>
 
+    <include layout="@layout/fragment_fab"/>
+
     <View
         android:id="@+id/layout_placeholder"
         android:layout_width="match_parent"

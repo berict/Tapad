@@ -28,6 +28,7 @@ import com.bedrock.padder.R;
 import com.bedrock.padder.fragment.PresetStoreInstalledFragment;
 import com.bedrock.padder.fragment.PresetStoreOnlineFragment;
 import com.bedrock.padder.helper.AnimateHelper;
+import com.bedrock.padder.helper.FabHelper;
 import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
@@ -42,6 +43,11 @@ import static com.bedrock.padder.activity.MainActivity.isPresetVisible;
 
 public class PresetStoreActivity extends AppCompatActivity {
 
+    private WindowHelper window = new WindowHelper();
+    private AnimateHelper anim = new AnimateHelper();
+    private ToolbarHelper toolbar = new ToolbarHelper();
+    private IntentHelper intent = new IntentHelper();
+    private FabHelper fab = new FabHelper();
     private static final int REQUEST_WRITE_STORAGE = 112;
     public static boolean isPresetDownloading = false;
     Activity activity = this;
@@ -49,10 +55,6 @@ public class PresetStoreActivity extends AppCompatActivity {
     ViewPager viewPager;
     ViewPagerAdapter viewPagerAdapter;
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
-    private WindowHelper window = new WindowHelper();
-    private AnimateHelper anim = new AnimateHelper();
-    private ToolbarHelper toolbar = new ToolbarHelper();
-    private IntentHelper intent = new IntentHelper();
     private int themeColor;
     private String themeTitle;
     private String TAG = "PresetStore";
@@ -189,6 +191,10 @@ public class PresetStoreActivity extends AppCompatActivity {
         }
     }
 
+    private void openPreset() {
+        Log.d(TAG, "openPreset");
+    }
+
     private void setViewPager() {
         if (hasPermission) {
             Log.d(TAG, "setViewPager");
@@ -199,17 +205,27 @@ public class PresetStoreActivity extends AppCompatActivity {
             viewPager = (ViewPager) findViewById(R.id.layout_viewpager);
             viewPager.setAdapter(viewPagerAdapter);
             viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                private int position = 0;
+                private float positionOffset = 0;
+                // from: https://stackoverflow.com/questions/31319758/how-can-i-animate-the-new-floating-action-button-between-tab-fragment-transition
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    this.positionOffset = positionOffset;
                 }
 
                 @Override
                 public void onPageSelected(int position) {
+                    this.position = position;
                     // from: https://stackoverflow.com/questions/20412379/viewpager-update-fragment-on-swipe
                     Fragment fragment = (Fragment) viewPagerAdapter.instantiateItem(viewPager, position);
                     if (fragment != null) {
                         if (fragment instanceof PresetStoreInstalledFragment) {
                             ((PresetStoreInstalledFragment) fragment).refresh();
+                            if (!fab.isVisible()) {
+                                // show open preset fab
+                                fab.show();
+                                Log.d(TAG, "show from onPageSelected");
+                            }
                         } else if (fragment instanceof  PresetStoreOnlineFragment) {
                             ((PresetStoreOnlineFragment) fragment).refresh();
                         } else {
@@ -221,12 +237,61 @@ public class PresetStoreActivity extends AppCompatActivity {
 
                 @Override
                 public void onPageScrollStateChanged(int state) {
+                    //hide floating action button
+                    //state 0 = nothing happen, state 1 = beginning scrolling, state 2 = stop at selected tab.
+                    if (fab.isVisible() && state == 1) {
+                        // fav visible
+                        if (fab.isVisible()) {
+                            fab.hide();
+                        }
+                    } else if (state == 2 && !fab.isVisible()) {
+                        if (position == 0 && positionOffset < 0.5 && positionOffset >= 0) {
+                            Log.d(TAG, "positionOffset = " + positionOffset);
+                            if (!fab.isVisible()) {
+                                Log.d(TAG, "show from onPageScrollStateChanged");
+                                fab.show();
+                            }
+                        }
+                    }
                 }
             });
 
             TabLayout tabLayout = (TabLayout) findViewById(R.id.layout_tab_layout);
             tabLayout.setupWithViewPager(viewPager);
+            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    if (tab.getPosition() == 0) {
+                        // show open preset fab
+                        if (!fab.isVisible()) {
+                            Log.d(TAG, "show from tabLayout");
+                            fab.show();
+                        }
+                    } else {
+                        if (fab.isVisible()) {
+                            fab.hide();
+                        }
+                    }
+                }
+
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {}
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {}
+            });
         }
+    }
+
+    private void setFab() {
+        fab.set(activity);
+        fab.setIcon(R.drawable.ic_search_white, activity);
+        fab.setOnClickListener(new Runnable() {
+            @Override
+            public void run() {
+                openPreset();
+            }
+        });
     }
 
     private void setUi() {
@@ -243,6 +308,9 @@ public class PresetStoreActivity extends AppCompatActivity {
 
         // title image / text
         window.getImageView(R.id.layout_image, activity).setImageResource(R.drawable.about_image_preset_store);
+
+        // fab
+        setFab();
 
         // viewpager
         setViewPager();

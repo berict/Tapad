@@ -39,7 +39,7 @@ public class FabHelper {
 
     public void show() {
         try {
-            anim.scaleIn(floatingActionButton, 0, 400, "fabIn");
+            anim.scaleIn(floatingActionButton, 0, 100, "fabIn");
         } catch (NullPointerException e) {
             Log.i("showFab", "Fab is not initialized");
         }
@@ -47,7 +47,7 @@ public class FabHelper {
 
     public void show(int delay) {
         try {
-            anim.scaleIn(floatingActionButton, delay, 400, "fabIn");
+            anim.scaleIn(floatingActionButton, delay, 100, "fabIn");
         } catch (NullPointerException e) {
             Log.i("showFab", "Fab is not initialized");
         }
@@ -63,7 +63,7 @@ public class FabHelper {
 
     public void hide() {
         try {
-            anim.scaleOut(floatingActionButton, 0, 400, "fabOut");
+            anim.scaleOut(floatingActionButton, 0, 100, "fabOut");
         } catch (NullPointerException e) {
             Log.i("hideFab", "Fab is not initialized");
         }
@@ -71,7 +71,7 @@ public class FabHelper {
 
     public void hide(int delay) {
         try {
-            anim.scaleOut(floatingActionButton, delay, 400, "fabOut");
+            anim.scaleOut(floatingActionButton, delay, 100, "fabOut");
         } catch (NullPointerException e) {
             Log.i("hideFab", "Fab is not initialized");
         }
