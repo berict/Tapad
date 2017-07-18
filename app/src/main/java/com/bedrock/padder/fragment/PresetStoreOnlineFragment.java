@@ -112,6 +112,13 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
         anim.fadeOut(R.id.layout_online_preset_store_recycler_view, 0, 200, v, a);
         anim.fadeOut(R.id.layout_online_preset_store_recycler_view_loading, 0, 200, v, a);
         anim.fadeIn(R.id.layout_online_preset_store_recycler_view_failed, 200, 200, "rvIn", v, a);
+        window.setOnClick(R.id.layout_online_preset_store_recycler_view_failed_retry, new Runnable() {
+            @Override
+            public void run() {
+                // retry button
+                setAdapter();
+            }
+        }, a);
         Handler handler = new Handler();
         if (((TabLayout)window.getView(R.id.layout_tab_layout, a)).getSelectedTabPosition() == 1) {
             // only when the online tab is selected
