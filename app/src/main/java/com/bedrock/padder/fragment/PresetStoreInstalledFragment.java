@@ -166,7 +166,7 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
                 }
             } else {
                 // preset download from none
-                if (getPresetFolderList().length > 1) {
+                if (getPresetFolderList() != null && getPresetFolderList().length > 1) {
                     // updated
                     Log.d(TAG, "Updated, preset null");
                     searchMetadata();
