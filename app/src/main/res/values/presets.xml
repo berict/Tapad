@@ -117,6 +117,10 @@
 	<string name="info_tapad_info_changelog_text"   >
         You can view the changelog dialog again at any time from the <b><i>about</i></b> section.\n\n
         
+		<b>Version 2.3 Alpha 6</b>\n\n
+		1.	<b>IMPROVEMENT</b>: Removed pad patterns (temporary) \n
+		2.	<b>IMPROVEMENT</b>: Removed stop sound on focus loss feature (temporary) \n\n
+
 		<b>Version 2.3 Alpha 5</b>\n\n
         1.	<b>IMPROVEMENT</b>: Preset download notifications \n
         2.	<b>FIX</b>: Preset store dialog crashing \n
