@@ -21,9 +21,11 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.folderselector.FileChooserDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.fragment.PresetStoreInstalledFragment;
 import com.bedrock.padder.fragment.PresetStoreOnlineFragment;
@@ -41,7 +43,7 @@ import java.util.List;
 import static com.bedrock.padder.activity.MainActivity.isDeckShouldCleared;
 import static com.bedrock.padder.activity.MainActivity.isPresetVisible;
 
-public class PresetStoreActivity extends AppCompatActivity {
+public class PresetStoreActivity extends AppCompatActivity implements FileChooserDialog.FileCallback {
 
     private WindowHelper window = new WindowHelper();
     private AnimateHelper anim = new AnimateHelper();
@@ -192,7 +194,19 @@ public class PresetStoreActivity extends AppCompatActivity {
     }
 
     private void openPreset() {
-        Log.d(TAG, "openPreset");
+        new FileChooserDialog.Builder(this)
+                .initialPath(Environment.getExternalStorageDirectory().getPath())
+                .mimeType("application/zip")
+                .tag("optional-identifier")
+                .show();
+        Toast.makeText(activity, R.string.preset_store_download_size_downloading, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFileSelection(@NonNull FileChooserDialog dialog, @NonNull File file) {
+        Log.d(TAG, file.getAbsolutePath());
+        // TODO check how does this search installed preset
+        // TODO add pre-select dialog or toast
     }
 
     private void setViewPager() {
@@ -292,6 +306,12 @@ public class PresetStoreActivity extends AppCompatActivity {
                 openPreset();
             }
         });
+
+        // set bottom margin
+        window.setMarginRelativePX(R.id.fab, 0, 0,
+                window.convertDPtoPX(20, activity),
+                window.getNavigationBarFromPrefs(activity) + window.convertDPtoPX(20, activity),
+                activity);
     }
 
     private void setUi() {
