@@ -277,23 +277,19 @@ public class MainActivity
         Log.i("BackPressed", "isAboutVisible " + String.valueOf(isAboutVisible));
         Log.i("BackPressed", "isSettingVisible " + String.valueOf(isSettingVisible));
         if (isToolbarVisible == true) {
-            if (isAboutVisible == false && isSettingVisible == false) {
-                Log.i("BackPressed", "Quickstart tap target prompt is visible, backPress ignored.");
+            // new structure
+            if (isAboutVisible && isSettingVisible) {
+                // Setting is visible above about
+                closeSettings();
+            } else if (isSettingVisible) {
+                // Setting visible alone
+                closeSettings();
+            } else if (isAboutVisible) {
+                // About visible alone
+                closeAbout();
             } else {
-                // new structure
-                if (isAboutVisible && isSettingVisible) {
-                    // Setting is visible above about
-                    closeSettings();
-                } else if (isSettingVisible) {
-                    // Setting visible alone
-                    closeSettings();
-                } else if (isAboutVisible) {
-                    // About visible alone
-                    closeAbout();
-                } else {
-                    // Toolbar visible alone
-                    closeToolbar(a);
-                }
+                // Toolbar visible alone
+                closeToolbar(a);
             }
         } else if (isSettingVisible == true) {
             // Setting is visible above about
