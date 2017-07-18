@@ -16,11 +16,11 @@ public class FabHelper {
 
     private AnimateHelper anim = new AnimateHelper();
 
-    public void setFab(Activity activity) {
+    public void set(Activity activity) {
         floatingActionButton = (FloatingActionButton)activity.findViewById(FAB);
     }
 
-    public void setFabColor(int color, Activity activity) {
+    public void setColor(int color, Activity activity) {
         try {
             try {
                 floatingActionButton.setBackgroundColor(ContextCompat.getColor(activity, color));
@@ -33,11 +33,11 @@ public class FabHelper {
         }
     }
 
-    public void setFabIcon(int iconRes, Activity activity) {
+    public void setIcon(int iconRes, Activity activity) {
         floatingActionButton.setImageResource(iconRes);
     }
 
-    public void showFab() {
+    public void show() {
         try {
             anim.scaleIn(floatingActionButton, 0, 400, "fabIn");
         } catch (NullPointerException e) {
@@ -45,7 +45,7 @@ public class FabHelper {
         }
     }
 
-    public void showFab(int delay) {
+    public void show(int delay) {
         try {
             anim.scaleIn(floatingActionButton, delay, 400, "fabIn");
         } catch (NullPointerException e) {
@@ -53,7 +53,7 @@ public class FabHelper {
         }
     }
 
-    public void showFab(int delay, int duration) {
+    public void show(int delay, int duration) {
         try {
             anim.scaleIn(floatingActionButton, delay, duration, "fabIn");
         } catch (NullPointerException e) {
@@ -61,7 +61,7 @@ public class FabHelper {
         }
     }
 
-    public void hideFab() {
+    public void hide() {
         try {
             anim.scaleOut(floatingActionButton, 0, 400, "fabOut");
         } catch (NullPointerException e) {
@@ -69,7 +69,7 @@ public class FabHelper {
         }
     }
 
-    public void hideFab(int delay) {
+    public void hide(int delay) {
         try {
             anim.scaleOut(floatingActionButton, delay, 400, "fabOut");
         } catch (NullPointerException e) {
@@ -77,7 +77,7 @@ public class FabHelper {
         }
     }
 
-    public void hideFab(int delay, int duration) {
+    public void hide(int delay, int duration) {
         try {
             anim.scaleOut(floatingActionButton, delay, duration, "fabOut");
         } catch (NullPointerException e) {
@@ -85,7 +85,7 @@ public class FabHelper {
         }
     }
 
-    public void setFabOnClickListener(final Runnable runnable) {
+    public void setOnClickListener(final Runnable runnable) {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
