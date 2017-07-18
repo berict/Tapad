@@ -61,8 +61,6 @@ public class SoundHelper {
     private AdmobHelper ad = new AdmobHelper();
     private AnimateHelper anim = new AnimateHelper();
     private WindowHelper window = new WindowHelper();
-    private AsyncTask unLoadSound = null;
-    private AsyncTask loadSound = null;
     private AsyncTask unload = null;
     private AsyncTask load = null;
     private ProgressBar progress;
@@ -165,177 +163,6 @@ public class SoundHelper {
         }
     }
 
-    @Deprecated
-    public void loadSound(Preset preset, Activity activity) {
-        // set the previous preset
-        previousPreset = currentPreset;
-        currentPreset = preset;
-        this.activity = activity;
-        unLoadSound = new UnloadSound().execute();
-    }
-
-    @Deprecated
-    public void cancelLoading() {
-        try {
-            unLoadSound.cancel(true);
-            loadSound.cancel(true);
-            Log.d("TAG", "AsyncTask canceled");
-        } catch (NullPointerException e) {
-            Log.d("NPE", "AsyncTask is null");
-        }
-    }
-
-    @Deprecated
-    public void playToggleButtonSound(int id) {
-        sp.play(soundPoolId[id - 1][id][0], 1, 1, 1, 0, 1f);
-    }
-
-    @Deprecated
-    public void setButtonToggle(int id, int colorId, Activity activity) {
-        toggle = id;
-        if (isPresetLoading == false) {
-            for (int i = 0; i < 21; i++) {
-                if (i == 0 || i > 4) {
-                    if (id >= 1 && id <= 4) {
-                        if (currentPreset.getMusic().getGesture()) {
-                            window.setOnGestureSound(buttonId[i], colorId, R.color.grey, sp, soundPoolId[id - 1][i], activity);
-                        } else {
-                            window.setOnTouchSound(buttonId[i], colorId, R.color.grey, sp, soundPoolId[id - 1][i], activity);
-                        }
-                    }
-                }
-            }
-            Log.i("SoundHelper", "ToggleButton sound set id " + String.valueOf(id));
-        } else {
-            setButton(colorId, activity);
-        }
-    }
-
-    @Deprecated
-    public void setButtonToggle(int id, int colorId, int patternId, Activity activity) {
-
-        int pattern1[][][] = {
-                {{}, {R.id.btn12, R.id.btn21}},
-                {{}, {R.id.btn11, R.id.btn22, R.id.btn13}},
-                {{}, {R.id.btn12, R.id.btn23, R.id.btn14}},
-                {{}, {R.id.btn13, R.id.btn24}},
-                {{}, {R.id.btn11, R.id.btn22, R.id.btn31}},
-                {{}, {R.id.btn12, R.id.btn21, R.id.btn32, R.id.btn23}},
-                {{}, {R.id.btn13, R.id.btn22, R.id.btn33, R.id.btn24}},
-                {{}, {R.id.btn14, R.id.btn23, R.id.btn34}},
-                {{}, {R.id.btn21, R.id.btn32, R.id.btn41}},
-                {{}, {R.id.btn31, R.id.btn33, R.id.btn22, R.id.btn42}},
-                {{}, {R.id.btn32, R.id.btn34, R.id.btn23, R.id.btn43}},
-                {{}, {R.id.btn33, R.id.btn24, R.id.btn44}},
-                {{}, {R.id.btn31, R.id.btn42}},
-                {{}, {R.id.btn41, R.id.btn32, R.id.btn43}},
-                {{}, {R.id.btn42, R.id.btn33, R.id.btn44}},
-                {{}, {R.id.btn34, R.id.btn43}}
-        };
-
-        int pattern2[][][] = {
-                {{R.id.btn12}, {R.id.btn13}, {R.id.btn14}},
-                {{R.id.btn11, R.id.btn13}, {R.id.btn14}},
-                {{R.id.btn12, R.id.btn14}, {R.id.btn11}},
-                {{R.id.btn13}, {R.id.btn12}, {R.id.btn11}},
-                {{R.id.btn22}, {R.id.btn23}, {R.id.btn24}},
-                {{R.id.btn21, R.id.btn23}, {R.id.btn24}},
-                {{R.id.btn24, R.id.btn22}, {R.id.btn21}},
-                {{R.id.btn23}, {R.id.btn22}, {R.id.btn21}},
-                {{R.id.btn32}, {R.id.btn33}, {R.id.btn34}},
-                {{R.id.btn31, R.id.btn33}, {R.id.btn34}},
-                {{R.id.btn34, R.id.btn32}, {R.id.btn31}},
-                {{R.id.btn33}, {R.id.btn32}, {R.id.btn31}},
-                {{R.id.btn42}, {R.id.btn43}, {R.id.btn44}},
-                {{R.id.btn41, R.id.btn43}, {R.id.btn44}},
-                {{R.id.btn44, R.id.btn42}, {R.id.btn41}},
-                {{R.id.btn43}, {R.id.btn42}, {R.id.btn41}}
-        };
-
-        int pattern3[][][] = {
-                {{R.id.btn21}, {R.id.btn31}, {R.id.btn41}},
-                {{R.id.btn22}, {R.id.btn32}, {R.id.btn42}},
-                {{R.id.btn23}, {R.id.btn33}, {R.id.btn43}},
-                {{R.id.btn24}, {R.id.btn34}, {R.id.btn44}},
-                {{R.id.btn11, R.id.btn31}, {R.id.btn41}},
-                {{R.id.btn12, R.id.btn32}, {R.id.btn42}},
-                {{R.id.btn13, R.id.btn33}, {R.id.btn43}},
-                {{R.id.btn14, R.id.btn34}, {R.id.btn44}},
-                {{R.id.btn41, R.id.btn21}, {R.id.btn11}},
-                {{R.id.btn42, R.id.btn22}, {R.id.btn12}},
-                {{R.id.btn43, R.id.btn23}, {R.id.btn13}},
-                {{R.id.btn44, R.id.btn24}, {R.id.btn14}},
-                {{R.id.btn31}, {R.id.btn21}, {R.id.btn11}},
-                {{R.id.btn32}, {R.id.btn22}, {R.id.btn12}},
-                {{R.id.btn33}, {R.id.btn23}, {R.id.btn13}},
-                {{R.id.btn34}, {R.id.btn24}, {R.id.btn14}}
-        };
-
-        int pattern4[][][] = {
-                {{R.id.btn12, R.id.btn21}, {R.id.btn13, R.id.btn31}, {R.id.btn14, R.id.btn41}},
-                {{R.id.btn11, R.id.btn22, R.id.btn13}, {R.id.btn14, R.id.btn32}, {R.id.btn42}},
-                {{R.id.btn12, R.id.btn14, R.id.btn23}, {R.id.btn11, R.id.btn33}, {R.id.btn43}},
-                {{R.id.btn13, R.id.btn24}, {R.id.btn12, R.id.btn34}, {R.id.btn11, R.id.btn44}},
-                {{R.id.btn11, R.id.btn22, R.id.btn31}, {R.id.btn23, R.id.btn41}, {R.id.btn24}},
-                {{R.id.btn12, R.id.btn21, R.id.btn23, R.id.btn32}, {R.id.btn24, R.id.btn42}},
-                {{R.id.btn13, R.id.btn22, R.id.btn24, R.id.btn33}, {R.id.btn21, R.id.btn43}},
-                {{R.id.btn14, R.id.btn23, R.id.btn34}, {R.id.btn22, R.id.btn44}, {R.id.btn21}},
-                {{R.id.btn21, R.id.btn32, R.id.btn41}, {R.id.btn11, R.id.btn33}, {R.id.btn34}},
-                {{R.id.btn22, R.id.btn31, R.id.btn33, R.id.btn42}, {R.id.btn12, R.id.btn34}},
-                {{R.id.btn23, R.id.btn32, R.id.btn34, R.id.btn43}, {R.id.btn13, R.id.btn31}},
-                {{R.id.btn24, R.id.btn33, R.id.btn44}, {R.id.btn14, R.id.btn32}, {R.id.btn31}},
-                {{R.id.btn31, R.id.btn42}, {R.id.btn21, R.id.btn43}, {R.id.btn11, R.id.btn44}},
-                {{R.id.btn32, R.id.btn41, R.id.btn43}, {R.id.btn22, R.id.btn44}, {R.id.btn12}},
-                {{R.id.btn33, R.id.btn42, R.id.btn44}, {R.id.btn23, R.id.btn41}, {R.id.btn13}},
-                {{R.id.btn34, R.id.btn43}, {R.id.btn42, R.id.btn24}, {R.id.btn14, R.id.btn41}}
-        };
-
-        int pattern[][][] = {};
-
-        switch (patternId) {
-            case 1:
-                pattern = pattern1;
-                break;
-            case 2:
-                pattern = pattern2;
-                break;
-            case 3:
-                pattern = pattern3;
-                break;
-            case 4:
-                pattern = pattern4;
-                break;
-        }
-
-        if (isPresetLoading == false) {
-            for (int i = 0; i < 21; i++) {
-                if (i == 0 || i > 4) {
-                    if (id >= 1 && id <= 4) {
-                        if (currentPreset.getMusic().getGesture()) {
-                            window.setOnGestureSound(buttonId[i], colorId, R.color.grey, sp, soundPoolId[id - 1][i], pattern, activity);
-                        } else {
-                            window.setOnTouchSound(buttonId[i], colorId, R.color.grey, sp, soundPoolId[id - 1][i], pattern, activity);
-                        }
-                    }
-                }
-            }
-            Log.i("SoundHelper", "ToggleButton pattern set id " + String.valueOf(patternId));
-        } else {
-            setButton(colorId, activity);
-        }
-    }
-
-    @Deprecated
-    public void setButton(final int colorId, final Activity activity) {
-        for (int i = 0; i < buttonId.length - 4; i++) {
-            if (i == 0) {
-                window.setOnTouchColor(buttonId[i], colorId, R.color.grey, activity);
-            } else {
-                window.setOnTouchColor(buttonId[i + 4], colorId, R.color.grey, activity);
-            }
-        }
-    }
-
     private GesturePad getGesturePadFromArray(String soundPaths[],
                                               SoundPool soundPool,
                                               View buttonView,
@@ -371,39 +198,6 @@ public class SoundHelper {
         // Load finished, set AsyncTask objects to null
         load = null;
         unload = null;
-
-        final Random random = new Random();
-
-        Handler delay = new Handler();
-        delay.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                window.setVisible(R.id.base, 0, activity);
-                buttonRevealAnimation(random.nextInt(25));
-            }
-        }, 600);
-
-        isPresetLoading = false;
-    }
-
-    @Deprecated
-    private void onLoadFinished() {
-        // final sampleId
-        Log.d("LoadSound", "Loading completed, SoundPool successfully loaded "
-                + presetSoundCount
-                + " sounds");
-
-        // pause adViewMain after the loading
-        ad.pauseNativeAdView(R.id.adView_main, activity);
-
-        window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_white);
-
-        anim.fadeOut(R.id.progress_bar_layout, 0, 600, activity);
-        anim.fadeOut(R.id.adView_main, 0, 600, activity);
-
-        // Load finished, set AsyncTask objects to null
-        loadSound = null;
-        unLoadSound = null;
 
         final Random random = new Random();
 
@@ -607,13 +401,13 @@ public class SoundHelper {
         @Override
         protected void onCancelled(Void aVoid) {
             super.onCancelled(aVoid);
-            onLoadFinished();
+            onLoadFinish();
         }
 
         @Override
         protected void onCancelled() {
             super.onCancelled();
-            onLoadFinished();
+            onLoadFinish();
         }
     }
 
@@ -734,7 +528,7 @@ public class SoundHelper {
                         if (savedSampleId == savedSampleIdInRunnable) {
                             // if same, break the loop
                             Log.d(TAG, "Finished loading all sounds");
-                            onLoadFinished();
+                            onLoadFinish();
                         } else {
                             // updated
                             savedSampleIdInRunnable = savedSampleId;
@@ -743,194 +537,6 @@ public class SoundHelper {
                     }
                 }, 100);
             }
-        }
-    }
-
-    @Deprecated
-    private class UnloadSound extends AsyncTask<Void, Void, Integer> {
-        String TAG = "UnloadSound";
-        SharedPreferences prefs;
-
-        protected void onPreExecute() {
-            Log.d(TAG, "On preExecute, set prefs");
-            isPresetLoading = true;
-            progressCount = 0;
-            presetSoundCount = currentPreset.getMusic().getSoundCount();
-            progress = window.getProgressBar(R.id.progress_bar, activity);
-            ad.resumeNativeAdView(R.id.adView_main, activity);
-            if (window.getView(R.id.progress_bar_layout, activity).getVisibility() == View.GONE) {
-                anim.fadeIn(R.id.progress_bar_layout, 0, 600, "progressIn", activity);
-                // Request ads
-                anim.fadeIn(R.id.adView_main, 0, 600, "adViewIn", activity);
-                ad.requestLoadNativeAd(ad.getNativeAdView(R.id.adView_main, activity));
-                window.setInvisible(R.id.base, 600, activity);
-                progress.setIndeterminate(true);
-            }
-            prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
-
-            // initialize view
-            View buttonViews[] = {
-                    window.getView(R.id.btn00, activity),
-                    window.getView(R.id.tgl1, activity),
-                    window.getView(R.id.tgl2, activity),
-                    window.getView(R.id.tgl3, activity),
-                    window.getView(R.id.tgl4, activity),
-                    window.getView(R.id.tgl5, activity),
-                    window.getView(R.id.tgl6, activity),
-                    window.getView(R.id.tgl7, activity),
-                    window.getView(R.id.tgl8, activity),
-                    window.getView(R.id.btn11, activity),
-                    window.getView(R.id.btn12, activity),
-                    window.getView(R.id.btn13, activity),
-                    window.getView(R.id.btn14, activity),
-                    window.getView(R.id.btn21, activity),
-                    window.getView(R.id.btn22, activity),
-                    window.getView(R.id.btn23, activity),
-                    window.getView(R.id.btn24, activity),
-                    window.getView(R.id.btn31, activity),
-                    window.getView(R.id.btn32, activity),
-                    window.getView(R.id.btn33, activity),
-                    window.getView(R.id.btn34, activity),
-                    window.getView(R.id.btn41, activity),
-                    window.getView(R.id.btn42, activity),
-                    window.getView(R.id.btn43, activity),
-                    window.getView(R.id.btn44, activity)
-            };
-
-            for (View view : buttonViews) {
-                view.setVisibility(View.INVISIBLE);
-            }
-        }
-
-        protected Integer doInBackground(Void... arg0) {
-            Log.d(TAG, "On doInBackground, start unloading sounds");
-            try {
-                if (previousPreset != null) {
-                    Log.i(TAG, "Preset \"" + window.getStringFromId(previousPreset.getMusic().getName(), activity));
-                    // deck loop
-                    for (int i = 0; i < 4; i++) {
-                        Log.i(TAG, "  Deck " + (i + 1));
-                        // pad loop
-                        for (int j = 0; j < 21; j++) {
-                            Log.i(TAG, "    Pad " + (j + 1));
-                            // pad gesture
-                            for (int k = 0; k < 5; k++) {
-                                String sound = previousPreset.getSound(i, j, k);
-                                if (soundPoolId[i][j][k] != 0 && sound != null) {
-                                    if (sp.unload(soundPoolId[i][j][k])) {
-                                        Log.i(TAG, "      Pad " + (j + 1) + " Gesture " + k + ", Sound unloaded");
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            } catch (NullPointerException e) {
-                Log.e(TAG, "NPE, Can't find soundPool");
-            }
-            return 0;
-        }
-
-        protected void onProgressUpdate(Void... arg0) {
-        }
-
-        @Override
-        protected void onPostExecute(Integer integer) {
-            Log.d(TAG, "Finished unloading sound");
-            sp.release();
-            sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-            loadSound = new LoadSound().execute();
-        }
-
-        @Override
-        protected void onCancelled() {
-            super.onCancelled();
-            Log.d("TAG", "UnLoadSound successfully canceled");
-        }
-    }
-
-    @Deprecated
-    private class LoadSound extends AsyncTask<Void, Void, String> {
-        String TAG = "LoadSound";
-        private int savedSampleId = 0;
-        private int savedSampleIdInRunnable = 1;
-
-        protected void onPreExecute() {
-            Log.d(TAG, "On preExecute, unloadPresetSound");
-
-            progress.setIndeterminate(false);
-            progress.setMax(presetSoundCount);
-            progress.setProgress(0);
-            window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_disabled_white);
-        }
-
-        protected String doInBackground(Void... arg0) {
-            Log.d(TAG, "On doInBackground, start loading sounds");
-
-            if (currentPreset != null) {
-                Log.i(TAG, "Preset \"" + window.getStringFromId(currentPreset.getMusic().getName(), activity));
-                // deck loop
-                for (int i = 0; i < 4; i++) {
-                    Log.i(TAG, "  Deck " + (i + 1));
-                    // pad loop
-                    for (int j = 0; j < 21; j++) {
-                        Log.i(TAG, "    Pad " + (j + 1));
-                        // pad gesture
-                        for (int k = 0; k < 5; k++) {
-                            String sound = currentPreset.getSound(i, j, k);
-                            if (sound != null) {
-                                soundPoolId[i][j][k] = sp.load(sound, 1);
-                                Log.i(TAG, sound + " loaded");
-                                Log.i(TAG, "      Pad " + (j + 1) + " Gesture " + k + ", Sound loaded");
-                                publishProgress();
-                            }
-                        }
-                    }
-                }
-            }
-            return "You are at PostExecute";
-        }
-
-        protected void onProgressUpdate(Void... arg0) {
-            progress.setProgress(progressCount++);
-        }
-        // needs to be different at first to make changes
-
-        protected void onPostExecute(String result) {
-            Log.d(TAG, "sampleId count : " + presetSoundCount);
-            progress.setIndeterminate(true);
-
-            sp.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-                @Override
-                public void onLoadComplete(SoundPool soundPool, final int sampleId, int status) {
-                    Log.d(TAG, "Loading Finished, sampleId : " + sampleId);
-                    savedSampleId = sampleId;
-                }
-            });
-
-            final Handler intervalTimer = new Handler();
-
-            intervalTimer.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    // loops while checking the last saved sample id and current one
-                    if (savedSampleId == savedSampleIdInRunnable) {
-                        // if same, break the loop
-                        Log.d(TAG, "Finished loading all sounds");
-                        onLoadFinished();
-                    } else {
-                        // updated
-                        savedSampleIdInRunnable = savedSampleId;
-                        intervalTimer.postDelayed(this, 100);
-                    }
-                }
-            }, 100);
-        }
-
-        @Override
-        protected void onCancelled() {
-            super.onCancelled();
-            Log.d("TAG", "LoadSound successfully canceled");
         }
     }
 }
