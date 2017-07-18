@@ -3,13 +3,9 @@ package com.bedrock.padder.helper;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
@@ -100,6 +96,99 @@ public class FileHelper {
     public void unzip(String zipLocation, String targetLocation, String presetName, View parentView, Activity activity, Runnable onFinish) {
         decompress = new Decompress(zipLocation, targetLocation, presetName, parentView, activity, onFinish);
         decompress.execute();
+    }
+
+    public void cancelDecompress() {
+        if (decompress != null) {
+            decompress.cancel(true);
+        } else {
+            Log.e(TAG, "Decompress is not initialized");
+        }
+    }
+
+    private boolean isPresetExists(String presetName) {
+        // preset exist
+        return new File(PROJECT_LOCATION_PRESETS + "/" + presetName).exists(); // folder check
+    }
+
+    long getAvailableExternalMemorySize() {
+        return new File(PROJECT_LOCATION_PRESETS).getFreeSpace();
+    }
+
+    public boolean isPresetAvailable(Preset preset) {
+        // with sound count check
+        if (preset != null) {
+            String presetName = preset.getFirebaseLocation();
+            // preset available
+            File folderSound = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/sounds");
+            File folderTiming = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/timing");
+            File folderAbout = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about");
+            File fileJson = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json");
+            File fileAlbum = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/album_art");
+            File fileIcon = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/artist_icon");
+            File fileImage = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/artist_image");
+            if (folderSound.listFiles() != null) {
+                Log.d(TAG, "SoundCountPreset = " + preset.getMusic().getSoundCount() + ", SoundCountFound = " + folderSound.listFiles().length);
+            } else {
+                return false;
+            }
+            // should be 100%
+            return folderSound.isDirectory() && folderSound.exists() &&
+                    preset.getMusic().getSoundCount() == folderSound.listFiles().length &&
+                    folderTiming.isDirectory() && folderTiming.exists() &&
+                    folderAbout.isDirectory() && folderAbout.exists() &&
+                    fileJson.exists() &&
+                    fileAlbum.exists() &&
+                    fileIcon.exists() &&
+                    fileImage.exists();
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isPresetAvailable(String presetName) {
+        if (presetName != null) {
+            // preset available
+            File folderSound = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/sounds");
+            File folderTiming = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/timing");
+            File folderAbout = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about");
+            File fileJson = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json");
+            File fileAlbum = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/album_art");
+            File fileIcon = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/artist_icon");
+            File fileImage = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/artist_image");
+            // should be 100%
+            return folderSound.isDirectory() && folderSound.exists() &&
+                    folderTiming.isDirectory() && folderTiming.exists() &&
+                    folderAbout.isDirectory() && folderAbout.exists() &&
+                    fileJson.exists() &&
+                    fileAlbum.exists() &&
+                    fileIcon.exists() &&
+                    fileImage.exists();
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isPresetMetadataAvailable(String presetName) {
+        if (presetName != null) {
+            File fileJson = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json");
+            // should be 100%
+            return fileJson.exists();
+        } else {
+            return false;
+        }
+    }
+
+    public Preset getPresetFromMetadata(String presetName, Gson gson) {
+        if (presetName != null) {
+            Preset preset = gson.fromJson(
+                    this.getStringFromFile(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json"),
+                    Preset.class
+            );
+            return preset;
+        } else {
+            return null;
+        }
     }
 
     private class Decompress extends AsyncTask<Void, Void, Integer> {
@@ -224,163 +313,6 @@ public class FileHelper {
             if (!file.isDirectory()) {
                 file.mkdirs();
             }
-        }
-    }
-
-    private void refreshPresetAdapterActions(String presetName, View parentView, final Activity activity) {
-        TextView presetDownload = (TextView) parentView.findViewById(R.id.layout_preset_store_action_download);
-        TextView presetSelect = (TextView) parentView.findViewById(R.id.layout_preset_store_action_select);
-        TextView presetRemove = (TextView) parentView.findViewById(R.id.layout_preset_store_action_remove);
-        if (isPresetExists(presetName)) {
-            if (isPresetAvailable(presetName)) {
-                // exists, select | remove action
-                presetSelect.setVisibility(View.VISIBLE);
-                presetSelect.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // select and load preset
-                        // TODO need to revise the loading method
-                    }
-                });
-            } else {
-                // corrupted, disable select
-                presetSelect.setVisibility(View.VISIBLE);
-                presetSelect.setAlpha(0.5f);
-                presetSelect.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // show repair dialog
-                        new MaterialDialog.Builder(activity)
-                                .title(R.string.preset_store_action_repair_dialog_title)
-                                .content(R.string.preset_store_action_repair_dialog_text)
-                                .contentColorRes(R.color.dark_primary)
-                                .positiveText(R.string.preset_store_action_repair)
-                                .positiveColorRes(R.color.colorAccent)
-                                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                    @Override
-                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                        dialog.dismiss();
-                                        // remove and download the preset
-
-                                    }
-                                })
-                                .negativeText(R.string.dialog_cancel)
-                                .show();
-                    }
-                });
-            }
-            presetRemove.setVisibility(View.VISIBLE);
-//            presetRemove.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    // remove confirm dialog
-//                }
-//            });
-            presetDownload.setVisibility(View.GONE);
-        } else {
-            // doesn't exist, download action
-            presetSelect.setVisibility(View.GONE);
-            presetRemove.setVisibility(View.GONE);
-            presetDownload.setVisibility(View.VISIBLE);
-//            presetDownload.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                }
-//            });
-        }
-    }
-
-    public void cancelDecompress() {
-        if (decompress != null) {
-            decompress.cancel(true);
-        } else {
-            Log.e(TAG, "Decompress is not initialized");
-        }
-    }
-
-    private boolean isPresetExists(String presetName) {
-        // preset exist
-        return new File(PROJECT_LOCATION_PRESETS + "/" + presetName).exists(); // folder check
-    }
-
-    long getAvailableExternalMemorySize() {
-        return new File(PROJECT_LOCATION_PRESETS).getFreeSpace();
-    }
-
-    public boolean isPresetAvailable(Preset preset) {
-        // with sound count check
-        if (preset != null) {
-            String presetName = preset.getFirebaseLocation();
-            // preset available
-            File folderSound = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/sounds");
-            File folderTiming = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/timing");
-            File folderAbout = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about");
-            File fileJson = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json");
-            File fileAlbum = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/album_art");
-            File fileIcon = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/artist_icon");
-            File fileImage = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/artist_image");
-            if (folderSound.listFiles() != null) {
-                Log.d(TAG, "SoundCountPreset = " + preset.getMusic().getSoundCount() + ", SoundCountFound = " + folderSound.listFiles().length);
-            } else {
-                return false;
-            }
-            // should be 100%
-            return folderSound.isDirectory() && folderSound.exists() &&
-                    preset.getMusic().getSoundCount() == folderSound.listFiles().length &&
-                    folderTiming.isDirectory() && folderTiming.exists() &&
-                    folderAbout.isDirectory() && folderAbout.exists() &&
-                    fileJson.exists() &&
-                    fileAlbum.exists() &&
-                    fileIcon.exists() &&
-                    fileImage.exists();
-        } else {
-            return false;
-        }
-    }
-
-    public boolean isPresetAvailable(String presetName) {
-        if (presetName != null) {
-            // preset available
-            File folderSound = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/sounds");
-            File folderTiming = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/timing");
-            File folderAbout = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about");
-            File fileJson = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json");
-            File fileAlbum = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/album_art");
-            File fileIcon = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/artist_icon");
-            File fileImage = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/artist_image");
-            // should be 100%
-            return folderSound.isDirectory() && folderSound.exists() &&
-                    folderTiming.isDirectory() && folderTiming.exists() &&
-                    folderAbout.isDirectory() && folderAbout.exists() &&
-                    fileJson.exists() &&
-                    fileAlbum.exists() &&
-                    fileIcon.exists() &&
-                    fileImage.exists();
-        } else {
-            return false;
-        }
-    }
-
-    public boolean isPresetMetadataAvailable(String presetName) {
-        if (presetName != null) {
-            File fileJson = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json");
-            // should be 100%
-            return fileJson.exists();
-        } else {
-            return false;
-        }
-    }
-
-    public Preset getPresetFromMetadata(String presetName, Gson gson) {
-        if (presetName != null) {
-            Preset preset = gson.fromJson(
-                    this.getStringFromFile(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json"),
-                    Preset.class
-            );
-            return preset;
-        } else {
-            return null;
         }
     }
 }
