@@ -85,6 +85,14 @@ public class FabHelper {
         }
     }
 
+    public boolean isVisible() {
+        if (floatingActionButton != null) {
+            return floatingActionButton.getVisibility() == View.VISIBLE;
+        } else {
+            return false;
+        }
+    }
+
     public void setOnClickListener(final Runnable runnable) {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override

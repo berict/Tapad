@@ -529,10 +529,10 @@ public class FeedbackActivity extends AppCompatActivity {
     }
 
     void setFab() {
-        fab.setFab(a);
-        fab.showFab();
-        fab.setFabIcon(R.drawable.ic_send_white, a);
-        fab.setFabOnClickListener(new Runnable() {
+        fab.set(a);
+        fab.show();
+        fab.setIcon(R.drawable.ic_send_white, a);
+        fab.setOnClickListener(new Runnable() {
             @Override
             public void run() {
                 focusCount = 0;

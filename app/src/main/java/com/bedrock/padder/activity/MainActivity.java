@@ -533,14 +533,14 @@ public class MainActivity
     }
 
     private void setFab() {
-        fab.setFab(a);
-        fab.setFabIcon(R.drawable.ic_info_white, a);
-        fab.showFab();
-        fab.setFabOnClickListener(new Runnable() {
+        fab.set(a);
+        fab.setIcon(R.drawable.ic_info_white, a);
+        fab.show();
+        fab.setOnClickListener(new Runnable() {
             @Override
             public void run() {
                 if (isToolbarVisible == false) {
-                    fab.hideFab(0, 200);
+                    fab.hide(0, 200);
                     anim.fadeIn(R.id.toolbar, 200, 100, "toolbarIn", a);
                     isToolbarVisible = true;
                 }
@@ -677,7 +677,7 @@ public class MainActivity
 
     private void closeToolbar(Activity activity) {
         anim.fadeOut(R.id.toolbar, 0, 100, activity);
-        fab.showFab(100, 200);
+        fab.show(100, 200);
         isToolbarVisible = false;
     }
 

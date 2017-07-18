@@ -69,10 +69,10 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
         w.setRecentColor(R.string.task_settings_color, R.color.colorAccent, activity);
 
         // fab
-        fab.setFab(activity);
-        fab.showFab();
-        fab.setFabIcon(R.drawable.ic_add_white, activity);
-        fab.setFabOnClickListener(new Runnable() {
+        fab.set(activity);
+        fab.show();
+        fab.setIcon(R.drawable.ic_add_white, activity);
+        fab.setOnClickListener(new Runnable() {
             @Override
             public void run() {
                 showColorChooserDialog();
