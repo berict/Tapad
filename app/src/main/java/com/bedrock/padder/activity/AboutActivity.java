@@ -157,9 +157,9 @@ public class AboutActivity extends AppCompatActivity {
         // adapter
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        window.getRecyclerView(R.id.layout_detail_recyclerview, activity).setLayoutManager(layoutManager);
-        window.getRecyclerView(R.id.layout_detail_recyclerview, activity).setNestedScrollingEnabled(false);
-        window.getRecyclerView(R.id.layout_detail_recyclerview, activity).setAdapter(new DetailAdapter(about, R.layout.adapter_details, getApplicationContext(), activity));
+        window.getRecyclerView(R.id.layout_detail_recycler_view, activity).setLayoutManager(layoutManager);
+        window.getRecyclerView(R.id.layout_detail_recycler_view, activity).setNestedScrollingEnabled(false);
+        window.getRecyclerView(R.id.layout_detail_recycler_view, activity).setAdapter(new DetailAdapter(about, R.layout.adapter_details, getApplicationContext(), activity));
     }
 
     @Override
@@ -193,7 +193,7 @@ public class AboutActivity extends AppCompatActivity {
     private void enterAnim() {
         anim.fadeIn(R.id.layout_text, 400, 200, "titleIn", activity);
         anim.fadeIn(R.id.layout_detail_bio, 500, 200, "bioIn", activity);
-        anim.fadeIn(R.id.layout_detail_recyclerview, 600, 200, "aboutIn", activity);
+        anim.fadeIn(R.id.layout_detail_recycler_view, 600, 200, "aboutIn", activity);
     }
 
     private void pressBack() {

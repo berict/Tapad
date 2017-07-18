@@ -25,7 +25,7 @@
                 <!-- focusableInTouchMode for disable auto-scroll to recyclerView -->
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/layout_installed_preset_store_recyclerview"
+                    android:id="@+id/layout_installed_preset_store_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scrollbars="none"
@@ -38,7 +38,7 @@
                     android:layout_marginTop="100dp">
 
                     <LinearLayout
-                        android:id="@+id/layout_installed_preset_store_recyclerview_no_preset"
+                        android:id="@+id/layout_installed_preset_store_recycler_view_no_preset"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"

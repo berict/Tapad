@@ -100,7 +100,7 @@
 				android:layout_marginTop="-28dp"/>
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/layout_color_recyclerview"
+                android:id="@+id/layout_color_recycler_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

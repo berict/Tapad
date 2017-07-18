@@ -29,7 +29,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
         public DetailViewHolder(View view) {
             super(view);
             detailTitle = (TextView) view.findViewById(R.id.layout_detail_title);
-            itemRecycleView = (RecyclerView) view.findViewById(R.id.layout_item_recyclerview);
+            itemRecycleView = (RecyclerView) view.findViewById(R.id.layout_item_recycler_view);
         }
     }
 

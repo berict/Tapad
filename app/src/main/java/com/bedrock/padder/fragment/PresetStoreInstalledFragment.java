@@ -74,8 +74,8 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
         // adapter
         LinearLayoutManager layoutManager = new LinearLayoutManager(a);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        window.getRecyclerView(R.id.layout_installed_preset_store_recyclerview, v).setLayoutManager(layoutManager);
-        window.getRecyclerView(R.id.layout_installed_preset_store_recyclerview, v).setNestedScrollingEnabled(false);
+        window.getRecyclerView(R.id.layout_installed_preset_store_recycler_view, v).setLayoutManager(layoutManager);
+        window.getRecyclerView(R.id.layout_installed_preset_store_recycler_view, v).setNestedScrollingEnabled(false);
 
         setAdapter();
     }
@@ -123,14 +123,14 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
         } else if (firebaseMetadata.getPresets() == null) {
             // clear the recycler view
             attachAdapter();
-            anim.fadeOut(R.id.layout_installed_preset_store_recyclerview, 0, 200, v, a);
-            anim.fadeIn(R.id.layout_installed_preset_store_recyclerview_no_preset, 200, 200, "rvNoPresetIn", v, a);
+            anim.fadeOut(R.id.layout_installed_preset_store_recycler_view, 0, 200, v, a);
+            anim.fadeIn(R.id.layout_installed_preset_store_recycler_view_no_preset, 200, 200, "rvNoPresetIn", v, a);
         } else {
-            if (window.getView(R.id.layout_installed_preset_store_recyclerview_no_preset, v).getVisibility()
+            if (window.getView(R.id.layout_installed_preset_store_recycler_view_no_preset, v).getVisibility()
                     == View.VISIBLE) {
                 // no preset visible
-                anim.fadeOut(R.id.layout_installed_preset_store_recyclerview_no_preset, 0, 200, v, a);
-                anim.fadeIn(R.id.layout_installed_preset_store_recyclerview, 200, 200, "rvNoPresetIn", v, a);
+                anim.fadeOut(R.id.layout_installed_preset_store_recycler_view_no_preset, 0, 200, v, a);
+                anim.fadeIn(R.id.layout_installed_preset_store_recycler_view, 200, 200, "rvNoPresetIn", v, a);
             }
             attachAdapter();
         }
@@ -144,7 +144,7 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
                     firebaseMetadata,
                     R.layout.adapter_preset_store, a
             );
-            window.getRecyclerView(R.id.layout_installed_preset_store_recyclerview, v).setAdapter(presetStoreAdapter);
+            window.getRecyclerView(R.id.layout_installed_preset_store_recycler_view, v).setAdapter(presetStoreAdapter);
         } else {
             Log.d(TAG, "Metadata is null");
         }

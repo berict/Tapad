@@ -95,9 +95,9 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
                 prefs,
                 activity
         );
-        w.getRecyclerView(R.id.layout_color_recyclerview, activity).setLayoutManager(layoutManager);
-        w.getRecyclerView(R.id.layout_color_recyclerview, activity).setNestedScrollingEnabled(false);
-        w.getRecyclerView(R.id.layout_color_recyclerview, activity).setAdapter(colorAdapter);
+        w.getRecyclerView(R.id.layout_color_recycler_view, activity).setLayoutManager(layoutManager);
+        w.getRecyclerView(R.id.layout_color_recycler_view, activity).setNestedScrollingEnabled(false);
+        w.getRecyclerView(R.id.layout_color_recycler_view, activity).setAdapter(colorAdapter);
 
         // adapter margin
         w.setMarginLinearPX(R.id.color_bottom_margin, 0, 0, 0, w.getNavigationBarFromPrefs(activity), activity);
