@@ -876,14 +876,6 @@ public class TutorialHelper extends Activity {
     private short motionDelayIndex11 = 0;
     private short motionDelayIndex12 = 0;
     private short motionDelayIndex13 = 0;
-
-    void resetMotionDelayIndexes() {
-        for (int i = 0; i < motionDelayIndexes.length; i++) {
-            motionDelayIndexes[i] = 0;
-            Log.d("TAG", "Cleared at [" + i + "]");
-        }
-    }
-
     private short motionDelayIndex14 = 0;
     private short motionDelayIndex21 = 0;
     private short motionDelayIndex22 = 0;
@@ -1095,8 +1087,16 @@ public class TutorialHelper extends Activity {
             R.id.tgl3,
             R.id.tgl4
     };
+    private String TAG = "TutorialHelper";
 
     // old methods
+
+    void resetMotionDelayIndexes() {
+        for (int i = 0; i < motionDelayIndexes.length; i++) {
+            motionDelayIndexes[i] = 0;
+            Log.d("TAG", "Cleared at [" + i + "]");
+        }
+    }
 
     public void tutorialStart(final Activity activity) {
         tutorialLoad(activity);
@@ -1172,6 +1172,9 @@ public class TutorialHelper extends Activity {
         }
     }
 
+    // new methods
+    // TODO work on tutorials
+
     public void tutorialStop(Activity a) {
         try {
             mHandler.removeCallbacksAndMessages(null);
@@ -1181,9 +1184,6 @@ public class TutorialHelper extends Activity {
             Log.e("tutorialService", "NPE, failed to remove callback from handler");
         }
     }
-
-    // new methods
-    // TODO work on tutorials
 
     void setRunnable() {
         // initialize motion runnable
@@ -1423,8 +1423,6 @@ public class TutorialHelper extends Activity {
         Log.d("removeCallbacks", "Callback removed from " + index);
     }
 
-    private String TAG = "TutorialHelper";
-
     void setRunnables(final int timing[][], final Activity activity) {
         for (indexI = 0; indexI < 89; indexI++) {
             motions[indexI] = new Runnable() {
@@ -1616,7 +1614,7 @@ public class TutorialHelper extends Activity {
     void animator(final VideoView videoView, final View placeholder, int rawId, Activity activity) {
         final int[] state = {0};
 
-        /**
+        /*
          * 0 ; Ready
          * 1 : Playing
          * 0 : Finished */

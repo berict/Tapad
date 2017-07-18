@@ -342,6 +342,63 @@ public class AnimateHelper {
         }
     }
 
+    public void fadeOut(final View view, final int delay, final long duration, Activity activity) {
+        final AlphaAnimation fadeOut = new AlphaAnimation(1.0f, 0.0f);
+        PowerManager powerManager = (PowerManager) activity.getSystemService(POWER_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= 21 && powerManager.isPowerSaveMode()) {
+            // power save mode on
+            if (duration > 0) {
+                // delay, needs an handler
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.setVisibility(View.GONE);
+
+                        Log.i("AnimateHelper", String.valueOf(view) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+                    }
+                }, delay);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.setVisibility(View.GONE);
+                    }
+                }, delay + 10);
+            } else {
+                view.setVisibility(View.GONE);
+                Log.i("AnimateHelper", String.valueOf(view) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with no delay");
+            }
+        } else {
+            // normal fade out
+            if (duration > 0) {
+                // delay, needs an handler
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        fadeOut.setDuration(duration);
+                        view.startAnimation(fadeOut);
+                        view.setVisibility(View.GONE);
+
+                        Log.i("AnimateHelper", String.valueOf(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+                    }
+                }, delay);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.setVisibility(View.GONE);
+                    }
+                }, delay + 10);
+            } else {
+                fadeOut.setDuration(duration);
+                view.startAnimation(fadeOut);
+                view.setVisibility(View.GONE);
+                Log.i("AnimateHelper", String.valueOf(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with no delay");
+            }
+        }
+    }
+
     public void fadeOut(final int id, final int delay, final long duration, View parentView, Activity activity) {
         final AlphaAnimation fadeOut = new AlphaAnimation(1.0f, 0.0f);
         final View view = parentView.findViewById(id);
