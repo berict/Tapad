@@ -84,8 +84,8 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
         // adapter
         LinearLayoutManager layoutManager = new LinearLayoutManager(a);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        window.getRecyclerView(R.id.layout_online_preset_store_recyclerview, v).setLayoutManager(layoutManager);
-        window.getRecyclerView(R.id.layout_online_preset_store_recyclerview, v).setNestedScrollingEnabled(false);
+        window.getRecyclerView(R.id.layout_online_preset_store_recycler_view, v).setLayoutManager(layoutManager);
+        window.getRecyclerView(R.id.layout_online_preset_store_recycler_view, v).setNestedScrollingEnabled(false);
 
         // firebase check
         setAdapter();
@@ -96,33 +96,37 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
 
     private void setLoadingFinished(boolean isFinished) {
         if (isFinished) {
-            // finished, hide loading and show recyclerview
+            // finished, hide loading and show recyclerView
             Log.d(TAG, "Loading finished");
-            anim.fadeOut(R.id.layout_online_preset_store_recyclerview_loading, 0, 200, v, a);
-            anim.fadeIn(R.id.layout_online_preset_store_recyclerview, 200, 200, "rvIn", v, a);
+            anim.fadeOut(R.id.layout_online_preset_store_recycler_view_loading, 0, 200, v, a);
+            anim.fadeIn(R.id.layout_online_preset_store_recycler_view, 200, 200, "rvIn", v, a);
         } else {
             // started, show loading
-            anim.fadeOut(R.id.layout_online_preset_store_recyclerview, 0, 200, v, a);
-            anim.fadeIn(R.id.layout_online_preset_store_recyclerview_loading, 200, 200, "rvLoadingIn", v, a);
+            anim.fadeOut(R.id.layout_online_preset_store_recycler_view, 0, 200, v, a);
+            anim.fadeIn(R.id.layout_online_preset_store_recycler_view_loading, 200, 200, "rvLoadingIn", v, a);
         }
     }
 
     private void setLoadingFailed() {
         Log.d(TAG, "Loading failed");
-        anim.fadeOut(R.id.layout_online_preset_store_recyclerview_loading, 0, 200, v, a);
-        anim.fadeIn(R.id.layout_online_preset_store_recyclerview_failed, 200, 200, "rvIn", v, a);
+        anim.fadeOut(R.id.layout_online_preset_store_recycler_view, 0, 200, v, a);
+        anim.fadeOut(R.id.layout_online_preset_store_recycler_view_loading, 0, 200, v, a);
+        anim.fadeIn(R.id.layout_online_preset_store_recycler_view_failed, 200, 200, "rvIn", v, a);
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                new MaterialDialog.Builder(a)
-                        .title(R.string.preset_store_download_no_connection_dialog_title)
-                        .content(R.string.preset_store_download_no_connection_dialog_text)
-                        .contentColorRes(R.color.dark_primary)
-                        .neutralText(R.string.dialog_close)
-                        .show();
-            }
-        }, 200);
+        if (((TabLayout)window.getView(R.id.layout_tab_layout, a)).getSelectedTabPosition() == 1) {
+            // only when the online tab is selected
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    new MaterialDialog.Builder(a)
+                            .title(R.string.preset_store_download_no_connection_dialog_title)
+                            .content(R.string.preset_store_download_no_connection_dialog_text)
+                            .contentColorRes(R.color.dark_primary)
+                            .neutralText(R.string.dialog_close)
+                            .show();
+                }
+            }, 200);
+        }
     }
 
     private void onDownloadMetadataSuccess() {
@@ -165,10 +169,11 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
         connectionTimeout.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (window.getView(R.id.layout_online_preset_store_recyclerview_loading, v).getVisibility() == View.VISIBLE) {
+                if (window.getView(R.id.layout_online_preset_store_recycler_view_loading, v).getVisibility() == View.VISIBLE) {
                     // loading for 10 seconds, prompt user to retry or not
                     if (((TabLayout)window.getView(R.id.layout_tab_layout, a)).getSelectedTabPosition() == 1) {
                         // only when the online page is visible
+                        setLoadingFailed();
                         if (a != null) {
                             new MaterialDialog.Builder(a)
                                     .title(R.string.preset_store_connection_timeout_dialog_title)
@@ -185,7 +190,7 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
                                     .onNegative(new MaterialDialog.SingleButtonCallback() {
                                         @Override
                                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                            setLoadingFailed();
+                                            dialog.dismiss();
                                         }
                                     })
                                     .show();
@@ -220,7 +225,7 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
                                 firebaseMetadata,
                                 R.layout.adapter_preset_store, a
                         );
-                        window.getRecyclerView(R.id.layout_online_preset_store_recyclerview, v).setAdapter(presetStoreAdapter);
+                        window.getRecyclerView(R.id.layout_online_preset_store_recycler_view, v).setAdapter(presetStoreAdapter);
                     }
                 }
             } else {
@@ -262,7 +267,7 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
                     } else {
                         Log.d(TAG, "File not updated");
                         isFMUpdated = false;
-                        if (window.getView(R.id.layout_online_preset_store_recyclerview_loading, v).getVisibility()
+                        if (window.getView(R.id.layout_online_preset_store_recycler_view_loading, v).getVisibility()
                                 == View.VISIBLE) {
                             // loading
                             onDownloadMetadataSuccess();
@@ -296,7 +301,7 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
                             firebaseMetadata,
                             R.layout.adapter_preset_store, a
                     );
-                    window.getRecyclerView(R.id.layout_online_preset_store_recyclerview, v).setAdapter(presetStoreAdapter);
+                    window.getRecyclerView(R.id.layout_online_preset_store_recycler_view, v).setAdapter(presetStoreAdapter);
                 }
             }
         }
