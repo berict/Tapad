@@ -169,25 +169,27 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
                     // loading for 10 seconds, prompt user to retry or not
                     if (((TabLayout)window.getView(R.id.layout_tab_layout, a)).getSelectedTabPosition() == 1) {
                         // only when the online page is visible
-                        new MaterialDialog.Builder(a)
-                                .title(R.string.preset_store_connection_timeout_dialog_title)
-                                .content(R.string.preset_store_connection_timeout_dialog_text)
-                                .contentColorRes(R.color.dark_primary)
-                                .positiveText(R.string.preset_store_connection_timeout_dialog_positive)
-                                .negativeText(R.string.preset_store_connection_timeout_dialog_negative)
-                                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                    @Override
-                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                        setAdapter();
-                                    }
-                                })
-                                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                                    @Override
-                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                        setLoadingFailed();
-                                    }
-                                })
-                                .show();
+                        if (a != null) {
+                            new MaterialDialog.Builder(a)
+                                    .title(R.string.preset_store_connection_timeout_dialog_title)
+                                    .content(R.string.preset_store_connection_timeout_dialog_text)
+                                    .contentColorRes(R.color.dark_primary)
+                                    .positiveText(R.string.preset_store_connection_timeout_dialog_positive)
+                                    .negativeText(R.string.preset_store_connection_timeout_dialog_negative)
+                                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                        @Override
+                                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                            setAdapter();
+                                        }
+                                    })
+                                    .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                        @Override
+                                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                            setLoadingFailed();
+                                        }
+                                    })
+                                    .show();
+                        }
                     }
                 }
             }
