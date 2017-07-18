@@ -29,7 +29,6 @@ import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
 
 public class FileHelper {
 
-    private WindowHelper window = new WindowHelper();
     private AnimateHelper anim = new AnimateHelper();
 
     private String TAG = "FileHelper";
