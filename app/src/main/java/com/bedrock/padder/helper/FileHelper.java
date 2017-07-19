@@ -1,11 +1,13 @@
 package com.bedrock.padder.helper;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
@@ -97,6 +99,11 @@ public class FileHelper {
         decompress.execute();
     }
 
+    public void unzip(String zipLocation, String targetLocation, String presetName, Activity activity, Runnable onFinish) {
+        decompress = new Decompress(zipLocation, targetLocation, presetName, null, activity, onFinish);
+        decompress.execute();
+    }
+
     public void cancelDecompress() {
         if (decompress != null) {
             decompress.cancel(true);
@@ -184,6 +191,7 @@ public class FileHelper {
                     this.getStringFromFile(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json"),
                     Preset.class
             );
+            preset.setFirebaseLocation(presetName);
             return preset;
         } else {
             return null;
@@ -217,6 +225,21 @@ public class FileHelper {
         @Override
         protected void onPreExecute() {
             Log.d(TAG, "onPreExecute");
+            if (new File(zipLocation).length() > getAvailableExternalMemorySize()) {
+                // no storage
+                new MaterialDialog.Builder(activity)
+                        .title(R.string.preset_store_download_no_space_dialog_title)
+                        .content(R.string.preset_store_download_no_space_dialog_text)
+                        .contentColorRes(R.color.dark_primary)
+                        .neutralText(R.string.dialog_close)
+                        .dismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                cancelDecompress();
+                            }
+                        })
+                        .show();
+            }
         }
 
         @Override
@@ -262,10 +285,13 @@ public class FileHelper {
             Log.d(TAG, "onPostExecute");
             super.onPostExecute(integer);
             // finished unzipping, delete the original zip file
-            if (new File(zipLocation).delete()) {
-                Log.d(TAG, "Successfully removed zip file");
-            } else {
-                Log.d(TAG, "Failed to remove zip file");
+            if (parentView != null) {
+                // only when downloaded
+                if (new File(zipLocation).delete()) {
+                    Log.d(TAG, "Successfully removed zip file");
+                } else {
+                    Log.d(TAG, "Failed to remove zip file");
+                }
             }
 
             if (new File(targetLocation + "/" + presetName).delete()) {
@@ -290,8 +316,10 @@ public class FileHelper {
             Handler handler = new Handler();
             handler.postDelayed(onFinish, 200);
 
-            anim.fadeOut(R.id.layout_preset_store_download_installing, 100, 200, parentView, activity);
-            anim.fadeIn(R.id.layout_preset_store_action_layout, 300, 200, "actionIn", parentView, activity);
+            if (parentView != null) {
+                anim.fadeOut(R.id.layout_preset_store_download_installing, 100, 200, parentView, activity);
+                anim.fadeIn(R.id.layout_preset_store_action_layout, 300, 200, "actionIn", parentView, activity);
+            }
         }
 
         @Override
@@ -312,6 +340,17 @@ public class FileHelper {
             if (!file.isDirectory()) {
                 file.mkdirs();
             }
+        }
+    }
+
+    public void copy(String sourceLocation, String targetLocation) {
+        File sourceFile = new File(sourceLocation);
+        File destFile = new File(targetLocation);
+        // move file
+        if (sourceFile.renameTo(destFile)) {
+            Log.d(TAG, "File copied from " + sourceFile.getAbsolutePath() + " to " + destFile.getAbsolutePath());
+        } else {
+            Log.e(TAG, "Failed to copy from  " + sourceFile.getAbsolutePath() + " to " + destFile.getAbsolutePath());
         }
     }
 }

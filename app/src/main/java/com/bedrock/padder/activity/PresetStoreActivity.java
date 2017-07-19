@@ -31,6 +31,7 @@ import com.bedrock.padder.fragment.PresetStoreInstalledFragment;
 import com.bedrock.padder.fragment.PresetStoreOnlineFragment;
 import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.FabHelper;
+import com.bedrock.padder.helper.FileHelper;
 import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
@@ -42,6 +43,7 @@ import java.util.List;
 
 import static com.bedrock.padder.activity.MainActivity.isDeckShouldCleared;
 import static com.bedrock.padder.activity.MainActivity.isPresetVisible;
+import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
 
 public class PresetStoreActivity extends AppCompatActivity implements FileChooserDialog.FileCallback {
 
@@ -50,6 +52,7 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
     private ToolbarHelper toolbar = new ToolbarHelper();
     private IntentHelper intent = new IntentHelper();
     private FabHelper fab = new FabHelper();
+    private FileHelper fileHelper = new FileHelper();
     private static final int REQUEST_WRITE_STORAGE = 112;
     public static boolean isPresetDownloading = false;
     Activity activity = this;
@@ -199,14 +202,49 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
                 .mimeType("application/zip")
                 .tag("optional-identifier")
                 .show();
-        Toast.makeText(activity, R.string.preset_store_download_size_downloading, Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, R.string.preset_store_open_preset, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onFileSelection(@NonNull FileChooserDialog dialog, @NonNull File file) {
         Log.d(TAG, file.getAbsolutePath());
-        // TODO check how does this search installed preset
-        // TODO add pre-select dialog or toast
+        final String presetName = getCustomFolderName();
+
+        // install zip
+        fileHelper.unzip(file.getAbsolutePath(),
+                PROJECT_LOCATION_PRESETS,
+                presetName,
+                activity,
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d(TAG, "installed " + presetName);
+                        setViewPager();
+                    }
+                }
+        );
+    }
+
+    String getCustomFolderName() {
+        File files[] = new File(PROJECT_LOCATION_PRESETS).listFiles();
+        String folderName = getResources().getString(R.string.custom_preset_folder_name);
+        int fileNameCount = 0;
+        for (File folder : files) {
+            if (folder.getName().startsWith(folderName)) {
+                int num = Integer.parseInt(folder.getName().replace(folderName, ""));
+                if (fileNameCount < num) {
+                    fileNameCount = num;
+                }
+            }
+        }
+        // make directory which name is custom-preset-{maxInt + 1}
+        File customFolder = new File(PROJECT_LOCATION_PRESETS + "/" + folderName + ++fileNameCount + "/");
+        if (customFolder.mkdirs()) {
+            Log.d(TAG, "folder created at " + customFolder.getAbsolutePath());
+        } else {
+            Log.e(TAG, "folder failed to create at " + customFolder.getAbsolutePath());
+        }
+        return (folderName + fileNameCount);
     }
 
     private void setViewPager() {

@@ -46,4 +46,8 @@ public class Music {
     public Integer getBpm() {
         return bpm;
     }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 }

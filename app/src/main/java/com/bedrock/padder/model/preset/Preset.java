@@ -38,6 +38,16 @@ public class Preset {
         return firebaseLocation;
     }
 
+    public void setFirebaseLocation(String firebaseLocation) {
+        this.firebaseLocation = firebaseLocation;
+        if (music != null) {
+            music.setFileName(firebaseLocation);
+        }
+        if (about != null) {
+            about.setPresetName(firebaseLocation);
+        }
+    }
+
     public Music getMusic() {
         return music;
     }

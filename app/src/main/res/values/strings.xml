@@ -253,6 +253,7 @@
 		This preset is corrupted and needs repair to play.
 		Repairing the preset will remove the preset and download it again.
 	</string>
+    <string name="preset_store_open_preset">Open zip preset files to open</string>
     <string name="preset_store_download_size_downloading">Downloading…</string>
     <string name="preset_store_download_size_installing">Installing…</string>
     <string name="preset_store_download_size_placeholder">50 MB/100 MB</string>
@@ -281,6 +282,8 @@
     <string name="preset_store_download_notification_text_cancelled">Download cancelled</string>
     <string name="preset_store_download_notification_text_failed">Download failed</string>
     <string name="preset_store_remove_warning_dialog_text">Remove preset?</string>
+
+    <string name="custom_preset_folder_name">custom-preset-</string>
 
     <!--Settings-->
     <string name="settings_group_play">Play</string>

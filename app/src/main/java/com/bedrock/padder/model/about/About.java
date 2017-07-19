@@ -104,6 +104,10 @@ public class About {
         return presetCreator;
     }
 
+    public void setPresetName(String presetName) {
+        this.presetName = presetName;
+    }
+
     public void setBio(Bio bio) {
         this.bio = bio;
     }
