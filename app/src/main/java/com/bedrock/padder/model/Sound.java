@@ -63,8 +63,15 @@ public class Sound {
     }
 
     void loop() {
-        this.isLooping = true;
-        play();
+        if (this.isLooping == false) {
+            // was not looping
+            this.isLooping = true;
+            play();
+        } else {
+            // stop looping
+            this.isLooping = false;
+            stop();
+        }
     }
 
     void load(String path) {

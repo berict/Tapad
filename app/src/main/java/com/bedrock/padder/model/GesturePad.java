@@ -130,6 +130,9 @@ public class GesturePad extends Pad {
 
     void loopNormal() {
         if (getNormal() != null) {
+            if (getNormal().isLooping) {
+                setPadColorToDefault(true);
+            }
             getNormal().loop();
         } else {
             Log.d("Pad [Gesture]", "Sound is null, can't loop.");
