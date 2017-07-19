@@ -111,12 +111,18 @@
         If you have any questions about these Terms, please contact us to <b><i>berict.bedrock@gmail.com</i></b>.</string>
 	<string name="info_tapad_info_version"          >Tapad version</string>
 	<!-- TODO RELEASE -->
-    <string name="info_tapad_info_version_hint">2.3 Alpha 6</string>
+    <string name="info_tapad_info_version_hint">2.3 Beta 1</string>
 	<string name="info_tapad_info_changelog"        >Changelog</string>
 	<!-- TODO RELEASE -->
 	<string name="info_tapad_info_changelog_text"   >
         You can view the changelog dialog again at any time from the <b><i>about</i></b> section.\n\n
         
+		<b>Version 2.3 Beta 1</b>\n\n
+        1.	<b>NEW</b>: Open presets from zip \n
+        2.	<b>FIX</b>: Preset store no connection layout glitch \n
+        3.	<b>FIX</b>: Forever looping \n
+        4.	<b>FIX</b>: Minor bug fixes \n\n
+
 		<b>Version 2.3 Alpha 6</b>\n\n
 		1.	<b>IMPROVEMENT</b>: Removed pad patterns (temporary) \n
 		2.	<b>IMPROVEMENT</b>: Removed stop sound on focus loss feature (temporary) \n\n
