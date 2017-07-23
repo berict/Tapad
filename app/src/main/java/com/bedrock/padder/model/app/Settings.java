@@ -1,6 +1,5 @@
 package com.bedrock.padder.model.app;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -15,30 +14,30 @@ public class Settings {
 
     private boolean singleTouchForStopLoop = false;
 
-    private Activity activity = null;
+    private Context context = null;
 
     private SharedPreferences prefs = null;
 
     String TAG = "Settings";
 
-    public void setActivity(Activity activity) {
-        this.activity = activity;
+    public void setContext(Context context) {
+        this.context = context;
     }
 
     public void setPrefs() {
-        if (activity != null) {
-            this.prefs = activity.getSharedPreferences(APPLICATION_ID, Context.MODE_PRIVATE);
+        if (context != null) {
+            this.prefs = context.getSharedPreferences(APPLICATION_ID, Context.MODE_PRIVATE);
         } else {
-            Log.e(TAG, "Activity null");
+            Log.e(TAG, "Context null");
         }
     }
 
-    public void setPrefs(Activity activity) {
-        this.activity = activity;
-        if (activity != null) {
-            this.prefs = activity.getSharedPreferences(APPLICATION_ID, Context.MODE_PRIVATE);
+    public void setPrefs(Context context) {
+        this.context = context;
+        if (context != null) {
+            this.prefs = context.getSharedPreferences(APPLICATION_ID, Context.MODE_PRIVATE);
         } else {
-            Log.e(TAG, "Activity null");
+            Log.e(TAG, "Context null");
         }
     }
 
@@ -60,7 +59,7 @@ public class Settings {
         if (prefs != null) {
             this.marginScale = marginScale;
         } else {
-            Log.e(TAG, "Activity null");
+            Log.e(TAG, "Prefs null");
         }
     }
 
@@ -68,7 +67,7 @@ public class Settings {
         if (prefs != null) {
             this.startPage = startPage;
         } else {
-            Log.e(TAG, "Activity null");
+            Log.e(TAG, "Prefs null");
         }
     }
 
@@ -76,7 +75,7 @@ public class Settings {
         if (prefs != null) {
             this.singleTouchForStopLoop = singleTouchForStopLoop;
         } else {
-            Log.e(TAG, "Activity null");
+            Log.e(TAG, "Prefs null");
         }
     }
 }
