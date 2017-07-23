@@ -8,11 +8,13 @@ import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class Settings {
 
-    private double marginScale = 0.8;
+    private float marginScale = 0.8f;
 
     private String startPage = "main";
 
     private boolean singleTouchForStopLoop = false;
+
+    private boolean stopSoundOnFocusLoss = false;
 
     private Context context = null;
 
@@ -41,7 +43,7 @@ public class Settings {
         }
     }
 
-    public double getMarginScale() {
+    public float getMarginScale() {
         return marginScale;
     }
 
@@ -55,9 +57,10 @@ public class Settings {
 
     // TODO add actually committing the change of the prefs
 
-    public void setMarginScale(double marginScale) {
+    public void setMarginScale(float marginScale) {
         if (prefs != null) {
             this.marginScale = marginScale;
+            prefs.edit().putFloat("marginScale", marginScale).apply();
         } else {
             Log.e(TAG, "Prefs null");
         }
@@ -74,6 +77,16 @@ public class Settings {
     public void setSingleTouchForStopLoop(boolean singleTouchForStopLoop) {
         if (prefs != null) {
             this.singleTouchForStopLoop = singleTouchForStopLoop;
+        } else {
+            Log.e(TAG, "Prefs null");
+        }
+    }
+
+    public void fetchAllFromPrefs() {
+        if (prefs != null) {
+            this.singleTouchForStopLoop = prefs.getBoolean("singleTouchForStopLoop", false);
+            this.marginScale = prefs.getFloat("marginScale", 0.8f);
+            this.startPage = prefs.getString("startPage", "main");
         } else {
             Log.e(TAG, "Prefs null");
         }
