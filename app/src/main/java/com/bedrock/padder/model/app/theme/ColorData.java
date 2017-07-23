@@ -10,16 +10,16 @@ public class ColorData {
 
     private Integer colorButton;
 
-    private Integer[] colorButtonFavorite;
+    private Integer[] colorButtonRecent;
 
-    public ColorData(Integer colorButton, Integer[] colorButtonFavorite) {
+    public ColorData(Integer colorButton, Integer[] colorButtonRecent) {
         this.colorButton = colorButton;
-        this.colorButtonFavorite = colorButtonFavorite;
+        this.colorButtonRecent = colorButtonRecent;
     }
 
     public ColorData(Integer colorButton) {
         this.colorButton = colorButton;
-        this.colorButtonFavorite = new Integer[0];
+        this.colorButtonRecent = new Integer[0];
     }
 
     public void setColorButton(Integer colorButton) {
@@ -28,44 +28,44 @@ public class ColorData {
         Log.d("ColorData", "Color : " + colorButton);
     }
 
-    public void setColorButtonFavorite(Integer[] colorButtonFavorite) {
-        this.colorButtonFavorite = colorButtonFavorite;
+    public void setColorButtonRecent(Integer[] colorButtonRecent) {
+        this.colorButtonRecent = colorButtonRecent;
     }
 
     public Integer getColorButton() {
         return colorButton;
     }
 
-    public Integer[] getColorButtonFavorites() {
-        return colorButtonFavorite;
+    public Integer[] getColorButtonRecents() {
+        return colorButtonRecent;
     }
 
-    public Integer getColorButtonFavoriteLength() {
-        return colorButtonFavorite.length;
+    public Integer getColorButtonRecentLength() {
+        return colorButtonRecent.length;
     }
 
-    public Integer getColorButtonFavorite(int index) {
-        return colorButtonFavorite[index];
+    public Integer getColorButtonRecent(int index) {
+        return colorButtonRecent[index];
     }
 
-    public void addColorButtonFavorite(Integer insertColor) {
-        if (!ArrayUtils.contains(colorButtonFavorite, insertColor)) {
+    public void addColorButtonRecent(Integer insertColor) {
+        if (!ArrayUtils.contains(colorButtonRecent, insertColor)) {
             // validated, no duplicates
-            colorButtonFavorite = ArrayUtils.add(colorButtonFavorite, insertColor);
+            colorButtonRecent = ArrayUtils.add(colorButtonRecent, insertColor);
             Log.d("ColorData", "Successfully inserted");
-            Log.d("ColorData", "Favorite : " + Arrays.deepToString(colorButtonFavorite));
+            Log.d("ColorData", "Favorite : " + Arrays.deepToString(colorButtonRecent));
         } else {
             // duplicate exists
             Log.e("ColorData", "Duplicate exists");
         }
     }
 
-    public void removeColorButtonFavorite(Integer deleteColor) {
-        if (ArrayUtils.contains(colorButtonFavorite, deleteColor)) {
+    public void removeColorButtonRecent(Integer deleteColor) {
+        if (ArrayUtils.contains(colorButtonRecent, deleteColor)) {
             // validated, value exists
-            colorButtonFavorite = ArrayUtils.removeElement(colorButtonFavorite, deleteColor);
+            colorButtonRecent = ArrayUtils.removeElement(colorButtonRecent, deleteColor);
             Log.d("ColorData", "Successfully deleted");
-            Log.d("ColorData", "Favorite : " + Arrays.deepToString(colorButtonFavorite));
+            Log.d("ColorData", "Favorite : " + Arrays.deepToString(colorButtonRecent));
         } else {
             // value missing
             Log.e("ColorData", "Value doesn't exists");

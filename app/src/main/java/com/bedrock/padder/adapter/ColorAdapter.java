@@ -70,8 +70,8 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
 
     @Override
     public void onBindViewHolder(final DetailViewHolder holder, int position) {
-        Log.d("Holder", String.valueOf(colorData.getColorButtonFavorite(position)));
-        final int color = colorData.getColorButtonFavorite(position);
+        Log.d("Holder", String.valueOf(colorData.getColorButtonRecent(position)));
+        final int color = colorData.getColorButtonRecent(position);
 
         // Set the color id title
         try {
@@ -113,11 +113,11 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
             @Override
             public void onClick(View v) {
                 // remove element
-                colorData.removeColorButtonFavorite(color);
+                colorData.removeColorButtonRecent(color);
                 notifyItemRemoved(holder.getAdapterPosition());
                 notifyItemRangeChanged(holder.getAdapterPosition(), getItemCount());
                 // add primary color to list
-                colorData.addColorButtonFavorite(colorData.getColorButton());
+                colorData.addColorButtonRecent(colorData.getColorButton());
                 notifyItemInserted(getItemCount());
                 notifyItemRangeChanged(getItemCount() - 1, getItemCount());
                 // set color
@@ -140,7 +140,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                 // remove element
-                                colorData.removeColorButtonFavorite(color);
+                                colorData.removeColorButtonRecent(color);
                                 notifyItemRemoved(holder.getAdapterPosition());
                                 notifyItemRangeChanged(holder.getAdapterPosition(), getItemCount());
                                 // save again to json prefs
@@ -163,7 +163,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
 
     @Override
     public int getItemCount() {
-        return colorData.getColorButtonFavorites().length;
+        return colorData.getColorButtonRecents().length;
     }
 
     private void setPrimaryColor() {

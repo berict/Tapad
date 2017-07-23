@@ -154,7 +154,7 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        if (colorData.getColorButtonFavoriteLength() <= 0) {
+        if (colorData.getColorButtonRecentLength() <= 0) {
             w.setVisible(R.id.layout_color_placeholder, 0, activity);
         } else {
             w.setGone(R.id.layout_color_placeholder, 0, activity);
@@ -176,7 +176,7 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
 
     @Override
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int colorInt) {
-        if (ArrayUtils.indexOf(colorData.getColorButtonFavorites(), colorInt) >= 0) {
+        if (ArrayUtils.indexOf(colorData.getColorButtonRecents(), colorInt) >= 0) {
             // the value exists, show toast
             Toast.makeText(activity, R.string.settings_color_dialog_duplicate, Toast.LENGTH_SHORT).show();
         } else if (colorData.getColorButton() == colorInt) {
@@ -188,7 +188,7 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
     }
 
     private void insertNewColor(int color) {
-        colorData.addColorButtonFavorite(color);
+        colorData.addColorButtonRecent(color);
         colorAdapter.notifyDataSetChanged();
         // save again to json prefs
         prefs.edit().putString("colorData", gson.toJson(colorData)).apply();
