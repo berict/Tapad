@@ -8,13 +8,15 @@ import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class Settings {
 
-    private float marginScale = 0.8f;
+    private SettingItem startPage; // default "main"
 
-    private String startPage = "main";
+    private SettingItem marginScale; // default 0.8f
 
-    private boolean singleTouchForStopLoop = false;
+    private SettingItem singleTouchForStopLoop; // default false
 
-    private boolean stopSoundOnFocusLoss = false;
+    private SettingItem stopSoundOnFocusLoss; // default false
+
+    private SettingItem settings[] = null;
 
     private Context context = null;
 
@@ -26,69 +28,72 @@ public class Settings {
         this.context = context;
     }
 
-    public void setPrefs() {
-        if (context != null) {
-            this.prefs = context.getSharedPreferences(APPLICATION_ID, Context.MODE_PRIVATE);
-        } else {
-            Log.e(TAG, "Context null");
-        }
-    }
-
     public void setPrefs(Context context) {
         this.context = context;
         if (context != null) {
             this.prefs = context.getSharedPreferences(APPLICATION_ID, Context.MODE_PRIVATE);
+
+            // initialize the setting items
+            startPage = new SettingItem(prefs, "startPage", "main");
+            marginScale = new SettingItem(prefs, "marginScale", 0.8f);
+            singleTouchForStopLoop = new SettingItem(prefs, "singleTouchForStopLoop", false);
+            stopSoundOnFocusLoss = new SettingItem(prefs, "stopSoundOnFocusLoss", false);
+
+            // settings array
+            settings = new SettingItem[]{
+                    startPage,
+                    marginScale,
+                    singleTouchForStopLoop,
+                    stopSoundOnFocusLoss
+            };
         } else {
             Log.e(TAG, "Context null");
         }
     }
 
+    public void fetchSettings() {
+        if (prefs != null) {
+            if (settings != null) {
+                for (SettingItem item : settings) {
+                    item.fetchItem();
+                }
+            } else {
+                Log.e(TAG, "Settings null");
+            }
+        } else {
+            Log.e(TAG, "Prefs null");
+        }
+    }
+
     public float getMarginScale() {
-        return marginScale;
+        return (float) marginScale.getItem();
     }
 
     public String getStartPage() {
-        return startPage;
+        return (String) startPage.getItem();
     }
 
-    public boolean isSingleTouchForStopLoop() {
-        return singleTouchForStopLoop;
+    public boolean getSingleTouchForStopLoop() {
+        return (boolean) singleTouchForStopLoop.getItem();
     }
 
-    // TODO add actually committing the change of the prefs
-
-    public void setMarginScale(float marginScale) {
-        if (prefs != null) {
-            this.marginScale = marginScale;
-            prefs.edit().putFloat("marginScale", marginScale).apply();
-        } else {
-            Log.e(TAG, "Prefs null");
-        }
+    public boolean getStopSoundOnFocusLoss() {
+        return (boolean) stopSoundOnFocusLoss.getItem();
     }
 
-    public void setStartPage(String startPage) {
-        if (prefs != null) {
-            this.startPage = startPage;
-        } else {
-            Log.e(TAG, "Prefs null");
-        }
+    public void setMarginScale(float scale) {
+        marginScale.setItem(scale);
     }
 
-    public void setSingleTouchForStopLoop(boolean singleTouchForStopLoop) {
-        if (prefs != null) {
-            this.singleTouchForStopLoop = singleTouchForStopLoop;
-        } else {
-            Log.e(TAG, "Prefs null");
-        }
+    public void setStartPage(String page) {
+        startPage.setItem(page);
     }
 
-    public void fetchAllFromPrefs() {
-        if (prefs != null) {
-            this.singleTouchForStopLoop = prefs.getBoolean("singleTouchForStopLoop", false);
-            this.marginScale = prefs.getFloat("marginScale", 0.8f);
-            this.startPage = prefs.getString("startPage", "main");
-        } else {
-            Log.e(TAG, "Prefs null");
-        }
+    public void setSingleTouchForStopLoop(boolean touch) {
+        singleTouchForStopLoop.setItem(touch);
+    }
+
+    public void setStopSoundOnFocusLoss(boolean touch) {
+        stopSoundOnFocusLoss.setItem(touch);
     }
 }

@@ -5,15 +5,22 @@ import android.util.Log;
 
 public class SettingItem {
 
-    private Object item;
+    private SharedPreferences prefs = null;
+
+    private String key = null;
+
+    private Object item = null;
 
     private String TAG = "SettingItem";
 
-    public SettingItem(Object item) {
-        this.item = item;
+    public SettingItem(SharedPreferences prefs, String key, Object defValue) {
+        this.prefs = prefs;
+        this.key = key;
+        this.item = defValue;
+        fetchItem();
     }
 
-    public void setItem(SharedPreferences prefs, String key, Object value) {
+    public void setItem(Object value) {
         if (prefs != null) {
             if (item instanceof Boolean) {
                 // boolean variable
@@ -34,19 +41,28 @@ public class SettingItem {
     }
 
     public Object getItem() {
-        return item;
+        if (item != null) {
+            return item;
+        } else {
+            Log.e(TAG, "Item null");
+            return null;
+        }
     }
 
-    public void fetchItem(SharedPreferences prefs, String key, Object defValue) {
-        if (item instanceof Boolean) {
-            // boolean variable
-            item = prefs.getBoolean(key, (boolean) defValue);
-        } else if (item instanceof Float) {
-            // float variable
-            item = prefs.getFloat(key, (float) defValue);
-        } else if (item instanceof String) {
-            // string variable
-            item = prefs.getString(key, (String) defValue);
+    public void fetchItem() {
+        if (prefs != null) {
+            if (item instanceof Boolean) {
+                // boolean variable
+                item = prefs.getBoolean(key, (boolean) item);
+            } else if (item instanceof Float) {
+                // float variable
+                item = prefs.getFloat(key, (float) item);
+            } else if (item instanceof String) {
+                // string variable
+                item = prefs.getString(key, (String) item);
+            }
+        } else {
+            Log.d(TAG, "Prefs null");
         }
     }
 }
