@@ -22,17 +22,15 @@ public class SettingItem {
 
     public void setItem(Object value) {
         if (prefs != null) {
+            item = value;
             if (item instanceof Boolean) {
                 // boolean variable
-                item = value;
                 prefs.edit().putBoolean(key, (boolean) value).apply();
             } else if (item instanceof Float) {
                 // float variable
-                item = value;
                 prefs.edit().putFloat(key, (float) value).apply();
             } else if (item instanceof String) {
                 // string variable
-                item = value;
                 prefs.edit().putString(key, (String) value).apply();
             }
         } else {
