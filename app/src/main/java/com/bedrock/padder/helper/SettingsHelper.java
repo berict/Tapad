@@ -1,12 +1,14 @@
-package com.bedrock.padder.model.app;
+package com.bedrock.padder.helper;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.bedrock.padder.model.app.SettingItem;
+
 import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
-public class Settings {
+public class SettingsHelper {
 
     private SettingItem startPage; // default "main"
 
@@ -22,7 +24,7 @@ public class Settings {
 
     private SharedPreferences prefs = null;
 
-    String TAG = "Settings";
+    String TAG = "SettingsHelper";
 
     public void setContext(Context context) {
         this.context = context;
@@ -58,7 +60,7 @@ public class Settings {
                     item.fetchItem();
                 }
             } else {
-                Log.e(TAG, "Settings null");
+                Log.e(TAG, "SettingsHelper null");
             }
         } else {
             Log.e(TAG, "Prefs null");
@@ -93,7 +95,7 @@ public class Settings {
         singleTouchForStopLoop.setItem(touch);
     }
 
-    public void setStopSoundOnFocusLoss(boolean touch) {
-        stopSoundOnFocusLoss.setItem(touch);
+    public void setStopSoundOnFocusLoss(boolean stop) {
+        stopSoundOnFocusLoss.setItem(stop);
     }
 }
