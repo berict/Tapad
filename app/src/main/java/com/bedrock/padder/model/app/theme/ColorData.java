@@ -2,6 +2,8 @@ package com.bedrock.padder.model.app.theme;
 
 import android.util.Log;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.Arrays;
@@ -10,6 +12,7 @@ public class ColorData {
 
     private Integer colorButton;
 
+    @SerializedName("colorButtonFavorite")
     private Integer[] colorButtonRecent;
 
     public ColorData(Integer colorButton, Integer[] colorButtonRecent) {
