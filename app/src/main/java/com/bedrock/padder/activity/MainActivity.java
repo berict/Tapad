@@ -55,6 +55,7 @@ public class MainActivity
 
     public static final String TAG = "MainActivity";
     public static final String PRESET_KEY = "savedPreset";
+
     public static boolean isPresetLoading = false;
     public static boolean isPresetVisible = false;
     public static boolean isPresetChanged = false;
@@ -62,13 +63,16 @@ public class MainActivity
     public static boolean isAboutVisible = false;
     public static boolean isSettingVisible = false;
     public static boolean isDeckShouldCleared = false;
+
     public static Preset preset;
     public static Preset currentPreset = null;
+
     // Used for circularReveal
     // End two is for settings coordinate animation
     public static int coordinate[] = {0, 0, 0, 0};
+
     final AppCompatActivity a = this;
-    final String qs = "quickstart";
+
     public boolean tgl1 = false;
     public boolean tgl2 = false;
     public boolean tgl3 = false;
@@ -77,12 +81,15 @@ public class MainActivity
     public boolean tgl6 = false;
     public boolean tgl7 = false;
     public boolean tgl8 = false;
+
     int currentVersionCode;
     int themeColor = R.color.hello;
     int color = R.color.cyan_400;
     int colorDef = R.color.grey;
+
     int toggleSoundId = 0;
     int togglePatternId = 0;
+
     private SharedPreferences prefs = null;
     private AnimateHelper anim = new AnimateHelper();
     private SoundHelper sound = new SoundHelper();
@@ -93,6 +100,7 @@ public class MainActivity
     private IntentHelper intent = new IntentHelper();
     private AdmobHelper ad = new AdmobHelper();
     private FileHelper file = new FileHelper();
+
     private boolean doubleBackToExitPressedOnce = false;
     private boolean isToolbarVisible = false;
     private boolean isSettingsFromMenu = false;
