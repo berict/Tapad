@@ -1,82 +1,64 @@
 package com.bedrock.padder.model.about;
 
+import android.content.Context;
+
+import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
+
 public class Item {
 
-    private String   textId;
+    private String text;
 
-    private String   hint;
+    private String hint;
 
-    private Boolean  hintIsVisible;
+    private Boolean isHintVisible;
 
-    private String   imageId;
+    private String imageId;
 
-    private Boolean  runnableIsWithAnim;
+    private Boolean isRunnableWithAnim;
 
-    public Item (String textId, String hint) {
-        this.textId = textId;
+    public Item(String text, String hint) {
+        this.text = text;
         this.hint = hint;
-        this.hintIsVisible = true;
-        this.imageId = textId;
-        this.runnableIsWithAnim = false;
+        this.isHintVisible = true;
+        this.imageId = text;
+        this.isRunnableWithAnim = false;
     }
 
-    public Item (String textId, String hint, String imageId) {
-        this.textId = textId;
+    public Item(String text, String hint, Boolean isHintVisible) {
+        this.text = text;
         this.hint = hint;
-        this.hintIsVisible = true;
-        this.imageId = imageId;
-        this.runnableIsWithAnim = false;
+        this.isHintVisible = isHintVisible;
+        this.imageId = text;
+        this.isRunnableWithAnim = false;
     }
 
-    public Item (String textId, String hint, Boolean hintIsVisible) {
-        this.textId = textId;
-        this.hint = hint;
-        this.hintIsVisible = hintIsVisible;
-        this.imageId = textId;
-        this.runnableIsWithAnim = false;
+    public String getText(Context context) {
+        String res = getStringFromId(text, context);
+        if (res != null) {
+            return res;
+        } else {
+            return text;
+        }
     }
 
-    public Item (String textId, String hint, Boolean hintIsVisible, String imageId) {
-        this.textId = textId;
-        this.hint = hint;
-        this.hintIsVisible = hintIsVisible;
-        this.imageId = imageId;
-        this.runnableIsWithAnim = false;
+    public String getHint(Context context) {
+        String res = getStringFromId(hint, context);
+        if (res != null) {
+            return res;
+        } else {
+            return hint;
+        }
     }
 
-    public Item (String textId, String hint, String imageId, Boolean runnableIsWithAnim) {
-        this.textId = textId;
-        this.hint = hint;
-        this.hintIsVisible = true;
-        this.imageId = imageId;
-        this.runnableIsWithAnim = runnableIsWithAnim;
-    }
-
-    public Item (String textId, String hint, Boolean hintIsVisible, Boolean runnableIsWithAnim) {
-        this.textId = textId;
-        this.hint = hint;
-        this.hintIsVisible = hintIsVisible;
-        this.imageId = textId;
-        this.runnableIsWithAnim = runnableIsWithAnim;
-    }
-
-    public String getTextId() {
-        return textId;
-    }
-
-    public String getHintId() {
-        return hint;
-    }
-
-    public String getImage() {
+    public String getImageId() {
         return imageId;
     }
 
-    public Boolean getHintIsVisible() {
-        return hintIsVisible;
+    public Boolean isHintVisible() {
+        return isHintVisible;
     }
 
-    public Boolean getRunnableIsWithAnim() {
-        return runnableIsWithAnim;
+    public Boolean isRunnableWithAnim() {
+        return isRunnableWithAnim;
     }
 }
