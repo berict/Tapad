@@ -28,6 +28,7 @@ import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.FabHelper;
 import com.bedrock.padder.helper.FileHelper;
 import com.bedrock.padder.helper.IntentHelper;
+import com.bedrock.padder.helper.SettingsHelper;
 import com.bedrock.padder.helper.SoundHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.TutorialHelper;
@@ -100,6 +101,7 @@ public class MainActivity
     private IntentHelper intent = new IntentHelper();
     private AdmobHelper ad = new AdmobHelper();
     private FileHelper file = new FileHelper();
+    private SettingsHelper settings = new SettingsHelper();
 
     private boolean doubleBackToExitPressedOnce = false;
     private boolean isToolbarVisible = false;
@@ -200,9 +202,6 @@ public class MainActivity
             currentPreset = null;
         }
 
-        // for quickstart test
-        //prefs.edit().putInt(qs, 0).apply();
-
         if (prefs.getBoolean("welcome", true)) {
             prefs.edit().putBoolean("welcome", false).apply();
         }
@@ -210,6 +209,8 @@ public class MainActivity
         color = prefs.getInt("color", R.color.cyan_400);
         toolbar.setActionBar(this);
         toolbar.setStatusBarTint(this);
+
+        settings.setPrefs(a);
 
         if (prefs.getString("colorData", null) == null) {
             // First run colorData json set
@@ -474,7 +475,7 @@ public class MainActivity
     }
 
     private void setButtonLayout() {
-        int screenWidthPx = (int) (w.getWindowWidthPx(a) * (0.8));
+        int screenWidthPx = (int) (w.getWindowWidthPx(a) * settings.getMarginScale());
         int marginPx = w.getWindowWidthPx(a) / 160;
         int newWidthPx;
         int newHeightPx;

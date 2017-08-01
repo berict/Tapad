@@ -305,6 +305,8 @@
     <string name="settings_color_dialog_duplicate_current">This color is already your current color</string>
     <string name="settings_color_placeholder_title">You have no colors</string>
 
+    <string name="settings_deck_margin">Deck margin scale</string>
+
     <string name="settings_layout">Button layout</string>
     <string name="settings_layout_error">This feature is under development.</string>
     <string name="settings_custom_touch">Custom touch pattern</string>

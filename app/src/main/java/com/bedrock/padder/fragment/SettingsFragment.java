@@ -14,11 +14,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.bedrock.padder.R;
-import com.bedrock.padder.activity.MainActivity;
 import com.bedrock.padder.helper.IntentHelper;
+import com.bedrock.padder.helper.SettingsHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
 
@@ -32,7 +34,7 @@ public class SettingsFragment extends Fragment {
 
     private WindowHelper w = new WindowHelper();
     private IntentHelper intent = new IntentHelper();
-    private MainActivity main = new MainActivity();
+    private SettingsHelper settings = new SettingsHelper();
     private ToolbarHelper toolbar = new ToolbarHelper();
 
     private SharedPreferences prefs = null;
@@ -120,6 +122,8 @@ public class SettingsFragment extends Fragment {
         a.dispatchKeyEvent(kUp);
     }
 
+    EditText deckMarginValueEditText = null;
+
     public void setPresetInfo() {
         toolbar.setActionBar(a, v);
         if (isAboutVisible) {
@@ -152,6 +156,27 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 intent.intent(a, "activity.ColorActivity");
+            }
+        });
+
+        deckMarginValueEditText = w.getEditText(R.id.layout_settings_deck_margin_input, v);
+
+        w.getSeekBar(R.id.layout_settings_deck_margin_slider, v).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                String value = String.valueOf(progress / seekBar.getMax());
+                Log.d("SettingsFrag", progress + " / " + seekBar.getMax());
+                deckMarginValueEditText.setText(value);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
 
