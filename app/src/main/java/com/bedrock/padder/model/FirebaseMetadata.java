@@ -1,14 +1,11 @@
 package com.bedrock.padder.model;
 
 import com.bedrock.padder.model.preset.Preset;
-import com.google.gson.annotations.SerializedName;
 
 public class FirebaseMetadata {
 
-    @SerializedName("presets")
     private Preset[] presets;
 
-    @SerializedName("version_code")
     private Integer versionCode;
 
     public FirebaseMetadata(Preset[] presets, Integer versionCode) {

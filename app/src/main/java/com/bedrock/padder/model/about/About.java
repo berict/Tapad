@@ -2,34 +2,25 @@ package com.bedrock.padder.model.about;
 
 import android.graphics.Color;
 
-import com.google.gson.annotations.SerializedName;
-
 import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
 
 public class About {
 
-    @SerializedName("title")
     private String title;
 
     // also used as imageResId
-    @SerializedName("preset_name")
     private String presetName;
 
-    @SerializedName("tutorial_link")
     private String tutorialLink;
 
-    @SerializedName("preset_creator")
     private String presetCreator;
 
     // used as actionbar / taskDesc
     // formatted in #000000
-    @SerializedName("actionbar_color")
     private String actionbarColor;
 
-    @SerializedName("bio")
     private Bio bio;
 
-    @SerializedName("details")
     private Detail[] details;
 
     public About(String title,

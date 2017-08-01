@@ -1,26 +1,19 @@
 package com.bedrock.padder.model.about;
 
-import com.google.gson.annotations.SerializedName;
-
 import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
 
 public class Bio {
 
-    @SerializedName("title")
-    private String   title;
+    private String title;
 
     // also used as imageResId
-    @SerializedName("preset_name")
-    private String   presetName;
+    private String presetName;
 
-    @SerializedName("name")
-    private String   name;
+    private String name;
 
-    @SerializedName("text")
-    private String   text;
+    private String text;
 
-    @SerializedName("source")
-    private String   source;
+    private String source;
 
     public Bio(String title, String presetName, String name, String text, String source) {
         this.title = title;

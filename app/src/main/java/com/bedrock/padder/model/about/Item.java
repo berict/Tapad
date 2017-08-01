@@ -1,22 +1,15 @@
 package com.bedrock.padder.model.about;
 
-import com.google.gson.annotations.SerializedName;
-
 public class Item {
 
-    @SerializedName("text_id")
     private String   textId;
 
-    @SerializedName("hint")
     private String   hint;
 
-    @SerializedName("hint_is_visible")
     private Boolean  hintIsVisible;
 
-    @SerializedName("image_id")
     private String   imageId;
 
-    @SerializedName("runnable_is_with_anim")
     private Boolean  runnableIsWithAnim;
 
     public Item (String textId, String hint) {

@@ -1,13 +1,9 @@
 package com.bedrock.padder.model.about;
 
-import com.google.gson.annotations.SerializedName;
-
 public class Detail {
 
-    @SerializedName("title")
     private String title;
 
-    @SerializedName("items")
     private Item[] items;
 
     public Detail (String title, Item[] items) {

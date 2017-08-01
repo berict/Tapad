@@ -7,7 +7,6 @@ import android.view.View;
 import com.bedrock.padder.helper.FirebaseHelper;
 import com.bedrock.padder.helper.SoundHelper;
 import com.bedrock.padder.model.about.About;
-import com.google.gson.annotations.SerializedName;
 
 import java.io.File;
 
@@ -19,13 +18,10 @@ import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class Preset {
 
-    @SerializedName("firebase_location")
     private String firebaseLocation;
 
-    @SerializedName("music")
     private Music music;
 
-    @SerializedName("about")
     private About about;
 
     public Preset(String firebaseLocation, Music music, About about) {
