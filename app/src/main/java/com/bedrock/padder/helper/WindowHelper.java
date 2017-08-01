@@ -28,10 +28,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import android.widget.VideoView;
@@ -536,6 +538,14 @@ public class WindowHelper {
 
     public View getView(int id, View view) {
         return view.findViewById(id);
+    }
+
+    public SeekBar getSeekBar(int id, View view) {
+        return (SeekBar) view.findViewById(id);
+    }
+
+    public EditText getEditText(int id, View view) {
+        return (EditText) view.findViewById(id);
     }
 
     public ProgressBar getProgressBar(int id, Activity activity) {
