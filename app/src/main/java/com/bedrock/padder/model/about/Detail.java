@@ -1,5 +1,9 @@
 package com.bedrock.padder.model.about;
 
+import android.content.Context;
+
+import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
+
 public class Detail {
 
     private String title;
@@ -15,11 +19,25 @@ public class Detail {
         return title;
     }
 
-    public Item[] getItems() {
-        return items;
+    public String getTitle(Context context) {
+        String res = getStringFromId(title, context);
+        if (res != null) {
+            return res;
+        } else {
+            return title;
+        }
     }
 
-    public Item getItem(Integer index) {
-        return items[index];
+    public String getTitle(String prefix, Context context) {
+        String res = getStringFromId(prefix, context);
+        if (res != null) {
+            return res + " " + title;
+        } else {
+            return title;
+        }
+    }
+
+    public Item[] getItems() {
+        return items;
     }
 }
