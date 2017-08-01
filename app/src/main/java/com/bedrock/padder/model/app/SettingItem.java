@@ -17,10 +17,10 @@ public class SettingItem {
         this.prefs = prefs;
         this.key = key;
         this.item = defValue;
-        fetchItem();
+        fetch();
     }
 
-    public void setItem(Object value) {
+    public void set(Object value) {
         if (prefs != null) {
             item = value;
             if (item instanceof Boolean) {
@@ -38,8 +38,9 @@ public class SettingItem {
         }
     }
 
-    public Object getItem() {
+    public Object get() {
         if (item != null) {
+            fetch();
             return item;
         } else {
             Log.e(TAG, "Item null");
@@ -47,7 +48,7 @@ public class SettingItem {
         }
     }
 
-    public void fetchItem() {
+    public void fetch() {
         if (prefs != null) {
             if (item instanceof Boolean) {
                 // boolean variable
