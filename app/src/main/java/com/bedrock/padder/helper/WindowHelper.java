@@ -3,6 +3,7 @@ package com.bedrock.padder.helper;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -689,11 +690,11 @@ public class WindowHelper {
         //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
     }
 
-    public String getStringFromId(String id, Activity activity) {
+    public String getStringFromId(String id, Context context) {
         try {
             Class res = R.string.class;
             Field field = res.getField(id);
-            return activity.getResources().getString(field.getInt(null));
+            return context.getResources().getString(field.getInt(null));
         } catch (Exception e) {
             Log.e("getStringFromId", "Failure to get string id.", e);
             return null;
@@ -701,8 +702,8 @@ public class WindowHelper {
         //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
     }
 
-    public String getStringFromId(int resId, Activity activity) {
-        return activity.getResources().getString(resId);
+    public String getStringFromId(int resId, Context context) {
+        return context.getResources().getString(resId);
     }
 
     // public Z getZ(int id, Activity activity) {
