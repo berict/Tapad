@@ -684,7 +684,7 @@ public class WindowHelper {
             Field field = res.getField(id);
             return field.getInt(null);
         } catch (Exception e) {
-            Log.e("getStringId", "Failure to get string id.", e);
+            Log.e("getStringId", "Failure to get string from id [" + id + "]");
             return -1;
         }
         //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
@@ -696,7 +696,7 @@ public class WindowHelper {
             Field field = res.getField(id);
             return context.getResources().getString(field.getInt(null));
         } catch (Exception e) {
-            Log.e("getStringFromId", "Failure to get string id.", e);
+            Log.e("getStringFromId", "Failure to get string from id [" + id + "]");
             return null;
         }
         //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
