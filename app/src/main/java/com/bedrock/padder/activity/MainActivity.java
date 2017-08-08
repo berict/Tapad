@@ -33,13 +33,7 @@ import com.bedrock.padder.helper.SoundHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.TutorialHelper;
 import com.bedrock.padder.helper.WindowHelper;
-import com.bedrock.padder.model.FirebaseMetadata;
-import com.bedrock.padder.model.about.About;
-import com.bedrock.padder.model.about.Bio;
-import com.bedrock.padder.model.about.Detail;
-import com.bedrock.padder.model.about.Item;
 import com.bedrock.padder.model.app.theme.ColorData;
-import com.bedrock.padder.model.preset.Music;
 import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
 
@@ -227,9 +221,7 @@ public class MainActivity
         setFab();
         setToolbar();
         setPresetInfo();
-        // TODO #149
         sound.setDecks(R.color.colorAccent, R.color.grey, a);
-        //setToggleButton(R.color.colorAccent);
         enterAnim();
         loadPreset(400);
         setButtonLayout();
@@ -447,10 +439,8 @@ public class MainActivity
     protected void onDestroy() {
         Log.d(TAG, "onDestroy");
 
-        // TODO #149
         sound.stop();
         sound.cancelLoad();
-        //sound.cancelLoading();
 
         ad.destroyNativeAdView(R.id.adView_main, a);
 
@@ -803,9 +793,7 @@ public class MainActivity
             preset.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    // TODO #149
                     sound.load(currentPreset, prefs.getInt("color", R.color.cyan_400), colorDef, a);
-                    //sound.loadSound(currentPreset, a);
                 }
             }, delay);
         }
@@ -840,12 +828,12 @@ public class MainActivity
 
     private void setPresetInfo() {
         if (isSettingVisible == false && isAboutVisible == false && currentPreset != null) {
-            themeColor = currentPreset.getAbout().getActionbarColor();
+            themeColor = currentPreset.getAbout().getColor();
             toolbar.setActionBarTitle(0);
             toolbar.setActionBarColor(themeColor, a);
             toolbar.setActionBarPadding(a);
             toolbar.setActionBarImage(
-                    PROJECT_LOCATION_PRESETS + "/" + currentPreset.getFirebaseLocation() + "/about/artist_icon",
+                    PROJECT_LOCATION_PRESETS + "/" + currentPreset.getTag() + "/about/artist_icon",
                     this);
             w.setRecentColor(0, 0, themeColor, a);
             w.setVisible(R.id.base, 0, a);
@@ -913,154 +901,5 @@ public class MainActivity
         // preset exist
         File folder = new File(PROJECT_LOCATION_PRESETS + "/" + presetName); // folder check
         return folder.isDirectory() && folder.exists();
-    }
-
-    private void makeJson() {
-        Item fadedItems[] = {
-                new Item("facebook", w.getStringFromId("preset_placeholder_detail_facebook", a)),
-                new Item("twitter", w.getStringFromId("preset_placeholder_detail_twitter", a)),
-                new Item("soundcloud", w.getStringFromId("preset_placeholder_detail_soundcloud", a)),
-                new Item("instagram", w.getStringFromId("preset_placeholder_detail_instagram", a)),
-                new Item("google_plus", w.getStringFromId("preset_placeholder_detail_google_plus", a)),
-                new Item("youtube", w.getStringFromId("preset_placeholder_detail_youtube", a)),
-                //new Item("twitch", w.getStringFromId("preset_placeholder_detail_twitch", a)),
-                new Item("web", w.getStringFromId("preset_placeholder_detail_web", a))
-        };
-
-        Detail fadedDetail = new Detail(w.getStringFromId("preset_placeholder_detail_title", a), fadedItems);
-
-        Item fadedSongItems[] = {
-                new Item("soundcloud", w.getStringFromId("preset_placeholder_song_detail_soundcloud", a), false),
-                new Item("youtube", w.getStringFromId("preset_placeholder_song_detail_youtube", a), false),
-                new Item("spotify", w.getStringFromId("preset_placeholder_song_detail_spotify", a), false),
-                new Item("google_play_music", w.getStringFromId("preset_placeholder_song_detail_google_play_music", a), false),
-                new Item("apple", w.getStringFromId("preset_placeholder_song_detail_apple", a), false),
-                new Item("amazon", w.getStringFromId("preset_placeholder_song_detail_amazon", a), false),
-                new Item("pandora", w.getStringFromId("preset_placeholder_song_detail_pandora", a), false)
-        };
-
-        Detail fadedSongDetail = new Detail(w.getStringFromId("preset_placeholder_song_detail_title", a), fadedSongItems);
-
-        Bio fadedBio = new Bio(
-                w.getStringFromId("preset_placeholder_bio_title", a),
-                "alan_walker_faded_gesture",
-                w.getStringFromId("preset_placeholder_bio_name", a),
-                w.getStringFromId("preset_placeholder_bio_text", a),
-                w.getStringFromId("preset_placeholder_bio_source", a)
-        );
-
-        Detail fadedDetails[] = {
-                fadedDetail,
-                fadedSongDetail
-        };
-
-        About fadedAbout = new About(
-                w.getStringFromId("preset_placeholder_title", a),
-                "alan_walker_faded_gesture",
-                w.getStringFromId("preset_placeholder_tutorial_link", a),
-                "Studio Berict",
-                "#00D3BE",
-                fadedBio, fadedDetails
-        );
-
-        Music fadedMusic = new Music(
-                "preset_placeholder",
-                "alan_walker_faded_gesture",
-                true,
-                246,
-                90
-        );
-
-        Preset fadedPreset = new Preset("alan_walker_faded_gesture", fadedMusic, fadedAbout);
-
-        largeLog("JSON", gson.toJson(fadedPreset));
-
-        Preset[] presets = {
-                fadedPreset
-        };
-
-        FirebaseMetadata firebaseMetadata = new FirebaseMetadata(presets, 15);
-        largeLog("Metadata", gson.toJson(firebaseMetadata));
-
-//        Bio tapadBio = new Bio(
-//                w.getStringFromId("info_tapad_bio_title", a),
-//                "about_bio_tapad",
-//                w.getStringFromId("info_tapad_bio_name", a),
-//                w.getStringFromId("info_tapad_bio_text", a),
-//                w.getStringFromId("info_tapad_bio_source", a)
-//        );
-//
-//        Item tapadInfo[] = {
-//                new Item("info_tapad_info_check_update", w.getStringFromId("info_tapad_info_check_update_hint", a), "google_play", true),
-//                new Item("info_tapad_info_tester", w.getStringFromId("info_tapad_info_tester_hint", a), "experiment", true),
-//                new Item("info_tapad_info_legal", null, "info", false),
-//                new Item("info_tapad_info_version", w.getStringFromId("info_tapad_info_version_hint", a), ""),
-//                new Item("info_tapad_info_build_date", w.getStringFromId("info_tapad_info_build_date_hint", a), ""),
-//                new Item("info_tapad_info_changelog", null, "changelog", false),
-//                new Item("info_tapad_info_thanks", null, "thanks", false),
-//                new Item("info_tapad_info_dev", w.getStringFromId("info_tapad_info_dev_hint", a), "developer", false)
-//                // TODO ADD ITEMS
-//        };
-//
-//        Item tapadOthers[] = {
-//                new Item("info_tapad_others_song", w.getStringFromId("info_tapad_others_song_hint", a), "song", true),
-//                new Item("info_tapad_others_feedback", w.getStringFromId("info_tapad_others_feedback_hint", a), "feedback", true),
-//                new Item("info_tapad_others_report_bug", w.getStringFromId("info_tapad_others_report_bug_hint", a), "report_bug", true),
-//                new Item("info_tapad_others_rate", w.getStringFromId("info_tapad_others_rate_hint", a), "rate", true),
-//                new Item("info_tapad_others_translate", w.getStringFromId("info_tapad_others_translate_hint", a), "web", false),
-//                new Item("info_tapad_others_recommend", w.getStringFromId("info_tapad_others_recommend_hint", a), "recommend", true)
-//        };
-//
-//        Detail tapadDetails[] = {
-//                new Detail(w.getStringFromId("info_tapad_info_title", a), tapadInfo),
-//                new Detail(w.getStringFromId("info_tapad_others_title", a), tapadOthers)
-//        };
-//
-//        About tapadAbout = new About(
-//                w.getStringFromId("info_tapad_title", a),
-//                "about_image_tapad",
-//                "#9C27B0",
-//                tapadBio, tapadDetails
-//        );
-//
-//        largeLog("tapadAboutJSON", gson.toJson(tapadAbout));
-//
-//        Bio berictBio = new Bio(
-//                w.getStringFromId("info_berict_bio_title", a),
-//                null,
-//                w.getStringFromId("info_berict_bio_name", a),
-//                w.getStringFromId("info_berict_bio_text", a),
-//                w.getStringFromId("info_berict_bio_source", a)
-//        );
-//
-//        Item devItems[] = {
-//                new Item("facebook", w.getStringFromId("info_berict_detail_facebook", a)),
-//                new Item("twitter", w.getStringFromId("info_berict_detail_twitter", a)),
-//                new Item("google_plus", w.getStringFromId("info_berict_detail_google_plus", a)),
-//                new Item("youtube", w.getStringFromId("info_berict_detail_youtube", a)),
-//                new Item("discord", w.getStringFromId("info_berict_detail_discord", a)),
-//                new Item("web", w.getStringFromId("info_berict_detail_web", a))
-//        };
-//
-//        Item devSupport[] = {
-//                new Item("info_berict_action_report_bug", w.getStringFromId("info_berict_action_report_bug_hint", a), "report_bug", true),
-//                new Item("info_berict_action_rate", w.getStringFromId("info_berict_action_rate_hint", a), "rate", true),
-//                new Item("info_berict_action_translate", w.getStringFromId("info_berict_action_translate_hint", a), "translate", false),
-//                new Item("info_berict_action_donate", w.getStringFromId("info_berict_action_donate_hint", a), "donate", false)
-//        };
-//
-//        Detail berictDetails[] = {
-//                new Detail(w.getStringFromId("info_berict_detail_title", a), devItems),
-//                new Detail(w.getStringFromId("info_berict_action_title", a), devSupport)
-//        };
-//
-//        About berictAbout = new About(
-//                w.getStringFromId("info_berict_title", a),
-//                "about_image_berict",
-//                "#607D8B",
-//                berictBio, berictDetails
-//        );
-//
-//        largeLog("berictAboutJSON", gson.toJson(berictAbout));
     }
 }
