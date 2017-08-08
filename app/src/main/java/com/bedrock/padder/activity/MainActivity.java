@@ -1,6 +1,5 @@
 package com.bedrock.padder.activity;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,7 +30,6 @@ import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.SettingsHelper;
 import com.bedrock.padder.helper.SoundHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
-import com.bedrock.padder.helper.TutorialHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.app.theme.ColorData;
 import com.bedrock.padder.model.preset.Preset;
@@ -41,8 +39,6 @@ import java.io.File;
 
 import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
-
-@TargetApi(14)
 
 public class MainActivity
         extends AppCompatActivity
@@ -91,7 +87,6 @@ public class MainActivity
     private WindowHelper w = new WindowHelper();
     private FabHelper fab = new FabHelper();
     private ToolbarHelper toolbar = new ToolbarHelper();
-    private TutorialHelper tut = new TutorialHelper();
     private IntentHelper intent = new IntentHelper();
     private AdmobHelper ad = new AdmobHelper();
     private FileHelper file = new FileHelper();
@@ -388,10 +383,6 @@ public class MainActivity
     @Override
     public void onResume() {
         super.onResume();
-
-        if (isTutorialVisible == true) {
-            tut.tutorialStop(a);
-        }
 
         Log.d("MainActivity", "onResume");
         sound.stop();
@@ -708,8 +699,8 @@ public class MainActivity
         if (isTutorialVisible == false) {
             isTutorialVisible = true;
             if (currentPreset != null) {
-                if (!isPresetLoading) {
-                    String tutorialText = currentPreset.getAbout().getTutorialLink();
+                if (!isPresetLoading && currentPreset.getAbout().getTutorialAvailable()) {
+                    String tutorialText = currentPreset.getAbout().getTutorialVideoLink();
                     if (tutorialText == null || tutorialText.equals("null")) {
                         tutorialText = w.getStringFromId("dialog_tutorial_text_error", a);
                     }
