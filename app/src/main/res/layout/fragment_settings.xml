@@ -93,46 +93,6 @@
                         android:background="@color/dark_divider"
                         android:visibility="gone"/>
 
-                    <RelativeLayout
-                        android:id="@+id/layout_settings_custom_sound"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-                        android:alpha="0.3"
-                        android:background="?selectableItemBackground"
-                        android:clickable="true"
-                        android:visibility="gone">
-
-                        <ImageView
-                            android:id="@+id/layout_settings_custom_sound_icon"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="8dp"
-                            android:padding="10dp"
-                            app:srcCompat="@drawable/ic_custom_sound_black"/>
-
-                        <TextView
-                            android:id="@+id/layout_settings_custom_sound_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_toRightOf="@+id/layout_settings_custom_sound_icon"
-                            android:paddingLeft="14dp"
-                            android:text="@string/settings_custom_sound"
-                            android:textColor="@color/dark_primary"
-                            android:textSize="16sp"/>
-
-                    </RelativeLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/dark_divider"
-                        android:visibility="gone"/>
-
-                    <!-- TODO on custom sound update -->
-
                 </LinearLayout>
 
                 <LinearLayout
