@@ -42,6 +42,7 @@ import java.io.File;
 import java.text.DecimalFormat;
 
 import static com.bedrock.padder.activity.PresetStoreActivity.isPresetDownloading;
+import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
 public class FirebaseHelper {
 
@@ -429,7 +430,7 @@ public class FirebaseHelper {
                 PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, new Intent(activity, PresetStoreActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
 
                 mBuilder.setContentTitle(presetTitle)
-                        .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_downloading, activity))
+                        .setContentText(getStringFromId(R.string.preset_store_download_notification_text_downloading, activity))
                         .setSmallIcon(android.R.drawable.stat_sys_download)
                         .setLargeIcon(BitmapFactory.decodeResource(activity.getResources(), android.R.drawable.stat_sys_download))
                         .setOngoing(true)
@@ -469,7 +470,7 @@ public class FirebaseHelper {
                         Log.d(TAG, "Successful download at " + fileLocation);
                         notificationManager.cancel(id);
                         mBuilder.setContentTitle(presetTitle)
-                                .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_installing, activity))
+                                .setContentText(getStringFromId(R.string.preset_store_download_notification_text_installing, activity))
                                 .setProgress(0, 0, false)
                                 .setOngoing(true)
                                 .setOnlyAlertOnce(true);
@@ -486,7 +487,7 @@ public class FirebaseHelper {
                                     public void run() {
                                         notificationManager.cancel(id);
                                         mBuilder.setContentTitle(presetTitle)
-                                                .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_complete, activity))
+                                                .setContentText(getStringFromId(R.string.preset_store_download_notification_text_complete, activity))
                                                 .setSmallIcon(android.R.drawable.stat_sys_download_done)
                                                 .setLargeIcon(BitmapFactory.decodeResource(activity.getResources(), android.R.drawable.stat_sys_download_done))
                                                 .setOngoing(false)
@@ -525,7 +526,7 @@ public class FirebaseHelper {
 
             String progressText;
             if (bytesTransferred == 0) {
-                progressText = window.getStringFromId(R.string.preset_store_download_size_downloading, activity);
+                progressText = getStringFromId(R.string.preset_store_download_size_downloading, activity);
             } else {
                 progressText = getReadableFileSize(bytesTransferred)
                         + "/"
@@ -580,14 +581,14 @@ public class FirebaseHelper {
                 notificationManager.cancel(id);
                 if (isCancelled()) {
                     mBuilder.setProgress(0, 0, false)
-                            .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_cancelled, activity))
+                            .setContentText(getStringFromId(R.string.preset_store_download_notification_text_cancelled, activity))
                             .setSmallIcon(android.R.drawable.stat_sys_download_done)
                             .setLargeIcon(BitmapFactory.decodeResource(activity.getResources(), android.R.drawable.stat_sys_download_done))
                             .setOngoing(false)
                             .setAutoCancel(true);
                 } else {
                     mBuilder.setProgress(0, 0, false)
-                            .setContentText(window.getStringFromId(R.string.preset_store_download_notification_text_failed, activity))
+                            .setContentText(getStringFromId(R.string.preset_store_download_notification_text_failed, activity))
                             .setSmallIcon(android.R.drawable.stat_sys_download_done)
                             .setLargeIcon(BitmapFactory.decodeResource(activity.getResources(), android.R.drawable.stat_sys_download_done))
                             .setOngoing(false)

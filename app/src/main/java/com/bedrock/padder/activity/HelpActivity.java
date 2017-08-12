@@ -11,6 +11,8 @@ import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
 
+import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
+
 public class HelpActivity extends AppCompatActivity {
 
     private AppCompatActivity activity = this;
@@ -92,8 +94,8 @@ public class HelpActivity extends AppCompatActivity {
     private void showDetailHelp(String helpResId) {
         if (!isDetailVisible) {
             isDetailVisible = true;
-            detailTitle.setText(window.getStringFromId("help_popular_" + helpResId, activity));
-            detailText.setText(window.getStringFromId("help_popular_" + helpResId + "_detail", activity));
+            detailTitle.setText(getStringFromId("help_popular_" + helpResId, activity));
+            detailText.setText(getStringFromId("help_popular_" + helpResId + "_detail", activity));
             anim.fadeIn(R.id.activity_help_detail, 0, 200, "detailIn", activity);
         }
     }

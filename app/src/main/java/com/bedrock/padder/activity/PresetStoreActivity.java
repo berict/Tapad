@@ -44,6 +44,7 @@ import java.util.List;
 import static com.bedrock.padder.activity.MainActivity.isDeckShouldCleared;
 import static com.bedrock.padder.activity.MainActivity.isPresetVisible;
 import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
+import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
 public class PresetStoreActivity extends AppCompatActivity implements FileChooserDialog.FileCallback {
 
@@ -251,8 +252,8 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
         if (hasPermission) {
             Log.d(TAG, "setViewPager");
             viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-            viewPagerAdapter.addFragment(new PresetStoreInstalledFragment(), window.getStringFromId(R.string.tab_1, activity));
-            viewPagerAdapter.addFragment(new PresetStoreOnlineFragment(), window.getStringFromId(R.string.tab_2, activity));
+            viewPagerAdapter.addFragment(new PresetStoreInstalledFragment(), getStringFromId(R.string.tab_1, activity));
+            viewPagerAdapter.addFragment(new PresetStoreOnlineFragment(), getStringFromId(R.string.tab_2, activity));
 
             viewPager = (ViewPager) findViewById(R.id.layout_viewpager);
             viewPager.setAdapter(viewPagerAdapter);

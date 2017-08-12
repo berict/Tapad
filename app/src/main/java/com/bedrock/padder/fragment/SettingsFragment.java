@@ -187,13 +187,6 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        w.getView(R.id.layout_settings_custom_sound, v).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(a, R.string.settings_custom_sound_error, Toast.LENGTH_SHORT).show();
-            }
-        });
-
         w.getView(R.id.layout_settings_layout, v).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -14,6 +14,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -690,7 +691,8 @@ public class WindowHelper {
         //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
     }
 
-    public String getStringFromId(String id, Context context) {
+    @Nullable
+    public static String getStringFromId(String id, Context context) {
         try {
             Class res = R.string.class;
             Field field = res.getField(id);
@@ -702,7 +704,7 @@ public class WindowHelper {
         //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
     }
 
-    public String getStringFromId(int resId, Context context) {
+    public static String getStringFromId(int resId, Context context) {
         return context.getResources().getString(resId);
     }
 
