@@ -1,4 +1,4 @@
-package com.bedrock.padder.model;
+package com.bedrock.padder.model.tutorial;
 
 import com.bedrock.padder.helper.FileHelper;
 

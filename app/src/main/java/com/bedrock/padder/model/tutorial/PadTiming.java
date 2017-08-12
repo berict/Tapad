@@ -1,4 +1,4 @@
-package com.bedrock.padder.model;
+package com.bedrock.padder.model.tutorial;
 
 import android.app.Activity;
 import android.os.AsyncTask;

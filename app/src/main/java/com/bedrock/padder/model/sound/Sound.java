@@ -1,4 +1,4 @@
-package com.bedrock.padder.model;
+package com.bedrock.padder.model.sound;
 
 import android.media.MediaMetadataRetriever;
 import android.media.SoundPool;
