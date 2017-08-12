@@ -21,6 +21,7 @@ import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.about.Item;
 
 import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
+import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHolder> {
     private Item[] item;
@@ -65,66 +66,66 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
 
     @Override
     public void onBindViewHolder(final DetailViewHolder holder, int position) {
-        holder.itemText.setText(window.getStringFromId(item[position].getTextId(), activity));
+        holder.itemText.setText(getStringFromId(item[position].getText(context), activity));
 
         if(position == getItemCount() - 1) {
             // last item on list, hide divider
             holder.divider.setVisibility(View.GONE);
         }
 
-        if(item[position].getHintId() == null) {
+        if (item[position].getHint(context) == null) {
             // hint null
             holder.itemHint.setVisibility(View.GONE);
-        } else if (item[position].getHintIsVisible() == false) {
+        } else if (item[position].isHintVisible() == false) {
             // hint invisible
             holder.itemHint.setVisibility(View.GONE);
 
-            if(item[position].getHintId().startsWith("http")) {
+            if (item[position].getHint(context).startsWith("http")) {
                 // link available check
                 anim.circularRevealTouch(holder.itemLayout, R.id.layout_placeholder,
                         new AccelerateDecelerateInterpolator(), new Runnable() {
                             @Override
                             public void run() {
-                                window.setRecentColor(item[holder.getAdapterPosition()].getTextId(), R.color.colorAccent, activity);
-                                intent.intentLink(activity, item[holder.getAdapterPosition()].getHintId(), 400);
+                                window.setRecentColor(item[holder.getAdapterPosition()].getText(context), R.color.colorAccent, activity);
+                                intent.intentLink(activity, item[holder.getAdapterPosition()].getHint(context), 400);
                             }
                         }, 400, 0, activity);
             }
         } else {
             // hint visible
-            holder.itemHint.setText(item[position].getHintId());
+            holder.itemHint.setText(item[position].getHint(context));
 
-            if(item[position].getHintId().startsWith("http")) {
+            if (item[position].getHint(context).startsWith("http")) {
                 // link available check
                 anim.circularRevealTouch(holder.itemLayout, R.id.layout_placeholder,
                         new AccelerateDecelerateInterpolator(), new Runnable() {
                             @Override
                             public void run() {
-                                window.setRecentColor(item[holder.getAdapterPosition()].getTextId(), R.color.colorAccent, activity);
-                                intent.intentLink(activity, item[holder.getAdapterPosition()].getHintId(), 400);
+                                window.setRecentColor(item[holder.getAdapterPosition()].getText(context), R.color.colorAccent, activity);
+                                intent.intentLink(activity, item[holder.getAdapterPosition()].getHint(context), 400);
                             }
                         }, 400, 0, activity);
             }
 
-            if(item[position].getHintId().startsWith("info_tapad_info_version_hint")) {
+            if (item[position].getHint(context).startsWith("info_tapad_info_version_hint")) {
                 // version code hint
-                holder.itemHint.setText(window.getStringFromId(item[position].getHintId(), activity));
+                holder.itemHint.setText(getStringFromId(item[position].getHint(context), activity));
             }
         }
 
-        if(getExceptionalRunnable(item[position].getTextId()) != null) {
-            if (item[position].getRunnableIsWithAnim() == true) {
+        if (getExceptionalRunnable(item[position].getText(context)) != null) {
+            if (item[position].isRunnableWithAnim() == true) {
                 // Runnable with reveal anim
                 anim.circularRevealTouch(holder.itemLayout, R.id.layout_placeholder,
                         new AccelerateDecelerateInterpolator(),
-                        getExceptionalRunnable(item[position].getTextId()),
+                        getExceptionalRunnable(item[position].getText(context)),
                         400, 0, activity);
             } else {
                 // Runnable with no anim
                 holder.itemLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        getExceptionalRunnable(item[holder.getAdapterPosition()].getTextId()).run();
+                        getExceptionalRunnable(item[holder.getAdapterPosition()].getText(context)).run();
                     }
                 });
             }
@@ -168,7 +169,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                     @Override
                     public void run() {
                         w.setRecentColor(w.getStringId("info_tapad_info_check_update"), R.color.colorAccent, a);
-                        intent.intentLink(a, w.getStringFromId("info_tapad_info_check_update_link", a), 400);
+                        intent.intentLink(a, getStringFromId("info_tapad_info_check_update_link", a), 400);
                     }
                 };
                 break;
@@ -177,7 +178,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                     @Override
                     public void run() {
                         w.setRecentColor(w.getStringId("info_tapad_info_tester"), R.color.colorAccent, a);
-                        intent.intentLink(a, w.getStringFromId("info_tapad_info_tester_link", a), 400);
+                        intent.intentLink(a, getStringFromId("info_tapad_info_tester_link", a), 400);
                     }
                 };
                 break;
@@ -264,7 +265,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                     @Override
                     public void run() {
                         // TODO make translation service available
-                        Toast.makeText(a, w.getStringFromId("info_tapad_others_translate_error", a), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(a, getStringFromId("info_tapad_others_translate_error", a), Toast.LENGTH_SHORT).show();
                     }
                 };
                 break;
@@ -273,9 +274,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                     @Override
                     public void run() {
                         intent.intentShareText(a,
-                                w.getStringFromId("info_tapad_others_recommend_share_subject", a),
-                                w.getStringFromId("info_tapad_others_recommend_share_text", a),
-                                w.getStringFromId("info_tapad_others_recommend_share_hint", a),
+                                getStringFromId("info_tapad_others_recommend_share_subject", a),
+                                getStringFromId("info_tapad_others_recommend_share_text", a),
+                                getStringFromId("info_tapad_others_recommend_share_hint", a),
                                 400);
                     }
                 };
@@ -302,7 +303,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                     @Override
                     public void run() {
                         // TODO make translation service available
-                        Toast.makeText(a, w.getStringFromId("info_berict_action_translate_error", a), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(a, getStringFromId("info_berict_action_translate_error", a), Toast.LENGTH_SHORT).show();
                     }
                 };
                 break;
@@ -311,7 +312,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                     @Override
                     public void run() {
                         // TODO make translation service available
-                        Toast.makeText(a, w.getStringFromId("info_berict_action_donate_error", a), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(a, getStringFromId("info_berict_action_donate_error", a), Toast.LENGTH_SHORT).show();
                     }
                 };
                 break;

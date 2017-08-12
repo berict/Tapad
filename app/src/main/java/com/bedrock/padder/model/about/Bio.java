@@ -1,13 +1,12 @@
 package com.bedrock.padder.model.about;
 
+import com.bedrock.padder.model.preset.Preset;
+
 import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
 
 public class Bio {
 
     private String title;
-
-    // also used as imageResId
-    private String presetName;
 
     private String name;
 
@@ -15,9 +14,8 @@ public class Bio {
 
     private String source;
 
-    public Bio(String title, String presetName, String name, String text, String source) {
+    public Bio(String title, String name, String text, String source) {
         this.title = title;
-        this.presetName = presetName;
         this.name = name;
         this.text = text;
         this.source = source;
@@ -27,11 +25,12 @@ public class Bio {
         return title;
     }
 
-    public String getImage() {
-        if (presetName == null || presetName.equals("about_bio_tapad")) {
-            return presetName;
+    public String getImage(Preset preset) {
+        String tag = preset.getTag();
+        if (tag == null || tag.equals("about_bio_tapad")) {
+            return tag;
         } else {
-            return PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/artist_image";
+            return PROJECT_LOCATION_PRESETS + "/" + tag + "/about/artist_image";
         }
     }
 

@@ -35,6 +35,7 @@ import static com.bedrock.padder.activity.MainActivity.isPresetChanged;
 import static com.bedrock.padder.activity.PresetStoreActivity.isPresetDownloading;
 import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
+import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
 public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.PresetViewHolder> {
 
@@ -69,7 +70,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
         final Preset preset = firebaseMetadata.getPreset(position);
 
         // set gesture
-        if (preset.getMusic().getGesture()) {
+        if (preset.isGesture()) {
             // preset is gesture
             holder.presetGesture.setVisibility(View.VISIBLE);
             holder.presetGesture.setOnClickListener(new View.OnClickListener() {
@@ -89,9 +90,9 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
         }
 
         // load preset image
-        String imageUrl = window.getStringFromId(R.string.google_firebase_link_root, activity)
+        String imageUrl = getStringFromId(R.string.google_firebase_link_root, activity)
                 + "/presets%2F"
-                + preset.getFirebaseLocation()
+                + preset.getTag()
                 + "%2F" + "album_art.jpg"
                 + "?alt=media";
 
@@ -106,14 +107,14 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
 
         // set preset creator
         holder.presetCreator.setText(
-                window.getStringFromId(R.string.preset_store_preset_by, activity)
+                getStringFromId(R.string.preset_store_preset_by, activity)
                         + " "
-                        + preset.getAbout().getPresetCreator());
+                        + preset.getAbout().getPresetArtist());
 
         holder.presetInstalling.setVisibility(View.INVISIBLE);
 
         // actions
-        if (isPresetExists(preset.getFirebaseLocation())) {
+        if (isPresetExists(preset.getTag())) {
             if (file.isPresetAvailable(preset)) {
                 // exists, select | remove action
                 holder.presetSelect.setVisibility(View.VISIBLE);
@@ -128,11 +129,11 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                 holder.presetWarningLayout.setVisibility(View.GONE);
                 // load local image
                 Picasso.with(activity)
-                        .load("file:" + PROJECT_LOCATION_PRESETS + "/" + preset.getFirebaseLocation() + "/about/album_art")
+                        .load("file:" + PROJECT_LOCATION_PRESETS + "/" + preset.getTag() + "/about/album_art")
                         .placeholder(R.drawable.ic_image_album_placeholder)
                         .error(R.drawable.ic_image_album_error)
                         .into(holder.presetImage);
-                onFirebasePresetUpdated(preset.getFirebaseLocation(), new Runnable() {
+                onFirebasePresetUpdated(preset.getTag(), new Runnable() {
                     @Override
                     public void run() {
                         // preset updated
@@ -271,7 +272,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
         }
 
         if (getPresetKey() != null &&
-                getPresetKey().equals(preset.getFirebaseLocation()) &&
+                getPresetKey().equals(preset.getTag()) &&
                 file.isPresetAvailable(preset)) {
             // current preset set, downloaded
             holder.presetCurrentPreset.setVisibility(View.VISIBLE);

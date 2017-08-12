@@ -159,15 +159,15 @@ public class AboutFragment extends Fragment {
             // CardView
             w.getView(R.id.cardview_music_layout, v).setVisibility(View.VISIBLE);
             Picasso.with(a)
-                    .load("file:" + currentPreset.getAbout().getImage())
+                    .load("file:" + currentPreset.getAbout().getImage(currentPreset))
                     .placeholder(R.drawable.ic_image_album_placeholder)
                     .error(R.drawable.ic_image_album_error)
                     .into(w.getImageView(R.id.cardview_music_image, v));
             w.getTextView(R.id.cardview_music_song, v).setText(currentPreset.getAbout().getTitle());
-            w.getTextView(R.id.cardview_music_explore, v).setTextColor(currentPreset.getAbout().getActionbarColor());
-            w.getTextView(R.id.cardview_music_change, v).setTextColor(currentPreset.getAbout().getActionbarColor());
+            w.getTextView(R.id.cardview_music_explore, v).setTextColor(currentPreset.getAbout().getColor());
+            w.getTextView(R.id.cardview_music_change, v).setTextColor(currentPreset.getAbout().getColor());
 
-            toolbar.setActionBarColor(currentPreset.getAbout().getActionbarColor(), a);
+            toolbar.setActionBarColor(currentPreset.getAbout().getColor(), a);
         } else {
             w.getView(R.id.cardview_music_layout, v).setVisibility(View.GONE);
 

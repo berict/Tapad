@@ -18,48 +18,56 @@ import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class Preset {
 
-    private String firebaseLocation;
-
-    private Music music;
+    private String tag;
 
     private About about;
 
-    public Preset(String firebaseLocation, Music music, About about) {
-        this.firebaseLocation = firebaseLocation;
-        this.music = music;
+    private Boolean isGesture;
+
+    private Integer soundCount;
+
+    private Integer bpm;
+
+    public Preset(String tag, About about, Boolean isGesture, Integer soundCount, Integer bpm) {
+        this.tag = tag;
         this.about = about;
+        this.isGesture = isGesture;
+        this.soundCount = soundCount;
+        this.bpm = bpm;
     }
 
-    public String getFirebaseLocation() {
-        return firebaseLocation;
+    public String getTag() {
+        return tag;
     }
 
-    public void setFirebaseLocation(String firebaseLocation) {
-        this.firebaseLocation = firebaseLocation;
-        if (music != null) {
-            music.setFileName(firebaseLocation);
-        }
-        if (about != null) {
-            about.setPresetName(firebaseLocation);
-        }
+    public Boolean isGesture() {
+        return isGesture;
     }
 
-    public Music getMusic() {
-        return music;
+    public Integer getSoundCount() {
+        return soundCount;
+    }
+
+    public Integer getBpm() {
+        return bpm;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public About getAbout() {
         return about;
     }
 
-    public String getSound(int deckId, int padId, int gestureId) {
+    public String getSound(int deckIndex, int padIndex, int gestureIndex) {
         String fileName = PROJECT_LOCATION_PRESETS + "/"
-                + firebaseLocation
+                + tag
                 + "/sounds/sound"
-                + "_" + (deckId + 1)
-                + "_" + getPadStringFromId(padId);
-        if (gestureId > 0) {
-            fileName += "_" + gestureId;
+                + "_" + (deckIndex + 1)
+                + "_" + getPadStringFromIndex(padIndex);
+        if (gestureIndex > 0) {
+            fileName += "_" + gestureIndex;
         }
         File sound = new File(fileName);
         if (sound.exists()) {
@@ -69,12 +77,12 @@ public class Preset {
         }
     }
 
-    public String getSound(int deckId, int padId) {
+    public String getSound(int deckIndex, int padIndex) {
         String fileName = PROJECT_LOCATION_PRESETS + "/"
-                + firebaseLocation
+                + tag
                 + "/sounds/sound"
-                + "_" + (deckId + 1)
-                + "_" + getPadStringFromId(padId);
+                + "_" + (deckIndex + 1)
+                + "_" + getPadStringFromIndex(padIndex);
         File sound = new File(fileName);
         if (sound.exists()) {
             return fileName;
@@ -83,8 +91,8 @@ public class Preset {
         }
     }
 
-    private String getPadStringFromId(int padId) {
-        switch (padId) {
+    private String getPadStringFromIndex(int padIndex) {
+        switch (padIndex) {
             case 0:
                 return "00";
             case 1:
@@ -127,20 +135,18 @@ public class Preset {
     public void setLoadPreset(Activity activity) {
         isPresetChanged = true;
         SharedPreferences sharedPreferences = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
-        sharedPreferences.edit().putString(PRESET_KEY, firebaseLocation).apply();
+        sharedPreferences.edit().putString(PRESET_KEY, tag).apply();
     }
 
     public void load(int color, int colorDef, Activity activity) {
         SoundHelper sound = new SoundHelper();
-        // TODO #149
         sound.load(this, color, colorDef, activity);
-        //sound.loadSound(this, activity);
     }
 
     public void downloadPreset(View parentView, Activity activity, Runnable onFinish) {
         // download the preset from firebase
         FirebaseHelper firebase = new FirebaseHelper();
-        firebase.downloadFirebasePreset(firebaseLocation, about.getTitle(), parentView, activity, onFinish);
+        firebase.downloadFirebasePreset(tag, about.getTitle(), parentView, activity, onFinish);
     }
 
     public void removePreset(Runnable onFinish, Activity activity) {
@@ -150,16 +156,16 @@ public class Preset {
         prefs.edit().putString(PRESET_KEY, null).apply();
         // remove the preset folder
         FirebaseHelper firebase = new FirebaseHelper();
-        firebase.removeLocalPreset(firebaseLocation, onFinish, null);
+        firebase.removeLocalPreset(tag, onFinish, null);
     }
 
     public void repairPreset(final View parentView, final Activity activity, final Runnable onFinish) {
         // remove and download the preset again
         final FirebaseHelper firebase = new FirebaseHelper();
-        firebase.removeLocalPreset(firebaseLocation, new Runnable() {
+        firebase.removeLocalPreset(tag, new Runnable() {
             @Override
             public void run() {
-                firebase.downloadFirebasePreset(firebaseLocation,
+                firebase.downloadFirebasePreset(tag,
                         about.getTitle(),
                         parentView,
                         activity,

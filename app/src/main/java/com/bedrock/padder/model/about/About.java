@@ -2,77 +2,99 @@ package com.bedrock.padder.model.about;
 
 import android.graphics.Color;
 
+import com.bedrock.padder.model.preset.Preset;
+
 import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
 
 public class About {
 
-    private String title;
+    private String songName;
 
-    // also used as imageResId
-    private String presetName;
+    private String songArtist;
 
-    private String tutorialLink;
+    private String presetArtist;
 
-    private String presetCreator;
+    private String tutorialVideoLink;
 
-    // used as actionbar / taskDesc
-    // formatted in #000000
-    private String actionbarColor;
+    private Boolean isTutorialAvailable;
+
+    private String color; // formatted in #000000
 
     private Bio bio;
 
     private Detail[] details;
 
-    public About(String title,
-                 String presetName,
-                 String tutorialLink,
-                 String presetCreator,
-                 String actionbarColor,
+    public About(String songName,
+                 String songArtist,
+                 String presetArtist,
+                 String tutorialVideoLink,
+                 Boolean isTutorialAvailable,
+                 String color,
                  Bio bio,
                  Detail[] details) {
-        this.title = title;
-        this.presetName = presetName;
-        this.tutorialLink = tutorialLink;
-        this.presetCreator = presetCreator;
-        this.actionbarColor = actionbarColor;
+        this.songName = songName;
+        this.songArtist = songArtist;
+        this.presetArtist = presetArtist;
+        this.tutorialVideoLink = tutorialVideoLink;
+        this.isTutorialAvailable = isTutorialAvailable;
+        this.color = color;
         this.bio = bio;
         this.details = details;
     }
 
-    public About(String title,
-                 String presetName,
-                 String actionbarColor,
+    public About(String songName,
+                 String songArtist,
+                 String presetArtist,
+                 String color,
                  Bio bio,
                  Detail[] details) {
-        this.title = title;
-        this.presetName = presetName;
-        this.tutorialLink = null;
-        this.presetCreator = null;
-        this.actionbarColor = actionbarColor;
+        this.songName = songName;
+        this.songArtist = songArtist;
+        this.presetArtist = presetArtist;
+        this.tutorialVideoLink = null;
+        this.isTutorialAvailable = false;
+        this.color = color;
+        this.bio = bio;
+        this.details = details;
+    }
+
+    public About(String songName,
+                 String songArtist,
+                 String color,
+                 Bio bio,
+                 Detail[] details) {
+        this.songName = songName;
+        this.songArtist = songArtist;
+        this.color = color;
         this.bio = bio;
         this.details = details;
     }
 
     public String getTitle() {
-        return title;
+        return songName + " - " + songArtist;
     }
 
-    public String getImage() {
-        if (presetCreator != null) {
+    public String getSongName() {
+        return songName;
+    }
+
+    public String getSongArtist() {
+        return songArtist;
+    }
+
+    public String getImage(Preset preset) {
+        String tag = preset.getTag();
+        if (presetArtist != null) {
             // normal preset
-            return PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/album_art";
+            return PROJECT_LOCATION_PRESETS + "/" + tag + "/about/album_art";
         } else {
             // in-app about
-            return presetName;
+            return tag;
         }
     }
 
-    public String getActionbarColorString() {
-        return actionbarColor;
-    }
-
-    public int getActionbarColor() {
-        return Color.parseColor(actionbarColor);
+    public int getColor() {
+        return Color.parseColor(color);
     }
 
     public Bio getBio() {
@@ -87,16 +109,16 @@ public class About {
         return details[index];
     }
 
-    public String getTutorialLink() {
-        return tutorialLink;
+    public String getTutorialVideoLink() {
+        return tutorialVideoLink;
     }
 
-    public String getPresetCreator() {
-        return presetCreator;
+    public String getPresetArtist() {
+        return presetArtist;
     }
 
-    public void setPresetName(String presetName) {
-        this.presetName = presetName;
+    public Boolean getTutorialAvailable() {
+        return isTutorialAvailable;
     }
 
     public void setBio(Bio bio) {

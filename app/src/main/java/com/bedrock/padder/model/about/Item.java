@@ -32,25 +32,40 @@ public class Item {
         this.isRunnableWithAnim = false;
     }
 
+    public Item(String text, String hint, Boolean isHintVisible, String imageId) {
+        this.text = text;
+        this.hint = hint;
+        this.isHintVisible = isHintVisible;
+        this.imageId = imageId;
+    }
+
     public String getText(Context context) {
-        String res = getStringFromId(text, context);
-        if (res != null) {
-            return res;
+        if (context != null) {
+            String res = getStringFromId(text, context);
+            if (res != null) {
+                return res;
+            } else {
+                return text;
+            }
         } else {
             return text;
         }
     }
 
     public String getHint(Context context) {
-        String res = getStringFromId(hint, context);
-        if (res != null) {
-            return res;
+        if (context != null) {
+            String res = getStringFromId(hint, context);
+            if (res != null) {
+                return res;
+            } else {
+                return hint;
+            }
         } else {
-            return hint;
+            return text;
         }
     }
 
-    public String getImageId() {
+    public String getImage() {
         return imageId;
     }
 

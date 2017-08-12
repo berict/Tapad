@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +33,11 @@ import com.bedrock.padder.helper.SettingsHelper;
 import com.bedrock.padder.helper.SoundHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
+import com.bedrock.padder.model.FirebaseMetadata;
+import com.bedrock.padder.model.about.About;
+import com.bedrock.padder.model.about.Bio;
+import com.bedrock.padder.model.about.Detail;
+import com.bedrock.padder.model.about.Item;
 import com.bedrock.padder.model.app.theme.ColorData;
 import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
@@ -39,6 +46,7 @@ import java.io.File;
 
 import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
+import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
 public class MainActivity
         extends AppCompatActivity
@@ -107,6 +115,72 @@ public class MainActivity
         } else {
             Log.d(tag, content);
         }
+    }
+
+    void makeTestJson() {
+        Item testItems[] = {
+                new Item("facebook", getStringFromId("preset_placeholder_detail_facebook", a)),
+                new Item("twitter", getStringFromId("preset_placeholder_detail_twitter", a)),
+                new Item("soundcloud", getStringFromId("preset_placeholder_detail_soundcloud", a)),
+                new Item("instagram", getStringFromId("preset_placeholder_detail_instagram", a)),
+                new Item("google_plus", getStringFromId("preset_placeholder_detail_google_plus", a)),
+                new Item("youtube", getStringFromId("preset_placeholder_detail_youtube", a)),
+                new Item("web", getStringFromId("preset_placeholder_detail_web", a))
+        };
+
+        Detail testDetail = new Detail(getStringFromId("preset_placeholder_detail_title", a), testItems);
+
+        Item testSongItems[] = {
+                new Item("soundcloud", getStringFromId("preset_placeholder_song_detail_soundcloud", a), false),
+                new Item("youtube", getStringFromId("preset_placeholder_song_detail_youtube", a), false),
+                new Item("spotify", getStringFromId("preset_placeholder_song_detail_spotify", a), false),
+                new Item("google_play_music", getStringFromId("preset_placeholder_song_detail_google_play_music", a), false),
+                new Item("apple", getStringFromId("preset_placeholder_song_detail_apple", a), false),
+                new Item("amazon", getStringFromId("preset_placeholder_song_detail_amazon", a), false),
+                new Item("pandora", getStringFromId("preset_placeholder_song_detail_pandora", a), false)
+        };
+
+        Detail testSongDetail = new Detail(getStringFromId("preset_placeholder_song_detail_title", a), testSongItems);
+
+        Bio testBio = new Bio(
+                getStringFromId("preset_placeholder_bio_title", a),
+                getStringFromId("preset_placeholder_bio_name", a),
+                getStringFromId("preset_placeholder_bio_text", a),
+                getStringFromId("preset_placeholder_bio_source", a)
+        );
+
+        Detail testDetails[] = {
+                testDetail,
+                testSongDetail
+        };
+
+        About testAbout = new About(
+                "Faded",
+                "Alan Walker",
+                "Studio Berict",
+                "#00D3BE",
+                testBio, testDetails
+        );
+
+        Preset testPreset = new Preset("alan_walker_faded_gesture", testAbout, true, 245, 90);
+
+        largeLog("JSON", gson.toJson(testPreset));
+
+        Preset[] presets = {
+                testPreset
+        };
+
+        int versionCode = 0;
+
+        try {
+            PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
+            versionCode = pInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        FirebaseMetadata firebaseMetadata = new FirebaseMetadata(presets, versionCode);
+        largeLog("Metadata", gson.toJson(firebaseMetadata));
     }
 
     public static void showSettingsFragment(AppCompatActivity a) {
@@ -227,6 +301,8 @@ public class MainActivity
 
         //ab.setStatusHeight(a);
         sound.clear();
+
+        makeTestJson();
     }
 
     @Override
@@ -702,7 +778,7 @@ public class MainActivity
                 if (!isPresetLoading && currentPreset.getAbout().getTutorialAvailable()) {
                     String tutorialText = currentPreset.getAbout().getTutorialVideoLink();
                     if (tutorialText == null || tutorialText.equals("null")) {
-                        tutorialText = w.getStringFromId("dialog_tutorial_text_error", a);
+                        tutorialText = getStringFromId("dialog_tutorial_text_error", a);
                     }
 
                     new MaterialDialog.Builder(a)

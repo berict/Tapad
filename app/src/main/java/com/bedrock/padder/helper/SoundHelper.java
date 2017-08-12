@@ -13,11 +13,11 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.bedrock.padder.R;
-import com.bedrock.padder.model.Deck;
-import com.bedrock.padder.model.GesturePad;
-import com.bedrock.padder.model.Pad;
-import com.bedrock.padder.model.Sound;
 import com.bedrock.padder.model.preset.Preset;
+import com.bedrock.padder.model.sound.Deck;
+import com.bedrock.padder.model.sound.GesturePad;
+import com.bedrock.padder.model.sound.Pad;
+import com.bedrock.padder.model.sound.Sound;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -322,7 +322,7 @@ public class SoundHelper {
             super.onPreExecute();
             // started loading
             isPresetLoading = true;
-            presetSoundCount = currentPreset.getMusic().getSoundCount();
+            presetSoundCount = currentPreset.getSoundCount();
             // set progress
             progressCount = 0;
             progress = window.getProgressBar(R.id.progress_bar, activity);
@@ -374,7 +374,7 @@ public class SoundHelper {
         @Override
         protected Void doInBackground(Void... params) {
             if (previousPreset != null) {
-                Log.i(TAG, "Preset \"" + previousPreset.getMusic().getName() + "\" unloading");
+                Log.i(TAG, "Preset \"" + previousPreset.getTag() + "\" unloading");
                 for (int i = 0; i < 4; i++) {
                     Log.i(TAG, "Deck " + (i + 1));
                     decks[i].unload();
@@ -452,7 +452,7 @@ public class SoundHelper {
         @Override
         protected Void doInBackground(Void... params) {
             if (previousPreset != null) {
-                Log.i(TAG, "Preset \"" + currentPreset.getMusic().getName() + "\" loading");
+                Log.i(TAG, "Preset \"" + currentPreset.getTag() + "\" loading");
                 for (int i = 0; i < 4; i++) {
                     Log.i(TAG, "  Deck " + (i + 1));
                     // pad loop

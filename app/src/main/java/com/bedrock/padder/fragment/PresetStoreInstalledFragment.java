@@ -82,6 +82,8 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
 
     String tapadFolderPath = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
 
+    private FirebaseMetadata firebaseMetadata = null;
+
     private void searchMetadata() {
         Log.d(TAG, "searchMetadata");
         // get metadata locally
@@ -105,14 +107,15 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
             Log.d(TAG, "null arrayList");
             firebaseMetadata = new FirebaseMetadata(null, 0);
         }
+        // TODO need to reset the firebaseMetadata due to the json structure update
+        Gson gson = new Gson();
+        Log.d("FM", gson.toJson(firebaseMetadata));
         setAdapter();
     }
 
     private File[] getPresetFolderList() {
         return new File(tapadFolderPath + "/presets").listFiles();
     }
-
-    private FirebaseMetadata firebaseMetadata = null;
 
     private void setAdapter() {
         Log.d(TAG, "setAdapter");

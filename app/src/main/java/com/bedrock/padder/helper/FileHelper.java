@@ -124,7 +124,7 @@ public class FileHelper {
     public boolean isPresetAvailable(Preset preset) {
         // with sound count check
         if (preset != null) {
-            String presetName = preset.getFirebaseLocation();
+            String presetName = preset.getTag();
             // preset available
             File folderSound = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/sounds");
             File folderTiming = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/timing");
@@ -134,13 +134,13 @@ public class FileHelper {
             File fileIcon = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/artist_icon");
             File fileImage = new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/artist_image");
             if (folderSound.listFiles() != null) {
-                Log.d(TAG, "SoundCountPreset = " + preset.getMusic().getSoundCount() + ", SoundCountFound = " + folderSound.listFiles().length);
+                Log.d(TAG, "SoundCountPreset = " + preset.getSoundCount() + ", SoundCountFound = " + folderSound.listFiles().length);
             } else {
                 return false;
             }
             // should be 100%
             return folderSound.isDirectory() && folderSound.exists() &&
-                    preset.getMusic().getSoundCount() == folderSound.listFiles().length &&
+                    preset.getSoundCount() == folderSound.listFiles().length &&
                     folderTiming.isDirectory() && folderTiming.exists() &&
                     folderAbout.isDirectory() && folderAbout.exists() &&
                     fileJson.exists() &&
@@ -191,7 +191,7 @@ public class FileHelper {
                     this.getStringFromFile(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json"),
                     Preset.class
             );
-            preset.setFirebaseLocation(presetName);
+            preset.setTag(presetName);
             return preset;
         } else {
             return null;

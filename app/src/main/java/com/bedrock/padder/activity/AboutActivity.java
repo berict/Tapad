@@ -26,6 +26,7 @@ import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import static com.bedrock.padder.activity.MainActivity.currentPreset;
+import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -100,44 +101,44 @@ public class AboutActivity extends AppCompatActivity {
 
     private void setUi() {
         // status bar
-        window.getView(R.id.status_bar, activity).setBackgroundColor(about.getActionbarColor());
+        window.getView(R.id.status_bar, activity).setBackgroundColor(about.getColor());
 
         // action bar
-        collapsingToolbarLayout.setContentScrimColor(about.getActionbarColor());
-        collapsingToolbarLayout.setStatusBarScrimColor(about.getActionbarColor());
+        collapsingToolbarLayout.setContentScrimColor(about.getColor());
+        collapsingToolbarLayout.setStatusBarScrimColor(about.getColor());
         collapsingToolbarLayout.setTitle(about.getTitle());
 
         // set taskDesc
-        window.setRecentColor(about.getTitle(), about.getActionbarColor(), activity);
+        window.setRecentColor(about.getTitle(), about.getColor(), activity);
 
         // title image / text
-        if (about.getImage().endsWith("album_art")) {
+        if (about.getImage(currentPreset).endsWith("album_art")) {
             // storage
             Picasso.with(activity)
-                    .load("file:" + about.getImage())
+                    .load("file:" + about.getImage(currentPreset))
                     .placeholder(R.drawable.ic_image_album_placeholder)
                     .error(R.drawable.ic_image_album_error)
                     .into(window.getImageView(R.id.layout_image, activity));
         } else {
             // res
-            window.getImageView(R.id.layout_image, activity).setImageResource(window.getDrawableId(about.getImage()));
+            window.getImageView(R.id.layout_image, activity).setImageResource(window.getDrawableId(about.getImage(currentPreset)));
         }
 
         // bio
         window.getTextView(R.id.layout_bio_title, activity).setText(about.getBio().getTitle());
-        window.getTextView(R.id.layout_bio_title, activity).setTextColor(about.getActionbarColor());
-        if(about.getBio().getImage() != null) {
+        window.getTextView(R.id.layout_bio_title, activity).setTextColor(about.getColor());
+        if (about.getBio().getImage(currentPreset) != null) {
             ImageView imageView = window.getImageView(R.id.layout_bio_image, activity);
-            if (about.getBio().getImage().endsWith("artist_image")) {
+            if (about.getBio().getImage(currentPreset).endsWith("artist_image")) {
                 // storage
                 Picasso.with(activity)
-                        .load("file:" + about.getBio().getImage())
+                        .load("file:" + about.getBio().getImage(currentPreset))
                         .placeholder(R.drawable.ic_image_album_placeholder)
                         .error(R.drawable.ic_image_album_error)
                         .into(imageView);
             } else {
                 // res
-                imageView.setImageResource(window.getDrawableId(about.getBio().getImage()));
+                imageView.setImageResource(window.getDrawableId(about.getBio().getImage(currentPreset)));
             }
         } else {
             // no bio image exception
@@ -147,8 +148,8 @@ public class AboutActivity extends AppCompatActivity {
         window.getTextView(R.id.layout_bio_name, activity).setText(about.getBio().getName());
         window.getTextView(R.id.layout_bio_text, activity).setText(about.getBio().getText());
         window.getTextView(R.id.layout_bio_source, activity).setText(about.getBio().getSource());
-        if (about.getPresetCreator() != null) {
-            window.getTextView(R.id.layout_bio_preset_creator, activity).setText(window.getStringFromId("about_bio_preset_by", activity) + " " + about.getPresetCreator());
+        if (about.getPresetArtist() != null) {
+            window.getTextView(R.id.layout_bio_preset_creator, activity).setText(getStringFromId("about_bio_preset_by", activity) + " " + about.getPresetArtist());
         } else {
             window.setGone(R.id.layout_bio_preset_creator, 0, activity);
             window.setGone(R.id.layout_bio_text_divider, 0, activity);
@@ -186,7 +187,7 @@ public class AboutActivity extends AppCompatActivity {
         if (hasFocus) {
             window.setGone(R.id.layout_placeholder, 0, activity);
             // reset taskDesc
-            window.setRecentColor(about.getTitle(), about.getActionbarColor(), activity);
+            window.setRecentColor(about.getTitle(), about.getColor(), activity);
         }
     }
 
