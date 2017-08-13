@@ -111,15 +111,13 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
                 firebaseMetadata = new FirebaseMetadata(presetArrayList.toArray(new Preset[presetArrayList.size()]), 0);
             } else {
                 // need to show no presets installed
+                // TODO need to add additional dialog supports
                 firebaseMetadata = new FirebaseMetadata(null, 0);
             }
         } else {
             Log.d(TAG, "null arrayList");
             firebaseMetadata = new FirebaseMetadata(null, 0);
         }
-        // TODO need to reset the firebaseMetadata due to the json structure update
-        Gson gson = new Gson();
-        Log.d("FM", gson.toJson(firebaseMetadata));
         setAdapter();
     }
 
