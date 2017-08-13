@@ -15,6 +15,7 @@ import com.bedrock.padder.R;
 import com.bedrock.padder.adapter.PresetStoreAdapter;
 import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.FileHelper;
+import com.bedrock.padder.helper.FirebaseHelper;
 import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.FirebaseMetadata;
@@ -96,13 +97,22 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
             for (File presetFolder : presets) {
                 if (fileHelper.isPresetMetadataAvailable(presetFolder.getName())) {
                     // check folder's presets
-                    Log.d(TAG, "Filename = " + presetFolder.getName());
-                    presetArrayList.add(fileHelper.getPresetFromMetadata(presetFolder.getName(), gson));
+                    if (validateMetadata(presetFolder.getName())) {
+                        // pass only JSON v2
+                        presetArrayList.add(fileHelper.getPresetFromMetadata(presetFolder.getName(), gson));
+                    } else {
+                        Log.d(TAG, presetFolder.getName() + " JSON is outdated or corrupted");
+                    }
                 }
             }
 
             // create metadata
-            firebaseMetadata = new FirebaseMetadata(presetArrayList.toArray(new Preset[presetArrayList.size()]), 0);
+            if (presetArrayList.size() > 1) {
+                firebaseMetadata = new FirebaseMetadata(presetArrayList.toArray(new Preset[presetArrayList.size()]), 0);
+            } else {
+                // need to show no presets installed
+                firebaseMetadata = new FirebaseMetadata(null, 0);
+            }
         } else {
             Log.d(TAG, "null arrayList");
             firebaseMetadata = new FirebaseMetadata(null, 0);
@@ -111,6 +121,20 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
         Gson gson = new Gson();
         Log.d("FM", gson.toJson(firebaseMetadata));
         setAdapter();
+    }
+
+    private boolean validateMetadata(String presetName) {
+        String metadata = fileHelper.getStringFromFile(FirebaseHelper.PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json");
+        if (metadata.contains("firebase_location")) {
+            // JSON v1, need to be updated
+            return false;
+        } else if (metadata.contains("tag")) {
+            // JSON v2
+            return true;
+        } else {
+            // corrupted JSON
+            return false;
+        }
     }
 
     private File[] getPresetFolderList() {
