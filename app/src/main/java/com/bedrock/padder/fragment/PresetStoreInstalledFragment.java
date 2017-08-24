@@ -20,6 +20,7 @@ import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.Schema;
 import com.bedrock.padder.model.preset.Preset;
+import com.bedrock.padder.model.preset.PresetSchema;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -108,7 +109,7 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
 
             // create metadata
             if (presetArrayList.size() > 1) {
-                schema = new Schema(presetArrayList.toArray(new Preset[presetArrayList.size()]), 0);
+                schema = new Schema(presetArrayList.toArray(new PresetSchema[presetArrayList.size()]), 0);
             } else {
                 // need to show no presets installed
                 // TODO need to add additional dialog supports

@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -40,6 +38,8 @@ import com.bedrock.padder.model.about.Detail;
 import com.bedrock.padder.model.about.Item;
 import com.bedrock.padder.model.app.theme.ColorData;
 import com.bedrock.padder.model.preset.Preset;
+import com.bedrock.padder.model.preset.PresetSchema;
+import com.bedrock.padder.model.preset.Review;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -164,22 +164,21 @@ public class MainActivity
 
         Preset testPreset = new Preset("alan_walker_faded_gesture", testAbout, true, 245, 90);
 
-        largeLog("JSON", gson.toJson(testPreset));
-
-        Preset[] presets = {
-                testPreset
+        Review reviews[] = {
+                new Review(3, "comment", 1, System.currentTimeMillis())
         };
 
-        int versionCode = 0;
+        PresetSchema testPresetSchema = new PresetSchema(testPreset, "genre", "desc", 1, 1, reviews);
 
-        try {
-            PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
-            versionCode = pInfo.versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+        largeLog("testPreset", gson.toJson(testPreset));
 
-        Schema schema = new Schema(presets, versionCode);
+        largeLog("testPresetSchema", gson.toJson(testPresetSchema));
+
+        PresetSchema[] presets = {
+                testPresetSchema
+        };
+
+        Schema schema = new Schema(presets, 21);
         largeLog("Metadata", gson.toJson(schema));
     }
 
