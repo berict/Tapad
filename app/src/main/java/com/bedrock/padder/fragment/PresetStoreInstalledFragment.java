@@ -18,7 +18,7 @@ import com.bedrock.padder.helper.FileHelper;
 import com.bedrock.padder.helper.FirebaseHelper;
 import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.WindowHelper;
-import com.bedrock.padder.model.FirebaseMetadata;
+import com.bedrock.padder.model.Schema;
 import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
 
@@ -83,7 +83,7 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
 
     String tapadFolderPath = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
 
-    private FirebaseMetadata firebaseMetadata = null;
+    private Schema schema = null;
 
     private void searchMetadata() {
         Log.d(TAG, "searchMetadata");
@@ -108,15 +108,15 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
 
             // create metadata
             if (presetArrayList.size() > 1) {
-                firebaseMetadata = new FirebaseMetadata(presetArrayList.toArray(new Preset[presetArrayList.size()]), 0);
+                schema = new Schema(presetArrayList.toArray(new Preset[presetArrayList.size()]), 0);
             } else {
                 // need to show no presets installed
                 // TODO need to add additional dialog supports
-                firebaseMetadata = new FirebaseMetadata(null, 0);
+                schema = new Schema(null, 0);
             }
         } else {
             Log.d(TAG, "null arrayList");
-            firebaseMetadata = new FirebaseMetadata(null, 0);
+            schema = new Schema(null, 0);
         }
         setAdapter();
     }
@@ -142,10 +142,10 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
     private void setAdapter() {
         Log.d(TAG, "setAdapter");
         // attach the adapter to the layout
-        if (firebaseMetadata == null) {
+        if (schema == null) {
             // not initialized
             searchMetadata();
-        } else if (firebaseMetadata.getPresets() == null) {
+        } else if (schema.getPresets() == null) {
             // clear the recycler view
             attachAdapter();
             anim.fadeOut(R.id.layout_installed_preset_store_recycler_view, 0, 200, v, a);
@@ -163,10 +163,10 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
 
     private void attachAdapter() {
         // attach adapter while its not null
-        if (firebaseMetadata != null && firebaseMetadata.getPresets() != null) {
+        if (schema != null && schema.getPresets() != null) {
             Log.d(TAG, "Attached adapter");
             presetStoreAdapter = new PresetStoreAdapter(
-                    firebaseMetadata,
+                    schema,
                     R.layout.adapter_preset_store, a
             );
             window.getRecyclerView(R.id.layout_installed_preset_store_recycler_view, v).setAdapter(presetStoreAdapter);
@@ -177,12 +177,12 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
 
     @Override
     public void refresh() {
-        if (firebaseMetadata == null) {
+        if (schema == null) {
             setAdapter();
         } else {
-            if (firebaseMetadata.getPresets() != null) {
+            if (schema.getPresets() != null) {
                 // new download or remove
-                if ((getPresetFolderList().length - 1) != firebaseMetadata.getPresets().length) {
+                if ((getPresetFolderList().length - 1) != schema.getPresets().length) {
                     // updated
                     Log.d(TAG, "Updated, preset not null");
                     searchMetadata();

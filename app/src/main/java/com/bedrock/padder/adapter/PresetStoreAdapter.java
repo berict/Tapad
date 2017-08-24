@@ -18,8 +18,9 @@ import com.bedrock.padder.R;
 import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.FileHelper;
 import com.bedrock.padder.helper.WindowHelper;
-import com.bedrock.padder.model.FirebaseMetadata;
+import com.bedrock.padder.model.Schema;
 import com.bedrock.padder.model.preset.Preset;
+import com.bedrock.padder.model.preset.PresetSchema;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -40,7 +41,7 @@ import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.PresetViewHolder> {
 
     private static final String TAG = "PresetAdapter";
-    private FirebaseMetadata firebaseMetadata;
+    private Schema schema;
     private int rowLayout;
     private Activity activity;
     private View parentView;
@@ -51,8 +52,8 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
 
     private SharedPreferences prefs;
 
-    public PresetStoreAdapter(FirebaseMetadata firebaseMetadata, int rowLayout, Activity activity) {
-        this.firebaseMetadata = firebaseMetadata;
+    public PresetStoreAdapter(Schema schema, int rowLayout, Activity activity) {
+        this.schema = schema;
         this.rowLayout = rowLayout;
         this.activity = activity;
 
@@ -67,7 +68,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
 
     @Override
     public void onBindViewHolder(final PresetViewHolder holder, int position) {
-        final Preset preset = firebaseMetadata.getPreset(position);
+        final Preset preset = schema.getPreset(position).getPreset();
 
         // set gesture
         if (preset.isGesture()) {
@@ -253,7 +254,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                     preset.downloadPreset(parentView, activity, new Runnable() {
                         @Override
                         public void run() {
-                            makeCurrentPreset(firebaseMetadata.getPresets(), holder.getAdapterPosition());
+                            makeCurrentPreset(schema.getPresets(), holder.getAdapterPosition());
                             // reset the savedPreset
                             isPresetChanged = true;
                             SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
@@ -287,11 +288,11 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
     }
 
     // Swap itemA with itemB
-    private void swapPresetItems(Preset presets[], int itemAIndex, int itemBIndex) {
+    private void swapPresetItems(PresetSchema presets[], int itemAIndex, int itemBIndex) {
         if (presets.length > 0 && itemAIndex >= 0 && itemBIndex >= 0) {
             //make sure to check if data set is null and if itemA and itemB are valid indexes.
-            Preset itemA = presets[itemAIndex];
-            Preset itemB = presets[itemBIndex];
+            PresetSchema itemA = presets[itemAIndex];
+            PresetSchema itemB = presets[itemBIndex];
             presets[itemAIndex] = itemB;
             presets[itemBIndex] = itemA;
 
@@ -299,7 +300,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
         }
     }
 
-    private void makeCurrentPreset(Preset presets[], int adapterPosition) {
+    private void makeCurrentPreset(PresetSchema presets[], int adapterPosition) {
         swapPresetItems(presets, 0, adapterPosition);
     }
 
@@ -341,7 +342,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
 
     @Override
     public int getItemCount() {
-        return firebaseMetadata.getPresets().length;
+        return schema.getPresets().length;
     }
 
     public static class PresetViewHolder extends RecyclerView.ViewHolder {

@@ -25,7 +25,7 @@ import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.FileHelper;
 import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.WindowHelper;
-import com.bedrock.padder.model.FirebaseMetadata;
+import com.bedrock.padder.model.Schema;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
@@ -170,7 +170,7 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
 
     private Handler connectionTimeout = new Handler();
 
-    FirebaseMetadata firebaseMetadata;
+    Schema schema;
 
     private void setAdapter() {
         connectionTimeout.postDelayed(new Runnable() {
@@ -220,16 +220,16 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
                     Log.d(TAG, "Attached adapter");
                     // offline or not updated, continue
                     Gson gson = new Gson();
-                    firebaseMetadata = gson.fromJson(metadata, FirebaseMetadata.class);
-                    if (firebaseMetadata == null ||
-                            firebaseMetadata.getPresets() == null ||
-                            firebaseMetadata.getVersionCode() == null) {
+                    schema = gson.fromJson(metadata, Schema.class);
+                    if (schema == null ||
+                            schema.getPresets() == null ||
+                            schema.getVersionCode() == null) {
                         // corrupted metadata, download again
                         downloadMetadata();
                     } else {
                         // attach adapter while its not null
                         presetStoreAdapter = new PresetStoreAdapter(
-                                firebaseMetadata,
+                                schema,
                                 R.layout.adapter_preset_store, a
                         );
                         window.getRecyclerView(R.id.layout_online_preset_store_recycler_view, v).setAdapter(presetStoreAdapter);
@@ -303,9 +303,9 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
                 // on updated
                 setAdapter();
             } else {
-                if (firebaseMetadata != null) {
+                if (schema != null) {
                     presetStoreAdapter = new PresetStoreAdapter(
-                            firebaseMetadata,
+                            schema,
                             R.layout.adapter_preset_store, a
                     );
                     window.getRecyclerView(R.id.layout_online_preset_store_recycler_view, v).setAdapter(presetStoreAdapter);

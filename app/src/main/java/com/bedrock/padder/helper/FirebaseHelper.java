@@ -26,7 +26,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.activity.PresetStoreActivity;
-import com.bedrock.padder.model.FirebaseMetadata;
+import com.bedrock.padder.model.Schema;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
@@ -128,9 +128,9 @@ public class FirebaseHelper {
         }
     }
 
-    public FirebaseMetadata saveFirebaseMetadata(StorageReference storageReference,
-                                                 final String fileLocation,
-                                                 Activity activity) {
+    public Schema saveFirebaseMetadata(StorageReference storageReference,
+                                       final String fileLocation,
+                                       Activity activity) {
         // permission check
         boolean hasPermission = ContextCompat.checkSelfPermission(
                 activity,
@@ -278,7 +278,7 @@ public class FirebaseHelper {
         this.saveFromFirebase(storageReference, PROJECT_LOCATION + "/" + fileLocation, onSuccess, onFailure, activity);
     }
 
-    public FirebaseMetadata getFirebaseMetadata(Activity activity) {
+    public Schema getFirebaseMetadata(Activity activity) {
         FileHelper fileHelper = new FileHelper();
 
         FirebaseApp.initializeApp(activity);
@@ -301,9 +301,9 @@ public class FirebaseHelper {
             } else {
                 // offline or not updated, continue
                 Gson gson = new Gson();
-                FirebaseMetadata firebaseMetadata = gson.fromJson(metadata, FirebaseMetadata.class);
-                if (firebaseMetadata.getPresets() == null ||
-                        firebaseMetadata.getVersionCode() == null) {
+                Schema schema = gson.fromJson(metadata, Schema.class);
+                if (schema.getPresets() == null ||
+                        schema.getVersionCode() == null) {
                     // corrupted metadata, download again
                     return saveFirebaseMetadata(
                             metadataReference,
@@ -311,7 +311,7 @@ public class FirebaseHelper {
                             activity
                     );
                 } else {
-                    return firebaseMetadata;
+                    return schema;
                 }
             }
         } else {

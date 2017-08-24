@@ -33,7 +33,7 @@ import com.bedrock.padder.helper.SettingsHelper;
 import com.bedrock.padder.helper.SoundHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
-import com.bedrock.padder.model.FirebaseMetadata;
+import com.bedrock.padder.model.Schema;
 import com.bedrock.padder.model.about.About;
 import com.bedrock.padder.model.about.Bio;
 import com.bedrock.padder.model.about.Detail;
@@ -179,8 +179,8 @@ public class MainActivity
             e.printStackTrace();
         }
 
-        FirebaseMetadata firebaseMetadata = new FirebaseMetadata(presets, versionCode);
-        largeLog("Metadata", gson.toJson(firebaseMetadata));
+        Schema schema = new Schema(presets, versionCode);
+        largeLog("Metadata", gson.toJson(schema));
     }
 
     public static void showSettingsFragment(AppCompatActivity a) {
