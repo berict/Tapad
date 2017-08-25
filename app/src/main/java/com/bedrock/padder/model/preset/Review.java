@@ -1,5 +1,7 @@
 package com.bedrock.padder.model.preset;
 
+import java.util.Date;
+
 public class Review {
 
     private Integer rating;
@@ -8,16 +10,16 @@ public class Review {
 
     private Integer version;
 
-    private Long date;
+    private Date date;
 
-    public Review(Integer rating, String comment, Integer version, Long date) {
+    public Review(Integer rating, String comment, Integer version, Date date) {
         this.rating = rating;
         this.comment = comment;
         this.version = version;
         this.date = date;
     }
 
-    public Review(Integer rating, Integer version, Long date) {
+    public Review(Integer rating, Integer version, Date date) {
         this.rating = rating;
         this.version = version;
         this.date = date;
@@ -35,7 +37,7 @@ public class Review {
         return version;
     }
 
-    public Long getLong() {
+    public Date getDate() {
         return date;
     }
 }
