@@ -43,6 +43,7 @@ import com.bedrock.padder.model.preset.Review;
 import com.google.gson.Gson;
 
 import java.io.File;
+import java.util.Date;
 
 import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
@@ -165,7 +166,7 @@ public class MainActivity
         Preset testPreset = new Preset("alan_walker_faded_gesture", testAbout, true, 245, 90);
 
         Review reviews[] = {
-                new Review(3, "comment", 1, System.currentTimeMillis())
+                new Review(3, "comment", 1, new Date(System.currentTimeMillis()))
         };
 
         PresetSchema testPresetSchema = new PresetSchema(testPreset, "genre", "desc", 1, 1, reviews);
