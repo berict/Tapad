@@ -69,7 +69,6 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:10.2.6'
     // Networking lib
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.squareup.okhttp3:okhttp:3.8.0'
 
     testCompile 'junit:junit:4.12'
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {

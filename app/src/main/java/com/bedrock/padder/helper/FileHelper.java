@@ -21,10 +21,6 @@ import java.io.InputStreamReader;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
 import static com.bedrock.padder.activity.MainActivity.isPresetChanged;
 import static com.bedrock.padder.activity.PresetStoreActivity.isPresetDownloading;
 import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
@@ -54,33 +50,6 @@ public class FileHelper {
             e.printStackTrace();
             return null;
         }
-    }
-
-    public String getStringFromUrl(final String url) {
-        Log.d(TAG, "Requested : " + url);
-        final String string[] = {null};
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                OkHttpClient client = new OkHttpClient();
-
-                try {
-                    Request request = new Request.Builder()
-                            .url(url)
-                            .build();
-
-                    Response response = client.newCall(request).execute();
-                    Log.d(TAG, "Response : " + response.body().string());
-                    string[0] = response.body().string();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    string[0] = null;
-                }
-            }
-        }).start();
-
-        return string[0];
     }
 
     public boolean deleteRecursive(File fileOrDirectory) {
