@@ -24,6 +24,7 @@ import com.bedrock.padder.fragment.AboutFragment;
 import com.bedrock.padder.fragment.SettingsFragment;
 import com.bedrock.padder.helper.AdmobHelper;
 import com.bedrock.padder.helper.AnimateHelper;
+import com.bedrock.padder.helper.ApiHelper;
 import com.bedrock.padder.helper.FabHelper;
 import com.bedrock.padder.helper.FileHelper;
 import com.bedrock.padder.helper.IntentHelper;
@@ -44,6 +45,11 @@ import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.Date;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
@@ -183,6 +189,23 @@ public class MainActivity
         largeLog("Metadata", gson.toJson(schema));
     }
 
+    void makeTestRequest() {
+        ApiHelper api = new ApiHelper();
+        api.getPresetSchemas().enqueue(new Callback<List<PresetSchema>>() {
+            @Override
+            public void onResponse(Call<List<PresetSchema>> call, Response<List<PresetSchema>> response) {
+                for (int i = 0; i < response.body().size(); i++) {
+                    Log.d(TAG, response.body().get(i).getPreset().getTag());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PresetSchema>> call, Throwable t) {
+                Log.e(TAG, "Error");
+            }
+        });
+    }
+
     public static void showSettingsFragment(AppCompatActivity a) {
         a.getSupportFragmentManager()
                 .beginTransaction()
@@ -302,7 +325,7 @@ public class MainActivity
         //ab.setStatusHeight(a);
         sound.clear();
 
-        makeTestJson();
+        makeTestRequest();
     }
 
     @Override
