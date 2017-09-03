@@ -195,7 +195,9 @@ public class MainActivity
             @Override
             public void onResponse(Call<List<PresetSchema>> call, Response<List<PresetSchema>> response) {
                 for (int i = 0; i < response.body().size(); i++) {
-                    Log.d(TAG, response.body().get(i).getPreset().getTag());
+                    // change this for response change
+                    // sadly this is an asynchronous task
+                    Log.d(TAG, response.body().get(i).getGenre());
                 }
             }
 
