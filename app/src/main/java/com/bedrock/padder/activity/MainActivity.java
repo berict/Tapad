@@ -45,13 +45,10 @@ import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.Date;
-import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import rx.Subscriber;
 
-import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
+import static com.bedrock.padder.helper.PresetStoreHelper.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
@@ -191,19 +188,20 @@ public class MainActivity
 
     void makeTestRequest() {
         ApiHelper api = new ApiHelper();
-        api.getPresetSchemas().enqueue(new Callback<List<PresetSchema>>() {
+        api.getObservableSchema().subscribe(new Subscriber<Schema>() {
             @Override
-            public void onResponse(Call<List<PresetSchema>> call, Response<List<PresetSchema>> response) {
-                for (int i = 0; i < response.body().size(); i++) {
-                    // change this for response change
-                    // sadly this is an asynchronous task
-                    Log.d(TAG, response.body().get(i).getGenre());
-                }
+            public void onCompleted() {
+                Log.i(TAG, "Completed subscriber");
             }
 
             @Override
-            public void onFailure(Call<List<PresetSchema>> call, Throwable t) {
-                Log.e(TAG, "Error");
+            public void onError(Throwable e) {
+                Log.e(TAG, "Error on subscribe, \n" + e.getMessage());
+            }
+
+            @Override
+            public void onNext(Schema schema) {
+                Log.i(TAG, schema.toString());
             }
         });
     }

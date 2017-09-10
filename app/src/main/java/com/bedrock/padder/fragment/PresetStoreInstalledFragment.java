@@ -15,8 +15,8 @@ import com.bedrock.padder.R;
 import com.bedrock.padder.adapter.PresetStoreAdapter;
 import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.FileHelper;
-import com.bedrock.padder.helper.FirebaseHelper;
 import com.bedrock.padder.helper.IntentHelper;
+import com.bedrock.padder.helper.PresetStoreHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.Schema;
 import com.bedrock.padder.model.preset.Preset;
@@ -123,7 +123,7 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
     }
 
     private boolean validateMetadata(String presetName) {
-        String metadata = fileHelper.getStringFromFile(FirebaseHelper.PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json");
+        String metadata = fileHelper.getStringFromFile(PresetStoreHelper.PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json");
         if (metadata.contains("firebase_location")) {
             // JSON v1, need to be updated
             return false;

@@ -1,6 +1,7 @@
 package com.bedrock.padder.model;
 
 import com.bedrock.padder.model.preset.PresetSchema;
+import com.google.gson.Gson;
 
 public class Schema {
 
@@ -20,6 +21,14 @@ public class Schema {
         }
     }
 
+    public void setPresets(PresetSchema[] presets) {
+        this.presets = presets;
+    }
+
+    public void setVersionCode(Integer versionCode) {
+        this.versionCode = versionCode;
+    }
+
     public PresetSchema[] getPresets() {
         return presets;
     }
@@ -30,5 +39,12 @@ public class Schema {
 
     public Integer getVersionCode() {
         return versionCode;
+    }
+
+    @Override
+    public String toString() {
+        // JSON output
+        Gson gson = new Gson();
+        return gson.toJson(this, Schema.class);
     }
 }

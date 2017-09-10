@@ -23,7 +23,7 @@ import java.util.zip.ZipInputStream;
 
 import static com.bedrock.padder.activity.MainActivity.isPresetChanged;
 import static com.bedrock.padder.activity.PresetStoreActivity.isPresetDownloading;
-import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
+import static com.bedrock.padder.helper.PresetStoreHelper.PROJECT_LOCATION_PRESETS;
 
 public class FileHelper {
 

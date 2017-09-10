@@ -43,7 +43,7 @@ import java.util.List;
 
 import static com.bedrock.padder.activity.MainActivity.isDeckShouldCleared;
 import static com.bedrock.padder.activity.MainActivity.isPresetVisible;
-import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
+import static com.bedrock.padder.helper.PresetStoreHelper.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
 public class PresetStoreActivity extends AppCompatActivity implements FileChooserDialog.FileCallback {

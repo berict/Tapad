@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import com.bedrock.padder.R;
 import com.bedrock.padder.adapter.DetailAdapter;
 import com.bedrock.padder.helper.AnimateHelper;
-import com.bedrock.padder.helper.FirebaseHelper;
+import com.bedrock.padder.helper.PresetStoreHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.about.About;
@@ -37,7 +37,7 @@ public class AboutActivity extends AppCompatActivity {
     private WindowHelper window = new WindowHelper();
     private AnimateHelper anim = new AnimateHelper();
     private ToolbarHelper toolbar = new ToolbarHelper();
-    private FirebaseHelper firebase = new FirebaseHelper();
+    private PresetStoreHelper firebase = new PresetStoreHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

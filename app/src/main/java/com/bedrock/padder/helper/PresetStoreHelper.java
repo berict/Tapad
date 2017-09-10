@@ -1,22 +1,18 @@
 package com.bedrock.padder.helper;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -27,142 +23,41 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.activity.PresetStoreActivity;
 import com.bedrock.padder.model.Schema;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageMetadata;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTask;
-import com.google.gson.Gson;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DecimalFormat;
+
+import rx.Observable;
 
 import static com.bedrock.padder.activity.PresetStoreActivity.isPresetDownloading;
 import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
-public class FirebaseHelper {
+public class PresetStoreHelper {
 
     private static final int REQUEST_WRITE_STORAGE = 112;
-    public static String FIREBASE_LOCATION = "gs://tapad-4d342.appspot.com";
-    public static String FIREBASE_LOCATION_PRESETS = "gs://tapad-4d342.appspot.com/presets";
-    public static String FIREBASE_LOCATION_PRESETS_METADATA = "gs://tapad-4d342.appspot.com/presets/metadata";
+    public static String PRESET_LOCATION = "http://file.berict.com/tapad/presets";
     public static String PROJECT_LOCATION = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
     public static String PROJECT_LOCATION_PRESETS = Environment.getExternalStorageDirectory().getPath() + "/Tapad/presets";
     public static String PROJECT_LOCATION_PRESET_METADATA = Environment.getExternalStorageDirectory().getPath() + "/Tapad/presets/metadata";
+
     private WindowHelper window = new WindowHelper();
     private AnimateHelper anim = new AnimateHelper();
     private FileHelper fileHelper = new FileHelper();
     private IntentHelper intent = new IntentHelper();
-    private String TAG = "FirebaseHelper";
+    private ApiHelper api = new ApiHelper();
+
+    private String TAG = "PresetStoreHelper";
     private DownloadPreset downloadPreset = null;
 
-    public FileDownloadTask saveFromFirebase(StorageReference storageReference,
-                                             final String fileLocation,
-                                             Activity activity) {
-        // permission check
-        boolean hasPermission = ContextCompat.checkSelfPermission(
-                activity,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-        if (!hasPermission) {
-            // no permission
-            Log.e(TAG, "No permission acquired");
-            ActivityCompat.requestPermissions(
-                    activity,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    REQUEST_WRITE_STORAGE
-            );
-            return null;
-        } else {
-            if (isConnected(activity)) {
-                File file = new File(fileLocation);
-
-                return storageReference.getFile(file);
-            } else {
-                Log.e(TAG, "Not connected to the internet");
-                return null;
-            }
-        }
-    }
-
-    private void saveFromFirebase(StorageReference storageReference,
-                                  final String fileLocation,
-                                  final Runnable onSuccess,
-                                  final Runnable onFailure,
-                                  Activity activity) {
-        // permission check
-        boolean hasPermission = ContextCompat.checkSelfPermission(
-                activity,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-        if (!hasPermission) {
-            // no permission
-            Log.e(TAG, "No permission acquired");
-            ActivityCompat.requestPermissions(
-                    activity,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    REQUEST_WRITE_STORAGE
-            );
-        } else {
-            if (isConnected(activity)) {
-                File file = new File(fileLocation);
-
-                storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        Log.d(TAG, "Successful download at " + fileLocation);
-                        onSuccess.run();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, "Failed to download");
-                        onFailure.run();
-                    }
-                });
-            } else {
-                Log.e(TAG, "Not connected to the internet");
-            }
-        }
-    }
-
-    public Schema saveFirebaseMetadata(StorageReference storageReference,
-                                       final String fileLocation,
-                                       Activity activity) {
-        // permission check
-        boolean hasPermission = ContextCompat.checkSelfPermission(
-                activity,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-        if (!hasPermission) {
-            // no permission
-            Log.e(TAG, "No permission acquired");
-            ActivityCompat.requestPermissions(
-                    activity,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    REQUEST_WRITE_STORAGE
-            );
-        } else {
-            if (isConnected(activity)) {
-                File file = new File(fileLocation);
-
-                storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        Log.d(TAG, "Successful download at " + fileLocation);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, "Failed to download");
-                    }
-                });
-            } else {
-                Log.e(TAG, "Not connected to the internet");
-            }
-        }
-        return getFirebaseMetadata(activity);
+    public Observable<Schema> getSchema() {
+        return api.getObservableSchema();
     }
 
     public String getPresetJson(String presetName) {
@@ -170,15 +65,7 @@ public class FirebaseHelper {
         return file.getStringFromFile(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json");
     }
 
-    public void downloadFirebaseMetadata(Activity activity) {
-        this.downloadFirebase(
-                "presets/metadata",
-                "presets/metadata",
-                activity
-        );
-    }
-
-    public DownloadPreset downloadFirebasePreset(final String presetName, final String presetTitle, final View parentView, final Activity activity, final Runnable onFinish) {
+    public DownloadPreset downloadPreset(final String presetName, final String presetTitle, final View parentView, final Activity activity, final Runnable onFinish) {
         if (isConnected(activity)) {
             if (isWifiConnected(activity)) {
                 downloadPreset = new DownloadPreset(presetName, presetTitle, parentView, activity, onFinish);
@@ -252,96 +139,6 @@ public class FirebaseHelper {
         }
     }
 
-    public void downloadFirebase(String firebaseLocation,
-                                 String fileLocation,
-                                 Activity activity) {
-        FirebaseApp.initializeApp(activity);
-
-        StorageReference storageReference =
-                FirebaseStorage
-                        .getInstance()
-                        .getReferenceFromUrl(FIREBASE_LOCATION + "/" + firebaseLocation);
-        this.saveFromFirebase(storageReference, PROJECT_LOCATION + "/" + fileLocation, activity);
-    }
-
-    public void downloadFirebase(String firebaseLocation,
-                                 String fileLocation,
-                                 Runnable onSuccess,
-                                 Runnable onFailure,
-                                 Activity activity) {
-        FirebaseApp.initializeApp(activity);
-
-        StorageReference storageReference =
-                FirebaseStorage
-                        .getInstance()
-                        .getReferenceFromUrl(FIREBASE_LOCATION + "/" + firebaseLocation);
-        this.saveFromFirebase(storageReference, PROJECT_LOCATION + "/" + fileLocation, onSuccess, onFailure, activity);
-    }
-
-    public Schema getFirebaseMetadata(Activity activity) {
-        FileHelper fileHelper = new FileHelper();
-
-        FirebaseApp.initializeApp(activity);
-        String metadataLocation = PROJECT_LOCATION_PRESET_METADATA;
-        StorageReference metadataReference =
-                FirebaseStorage
-                        .getInstance()
-                        .getReferenceFromUrl(FIREBASE_LOCATION_PRESETS_METADATA);
-        if (new File(metadataLocation).exists()) {
-            // metadata file exists
-            String metadata = fileHelper.getStringFromFile(metadataLocation);
-            if (getStorageMetadata(metadataReference, activity).getUpdatedTimeMillis()
-                    > new File(metadataLocation).lastModified()) {
-                // updated, download new one
-                return saveFirebaseMetadata(
-                        metadataReference,
-                        metadataLocation,
-                        activity
-                );
-            } else {
-                // offline or not updated, continue
-                Gson gson = new Gson();
-                Schema schema = gson.fromJson(metadata, Schema.class);
-                if (schema.getPresets() == null ||
-                        schema.getVersionCode() == null) {
-                    // corrupted metadata, download again
-                    return saveFirebaseMetadata(
-                            metadataReference,
-                            metadataLocation,
-                            activity
-                    );
-                } else {
-                    return schema;
-                }
-            }
-        } else {
-            return saveFirebaseMetadata(
-                    metadataReference,
-                    metadataLocation,
-                    activity
-            );
-        }
-    }
-
-    public StorageMetadata getStorageMetadata(StorageReference storageReference,
-                                              Activity activity) {
-        FirebaseApp.initializeApp(activity);
-        final StorageMetadata[] mStorageMetadata = {null};
-        storageReference.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
-            @Override
-            public void onSuccess(StorageMetadata storageMetadata) {
-                Log.d(TAG, "Successful getting metadata");
-                mStorageMetadata[0] = storageMetadata;
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "Failed to get metadata");
-            }
-        });
-        return mStorageMetadata[0];
-    }
-
     private boolean isConnected(Context context) {
         // returns whether the device is connected to the internet
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -357,20 +154,19 @@ public class FirebaseHelper {
         return mWifi.isConnected();
     }
 
-    public class DownloadPreset extends AsyncTask<Void, Void, Integer> {
+    public class DownloadPreset extends AsyncTask<String, Void, Integer> {
 
         private Activity activity;
         private View parentView;
         private String presetName;
         private String presetTitle;
-        private String fileLocation = null;
+        private String fileLocation;
         private Runnable onFinish;
 
         private ProgressBar progressBar;
         private TextView progressTextPercent;
         private TextView progressTextSize;
 
-        private StorageReference storageReference;
         private long bytesTransferred = 0;
         private long totalByteCount = 0;
 
@@ -380,7 +176,6 @@ public class FirebaseHelper {
         private NotificationCompat.Builder mBuilder;
         private boolean isDownloading = false;
         private boolean isSpaceDialogVisible = false;
-        private StorageTask downloadTask = null;
 
         public DownloadPreset(String presetName, String presetTitle, View parentView, Activity activity, Runnable onFinish) {
             this.activity = activity;
@@ -398,13 +193,6 @@ public class FirebaseHelper {
         protected void onPreExecute() {
             Log.d(TAG, "onPreExecute");
             if (isConnected(activity)) {
-                // reference initialize
-                FirebaseApp.initializeApp(activity);
-                storageReference =
-                        FirebaseStorage
-                                .getInstance()
-                                .getReferenceFromUrl(FIREBASE_LOCATION_PRESETS + "/" + presetName + "/preset.zip");
-
                 // create preset project folder
                 new File(PROJECT_LOCATION_PRESETS + "/" + presetName).mkdirs();
 
@@ -452,60 +240,106 @@ public class FirebaseHelper {
 
         @SuppressWarnings("VisibleForTests")
         @Override
-        protected Integer doInBackground(Void... params) {
+        protected Integer doInBackground(String... sUrl) {
             isDownloading = true;
-            downloadTask = saveFromFirebase(storageReference, fileLocation, activity).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    bytesTransferred = taskSnapshot.getBytesTransferred();
-                    totalByteCount = taskSnapshot.getTotalByteCount();
-                    publishProgress();
+
+            // new http file download
+
+            InputStream input = null;
+            OutputStream output = null;
+            HttpURLConnection connection = null;
+
+            try {
+                URL url = new URL(sUrl[0]);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+
+                // expect HTTP 200 OK, so we don't mistakenly save error report instead of the file
+                if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                    Log.e(TAG, "Server returned HTTP " + connection.getResponseCode()
+                            + " " + connection.getResponseMessage());
+                    return -1;
                 }
-            }).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    if (!isCancelled()) {
-                        // Completed downloading
-                        isDownloading = false;
-                        Log.d(TAG, "Successful download at " + fileLocation);
-                        notificationManager.cancel(id);
-                        mBuilder.setContentTitle(presetTitle)
-                                .setContentText(getStringFromId(R.string.preset_store_download_notification_text_installing, activity))
-                                .setProgress(0, 0, false)
-                                .setOngoing(true)
-                                .setOnlyAlertOnce(true);
-                        // downloaded
-                        anim.fadeOut(R.id.layout_preset_store_download_layout, 0, 200, parentView, activity);
-                        anim.fadeIn(R.id.layout_preset_store_download_installing, 200, 200, "installIn", parentView, activity);
-                        fileHelper.unzip(PROJECT_LOCATION_PRESETS + "/" + presetName + "/preset.zip",
-                                PROJECT_LOCATION_PRESETS,
-                                presetName,
-                                parentView,
-                                activity,
-                                new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        notificationManager.cancel(id);
-                                        mBuilder.setContentTitle(presetTitle)
-                                                .setContentText(getStringFromId(R.string.preset_store_download_notification_text_complete, activity))
-                                                .setSmallIcon(android.R.drawable.stat_sys_download_done)
-                                                .setLargeIcon(BitmapFactory.decodeResource(activity.getResources(), android.R.drawable.stat_sys_download_done))
-                                                .setOngoing(false)
-                                                .setAutoCancel(true);
-                                        notificationManager.notify(id, mBuilder.build());
-                                        onFinish.run();
-                                    }
-                                }
-                        );
+
+                totalByteCount = connection.getContentLength();
+
+                // InputStream with 8k buffer
+                input = new BufferedInputStream(url.openStream(), 8192);
+                output = new FileOutputStream(fileLocation);
+
+                byte data[] = new byte[1024];
+
+                bytesTransferred = 0;
+                int count;
+
+                while ((count = input.read(data)) != -1) {
+                    if (isCancelled()) {
+                        input.close();
+                        return -1;
                     }
+
+                    bytesTransferred += count;
+
+                    if (totalByteCount > 0) {
+                        publishProgress();
+                    }
+
+                    output.write(data, 0, count);
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.e(TAG, "Failed to download");
-                    cancelDownloadPreset();
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+                Log.e(TAG, "Failed to download");
+                cancelDownloadPreset();
+            } finally {
+                try {
+                    if (output != null)
+                        output.close();
+                    if (input != null)
+                        input.close();
+                } catch (IOException e) {
+                    Log.e(TAG, e.getMessage() + " error, but meh");
                 }
-            });
+
+                if (connection != null) {
+                    connection.disconnect();
+                }
+
+                if (!isCancelled()) {
+                    // Completed downloading
+                    isDownloading = false;
+                    Log.d(TAG, "Successful download at " + fileLocation);
+                    notificationManager.cancel(id);
+                    mBuilder.setContentTitle(presetTitle)
+                            .setContentText(getStringFromId(R.string.preset_store_download_notification_text_installing, activity))
+                            .setProgress(0, 0, false)
+                            .setOngoing(true)
+                            .setOnlyAlertOnce(true);
+                    // downloaded
+                    anim.fadeOut(R.id.layout_preset_store_download_layout, 0, 200, parentView, activity);
+                    anim.fadeIn(R.id.layout_preset_store_download_installing, 200, 200, "installIn", parentView, activity);
+                    fileHelper.unzip(PROJECT_LOCATION_PRESETS + "/" + presetName + "/preset.zip",
+                            PROJECT_LOCATION_PRESETS,
+                            presetName,
+                            parentView,
+                            activity,
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    notificationManager.cancel(id);
+                                    mBuilder.setContentTitle(presetTitle)
+                                            .setContentText(getStringFromId(R.string.preset_store_download_notification_text_complete, activity))
+                                            .setSmallIcon(android.R.drawable.stat_sys_download_done)
+                                            .setLargeIcon(BitmapFactory.decodeResource(activity.getResources(), android.R.drawable.stat_sys_download_done))
+                                            .setOngoing(false)
+                                            .setAutoCancel(true);
+                                    notificationManager.notify(id, mBuilder.build());
+                                    onFinish.run();
+                                }
+                            }
+                    );
+                }
+            }
+
             return (int) (100 * (bytesTransferred / totalByteCount));
         }
 
@@ -575,7 +409,6 @@ public class FirebaseHelper {
         void cancelDownloadPreset() {
             if (downloadPreset != null) {
                 downloadPreset.cancel(true);
-                downloadPreset.downloadTask.cancel();
                 downloadPreset.onCancelled();
                 // cancelled / failed notification
                 notificationManager.cancel(id);

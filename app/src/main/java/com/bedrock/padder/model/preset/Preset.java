@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.view.View;
 
-import com.bedrock.padder.helper.FirebaseHelper;
+import com.bedrock.padder.helper.PresetStoreHelper;
 import com.bedrock.padder.helper.SoundHelper;
 import com.bedrock.padder.model.about.About;
 
@@ -13,7 +13,7 @@ import java.io.File;
 import static android.content.Context.MODE_PRIVATE;
 import static com.bedrock.padder.activity.MainActivity.PRESET_KEY;
 import static com.bedrock.padder.activity.MainActivity.isPresetChanged;
-import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
+import static com.bedrock.padder.helper.PresetStoreHelper.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class Preset {
@@ -145,8 +145,8 @@ public class Preset {
 
     public void downloadPreset(View parentView, Activity activity, Runnable onFinish) {
         // download the preset from firebase
-        FirebaseHelper firebase = new FirebaseHelper();
-        firebase.downloadFirebasePreset(tag, about.getTitle(), parentView, activity, onFinish);
+        PresetStoreHelper firebase = new PresetStoreHelper();
+        firebase.downloadPreset(tag, about.getTitle(), parentView, activity, onFinish);
     }
 
     public void removePreset(Runnable onFinish, Activity activity) {
@@ -155,17 +155,17 @@ public class Preset {
         SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
         prefs.edit().putString(PRESET_KEY, null).apply();
         // remove the preset folder
-        FirebaseHelper firebase = new FirebaseHelper();
+        PresetStoreHelper firebase = new PresetStoreHelper();
         firebase.removeLocalPreset(tag, onFinish, null);
     }
 
     public void repairPreset(final View parentView, final Activity activity, final Runnable onFinish) {
         // remove and download the preset again
-        final FirebaseHelper firebase = new FirebaseHelper();
+        final PresetStoreHelper firebase = new PresetStoreHelper();
         firebase.removeLocalPreset(tag, new Runnable() {
             @Override
             public void run() {
-                firebase.downloadFirebasePreset(tag,
+                firebase.downloadPreset(tag,
                         about.getTitle(),
                         parentView,
                         activity,

@@ -34,7 +34,7 @@ import static android.content.Context.MODE_PRIVATE;
 import static com.bedrock.padder.activity.MainActivity.PRESET_KEY;
 import static com.bedrock.padder.activity.MainActivity.isPresetChanged;
 import static com.bedrock.padder.activity.PresetStoreActivity.isPresetDownloading;
-import static com.bedrock.padder.helper.FirebaseHelper.PROJECT_LOCATION_PRESETS;
+import static com.bedrock.padder.helper.PresetStoreHelper.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
