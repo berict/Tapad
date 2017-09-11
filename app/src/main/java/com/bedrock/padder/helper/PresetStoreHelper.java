@@ -1,6 +1,7 @@
 package com.bedrock.padder.helper;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
@@ -52,6 +54,9 @@ public class PresetStoreHelper {
 
     private String TAG = "PresetStoreHelper";
     private DownloadPreset downloadPreset = null;
+
+    private NotificationManager notificationManager;
+    private NotificationCompat.Builder mBuilder;
 
     public String getPresetJson(String presetName) {
         FileHelper file = new FileHelper();
@@ -110,6 +115,22 @@ public class PresetStoreHelper {
         return downloadPreset;
     }
 
+    public void initChannelDownload(Context context) {
+        // from https://stackoverflow.com/questions/44443690/notificationcompat-with-api-26
+        if (Build.VERSION.SDK_INT < 26) {
+            return;
+        } else {
+            notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationChannel channel = new NotificationChannel(
+                    "tapad-preset-store",
+                    "Preset download",
+                    NotificationManager.IMPORTANCE_DEFAULT
+            );
+            channel.setDescription("Show preset downloading progress");
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
     public void removeLocalPreset(String presetName) {
         if (fileHelper.deleteRecursive(new File(PROJECT_LOCATION_PRESETS + "/" + presetName))) {
             Log.d(TAG, "Successfully removed preset folder");
@@ -165,8 +186,6 @@ public class PresetStoreHelper {
 
         private int id = 1;
 
-        private NotificationManager notificationManager;
-        private NotificationCompat.Builder mBuilder;
         private boolean isDownloading = false;
         private boolean isSpaceDialogVisible = false;
 
@@ -179,7 +198,15 @@ public class PresetStoreHelper {
             fileLocation = PROJECT_LOCATION_PRESETS + "/" + presetName + "/preset.zip";
 
             notificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
-            mBuilder = new NotificationCompat.Builder(activity);
+
+            initChannelDownload(activity);
+
+            if (Build.VERSION.SDK_INT >= 26) {
+                // Android O support notification
+                mBuilder = new NotificationCompat.Builder(activity, "tapad-preset-store");
+            } else {
+                mBuilder = new NotificationCompat.Builder(activity);
+            }
         }
 
         @Override
@@ -216,6 +243,7 @@ public class PresetStoreHelper {
                         .setLargeIcon(BitmapFactory.decodeResource(activity.getResources(), android.R.drawable.stat_sys_download))
                         .setOngoing(true)
                         .setOnlyAlertOnce(true);
+
                 notificationManager.notify(id, mBuilder.build());
             } else {
                 // no internet connection

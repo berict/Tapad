@@ -58,6 +58,7 @@ public class ApiHelper {
     }
 
     public Observable<Schema> getObservableSchema() {
+        /* from https://stackoverflow.com/questions/36401193/multiple-requests-with-retrofit-to-combine-results/38114462#38114462 */
         Retrofit schema = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
