@@ -42,6 +42,7 @@ import com.bedrock.padder.model.preset.Preset;
 import com.bedrock.padder.model.preset.PresetSchema;
 import com.bedrock.padder.model.preset.Review;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.util.Date;
@@ -110,7 +111,7 @@ public class MainActivity
     private int circularRevealDuration = 400;
     private int fadeAnimDuration = 200;
 
-    private Gson gson = new Gson();
+    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     public static void largeLog(String tag, String content) {
         if (content.length() > 4000) {

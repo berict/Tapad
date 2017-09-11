@@ -22,6 +22,7 @@ import com.bedrock.padder.model.Schema;
 import com.bedrock.padder.model.preset.Preset;
 import com.bedrock.padder.model.preset.PresetSchema;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -69,7 +70,7 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
     public void onAttach(Context context) {
         super.onAttach(context);
         a = (AppCompatActivity) getActivity();
-        gson = new Gson();
+        gson = new GsonBuilder().setPrettyPrinting().create();
     }
 
     void setUi() {

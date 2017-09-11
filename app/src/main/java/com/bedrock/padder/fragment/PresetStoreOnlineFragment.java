@@ -33,6 +33,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.File;
 
@@ -219,7 +220,7 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
                 } else {
                     Log.d(TAG, "Attached adapter");
                     // offline or not updated, continue
-                    Gson gson = new Gson();
+                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
                     schema = gson.fromJson(metadata, Schema.class);
                     if (schema == null ||
                             schema.getPresets() == null ||

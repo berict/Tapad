@@ -22,6 +22,7 @@ import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.app.theme.ColorData;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -36,7 +37,7 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
 
     Activity activity = this;
     SharedPreferences prefs = null;
-    Gson gson = new Gson();
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
     int color;
 
     private ColorData colorData;

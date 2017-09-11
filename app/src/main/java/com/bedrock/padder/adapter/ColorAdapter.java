@@ -18,6 +18,7 @@ import com.bedrock.padder.R;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.app.theme.ColorData;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import static com.bedrock.padder.activity.MainActivity.isDeckShouldCleared;
 
@@ -66,7 +67,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
         return new DetailViewHolder(view);
     }
 
-    Gson gson = new Gson();
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @Override
     public void onBindViewHolder(final DetailViewHolder holder, int position) {

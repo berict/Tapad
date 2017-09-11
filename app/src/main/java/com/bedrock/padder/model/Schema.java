@@ -2,6 +2,7 @@ package com.bedrock.padder.model;
 
 import com.bedrock.padder.model.preset.PresetSchema;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class Schema {
 
@@ -44,7 +45,7 @@ public class Schema {
     @Override
     public String toString() {
         // JSON output
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         return gson.toJson(this, Schema.class);
     }
 }

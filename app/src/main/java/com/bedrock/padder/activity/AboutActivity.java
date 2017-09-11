@@ -23,6 +23,7 @@ import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.about.About;
 import com.bedrock.padder.model.preset.Preset;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
 
 import static com.bedrock.padder.activity.MainActivity.currentPreset;
@@ -44,7 +45,7 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         Intent intent = getIntent();
         String currentAbout = intent.getStringExtra("about");
