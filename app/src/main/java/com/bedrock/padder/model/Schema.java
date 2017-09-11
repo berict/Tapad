@@ -8,11 +8,11 @@ public class Schema {
 
     private PresetSchema[] presets;
 
-    private Integer versionCode;
+    private Integer version;
 
-    public Schema(PresetSchema[] presets, Integer versionCode) {
+    public Schema(PresetSchema[] presets, Integer version) {
         this.presets = presets;
-        this.versionCode = versionCode;
+        this.version = version;
         if (presets != null) {
             for (PresetSchema preset : this.presets) {
                 // null values to shorten the json
@@ -26,8 +26,8 @@ public class Schema {
         this.presets = presets;
     }
 
-    public void setVersionCode(Integer versionCode) {
-        this.versionCode = versionCode;
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     public PresetSchema[] getPresets() {
@@ -38,8 +38,8 @@ public class Schema {
         return presets[position];
     }
 
-    public Integer getVersionCode() {
-        return versionCode;
+    public Integer getVersion() {
+        return version;
     }
 
     @Override

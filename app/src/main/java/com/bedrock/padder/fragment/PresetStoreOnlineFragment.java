@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -22,27 +21,17 @@ import com.bedrock.padder.R;
 import com.bedrock.padder.activity.PresetStoreActivity;
 import com.bedrock.padder.adapter.PresetStoreAdapter;
 import com.bedrock.padder.helper.AnimateHelper;
-import com.bedrock.padder.helper.FileHelper;
-import com.bedrock.padder.helper.IntentHelper;
+import com.bedrock.padder.helper.ApiHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.Schema;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageMetadata;
-import com.google.firebase.storage.StorageReference;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
-import java.io.File;
+import rx.Subscriber;
 
 public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
 
     private WindowHelper window = new WindowHelper();
     private AnimateHelper anim = new AnimateHelper();
-    private IntentHelper intent = new IntentHelper();
-    private FileHelper fileHelper = new FileHelper();
+    private ApiHelper api = new ApiHelper();
 
     private String TAG = "PSOnline";
 
@@ -92,9 +81,6 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
         setAdapter();
     }
 
-    String tapadFolderPath = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
-    String metadataLocation = tapadFolderPath + "/presets/metadata";
-
     private void setLoadingFinished(boolean isFinished) {
         if (isFinished) {
             // finished, hide loading and show recyclerView
@@ -137,41 +123,7 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
         }
     }
 
-    private void onDownloadMetadataSuccess() {
-        setLoadingFinished(true);
-    }
-
-    private void downloadMetadata() {
-        // loading start
-        setLoadingFinished(false);
-        Log.d(TAG, "downloadMetaData");
-
-        final File metadata = new File(tapadFolderPath + "/presets/metadata");
-
-        StorageReference metadataReference =
-                FirebaseStorage
-                        .getInstance()
-                        .getReferenceFromUrl("gs://tapad-4d342.appspot.com/presets")
-                        .child("metadata");
-        metadataReference.getFile(metadata).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                Log.d(TAG, "Successful download at " + metadata.toString());
-                setAdapter();
-                onDownloadMetadataSuccess();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.e(TAG, "Failed to download");
-                setLoadingFinished(true);
-            }
-        });
-    }
-
     private Handler connectionTimeout = new Handler();
-
-    Schema schema;
 
     private void setAdapter() {
         connectionTimeout.postDelayed(new Runnable() {
@@ -211,22 +163,25 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
         if (isConnected(a)) {
             Log.d(TAG, "setAdapter");
             // attach the adapter to the layout
-            if (new File(metadataLocation).exists()) {
-                // metadata file exists
-                String metadata = fileHelper.getStringFromFile(metadataLocation);
-                if (isFirebaseMetadataUpdated(a)) {
-                    // updated, download new one
-                    downloadMetadata();
-                } else {
-                    Log.d(TAG, "Attached adapter");
-                    // offline or not updated, continue
-                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                    schema = gson.fromJson(metadata, Schema.class);
+            api.getObservableSchema().subscribe(new Subscriber<Schema>() {
+                @Override
+                public void onCompleted() {
+
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    Log.e(TAG, "Error parsing schema, " + e.getMessage());
+                }
+
+                @Override
+                public void onNext(Schema schema) {
                     if (schema == null ||
                             schema.getPresets() == null ||
-                            schema.getVersionCode() == null) {
+                            schema.getVersion() == null) {
                         // corrupted metadata, download again
-                        downloadMetadata();
+                        Log.e(TAG, "Schema is null");
+                        setLoadingFailed();
                     } else {
                         // attach adapter while its not null
                         presetStoreAdapter = new PresetStoreAdapter(
@@ -234,11 +189,10 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
                                 R.layout.adapter_preset_store, a
                         );
                         window.getRecyclerView(R.id.layout_online_preset_store_recycler_view, v).setAdapter(presetStoreAdapter);
+                        setLoadingFinished(true);
                     }
                 }
-            } else {
-                downloadMetadata();
-            }
+            });
         } else {
             setLoadingFailed();
         }
@@ -252,66 +206,11 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
-    private boolean isFMUpdated = false;
-
-    private boolean isFirebaseMetadataUpdated(Context context) {
-        isFMUpdated = false;
-        if (isConnected(context)) {
-            Log.d(TAG, "Connected to the internet");
-            StorageReference metadataReference =
-                    FirebaseStorage
-                            .getInstance()
-                            .getReferenceFromUrl("gs://tapad-4d342.appspot.com/presets")
-                            .child("metadata");
-            metadataReference.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
-                @Override
-                public void onSuccess(StorageMetadata storageMetadata) {
-                    Log.d(TAG, "Successful getting metadata");
-                    if (storageMetadata.getUpdatedTimeMillis() > new File(metadataLocation).lastModified()) {
-                        // firebase metadata is updated since last download
-                        // get the new updated metadata
-                        Log.d(TAG, "File updated");
-                        isFMUpdated = true;
-                    } else {
-                        Log.d(TAG, "File not updated");
-                        isFMUpdated = false;
-                        if (window.getView(R.id.layout_online_preset_store_recycler_view_loading, v).getVisibility()
-                                == View.VISIBLE) {
-                            // loading
-                            onDownloadMetadataSuccess();
-                        }
-                    }
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.d(TAG, "Failed to get metadata");
-                    isFMUpdated = false;
-                }
-            });
-            return isFMUpdated;
-        } else {
-            Log.d(TAG, "Disconnected from the internet");
-            return isFMUpdated;
-        }
-    }
-
     @Override
     public void refresh() {
         if (!PresetStoreActivity.isPresetDownloading) {
             // only update when the preset is not downloading
-            if (isFirebaseMetadataUpdated(a)) {
-                // on updated
-                setAdapter();
-            } else {
-                if (schema != null) {
-                    presetStoreAdapter = new PresetStoreAdapter(
-                            schema,
-                            R.layout.adapter_preset_store, a
-                    );
-                    window.getRecyclerView(R.id.layout_online_preset_store_recycler_view, v).setAdapter(presetStoreAdapter);
-                }
-            }
+            setAdapter();
         }
     }
 }

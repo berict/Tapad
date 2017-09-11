@@ -2,13 +2,13 @@ package com.bedrock.padder.model.preset;
 
 public class Version {
 
-    private Integer versionCode;
+    private Integer version;
 
-    public Version(Integer versionCode) {
-        this.versionCode = versionCode;
+    public Version(Integer version) {
+        this.version = version;
     }
 
-    public Integer getVersionCode() {
-        return versionCode;
+    public Integer getVersion() {
+        return version;
     }
 }

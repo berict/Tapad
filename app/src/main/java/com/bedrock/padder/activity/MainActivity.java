@@ -325,8 +325,6 @@ public class MainActivity
 
         //ab.setStatusHeight(a);
         sound.clear();
-
-        makeTestRequest();
     }
 
     @Override

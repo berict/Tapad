@@ -76,10 +76,13 @@ public class ApiHelper {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
 
-        Observable<Schema> schemaObservable = Observable.zip(presetObservable, versionObservable, new Func2<List<PresetSchema>, Version, Schema>() {
+        Observable<Schema> schemaObservable = Observable.zip(
+                presetObservable,
+                versionObservable,
+                new Func2<List<PresetSchema>, Version, Schema>() {
             @Override
             public Schema call(List<PresetSchema> presetSchemas, Version version) {
-                return new Schema(presetSchemas.toArray(new PresetSchema[presetSchemas.size()]), version.getVersionCode());
+                return new Schema(presetSchemas.toArray(new PresetSchema[presetSchemas.size()]), version.getVersion());
             }
         });
 
