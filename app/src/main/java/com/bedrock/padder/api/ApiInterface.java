@@ -1,6 +1,5 @@
 package com.bedrock.padder.api;
 
-import com.bedrock.padder.model.Schema;
 import com.bedrock.padder.model.preset.PresetSchema;
 
 import java.util.List;
@@ -18,9 +17,5 @@ public interface ApiInterface {
 
     @GET("tapad/version")
     Call<Integer> getVersion();
-
-    @Deprecated
-    @GET("tapad/preset-schema")
-    Call<Schema> getSchema();
 }
 
