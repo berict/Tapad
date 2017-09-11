@@ -1,0 +1,2 @@
+powershell -Command "(New-Object Net.WebClient).DownloadFile('http://file.berict.com/tapad/dev/google-services.json', 'google-services.json')"
+powershell -Command "Invoke-WebRequest http://file.berict.com/tapad/dev/google-services.json -OutFile google-services.json"
