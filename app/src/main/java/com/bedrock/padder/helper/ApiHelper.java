@@ -49,14 +49,6 @@ public class ApiHelper {
         return call;
     }
 
-    public Call<Schema> getSchema() {
-        if (apiService == null) {
-            apiService = getApiService();
-        }
-        Call<Schema> call = apiService.getSchema();
-        return call;
-    }
-
     public Call<Integer> getVersion() {
         if (apiService == null) {
             apiService = getApiService();
