@@ -22,7 +22,6 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.activity.PresetStoreActivity;
-import com.bedrock.padder.model.Schema;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -33,8 +32,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
-
-import rx.Observable;
 
 import static com.bedrock.padder.activity.PresetStoreActivity.isPresetDownloading;
 import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
@@ -55,10 +52,6 @@ public class PresetStoreHelper {
 
     private String TAG = "PresetStoreHelper";
     private DownloadPreset downloadPreset = null;
-
-    public Observable<Schema> getSchema() {
-        return api.getObservableSchema();
-    }
 
     public String getPresetJson(String presetName) {
         FileHelper file = new FileHelper();
@@ -154,7 +147,7 @@ public class PresetStoreHelper {
         return mWifi.isConnected();
     }
 
-    public class DownloadPreset extends AsyncTask<String, Void, Integer> {
+    public class DownloadPreset extends AsyncTask<Void, Void, Integer> {
 
         private Activity activity;
         private View parentView;
@@ -196,8 +189,7 @@ public class PresetStoreHelper {
                 // create preset project folder
                 new File(PROJECT_LOCATION_PRESETS + "/" + presetName).mkdirs();
 
-                // storage available
-                // start download
+                // storage available, start download
                 isPresetDownloading = true;
 
                 anim.fadeOutInvisible(R.id.layout_preset_store_action_layout, 0, 200, parentView, activity);
@@ -215,6 +207,7 @@ public class PresetStoreHelper {
                     }
                 });
 
+                // TODO add download notification - synced with preset store
                 PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, new Intent(activity, PresetStoreActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
 
                 mBuilder.setContentTitle(presetTitle)
@@ -240,7 +233,7 @@ public class PresetStoreHelper {
 
         @SuppressWarnings("VisibleForTests")
         @Override
-        protected Integer doInBackground(String... sUrl) {
+        protected Integer doInBackground(Void... args) {
             isDownloading = true;
 
             // new http file download
@@ -250,15 +243,19 @@ public class PresetStoreHelper {
             HttpURLConnection connection = null;
 
             try {
-                URL url = new URL(sUrl[0]);
+                URL url = new URL(PRESET_LOCATION + "/" + presetName + "/preset.zip");
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
 
+                Log.i(TAG, "Connecting to " + url.getPath());
                 // expect HTTP 200 OK, so we don't mistakenly save error report instead of the file
                 if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
                     Log.e(TAG, "Server returned HTTP " + connection.getResponseCode()
                             + " " + connection.getResponseMessage());
                     return -1;
+                } else {
+                    Log.i(TAG, "Server returned HTTP " + connection.getResponseCode()
+                            + " " + connection.getResponseMessage());
                 }
 
                 totalByteCount = connection.getContentLength();
