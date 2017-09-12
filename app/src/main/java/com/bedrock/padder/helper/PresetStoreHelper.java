@@ -115,22 +115,6 @@ public class PresetStoreHelper {
         return downloadPreset;
     }
 
-    public void initChannelDownload(Context context) {
-        // from https://stackoverflow.com/questions/44443690/notificationcompat-with-api-26
-        if (Build.VERSION.SDK_INT < 26) {
-            return;
-        } else {
-            notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            NotificationChannel channel = new NotificationChannel(
-                    "tapad-preset-store",
-                    "Preset download",
-                    NotificationManager.IMPORTANCE_DEFAULT
-            );
-            channel.setDescription("Show preset downloading progress");
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-
     public void removeLocalPreset(String presetName) {
         if (fileHelper.deleteRecursive(new File(PROJECT_LOCATION_PRESETS + "/" + presetName))) {
             Log.d(TAG, "Successfully removed preset folder");
@@ -196,23 +180,32 @@ public class PresetStoreHelper {
             this.presetName = presetName;
             this.presetTitle = presetTitle;
             fileLocation = PROJECT_LOCATION_PRESETS + "/" + presetName + "/preset.zip";
-
-            notificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
-
-            initChannelDownload(activity);
-
-            if (Build.VERSION.SDK_INT >= 26) {
-                // Android O support notification
-                mBuilder = new NotificationCompat.Builder(activity, "tapad-preset-store");
-            } else {
-                mBuilder = new NotificationCompat.Builder(activity);
-            }
         }
 
         @Override
         protected void onPreExecute() {
             Log.d(TAG, "onPreExecute");
             if (isConnected(activity)) {
+
+                notificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
+
+                // from https://stackoverflow.com/questions/44443690/notificationcompat-with-api-26
+                if (Build.VERSION.SDK_INT >= 26) {
+                    // Android O support notification
+                    Log.i(TAG, "Using android O");
+
+                    NotificationChannel channel = new NotificationChannel(
+                            "tapad-preset-store",
+                            "Preset download",
+                            NotificationManager.IMPORTANCE_DEFAULT
+                    );
+                    channel.setDescription("Show preset downloading progress");
+                    notificationManager.createNotificationChannel(channel);
+                    mBuilder = new NotificationCompat.Builder(activity, "tapad-preset-store");
+                } else {
+                    mBuilder = new NotificationCompat.Builder(activity);
+                }
+
                 // create preset project folder
                 new File(PROJECT_LOCATION_PRESETS + "/" + presetName).mkdirs();
 
