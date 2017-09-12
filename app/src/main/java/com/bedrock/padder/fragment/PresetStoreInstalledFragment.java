@@ -203,5 +203,10 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
             }
         }
     }
+
+    @Override
+    public void clear() {
+
+    }
 }
 

@@ -257,6 +257,9 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
 
             viewPager = (ViewPager) findViewById(R.id.layout_viewpager);
             viewPager.setAdapter(viewPagerAdapter);
+
+            final Fragment onlineFragment = (Fragment) viewPagerAdapter.instantiateItem(viewPager, 1);
+
             viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 private int position = 0;
                 private float positionOffset = 0;
@@ -306,10 +309,17 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
                             }
                         }
                     }
+
+                    if (state == 1 && position != 1) {
+                        // on move
+                        if (onlineFragment != null) {
+                            ((PresetStoreOnlineFragment) onlineFragment).clear();
+                        }
+                    }
                 }
             });
 
-            TabLayout tabLayout = (TabLayout) findViewById(R.id.layout_tab_layout);
+            TabLayout tabLayout = findViewById(R.id.layout_tab_layout);
             tabLayout.setupWithViewPager(viewPager);
             tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @Override
@@ -321,6 +331,9 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
                             fab.show();
                         }
                     } else {
+                        if (onlineFragment != null) {
+                            ((PresetStoreOnlineFragment) onlineFragment).clear();
+                        }
                         if (fab.isVisible()) {
                             fab.hide();
                         }

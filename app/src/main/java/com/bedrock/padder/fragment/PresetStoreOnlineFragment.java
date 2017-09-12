@@ -10,6 +10,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,12 +71,22 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
         a = (AppCompatActivity) getActivity();
     }
 
+    RecyclerView recyclerView = null;
+    View recyclerViewLoading = null;
+    View recyclerViewFailed = null;
+    View recyclerViewFailedRetry = null;
+
     void setUi() {
+        recyclerView = window.getRecyclerView(R.id.layout_online_preset_store_recycler_view, v);
+        recyclerViewLoading = window.getView(R.id.layout_online_preset_store_recycler_view_loading, v);
+        recyclerViewFailed = window.getView(R.id.layout_online_preset_store_recycler_view_failed, v);
+        recyclerViewFailedRetry = window.getView(R.id.layout_online_preset_store_recycler_view_failed_retry, v);
+
         // adapter
         LinearLayoutManager layoutManager = new LinearLayoutManager(a);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        window.getRecyclerView(R.id.layout_online_preset_store_recycler_view, v).setLayoutManager(layoutManager);
-        window.getRecyclerView(R.id.layout_online_preset_store_recycler_view, v).setNestedScrollingEnabled(false);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setNestedScrollingEnabled(false);
 
         // firebase check
         setAdapter();
@@ -85,27 +96,27 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
         if (isFinished) {
             // finished, hide loading and show recyclerView
             Log.d(TAG, "Loading finished");
-            anim.fadeOut(R.id.layout_online_preset_store_recycler_view_loading, 0, 200, v, a);
-            anim.fadeIn(R.id.layout_online_preset_store_recycler_view, 200, 200, "rvIn", v, a);
+            anim.fadeOut(recyclerViewLoading, 0, 200, a);
+            anim.fadeIn(recyclerView, 200, 200, "rvIn", a);
         } else {
             // started, show loading
-            anim.fadeOut(R.id.layout_online_preset_store_recycler_view, 0, 200, v, a);
-            anim.fadeIn(R.id.layout_online_preset_store_recycler_view_loading, 200, 200, "rvLoadingIn", v, a);
+            anim.fadeOut(recyclerView, 0, 200, a);
+            anim.fadeIn(recyclerViewLoading, 200, 200, "rvLoadingIn", a);
         }
     }
 
     private void setLoadingFailed() {
         Log.d(TAG, "Loading failed");
-        anim.fadeOut(R.id.layout_online_preset_store_recycler_view, 0, 200, v, a);
-        anim.fadeOut(R.id.layout_online_preset_store_recycler_view_loading, 0, 200, v, a);
-        anim.fadeIn(R.id.layout_online_preset_store_recycler_view_failed, 200, 200, "rvIn", v, a);
-        window.setOnClick(R.id.layout_online_preset_store_recycler_view_failed_retry, new Runnable() {
+        anim.fadeOut(recyclerView, 0, 200, a);
+        anim.fadeOut(recyclerViewLoading, 0, 200, a);
+        anim.fadeIn(recyclerViewFailed, 200, 200, "rvIn", a);
+        recyclerViewFailedRetry.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
+            public void onClick(View view) {
                 // retry button
                 setAdapter();
             }
-        }, a);
+        });
         Handler handler = new Handler();
         if (((TabLayout)window.getView(R.id.layout_tab_layout, a)).getSelectedTabPosition() == 1) {
             // only when the online tab is selected
@@ -211,6 +222,18 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
         if (!PresetStoreActivity.isPresetDownloading) {
             // only update when the preset is not downloading
             setAdapter();
+        }
+    }
+
+    @Override
+    public void clear() {
+        Log.i(TAG, "clear()");
+        if (recyclerView != null && recyclerView.getVisibility() != View.GONE) {
+            recyclerView.setVisibility(View.GONE);
+        }
+
+        if (recyclerViewLoading != null && recyclerViewLoading.getVisibility() != View.VISIBLE) {
+            recyclerViewLoading.setVisibility(View.VISIBLE);
         }
     }
 }
