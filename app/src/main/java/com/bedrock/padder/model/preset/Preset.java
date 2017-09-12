@@ -144,9 +144,10 @@ public class Preset {
     }
 
     public void downloadPreset(View parentView, Activity activity, Runnable onFinish) {
-        // download the preset from firebase
-        PresetStoreHelper firebase = new PresetStoreHelper();
-        firebase.downloadPreset(tag, about.getTitle(), parentView, activity, onFinish);
+        // download the preset from presetStore
+        PresetStoreHelper presetStore = new PresetStoreHelper();
+        presetStore.initNotification(activity);
+        presetStore.downloadPreset(tag, about.getTitle(), parentView, activity, onFinish);
     }
 
     public void removePreset(Runnable onFinish, Activity activity) {
@@ -155,17 +156,19 @@ public class Preset {
         SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
         prefs.edit().putString(PRESET_KEY, null).apply();
         // remove the preset folder
-        PresetStoreHelper firebase = new PresetStoreHelper();
-        firebase.removeLocalPreset(tag, onFinish, null);
+        PresetStoreHelper presetStore = new PresetStoreHelper();
+        presetStore.initNotification(activity);
+        presetStore.removeLocalPreset(tag, onFinish, null);
     }
 
     public void repairPreset(final View parentView, final Activity activity, final Runnable onFinish) {
         // remove and download the preset again
-        final PresetStoreHelper firebase = new PresetStoreHelper();
-        firebase.removeLocalPreset(tag, new Runnable() {
+        final PresetStoreHelper presetStore = new PresetStoreHelper();
+        presetStore.initNotification(activity);
+        presetStore.removeLocalPreset(tag, new Runnable() {
             @Override
             public void run() {
-                firebase.downloadPreset(tag,
+                presetStore.downloadPreset(tag,
                         about.getTitle(),
                         parentView,
                         activity,

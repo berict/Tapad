@@ -222,7 +222,7 @@
                                 android:layout_alignParentTop="true"
                                 android:layout_alignRight="@+id/layout_preset_store_download_progressbar"
                                 android:fontFamily="sans-serif-light"
-                                android:text="50%"
+                                android:text="0%"
                                 android:textColor="@color/dark_secondary"
                                 android:textSize="12sp"/>
 
