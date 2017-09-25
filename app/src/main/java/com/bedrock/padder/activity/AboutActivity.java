@@ -21,7 +21,7 @@ import com.bedrock.padder.helper.PresetStoreHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.about.About;
-import com.bedrock.padder.model.preset.Preset;
+import com.bedrock.padder.model.preset.PresetSchema;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
@@ -38,7 +38,7 @@ public class AboutActivity extends AppCompatActivity {
     private WindowHelper window = new WindowHelper();
     private AnimateHelper anim = new AnimateHelper();
     private ToolbarHelper toolbar = new ToolbarHelper();
-    private PresetStoreHelper firebase = new PresetStoreHelper();
+    private PresetStoreHelper presetStore = new PresetStoreHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +62,9 @@ public class AboutActivity extends AppCompatActivity {
                 about = gson.fromJson(getResources().getString(R.string.json_about_dev  ), About.class);
                 break;
             default:
-                String presetJson = firebase.getPresetJson(currentAbout);
+                String presetJson = presetStore.getPresetJson(currentAbout);
                 if (presetJson != null) {
-                    about = gson.fromJson(firebase.getPresetJson(currentAbout), Preset.class).getAbout();
+                    about = gson.fromJson(presetStore.getPresetJson(currentAbout), PresetSchema.class).getPreset().getAbout();
                 } else {
                     Log.d("About", "currentAbout wasn't defined");
                 }

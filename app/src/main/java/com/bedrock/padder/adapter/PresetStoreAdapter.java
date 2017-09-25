@@ -16,6 +16,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.helper.AnimateHelper;
+import com.bedrock.padder.helper.ApiHelper;
 import com.bedrock.padder.helper.FileHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.Schema;
@@ -23,12 +24,14 @@ import com.bedrock.padder.model.preset.Preset;
 import com.bedrock.padder.model.preset.PresetSchema;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageMetadata;
-import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import rx.Subscriber;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.bedrock.padder.activity.MainActivity.PRESET_KEY;
@@ -68,7 +71,11 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
 
     @Override
     public void onBindViewHolder(final PresetViewHolder holder, int position) {
+        // TODO trace this variable
         final Preset preset = schema.getPreset(position).getPreset();
+        final PresetSchema presetSchema = schema.getPreset(position);
+
+        Log.i(TAG, preset.toString());
 
         // set gesture
         if (preset.isGesture()) {
@@ -134,7 +141,8 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                         .placeholder(R.drawable.ic_image_album_placeholder)
                         .error(R.drawable.ic_image_album_error)
                         .into(holder.presetImage);
-                onFirebasePresetUpdated(preset.getTag(), new Runnable() {
+                // check preset update
+                onPresetUpdated(presetSchema.getVersion(), preset.getTag(), new Runnable() {
                     @Override
                     public void run() {
                         // preset updated
@@ -213,6 +221,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                             .into(holder.presetImage);
                 }
             }
+            // selected
             holder.presetRemove.setVisibility(View.VISIBLE);
             holder.presetRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -275,7 +284,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
         if (getPresetKey() != null &&
                 getPresetKey().equals(preset.getTag()) &&
                 file.isPresetAvailable(preset)) {
-            // current preset set, downloaded
+            // selected: current preset set, downloaded
             holder.presetCurrentPreset.setVisibility(View.VISIBLE);
             holder.presetSelect.setVisibility(View.GONE);
         } else {
@@ -304,32 +313,20 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
         swapPresetItems(presets, 0, adapterPosition);
     }
 
-    private void onFirebasePresetUpdated(final String presetName, final Runnable onUpdated) {
-        StorageReference metadataReference =
-                FirebaseStorage
-                        .getInstance()
-                        .getReferenceFromUrl("gs://tapad-4d342.appspot.com/presets/" + presetName)
-                        .child("preset.zip");
-        metadataReference.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
+    private void onPresetUpdated(final Integer version, final String tag, final Runnable onUpdated) {
+        ApiHelper api = new ApiHelper();
+        api.getPresetSchema(tag).enqueue(new Callback<PresetSchema>() {
             @Override
-            public void onSuccess(StorageMetadata storageMetadata) {
-                Log.d(TAG, "Successful getting metadata");
-                if (storageMetadata.getUpdatedTimeMillis() >
-                        new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json").lastModified()) {
-                    // firebase preset is updated since last download
-                    // get the new updated preset
-                    Log.d(TAG, "Preset updated");
-                    Log.d(TAG, "Firebase = " + storageMetadata.getUpdatedTimeMillis());
-                    Log.d(TAG, "Local    = " + new File(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json").lastModified());
+            public void onResponse(Call<PresetSchema> call, Response<PresetSchema> response) {
+                if (response.body().getVersion() > version) {
+                    // the version is updated
                     onUpdated.run();
-                } else {
-                    Log.d(TAG, "Preset not updated");
                 }
             }
-        }).addOnFailureListener(new OnFailureListener() {
+
             @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "Failed to get preset metadata");
+            public void onFailure(Call<PresetSchema> call, Throwable t) {
+                Log.e(TAG, "Failure getting version of the preset [" + tag + "]");
             }
         });
     }

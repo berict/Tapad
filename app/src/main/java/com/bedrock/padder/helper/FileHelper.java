@@ -10,6 +10,7 @@ import android.view.View;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.model.preset.Preset;
+import com.bedrock.padder.model.preset.PresetSchema;
 import com.google.gson.Gson;
 
 import java.io.BufferedOutputStream;
@@ -105,10 +106,11 @@ public class FileHelper {
             if (folderSound.listFiles() != null) {
                 Log.d(TAG, "SoundCountPreset = " + preset.getSoundCount() + ", SoundCountFound = " + folderSound.listFiles().length);
             } else {
+                Log.e(TAG, "Preset [" + preset.getTag() + "] is not available.");
                 return false;
             }
-            // should be 100%
-            return folderSound.isDirectory() && folderSound.exists() &&
+            // TODO DEBUGGING
+            boolean available = folderSound.isDirectory() && folderSound.exists() &&
                     preset.getSoundCount() == folderSound.listFiles().length &&
                     folderTiming.isDirectory() && folderTiming.exists() &&
                     folderAbout.isDirectory() && folderAbout.exists() &&
@@ -116,7 +118,12 @@ public class FileHelper {
                     fileAlbum.exists() &&
                     fileIcon.exists() &&
                     fileImage.exists();
+            if (available) {
+                Log.i(TAG, "Preset [" + preset.getTag() + "] is available.");
+            }
+            return available;
         } else {
+            Log.e(TAG, "Preset [" + preset.getTag() + "] is not available.");
             return false;
         }
     }
@@ -158,8 +165,8 @@ public class FileHelper {
         if (presetName != null) {
             Preset preset = gson.fromJson(
                     this.getStringFromFile(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json"),
-                    Preset.class
-            );
+                    PresetSchema.class
+            ).getPreset();
             preset.setTag(presetName);
             return preset;
         } else {
@@ -219,7 +226,7 @@ public class FileHelper {
                 ZipEntry zipEntry;
                 while ((zipEntry = zipInputStream.getNextEntry()) != null) {
                     String zipName = zipEntry.getName();
-                    Log.d("Firebase", "Unzipping " + zipName);
+                    Log.d("PresetStore", "Unzipping " + zipName);
                     if (zipEntry.isDirectory()) {
                         dirChecker(zipName);
                     } else {
@@ -236,9 +243,9 @@ public class FileHelper {
                     }
                 }
                 zipInputStream.close();
-                Log.d("Firebase", "Unzipping completed at " + targetLocation);
+                Log.d("PresetStore", "Unzipping completed at " + targetLocation);
             } catch (Exception e) {
-                Log.d("Firebase", "Unzipping failed");
+                Log.d("PresetStore", "Unzipping failed");
                 e.printStackTrace();
             }
             return 0;

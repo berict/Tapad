@@ -7,6 +7,8 @@ import android.view.View;
 import com.bedrock.padder.helper.PresetStoreHelper;
 import com.bedrock.padder.helper.SoundHelper;
 import com.bedrock.padder.model.about.About;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.File;
 
@@ -180,5 +182,13 @@ public class Preset {
         isPresetChanged = true;
         SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
         prefs.edit().putString(PRESET_KEY, null).apply();
+    }
+
+    @Override
+    public String toString() {
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .create();
+        return gson.toJson(this);
     }
 }

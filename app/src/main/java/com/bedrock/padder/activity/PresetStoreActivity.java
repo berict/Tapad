@@ -35,7 +35,6 @@ import com.bedrock.padder.helper.FileHelper;
 import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
-import com.google.firebase.FirebaseApp;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -75,9 +74,6 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
 
         themeColor = getResources().getColor(R.color.colorPresetStore);
         themeTitle = getResources().getString(R.string.preset_store);
-
-        // initialize firebase
-        FirebaseApp.initializeApp(activity);
 
         toolbar.setActionBar(this);
         toolbar.setActionBarDisplayHomeAsUp(true);

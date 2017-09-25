@@ -276,7 +276,7 @@ public class MainActivity
 
         if (getSavedPreset() != null) {
             try {
-                currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json"), Preset.class);
+                currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json"), PresetSchema.class).getPreset();
             } catch (Exception e) {
                 // corrupted preset
                 e.printStackTrace();
@@ -459,7 +459,7 @@ public class MainActivity
             if (getSavedPreset() != null) {
                 // preset loaded
                 Log.d(TAG, "changed");
-                currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json"), Preset.class);
+                currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json"), PresetSchema.class).getPreset();
                 loadPreset(0);
             } else {
                 Log.d(TAG, "removed");

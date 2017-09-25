@@ -13,13 +13,6 @@ public class Schema {
     public Schema(PresetSchema[] presets, Integer version) {
         this.presets = presets;
         this.version = version;
-        if (presets != null) {
-            for (PresetSchema preset : this.presets) {
-                // null values to shorten the json
-                preset.getPreset().getAbout().setBio(null);
-                preset.getPreset().getAbout().setDetails(null);
-            }
-        }
     }
 
     public void setPresets(PresetSchema[] presets) {
