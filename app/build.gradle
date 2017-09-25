@@ -26,8 +26,8 @@ android {
         minSdkVersion 15
         targetSdkVersion 26
         // TODO RELEASE
-        versionCode 21
-        versionName "2.3 Beta 1"
+        versionCode 22
+        versionName "2.3 Alpha 7"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
