@@ -161,13 +161,13 @@ public class FileHelper {
         }
     }
 
-    public Preset getPresetFromMetadata(String presetName, Gson gson) {
+    public PresetSchema getPresetSchemaFromMetadata(String presetName, Gson gson) {
         if (presetName != null) {
-            Preset preset = gson.fromJson(
+            PresetSchema preset = gson.fromJson(
                     this.getStringFromFile(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json"),
                     PresetSchema.class
-            ).getPreset();
-            preset.setTag(presetName);
+            );
+            preset.getPreset().setTag(presetName);
             return preset;
         } else {
             return null;

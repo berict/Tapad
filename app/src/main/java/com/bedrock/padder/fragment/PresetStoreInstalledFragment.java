@@ -19,7 +19,6 @@ import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.PresetStoreHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.Schema;
-import com.bedrock.padder.model.preset.Preset;
 import com.bedrock.padder.model.preset.PresetSchema;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -91,25 +90,26 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
         Log.d(TAG, "searchMetadata");
         // get metadata locally
         File[] presets = getPresetFolderList();
-        if (presets != null && presets.length > 1) {
+        if (presets != null && presets.length > 0) {
             // length contains the metadata file
             Log.d(TAG, "Initialized arrayList, length is " + (presets.length - 1));
-            ArrayList<Preset> presetArrayList = new ArrayList<>();
+            ArrayList<PresetSchema> presetArrayList = new ArrayList<>();
 
             for (File presetFolder : presets) {
                 if (fileHelper.isPresetMetadataAvailable(presetFolder.getName())) {
                     // check folder's presets
                     if (validateMetadata(presetFolder.getName())) {
                         // pass only JSON v2
-                        presetArrayList.add(fileHelper.getPresetFromMetadata(presetFolder.getName(), gson));
+                        presetArrayList.add(fileHelper.getPresetSchemaFromMetadata(presetFolder.getName(), gson));
+                        Log.i(TAG, presetFolder.getName() + " exists");
                     } else {
-                        Log.d(TAG, presetFolder.getName() + " JSON is outdated or corrupted");
+                        Log.e(TAG, presetFolder.getName() + " Json is outdated or corrupted");
                     }
                 }
             }
 
             // create metadata
-            if (presetArrayList.size() > 1) {
+            if (presetArrayList.size() > 0) {
                 schema = new Schema(presetArrayList.toArray(new PresetSchema[presetArrayList.size()]), 0);
             } else {
                 // need to show no presets installed
