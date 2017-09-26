@@ -34,6 +34,7 @@ import static android.content.Context.MODE_PRIVATE;
 import static com.bedrock.padder.activity.MainActivity.PRESET_KEY;
 import static com.bedrock.padder.activity.MainActivity.isPresetChanged;
 import static com.bedrock.padder.activity.PresetStoreActivity.isPresetDownloading;
+import static com.bedrock.padder.helper.PresetStoreHelper.PRESET_LOCATION;
 import static com.bedrock.padder.helper.PresetStoreHelper.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
@@ -94,11 +95,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
         }
 
         // load preset image
-        String imageUrl = getStringFromId(R.string.google_firebase_link_root, activity)
-                + "/presets%2F"
-                + preset.getTag()
-                + "%2F" + "album_art.jpg"
-                + "?alt=media";
+        String imageUrl = PRESET_LOCATION + preset.getTag() + "/album_art.jpg";
 
         String presetName = preset.getAbout().getTitle();
         String presetString[] = presetName.split(" - ");
