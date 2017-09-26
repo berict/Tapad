@@ -66,7 +66,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
 
     @Override
     public void onBindViewHolder(final DetailViewHolder holder, int position) {
-        holder.itemText.setText(getStringFromId(item[position].getText(context), activity));
+        holder.itemText.setText(getStringFromId(item[position].getText(context).toLowerCase().replace(" ", "_"), activity));
 
         if(position == getItemCount() - 1) {
             // last item on list, hide divider

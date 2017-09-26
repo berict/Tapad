@@ -18,7 +18,9 @@
     <string name="spotify"          >Spotify</string>
     <string name="google_play_music">Google Play Music</string>
     <string name="apple"            >Apple Music</string>
+	<string name="apple_music">Apple Music</string>
     <string name="amazon"           >Amazon Music</string>
+	<string name="amazon_music">Amazon Music</string>
     <string name="pandora"          >Pandora</string>
 
     <!-- Berict -->
