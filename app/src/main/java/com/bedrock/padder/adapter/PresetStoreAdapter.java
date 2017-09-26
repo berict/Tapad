@@ -138,7 +138,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                         .error(R.drawable.ic_image_album_error)
                         .into(holder.presetImage);
                 // check preset update
-                onPresetUpdated(presetSchema.getVersion(), preset.getTag(), new Runnable() {
+                onPresetUpdated(presetSchema.getLocalVersion(), preset.getTag(), new Runnable() {
                     @Override
                     public void run() {
                         // preset updated
@@ -314,6 +314,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
         api.getPresetSchema(tag).enqueue(new Callback<PresetSchema>() {
             @Override
             public void onResponse(Call<PresetSchema> call, Response<PresetSchema> response) {
+                Log.i(TAG, "Current version : " + response.body().getVersion() + " / Local version : " + version);
                 if (response.body().getVersion() > version) {
                     // the version is updated
                     onUpdated.run();

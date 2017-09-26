@@ -1,5 +1,7 @@
 package com.bedrock.padder.model.preset;
 
+import com.bedrock.padder.helper.PresetStoreHelper;
+
 public class PresetSchema {
     // mongoose schema wrapper, JSON V2
 
@@ -204,6 +206,10 @@ public class PresetSchema {
 
     public Integer getVersion() {
         return version;
+    }
+
+    public Integer getLocalVersion() {
+        return new PresetStoreHelper().getLocalPreset(preset.getTag()).getVersion();
     }
 
     public Review[] getReviews() {

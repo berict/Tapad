@@ -24,6 +24,8 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.activity.PresetStoreActivity;
+import com.bedrock.padder.model.preset.PresetSchema;
+import com.google.gson.Gson;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -61,6 +63,11 @@ public class PresetStoreHelper {
     public String getPresetJson(String presetName) {
         FileHelper file = new FileHelper();
         return file.getStringFromFile(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json");
+    }
+
+    public PresetSchema getLocalPreset(String presetName) {
+        Gson gson = new Gson();
+        return gson.fromJson(getPresetJson(presetName), PresetSchema.class);
     }
 
     public DownloadPreset downloadPreset(final String presetName, final String presetTitle, final View parentView, final Activity activity, final Runnable onFinish) {
