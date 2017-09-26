@@ -1,1 +1,0 @@
-{"presets":[{"about":{"actionbar_color":"#00D3BE","preset_creator":"Studio Berict","title":"Alan Walker - Faded","tutorial_link":"null"},"firebase_location":"alan_walker_faded_gesture","music":{"bpm":90,"file_name":"alan_walker_faded","is_gesture":true,"name":"preset_faded","sound_count":246}}],"version_code":15}
