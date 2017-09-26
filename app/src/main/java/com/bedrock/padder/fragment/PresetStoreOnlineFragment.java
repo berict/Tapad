@@ -88,11 +88,12 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setNestedScrollingEnabled(false);
 
-        // firebase check
+        // preset store check
         setAdapter();
     }
 
     private void setLoadingFinished(boolean isFinished) {
+        setLoadingFailed(false);
         if (isFinished) {
             // finished, hide loading and show recyclerView
             Log.d(TAG, "Loading finished");
@@ -105,32 +106,39 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
         }
     }
 
-    private void setLoadingFailed() {
-        Log.d(TAG, "Loading failed");
-        anim.fadeOut(recyclerView, 0, 200, a);
-        anim.fadeOut(recyclerViewLoading, 0, 200, a);
-        anim.fadeIn(recyclerViewFailed, 200, 200, "rvIn", a);
-        recyclerViewFailedRetry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // retry button
-                setAdapter();
-            }
-        });
-        Handler handler = new Handler();
-        if (((TabLayout)window.getView(R.id.layout_tab_layout, a)).getSelectedTabPosition() == 1) {
-            // only when the online tab is selected
-            handler.postDelayed(new Runnable() {
+    private void setLoadingFailed(boolean isFailed) {
+        if (isFailed) {
+            Log.e(TAG, "Loading failed");
+            anim.fadeOut(recyclerView, 0, 200, a);
+            anim.fadeOut(recyclerViewLoading, 0, 200, a);
+            anim.fadeIn(recyclerViewFailed, 200, 200, "rvIn", a);
+            recyclerViewFailedRetry.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void run() {
-                    new MaterialDialog.Builder(a)
-                            .title(R.string.preset_store_download_no_connection_dialog_title)
-                            .content(R.string.preset_store_download_no_connection_dialog_text)
-                            .contentColorRes(R.color.dark_primary)
-                            .neutralText(R.string.dialog_close)
-                            .show();
+                public void onClick(View view) {
+                    // retry button
+                    setAdapter();
                 }
-            }, 200);
+            });
+            Handler handler = new Handler();
+            if (((TabLayout) window.getView(R.id.layout_tab_layout, a)).getSelectedTabPosition() == 1) {
+                // only when the online tab is selected
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        new MaterialDialog.Builder(a)
+                                .title(R.string.preset_store_download_no_connection_dialog_title)
+                                .content(R.string.preset_store_download_no_connection_dialog_text)
+                                .contentColorRes(R.color.dark_primary)
+                                .neutralText(R.string.dialog_close)
+                                .show();
+                    }
+                }, 200);
+            }
+        } else {
+            Log.d(TAG, "Reset failed error");
+            anim.fadeIn(recyclerView, 0, 200, "rvIn", a);
+            anim.fadeIn(recyclerViewLoading, 0, 200, "rvLIn", a);
+            anim.fadeOut(recyclerViewFailed, 200, 200, a);
         }
     }
 
@@ -144,7 +152,7 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
                     // loading for 10 seconds, prompt user to retry or not
                     if (((TabLayout)window.getView(R.id.layout_tab_layout, a)).getSelectedTabPosition() == 1) {
                         // only when the online page is visible
-                        setLoadingFailed();
+                        setLoadingFailed(true);
                         if (a != null) {
                             new MaterialDialog.Builder(a)
                                     .title(R.string.preset_store_connection_timeout_dialog_title)
@@ -192,7 +200,7 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
                             schema.getVersion() == null) {
                         // corrupted metadata, download again
                         Log.e(TAG, "Schema is null");
-                        setLoadingFailed();
+                        setLoadingFailed(true);
                     } else {
                         // attach adapter while its not null
                         presetStoreAdapter = new PresetStoreAdapter(
@@ -205,7 +213,7 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
                 }
             });
         } else {
-            setLoadingFailed();
+            setLoadingFailed(true);
         }
     }
 
