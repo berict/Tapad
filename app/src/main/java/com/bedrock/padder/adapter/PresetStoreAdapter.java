@@ -22,8 +22,6 @@ import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.Schema;
 import com.bedrock.padder.model.preset.Preset;
 import com.bedrock.padder.model.preset.PresetSchema;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -31,7 +29,6 @@ import java.io.File;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import rx.Subscriber;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.bedrock.padder.activity.MainActivity.PRESET_KEY;
@@ -71,7 +68,6 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
 
     @Override
     public void onBindViewHolder(final PresetViewHolder holder, int position) {
-        // TODO trace this variable
         final Preset preset = schema.getPreset(position).getPreset();
         final PresetSchema presetSchema = schema.getPreset(position);
 

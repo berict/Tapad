@@ -1,5 +1,7 @@
 package com.bedrock.padder.helper;
 
+import android.util.Log;
+
 import com.bedrock.padder.api.ApiClient;
 import com.bedrock.padder.api.ApiInterface;
 import com.bedrock.padder.api.SchemaPresets;
@@ -7,6 +9,8 @@ import com.bedrock.padder.api.SchemaVersion;
 import com.bedrock.padder.model.Schema;
 import com.bedrock.padder.model.preset.PresetSchema;
 import com.bedrock.padder.model.preset.Version;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
@@ -88,5 +92,14 @@ public class ApiHelper {
         });
 
         return schemaObservable;
+    }
+
+    public static String getJson(Object object) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return gson.toJson(object);
+    }
+
+    public static void logJson(Object object) {
+        Log.i("JSON", getJson(object));
     }
 }
