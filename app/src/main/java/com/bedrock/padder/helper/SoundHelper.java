@@ -119,6 +119,10 @@ public class SoundHelper {
                 if (i == index) {
                     // selected
                     decks[i].setSelected(true);
+                    for (Pad pad : decks[i].getPads()) {
+                        // update looping pads
+                        pad.update();
+                    }
                 } else {
                     decks[i].setSelected(false);
                 }

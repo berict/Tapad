@@ -57,6 +57,18 @@ public class Pad {
         setPadColor(color);
     }
 
+    public void update() {
+        try {
+            if (normal != null && normal.isLooping) {
+                setPadColor();
+            } else {
+                setPadColorToDefault(true);
+            }
+        } catch (Exception e) {
+            Log.e("Pad", "Failed to update pad color : " + e.getMessage());
+        }
+    }
+
     void setPadColorToDefault() {
         if (normal != null && !normal.isLooping && view != null) {
             // while not looping
