@@ -1,6 +1,9 @@
 package com.bedrock.padder.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -23,16 +26,21 @@ import com.bedrock.padder.activity.PresetStoreActivity;
 import com.bedrock.padder.adapter.PresetStoreAdapter;
 import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.ApiHelper;
+import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.Schema;
 
 import rx.Subscriber;
+
+import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
 
     private WindowHelper window = new WindowHelper();
     private AnimateHelper anim = new AnimateHelper();
     private ApiHelper api = new ApiHelper();
+
+    private boolean isUpdateDialogShown = false;
 
     private String TAG = "PSOnline";
 
@@ -198,10 +206,55 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
                     if (schema == null ||
                             schema.getPresets() == null ||
                             schema.getVersion() == null) {
-                        // corrupted metadata, download again
+                        // corrupted schema
                         Log.e(TAG, "Schema is null");
                         setLoadingFailed(true);
                     } else {
+                        // version check
+                        int version = -1;
+
+                        try {
+                            PackageInfo pInfo = a.getPackageManager().getPackageInfo(a.getPackageName(), 0);
+                            version = pInfo.versionCode;
+                        } catch (PackageManager.NameNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (((TabLayout) window.getView(R.id.layout_tab_layout, a)).getSelectedTabPosition() == 1) {
+                            // only when the online page is visible
+                            if (isUpdateDialogShown == false
+                                    && version > 0
+                                    && schema.getVersion() > version) {
+                                // currently using outdated version, show dialog
+                                new MaterialDialog.Builder(a)
+                                        .title(R.string.preset_store_outdated_version_dialog_title)
+                                        .content(R.string.preset_store_outdated_version_dialog_text)
+                                        .contentColorRes(R.color.dark_primary)
+                                        .positiveText(R.string.preset_store_outdated_version_dialog_positive)
+                                        .negativeText(R.string.preset_store_outdated_version_dialog_negative)
+                                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                            @Override
+                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                new IntentHelper().intentMarket(a, APPLICATION_ID, 0);
+                                            }
+                                        })
+                                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                            @Override
+                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                dialog.dismiss();
+                                            }
+                                        })
+                                        .dismissListener(new DialogInterface.OnDismissListener() {
+                                            @Override
+                                            public void onDismiss(DialogInterface dialogInterface) {
+                                                // show dialog only once
+                                                isUpdateDialogShown = true;
+                                            }
+                                        })
+                                        .show();
+                            }
+                        }
+
                         // attach adapter while its not null
                         presetStoreAdapter = new PresetStoreAdapter(
                                 schema,

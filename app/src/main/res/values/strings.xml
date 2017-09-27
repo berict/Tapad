@@ -237,6 +237,12 @@
 	</string>
     <string name="preset_store_permission_dialog_positive">SETTINGS</string>
     <string name="preset_store_permission_dialog_negative">EXIT</string>
+    <string name="preset_store_outdated_version_dialog_title">New update available</string>
+    <string name="preset_store_outdated_version_dialog_text">
+		New version is available for download.
+	</string>
+    <string name="preset_store_outdated_version_dialog_positive">UPDATE</string>
+    <string name="preset_store_outdated_version_dialog_negative">NO THANKS</string>
     <string name="preset_store_connection_timeout_dialog_title">Loading preset store</string>
     <string name="preset_store_connection_timeout_dialog_text">
 		Connecting to the preset store takes longer than usual. Do you want to retry connecting?
