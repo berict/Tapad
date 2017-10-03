@@ -33,19 +33,15 @@ import com.bedrock.padder.helper.SoundHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.Schema;
-import com.bedrock.padder.model.about.About;
-import com.bedrock.padder.model.about.Bio;
-import com.bedrock.padder.model.about.Detail;
-import com.bedrock.padder.model.about.Item;
-import com.bedrock.padder.model.app.theme.ColorData;
+import com.bedrock.padder.model.preferences.Item;
+import com.bedrock.padder.model.preferences.ItemColor;
+import com.bedrock.padder.model.preferences.Preferences;
 import com.bedrock.padder.model.preset.Preset;
 import com.bedrock.padder.model.preset.PresetSchema;
-import com.bedrock.padder.model.preset.Review;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.File;
-import java.util.Date;
 
 import rx.Subscriber;
 
@@ -70,6 +66,8 @@ public class MainActivity
 
     public static Preset preset;
     public static Preset currentPreset = null;
+
+    public static Preferences preferences;
 
     // Used for circularReveal
     // End two is for settings coordinate animation
@@ -122,71 +120,6 @@ public class MainActivity
         }
     }
 
-    void makeTestJson() {
-        Item testItems[] = {
-                new Item("facebook", getStringFromId("preset_placeholder_detail_facebook", a)),
-                new Item("twitter", getStringFromId("preset_placeholder_detail_twitter", a)),
-                new Item("soundcloud", getStringFromId("preset_placeholder_detail_soundcloud", a)),
-                new Item("instagram", getStringFromId("preset_placeholder_detail_instagram", a)),
-                new Item("google_plus", getStringFromId("preset_placeholder_detail_google_plus", a)),
-                new Item("youtube", getStringFromId("preset_placeholder_detail_youtube", a)),
-                new Item("web", getStringFromId("preset_placeholder_detail_web", a))
-        };
-
-        Detail testDetail = new Detail(getStringFromId("preset_placeholder_detail_title", a), testItems);
-
-        Item testSongItems[] = {
-                new Item("soundcloud", getStringFromId("preset_placeholder_song_detail_soundcloud", a), false),
-                new Item("youtube", getStringFromId("preset_placeholder_song_detail_youtube", a), false),
-                new Item("spotify", getStringFromId("preset_placeholder_song_detail_spotify", a), false),
-                new Item("google_play_music", getStringFromId("preset_placeholder_song_detail_google_play_music", a), false),
-                new Item("apple", getStringFromId("preset_placeholder_song_detail_apple", a), false),
-                new Item("amazon", getStringFromId("preset_placeholder_song_detail_amazon", a), false),
-                new Item("pandora", getStringFromId("preset_placeholder_song_detail_pandora", a), false)
-        };
-
-        Detail testSongDetail = new Detail(getStringFromId("preset_placeholder_song_detail_title", a), testSongItems);
-
-        Bio testBio = new Bio(
-                getStringFromId("preset_placeholder_bio_title", a),
-                getStringFromId("preset_placeholder_bio_name", a),
-                getStringFromId("preset_placeholder_bio_text", a),
-                getStringFromId("preset_placeholder_bio_source", a)
-        );
-
-        Detail testDetails[] = {
-                testDetail,
-                testSongDetail
-        };
-
-        About testAbout = new About(
-                "Faded",
-                "Alan Walker",
-                "Studio Berict",
-                "#00D3BE",
-                testBio, testDetails
-        );
-
-        Preset testPreset = new Preset("alan_walker_faded_gesture", testAbout, true, 245, 90);
-
-        Review reviews[] = {
-                new Review(3, "comment", 1, new Date(System.currentTimeMillis()))
-        };
-
-        PresetSchema testPresetSchema = new PresetSchema(testPreset, "genre", "desc", 1, 1, reviews);
-
-        largeLog("testPreset", gson.toJson(testPreset));
-
-        largeLog("testPresetSchema", gson.toJson(testPresetSchema));
-
-        PresetSchema[] presets = {
-                testPresetSchema
-        };
-
-        Schema schema = new Schema(presets, 21);
-        largeLog("Metadata", gson.toJson(schema));
-    }
-
     void makeTestRequest() {
         ApiHelper api = new ApiHelper();
         api.getObservableSchema().subscribe(new Subscriber<Schema>() {
@@ -205,6 +138,22 @@ public class MainActivity
                 Log.i(TAG, schema.toString());
             }
         });
+    }
+
+    void makeTestPreferences() {
+        Preferences preferences = new Preferences.Editor()
+                .setContext(a)
+                .put("deckMargin", 0.8f)
+                .put("stopOnFocusLoss", true)
+                .put("stopLoopOnSingleTouch", false)
+                .put("startPage", "recent")
+                .apply();
+
+        Item item = new Preferences.Editor()
+                .create(a)
+                .get("deckMargin");
+
+        Log.i("testPrefs", item.getDoubleValue().toString());
     }
 
     public static void showSettingsFragment(AppCompatActivity a) {
@@ -228,6 +177,73 @@ public class MainActivity
         Log.d("AboutVisible", String.valueOf(isAboutVisible));
     }
 
+    public void initPreferences() {
+        String prefItems[] = {
+                "deckMargin",
+                "stopOnFocusLoss",
+                "stopLoopOnSingle",
+                "startPage",
+                "color"
+        };
+
+        String colorDataJson = prefs.getString("colorData", null);
+
+        ItemColor itemColor;
+
+        if (colorDataJson != null) {
+            // import deprecated ColorData prefs to ItemColor
+            itemColor = gson.fromJson(colorDataJson, ItemColor.ColorData.class).toItemColor();
+            // clear the imported data
+            prefs.edit().putString("colorData", null);
+        } else {
+            // no previous data, create new
+            itemColor = new ItemColor(color);
+        }
+
+        Object prefDefaults[] = {
+                0.8f,
+                true,
+                false,
+                "recent",
+                itemColor
+        };
+
+        preferences = new Preferences.Editor()
+                .create(a);
+
+        Preferences.Editor editor = new Preferences.Editor().create(a);
+
+        boolean isChanged = false;
+
+        if (preferences.size() == prefItems.length) {
+            // exists
+            for (int i = 0; i < preferences.size(); i++) {
+                // search for existing key pairs
+                int index = preferences.search(prefItems[i]);
+                if (index == -1) {
+                    // item doesn't exist, create new
+                    editor.put(prefItems[i], prefDefaults[i]);
+                    isChanged = true;
+                } else if (!preferences.getAll()[index].contains()) {
+                    // item doesn't exist, write to existing key pair
+                    editor.set(prefItems[i], prefDefaults[i]);
+                    isChanged = true;
+                }
+            }
+        } else {
+            // the List<Item> is null
+            for (int i = 0; i < prefItems.length; i++) {
+                editor.put(prefItems[i], prefDefaults[i]);
+                isChanged = true;
+            }
+        }
+
+        // apply changes
+        if (isChanged) {
+            preferences = editor.apply();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -235,6 +251,9 @@ public class MainActivity
 
         Log.d(TAG, "SharedPrefs initialized");
         prefs = this.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
+
+        // initialize preferences
+        initPreferences();
 
         try {
             currentVersionCode = a.getPackageManager().getPackageInfo(a.getPackageName(), 0).versionCode;
@@ -293,19 +312,12 @@ public class MainActivity
             prefs.edit().putBoolean("welcome", false).apply();
         }
 
-        color = prefs.getInt("color", R.color.cyan_400);
+        // set color from preferences
+        setColor();
         toolbar.setActionBar(this);
         toolbar.setStatusBarTint(this);
 
         settings.setPrefs(a);
-
-        if (prefs.getString("colorData", null) == null) {
-            // First run colorData json set
-            ColorData placeHolderColorData = new ColorData(color);
-            String colorDataJson = gson.toJson(placeHolderColorData);
-            prefs.edit().putString("colorData", colorDataJson).apply();
-            Log.d("ColorData pref", prefs.getString("colorData", null));
-        }
 
         a.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
@@ -444,7 +456,8 @@ public class MainActivity
             w.setInvisible(view, 10, a);
         }
 
-        color = prefs.getInt("color", R.color.cyan_400);
+        // get changed color values
+        setColor();
 
         if (isPresetVisible) {
             if (!isAboutVisible && !isSettingVisible) {
@@ -841,7 +854,7 @@ public class MainActivity
             isSettingsFromMenu = false;
         }
 
-        color = prefs.getInt("color", R.color.cyan_400);
+        setColor();
         clearToggleButton();
 
         setSettingVisible(false);
@@ -882,7 +895,7 @@ public class MainActivity
             preset.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    sound.load(currentPreset, prefs.getInt("color", R.color.cyan_400), colorDef, a);
+                    sound.load(currentPreset, getPreferencesColor(), colorDef, a);
                 }
             }, delay);
         }
@@ -907,7 +920,9 @@ public class MainActivity
             tgl6 = false;
             tgl7 = false;
             tgl8 = false;
+
             sound.clear();
+            sound.loadColor(getPreferencesColor());
 
             toggleSoundId = 0;
 
@@ -990,5 +1005,22 @@ public class MainActivity
         // preset exist
         File folder = new File(PROJECT_LOCATION_PRESETS + "/" + presetName); // folder check
         return folder.isDirectory() && folder.exists();
+    }
+
+    public static int getPreferencesColor() {
+        Integer color = -1;
+        if (preferences != null) {
+            color = preferences.get("color").getColorValue().getColorButton();
+        }
+        if (color != null) {
+            return color;
+        } else {
+            Log.e("Preferences", "Color returned null");
+            return R.color.cyan_400;
+        }
+    }
+
+    private void setColor() {
+        color = getPreferencesColor();
     }
 }

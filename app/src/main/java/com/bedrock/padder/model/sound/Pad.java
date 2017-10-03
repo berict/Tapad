@@ -44,6 +44,10 @@ public class Pad {
         this.colorDef = colorDef;
     }
 
+    public void setColor(int color) {
+        this.color = color;
+    }
+
     void setPadColor(int color) {
         try {
             view.setBackgroundColor(activity.getResources().getColor(color));

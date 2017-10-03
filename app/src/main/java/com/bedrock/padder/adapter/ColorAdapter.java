@@ -16,14 +16,16 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.helper.WindowHelper;
-import com.bedrock.padder.model.app.theme.ColorData;
+import com.bedrock.padder.model.preferences.ItemColor;
+import com.bedrock.padder.model.preferences.Preferences;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import static com.bedrock.padder.activity.MainActivity.isDeckShouldCleared;
+import static com.bedrock.padder.activity.MainActivity.preferences;
 
 public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHolder> {
-    private ColorData colorData;
+    private ItemColor itemColor;
     private int rowLayout;
     private SharedPreferences prefs;
     private Activity activity;
@@ -53,8 +55,8 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
         }
     }
 
-    public ColorAdapter(ColorData colorData, int rowLayout, SharedPreferences prefs, Activity activity) {
-        this.colorData = colorData;
+    public ColorAdapter(ItemColor itemColor, int rowLayout, SharedPreferences prefs, Activity activity) {
+        this.itemColor = itemColor;
         this.rowLayout = rowLayout;
         this.prefs = prefs;
         this.activity = activity;
@@ -71,8 +73,8 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
 
     @Override
     public void onBindViewHolder(final DetailViewHolder holder, int position) {
-        Log.d("Holder", String.valueOf(colorData.getColorButtonRecent(position)));
-        final int color = colorData.getColorButtonRecent(position);
+        Log.d("Holder", String.valueOf(itemColor.getColorButtonRecent(position)));
+        final int color = itemColor.getColorButtonRecent(position);
 
         // Set the color id title
         try {
@@ -114,19 +116,18 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
             @Override
             public void onClick(View v) {
                 // remove element
-                colorData.removeColorButtonRecent(color);
+                itemColor.removeColorButtonRecent(color);
                 notifyItemRemoved(holder.getAdapterPosition());
                 notifyItemRangeChanged(holder.getAdapterPosition(), getItemCount());
                 // add primary color to list
-                colorData.addColorButtonRecent(colorData.getColorButton());
+                itemColor.addColorButtonRecent(itemColor.getColorButton());
                 notifyItemInserted(getItemCount());
                 notifyItemRangeChanged(getItemCount() - 1, getItemCount());
                 // set color
-                colorData.setColorButton(color);
+                itemColor.setColorButton(color);
                 setPrimaryColor();
-                // save again to json prefs
-                prefs.edit().putString("colorData", gson.toJson(colorData)).apply();
-                Log.d("Prefs", "colorData : " + prefs.getString("colorData", null));
+                // save again to preferences
+                preferences = new Preferences.Editor().create(activity).set("color", itemColor);
             }
         });
 
@@ -141,12 +142,12 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                 // remove element
-                                colorData.removeColorButtonRecent(color);
+                                itemColor.removeColorButtonRecent(color);
                                 notifyItemRemoved(holder.getAdapterPosition());
                                 notifyItemRangeChanged(holder.getAdapterPosition(), getItemCount());
                                 // save again to json prefs
-                                prefs.edit().putString("colorData", gson.toJson(colorData)).apply();
-                                Log.d("Prefs", "colorData : " + prefs.getString("colorData", null));
+                                prefs.edit().putString("itemColor", gson.toJson(itemColor)).apply();
+                                Log.d("Prefs", "itemColor : " + prefs.getString("itemColor", null));
                             }
                         })
                         .negativeText(R.string.dialog_cancel)
@@ -164,11 +165,11 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
 
     @Override
     public int getItemCount() {
-        return colorData.getColorButtonRecents().length;
+        return itemColor.getColorButtonRecents().length;
     }
 
     private void setPrimaryColor() {
-        int primaryColor = colorData.getColorButton();
+        int primaryColor = itemColor.getColorButton();
         isDeckShouldCleared = true;
 
         View colorView[] = {

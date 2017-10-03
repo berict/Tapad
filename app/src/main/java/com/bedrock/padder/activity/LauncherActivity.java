@@ -32,7 +32,13 @@ public class LauncherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
+        Fabric.with(
+                new Fabric.Builder(this)
+                        .kits(new Crashlytics())
+                        // TODO RELEASE
+                        .debuggable(true)
+                        .build()
+        );
         setContentView(R.layout.activity_launcher);
 
         activity = this;

@@ -20,18 +20,19 @@ import com.bedrock.padder.adapter.ColorAdapter;
 import com.bedrock.padder.helper.FabHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
-import com.bedrock.padder.model.app.theme.ColorData;
+import com.bedrock.padder.model.preferences.ItemColor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import static com.bedrock.padder.activity.MainActivity.getPreferencesColor;
+import static com.bedrock.padder.activity.MainActivity.preferences;
 import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class ColorActivity extends AppCompatActivity implements ColorChooserDialog.ColorCallback {
 
     private WindowHelper w = new WindowHelper();
-    //private FabServiceOld fab = new FabServiceOld();
     private FabHelper fab = new FabHelper();
     private ToolbarHelper toolbar = new ToolbarHelper();
 
@@ -40,7 +41,7 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     int color;
 
-    private ColorData colorData;
+    private ItemColor itemColor;
     private ColorAdapter colorAdapter;
 
     @Override
@@ -54,7 +55,7 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
         w.setStatusBar(R.color.transparent, activity);
         w.setNavigationBar(R.color.transparent, activity);
 
-        color = prefs.getInt("color", R.color.cyan_400);
+        color = getPreferencesColor();
 
         setUi();
     }
@@ -80,18 +81,15 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
             }
         });
 
-        String colorDataJson = prefs.getString("colorData", null);
-        Log.i("ColorData", colorDataJson);
-
-        colorData = gson.fromJson(colorDataJson, ColorData.class);
-        Log.i("ColorData", colorDataJson);
+        // get item color values from preferences
+        itemColor = preferences.get("color").getColorValue();
 
         // adapter
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
         colorAdapter = new ColorAdapter(
-                colorData,
+                itemColor,
                 R.layout.adapter_color,
                 prefs,
                 activity
@@ -155,7 +153,7 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        if (colorData.getColorButtonRecentLength() <= 0) {
+        if (itemColor.getColorButtonRecentLength() <= 0) {
             w.setVisible(R.id.layout_color_placeholder, 0, activity);
         } else {
             w.setGone(R.id.layout_color_placeholder, 0, activity);
@@ -177,10 +175,10 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
 
     @Override
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int colorInt) {
-        if (ArrayUtils.indexOf(colorData.getColorButtonRecents(), colorInt) >= 0) {
+        if (ArrayUtils.indexOf(itemColor.getColorButtonRecents(), colorInt) >= 0) {
             // the value exists, show toast
             Toast.makeText(activity, R.string.settings_color_dialog_duplicate, Toast.LENGTH_SHORT).show();
-        } else if (colorData.getColorButton() == colorInt) {
+        } else if (itemColor.getColorButton() == colorInt) {
             // the value is same to current color
             Toast.makeText(activity, R.string.settings_color_dialog_duplicate_current, Toast.LENGTH_SHORT).show();
         } else {
@@ -189,10 +187,10 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
     }
 
     private void insertNewColor(int color) {
-        colorData.addColorButtonRecent(color);
+        itemColor.addColorButtonRecent(color);
         colorAdapter.notifyDataSetChanged();
         // save again to json prefs
-        prefs.edit().putString("colorData", gson.toJson(colorData)).apply();
-        Log.d("Prefs", "colorData : " + prefs.getString("colorData", null));
+        prefs.edit().putString("itemColor", gson.toJson(itemColor)).apply();
+        Log.d("Prefs", "itemColor : " + prefs.getString("itemColor", null));
     }
 }

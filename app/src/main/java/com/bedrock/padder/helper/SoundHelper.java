@@ -24,17 +24,20 @@ import java.util.Random;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.bedrock.padder.activity.MainActivity.currentPreset;
+import static com.bedrock.padder.activity.MainActivity.getPreferencesColor;
 import static com.bedrock.padder.activity.MainActivity.isPresetLoading;
 import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class SoundHelper {
+
     private static Preset previousPreset = null;
+
     private SoundPool sp = new SoundPool(16, AudioManager.STREAM_MUSIC, 0);
+
     private MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-    private int toggle;
-    private int soundPoolId[][][] = new int[4][17][5];
-    private Deck decks[];
+
     private Activity activity;
+
     private int buttonId[] = {
             R.id.btn00,
             R.id.tgl1,
@@ -58,18 +61,27 @@ public class SoundHelper {
             R.id.btn43,
             R.id.btn44
     };
+
     private AdmobHelper ad = new AdmobHelper();
     private AnimateHelper anim = new AnimateHelper();
     private WindowHelper window = new WindowHelper();
+
     private AsyncTask unload = null;
     private AsyncTask load = null;
+
     private ProgressBar progress;
+
     private int progressCount;
     private int presetSoundCount;
+
+    private Deck decks[];
+
     private int color = 0;
     private int colorDef = 0;
+
     private int intervalPixel;
     private int intervalCount;
+
     private SharedPreferences prefs;
 
     public SoundPool getSoundPool() {
@@ -78,7 +90,7 @@ public class SoundHelper {
 
     public void setDecks(int color, int colorDef, Activity activity) {
         prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
-        this.color = prefs.getInt("color", R.color.cyan_400);
+        this.color = getPreferencesColor();
         this.colorDef = colorDef;
         decks = new Deck[] {
                 new Deck(new Pad[17], null, window.getView(buttonId[1], activity), color, colorDef, activity),
@@ -136,6 +148,18 @@ public class SoundHelper {
             for (Pad pad : deck.getPads()) {
                 if (pad != null) {
                     pad.stop();
+                }
+            }
+        }
+    }
+
+    public void loadColor(int color) {
+        if (decks != null && currentPreset != null) {
+            for (Deck deck : decks) {
+                for (Pad pad : deck.getPads()) {
+                    if (pad != null) {
+                        pad.setColor(color);
+                    }
                 }
             }
         }

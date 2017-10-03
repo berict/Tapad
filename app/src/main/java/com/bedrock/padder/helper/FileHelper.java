@@ -123,7 +123,7 @@ public class FileHelper {
             }
             return available;
         } else {
-            Log.e(TAG, "Preset [" + preset.getTag() + "] is not available.");
+            Log.e(TAG, "Preset is null.");
             return false;
         }
     }
