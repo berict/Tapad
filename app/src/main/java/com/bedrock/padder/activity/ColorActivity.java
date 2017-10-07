@@ -20,8 +20,6 @@ import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.preferences.ItemColor;
 import com.bedrock.padder.model.preferences.Preferences;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -31,10 +29,9 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
     private FabHelper fab = new FabHelper();
     private ToolbarHelper toolbar = new ToolbarHelper();
 
-    Activity activity = this;
-    Preferences preferences = null;
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    int color;
+    private Activity activity = this;
+    private Preferences preferences = null;
+    private int color;
 
     private ItemColor itemColor;
     private ColorAdapter colorAdapter;
