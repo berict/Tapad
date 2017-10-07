@@ -329,7 +329,6 @@ public class AnimateHelper {
                     public void run() {
                         fadeOut.setDuration(duration);
                         view.startAnimation(fadeOut);
-                        view.setVisibility(View.GONE);
 
                         Log.i(TAG, getViewId(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
                     }
@@ -342,7 +341,6 @@ public class AnimateHelper {
                 }, delay + 10);
             } else {
                 fadeOut.setDuration(duration);
-                view.startAnimation(fadeOut);
                 view.setVisibility(View.GONE);
                 Log.i(TAG, getViewId(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with no delay");
             }
@@ -386,7 +384,6 @@ public class AnimateHelper {
                     public void run() {
                         fadeOut.setDuration(duration);
                         view.startAnimation(fadeOut);
-                        view.setVisibility(View.GONE);
 
                         Log.i(TAG, getViewId(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
                     }
@@ -399,7 +396,6 @@ public class AnimateHelper {
                 }, delay + 10);
             } else {
                 fadeOut.setDuration(duration);
-                view.startAnimation(fadeOut);
                 view.setVisibility(View.GONE);
                 Log.i(TAG, getViewId(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with no delay");
             }
@@ -444,7 +440,6 @@ public class AnimateHelper {
                     public void run() {
                         fadeOut.setDuration(duration);
                         view.startAnimation(fadeOut);
-                        view.setVisibility(View.GONE);
 
                         Log.i(TAG, getViewId(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
                     }
@@ -457,7 +452,6 @@ public class AnimateHelper {
                 }, delay + 10);
             } else {
                 fadeOut.setDuration(duration);
-                view.startAnimation(fadeOut);
                 view.setVisibility(View.GONE);
                 Log.i(TAG, getViewId(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with no delay");
             }
