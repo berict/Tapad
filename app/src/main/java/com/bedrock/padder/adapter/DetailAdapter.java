@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.bedrock.padder.R;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.about.About;
-import com.bedrock.padder.model.about.Item;
 
 public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailViewHolder> {
     private About about;
@@ -60,8 +59,5 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
     @Override
     public int getItemCount() {
         return about.getDetails().length;
-    }
-
-    private void onListItemClick(final Item item, final DetailViewHolder holder) {
     }
 }
