@@ -951,26 +951,6 @@ public class MainActivity
         }
     }
 
-    private String getAvailableDownloadedPreset() {
-        File directory = new File(PROJECT_LOCATION_PRESETS);
-        File[] files = directory.listFiles();
-        String presetName = null;
-        if (files != null) {
-            for (File dir : files) {
-                if (dir.isDirectory()) {
-                    presetName = dir.getName();
-                    if (isPresetExists(presetName)) {
-                        if (file.isPresetAvailable(presetName)) {
-                            // available preset
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-        return presetName;
-    }
-
     private boolean isPresetExists(String presetName) {
         // preset exist
         File folder = new File(PROJECT_LOCATION_PRESETS + "/" + presetName); // folder check
