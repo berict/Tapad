@@ -74,7 +74,7 @@ public class FeedbackActivity extends AppCompatActivity {
         systemInfo = "Version code = " + BuildConfig.VERSION_CODE + br +
                 "Version name = \"" + BuildConfig.VERSION_NAME + "\"" + br +
                 "Android version = " + Build.VERSION.RELEASE + " (" + Build.VERSION.SDK_INT + ")" + br +
-                "Device model (Product) = " + android.os.Build.MODEL + " ("+ android.os.Build.PRODUCT + ")" + br +
+                "Device model (Product) = " + Build.MODEL + " (" + Build.PRODUCT + ")" + br +
                 "Device screen = " +
                 getWindow().getWindowManager().getDefaultDisplay().getWidth()  + " (W) X " +
                 getWindow().getWindowManager().getDefaultDisplay().getHeight() + " (H)" + br +
