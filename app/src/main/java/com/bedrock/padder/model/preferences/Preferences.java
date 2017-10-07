@@ -17,7 +17,7 @@ public class Preferences {
 
     public static final String APPLICATION_ID = "com.bedrock.padder";
 
-    SharedPreferences prefs = null;
+    private SharedPreferences prefs = null;
 
     public Preferences(SharedPreferences prefs) {
         this.prefs = prefs;
