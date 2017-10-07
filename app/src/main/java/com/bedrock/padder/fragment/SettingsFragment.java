@@ -414,7 +414,9 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        if (mListener != null) {
+            mListener = null;
+        }
     }
 
     public interface OnFragmentInteractionListener {

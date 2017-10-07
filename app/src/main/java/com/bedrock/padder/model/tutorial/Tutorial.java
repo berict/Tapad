@@ -13,6 +13,10 @@ public class Tutorial {
         this.animations = animations;
     }
 
+    public void setAnimations(ScaleAnimation[] animations) {
+        this.animations = animations;
+    }
+
     public void start() {
         // start all pads all threads
         for (PadTiming padTiming : padTimings) {

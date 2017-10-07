@@ -42,17 +42,13 @@ import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
 public class PresetStoreHelper {
 
-    private static final int REQUEST_WRITE_STORAGE = 112;
     public static String PRESET_LOCATION = "http://file.berict.com/tapad/presets";
-    public static String PROJECT_LOCATION = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
     public static String PROJECT_LOCATION_PRESETS = Environment.getExternalStorageDirectory().getPath() + "/Tapad/presets";
-    public static String PROJECT_LOCATION_PRESET_METADATA = Environment.getExternalStorageDirectory().getPath() + "/Tapad/presets/metadata";
 
     private WindowHelper window = new WindowHelper();
     private AnimateHelper anim = new AnimateHelper();
     private FileHelper fileHelper = new FileHelper();
     private IntentHelper intent = new IntentHelper();
-    private ApiHelper api = new ApiHelper();
 
     private String TAG = "PresetStoreHelper";
     private DownloadPreset downloadPreset = null;

@@ -338,7 +338,7 @@ public class IntentHelper {
     }
 
     public void intentShareText(final Activity activity, String subject, String text, final String hint, int delay) {
-        final Intent share = new Intent(android.content.Intent.ACTION_SEND);
+        final Intent share = new Intent(Intent.ACTION_SEND);
         share.setType("text/plain");
         share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
 
@@ -403,7 +403,7 @@ public class IntentHelper {
             public void run() {
                 try {
                     activity.startActivity(Intent.createChooser(email, hint));
-                } catch (android.content.ActivityNotFoundException ex) {
+                } catch (ActivityNotFoundException ex) {
                     Toast.makeText(activity, activity.getResources().getString(R.string.no_email_client), Toast.LENGTH_SHORT).show();
                 }
             }

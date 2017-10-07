@@ -12,11 +12,17 @@ import com.bedrock.padder.helper.AnimateHelper;
 public class PadTiming {
 
     protected View tutorialView;
+
     protected AnimateHelper anim;
+
     protected Activity activity = null;
+
     String TAG = "PadTiming";
+
     private Timing normal;
+
     private ScaleAnimation animationNormal;
+
     private AsyncTask taskNormal = null;
 
     public PadTiming(Timing normal, View tutorialView, ScaleAnimation animationNormal, AnimateHelper anim, Activity activity) {

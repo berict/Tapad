@@ -15,7 +15,6 @@ import com.bedrock.padder.R;
 import com.bedrock.padder.adapter.PresetStoreAdapter;
 import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.FileHelper;
-import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.PresetStoreHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.Schema;
@@ -30,7 +29,6 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
 
     private WindowHelper window = new WindowHelper();
     private AnimateHelper anim = new AnimateHelper();
-    private IntentHelper intent = new IntentHelper();
     private FileHelper fileHelper = new FileHelper();
 
     private String TAG = "PSInstalled";

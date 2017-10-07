@@ -21,7 +21,6 @@ import com.bedrock.padder.R;
 import com.bedrock.padder.helper.AdmobHelper;
 import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.IntentHelper;
-import com.bedrock.padder.helper.SoundHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.google.android.gms.ads.AdListener;
@@ -40,7 +39,6 @@ public class AboutFragment extends Fragment {
     private AdmobHelper ad = new AdmobHelper();
     private IntentHelper intent = new IntentHelper();
     private AnimateHelper anim = new AnimateHelper();
-    private SoundHelper sound = new SoundHelper();
     private ToolbarHelper toolbar = new ToolbarHelper();
 
     private int circularRevealDuration = 400;
@@ -316,7 +314,9 @@ public class AboutFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        if (mListener != null) {
+            mListener = null;
+        }
     }
 
     public interface OnFragmentInteractionListener {

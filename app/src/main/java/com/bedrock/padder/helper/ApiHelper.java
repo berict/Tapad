@@ -27,8 +27,6 @@ import static com.bedrock.padder.api.ApiClient.BASE_URL;
 
 public class ApiHelper {
 
-    private String TAG = "Retrofit";
-
     private ApiInterface apiService = null;
 
     public ApiInterface getApiService() {
