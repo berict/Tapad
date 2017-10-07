@@ -224,18 +224,21 @@ public class SoundHelper {
         load = null;
         unload = null;
 
+        revealButtonWithAnimation();
+
+        isPresetLoading = false;
+    }
+
+    public void revealButtonWithAnimation() {
         final Random random = new Random();
 
-        Handler delay = new Handler();
-        delay.postDelayed(new Runnable() {
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 window.setVisible(R.id.base, 0, activity);
                 buttonRevealAnimation(random.nextInt(25));
             }
         }, 600);
-
-        isPresetLoading = false;
     }
 
     private void buttonRevealAnimation(final int buttonRectIndex) {

@@ -514,12 +514,14 @@ public class MainActivity
                     }
                 }
             }
+
+            Log.i(TAG, "Button layout reset");
         }
     }
 
     private void resizeView(int viewId, int newWidth, int newHeight) {
         View view = a.findViewById(viewId);
-        Log.d("resizeView", "width " + newWidth + " X height " + newHeight);
+        //Log.d("resizeView", "width " + newWidth + " X height " + newHeight);
         if (newHeight > 0) {
             view.getLayoutParams().height = newHeight;
         }
@@ -818,8 +820,22 @@ public class MainActivity
             tgl7 = false;
             tgl8 = false;
 
-            sound.clear();
-            sound.loadColor(preferences.getColor());
+            // reset the deck margin
+            if (!isPresetLoading) {
+                // only set buttons when preset is not loading
+                setButtonLayout();
+                sound.clear();
+                sound.loadColor(preferences.getColor());
+                w.setInvisible(R.id.base, 0, a);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        sound.revealButtonWithAnimation();
+                        Log.i(TAG, "Animated");
+                    }
+                }, 1000);
+            }
 
             toggleSoundId = 0;
 

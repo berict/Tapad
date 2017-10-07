@@ -152,66 +152,126 @@
                     <RelativeLayout
                         android:id="@+id/layout_settings_deck_margin"
                         android:layout_width="match_parent"
-                        android:layout_height="64dp"
+                        android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
-                        android:clickable="true">
+                        android:clickable="true"
+                        android:minHeight="64dp">
 
                         <ImageView
                             android:id="@+id/layout_settings_deck_margin_icon"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:layout_centerVertical="true"
                             android:layout_marginLeft="8dp"
                             android:layout_marginRight="8dp"
+                            android:layout_marginTop="8dp"
                             android:padding="10dp"
                             app:srcCompat="@drawable/ic_relative_scale_black"/>
 
-                        <RelativeLayout
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
                             android:layout_toRightOf="@+id/layout_settings_deck_margin_icon"
+                            android:orientation="vertical"
                             android:paddingRight="12dp">
 
-                            <LinearLayout
-                                android:id="@+id/layout_settings_deck_margin_slider_layout"
+                            <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_toLeftOf="@+id/layout_settings_deck_margin_input"
-                                android:layout_alignParentLeft="true"
-                                android:layout_centerVertical="true"
-                                android:orientation="vertical">
+                                android:layout_marginTop="8dp">
 
-                                <TextView
-                                    android:id="@+id/layout_settings_deck_margin_text"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="6dp"
-                                    android:layout_marginLeft="16dp"
-                                    android:layout_marginTop="4dp"
-                                    android:text="@string/settings_deck_margin"
-                                    android:textColor="@color/dark_secondary"
-                                    android:textSize="14sp"/>
-
-                                <android.support.v7.widget.AppCompatSeekBar
-                                    android:id="@+id/layout_settings_deck_margin_slider"
+                                <LinearLayout
+                                    android:id="@+id/layout_settings_deck_margin_slider_layout"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:max="100"
-                                    android:progress="80"/>
-                            </LinearLayout>
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_toLeftOf="@+id/layout_settings_deck_margin_input"
+                                    android:orientation="vertical">
 
-                            <android.support.design.widget.TextInputEditText
-                                android:id="@+id/layout_settings_deck_margin_input"
-                                android:layout_centerVertical="true"
-                                android:layout_alignParentRight="true"
-                                android:layout_width="42dp"
+                                    <TextView
+                                        android:id="@+id/layout_settings_deck_margin_text"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="6dp"
+                                        android:layout_marginLeft="16dp"
+                                        android:layout_marginTop="4dp"
+                                        android:text="@string/settings_deck_margin"
+                                        android:textColor="@color/dark_secondary"
+                                        android:textSize="14sp"/>
+
+                                    <android.support.v7.widget.AppCompatSeekBar
+                                        android:id="@+id/layout_settings_deck_margin_slider"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:max="100"
+                                        android:min="0"
+                                        android:progress="80"/>
+                                </LinearLayout>
+
+                                <!-- Dummy item to prevent TextInputEditText from receiving focus -->
+                                <LinearLayout
+                                    android:id="@+id/layout_settings_deck_margin_input_dummy"
+                                    android:layout_width="0px"
+                                    android:layout_height="0px"
+                                    android:focusable="true"
+                                    android:focusableInTouchMode="true"/>
+
+                                <android.support.design.widget.TextInputEditText
+                                    android:id="@+id/layout_settings_deck_margin_input"
+                                    android:layout_width="42dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="numberDecimal"
+                                    android:nextFocusForward="@id/layout_settings_deck_margin_input_dummy"
+                                    android:nextFocusUp="@id/layout_settings_deck_margin_input_dummy"
+                                    android:lines="1"
+                                    android:paddingTop="16dp"
+                                    android:text="0.80"
+                                    android:textSize="16dp"/>
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/layout_settings_deck_margin_input_error_bound"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:paddingTop="16dp"
-                                android:gravity="center"
-                                android:text="0.8"
-                                android:textSize="16dp"/>
-                        </RelativeLayout>
+                                android:layout_marginBottom="8dp"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="2dp"
+                                android:text="@string/settings_deck_margin_error_bound"
+                                android:textColor="@color/red_500"
+                                android:textSize="13sp"
+                                android:visibility="gone"/>
+
+                            <TextView
+                                android:id="@+id/layout_settings_deck_margin_input_error_empty"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="8dp"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="2dp"
+                                android:text="@string/settings_deck_margin_error_empty"
+                                android:textColor="@color/red_500"
+                                android:textSize="13sp"
+                                android:visibility="gone"/>
+
+                            <TextView
+                                android:id="@+id/layout_settings_deck_margin_input_warning"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="8dp"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="2dp"
+                                android:text="@string/settings_deck_margin_warning_visibility"
+                                android:textColor="@color/orange_700"
+                                android:textSize="13sp"
+                                android:textStyle="italic"
+                                android:visibility="gone"/>
+
+                        </LinearLayout>
+
                     </RelativeLayout>
 
                     <View
