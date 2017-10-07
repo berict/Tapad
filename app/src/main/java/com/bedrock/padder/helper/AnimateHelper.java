@@ -314,7 +314,7 @@ public class AnimateHelper {
                     public void run() {
                         view.setVisibility(View.GONE);
                     }
-                }, delay + 10);
+                }, delay + duration + 10);
             } else {
                 view.setVisibility(View.GONE);
                 Log.i(TAG, getViewId(view) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with no delay");
@@ -338,7 +338,7 @@ public class AnimateHelper {
                     public void run() {
                         view.setVisibility(View.GONE);
                     }
-                }, delay + 10);
+                }, delay + duration + 10);
             } else {
                 fadeOut.setDuration(duration);
                 view.setVisibility(View.GONE);
@@ -369,7 +369,7 @@ public class AnimateHelper {
                     public void run() {
                         view.setVisibility(View.GONE);
                     }
-                }, delay + 10);
+                }, delay + duration + 10);
             } else {
                 view.setVisibility(View.GONE);
                 Log.i(TAG, getViewId(view) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with no delay");
@@ -393,7 +393,7 @@ public class AnimateHelper {
                     public void run() {
                         view.setVisibility(View.GONE);
                     }
-                }, delay + 10);
+                }, delay + duration + 10);
             } else {
                 fadeOut.setDuration(duration);
                 view.setVisibility(View.GONE);
@@ -425,7 +425,7 @@ public class AnimateHelper {
                     public void run() {
                         view.setVisibility(View.GONE);
                     }
-                }, delay + 10);
+                }, delay + duration + 10);
             } else {
                 view.setVisibility(View.GONE);
                 Log.i(TAG, getViewId(view) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with no delay");
@@ -449,7 +449,7 @@ public class AnimateHelper {
                     public void run() {
                         view.setVisibility(View.GONE);
                     }
-                }, delay + 10);
+                }, delay + duration + 10);
             } else {
                 fadeOut.setDuration(duration);
                 view.setVisibility(View.GONE);
