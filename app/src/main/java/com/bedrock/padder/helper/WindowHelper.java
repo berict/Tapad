@@ -51,10 +51,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.bedrock.padder.model.preferences.Preferences.APPLICATION_ID;
 
 public class WindowHelper {
-
-    public static final String APPLICATION_ID = "com.bedrock.padder";
 
     public void setNavigationBar(int colorId, Activity activity) {
         if (Build.VERSION.SDK_INT >= 16) {

@@ -2,7 +2,6 @@ package com.bedrock.padder.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,8 +30,6 @@ import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
 
-import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
-
 public class FeedbackActivity extends AppCompatActivity {
 
     final String TAG = "FeedbackActivity";
@@ -45,7 +42,6 @@ public class FeedbackActivity extends AppCompatActivity {
     private ToolbarHelper toolbar = new ToolbarHelper();
 
     Activity a = this;
-    SharedPreferences prefs = null;
 
     private String br = System.getProperty("line.separator");
     private String sendMessage;
@@ -59,9 +55,6 @@ public class FeedbackActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
-
-        Log.d(TAG, "SharedPrefs initialized");
-        prefs = this.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
 
         Intent intent = getIntent();
         MODE_TAG = intent.getExtras().getString("feedbackMode");

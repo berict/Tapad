@@ -3,7 +3,6 @@ package com.bedrock.padder.activity;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,13 +27,10 @@ import com.bedrock.padder.helper.ApiHelper;
 import com.bedrock.padder.helper.FabHelper;
 import com.bedrock.padder.helper.FileHelper;
 import com.bedrock.padder.helper.IntentHelper;
-import com.bedrock.padder.helper.SettingsHelper;
 import com.bedrock.padder.helper.SoundHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.Schema;
-import com.bedrock.padder.model.preferences.Item;
-import com.bedrock.padder.model.preferences.ItemColor;
 import com.bedrock.padder.model.preferences.Preferences;
 import com.bedrock.padder.model.preset.Preset;
 import com.bedrock.padder.model.preset.PresetSchema;
@@ -46,7 +42,6 @@ import java.io.File;
 import rx.Subscriber;
 
 import static com.bedrock.padder.helper.PresetStoreHelper.PROJECT_LOCATION_PRESETS;
-import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
 public class MainActivity
@@ -54,7 +49,6 @@ public class MainActivity
         implements AboutFragment.OnFragmentInteractionListener, SettingsFragment.OnFragmentInteractionListener {
 
     public static final String TAG = "MainActivity";
-    public static final String PRESET_KEY = "savedPreset";
 
     public static boolean isPresetLoading = false;
     public static boolean isPresetVisible = false;
@@ -64,10 +58,9 @@ public class MainActivity
     public static boolean isSettingVisible = false;
     public static boolean isDeckShouldCleared = false;
 
-    public static Preset preset;
     public static Preset currentPreset = null;
 
-    public static Preferences preferences;
+    public Preferences preferences = null;
 
     // Used for circularReveal
     // End two is for settings coordinate animation
@@ -92,7 +85,6 @@ public class MainActivity
     int toggleSoundId = 0;
     int togglePatternId = 0;
 
-    private SharedPreferences prefs = null;
     private AnimateHelper anim = new AnimateHelper();
     private SoundHelper sound = new SoundHelper();
     private WindowHelper w = new WindowHelper();
@@ -101,7 +93,6 @@ public class MainActivity
     private IntentHelper intent = new IntentHelper();
     private AdmobHelper ad = new AdmobHelper();
     private FileHelper file = new FileHelper();
-    private SettingsHelper settings = new SettingsHelper();
 
     private boolean doubleBackToExitPressedOnce = false;
     private boolean isToolbarVisible = false;
@@ -140,22 +131,6 @@ public class MainActivity
         });
     }
 
-    void makeTestPreferences() {
-        Preferences preferences = new Preferences.Editor()
-                .setContext(a)
-                .put("deckMargin", 0.8f)
-                .put("stopOnFocusLoss", true)
-                .put("stopLoopOnSingleTouch", false)
-                .put("startPage", "recent")
-                .apply();
-
-        Item item = new Preferences.Editor()
-                .create(a)
-                .get("deckMargin");
-
-        Log.i("testPrefs", item.getDoubleValue().toString());
-    }
-
     public static void showSettingsFragment(AppCompatActivity a) {
         a.getSupportFragmentManager()
                 .beginTransaction()
@@ -177,83 +152,13 @@ public class MainActivity
         Log.d("AboutVisible", String.valueOf(isAboutVisible));
     }
 
-    public void initPreferences() {
-        String prefItems[] = {
-                "deckMargin",
-                "stopOnFocusLoss",
-                "stopLoopOnSingle",
-                "startPage",
-                "color"
-        };
-
-        String colorDataJson = prefs.getString("colorData", null);
-
-        ItemColor itemColor;
-
-        if (colorDataJson != null) {
-            // import deprecated ColorData prefs to ItemColor
-            itemColor = gson.fromJson(colorDataJson, ItemColor.ColorData.class).toItemColor();
-            // clear the imported data
-            prefs.edit().putString("colorData", null);
-        } else {
-            // no previous data, create new
-            itemColor = new ItemColor(color);
-        }
-
-        Object prefDefaults[] = {
-                0.8f,
-                true,
-                false,
-                "recent",
-                itemColor
-        };
-
-        preferences = new Preferences.Editor()
-                .create(a);
-
-        Preferences.Editor editor = new Preferences.Editor().create(a);
-
-        boolean isChanged = false;
-
-        if (preferences.size() == prefItems.length) {
-            // exists
-            for (int i = 0; i < preferences.size(); i++) {
-                // search for existing key pairs
-                int index = preferences.search(prefItems[i]);
-                if (index == -1) {
-                    // item doesn't exist, create new
-                    editor.put(prefItems[i], prefDefaults[i]);
-                    isChanged = true;
-                } else if (!preferences.getAll()[index].contains()) {
-                    // item doesn't exist, write to existing key pair
-                    editor.set(prefItems[i], prefDefaults[i]);
-                    isChanged = true;
-                }
-            }
-        } else {
-            // the List<Item> is null
-            for (int i = 0; i < prefItems.length; i++) {
-                editor.put(prefItems[i], prefDefaults[i]);
-                isChanged = true;
-            }
-        }
-
-        // apply changes
-        if (isChanged) {
-            preferences = editor.apply();
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d(TAG, "SharedPrefs initialized");
-        prefs = this.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
-
-        // initialize preferences
-        initPreferences();
+        // initialize Preferences
+        preferences = new Preferences(this);
 
         try {
             currentVersionCode = a.getPackageManager().getPackageInfo(a.getPackageName(), 0).versionCode;
@@ -272,8 +177,7 @@ public class MainActivity
             if (version.equals("new")) {
                 // new install, show intro
                 intent.intent(a, "activity.MainIntroActivity");
-                prefs.edit().putInt("versionCode", currentVersionCode).apply();
-                Log.d("VersionCode", "putInt " + String.valueOf(prefs.getInt("versionCode", -1)));
+                preferences.setVersionCode(currentVersionCode);
             } else if (version.equals("updated")) {
                 // updated, show changelog
                 new MaterialDialog.Builder(a)
@@ -285,15 +189,14 @@ public class MainActivity
                         .dismissListener(new DialogInterface.OnDismissListener() {
                             @Override
                             public void onDismiss(DialogInterface dialogInterface) {
-                                prefs.edit().putInt("versionCode", currentVersionCode).apply();
-                                Log.d("VersionCode", "putInt " + String.valueOf(prefs.getInt("versionCode", -1)));
+                                preferences.setVersionCode(currentVersionCode);
                             }
                         })
                         .show();
             }
         }
 
-        if (getSavedPreset() != null) {
+        if (preferences.getLastPlayed() != null) {
             try {
                 currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json"), PresetSchema.class).getPreset();
             } catch (Exception e) {
@@ -308,16 +211,10 @@ public class MainActivity
             currentPreset = null;
         }
 
-        if (prefs.getBoolean("welcome", true)) {
-            prefs.edit().putBoolean("welcome", false).apply();
-        }
-
-        // set color from preferences
+        // set color from Preferences
         setColor();
         toolbar.setActionBar(this);
         toolbar.setStatusBarTint(this);
-
-        settings.setPrefs(a);
 
         a.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
@@ -469,7 +366,7 @@ public class MainActivity
 
         if (isPresetChanged) {
             currentPreset = null;
-            if (getSavedPreset() != null) {
+            if (preferences.getLastPlayed() != null) {
                 // preset loaded
                 Log.d(TAG, "changed");
                 currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json"), PresetSchema.class).getPreset();
@@ -567,7 +464,7 @@ public class MainActivity
     }
 
     private void setButtonLayout() {
-        int screenWidthPx = (int) (w.getWindowWidthPx(a) * settings.getMarginScale());
+        int screenWidthPx = (int) (w.getWindowWidthPx(a) * preferences.getDeckMargin());
         int marginPx = w.getWindowWidthPx(a) / 160;
         int newWidthPx;
         int newHeightPx;
@@ -895,7 +792,7 @@ public class MainActivity
             preset.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    sound.load(currentPreset, getPreferencesColor(), colorDef, a);
+                    sound.load(currentPreset, preferences.getColor(), colorDef, a);
                 }
             }, delay);
         }
@@ -922,7 +819,7 @@ public class MainActivity
             tgl8 = false;
 
             sound.clear();
-            sound.loadColor(getPreferencesColor());
+            sound.loadColor(preferences.getColor());
 
             toggleSoundId = 0;
 
@@ -942,7 +839,7 @@ public class MainActivity
             w.setRecentColor(0, 0, themeColor, a);
             w.setVisible(R.id.base, 0, a);
             w.setGone(R.id.main_cardview_preset_store, 0, a);
-        } else if (currentPreset == null || getSavedPreset() == null) {
+        } else if (currentPreset == null || preferences.getLastPlayed() == null) {
             toolbar.setActionBarTitle(R.string.app_name);
             toolbar.setActionBarColor(R.color.colorPrimary, a);
             toolbar.setActionBarPadding(a);
@@ -966,19 +863,11 @@ public class MainActivity
     }
 
     public String getCurrentPresetLocation() {
-        if (getSavedPreset() != null) {
-            return PROJECT_LOCATION_PRESETS + "/" + getSavedPreset();
+        if (preferences.getLastPlayed() != null) {
+            return PROJECT_LOCATION_PRESETS + "/" + preferences.getLastPlayed();
         } else {
             return null;
         }
-    }
-
-    public String getSavedPreset() {
-        return prefs.getString(PRESET_KEY, null);
-    }
-
-    public void setSavedPreset(String savedPreset) {
-        prefs.edit().putString(PRESET_KEY, savedPreset).apply();
     }
 
     private String getAvailableDownloadedPreset() {
@@ -1007,20 +896,7 @@ public class MainActivity
         return folder.isDirectory() && folder.exists();
     }
 
-    public static int getPreferencesColor() {
-        Integer color = -1;
-        if (preferences != null) {
-            color = preferences.get("color").getColorValue().getColorButton();
-        }
-        if (color != null) {
-            return color;
-        } else {
-            Log.e("Preferences", "Color returned null");
-            return R.color.cyan_400;
-        }
-    }
-
     private void setColor() {
-        color = getPreferencesColor();
+        color = preferences.getColor();
     }
 }

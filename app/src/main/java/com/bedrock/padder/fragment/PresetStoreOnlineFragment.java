@@ -32,7 +32,7 @@ import com.bedrock.padder.model.Schema;
 
 import rx.Subscriber;
 
-import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
+import static com.bedrock.padder.model.preferences.Preferences.APPLICATION_ID;
 
 public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
 

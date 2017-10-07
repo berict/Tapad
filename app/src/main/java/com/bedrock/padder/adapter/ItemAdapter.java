@@ -20,8 +20,8 @@ import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.about.Item;
 
-import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
+import static com.bedrock.padder.model.preferences.Preferences.APPLICATION_ID;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHolder> {
     private Item[] item;

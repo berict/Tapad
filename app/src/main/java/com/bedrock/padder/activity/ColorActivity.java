@@ -1,14 +1,12 @@
 package com.bedrock.padder.activity;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,14 +19,11 @@ import com.bedrock.padder.helper.FabHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.preferences.ItemColor;
+import com.bedrock.padder.model.preferences.Preferences;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import org.apache.commons.lang3.ArrayUtils;
-
-import static com.bedrock.padder.activity.MainActivity.getPreferencesColor;
-import static com.bedrock.padder.activity.MainActivity.preferences;
-import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class ColorActivity extends AppCompatActivity implements ColorChooserDialog.ColorCallback {
 
@@ -37,7 +32,7 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
     private ToolbarHelper toolbar = new ToolbarHelper();
 
     Activity activity = this;
-    SharedPreferences prefs = null;
+    Preferences preferences = null;
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     int color;
 
@@ -49,13 +44,12 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_color);
 
-        prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
+        preferences = new Preferences(this);
+        color = preferences.getColor();
 
         // Set transparent nav bar
         w.setStatusBar(R.color.transparent, activity);
         w.setNavigationBar(R.color.transparent, activity);
-
-        color = getPreferencesColor();
 
         setUi();
     }
@@ -81,8 +75,8 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
             }
         });
 
-        // get item color values from preferences
-        itemColor = preferences.get("color").getColorValue();
+        // get item color values from Preferences
+        itemColor = preferences.getRecentColor();
 
         // adapter
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -91,7 +85,7 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
         colorAdapter = new ColorAdapter(
                 itemColor,
                 R.layout.adapter_color,
-                prefs,
+                preferences,
                 activity
         );
         w.getRecyclerView(R.id.layout_color_recycler_view, activity).setLayoutManager(layoutManager);
@@ -190,7 +184,6 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
         itemColor.addColorButtonRecent(color);
         colorAdapter.notifyDataSetChanged();
         // save again to json prefs
-        prefs.edit().putString("itemColor", gson.toJson(itemColor)).apply();
-        Log.d("Prefs", "itemColor : " + prefs.getString("itemColor", null));
+        preferences.setRecentColor(itemColor);
     }
 }

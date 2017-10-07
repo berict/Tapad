@@ -1,7 +1,6 @@
 package com.bedrock.padder.adapter;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,6 +19,7 @@ import com.bedrock.padder.helper.ApiHelper;
 import com.bedrock.padder.helper.FileHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.Schema;
+import com.bedrock.padder.model.preferences.Preferences;
 import com.bedrock.padder.model.preset.Preset;
 import com.bedrock.padder.model.preset.PresetSchema;
 import com.squareup.picasso.Picasso;
@@ -30,13 +30,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.content.Context.MODE_PRIVATE;
-import static com.bedrock.padder.activity.MainActivity.PRESET_KEY;
 import static com.bedrock.padder.activity.MainActivity.isPresetChanged;
 import static com.bedrock.padder.activity.PresetStoreActivity.isPresetDownloading;
 import static com.bedrock.padder.helper.PresetStoreHelper.PRESET_LOCATION;
 import static com.bedrock.padder.helper.PresetStoreHelper.PROJECT_LOCATION_PRESETS;
-import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
 public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.PresetViewHolder> {
@@ -51,14 +48,14 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
     private AnimateHelper anim = new AnimateHelper();
     private FileHelper file = new FileHelper();
 
-    private SharedPreferences prefs;
+    private Preferences preferences;
 
     public PresetStoreAdapter(Schema schema, int rowLayout, Activity activity) {
         this.schema = schema;
         this.rowLayout = rowLayout;
         this.activity = activity;
 
-        prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
+        preferences = new Preferences(activity);
     }
 
     @Override
@@ -150,8 +147,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                                         notifyItemChanged(holder.getAdapterPosition());
                                         // reset the savedPreset
                                         isPresetChanged = true;
-                                        SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
-                                        prefs.edit().putString(PRESET_KEY, null).apply();
+                                        preferences.setLastPlayed(null);
                                     }
                                 });
                             }
@@ -196,8 +192,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                                                     notifyItemChanged(holder.getAdapterPosition());
                                                     // reset the savedPreset
                                                     isPresetChanged = true;
-                                                    SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
-                                                    prefs.edit().putString(PRESET_KEY, null).apply();
+                                                    preferences.setLastPlayed(null);
                                                 }
                                             });
                                         }
@@ -259,9 +254,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                             makeCurrentPreset(schema.getPresets(), holder.getAdapterPosition());
                             // reset the savedPreset
                             isPresetChanged = true;
-                            SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
-                            prefs.edit().putString(PRESET_KEY, null).apply();
-                            Log.d("run", "key = " + prefs.getString(PRESET_KEY, null));
+                            preferences.setLastPlayed(null);
                         }
                     });
                 }
@@ -274,8 +267,8 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                     .into(holder.presetImage);
         }
 
-        if (getPresetKey() != null &&
-                getPresetKey().equals(preset.getTag()) &&
+        if (preferences.getLastPlayed() != null &&
+                preferences.getLastPlayed().equals(preset.getTag()) &&
                 file.isPresetAvailable(preset)) {
             // selected: current preset set, downloaded
             holder.presetCurrentPreset.setVisibility(View.VISIBLE);
@@ -283,10 +276,6 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
         } else {
             holder.presetCurrentPreset.setVisibility(View.GONE);
         }
-    }
-
-    private String getPresetKey() {
-        return prefs.getString(PRESET_KEY, null);
     }
 
     // Swap itemA with itemB

@@ -2,8 +2,6 @@ package com.bedrock.padder.model.preferences;
 
 import android.util.Log;
 
-import com.google.gson.annotations.SerializedName;
-
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.Arrays;
@@ -71,31 +69,6 @@ public class ItemColor {
         } else {
             // value missing
             Log.e("ColorData", "Value doesn't exists");
-        }
-    }
-
-    @Deprecated
-    public static class ColorData {
-
-        /* This is used for serializing the deprecated Json */
-
-        private Integer colorButton;
-
-        @SerializedName("colorButtonFavorite")
-        private Integer[] colorButtonRecent;
-
-        public ColorData(Integer colorButton, Integer[] colorButtonRecent) {
-            this.colorButton = colorButton;
-            this.colorButtonRecent = colorButtonRecent;
-        }
-
-        public ColorData(Integer colorButton) {
-            this.colorButton = colorButton;
-            this.colorButtonRecent = new Integer[0];
-        }
-
-        public ItemColor toItemColor() {
-            return new ItemColor(colorButton, colorButtonRecent);
         }
     }
 }

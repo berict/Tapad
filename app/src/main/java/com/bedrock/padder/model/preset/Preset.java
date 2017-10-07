@@ -1,22 +1,19 @@
 package com.bedrock.padder.model.preset;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.view.View;
 
 import com.bedrock.padder.helper.PresetStoreHelper;
 import com.bedrock.padder.helper.SoundHelper;
 import com.bedrock.padder.model.about.About;
+import com.bedrock.padder.model.preferences.Preferences;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.File;
 
-import static android.content.Context.MODE_PRIVATE;
-import static com.bedrock.padder.activity.MainActivity.PRESET_KEY;
 import static com.bedrock.padder.activity.MainActivity.isPresetChanged;
 import static com.bedrock.padder.helper.PresetStoreHelper.PROJECT_LOCATION_PRESETS;
-import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class Preset {
 
@@ -136,8 +133,7 @@ public class Preset {
 
     public void setLoadPreset(Activity activity) {
         isPresetChanged = true;
-        SharedPreferences sharedPreferences = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
-        sharedPreferences.edit().putString(PRESET_KEY, tag).apply();
+        new Preferences(activity).setLastPlayed(tag);
     }
 
     public void load(int color, int colorDef, Activity activity) {
@@ -155,8 +151,7 @@ public class Preset {
     public void removePreset(Runnable onFinish, Activity activity) {
         // reset the savedPreset
         isPresetChanged = true;
-        SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
-        prefs.edit().putString(PRESET_KEY, null).apply();
+        new Preferences(activity).setLastPlayed(null);
         // remove the preset folder
         PresetStoreHelper presetStore = new PresetStoreHelper();
         presetStore.initNotification(activity);
@@ -180,8 +175,7 @@ public class Preset {
         }, null);
         // reset the savedPreset
         isPresetChanged = true;
-        SharedPreferences prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
-        prefs.edit().putString(PRESET_KEY, null).apply();
+        new Preferences(activity).setLastPlayed(null);
     }
 
     @Override

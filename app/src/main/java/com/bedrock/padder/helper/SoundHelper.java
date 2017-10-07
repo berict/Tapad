@@ -1,7 +1,6 @@
 package com.bedrock.padder.helper;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
@@ -13,6 +12,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.bedrock.padder.R;
+import com.bedrock.padder.model.preferences.Preferences;
 import com.bedrock.padder.model.preset.Preset;
 import com.bedrock.padder.model.sound.Deck;
 import com.bedrock.padder.model.sound.GesturePad;
@@ -22,11 +22,8 @@ import com.bedrock.padder.model.sound.Sound;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static android.content.Context.MODE_PRIVATE;
 import static com.bedrock.padder.activity.MainActivity.currentPreset;
-import static com.bedrock.padder.activity.MainActivity.getPreferencesColor;
 import static com.bedrock.padder.activity.MainActivity.isPresetLoading;
-import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class SoundHelper {
 
@@ -82,15 +79,15 @@ public class SoundHelper {
     private int intervalPixel;
     private int intervalCount;
 
-    private SharedPreferences prefs;
+    private Preferences preferences = null;
 
     public SoundPool getSoundPool() {
         return sp;
     }
 
     public void setDecks(int color, int colorDef, Activity activity) {
-        prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
-        this.color = getPreferencesColor();
+        preferences = new Preferences(activity);
+        this.color = preferences.getColor();
         this.colorDef = colorDef;
         decks = new Deck[] {
                 new Deck(new Pad[17], null, window.getView(buttonId[1], activity), color, colorDef, activity),
@@ -343,7 +340,6 @@ public class SoundHelper {
     private class Unload extends AsyncTask<Void, Void, Void> {
 
         String TAG = "UnLoad";
-        SharedPreferences prefs;
 
         @Override
         protected void onPreExecute() {
@@ -363,7 +359,6 @@ public class SoundHelper {
                 window.setInvisible(R.id.base, 600, activity);
                 progress.setIndeterminate(true);
             }
-            prefs = activity.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
 
             // initialize view
             View buttonViews[] = {

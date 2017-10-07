@@ -1,7 +1,6 @@
 package com.bedrock.padder.adapter;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -22,12 +21,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import static com.bedrock.padder.activity.MainActivity.isDeckShouldCleared;
-import static com.bedrock.padder.activity.MainActivity.preferences;
 
 public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHolder> {
     private ItemColor itemColor;
     private int rowLayout;
-    private SharedPreferences prefs;
+    private Preferences preferences;
     private Activity activity;
 
     private WindowHelper window = new WindowHelper();
@@ -55,10 +53,10 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
         }
     }
 
-    public ColorAdapter(ItemColor itemColor, int rowLayout, SharedPreferences prefs, Activity activity) {
+    public ColorAdapter(ItemColor itemColor, int rowLayout, Preferences preferences, Activity activity) {
         this.itemColor = itemColor;
         this.rowLayout = rowLayout;
-        this.prefs = prefs;
+        this.preferences = preferences;
         this.activity = activity;
     }
 
@@ -126,8 +124,8 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
                 // set color
                 itemColor.setColorButton(color);
                 setPrimaryColor();
-                // save again to preferences
-                preferences = new Preferences.Editor().create(activity).set("color", itemColor);
+                // save again to json prefs
+                preferences.setRecentColor(itemColor);
             }
         });
 
@@ -146,8 +144,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
                                 notifyItemRemoved(holder.getAdapterPosition());
                                 notifyItemRangeChanged(holder.getAdapterPosition(), getItemCount());
                                 // save again to json prefs
-                                prefs.edit().putString("itemColor", gson.toJson(itemColor)).apply();
-                                Log.d("Prefs", "itemColor : " + prefs.getString("itemColor", null));
+                                preferences.setRecentColor(itemColor);
                             }
                         })
                         .negativeText(R.string.dialog_cancel)
@@ -206,6 +203,6 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
         }
 
         // set to prefs color
-        prefs.edit().putInt("color", primaryColor).apply();
+        preferences.setColor(primaryColor);
     }
 }

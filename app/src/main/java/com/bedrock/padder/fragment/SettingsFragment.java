@@ -1,7 +1,6 @@
 package com.bedrock.padder.fragment;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,24 +19,18 @@ import android.widget.Toast;
 
 import com.bedrock.padder.R;
 import com.bedrock.padder.helper.IntentHelper;
-import com.bedrock.padder.helper.SettingsHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
 
-import static android.content.Context.MODE_PRIVATE;
 import static com.bedrock.padder.activity.MainActivity.currentPreset;
 import static com.bedrock.padder.activity.MainActivity.isAboutVisible;
 import static com.bedrock.padder.activity.MainActivity.isPresetVisible;
-import static com.bedrock.padder.helper.WindowHelper.APPLICATION_ID;
 
 public class SettingsFragment extends Fragment {
 
     private WindowHelper w = new WindowHelper();
     private IntentHelper intent = new IntentHelper();
-    private SettingsHelper settings = new SettingsHelper();
     private ToolbarHelper toolbar = new ToolbarHelper();
-
-    private SharedPreferences prefs = null;
 
     private AppCompatActivity a;
     private View v;
@@ -81,7 +74,6 @@ public class SettingsFragment extends Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
         a = (AppCompatActivity)getActivity();
-        prefs = a.getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
     }
 
     Menu menu;
@@ -207,10 +199,6 @@ public class SettingsFragment extends Fragment {
                 intent.intentWithExtra(a, "activity.AboutActivity", "about", "dev", 0);
             }
         });
-    }
-
-    int getPreset() {
-        return prefs.getInt("scheme", 0);
     }
 
     @Override
