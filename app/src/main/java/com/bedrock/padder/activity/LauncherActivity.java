@@ -10,7 +10,6 @@ import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
-import com.bedrock.padder.model.preferences.Preferences;
 import com.crashlytics.android.Crashlytics;
 
 import io.fabric.sdk.android.Fabric;
@@ -23,8 +22,6 @@ public class LauncherActivity extends AppCompatActivity {
     private ToolbarHelper toolbar = new ToolbarHelper();
 
     Activity activity;
-
-    Preferences preferences = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +38,6 @@ public class LauncherActivity extends AppCompatActivity {
         setContentView(R.layout.activity_launcher);
 
         activity = this;
-        preferences = new Preferences(activity);
 
         // White screen set
         toolbar.setStatusBarTint(this);
