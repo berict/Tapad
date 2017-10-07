@@ -23,14 +23,12 @@ import com.bedrock.padder.fragment.AboutFragment;
 import com.bedrock.padder.fragment.SettingsFragment;
 import com.bedrock.padder.helper.AdmobHelper;
 import com.bedrock.padder.helper.AnimateHelper;
-import com.bedrock.padder.helper.ApiHelper;
 import com.bedrock.padder.helper.FabHelper;
 import com.bedrock.padder.helper.FileHelper;
 import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.SoundHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
-import com.bedrock.padder.model.Schema;
 import com.bedrock.padder.model.preferences.Preferences;
 import com.bedrock.padder.model.preset.Preset;
 import com.bedrock.padder.model.preset.PresetSchema;
@@ -38,8 +36,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.File;
-
-import rx.Subscriber;
 
 import static com.bedrock.padder.helper.PresetStoreHelper.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
@@ -102,35 +98,6 @@ public class MainActivity
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    public static void largeLog(String tag, String content) {
-        if (content.length() > 4000) {
-            Log.d(tag, content.substring(0, 4000));
-            largeLog(tag, content.substring(4000));
-        } else {
-            Log.d(tag, content);
-        }
-    }
-
-    void makeTestRequest() {
-        ApiHelper api = new ApiHelper();
-        api.getObservableSchema().subscribe(new Subscriber<Schema>() {
-            @Override
-            public void onCompleted() {
-                Log.i(TAG, "Completed subscriber");
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.e(TAG, "Error on subscribe, \n" + e.getMessage());
-            }
-
-            @Override
-            public void onNext(Schema schema) {
-                Log.i(TAG, schema.toString());
-            }
-        });
-    }
-
     public static void showSettingsFragment(AppCompatActivity a) {
         a.getSupportFragmentManager()
                 .beginTransaction()
@@ -160,56 +127,7 @@ public class MainActivity
         // initialize Preferences
         preferences = new Preferences(this);
 
-        try {
-            currentVersionCode = a.getPackageManager().getPackageInfo(a.getPackageName(), 0).versionCode;
-            Log.i("versionCode", "versionCode retrieved = " + String.valueOf(currentVersionCode));
-        } catch (android.content.pm.PackageManager.NameNotFoundException e) {
-            // handle exception
-            currentVersionCode = -1;
-            Log.e("NameNotFound", "NNFE, currentVersionCode = -1");
-        }
-
-        // version checks
-        Intent launcherIntent = getIntent();
-        if (launcherIntent != null &&
-                launcherIntent.getStringExtra("version") != null) {
-            String version = launcherIntent.getStringExtra("version");
-            if (version.equals("new")) {
-                // new install, show intro
-                intent.intent(a, "activity.MainIntroActivity");
-                preferences.setVersionCode(currentVersionCode);
-            } else if (version.equals("updated")) {
-                // updated, show changelog
-                new MaterialDialog.Builder(a)
-                        .title(w.getStringId("info_tapad_info_changelog"))
-                        .content(w.getStringId("info_tapad_info_changelog_text"))
-                        .contentColorRes(R.color.dark_primary)
-                        .positiveText(R.string.dialog_close)
-                        .positiveColorRes(R.color.colorAccent)
-                        .dismissListener(new DialogInterface.OnDismissListener() {
-                            @Override
-                            public void onDismiss(DialogInterface dialogInterface) {
-                                preferences.setVersionCode(currentVersionCode);
-                            }
-                        })
-                        .show();
-            }
-        }
-
-        if (preferences.getLastPlayed() != null) {
-            try {
-                currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json"), PresetSchema.class).getPreset();
-            } catch (Exception e) {
-                // corrupted preset
-                e.printStackTrace();
-                currentPreset = null;
-            }
-        }
-
-        if (!file.isPresetAvailable(currentPreset)) {
-            // preset corrupted or doesn't exist
-            currentPreset = null;
-        }
+        checkVersion();
 
         // set color from Preferences
         setColor();
@@ -221,9 +139,70 @@ public class MainActivity
         // Set UI
         setFab();
         setToolbar();
+
+        switch (preferences.getStartPage()) {
+            case "recent":
+                // load latest played preset
+                if (preferences.getLastPlayed() != null) {
+                    try {
+                        currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json"), PresetSchema.class).getPreset();
+                        if (!file.isPresetAvailable(currentPreset)) {
+                            // preset corrupted or doesn't exist
+                            currentPreset = null;
+                        }
+                    } catch (Exception e) {
+                        // corrupted preset
+                        e.printStackTrace();
+                        currentPreset = null;
+                    }
+                }
+                break;
+            case "about":
+                // load latest played preset and show about
+                setToolbarVisible();
+                if (preferences.getLastPlayed() != null) {
+                    try {
+                        currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json"), PresetSchema.class).getPreset();
+                        if (!file.isPresetAvailable(currentPreset)) {
+                            // preset corrupted or doesn't exist
+                            currentPreset = null;
+                        }
+                    } catch (Exception e) {
+                        // corrupted preset
+                        e.printStackTrace();
+                        currentPreset = null;
+                    }
+                }
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        coordinate[0] = w.getRect(R.id.toolbar_info, a).centerX();
+                        coordinate[1] = w.getRect(R.id.toolbar_info, a).centerY();
+                        showAboutFragment();
+                    }
+                }, 200);
+                break;
+            case "preset_store":
+                setToolbarVisible();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        coordinate[0] = w.getRect(R.id.toolbar_preset, a).centerX();
+                        coordinate[1] = w.getRect(R.id.toolbar_preset, a).centerY();
+                        intent.intent(a, "activity.PresetStoreActivity", 0);
+                    }
+                }, 200);
+                break;
+        }
+
+        // load preset info / sound
         setPresetInfo();
         sound.setDecks(R.color.colorAccent, R.color.grey, a);
-        enterAnim();
+
+        anim.fadeIn(R.id.actionbar_layout, 0, 200, "background", a);
+        anim.fadeIn(R.id.actionbar_image, 200, 200, "image", a);
+        isPresetLoading = true;
+
         loadPreset(400);
         setButtonLayout();
 
@@ -444,6 +423,44 @@ public class MainActivity
         super.onDestroy();
     }
 
+    private void checkVersion() {
+        try {
+            currentVersionCode = a.getPackageManager().getPackageInfo(a.getPackageName(), 0).versionCode;
+            Log.i("versionCode", "versionCode retrieved = " + String.valueOf(currentVersionCode));
+        } catch (android.content.pm.PackageManager.NameNotFoundException e) {
+            // handle exception
+            currentVersionCode = -1;
+            Log.e("NameNotFound", "NNFE, currentVersionCode = -1");
+        }
+
+        // version checks
+        Intent launcherIntent = getIntent();
+        if (launcherIntent != null &&
+                launcherIntent.getStringExtra("version") != null) {
+            String version = launcherIntent.getStringExtra("version");
+            if (version.equals("new")) {
+                // new install, show intro
+                intent.intent(a, "activity.MainIntroActivity");
+                preferences.setVersionCode(currentVersionCode);
+            } else if (version.equals("updated")) {
+                // updated, show changelog
+                new MaterialDialog.Builder(a)
+                        .title(w.getStringId("info_tapad_info_changelog"))
+                        .content(w.getStringId("info_tapad_info_changelog_text"))
+                        .contentColorRes(R.color.dark_primary)
+                        .positiveText(R.string.dialog_close)
+                        .positiveColorRes(R.color.colorAccent)
+                        .dismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialogInterface) {
+                                preferences.setVersionCode(currentVersionCode);
+                            }
+                        })
+                        .show();
+            }
+        }
+    }
+
     private void showAboutFragment() {
         getSupportFragmentManager()
                 .beginTransaction()
@@ -453,12 +470,6 @@ public class MainActivity
         w.getView(R.id.fragment_about_container, a).setVisibility(View.VISIBLE);
         setAboutVisible(true);
         w.setRecentColor(R.string.about, 0, themeColor, a);
-    }
-
-    private void enterAnim() {
-        anim.fadeIn(R.id.actionbar_layout, 0, 200, "background", a);
-        anim.fadeIn(R.id.actionbar_image, 200, 200, "image", a);
-        isPresetLoading = true;
     }
 
     private void setButtonLayout() {
@@ -537,6 +548,8 @@ public class MainActivity
             @Override
             public void run() {
                 if (isToolbarVisible == false) {
+                    //TODO remove this for test
+                    Log.i(TAG, w.getRect(R.id.toolbar_info, a).centerX() + " " + w.getRect(R.id.toolbar_info, a).centerY());
                     fab.hide(0, 200);
                     anim.fadeIn(R.id.toolbar, 200, 100, "toolbarIn", a);
                     isToolbarVisible = true;
@@ -546,6 +559,12 @@ public class MainActivity
 
         // set bottom margin
         w.setMarginRelativePX(R.id.fab, 0, 0, w.convertDPtoPX(20, a), w.getNavigationBarFromPrefs(a) + w.convertDPtoPX(20, a), a);
+    }
+
+    private void setToolbarVisible() {
+        fab.hide(0, 0);
+        anim.fadeIn(R.id.toolbar, 0, 0, "toolbarShow", a);
+        isToolbarVisible = true;
     }
 
     private void setToolbar() {

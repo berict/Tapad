@@ -303,6 +303,16 @@
 
     <string name="settings_group_interface">Interface</string>
 
+    <string name="settings_start_page">Start page</string>
+    <string name="settings_start_page_recent">Last played</string>
+    <string name="settings_start_page_about">About preset</string>
+    <string name="settings_start_page_preset_store">Preset store</string>
+    <string-array name="settings_start_page_items">
+        <item>@string/settings_start_page_recent</item>
+        <item>@string/settings_start_page_about</item>
+        <item>@string/settings_start_page_preset_store</item>
+    </string-array>
+
     <string name="settings_color">Colors</string>
     <string name="settings_color_current">Current color</string>
     <string name="settings_color_dialog">Add new color</string>

@@ -49,23 +49,13 @@
                         android:background="?selectableItemBackground"
                         android:clickable="true">
 
-                        <ImageView
-                            android:id="@+id/layout_settings_preset_icon"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="8dp"
-                            android:padding="10dp"
-                            app:srcCompat="@drawable/ic_music_black"/>
-
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
                             android:layout_toRightOf="@+id/layout_settings_preset_icon"
-                            android:orientation="vertical"
-                            android:paddingLeft="14dp">
+                            android:orientation="vertical">
 
                             <TextView
                                 android:id="@+id/layout_settings_preset_text"
@@ -114,29 +104,59 @@
                         android:textStyle="bold"/>
 
                     <RelativeLayout
-                        android:id="@+id/layout_settings_color"
+                        android:id="@+id/layout_settings_start_page"
                         android:layout_width="match_parent"
-                        android:layout_height="52dp"
+                        android:layout_height="64dp"
                         android:background="?selectableItemBackground"
                         android:clickable="true">
 
-                        <ImageView
-                            android:id="@+id/layout_settings_color_icon"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="8dp"
-                            android:padding="10dp"
-                            app:srcCompat="@drawable/ic_palette_black"/>
+                            android:layout_marginLeft="20dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/layout_settings_start_page_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
+                                android:text="@string/settings_start_page"
+                                android:textColor="@color/dark_primary"
+                                android:textSize="16sp"/>
+
+                            <TextView
+                                android:id="@+id/layout_settings_start_page_hint"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/settings_start_page_recent"
+                                android:textColor="@color/dark_secondary"
+                                android:textSize="14sp"/>
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/dark_divider"
+                        android:visibility="visible"/>
+
+                    <RelativeLayout
+                        android:id="@+id/layout_settings_color"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true">
 
                         <TextView
                             android:id="@+id/layout_settings_color_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
                             android:layout_toRightOf="@+id/layout_settings_color_icon"
-                            android:paddingLeft="14dp"
                             android:text="@string/settings_color"
                             android:textColor="@color/dark_primary"
                             android:textSize="16sp"/>
@@ -225,9 +245,9 @@
                                     android:gravity="center"
                                     android:imeOptions="actionDone"
                                     android:inputType="numberDecimal"
+                                    android:lines="1"
                                     android:nextFocusForward="@id/layout_settings_deck_margin_input_dummy"
                                     android:nextFocusUp="@id/layout_settings_deck_margin_input_dummy"
-                                    android:lines="1"
                                     android:paddingTop="16dp"
                                     android:text="0.80"
                                     android:textSize="16dp"/>
@@ -379,27 +399,17 @@
                     <RelativeLayout
                         android:id="@+id/layout_settings_about_tapad"
                         android:layout_width="match_parent"
-                        android:layout_height="52dp"
+                        android:layout_height="48dp"
                         android:background="?selectableItemBackground"
                         android:clickable="true">
-
-                        <ImageView
-                            android:id="@+id/layout_settings_about_tapad_icon"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="8dp"
-                            android:padding="10dp"
-                            app:srcCompat="@drawable/ic_info_black"/>
 
                         <TextView
                             android:id="@+id/layout_settings_about_tapad_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
                             android:layout_toRightOf="@+id/layout_settings_about_tapad_icon"
-                            android:paddingLeft="14dp"
                             android:text="@string/settings_about_tapad"
                             android:textColor="@color/dark_primary"
                             android:textSize="16sp"/>
@@ -414,27 +424,17 @@
                     <RelativeLayout
                         android:id="@+id/layout_settings_about_dev"
                         android:layout_width="match_parent"
-                        android:layout_height="52dp"
+                        android:layout_height="48dp"
                         android:background="?selectableItemBackground"
                         android:clickable="true">
-
-                        <ImageView
-                            android:id="@+id/layout_settings_about_dev_icon"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="8dp"
-                            android:padding="10dp"
-                            app:srcCompat="@drawable/ic_developer_black"/>
 
                         <TextView
                             android:id="@+id/layout_settings_about_dev_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
                             android:layout_toRightOf="@+id/layout_settings_about_dev_icon"
-                            android:paddingLeft="14dp"
                             android:text="@string/settings_about_dev"
                             android:textColor="@color/dark_primary"
                             android:textSize="16sp"/>

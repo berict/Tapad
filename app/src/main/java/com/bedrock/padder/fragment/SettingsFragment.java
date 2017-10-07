@@ -2,8 +2,10 @@ package com.bedrock.padder.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,6 +22,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.IntentHelper;
@@ -31,6 +34,7 @@ import static com.bedrock.padder.activity.MainActivity.currentPreset;
 import static com.bedrock.padder.activity.MainActivity.isAboutVisible;
 import static com.bedrock.padder.activity.MainActivity.isDeckShouldCleared;
 import static com.bedrock.padder.activity.MainActivity.isPresetVisible;
+import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
 public class SettingsFragment extends Fragment {
 
@@ -124,8 +128,55 @@ public class SettingsFragment extends Fragment {
         a.dispatchKeyEvent(kUp);
     }
 
-    EditText deckMarginEditText = null;
-    SeekBar deckMarginSeekbar = null;
+    private void setIntents() {
+        // presets
+        w.getView(R.id.layout_settings_preset, v).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isPresetVisible == false) {
+                    intent.intent(a, "activity.PresetStoreActivity");
+                }
+            }
+        });
+
+        // colors
+        w.getView(R.id.layout_settings_color, v).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.intent(a, "activity.ColorActivity");
+            }
+        });
+
+        // abouts
+        w.getView(R.id.layout_settings_about_tapad, v).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.intentWithExtra(a, "activity.AboutActivity", "about", "tapad", 0);
+            }
+        });
+
+        w.getView(R.id.layout_settings_about_dev, v).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.intentWithExtra(a, "activity.AboutActivity", "about", "dev", 0);
+            }
+        });
+
+        // unused
+        w.getView(R.id.layout_settings_custom_touch, v).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(a, R.string.settings_custom_touch_error, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        w.getView(R.id.layout_settings_layout, v).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(a, R.string.settings_layout_error, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     public void setUi() {
         toolbar.setActionBar(a, v);
@@ -146,21 +197,78 @@ public class SettingsFragment extends Fragment {
             w.getTextView(R.id.layout_settings_preset_hint, v).setText(R.string.settings_preset_hint_no_preset);
         }
 
-        w.getView(R.id.layout_settings_preset, v).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isPresetVisible == false) {
-                    intent.intent(a, "activity.PresetStoreActivity");
-                }
-            }
-        });
+        setStartPage();
+        setDeckMargin();
+        setIntents();
+    }
 
-        w.getView(R.id.layout_settings_color, v).setOnClickListener(new View.OnClickListener() {
+    private void setStartPage() {
+        updateStartPageText();
+
+        final MaterialDialog startPageDialog = new MaterialDialog.Builder(a)
+                .title(R.string.settings_start_page)
+                .items(R.array.settings_start_page_items)
+                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        preferences.setStartPage(getStartPageValueFromIndex(which));
+                        return true;
+                    }
+                })
+                .build();
+
+        w.getView(R.id.layout_settings_start_page, v).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                intent.intent(a, "activity.ColorActivity");
+            public void onClick(View view) {
+                startPageDialog.setSelectedIndex(getStartPageIndexFromValue(preferences.getStartPage()));
+                startPageDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        // update the text
+                        updateStartPageText();
+                    }
+                });
+                startPageDialog.show();
             }
         });
+    }
+
+    public void updateStartPageText() {
+        w.getTextView(R.id.layout_settings_start_page_hint, v).setText(getStringFromId("settings_start_page_" + preferences.getStartPage(), a));
+    }
+
+    @Nullable
+    public String getStartPageValueFromIndex(int index) {
+        switch (index) {
+            case 0:
+                return "recent";
+            case 1:
+                return "about";
+            case 2:
+                return "preset_store";
+            default:
+                return null;
+        }
+    }
+
+    public int getStartPageIndexFromValue(String value) {
+        switch (value) {
+            case "recent":
+                return 0;
+            case "about":
+                return 1;
+            case "preset_store":
+                return 2;
+            default:
+                return -1;
+        }
+    }
+
+    EditText deckMarginEditText = null;
+    SeekBar deckMarginSeekbar = null;
+
+    private void setDeckMargin() {
+        // deck margin
 
         deckMarginEditText = w.getEditText(R.id.layout_settings_deck_margin_input, v);
         deckMarginSeekbar = w.getSeekBar(R.id.layout_settings_deck_margin_slider, v);
@@ -234,37 +342,9 @@ public class SettingsFragment extends Fragment {
                 return false;
             }
         });
-
-        w.getView(R.id.layout_settings_custom_touch, v).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(a, R.string.settings_custom_touch_error, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        w.getView(R.id.layout_settings_layout, v).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(a, R.string.settings_layout_error, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        w.getView(R.id.layout_settings_about_tapad, v).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.intentWithExtra(a, "activity.AboutActivity", "about", "tapad", 0);
-            }
-        });
-
-        w.getView(R.id.layout_settings_about_dev, v).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.intentWithExtra(a, "activity.AboutActivity", "about", "dev", 0);
-            }
-        });
     }
 
-    public static void hideSoftKeyboard(Activity activity) {
+    private void hideSoftKeyboard(Activity activity) {
         if (activity == null) return;
         if (activity.getCurrentFocus() == null) return;
 
