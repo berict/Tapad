@@ -48,6 +48,9 @@ public class SettingsFragment extends Fragment {
 
     private Preferences preferences = null;
 
+    EditText deckMarginEditText = null;
+    SeekBar deckMarginSeekbar = null;
+
     private OnFragmentInteractionListener mListener;
 
     public SettingsFragment() {
@@ -263,9 +266,6 @@ public class SettingsFragment extends Fragment {
                 return -1;
         }
     }
-
-    EditText deckMarginEditText = null;
-    SeekBar deckMarginSeekbar = null;
 
     private void setDeckMargin() {
         // deck margin
