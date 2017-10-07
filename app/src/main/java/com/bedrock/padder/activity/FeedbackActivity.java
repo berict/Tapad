@@ -46,8 +46,6 @@ public class FeedbackActivity extends AppCompatActivity {
     private String br = System.getProperty("line.separator");
     private String sendMessage;
     private String systemInfo;
-    private MaterialDialog learnMoreDialog;
-    private MaterialDialog learnMoreQuickFixDialog;
     private int circularRevealDuration = 400;
     private boolean feedbackSent = false;
 
@@ -232,7 +230,7 @@ public class FeedbackActivity extends AppCompatActivity {
                 w.setOnClick(R.id.feedback_report_bug_type_quickfix_action, new Runnable() {
                     @Override
                     public void run() {
-                        learnMoreQuickFixDialog = new MaterialDialog.Builder(a)
+                        new MaterialDialog.Builder(a)
                                 .content(R.string.feedback_report_bug_type_quickfix_content)
                                 .contentColorRes(R.color.dark_secondary)
                                 .positiveText(R.string.feedback_report_bug_type_quickfix_neutral)
@@ -247,7 +245,7 @@ public class FeedbackActivity extends AppCompatActivity {
         learnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                learnMoreDialog = new MaterialDialog.Builder(a)
+                new MaterialDialog.Builder(a)
                         .title(R.string.feedback_disclaimer_dialog_title)
                         .content(systemInfo)
                         .contentColorRes(R.color.dark_primary)
