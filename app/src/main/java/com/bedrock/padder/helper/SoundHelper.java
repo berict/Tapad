@@ -230,13 +230,11 @@ public class SoundHelper {
     }
 
     public void revealButtonWithAnimation() {
-        final Random random = new Random();
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 window.setVisible(R.id.base, 0, activity);
-                buttonRevealAnimation(random.nextInt(25));
+                buttonRevealAnimation(new Random().nextInt(25));
             }
         }, 600);
     }

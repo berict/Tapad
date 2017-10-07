@@ -219,7 +219,6 @@ public class MainActivity
         a.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         // Set UI
-        clearToggleButton();
         setFab();
         setToolbar();
         setPresetInfo();
@@ -378,7 +377,6 @@ public class MainActivity
             isPresetChanged = false;
         }
 
-        clearToggleButton();
         super.onWindowFocusChanged(hasFocus);
     }
 
@@ -754,7 +752,7 @@ public class MainActivity
         }
 
         setColor();
-        clearToggleButton();
+        clearDeck();
 
         setSettingVisible(false);
 
@@ -800,7 +798,7 @@ public class MainActivity
         }
     }
 
-    private void clearToggleButton() {
+    private void clearDeck() {
         if (isDeckShouldCleared) {
             w.setViewBackgroundColor(R.id.tgl1, colorDef, a);
             w.setViewBackgroundColor(R.id.tgl2, colorDef, a);
@@ -828,13 +826,45 @@ public class MainActivity
                 sound.loadColor(preferences.getColor());
                 w.setInvisible(R.id.base, 0, a);
 
+                // initialize view
+                View buttonViews[] = {
+                        w.getView(R.id.btn00, a),
+                        w.getView(R.id.tgl1, a),
+                        w.getView(R.id.tgl2, a),
+                        w.getView(R.id.tgl3, a),
+                        w.getView(R.id.tgl4, a),
+                        w.getView(R.id.tgl5, a),
+                        w.getView(R.id.tgl6, a),
+                        w.getView(R.id.tgl7, a),
+                        w.getView(R.id.tgl8, a),
+                        w.getView(R.id.btn11, a),
+                        w.getView(R.id.btn12, a),
+                        w.getView(R.id.btn13, a),
+                        w.getView(R.id.btn14, a),
+                        w.getView(R.id.btn21, a),
+                        w.getView(R.id.btn22, a),
+                        w.getView(R.id.btn23, a),
+                        w.getView(R.id.btn24, a),
+                        w.getView(R.id.btn31, a),
+                        w.getView(R.id.btn32, a),
+                        w.getView(R.id.btn33, a),
+                        w.getView(R.id.btn34, a),
+                        w.getView(R.id.btn41, a),
+                        w.getView(R.id.btn42, a),
+                        w.getView(R.id.btn43, a),
+                        w.getView(R.id.btn44, a)
+                };
+
+                for (View view : buttonViews) {
+                    view.setVisibility(View.INVISIBLE);
+                }
+
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         sound.revealButtonWithAnimation();
-                        Log.i(TAG, "Animated");
                     }
-                }, 1000);
+                }, 400);
             }
 
             toggleSoundId = 0;
