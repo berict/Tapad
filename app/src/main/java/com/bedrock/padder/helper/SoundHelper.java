@@ -79,14 +79,12 @@ public class SoundHelper {
     private int intervalPixel;
     private int intervalCount;
 
-    private Preferences preferences = null;
-
     public SoundPool getSoundPool() {
         return sp;
     }
 
     public void setDecks(int color, int colorDef, Activity activity) {
-        preferences = new Preferences(activity);
+        Preferences preferences = new Preferences(activity);
         this.color = preferences.getColor();
         this.colorDef = colorDef;
         decks = new Deck[] {
