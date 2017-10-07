@@ -193,6 +193,22 @@ public class MainActivity
                     }
                 }, 200);
                 break;
+            default:
+                // load latest played preset
+                if (preferences.getLastPlayed() != null) {
+                    try {
+                        currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json"), PresetSchema.class).getPreset();
+                        if (!file.isPresetAvailable(currentPreset)) {
+                            // preset corrupted or doesn't exist
+                            currentPreset = null;
+                        }
+                    } catch (Exception e) {
+                        // corrupted preset
+                        e.printStackTrace();
+                        currentPreset = null;
+                    }
+                }
+                break;
         }
 
         // load preset info / sound
