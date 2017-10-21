@@ -10,7 +10,7 @@ public class ItemColor {
 
     private Integer colorButton;
 
-    private Integer[] colorButtonRecent;
+    private Integer[] colorButtonRecent = new Integer[0];
 
     public ItemColor(Integer colorButton, Integer[] colorButtonRecent) {
         this.colorButton = colorButton;

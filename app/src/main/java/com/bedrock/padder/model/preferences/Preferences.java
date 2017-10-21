@@ -275,7 +275,7 @@ public class Preferences {
 
         public static final int COLOR_CURRENT = R.color.cyan_400;
 
-        public static final String COLOR_RECENT = "";
+        public static final String COLOR_RECENT = "{\"colorButton\": 2131492969, \"colorButtonRecent\": []}";
 
         public static final int VERSION_CODE = 0;
 
