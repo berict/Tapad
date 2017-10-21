@@ -722,7 +722,7 @@ public class WindowHelper {
             Field field = res.getField(id);
             return field.getInt(null);
         } catch (Exception e) {
-            Log.e("getDrawableId", "Failure to get drawable id.", e);
+            Log.e("getDrawableId", "Failure to get drawable with id [" + id + "]");
             return -1;
         }
         //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
