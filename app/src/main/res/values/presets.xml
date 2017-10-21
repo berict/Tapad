@@ -113,11 +113,17 @@
         If you have any questions about these Terms, please contact us to <b><i>berict.bedrock@gmail.com</i></b>.</string>
 	<string name="info_tapad_info_version"          >Tapad version</string>
 	<!-- TODO RELEASE -->
-    <string name="info_tapad_info_version_hint">2.3 Beta 2</string>
+    <string name="info_tapad_info_version_hint">2.3 Beta 3</string>
 	<string name="info_tapad_info_changelog"        >Changelog</string>
 	<!-- TODO RELEASE -->
 	<string name="info_tapad_info_changelog_text"   >
         You can view the changelog dialog again at any time from the <b><i>about</i></b> section.\n\n
+
+		<b>Version 2.3 Beta 3</b>\n\n
+		1.	<b>NEW</b>: Colored download button \n
+		2.	<b>FIX</b>: About screen crash \n
+		3.	<b>FIX</b>: Color customization crash \n
+		4.	<b>FIX</b>: Download notification making sound above Android O \n\n
 
 		<b>Version 2.3 Beta 2</b>\n\n
 		1.	<b>NEW</b>: Customizable settings \n
