@@ -570,7 +570,7 @@ public class MainActivity
             @Override
             public void run() {
                 if (isToolbarVisible == false) {
-                    //TODO remove this for test
+                    // remove this for test
                     Log.i(TAG, w.getRect(R.id.toolbar_info, a).centerX() + " " + w.getRect(R.id.toolbar_info, a).centerY());
                     fab.hide(0, 200);
                     anim.fadeIn(R.id.toolbar, 200, 100, "toolbarIn", a);

@@ -55,8 +55,6 @@
                             android:transitionName="transition"
                             app:layout_collapseMode="parallax"/>
 
-                        <!-- TODO check remove -->
-
                         <View
                             android:id="@+id/layout_text"
                             android:layout_width="0dp"

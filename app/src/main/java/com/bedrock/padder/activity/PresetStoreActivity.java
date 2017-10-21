@@ -118,7 +118,6 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
             case REQUEST_WRITE_STORAGE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // reload my activity with permission granted or use the features what required the permission
-                    // TODO refresh fragments, check working
                     hasPermission = true;
                     setViewPager();
                 } else {

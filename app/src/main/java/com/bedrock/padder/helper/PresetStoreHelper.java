@@ -230,6 +230,7 @@ public class PresetStoreHelper {
                 });
 
                 // TODO add download notification - synced with preset store
+                // issue #189
                 PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, new Intent(activity, PresetStoreActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
 
                 mBuilder.setContentTitle(presetTitle)

@@ -113,11 +113,18 @@
         If you have any questions about these Terms, please contact us to <b><i>berict.bedrock@gmail.com</i></b>.</string>
 	<string name="info_tapad_info_version"          >Tapad version</string>
 	<!-- TODO RELEASE -->
-	<string name="info_tapad_info_version_hint">2.3 Alpha 7</string>
+    <string name="info_tapad_info_version_hint">2.3 Beta 2</string>
 	<string name="info_tapad_info_changelog"        >Changelog</string>
 	<!-- TODO RELEASE -->
 	<string name="info_tapad_info_changelog_text"   >
         You can view the changelog dialog again at any time from the <b><i>about</i></b> section.\n\n
+
+		<b>Version 2.3 Beta 2</b>\n\n
+		1.	<b>NEW</b>: Customizable settings \n
+		2.	<b>NEW</b>: Check updates on startup \n
+		3.	<b>FIX</b>: Looping touch bug \n
+		4.	<b>FIX</b>: Empty installed presets \n
+		5.	<b>FIX</b>: Looping pads not lighting up \n\n
         
 		<b>Version 2.3 Alpha 7</b>\n\n
         1.	<b>IMPROVEMENT</b>: Removed Firebase, moved to Berict API \n

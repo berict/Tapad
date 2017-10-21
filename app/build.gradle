@@ -7,6 +7,7 @@ buildscript {
         classpath 'io.fabric.tools:gradle:1.+'
     }
 }
+
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
@@ -15,7 +16,6 @@ repositories {
         url 'https://maven.fabric.io/public'
     }
 }
-
 
 android {
     compileSdkVersion 26
@@ -26,9 +26,10 @@ android {
         minSdkVersion 15
         targetSdkVersion 26
         // TODO RELEASE
-        versionCode 22
-        versionName "2.3 Alpha 7"
+        versionCode 23
+        versionName "2.3 Beta 2"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled = true
     }
     buildTypes {
         release {

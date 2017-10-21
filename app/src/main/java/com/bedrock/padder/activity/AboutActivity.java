@@ -72,8 +72,6 @@ public class AboutActivity extends AppCompatActivity {
                 break;
         }
 
-        // TODO DEBUGGING
-        Log.i("AA", new PresetStoreHelper().getPresetJson(currentPreset.getTag()));
         logJson(about);
 
         toolbar.setActionBar(this);

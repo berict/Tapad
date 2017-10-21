@@ -109,7 +109,6 @@ public class FileHelper {
                 Log.e(TAG, "Preset [" + preset.getTag() + "] is not available.");
                 return false;
             }
-            // TODO DEBUGGING
             boolean available = folderSound.isDirectory() && folderSound.exists() &&
                     preset.getSoundCount() == folderSound.listFiles().length &&
                     folderTiming.isDirectory() && folderTiming.exists() &&
