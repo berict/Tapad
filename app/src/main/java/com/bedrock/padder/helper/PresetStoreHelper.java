@@ -1,6 +1,7 @@
 package com.bedrock.padder.helper;
 
 import android.app.Activity;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -164,13 +165,13 @@ public class PresetStoreHelper {
             NotificationChannel channel = new NotificationChannel(
                     "tapad-preset-store",
                     "Preset download",
-                    NotificationManager.IMPORTANCE_DEFAULT
+                    NotificationManager.IMPORTANCE_LOW
             );
             channel.setDescription("Show preset downloading progress");
             notificationManager.createNotificationChannel(channel);
             mBuilder = new NotificationCompat.Builder(context, "tapad-preset-store");
         } else {
-            mBuilder = new NotificationCompat.Builder(context);
+            mBuilder = new NotificationCompat.Builder(context).setDefaults(0);
         }
     }
 
@@ -240,6 +241,7 @@ public class PresetStoreHelper {
                         .setOngoing(true)
                         .setOnlyAlertOnce(true);
 
+                mBuilder.setDefaults(Notification.DEFAULT_ALL);
                 notificationManager.notify(id, mBuilder.build());
             } else {
                 // no internet connection, cancel the task
