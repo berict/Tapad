@@ -94,14 +94,11 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
         // load preset image
         String imageUrl = PRESET_LOCATION + "/" + preset.getTag() + "/album_art.jpg";
 
-        String presetName = preset.getAbout().getTitle();
-        String presetString[] = presetName.split(" - ");
-
         // set title
-        holder.presetTitle.setText(presetString[1]);
+        holder.presetTitle.setText(preset.getAbout().getSongName());
 
         // set artist name
-        holder.presetArtist.setText(presetString[0]);
+        holder.presetArtist.setText(preset.getAbout().getSongArtist());
 
         // set preset creator
         holder.presetCreator.setText(
