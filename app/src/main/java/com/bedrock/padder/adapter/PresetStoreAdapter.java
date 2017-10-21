@@ -92,7 +92,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
         }
 
         // load preset image
-        String imageUrl = PRESET_LOCATION + preset.getTag() + "/album_art.jpg";
+        String imageUrl = PRESET_LOCATION + "/" + preset.getTag() + "/album_art.jpg";
 
         String presetName = preset.getAbout().getTitle();
         String presetString[] = presetName.split(" - ");

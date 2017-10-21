@@ -6,6 +6,8 @@ import android.view.View;
 
 import com.bedrock.padder.helper.OnSwipeTouchListener;
 
+import static com.bedrock.padder.activity.MainActivity.isStopLoopOnSingle;
+
 public class GesturePad extends Pad {
 
     private Sound up = null;
@@ -85,7 +87,12 @@ public class GesturePad extends Pad {
 
                 @Override
                 public void onClick() {
-                    getNormal().play();
+                    if (getNormal().isLooping && isStopLoopOnSingle) {
+                        setPadColorToDefault(true);
+                        getNormal().loop(false);
+                    } else {
+                        playNormal();
+                    }
                     setPadColorToDefault();
                 }
 

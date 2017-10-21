@@ -186,6 +186,11 @@ public class SoundHelper {
         }
     }
 
+    public void stopAll() {
+        sp.autoPause();
+        stop();
+    }
+
     private GesturePad getGesturePadFromArray(String soundPaths[],
                                               SoundPool soundPool,
                                               View buttonView,

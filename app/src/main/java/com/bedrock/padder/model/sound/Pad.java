@@ -9,6 +9,8 @@ import android.view.View;
 
 import com.bedrock.padder.helper.OnSwipeTouchListener;
 
+import static com.bedrock.padder.activity.MainActivity.isStopLoopOnSingle;
+
 public class Pad {
 
     protected Sound normal = null;
@@ -117,7 +119,12 @@ public class Pad {
 
                 @Override
                 public void onClick() {
-                    playNormal();
+                    if (getNormal().isLooping && isStopLoopOnSingle) {
+                        setPadColorToDefault(true);
+                        getNormal().loop(false);
+                    } else {
+                        playNormal();
+                    }
                     setPadColorToDefault();
                 }
 

@@ -602,6 +602,10 @@ public class WindowHelper {
         return (RelativeLayout) activity.findViewById(id);
     }
 
+    public RelativeLayout getRelativeLayout(int id, View view) {
+        return (RelativeLayout) view.findViewById(id);
+    }
+
     public LinearLayout getLinearLayout(int id, Activity activity) {
         return (LinearLayout) activity.findViewById(id);
     }

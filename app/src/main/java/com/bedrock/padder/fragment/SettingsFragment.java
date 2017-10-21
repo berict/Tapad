@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -17,7 +18,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +37,7 @@ import static com.bedrock.padder.activity.MainActivity.currentPreset;
 import static com.bedrock.padder.activity.MainActivity.isAboutVisible;
 import static com.bedrock.padder.activity.MainActivity.isDeckShouldCleared;
 import static com.bedrock.padder.activity.MainActivity.isPresetVisible;
+import static com.bedrock.padder.activity.MainActivity.isStopLoopOnSingle;
 import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
 public class SettingsFragment extends Fragment {
@@ -200,9 +204,62 @@ public class SettingsFragment extends Fragment {
             w.getTextView(R.id.layout_settings_preset_hint, v).setText(R.string.settings_preset_hint_no_preset);
         }
 
+        setFocusLoss();
+        setStopLoop();
         setStartPage();
         setDeckMargin();
         setIntents();
+    }
+
+    private void setFocusLoss() {
+        final boolean focusLoss = preferences.getStopOnFocusLoss();
+        final SwitchCompat focusLossSwitch = w.getSwitchCompat(R.id.layout_settings_focus_loss_switch, v);
+        RelativeLayout focusLossLayout = w.getRelativeLayout(R.id.layout_settings_focus_loss, v);
+
+        focusLossSwitch.setChecked(focusLoss);
+        focusLossSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b != focusLoss) {
+                    // changed
+                    isDeckShouldCleared = true;
+                }
+                preferences.setStopOnFocusLoss(b);
+            }
+        });
+
+        focusLossLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                focusLossSwitch.toggle();
+            }
+        });
+    }
+
+    private void setStopLoop() {
+        final boolean stopLoop = preferences.getStopLoopOnSingle();
+        final SwitchCompat stopLoopSwitch = w.getSwitchCompat(R.id.layout_settings_stop_loop_switch, v);
+        RelativeLayout stopLoopLayout = w.getRelativeLayout(R.id.layout_settings_stop_loop, v);
+
+        stopLoopSwitch.setChecked(stopLoop);
+        stopLoopSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b != stopLoop) {
+                    // changed
+                    isDeckShouldCleared = true;
+                }
+                preferences.setStopLoopOnSingle(b);
+                isStopLoopOnSingle = b;
+            }
+        });
+
+        stopLoopLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stopLoopSwitch.toggle();
+            }
+        });
     }
 
     private void setStartPage() {

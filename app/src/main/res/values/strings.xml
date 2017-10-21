@@ -297,6 +297,8 @@
     <string name="settings_preset">Presets</string>
     <string name="settings_preset_hint">PRESET_NAME_HERE</string>
     <string name="settings_preset_hint_no_preset">No preset loaded</string>
+    <string name="settings_focus_loss">Stop sound on focus loss</string>
+    <string name="settings_stop_loop">Stop looping with single touch</string>
     <string name="settings_custom_sound">Custom sound</string>
     <string name="settings_custom_sound_error">This feature is under development.</string>
     <string name="settings_tutorial">Tutorial mode</string>

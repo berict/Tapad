@@ -8,11 +8,17 @@ import android.view.View;
 public class Deck {
 
     Activity activity = null;
+
     private Pad pads[];
+
     private Sound sound;
+
     private View view = null;
+
     private int color = 0;
+
     private int colorDef = 0;
+
     private boolean isSelected = false;
 
     public Deck(Pad[] pads, Sound sound, View view, int color, int colorDef, Activity activity) {
@@ -120,7 +126,7 @@ public class Deck {
     }
 
     public void stop() {
-        if (pads != null && pads.length >= 21) {
+        if (pads != null && pads.length >= 17) {
             for (Pad pad : pads) {
                 if (pad != null) {
                     pad.stop();
@@ -130,7 +136,7 @@ public class Deck {
     }
 
     public void unload() {
-        if (pads != null && pads.length >= 21) {
+        if (pads != null && pads.length >= 17) {
             for (Pad pad : pads) {
                 if (pad != null) {
                     pad.unload();

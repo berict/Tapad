@@ -53,6 +53,7 @@ public class MainActivity
     public static boolean isAboutVisible = false;
     public static boolean isSettingVisible = false;
     public static boolean isDeckShouldCleared = false;
+    public static boolean isStopLoopOnSingle = false;
 
     public static Preset currentPreset = null;
 
@@ -217,7 +218,9 @@ public class MainActivity
 
         anim.fadeIn(R.id.actionbar_layout, 0, 200, "background", a);
         anim.fadeIn(R.id.actionbar_image, 200, 200, "image", a);
+
         isPresetLoading = true;
+        isStopLoopOnSingle = preferences.getStopLoopOnSingle();
 
         loadPreset(400);
         setButtonLayout();
@@ -314,7 +317,10 @@ public class MainActivity
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         Log.i("MainActivity", "onWindowFocusChanged");
-        sound.stop();
+
+        if (preferences.getStopOnFocusLoss()) {
+            sound.stopAll();
+        }
 
         int tutorial[] = {
                 R.id.btn00_tutorial,
