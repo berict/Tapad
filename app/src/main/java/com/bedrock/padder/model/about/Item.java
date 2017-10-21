@@ -52,6 +52,10 @@ public class Item {
         }
     }
 
+    public String getText() {
+        return text;
+    }
+
     public String getHint(Context context) {
         if (context != null) {
             String res = getStringFromId(hint, context);
@@ -61,8 +65,12 @@ public class Item {
                 return hint;
             }
         } else {
-            return text;
+            return hint;
         }
+    }
+
+    public String getHint() {
+        return hint;
     }
 
     public String getImage() {
@@ -74,6 +82,10 @@ public class Item {
     }
 
     public Boolean isRunnableWithAnim() {
-        return isRunnableWithAnim;
+        if (isRunnableWithAnim != null) {
+            return isRunnableWithAnim;
+        } else {
+            return false;
+        }
     }
 }

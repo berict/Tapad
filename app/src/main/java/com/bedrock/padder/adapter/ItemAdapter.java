@@ -66,66 +66,61 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
 
     @Override
     public void onBindViewHolder(final DetailViewHolder holder, int position) {
-        holder.itemText.setText(getStringFromId(item[position].getText(context).toLowerCase().replace(" ", "_"), activity));
+        holder.itemText.setText(item[position].getText(context));
 
         if(position == getItemCount() - 1) {
             // last item on list, hide divider
             holder.divider.setVisibility(View.GONE);
         }
 
-        if (item[position].getHint(context) == null) {
+        if (item[position].getHint() == null) {
             // hint null
             holder.itemHint.setVisibility(View.GONE);
         } else if (item[position].isHintVisible() == false) {
             // hint invisible
             holder.itemHint.setVisibility(View.GONE);
 
-            if (item[position].getHint(context).startsWith("http")) {
+            if (item[position].getHint().startsWith("http")) {
                 // link available check
                 anim.circularRevealTouch(holder.itemLayout, R.id.layout_placeholder,
                         new AccelerateDecelerateInterpolator(), new Runnable() {
                             @Override
                             public void run() {
                                 window.setRecentColor(item[holder.getAdapterPosition()].getText(context), R.color.colorAccent, activity);
-                                intent.intentLink(activity, item[holder.getAdapterPosition()].getHint(context), 400);
+                                intent.intentLink(activity, item[holder.getAdapterPosition()].getHint(), 400);
                             }
                         }, 400, 0, activity);
             }
         } else {
             // hint visible
-            holder.itemHint.setText(item[position].getHint(context));
+            holder.itemHint.setText(item[position].getHint());
 
-            if (item[position].getHint(context).startsWith("http")) {
+            if (item[position].getHint().startsWith("http")) {
                 // link available check
                 anim.circularRevealTouch(holder.itemLayout, R.id.layout_placeholder,
                         new AccelerateDecelerateInterpolator(), new Runnable() {
                             @Override
                             public void run() {
-                                window.setRecentColor(item[holder.getAdapterPosition()].getText(context), R.color.colorAccent, activity);
-                                intent.intentLink(activity, item[holder.getAdapterPosition()].getHint(context), 400);
+                                window.setRecentColor(item[holder.getAdapterPosition()].getText(), R.color.colorAccent, activity);
+                                intent.intentLink(activity, item[holder.getAdapterPosition()].getHint(), 400);
                             }
                         }, 400, 0, activity);
             }
-
-            if (item[position].getHint(context).startsWith("info_tapad_info_version_hint")) {
-                // version code hint
-                holder.itemHint.setText(getStringFromId(item[position].getHint(context), activity));
-            }
         }
 
-        if (getExceptionalRunnable(item[position].getText(context)) != null) {
+        if (getExceptionalRunnable(item[position].getText()) != null) {
             if (item[position].isRunnableWithAnim() == true) {
                 // Runnable with reveal anim
                 anim.circularRevealTouch(holder.itemLayout, R.id.layout_placeholder,
                         new AccelerateDecelerateInterpolator(),
-                        getExceptionalRunnable(item[position].getText(context)),
+                        getExceptionalRunnable(item[position].getText()),
                         400, 0, activity);
             } else {
                 // Runnable with no anim
                 holder.itemLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        getExceptionalRunnable(item[holder.getAdapterPosition()].getText(context)).run();
+                        getExceptionalRunnable(item[holder.getAdapterPosition()].getText()).run();
                     }
                 });
             }
@@ -143,9 +138,13 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                     Log.e("ItemAdapter", "Image res not found, trying with logo prefix");
                     holder.itemIcon.setImageResource(window.getDrawableId("ic_logo_" + item[position].getImage()));
                 } catch (Exception e2) {
-                    // no image res fallback
-                    Log.e("ItemAdapter", "Image res not found, trying with icon prefix");
-                    holder.itemIcon.setImageResource(window.getDrawableId("ic_" + item[position].getImage() + "_black"));
+                    try {
+                        // no image res fallback
+                        Log.e("ItemAdapter", "Image res not found, trying with icon prefix");
+                        holder.itemIcon.setImageResource(window.getDrawableId("ic_" + item[position].getImage() + "_black"));
+                    } catch (Exception e3) {
+                        Log.e("ItemAdapter", "Failed to find icon\n" + e3.getMessage());
+                    }
                 }
             }
         }

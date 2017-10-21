@@ -32,14 +32,16 @@ import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
 public class AboutActivity extends AppCompatActivity {
 
-    Activity activity = this;
-    About about;
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
 
     private WindowHelper window = new WindowHelper();
     private AnimateHelper anim = new AnimateHelper();
     private ToolbarHelper toolbar = new ToolbarHelper();
     private PresetStoreHelper presetStore = new PresetStoreHelper();
+
+    private String currentAbout;
+    private Activity activity = this;
+    private About about;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +51,8 @@ public class AboutActivity extends AppCompatActivity {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         Intent intent = getIntent();
-        String currentAbout = intent.getStringExtra("about");
+        currentAbout = intent.getStringExtra("about");
 
-        Log.d("AA", currentAbout);
         switch (currentAbout) {
             case "now_playing":
                 about = currentPreset.getAbout();
@@ -67,7 +68,7 @@ public class AboutActivity extends AppCompatActivity {
                 if (presetJson != null) {
                     about = gson.fromJson(presetStore.getPresetJson(currentAbout), PresetSchema.class).getPreset().getAbout();
                 } else {
-                    Log.d("About", "currentAbout wasn't defined");
+                    Log.e("About", "currentAbout wasn't defined");
                 }
                 break;
         }
@@ -107,16 +108,17 @@ public class AboutActivity extends AppCompatActivity {
         // status bar
         window.getView(R.id.status_bar, activity).setBackgroundColor(about.getColor());
 
+        if (about == null) {
+            Log.e("About", "Exploded");
+        }
         // action bar
         collapsingToolbarLayout.setContentScrimColor(about.getColor());
         collapsingToolbarLayout.setStatusBarScrimColor(about.getColor());
-        collapsingToolbarLayout.setTitle(about.getTitle());
 
-        // set taskDesc
-        window.setRecentColor(about.getTitle(), about.getColor(), activity);
-
-        // title image / text
-        if (about.getImage(currentPreset).endsWith("album_art")) {
+        // set taskDesc, title image / text
+        if (currentAbout.equals("now_playing")) {
+            collapsingToolbarLayout.setTitle(about.getTitle());
+            window.setRecentColor(about.getTitle(), about.getColor(), activity);
             // storage
             Picasso.with(activity)
                     .load("file:" + about.getImage(currentPreset))
@@ -124,31 +126,39 @@ public class AboutActivity extends AppCompatActivity {
                     .error(R.drawable.ic_image_album_error)
                     .into(window.getImageView(R.id.layout_image, activity));
         } else {
+            collapsingToolbarLayout.setTitle(about.getSongName());
+            window.setRecentColor(about.getSongName(), about.getColor(), activity);
             // res
-            window.getImageView(R.id.layout_image, activity).setImageResource(window.getDrawableId(about.getImage(currentPreset)));
+            window.getImageView(R.id.layout_image, activity).setImageResource(
+                    window.getDrawableId(about.getSongArtist())
+            );
         }
 
         // bio
         window.getTextView(R.id.layout_bio_title, activity).setText(about.getBio().getTitle());
         window.getTextView(R.id.layout_bio_title, activity).setTextColor(about.getColor());
-        if (about.getBio().getImage(currentPreset) != null) {
-            ImageView imageView = window.getImageView(R.id.layout_bio_image, activity);
-            if (about.getBio().getImage(currentPreset).endsWith("artist_image")) {
+
+        ImageView imageView = window.getImageView(R.id.layout_bio_image, activity);
+        switch (currentAbout) {
+            case "now_playing":
                 // storage
                 Picasso.with(activity)
                         .load("file:" + about.getBio().getImage(currentPreset))
                         .placeholder(R.drawable.ic_image_album_placeholder)
                         .error(R.drawable.ic_image_album_error)
                         .into(imageView);
-            } else {
+                break;
+            case "tapad":
                 // res
-                imageView.setImageResource(window.getDrawableId(about.getBio().getImage(currentPreset)));
-            }
-        } else {
-            // no bio image exception
-            window.getImageView(R.id.layout_bio_image, activity).setVisibility(View.GONE);
-            window.getView(R.id.layout_bio_image_divider, activity).setVisibility(View.GONE);
+                imageView.setImageResource(window.getDrawableId("about_bio_tapad"));
+                break;
+            default:
+                // no bio image exception
+                window.getImageView(R.id.layout_bio_image, activity).setVisibility(View.GONE);
+                window.getView(R.id.layout_bio_image_divider, activity).setVisibility(View.GONE);
+                break;
         }
+
         window.getTextView(R.id.layout_bio_name, activity).setText(about.getBio().getName());
         window.getTextView(R.id.layout_bio_text, activity).setText(about.getBio().getText());
         window.getTextView(R.id.layout_bio_source, activity).setText(about.getBio().getSource());
@@ -191,7 +201,11 @@ public class AboutActivity extends AppCompatActivity {
         if (hasFocus) {
             window.setGone(R.id.layout_placeholder, 0, activity);
             // reset taskDesc
-            window.setRecentColor(about.getTitle(), about.getColor(), activity);
+            if (currentAbout.equals("now_playing")) {
+                window.setRecentColor(about.getTitle(), about.getColor(), activity);
+            } else {
+                window.setRecentColor(about.getSongName(), about.getColor(), activity);
+            }
         }
     }
 

@@ -29,6 +29,10 @@ import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.SoundHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
+import com.bedrock.padder.model.about.About;
+import com.bedrock.padder.model.about.Bio;
+import com.bedrock.padder.model.about.Detail;
+import com.bedrock.padder.model.about.Item;
 import com.bedrock.padder.model.preferences.Preferences;
 import com.bedrock.padder.model.preset.Preset;
 import com.bedrock.padder.model.preset.PresetSchema;
@@ -120,10 +124,101 @@ public class MainActivity
         Log.d("AboutVisible", String.valueOf(isAboutVisible));
     }
 
+    public static void largeLog(String tag, String content) {
+        if (content.length() > 4000) {
+            Log.d(tag, content.substring(0, 4000));
+            largeLog(tag, content.substring(4000));
+        } else {
+            Log.d(tag, content);
+        }
+    }
+
+    public void makeJson() {
+        Bio tapadBio = new Bio(
+                w.getStringFromId("info_tapad_bio_title", a),
+                w.getStringFromId("info_tapad_bio_name", a),
+                w.getStringFromId("info_tapad_bio_text", a),
+                w.getStringFromId("info_tapad_bio_source", a)
+        );
+
+        Item tapadInfo[] = {
+                new Item("info_tapad_info_check_update", w.getStringFromId("info_tapad_info_check_update_hint", a), true, "google_play"),
+                new Item("info_tapad_info_tester", w.getStringFromId("info_tapad_info_tester_hint", a), true, "experiment"),
+                new Item("info_tapad_info_legal", null, false, "info"),
+                new Item("info_tapad_info_version", w.getStringFromId("info_tapad_info_version_hint", a)),
+                new Item("info_tapad_info_changelog", null, false, "changelog"),
+                new Item("info_tapad_info_thanks", null, false, "thanks"),
+                new Item("info_tapad_info_dev", w.getStringFromId("info_tapad_info_dev_hint", a), false, "developer"),
+                // TODO ADD ITEMS
+        };
+
+        Item tapadOthers[] = {
+                new Item("info_tapad_others_song", w.getStringFromId("info_tapad_others_song_hint", a), true, "song"),
+                new Item("info_tapad_others_feedback", w.getStringFromId("info_tapad_others_feedback_hint", a), true, "feedback"),
+                new Item("info_tapad_others_report_bug", w.getStringFromId("info_tapad_others_report_bug_hint", a), true, "report_bug"),
+                new Item("info_tapad_others_rate", w.getStringFromId("info_tapad_others_rate_hint", a), true, "rate"),
+                new Item("info_tapad_others_translate", w.getStringFromId("info_tapad_others_translate_hint", a), false, "web"),
+                new Item("info_tapad_others_recommend", w.getStringFromId("info_tapad_others_recommend_hint", a), true, "recommend"),
+        };
+
+        Detail tapadDetails[] = {
+                new Detail(w.getStringFromId("info_tapad_info_title", a), tapadInfo),
+                new Detail(w.getStringFromId("info_tapad_others_title", a), tapadOthers)
+        };
+
+        About tapadAbout = new About(
+                w.getStringFromId("info_tapad_title", a),
+                "about_image_tapad",
+                "#9C27B0",
+                tapadBio, tapadDetails
+        );
+
+        largeLog("tapadAboutJSON", gson.toJson(tapadAbout));
+
+        Bio berictBio = new Bio(
+                w.getStringFromId("info_berict_bio_title", a),
+                w.getStringFromId("info_berict_bio_name", a),
+                w.getStringFromId("info_berict_bio_text", a),
+                w.getStringFromId("info_berict_bio_source", a)
+        );
+
+        Item devItems[] = {
+                new Item("facebook", w.getStringFromId("info_berict_detail_facebook", a)),
+                new Item("twitter", w.getStringFromId("info_berict_detail_twitter", a)),
+                new Item("google_plus", w.getStringFromId("info_berict_detail_google_plus", a)),
+                new Item("youtube", w.getStringFromId("info_berict_detail_youtube", a)),
+                new Item("discord", w.getStringFromId("info_berict_detail_discord", a)),
+                new Item("web", w.getStringFromId("info_berict_detail_web", a))
+        };
+
+        Item devSupport[] = {
+                new Item("info_berict_action_report_bug", w.getStringFromId("info_berict_action_report_bug_hint", a), true, "report_bug"),
+                new Item("info_berict_action_rate", w.getStringFromId("info_berict_action_rate_hint", a), true, "rate"),
+                new Item("info_berict_action_translate", w.getStringFromId("info_berict_action_translate_hint", a), false, "translate"),
+                new Item("info_berict_action_donate", w.getStringFromId("info_berict_action_donate_hint", a), false, "donate"),
+        };
+
+        Detail berictDetails[] = {
+                new Detail(w.getStringFromId("info_berict_detail_title", a), devItems),
+                new Detail(w.getStringFromId("info_berict_action_title", a), devSupport)
+        };
+
+        About berictAbout = new About(
+                w.getStringFromId("info_berict_title", a),
+                "about_image_berict",
+                "#607D8B",
+                berictBio, berictDetails
+        );
+
+        largeLog("berictAboutJSON", gson.toJson(berictAbout));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        makeJson();
 
         // initialize Preferences
         preferences = new Preferences(this);
