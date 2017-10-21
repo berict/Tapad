@@ -242,6 +242,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
             holder.presetRemove.setVisibility(View.GONE);
             holder.presetUpdate.setVisibility(View.GONE);
             holder.presetDownload.setVisibility(View.VISIBLE);
+            holder.presetDownload.setTextColor(preset.getAbout().getColor());
             holder.presetDownload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
