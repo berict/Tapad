@@ -29,6 +29,8 @@ import com.bedrock.padder.helper.ApiHelper;
 import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.Schema;
+import com.bedrock.padder.model.preferences.Preferences;
+import com.bedrock.padder.model.preset.store.PresetStore;
 
 import rx.Subscriber;
 
@@ -255,9 +257,11 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
                             }
                         }
 
+                        PresetStore presetStore = new PresetStore(schema.getPresets(), new Preferences(a));
+
                         // attach adapter while its not null
                         presetStoreAdapter = new PresetStoreAdapter(
-                                schema,
+                                presetStore,
                                 R.layout.adapter_preset_store, a
                         );
                         window.getRecyclerView(R.id.layout_online_preset_store_recycler_view, v).setAdapter(presetStoreAdapter);

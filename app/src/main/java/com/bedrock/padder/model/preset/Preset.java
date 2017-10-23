@@ -131,7 +131,7 @@ public class Preset {
         }
     }
 
-    public void setLoadPreset(Activity activity) {
+    public void loadPreset(Activity activity) {
         isPresetChanged = true;
         new Preferences(activity).setLastPlayed(tag);
     }
@@ -141,14 +141,14 @@ public class Preset {
         sound.load(this, color, colorDef, activity);
     }
 
-    public void downloadPreset(View parentView, Activity activity, Runnable onFinish) {
+    public void download(View parentView, Activity activity, Runnable onFinish) {
         // download the preset from presetStore
         PresetStoreHelper presetStore = new PresetStoreHelper();
         presetStore.initNotification(activity);
         presetStore.downloadPreset(tag, about.getTitle(), parentView, activity, onFinish);
     }
 
-    public void removePreset(Runnable onFinish, Activity activity) {
+    public void remove(Runnable onFinish, Activity activity) {
         // reset the savedPreset
         isPresetChanged = true;
         new Preferences(activity).setLastPlayed(null);
@@ -158,7 +158,7 @@ public class Preset {
         presetStore.removeLocalPreset(tag, onFinish, null);
     }
 
-    public void repairPreset(final View parentView, final Activity activity, final Runnable onFinish) {
+    public void repair(final View parentView, final Activity activity, final Runnable onFinish) {
         // remove and download the preset again
         final PresetStoreHelper presetStore = new PresetStoreHelper();
         presetStore.initNotification(activity);

@@ -17,8 +17,9 @@ import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.FileHelper;
 import com.bedrock.padder.helper.PresetStoreHelper;
 import com.bedrock.padder.helper.WindowHelper;
-import com.bedrock.padder.model.Schema;
+import com.bedrock.padder.model.preferences.Preferences;
 import com.bedrock.padder.model.preset.PresetSchema;
+import com.bedrock.padder.model.preset.store.PresetStore;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -82,7 +83,7 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
 
     String tapadFolderPath = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
 
-    private Schema schema = null;
+    private PresetStore presetStore = null;
 
     private void searchMetadata() {
         Log.d(TAG, "searchMetadata");
@@ -108,15 +109,18 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
 
             // create metadata
             if (presetArrayList.size() > 0) {
-                schema = new Schema(presetArrayList.toArray(new PresetSchema[presetArrayList.size()]), 0);
+                presetStore = new PresetStore(
+                        presetArrayList.toArray(new PresetSchema[presetArrayList.size()]),
+                        new Preferences(a)
+                );
             } else {
                 // need to show no presets installed
                 // TODO need to add additional dialog supports
-                schema = new Schema(null, 0);
+                presetStore = new PresetStore();
             }
         } else {
             Log.d(TAG, "null arrayList");
-            schema = new Schema(null, 0);
+            presetStore = new PresetStore();
         }
         setAdapter();
     }
@@ -142,10 +146,10 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
     private void setAdapter() {
         Log.d(TAG, "setAdapter");
         // attach the adapter to the layout
-        if (schema == null) {
+        if (presetStore == null) {
             // not initialized
             searchMetadata();
-        } else if (schema.getPresets() == null) {
+        } else if (presetStore.getLength() <= 0) {
             // clear the recycler view
             attachAdapter();
             anim.fadeOut(R.id.layout_installed_preset_store_recycler_view, 0, 200, v, a);
@@ -163,10 +167,10 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
 
     private void attachAdapter() {
         // attach adapter while its not null
-        if (schema != null && schema.getPresets() != null) {
+        if (presetStore != null && presetStore.getLength() > 0) {
             Log.d(TAG, "Attached adapter");
             presetStoreAdapter = new PresetStoreAdapter(
-                    schema,
+                    presetStore,
                     R.layout.adapter_preset_store, a
             );
             window.getRecyclerView(R.id.layout_installed_preset_store_recycler_view, v).setAdapter(presetStoreAdapter);
@@ -177,12 +181,12 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
 
     @Override
     public void refresh() {
-        if (schema == null) {
+        if (presetStore == null) {
             setAdapter();
         } else {
-            if (schema.getPresets() != null) {
+            if (presetStore.getLength() > 0) {
                 // new download or remove
-                if ((getPresetFolderList().length - 1) != schema.getPresets().length) {
+                if ((getPresetFolderList().length - 1) != presetStore.getLength()) {
                     // updated
                     Log.d(TAG, "Updated, preset not null");
                     searchMetadata();

@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.bedrock.padder.R;
+import com.bedrock.padder.helper.FileHelper;
+import com.bedrock.padder.model.preset.PresetSchema;
 import com.google.gson.Gson;
 
 public class Preferences {
@@ -121,6 +123,27 @@ public class Preferences {
             return prefs.getString(Keys.LAST_PLAYED, Defaults.LAST_PLAYED);
         } else {
             Log.e("Preferences", "The SharedPreferences was not initialized");
+            return null;
+        }
+    }
+
+    public PresetSchema getLastPlayedPreset(Context... context) {
+        if (this.prefs != null) {
+            return getPresetSchemaFromKey(prefs.getString(Keys.LAST_PLAYED, Defaults.LAST_PLAYED));
+        } else if (context != null && context.length > 0) {
+            this.prefs = context[0].getSharedPreferences(APPLICATION_ID, Context.MODE_PRIVATE);
+            return getPresetSchemaFromKey(prefs.getString(Keys.LAST_PLAYED, Defaults.LAST_PLAYED));
+        } else {
+            Log.e("Preferences", "The SharedPreferences was not initialized");
+            return null;
+        }
+    }
+
+    private PresetSchema getPresetSchemaFromKey(String key) {
+        FileHelper fileHelper = new FileHelper();
+        if (fileHelper.isPresetAvailable(key)) {
+            return fileHelper.getPresetSchemaFromMetadata(key, new Gson());
+        } else {
             return null;
         }
     }

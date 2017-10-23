@@ -18,10 +18,11 @@ import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.ApiHelper;
 import com.bedrock.padder.helper.FileHelper;
 import com.bedrock.padder.helper.WindowHelper;
-import com.bedrock.padder.model.Schema;
 import com.bedrock.padder.model.preferences.Preferences;
 import com.bedrock.padder.model.preset.Preset;
 import com.bedrock.padder.model.preset.PresetSchema;
+import com.bedrock.padder.model.preset.store.Item;
+import com.bedrock.padder.model.preset.store.PresetStore;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -30,7 +31,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.bedrock.padder.activity.MainActivity.isPresetChanged;
 import static com.bedrock.padder.activity.PresetStoreActivity.isPresetDownloading;
 import static com.bedrock.padder.helper.PresetStoreHelper.PRESET_LOCATION;
 import static com.bedrock.padder.helper.PresetStoreHelper.PROJECT_LOCATION_PRESETS;
@@ -39,19 +39,20 @@ import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.PresetViewHolder> {
 
     private static final String TAG = "PresetAdapter";
-    private Schema schema;
+
+    private PresetStore presetStore;
     private int rowLayout;
     private Activity activity;
+
     private View parentView;
+    private Preferences preferences;
 
     private WindowHelper window = new WindowHelper();
     private AnimateHelper anim = new AnimateHelper();
     private FileHelper file = new FileHelper();
 
-    private Preferences preferences;
-
-    public PresetStoreAdapter(Schema schema, int rowLayout, Activity activity) {
-        this.schema = schema;
+    public PresetStoreAdapter(PresetStore presetStore, int rowLayout, Activity activity) {
+        this.presetStore = presetStore;
         this.rowLayout = rowLayout;
         this.activity = activity;
 
@@ -66,8 +67,10 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
 
     @Override
     public void onBindViewHolder(final PresetViewHolder holder, int position) {
-        final Preset preset = schema.getPreset(position).getPreset();
-        final PresetSchema presetSchema = schema.getPreset(position);
+        final Item item = presetStore.getItem(position);
+
+        final PresetSchema presetSchema = item.getPresetSchema();
+        final Preset preset = presetSchema.getPreset();
 
         Log.i(TAG, preset.toString());
 
@@ -117,7 +120,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                     @Override
                     public void onClick(View v) {
                         // select and load preset
-                        preset.setLoadPreset(activity);
+                        preset.loadPreset(activity);
                         notifyItemChanged(holder.getAdapterPosition());
                     }
                 });
@@ -138,13 +141,14 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                             @Override
                             public void onClick(View v) {
                                 // re-download the preset
-                                preset.repairPreset(parentView, activity, new Runnable() {
+                                preset.repair(parentView, activity, new Runnable() {
                                     @Override
                                     public void run() {
-                                        notifyItemChanged(holder.getAdapterPosition());
+                                        // TODO this needed?
+                                        //notifyItemChanged(holder.getAdapterPosition());
                                         // reset the savedPreset
-                                        isPresetChanged = true;
-                                        preferences.setLastPlayed(null);
+                                        //isPresetChanged = true;
+                                        //preferences.setLastPlayed(null);
                                     }
                                 });
                             }
@@ -183,13 +187,14 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                             dialog.dismiss();
                                             // repair the preset
-                                            preset.repairPreset(parentView, activity, new Runnable() {
+                                            preset.repair(parentView, activity, new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    notifyItemChanged(holder.getAdapterPosition());
+                                                    // TODO this needed?
+                                                    //notifyItemChanged(holder.getAdapterPosition());
                                                     // reset the savedPreset
-                                                    isPresetChanged = true;
-                                                    preferences.setLastPlayed(null);
+                                                    //isPresetChanged = true;
+                                                    //preferences.setLastPlayed(null);
                                                 }
                                             });
                                         }
@@ -222,9 +227,11 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                     dialog.dismiss();
                                     // repair the preset
-                                    preset.removePreset(new Runnable() {
+                                    preset.remove(new Runnable() {
                                         @Override
                                         public void run() {
+                                            presetStore.remove(holder.getAdapterPosition());
+                                            // TODO check this working
                                             notifyItemChanged(holder.getAdapterPosition());
                                         }
                                     }, activity);
@@ -246,13 +253,14 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
             holder.presetDownload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    preset.downloadPreset(parentView, activity, new Runnable() {
+                    preset.download(parentView, activity, new Runnable() {
                         @Override
                         public void run() {
-                            makeCurrentPreset(schema.getPresets(), holder.getAdapterPosition());
+                            // TODO this needed?
+                            //presetStore.select(holder.getAdapterPosition());
                             // reset the savedPreset
-                            isPresetChanged = true;
-                            preferences.setLastPlayed(null);
+                            //isPresetChanged = true;
+                            //preferences.setLastPlayed(null);
                         }
                     });
                 }
@@ -274,23 +282,6 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
         } else {
             holder.presetCurrentPreset.setVisibility(View.GONE);
         }
-    }
-
-    // Swap itemA with itemB
-    private void swapPresetItems(PresetSchema presets[], int itemAIndex, int itemBIndex) {
-        if (presets.length > 0 && itemAIndex >= 0 && itemBIndex >= 0) {
-            //make sure to check if data set is null and if itemA and itemB are valid indexes.
-            PresetSchema itemA = presets[itemAIndex];
-            PresetSchema itemB = presets[itemBIndex];
-            presets[itemAIndex] = itemB;
-            presets[itemBIndex] = itemA;
-
-            notifyDataSetChanged(); //This will trigger onBindViewHolder method from the adapter.
-        }
-    }
-
-    private void makeCurrentPreset(PresetSchema presets[], int adapterPosition) {
-        swapPresetItems(presets, 0, adapterPosition);
     }
 
     private void onPresetUpdated(final Integer version, final String tag, final Runnable onUpdated) {
@@ -320,7 +311,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
 
     @Override
     public int getItemCount() {
-        return schema.getPresets().length;
+        return presetStore.getLength();
     }
 
     public static class PresetViewHolder extends RecyclerView.ViewHolder {
@@ -340,19 +331,19 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
 
         public PresetViewHolder(View view) {
             super(view);
-            presetGesture = (LinearLayout) view.findViewById(R.id.layout_preset_store_gesture_layout);
-            presetWarningLayout = (LinearLayout) view.findViewById(R.id.layout_preset_store_warning_layout);
-            presetImage = (ImageView) view.findViewById(R.id.layout_preset_store_image);
-            presetCurrentPreset = (TextView) view.findViewById(R.id.layout_preset_store_current_preset);
-            presetTitle = (TextView) view.findViewById(R.id.layout_preset_store_title);
-            presetArtist = (TextView) view.findViewById(R.id.layout_preset_store_artist);
-            presetCreator = (TextView) view.findViewById(R.id.layout_preset_store_preset_creator);
-            presetDownload = (TextView) view.findViewById(R.id.layout_preset_store_action_download);
-            presetSelect = (TextView) view.findViewById(R.id.layout_preset_store_action_select);
-            presetUpdate = (TextView) view.findViewById(R.id.layout_preset_store_action_update);
-            presetRemove = (TextView) view.findViewById(R.id.layout_preset_store_action_remove);
-            presetWarning = (TextView) view.findViewById(R.id.layout_preset_store_warning_text);
-            presetInstalling = (TextView) view.findViewById(R.id.layout_preset_store_download_installing);
+            presetGesture = view.findViewById(R.id.layout_preset_store_gesture_layout);
+            presetWarningLayout = view.findViewById(R.id.layout_preset_store_warning_layout);
+            presetImage = view.findViewById(R.id.layout_preset_store_image);
+            presetCurrentPreset = view.findViewById(R.id.layout_preset_store_current_preset);
+            presetTitle = view.findViewById(R.id.layout_preset_store_title);
+            presetArtist = view.findViewById(R.id.layout_preset_store_artist);
+            presetCreator = view.findViewById(R.id.layout_preset_store_preset_creator);
+            presetDownload = view.findViewById(R.id.layout_preset_store_action_download);
+            presetSelect = view.findViewById(R.id.layout_preset_store_action_select);
+            presetUpdate = view.findViewById(R.id.layout_preset_store_action_update);
+            presetRemove = view.findViewById(R.id.layout_preset_store_action_remove);
+            presetWarning = view.findViewById(R.id.layout_preset_store_warning_text);
+            presetInstalling = view.findViewById(R.id.layout_preset_store_download_installing);
         }
     }
 }

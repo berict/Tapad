@@ -53,17 +53,24 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
     private IntentHelper intent = new IntentHelper();
     private FabHelper fab = new FabHelper();
     private FileHelper fileHelper = new FileHelper();
+
     private static final int REQUEST_WRITE_STORAGE = 112;
+    private boolean hasPermission;
+
     public static boolean isPresetDownloading = false;
+
     Activity activity = this;
-    String tapadFolderPath = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
-    ViewPager viewPager;
-    ViewPagerAdapter viewPagerAdapter;
-    private CollapsingToolbarLayout collapsingToolbarLayout = null;
-    private int themeColor;
+
+    private String tapadFolderPath = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
     private String themeTitle;
     private String TAG = "PresetStore";
-    private boolean hasPermission;
+
+    ViewPager viewPager;
+    ViewPagerAdapter viewPagerAdapter;
+
+    private CollapsingToolbarLayout collapsingToolbarLayout = null;
+
+    private int themeColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,5 +1,7 @@
 package com.bedrock.padder.model.preset;
 
+import android.util.Log;
+
 import com.bedrock.padder.helper.PresetStoreHelper;
 
 public class PresetSchema {
@@ -214,5 +216,15 @@ public class PresetSchema {
 
     public Review[] getReviews() {
         return reviews;
+    }
+
+    @Override
+    public boolean equals(Object presetSchema) {
+        try {
+            return this.getPreset().getTag().equals(((PresetSchema) presetSchema).getPreset().getTag());
+        } catch (Exception e) {
+            Log.e("PresetSchema", "equals(), cannot compare with another object");
+            return false;
+        }
     }
 }
