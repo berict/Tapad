@@ -6,11 +6,11 @@ import android.util.Log;
 
 public class Sound {
 
+    final String TAG = "Sound";
+
     boolean isLooping = false;
 
     boolean canLoop = true;
-
-    String TAG = "Sound";
 
     private int soundPoolId = 0;
 
@@ -24,6 +24,11 @@ public class Sound {
         this.soundPool = soundPool;
         this.duration = getDurationFromFile(path, mmr);
         this.load(path);
+    }
+
+    public Sound() {
+        // empty initializer for null pads
+        this.soundPool = null;
     }
 
     private int getDurationFromFile(String path, MediaMetadataRetriever mmr) {

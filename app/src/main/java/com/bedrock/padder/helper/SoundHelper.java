@@ -504,7 +504,7 @@ public class SoundHelper {
                                     color, colorDef, activity), j);
                         } else {
                             // no sounds
-                            decks[i].setPad(new Pad(null, buttonViews[j],
+                            decks[i].setPad(new Pad(new Sound(), buttonViews[j],
                                     color, colorDef, activity), j);
                         }
                     }
