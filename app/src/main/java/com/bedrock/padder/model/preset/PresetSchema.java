@@ -153,7 +153,7 @@ public class PresetSchema {
 
     private Preset preset;
 
-    // enum [Drum and Bass, Hardcore, House, Trap, Techno, Trance, Pop, /custom]
+    // enum [Electronic, Pop, Dance, Hip-Hop/Rap, Rock, /custom]
     private String genre;
 
     // should add censoring
