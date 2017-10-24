@@ -3,6 +3,7 @@ package com.bedrock.padder.helper;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
@@ -24,9 +25,11 @@ import java.util.zip.ZipInputStream;
 
 import static com.bedrock.padder.activity.MainActivity.isPresetChanged;
 import static com.bedrock.padder.activity.PresetStoreActivity.isPresetDownloading;
-import static com.bedrock.padder.helper.PresetStoreHelper.PROJECT_LOCATION_PRESETS;
 
 public class FileHelper {
+
+    public static String PRESET_LOCATION = "http://file.berict.com/tapad/presets";
+    public static String PROJECT_LOCATION_PRESETS = Environment.getExternalStorageDirectory().getPath() + "/Tapad/presets";
 
     private AnimateHelper anim = new AnimateHelper();
 
@@ -87,7 +90,7 @@ public class FileHelper {
         return new File(PROJECT_LOCATION_PRESETS + "/" + presetName).exists(); // folder check
     }
 
-    long getAvailableExternalMemorySize() {
+    public long getAvailableExternalMemorySize() {
         return new File(PROJECT_LOCATION_PRESETS).getFreeSpace();
     }
 

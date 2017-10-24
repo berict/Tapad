@@ -2,7 +2,8 @@ package com.bedrock.padder.model.preset;
 
 import android.util.Log;
 
-import com.bedrock.padder.helper.PresetStoreHelper;
+import com.bedrock.padder.helper.FileHelper;
+import com.google.gson.Gson;
 
 public class PresetSchema {
     // mongoose schema wrapper, JSON V2
@@ -211,7 +212,7 @@ public class PresetSchema {
     }
 
     public Integer getLocalVersion() {
-        return new PresetStoreHelper().getLocalPreset(preset.getTag()).getVersion();
+        return new FileHelper().getPresetSchemaFromMetadata(preset.getTag(), new Gson()).getVersion();
     }
 
     public Review[] getReviews() {

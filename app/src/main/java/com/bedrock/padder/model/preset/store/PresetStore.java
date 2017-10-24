@@ -5,112 +5,93 @@ import com.bedrock.padder.model.preset.PresetSchema;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 
 public class PresetStore {
 
-    Item selected = null;
-
-    ArrayList<Item> available;
+    // current selected item comes to 0
+    ArrayList<Item> items;
 
     public PresetStore() {
-        this.available = null;
+        this.items = null;
     }
 
-    public PresetStore(Item[] available) {
-        this.available = new ArrayList<>(Arrays.asList(available));
+    public PresetStore(Item[] items) {
+        this.items = new ArrayList<>(Arrays.asList(items));
     }
 
-    public PresetStore(Item selected, Item[] available) {
-        this.selected = selected;
-        this.available = new ArrayList<>(Arrays.asList(available));
+    public PresetStore(PresetSchema[] items, Preferences preferences) {
+        this.items = new ArrayList<>();
+        int selectedPosition = -1;
 
-        for (Item item : this.available) {
-            if (item.equals(selected)) {
-                this.available.remove(item);
+        for (int i = 0; i < items.length; i++) {
+            this.items.add(new Item(items[i], i));
+            if (items[i].getPreset().getTag().equals(preferences.getLastPlayed())) {
+                // selected preset
+                selectedPosition = i;
             }
         }
-    }
 
-    public PresetStore(PresetSchema selected, PresetSchema[] available) {
-        this.selected = new Item(selected);
-        this.available = new ArrayList<>();
-
-        for (int i = 0; i < available.length; i++) {
-            PresetSchema presetSchema = available[i];
-            if (!selected.equals(presetSchema)) {
-                this.available.add(new Item(presetSchema, i));
-            } else {
-                this.selected.setIndex(i);
-            }
-        }
-    }
-
-    public PresetStore(PresetSchema[] available, Preferences preferences) {
-        PresetSchema lastPlayed = preferences.getLastPlayedPreset();
-        if (lastPlayed != null) {
-            this.selected = new Item(lastPlayed);
-        } else {
-            this.selected = null;
-        }
-
-        this.available = new ArrayList<>();
-
-        for (int i = 0; i < available.length; i++) {
-            PresetSchema presetSchema = available[i];
-            if (!presetSchema.equals(lastPlayed)) {
-                this.available.add(new Item(presetSchema, i));
-            } else {
-                this.selected.setIndex(i);
-            }
+        if (selectedPosition != -1) {
+            select(selectedPosition);
         }
     }
 
     public Item getSelected() {
-        return selected;
+        return getItem(0);
     }
 
     public Item getItem(int index) {
-        if (available != null) {
-            return available.get(index);
+        if (items != null) {
+            return items.get(index);
         } else {
             return null;
         }
     }
 
     public int getLength() {
-        if (available != null) {
-            return available.size();
+        if (items != null) {
+            return items.size();
         } else {
             return -1;
         }
     }
 
     public void select(int position) {
-        if (selected == null) {
-            // there was no previously selected presets
-            // move to selected from the list
-            this.selected = available.get(position);
-            available.remove(position);
-        } else {
-            // there was already selected preset
-            // swap between selected and the list
-            available.add(selected);
-            // sort the new list
-            Collections.sort(available, new Comparator<Item>() {
-                @Override
-                public int compare(Item t1, Item t2) {
-                    // If index of first object is greater than the second, we are returning positive value
-                    // If index of first object is less than the second object, we are returning negative value
-                    // If index of both objects are equal, we are returning 0
-                    return t1.getIndex() - t2.getIndex();
-                }
-            });
+        Item selected = items.get(position);
+
+        for (int i = position; i > 0; i--) {
+            items.set(i, items.get(i - 1));
         }
+
+        items.set(0, selected);
     }
 
     public void remove(int position) {
-        available.remove(position);
+        items.remove(position);
+    }
+
+    public void add(Item item) {
+        items.add(item);
+    }
+
+    public int search(String tag) {
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getPreset().getTag().equals(tag)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void merge(PresetStore presetStore) {
+        if (this.getLength() > presetStore.getLength()) {
+            for (Item item : items) {
+                if (this.search(item.getPreset().getTag()) < 0) {
+                    // no match found, add
+                    this.add(item);
+                }
+            }
+        }
+        // TODO add else
     }
 }

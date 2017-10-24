@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -32,8 +34,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.bedrock.padder.activity.PresetStoreActivity.isPresetDownloading;
-import static com.bedrock.padder.helper.PresetStoreHelper.PRESET_LOCATION;
-import static com.bedrock.padder.helper.PresetStoreHelper.PROJECT_LOCATION_PRESETS;
+import static com.bedrock.padder.helper.FileHelper.PRESET_LOCATION;
+import static com.bedrock.padder.helper.FileHelper.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
 public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.PresetViewHolder> {
@@ -66,19 +68,26 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
     }
 
     @Override
-    public void onBindViewHolder(final PresetViewHolder holder, int position) {
-        final Item item = presetStore.getItem(position);
+    public void onBindViewHolder(final PresetViewHolder holder, final int position) {
+        final boolean isSelected = presetStore.getSelected() != null && position == 0;
+
+        final Item item;
+
+        if (isSelected) {
+            item = presetStore.getSelected();
+        } else {
+            item = presetStore.getItem(position);
+        }
 
         final PresetSchema presetSchema = item.getPresetSchema();
         final Preset preset = presetSchema.getPreset();
 
-        Log.i(TAG, preset.toString());
-
         // set gesture
         if (preset.isGesture()) {
             // preset is gesture
-            holder.presetGesture.setVisibility(View.VISIBLE);
-            holder.presetGesture.setOnClickListener(new View.OnClickListener() {
+            Log.i(TAG, "gesture");
+            holder.gesture.setVisibility(View.VISIBLE);
+            holder.gesture.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     new MaterialDialog.Builder(activity)
@@ -91,57 +100,59 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                 }
             });
         } else {
-            holder.presetGesture.setVisibility(View.GONE);
+            Log.i(TAG, "normal");
+            holder.gesture.setVisibility(View.GONE);
         }
 
         // load preset image
         String imageUrl = PRESET_LOCATION + "/" + preset.getTag() + "/album_art.jpg";
 
         // set title
-        holder.presetTitle.setText(preset.getAbout().getSongName());
+        holder.title.setText(preset.getAbout().getSongName());
 
         // set artist name
-        holder.presetArtist.setText(preset.getAbout().getSongArtist());
+        holder.artist.setText(preset.getAbout().getSongArtist());
 
         // set preset creator
-        holder.presetCreator.setText(
+        holder.creator.setText(
                 getStringFromId(R.string.preset_store_preset_by, activity)
                         + " "
                         + preset.getAbout().getPresetArtist());
 
-        holder.presetInstalling.setVisibility(View.INVISIBLE);
+        holder.installing.setVisibility(View.INVISIBLE);
 
         // actions
         if (isPresetExists(preset.getTag())) {
             if (file.isPresetAvailable(preset)) {
                 // exists, select | remove action
-                holder.presetSelect.setVisibility(View.VISIBLE);
-                holder.presetSelect.setOnClickListener(new View.OnClickListener() {
+                holder.select.setVisibility(View.VISIBLE);
+                holder.select.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         // select and load preset
                         preset.loadPreset(activity);
-                        notifyItemChanged(holder.getAdapterPosition());
+                        presetStore.select(position);
+                        notifyDataSetChanged();
                     }
                 });
-                holder.presetWarningLayout.setVisibility(View.GONE);
+                holder.warningLayout.setVisibility(View.GONE);
                 // load local image
                 Picasso.with(activity)
                         .load("file:" + PROJECT_LOCATION_PRESETS + "/" + preset.getTag() + "/about/album_art")
                         .placeholder(R.drawable.ic_image_album_placeholder)
                         .error(R.drawable.ic_image_album_error)
-                        .into(holder.presetImage);
+                        .into(holder.image);
                 // check preset update
                 onPresetUpdated(presetSchema.getLocalVersion(), preset.getTag(), new Runnable() {
                     @Override
                     public void run() {
                         // preset updated
-                        holder.presetUpdate.setVisibility(View.VISIBLE);
-                        holder.presetUpdate.setOnClickListener(new View.OnClickListener() {
+                        holder.update.setVisibility(View.VISIBLE);
+                        holder.update.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 // re-download the preset
-                                preset.repair(parentView, activity, new Runnable() {
+                                item.repair(holder, new Runnable() {
                                     @Override
                                     public void run() {
                                         // TODO this needed?
@@ -150,29 +161,29 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                                         //isPresetChanged = true;
                                         //preferences.setLastPlayed(null);
                                     }
-                                });
+                                }, isSelected, activity);
                             }
                         });
                         // show warning
-                        holder.presetWarningLayout.setVisibility(View.VISIBLE);
-                        holder.presetWarning.setText(R.string.preset_store_action_update_available);
+                        holder.warningLayout.setVisibility(View.VISIBLE);
+                        holder.warning.setText(R.string.preset_store_action_update_available);
                     }
                 });
             } else {
                 if (isPresetDownloading) {
-                    holder.presetInstalling.setText(R.string.preset_store_download_size_downloading);
+                    holder.installing.setText(R.string.preset_store_download_size_downloading);
                     anim.fadeOut(R.id.layout_preset_store_download_layout, 0, 200, parentView, activity);
                     anim.fadeIn(R.id.layout_preset_store_download_installing, 200, 200, "installIn", parentView, activity);
                     window.getView(R.id.layout_preset_store_action_layout, parentView).setVisibility(View.INVISIBLE);
                 } else {
                     // corrupted, show repair
-                    holder.presetSelect.setVisibility(View.VISIBLE);
-                    holder.presetSelect.setTextColor(activity.getResources().getColor(R.color.colorAccent));
-                    holder.presetSelect.setText(R.string.preset_store_action_repair);
+                    holder.select.setVisibility(View.VISIBLE);
+                    holder.select.setTextColor(activity.getResources().getColor(R.color.colorAccent));
+                    holder.select.setText(R.string.preset_store_action_repair);
                     // show warning
-                    holder.presetWarningLayout.setVisibility(View.VISIBLE);
-                    holder.presetWarning.setText(R.string.preset_store_action_repair_needed);
-                    holder.presetSelect.setOnClickListener(new View.OnClickListener() {
+                    holder.warningLayout.setVisibility(View.VISIBLE);
+                    holder.warning.setText(R.string.preset_store_action_repair_needed);
+                    holder.select.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             // show repair dialog
@@ -187,7 +198,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                             dialog.dismiss();
                                             // repair the preset
-                                            preset.repair(parentView, activity, new Runnable() {
+                                            item.repair(holder, new Runnable() {
                                                 @Override
                                                 public void run() {
                                                     // TODO this needed?
@@ -196,7 +207,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                                                     //isPresetChanged = true;
                                                     //preferences.setLastPlayed(null);
                                                 }
-                                            });
+                                            }, isSelected, activity);
                                         }
                                     })
                                     .negativeText(R.string.dialog_cancel)
@@ -208,12 +219,12 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                             .load(imageUrl)
                             .placeholder(R.drawable.ic_image_album_placeholder)
                             .error(R.drawable.ic_image_album_error)
-                            .into(holder.presetImage);
+                            .into(holder.image);
                 }
             }
             // selected
-            holder.presetRemove.setVisibility(View.VISIBLE);
-            holder.presetRemove.setOnClickListener(new View.OnClickListener() {
+            holder.remove.setVisibility(View.VISIBLE);
+            holder.remove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // remove confirm dialog
@@ -227,33 +238,33 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                     dialog.dismiss();
                                     // repair the preset
-                                    preset.remove(new Runnable() {
+                                    item.remove(new Runnable() {
                                         @Override
                                         public void run() {
                                             presetStore.remove(holder.getAdapterPosition());
                                             // TODO check this working
                                             notifyItemChanged(holder.getAdapterPosition());
                                         }
-                                    }, activity);
+                                    }, isSelected, activity);
                                 }
                             })
                             .negativeText(R.string.dialog_cancel)
                             .show();
                 }
             });
-            holder.presetUpdate.setVisibility(View.GONE);
-            holder.presetDownload.setVisibility(View.GONE);
+            holder.update.setVisibility(View.GONE);
+            holder.download.setVisibility(View.GONE);
         } else {
             // doesn't exist, download action
-            holder.presetSelect.setVisibility(View.GONE);
-            holder.presetRemove.setVisibility(View.GONE);
-            holder.presetUpdate.setVisibility(View.GONE);
-            holder.presetDownload.setVisibility(View.VISIBLE);
-            holder.presetDownload.setTextColor(preset.getAbout().getColor());
-            holder.presetDownload.setOnClickListener(new View.OnClickListener() {
+            holder.select.setVisibility(View.GONE);
+            holder.remove.setVisibility(View.GONE);
+            holder.update.setVisibility(View.GONE);
+            holder.download.setVisibility(View.VISIBLE);
+            holder.download.setTextColor(preset.getAbout().getColor());
+            holder.download.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    preset.download(parentView, activity, new Runnable() {
+                    item.download(holder, new Runnable() {
                         @Override
                         public void run() {
                             // TODO this needed?
@@ -262,7 +273,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                             //isPresetChanged = true;
                             //preferences.setLastPlayed(null);
                         }
-                    });
+                    }, activity);
                 }
             });
             // load url image
@@ -270,17 +281,17 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                     .load(imageUrl)
                     .placeholder(R.drawable.ic_image_album_placeholder)
                     .error(R.drawable.ic_image_album_error)
-                    .into(holder.presetImage);
+                    .into(holder.image);
         }
 
         if (preferences.getLastPlayed() != null &&
                 preferences.getLastPlayed().equals(preset.getTag()) &&
                 file.isPresetAvailable(preset)) {
             // selected: current preset set, downloaded
-            holder.presetCurrentPreset.setVisibility(View.VISIBLE);
-            holder.presetSelect.setVisibility(View.GONE);
+            holder.currentPreset.setVisibility(View.VISIBLE);
+            holder.select.setVisibility(View.GONE);
         } else {
-            holder.presetCurrentPreset.setVisibility(View.GONE);
+            holder.currentPreset.setVisibility(View.GONE);
         }
     }
 
@@ -315,35 +326,58 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
     }
 
     public static class PresetViewHolder extends RecyclerView.ViewHolder {
-        LinearLayout presetGesture;
-        LinearLayout presetWarningLayout;
-        ImageView presetImage;
-        TextView presetCurrentPreset;
-        TextView presetTitle;
-        TextView presetArtist;
-        TextView presetCreator;
-        TextView presetDownload;
-        TextView presetSelect;
-        TextView presetUpdate;
-        TextView presetRemove;
-        TextView presetWarning;
-        TextView presetInstalling;
+
+        public View root;
+        public LinearLayout gesture;
+        public LinearLayout warningLayout;
+        public LinearLayout actionLayout;
+
+        public ImageView image;
+
+        public TextView currentPreset;
+        public TextView title;
+        public TextView artist;
+        public TextView creator;
+        public TextView download;
+        public TextView select;
+        public TextView update;
+        public TextView remove;
+        public TextView warning;
+        public TextView installing;
+
+        public RelativeLayout downloadLayout;
+        public ProgressBar downloadProgressBar;
+        public TextView downloadPercent;
+        public TextView downloadSize;
+        public ImageView downloadCancel;
 
         public PresetViewHolder(View view) {
             super(view);
-            presetGesture = view.findViewById(R.id.layout_preset_store_gesture_layout);
-            presetWarningLayout = view.findViewById(R.id.layout_preset_store_warning_layout);
-            presetImage = view.findViewById(R.id.layout_preset_store_image);
-            presetCurrentPreset = view.findViewById(R.id.layout_preset_store_current_preset);
-            presetTitle = view.findViewById(R.id.layout_preset_store_title);
-            presetArtist = view.findViewById(R.id.layout_preset_store_artist);
-            presetCreator = view.findViewById(R.id.layout_preset_store_preset_creator);
-            presetDownload = view.findViewById(R.id.layout_preset_store_action_download);
-            presetSelect = view.findViewById(R.id.layout_preset_store_action_select);
-            presetUpdate = view.findViewById(R.id.layout_preset_store_action_update);
-            presetRemove = view.findViewById(R.id.layout_preset_store_action_remove);
-            presetWarning = view.findViewById(R.id.layout_preset_store_warning_text);
-            presetInstalling = view.findViewById(R.id.layout_preset_store_download_installing);
+            root = view;
+
+            gesture = view.findViewById(R.id.layout_preset_store_gesture_layout);
+            warningLayout = view.findViewById(R.id.layout_preset_store_warning_layout);
+            actionLayout = view.findViewById(R.id.layout_preset_store_action_layout);
+            downloadLayout = view.findViewById(R.id.layout_preset_store_action_layout);
+
+            image = view.findViewById(R.id.layout_preset_store_image);
+
+            currentPreset = view.findViewById(R.id.layout_preset_store_current_preset);
+            title = view.findViewById(R.id.layout_preset_store_title);
+            artist = view.findViewById(R.id.layout_preset_store_artist);
+            creator = view.findViewById(R.id.layout_preset_store_preset_creator);
+            download = view.findViewById(R.id.layout_preset_store_action_download);
+            select = view.findViewById(R.id.layout_preset_store_action_select);
+            update = view.findViewById(R.id.layout_preset_store_action_update);
+            remove = view.findViewById(R.id.layout_preset_store_action_remove);
+            warning = view.findViewById(R.id.layout_preset_store_warning_text);
+            installing = view.findViewById(R.id.layout_preset_store_download_installing);
+
+            downloadProgressBar = view.findViewById(R.id.layout_preset_store_download_progressbar);
+
+            downloadSize = view.findViewById(R.id.layout_preset_store_download_size);
+            downloadPercent = view.findViewById(R.id.layout_preset_store_download_percent);
+            downloadCancel = view.findViewById(R.id.layout_preset_store_download_cancel);
         }
     }
 }

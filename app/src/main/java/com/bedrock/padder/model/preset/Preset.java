@@ -1,9 +1,7 @@
 package com.bedrock.padder.model.preset;
 
 import android.app.Activity;
-import android.view.View;
 
-import com.bedrock.padder.helper.PresetStoreHelper;
 import com.bedrock.padder.helper.SoundHelper;
 import com.bedrock.padder.model.about.About;
 import com.bedrock.padder.model.preferences.Preferences;
@@ -13,7 +11,7 @@ import com.google.gson.GsonBuilder;
 import java.io.File;
 
 import static com.bedrock.padder.activity.MainActivity.isPresetChanged;
-import static com.bedrock.padder.helper.PresetStoreHelper.PROJECT_LOCATION_PRESETS;
+import static com.bedrock.padder.helper.FileHelper.PROJECT_LOCATION_PRESETS;
 
 public class Preset {
 
@@ -139,43 +137,6 @@ public class Preset {
     public void load(int color, int colorDef, Activity activity) {
         SoundHelper sound = new SoundHelper();
         sound.load(this, color, colorDef, activity);
-    }
-
-    public void download(View parentView, Activity activity, Runnable onFinish) {
-        // download the preset from presetStore
-        PresetStoreHelper presetStore = new PresetStoreHelper();
-        presetStore.initNotification(activity);
-        presetStore.downloadPreset(tag, about.getTitle(), parentView, activity, onFinish);
-    }
-
-    public void remove(Runnable onFinish, Activity activity) {
-        // reset the savedPreset
-        isPresetChanged = true;
-        new Preferences(activity).setLastPlayed(null);
-        // remove the preset folder
-        PresetStoreHelper presetStore = new PresetStoreHelper();
-        presetStore.initNotification(activity);
-        presetStore.removeLocalPreset(tag, onFinish, null);
-    }
-
-    public void repair(final View parentView, final Activity activity, final Runnable onFinish) {
-        // remove and download the preset again
-        final PresetStoreHelper presetStore = new PresetStoreHelper();
-        presetStore.initNotification(activity);
-        presetStore.removeLocalPreset(tag, new Runnable() {
-            @Override
-            public void run() {
-                presetStore.downloadPreset(tag,
-                        about.getTitle(),
-                        parentView,
-                        activity,
-                        onFinish
-                );
-            }
-        }, null);
-        // reset the savedPreset
-        isPresetChanged = true;
-        new Preferences(activity).setLastPlayed(null);
     }
 
     @Override

@@ -15,7 +15,6 @@ import com.bedrock.padder.R;
 import com.bedrock.padder.adapter.PresetStoreAdapter;
 import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.FileHelper;
-import com.bedrock.padder.helper.PresetStoreHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.preferences.Preferences;
 import com.bedrock.padder.model.preset.PresetSchema;
@@ -25,6 +24,9 @@ import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import static com.bedrock.padder.activity.MainActivity.installed;
+import static com.bedrock.padder.helper.FileHelper.PROJECT_LOCATION_PRESETS;
 
 public class PresetStoreInstalledFragment extends Fragment implements Refreshable {
 
@@ -38,7 +40,7 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
     View v;
     Gson gson;
 
-    public PresetStoreAdapter presetStoreAdapter = null;
+    public PresetStoreAdapter installedAdapter = null;
 
     public PresetStoreInstalledFragment() {
         // Required empty public constructor
@@ -83,8 +85,6 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
 
     String tapadFolderPath = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
 
-    private PresetStore presetStore = null;
-
     private void searchMetadata() {
         Log.d(TAG, "searchMetadata");
         // get metadata locally
@@ -109,24 +109,24 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
 
             // create metadata
             if (presetArrayList.size() > 0) {
-                presetStore = new PresetStore(
+                installed = new PresetStore(
                         presetArrayList.toArray(new PresetSchema[presetArrayList.size()]),
                         new Preferences(a)
                 );
             } else {
                 // need to show no presets installed
                 // TODO need to add additional dialog supports
-                presetStore = new PresetStore();
+                installed = new PresetStore();
             }
         } else {
             Log.d(TAG, "null arrayList");
-            presetStore = new PresetStore();
+            installed = new PresetStore();
         }
         setAdapter();
     }
 
     private boolean validateMetadata(String presetName) {
-        String metadata = fileHelper.getStringFromFile(PresetStoreHelper.PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json");
+        String metadata = fileHelper.getStringFromFile(PROJECT_LOCATION_PRESETS + "/" + presetName + "/about/json");
         if (metadata.contains("firebase_location")) {
             // JSON v1, need to be updated
             return false;
@@ -146,10 +146,10 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
     private void setAdapter() {
         Log.d(TAG, "setAdapter");
         // attach the adapter to the layout
-        if (presetStore == null) {
+        if (installed == null) {
             // not initialized
             searchMetadata();
-        } else if (presetStore.getLength() <= 0) {
+        } else if (installed.getLength() <= 0) {
             // clear the recycler view
             attachAdapter();
             anim.fadeOut(R.id.layout_installed_preset_store_recycler_view, 0, 200, v, a);
@@ -167,13 +167,13 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
 
     private void attachAdapter() {
         // attach adapter while its not null
-        if (presetStore != null && presetStore.getLength() > 0) {
+        if (installed != null && installed.getLength() > 0) {
             Log.d(TAG, "Attached adapter");
-            presetStoreAdapter = new PresetStoreAdapter(
-                    presetStore,
+            installedAdapter = new PresetStoreAdapter(
+                    installed,
                     R.layout.adapter_preset_store, a
             );
-            window.getRecyclerView(R.id.layout_installed_preset_store_recycler_view, v).setAdapter(presetStoreAdapter);
+            window.getRecyclerView(R.id.layout_installed_preset_store_recycler_view, v).setAdapter(installedAdapter);
         } else {
             Log.d(TAG, "Metadata is null");
         }
@@ -181,12 +181,12 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
 
     @Override
     public void refresh() {
-        if (presetStore == null) {
+        if (installed == null) {
             setAdapter();
         } else {
-            if (presetStore.getLength() > 0) {
+            if (installed.getLength() > 0) {
                 // new download or remove
-                if ((getPresetFolderList().length - 1) != presetStore.getLength()) {
+                if ((getPresetFolderList().length - 1) != installed.getLength()) {
                     // updated
                     Log.d(TAG, "Updated, preset not null");
                     searchMetadata();

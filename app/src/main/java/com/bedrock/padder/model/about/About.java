@@ -4,7 +4,7 @@ import android.graphics.Color;
 
 import com.bedrock.padder.model.preset.Preset;
 
-import static com.bedrock.padder.helper.PresetStoreHelper.PROJECT_LOCATION_PRESETS;
+import static com.bedrock.padder.helper.FileHelper.PROJECT_LOCATION_PRESETS;
 
 public class About {
 

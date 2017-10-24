@@ -32,12 +32,13 @@ import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.preferences.Preferences;
 import com.bedrock.padder.model.preset.Preset;
 import com.bedrock.padder.model.preset.PresetSchema;
+import com.bedrock.padder.model.preset.store.PresetStore;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.File;
 
-import static com.bedrock.padder.helper.PresetStoreHelper.PROJECT_LOCATION_PRESETS;
+import static com.bedrock.padder.helper.FileHelper.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
 public class MainActivity
@@ -56,6 +57,9 @@ public class MainActivity
     public static boolean isStopLoopOnSingle = false;
 
     public static Preset currentPreset = null;
+
+    public static PresetStore installed = null;
+    public static PresetStore online = null;
 
     public Preferences preferences = null;
 

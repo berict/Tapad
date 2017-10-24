@@ -34,6 +34,7 @@ import com.bedrock.padder.model.preset.store.PresetStore;
 
 import rx.Subscriber;
 
+import static com.bedrock.padder.activity.MainActivity.online;
 import static com.bedrock.padder.model.preferences.Preferences.APPLICATION_ID;
 
 public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
@@ -257,11 +258,20 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
                             }
                         }
 
-                        PresetStore presetStore = new PresetStore(schema.getPresets(), new Preferences(a));
+                        if (online == null) {
+                            online = new PresetStore(schema.getPresets(), new Preferences(a));
+                        } else {
+                            // savedState
+                            PresetStore updated = new PresetStore(schema.getPresets(), new Preferences(a));
+                            if (online.getLength() != updated.getLength()) {
+                                // updated
+
+                            }
+                        }
 
                         // attach adapter while its not null
                         presetStoreAdapter = new PresetStoreAdapter(
-                                presetStore,
+                                online,
                                 R.layout.adapter_preset_store, a
                         );
                         window.getRecyclerView(R.id.layout_online_preset_store_recycler_view, v).setAdapter(presetStoreAdapter);
