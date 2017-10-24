@@ -13,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bedrock.padder.R;
 import com.bedrock.padder.adapter.DetailAdapter;
@@ -21,7 +22,6 @@ import com.bedrock.padder.helper.PresetStoreHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.about.About;
-import com.bedrock.padder.model.preset.PresetSchema;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
@@ -64,12 +64,8 @@ public class AboutActivity extends AppCompatActivity {
                 about = gson.fromJson(getResources().getString(R.string.json_about_dev  ), About.class);
                 break;
             default:
-                String presetJson = presetStore.getPresetJson(currentAbout);
-                if (presetJson != null) {
-                    about = gson.fromJson(presetStore.getPresetJson(currentAbout), PresetSchema.class).getPreset().getAbout();
-                } else {
-                    Log.e("About", "currentAbout wasn't defined");
-                }
+                Toast.makeText(activity, R.string.error, Toast.LENGTH_SHORT).show();
+                finish();
                 break;
         }
 
