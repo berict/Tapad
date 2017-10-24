@@ -211,6 +211,7 @@
 
     <!-- About -->
     <string name="about_bio_preset_by">Preset by </string>
+    <string name="about_intent_error">Can\'t load information.</string>
 
     <!-- Preset Store -->
     <string name="preset_store">Preset store</string>
