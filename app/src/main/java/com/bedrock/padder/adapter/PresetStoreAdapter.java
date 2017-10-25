@@ -33,6 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.bedrock.padder.activity.MainActivity.isPresetChanged;
 import static com.bedrock.padder.activity.PresetStoreActivity.isPresetDownloading;
 import static com.bedrock.padder.helper.FileHelper.PRESET_LOCATION;
 import static com.bedrock.padder.helper.FileHelper.PROJECT_LOCATION_PRESETS;
@@ -155,11 +156,9 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                                 item.repair(holder, new Runnable() {
                                     @Override
                                     public void run() {
-                                        // TODO this needed?
-                                        //notifyItemChanged(holder.getAdapterPosition());
-                                        // reset the savedPreset
-                                        //isPresetChanged = true;
-                                        //preferences.setLastPlayed(null);
+                                        notifyItemChanged(holder.getAdapterPosition());
+                                        isPresetChanged = true;
+                                        preferences.setLastPlayed(null);
                                     }
                                 }, isSelected, activity);
                             }
@@ -201,11 +200,9 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                                             item.repair(holder, new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    // TODO this needed?
-                                                    //notifyItemChanged(holder.getAdapterPosition());
-                                                    // reset the savedPreset
-                                                    //isPresetChanged = true;
-                                                    //preferences.setLastPlayed(null);
+                                                    notifyItemChanged(holder.getAdapterPosition());
+                                                    isPresetChanged = true;
+                                                    preferences.setLastPlayed(null);
                                                 }
                                             }, isSelected, activity);
                                         }
@@ -267,11 +264,9 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
                     item.download(holder, new Runnable() {
                         @Override
                         public void run() {
-                            // TODO this needed?
-                            //presetStore.select(holder.getAdapterPosition());
-                            // reset the savedPreset
-                            //isPresetChanged = true;
-                            //preferences.setLastPlayed(null);
+                            presetStore.select(holder.getAdapterPosition());
+                            isPresetChanged = true;
+                            preferences.setLastPlayed(null);
                         }
                     }, activity);
                 }

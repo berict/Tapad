@@ -22,7 +22,6 @@ import android.view.ViewGroup;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
-import com.bedrock.padder.activity.PresetStoreActivity;
 import com.bedrock.padder.adapter.PresetStoreAdapter;
 import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.ApiHelper;
@@ -35,6 +34,7 @@ import com.bedrock.padder.model.preset.store.PresetStore;
 import rx.Subscriber;
 
 import static com.bedrock.padder.activity.MainActivity.online;
+import static com.bedrock.padder.activity.PresetStoreActivity.isPresetDownloading;
 import static com.bedrock.padder.model.preferences.Preferences.APPLICATION_ID;
 
 public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
@@ -156,89 +156,35 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
     private Handler connectionTimeout = new Handler();
 
     private void setAdapter() {
-        connectionTimeout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (window.getView(R.id.layout_online_preset_store_recycler_view_loading, v).getVisibility() == View.VISIBLE) {
-                    // loading for 10 seconds, prompt user to retry or not
-                    if (((TabLayout)window.getView(R.id.layout_tab_layout, a)).getSelectedTabPosition() == 1) {
-                        // only when the online page is visible
-                        setLoadingFailed(true);
-                        if (a != null) {
-                            new MaterialDialog.Builder(a)
-                                    .title(R.string.preset_store_connection_timeout_dialog_title)
-                                    .content(R.string.preset_store_connection_timeout_dialog_text)
-                                    .contentColorRes(R.color.dark_primary)
-                                    .positiveText(R.string.preset_store_connection_timeout_dialog_positive)
-                                    .negativeText(R.string.preset_store_connection_timeout_dialog_negative)
-                                    .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                        @Override
-                                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                            setAdapter();
-                                        }
-                                    })
-                                    .onNegative(new MaterialDialog.SingleButtonCallback() {
-                                        @Override
-                                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                            dialog.dismiss();
-                                        }
-                                    })
-                                    .show();
-                        }
-                    }
-                }
-            }
-        }, 10000);
-
-        if (isConnected(a)) {
-            Log.d(TAG, "setAdapter");
-            // attach the adapter to the layout
-            api.getObservableSchema().subscribe(new Subscriber<Schema>() {
+        if (isPresetDownloading) {
+            // attach adapter while its not null
+            presetStoreAdapter = new PresetStoreAdapter(
+                    online,
+                    R.layout.adapter_preset_store, a
+            );
+            Log.i(TAG, "Currently downloading, show progress");
+            window.getRecyclerView(R.id.layout_online_preset_store_recycler_view, v).setAdapter(presetStoreAdapter);
+            setLoadingFinished(true);
+        } else {
+            connectionTimeout.postDelayed(new Runnable() {
                 @Override
-                public void onCompleted() {
-
-                }
-
-                @Override
-                public void onError(Throwable e) {
-                    Log.e(TAG, "Error parsing schema, " + e.getMessage());
-                }
-
-                @Override
-                public void onNext(Schema schema) {
-                    if (schema == null ||
-                            schema.getPresets() == null ||
-                            schema.getVersion() == null) {
-                        // corrupted schema
-                        Log.e(TAG, "Schema is null");
-                        setLoadingFailed(true);
-                    } else {
-                        // version check
-                        int version = -1;
-
-                        try {
-                            PackageInfo pInfo = a.getPackageManager().getPackageInfo(a.getPackageName(), 0);
-                            version = pInfo.versionCode;
-                        } catch (PackageManager.NameNotFoundException e) {
-                            e.printStackTrace();
-                        }
-
+                public void run() {
+                    if (window.getView(R.id.layout_online_preset_store_recycler_view_loading, v).getVisibility() == View.VISIBLE) {
+                        // loading for 10 seconds, prompt user to retry or not
                         if (((TabLayout) window.getView(R.id.layout_tab_layout, a)).getSelectedTabPosition() == 1) {
                             // only when the online page is visible
-                            if (isUpdateDialogShown == false
-                                    && version > 0
-                                    && schema.getVersion() > version) {
-                                // currently using outdated version, show dialog
+                            setLoadingFailed(true);
+                            if (a != null) {
                                 new MaterialDialog.Builder(a)
-                                        .title(R.string.preset_store_outdated_version_dialog_title)
-                                        .content(R.string.preset_store_outdated_version_dialog_text)
+                                        .title(R.string.preset_store_connection_timeout_dialog_title)
+                                        .content(R.string.preset_store_connection_timeout_dialog_text)
                                         .contentColorRes(R.color.dark_primary)
-                                        .positiveText(R.string.preset_store_outdated_version_dialog_positive)
-                                        .negativeText(R.string.preset_store_outdated_version_dialog_negative)
+                                        .positiveText(R.string.preset_store_connection_timeout_dialog_positive)
+                                        .negativeText(R.string.preset_store_connection_timeout_dialog_negative)
                                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                                             @Override
                                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                                new IntentHelper().intentMarket(a, APPLICATION_ID, 0);
+                                                setAdapter();
                                             }
                                         })
                                         .onNegative(new MaterialDialog.SingleButtonCallback() {
@@ -247,40 +193,105 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
                                                 dialog.dismiss();
                                             }
                                         })
-                                        .dismissListener(new DialogInterface.OnDismissListener() {
-                                            @Override
-                                            public void onDismiss(DialogInterface dialogInterface) {
-                                                // show dialog only once
-                                                isUpdateDialogShown = true;
-                                            }
-                                        })
                                         .show();
                             }
                         }
-
-                        if (online == null) {
-                            online = new PresetStore(schema.getPresets(), new Preferences(a));
-                        } else {
-                            // savedState
-                            PresetStore updated = new PresetStore(schema.getPresets(), new Preferences(a));
-                            if (online.getLength() != updated.getLength()) {
-                                // updated
-
-                            }
-                        }
-
-                        // attach adapter while its not null
-                        presetStoreAdapter = new PresetStoreAdapter(
-                                online,
-                                R.layout.adapter_preset_store, a
-                        );
-                        window.getRecyclerView(R.id.layout_online_preset_store_recycler_view, v).setAdapter(presetStoreAdapter);
-                        setLoadingFinished(true);
                     }
                 }
-            });
-        } else {
-            setLoadingFailed(true);
+            }, 10000);
+
+            if (isConnected(a)) {
+                Log.d(TAG, "setAdapter");
+                // attach the adapter to the layout
+                api.getObservableSchema().subscribe(new Subscriber<Schema>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "Error parsing schema, " + e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(Schema schema) {
+                        if (schema == null ||
+                                schema.getPresets() == null ||
+                                schema.getVersion() == null) {
+                            // corrupted schema
+                            Log.e(TAG, "Schema is null");
+                            setLoadingFailed(true);
+                        } else {
+                            // version check
+                            int version = -1;
+
+                            try {
+                                PackageInfo pInfo = a.getPackageManager().getPackageInfo(a.getPackageName(), 0);
+                                version = pInfo.versionCode;
+                            } catch (PackageManager.NameNotFoundException e) {
+                                e.printStackTrace();
+                            }
+
+                            if (((TabLayout) window.getView(R.id.layout_tab_layout, a)).getSelectedTabPosition() == 1) {
+                                // only when the online page is visible
+                                if (isUpdateDialogShown == false
+                                        && version > 0
+                                        && schema.getVersion() > version) {
+                                    // currently using outdated version, show dialog
+                                    new MaterialDialog.Builder(a)
+                                            .title(R.string.preset_store_outdated_version_dialog_title)
+                                            .content(R.string.preset_store_outdated_version_dialog_text)
+                                            .contentColorRes(R.color.dark_primary)
+                                            .positiveText(R.string.preset_store_outdated_version_dialog_positive)
+                                            .negativeText(R.string.preset_store_outdated_version_dialog_negative)
+                                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                                @Override
+                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                    new IntentHelper().intentMarket(a, APPLICATION_ID, 0);
+                                                }
+                                            })
+                                            .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                                @Override
+                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                    dialog.dismiss();
+                                                }
+                                            })
+                                            .dismissListener(new DialogInterface.OnDismissListener() {
+                                                @Override
+                                                public void onDismiss(DialogInterface dialogInterface) {
+                                                    // show dialog only once
+                                                    isUpdateDialogShown = true;
+                                                }
+                                            })
+                                            .show();
+                                }
+                            }
+
+                            if (online == null) {
+                                online = new PresetStore(schema.getPresets(), new Preferences(a));
+                            } else {
+                                // savedState
+                                PresetStore updated = new PresetStore(schema.getPresets(), new Preferences(a));
+                                if (online.getLength() != updated.getLength()) {
+                                    // updated
+
+                                }
+                            }
+
+                            // attach adapter while its not null
+                            presetStoreAdapter = new PresetStoreAdapter(
+                                    online,
+                                    R.layout.adapter_preset_store, a
+                            );
+                            window.getRecyclerView(R.id.layout_online_preset_store_recycler_view, v).setAdapter(presetStoreAdapter);
+                            setLoadingFinished(true);
+                        }
+                    }
+                });
+            } else {
+                setLoadingFailed(true);
+            }
         }
     }
 
@@ -294,7 +305,7 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
 
     @Override
     public void refresh() {
-        if (!PresetStoreActivity.isPresetDownloading) {
+        if (!isPresetDownloading) {
             // only update when the preset is not downloading
             setAdapter();
         }

@@ -1,5 +1,6 @@
 package com.bedrock.padder.model.preset.store;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -287,7 +288,12 @@ public class Item {
         }
 
         void cancel() {
+            isPresetDownloading = false;
             if (item != null) {
+                item.setBytesTransferred(-1);
+                ;
+                item.setTotalByteCount(-1);
+
                 this.cancel(true);
                 this.onCancelled();
                 // cancelled / failed notification
@@ -331,6 +337,12 @@ public class Item {
                 YoYo.with(Techniques.FadeIn)
                         .delay(200)
                         .duration(200)
+                        .onStart(new YoYo.AnimatorCallback() {
+                            @Override
+                            public void call(Animator animator) {
+                                holder.downloadLayout.setVisibility(View.VISIBLE);
+                            }
+                        })
                         .playOn(holder.downloadLayout);
 
                 // progressbar initialize
@@ -516,11 +528,23 @@ public class Item {
                 // downloaded
                 YoYo.with(Techniques.FadeOut)
                         .duration(200)
+                        .onEnd(new YoYo.AnimatorCallback() {
+                            @Override
+                            public void call(Animator animator) {
+                                holder.downloadLayout.setVisibility(View.GONE);
+                            }
+                        })
                         .playOn(holder.downloadLayout);
 
                 YoYo.with(Techniques.FadeIn)
                         .delay(200)
                         .duration(200)
+                        .onStart(new YoYo.AnimatorCallback() {
+                            @Override
+                            public void call(Animator animator) {
+                                holder.installing.setVisibility(View.VISIBLE);
+                            }
+                        })
                         .playOn(holder.installing);
 
                 fileHelper.unzip(PROJECT_LOCATION_PRESETS + "/" + item.getPreset().getAbout().getTitle() + "/preset.zip",
@@ -546,12 +570,12 @@ public class Item {
 
         @Override
         protected void onCancelled(Integer integer) {
-            super.onCancelled(integer);
+            cancel();
         }
 
         @Override
         protected void onCancelled() {
-            super.onCancelled();
+            cancel();
         }
 
         private String getReadableFileSize(long size) {

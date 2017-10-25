@@ -373,8 +373,11 @@ public class MainActivity
             if (preferences.getLastPlayed() != null) {
                 // preset loaded
                 Log.d(TAG, "changed");
-                currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json"), PresetSchema.class).getPreset();
-                loadPreset(0);
+                PresetSchema preset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json"), PresetSchema.class);
+                if (preset != null) {
+                    currentPreset = preset.getPreset();
+                    loadPreset(0);
+                }
             } else {
                 Log.d(TAG, "removed");
             }
