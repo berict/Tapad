@@ -358,7 +358,7 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
             gesture = view.findViewById(R.id.layout_preset_store_gesture_layout);
             warningLayout = view.findViewById(R.id.layout_preset_store_warning_layout);
             actionLayout = view.findViewById(R.id.layout_preset_store_action_layout);
-            downloadLayout = view.findViewById(R.id.layout_preset_store_action_layout);
+            downloadLayout = view.findViewById(R.id.layout_preset_store_download_layout);
 
             image = view.findViewById(R.id.layout_preset_store_image);
 
