@@ -189,6 +189,8 @@ public class MainActivity
                 }, 200);
                 break;
             case "preset_store":
+                // set null for selecting presets
+                preferences.setLastPlayed(null);
                 setToolbarVisible();
                 new Handler().postDelayed(new Runnable() {
                     @Override
