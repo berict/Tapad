@@ -152,14 +152,14 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
         } else if (installed.getLength() <= 0) {
             // clear the recycler view
             attachAdapter();
-            anim.fadeOut(R.id.layout_installed_preset_store_recycler_view, 0, 200, v, a);
-            anim.fadeIn(R.id.layout_installed_preset_store_recycler_view_no_preset, 200, 200, "rvNoPresetIn", v, a);
+            window.setGone(R.id.layout_installed_preset_store_recycler_view, 0, a);
+            anim.fadeIn(R.id.layout_installed_preset_store_recycler_view_no_preset, 0, 200, "rvNoPresetIn", v, a);
         } else {
             if (window.getView(R.id.layout_installed_preset_store_recycler_view_no_preset, v).getVisibility()
                     == View.VISIBLE) {
                 // no preset visible
-                anim.fadeOut(R.id.layout_installed_preset_store_recycler_view_no_preset, 0, 200, v, a);
-                anim.fadeIn(R.id.layout_installed_preset_store_recycler_view, 200, 200, "rvNoPresetIn", v, a);
+                window.setGone(R.id.layout_installed_preset_store_recycler_view_no_preset, 0, a);
+                anim.fadeIn(R.id.layout_installed_preset_store_recycler_view, 0, 200, "rvNoPresetIn", v, a);
             }
             attachAdapter();
         }
@@ -173,6 +173,7 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
                     installed,
                     R.layout.adapter_preset_store, a
             );
+            installedAdapter.setCallingFragment("installed");
             window.getRecyclerView(R.id.layout_installed_preset_store_recycler_view, v).setAdapter(installedAdapter);
         } else {
             Log.d(TAG, "Metadata is null");
@@ -181,34 +182,13 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
 
     @Override
     public void refresh() {
-        if (installed == null) {
-            setAdapter();
-        } else {
-            if (installed.getLength() > 0) {
-                // new download or remove
-                if ((getPresetFolderList().length - 1) != installed.getLength()) {
-                    // updated
-                    Log.d(TAG, "Updated, preset not null");
-                    searchMetadata();
-                } else {
-                    Log.d(TAG, "Not updated");
-                }
-            } else {
-                // preset download from none
-                if (getPresetFolderList() != null && getPresetFolderList().length > 1) {
-                    // updated
-                    Log.d(TAG, "Updated, preset null");
-                    searchMetadata();
-                } else {
-                    Log.d(TAG, "Not updated");
-                }
-            }
-        }
+        searchMetadata();
     }
 
     @Override
     public void clear() {
-
+        window.setGone(R.id.layout_installed_preset_store_recycler_view, 0, a);
+        refresh();
     }
 }
 

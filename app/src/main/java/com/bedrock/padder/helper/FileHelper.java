@@ -24,7 +24,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import static com.bedrock.padder.activity.MainActivity.isPresetChanged;
-import static com.bedrock.padder.activity.PresetStoreActivity.isPresetDownloading;
+import static com.bedrock.padder.activity.MainActivity.isPresetDownloading;
 
 public class FileHelper {
 

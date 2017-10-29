@@ -49,6 +49,7 @@ public class MainActivity
 
     public static boolean isPresetLoading = false;
     public static boolean isPresetVisible = false;
+    public static boolean isPresetDownloading = false;
     public static boolean isPresetChanged = false;
     public static boolean isTutorialVisible = false;
     public static boolean isAboutVisible = false;

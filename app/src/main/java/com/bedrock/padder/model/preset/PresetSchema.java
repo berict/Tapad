@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.bedrock.padder.helper.FileHelper;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class PresetSchema {
     // mongoose schema wrapper, JSON V2
@@ -227,5 +228,13 @@ public class PresetSchema {
             Log.e("PresetSchema", "equals(), cannot compare with another object");
             return false;
         }
+    }
+
+    @Override
+    public String toString() {
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .create();
+        return gson.toJson(this);
     }
 }

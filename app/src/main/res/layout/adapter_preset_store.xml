@@ -175,58 +175,51 @@
                         android:paddingTop="10dp"
                         android:visibility="gone">
 
-                        <RelativeLayout
-                            android:id="@+id/layout_preset_store_download_progress_layout"
+                        <ProgressBar
+                            android:id="@+id/layout_preset_store_download_progressbar"
+                            style="?android:attr/progressBarStyleHorizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginRight="4dp"
+                            android:layout_toLeftOf="@+id/layout_preset_store_download_cancel"
+                            android:layout_toStartOf="@+id/layout_preset_store_download_cancel"
+                            android:max="100"
+                            android:progress="0"/>
 
-                            <ProgressBar
-                                android:id="@+id/layout_preset_store_download_progressbar"
-                                style="?android:attr/progressBarStyleHorizontal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginRight="4dp"
-                                android:layout_toLeftOf="@+id/layout_preset_store_download_cancel"
-                                android:layout_toStartOf="@+id/layout_preset_store_download_cancel"
-                                android:max="100"
-                                android:progress="0"/>
+                        <ImageView
+                            android:id="@+id/layout_preset_store_download_cancel"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:alpha="0.6"
+                            android:background="?selectableItemBackgroundBorderless"
+                            android:padding="2dp"
+                            app:srcCompat="@drawable/ic_close_black"
+                            android:tint="@color/black"/>
 
-                            <ImageView
-                                android:id="@+id/layout_preset_store_download_cancel"
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:alpha="0.6"
-                                android:background="?selectableItemBackgroundBorderless"
-                                android:padding="2dp"
-                                app:srcCompat="@drawable/ic_close_black"
-                                android:tint="@color/black"/>
+                        <TextView
+                            android:id="@+id/layout_preset_store_download_size"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:fontFamily="sans-serif-light"
+                            android:text="@string/preset_store_download_size_downloading"
+                            android:textColor="@color/dark_secondary"
+                            android:textSize="12sp"/>
 
-                            <TextView
-                                android:id="@+id/layout_preset_store_download_size"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentTop="true"
-                                android:fontFamily="sans-serif-light"
-                                android:text="@string/preset_store_download_size_downloading"
-                                android:textColor="@color/dark_secondary"
-                                android:textSize="12sp"/>
-
-                            <TextView
-                                android:id="@+id/layout_preset_store_download_percent"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
-                                android:layout_alignRight="@+id/layout_preset_store_download_progressbar"
-                                android:fontFamily="sans-serif-light"
-                                android:text="0%"
-                                android:textColor="@color/dark_secondary"
-                                android:textSize="12sp"/>
-
-                        </RelativeLayout>
+                        <TextView
+                            android:id="@+id/layout_preset_store_download_percent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignRight="@+id/layout_preset_store_download_progressbar"
+                            android:fontFamily="sans-serif-light"
+                            android:text="0%"
+                            android:textColor="@color/dark_secondary"
+                            android:textSize="12sp"/>
                     </RelativeLayout>
 
                     <TextView

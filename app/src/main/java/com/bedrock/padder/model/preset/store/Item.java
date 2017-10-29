@@ -24,14 +24,18 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.activity.PresetStoreActivity;
 import com.bedrock.padder.adapter.PresetStoreAdapter;
+import com.bedrock.padder.helper.AnimateHelper;
+import com.bedrock.padder.helper.ApiHelper;
 import com.bedrock.padder.helper.FileHelper;
 import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.SoundHelper;
+import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.preferences.Preferences;
 import com.bedrock.padder.model.preset.Preset;
 import com.bedrock.padder.model.preset.PresetSchema;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.squareup.picasso.Picasso;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -43,8 +47,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import static com.bedrock.padder.activity.MainActivity.isPresetChanged;
-import static com.bedrock.padder.activity.PresetStoreActivity.isPresetDownloading;
+import static com.bedrock.padder.activity.MainActivity.isPresetDownloading;
 import static com.bedrock.padder.helper.FileHelper.PRESET_LOCATION;
 import static com.bedrock.padder.helper.FileHelper.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
@@ -55,15 +63,25 @@ import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
 public class Item {
 
+    private static final transient String TAG = "Store.Item";
+
+    private transient PresetStore presetStore = null;
+    private transient Activity activity = null;
+    private transient Preferences preferences = null;
+    private transient PresetStoreAdapter adapter = null;
+
+    private transient WindowHelper window = new WindowHelper();
+    private transient AnimateHelper anim = new AnimateHelper();
+    private transient FileHelper file = new FileHelper();
+
     private PresetSchema presetSchema;
+    private PresetStoreAdapter.PresetViewHolder holder;
+    private Download download = null;
 
     private long bytesTransferred = -1;
-
     private long totalByteCount = -1;
 
     private int index = -1;
-
-    private Download download = null;
 
     public Item(PresetSchema presetSchema, int index) {
         this.presetSchema = presetSchema;
@@ -100,7 +118,7 @@ public class Item {
         try {
             return getPresetSchema().equals(((Item) item).getPresetSchema());
         } catch (Exception e) {
-            Log.e("Store.Item", "equals(), cannot compare with another object");
+            Log.e(TAG, "equals(), cannot compare with another object");
             return false;
         }
     }
@@ -136,12 +154,21 @@ public class Item {
         sound.load(getPreset(), color, colorDef, activity);
     }
 
-    public void download(final PresetStoreAdapter.PresetViewHolder holder, final Runnable onFinish, final Activity activity) {
+    public void largeLog(String log) {
+        Log.i(TAG, log.substring(0, 4000));
+        if (log.substring(4000).length() > 4000) {
+            largeLog(log.substring(4000));
+        } else {
+            Log.i(TAG, log.substring(4000));
+        }
+    }
+
+    public void download(final Runnable onFinish, final Activity activity) {
         // download the preset from presetStore
         final Item item = this;
         if (isConnected(activity)) {
             if (isWifiConnected(activity)) {
-                download = new Download(item, holder, onFinish, activity);
+                download = new Download(item, onFinish, activity);
                 download.execute();
             } else {
                 // not connected with wifi, show dialog
@@ -155,7 +182,7 @@ public class Item {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                 // download with cellular
-                                download = new Download(item, holder, onFinish, activity);
+                                download = new Download(item, onFinish, activity);
                                 download.execute();
                             }
                         })
@@ -189,29 +216,26 @@ public class Item {
         }
     }
 
-    public void remove(Runnable onFinish, boolean isSelected, Activity activity) {
+    public void remove(Runnable onFinish, Activity activity) {
         removeLocalPreset(getPreset().getTag(), onFinish, null);
 
-        if (isSelected) {
+        if (isSelected()) {
             // reset the savedPreset
             isPresetChanged = true;
             new Preferences(activity).setLastPlayed(null);
         }
     }
 
-    public void repair(final PresetStoreAdapter.PresetViewHolder holder,
-                       final Runnable onFinish,
-                       boolean isSelected,
-                       final Activity activity) {
+    public void repair(final Runnable onFinish, final Activity activity) {
         // remove and download the preset again
         removeLocalPreset(getPreset().getTag(), new Runnable() {
             @Override
             public void run() {
-                download(holder, onFinish, activity);
+                download(onFinish, activity);
             }
         }, null);
 
-        if (isSelected) {
+        if (isSelected()) {
             // reset the savedPreset
             isPresetChanged = true;
             new Preferences(activity).setLastPlayed(null);
@@ -232,12 +256,301 @@ public class Item {
         }
     }
 
+    // UI elements
+
+    public void init(PresetStoreAdapter.PresetViewHolder vh,
+                     PresetStoreAdapter ad,
+                     PresetStore ps,
+                     Preferences prefs,
+                     Activity a) {
+        this.holder = vh;
+        this.adapter = ad;
+        this.presetStore = ps;
+        this.preferences = prefs;
+        this.activity = a;
+
+        draw();
+    }
+
+    private void draw() {
+        final PresetSchema presetSchema = getPresetSchema();
+        final Preset preset = presetSchema.getPreset();
+
+        if (adapter.getCallingFragment().equals("installed")) {
+            largeLog(presetSchema.toString());
+        }
+
+        // set gesture
+        if (preset.isGesture()) {
+            // preset is gesture
+            Log.i(TAG, "gesture");
+            holder.gesture.setVisibility(View.VISIBLE);
+            holder.gesture.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new MaterialDialog.Builder(activity)
+                            .title(R.string.preset_store_gesture_help_dialog_title)
+                            .content(R.string.preset_store_gesture_help_dialog_text)
+                            .contentColorRes(R.color.dark_primary)
+                            .positiveText(R.string.dialog_close)
+                            .positiveColorRes(R.color.colorAccent)
+                            .show();
+                }
+            });
+        } else {
+            Log.i(TAG, "normal");
+            holder.gesture.setVisibility(View.GONE);
+        }
+
+        // load preset image
+        String imageUrl = PRESET_LOCATION + "/" + preset.getTag() + "/album_art.jpg";
+
+        // set title
+        holder.title.setText(preset.getAbout().getSongName());
+
+        // set artist name
+        holder.artist.setText(preset.getAbout().getSongArtist());
+
+        // set preset creator
+        holder.creator.setText(
+                getStringFromId(R.string.preset_store_preset_by, activity)
+                        + " "
+                        + preset.getAbout().getPresetArtist());
+
+        // actions
+        if (isPresetExists(preset.getTag())) {
+            if (file.isPresetAvailable(preset)) {
+                // exists, select | remove action
+                holder.select.setVisibility(View.VISIBLE);
+                holder.select.setTextColor(preset.getAbout().getColor());
+                holder.select.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // select and load preset
+                        preset.loadPreset(activity);
+                        presetStore.select(index);
+                        adapter.updatePresetStore(presetStore);
+                    }
+                });
+                holder.warningLayout.setVisibility(View.GONE);
+                // load local image
+                Picasso.with(activity)
+                        .load("file:" + PROJECT_LOCATION_PRESETS + "/" + preset.getTag() + "/about/album_art")
+                        .placeholder(R.drawable.ic_image_album_placeholder)
+                        .error(R.drawable.ic_image_album_error)
+                        .into(holder.image);
+                // check preset update
+                onPresetUpdated(presetSchema.getLocalVersion(), preset.getTag(), new Runnable() {
+                    @Override
+                    public void run() {
+                        // preset updated
+                        holder.update.setVisibility(View.VISIBLE);
+                        holder.update.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                // re-download the preset
+                                repair(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        adapter.notifyItemChanged(index);
+                                    }
+                                }, activity);
+                            }
+                        });
+                        // show warning
+                        holder.warningLayout.setVisibility(View.VISIBLE);
+                        holder.warning.setText(R.string.preset_store_action_update_available);
+                    }
+                });
+            } else {
+                if (isPresetDownloading) {
+                    int delay = 0;
+                    if (holder.actionLayout.getVisibility() != View.GONE) {
+                        YoYo.with(Techniques.FadeOut)
+                                .duration(200)
+                                .onEnd(new YoYo.AnimatorCallback() {
+                                    @Override
+                                    public void call(Animator animator) {
+                                        holder.actionLayout.setVisibility(View.GONE);
+                                    }
+                                })
+                                .playOn(holder.actionLayout);
+                        delay = 200;
+                    }
+                    YoYo.with(Techniques.FadeIn)
+                            .delay(delay)
+                            .duration(200)
+                            .onStart(new YoYo.AnimatorCallback() {
+                                @Override
+                                public void call(Animator animator) {
+                                    holder.downloadLayout.setVisibility(View.VISIBLE);
+                                }
+                            })
+                            .playOn(holder.downloadLayout);
+
+                    // load url image
+                    Picasso.with(activity)
+                            .load(imageUrl)
+                            .placeholder(R.drawable.ic_image_album_placeholder)
+                            .error(R.drawable.ic_image_album_error)
+                            .into(holder.image);
+                } else {
+                    // corrupted, show repair
+                    holder.select.setVisibility(View.VISIBLE);
+                    holder.select.setTextColor(activity.getResources().getColor(R.color.colorAccent));
+                    holder.select.setText(R.string.preset_store_action_repair);
+                    // show warning
+                    holder.warningLayout.setVisibility(View.VISIBLE);
+                    holder.warning.setText(R.string.preset_store_action_repair_needed);
+                    holder.select.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // show repair dialog
+                            new MaterialDialog.Builder(activity)
+                                    .title(R.string.preset_store_action_repair_dialog_title)
+                                    .content(R.string.preset_store_action_repair_dialog_text)
+                                    .contentColorRes(R.color.dark_primary)
+                                    .positiveText(R.string.preset_store_action_repair)
+                                    .positiveColorRes(R.color.colorAccent)
+                                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                        @Override
+                                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                            dialog.dismiss();
+                                            // repair the preset
+                                            repair(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    adapter.notifyItemChanged(index);
+                                                    if (isSelected()) {
+                                                        presetStore.unselect();
+                                                    }
+                                                }
+                                            }, activity);
+                                        }
+                                    })
+                                    .negativeText(R.string.dialog_cancel)
+                                    .show();
+                        }
+                    });
+                    // load url image
+                    Picasso.with(activity)
+                            .load(imageUrl)
+                            .placeholder(R.drawable.ic_image_album_placeholder)
+                            .error(R.drawable.ic_image_album_error)
+                            .into(holder.image);
+                }
+            }
+            // selected
+            holder.remove.setVisibility(View.VISIBLE);
+            holder.remove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // remove confirm dialog
+                    new MaterialDialog.Builder(activity)
+                            .content(R.string.preset_store_remove_warning_dialog_text)
+                            .contentColorRes(R.color.dark_secondary)
+                            .positiveText(R.string.remove_ac)
+                            .positiveColorRes(R.color.red)
+                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                    dialog.dismiss();
+                                    // repair the preset
+                                    remove(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if (adapter.getCallingFragment().equals("installed")) {
+                                                presetStore.remove(index);
+                                                adapter.updatePresetStore(presetStore);
+                                            }
+                                            adapter.notifyDataSetChanged();
+                                        }
+                                    }, activity);
+                                }
+                            })
+                            .negativeText(R.string.dialog_cancel)
+                            .show();
+                }
+            });
+            holder.update.setVisibility(View.GONE);
+            holder.download.setVisibility(View.GONE);
+        } else {
+            // doesn't exist, download action
+            holder.select.setVisibility(View.GONE);
+            holder.select.setTextColor(preset.getAbout().getColor());
+            holder.remove.setVisibility(View.GONE);
+            holder.update.setVisibility(View.GONE);
+            holder.download.setVisibility(View.VISIBLE);
+            holder.download.setTextColor(preset.getAbout().getColor());
+            holder.download.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    download(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (isSelected()) {
+                                presetStore.unselect();
+                            }
+                            adapter.notifyItemChanged(index);
+                        }
+                    }, activity);
+                }
+            });
+            // load url image
+            Picasso.with(activity)
+                    .load(imageUrl)
+                    .placeholder(R.drawable.ic_image_album_placeholder)
+                    .error(R.drawable.ic_image_album_error)
+                    .into(holder.image);
+        }
+
+        if (isSelected()) {
+            // selected: current preset set, downloaded
+            holder.currentPreset.setVisibility(View.VISIBLE);
+            holder.select.setVisibility(View.GONE);
+        } else {
+            holder.currentPreset.setVisibility(View.GONE);
+        }
+    }
+
+    private void onPresetUpdated(final Integer version, final String tag, final Runnable onUpdated) {
+        ApiHelper api = new ApiHelper();
+        api.getPresetSchema(tag).enqueue(new Callback<PresetSchema>() {
+            @Override
+            public void onResponse(Call<PresetSchema> call, Response<PresetSchema> response) {
+                Log.i(TAG, "Current version : " + response.body().getVersion() + " / Local version : " + version);
+                if (response.body().getVersion() > version) {
+                    // the version is updated
+                    onUpdated.run();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PresetSchema> call, Throwable t) {
+                Log.e(TAG, "Failure getting version of the preset [" + tag + "]");
+            }
+        });
+    }
+
+    private boolean isPresetExists(String presetName) {
+        // preset exist
+        File folder = new File(PROJECT_LOCATION_PRESETS + "/" + presetName); // folder check
+        return folder.isDirectory() && folder.exists();
+    }
+
+    private boolean isSelected() {
+        if (presetStore != null && presetStore.getSelected() != null) {
+            return presetStore.getSelected().equals(this);
+        } else {
+            return false;
+        }
+    }
+
     class Download extends AsyncTask<Void, Boolean, Integer> {
 
         private static final String TAG = "Download";
 
         private Item item;
-        private PresetStoreAdapter.PresetViewHolder holder;
         private Runnable onFinish;
         private Activity activity;
 
@@ -258,9 +571,8 @@ public class Item {
         private int previousProgressCount = -1;
         private String previousProgressText = "";
 
-        public Download(Item item, PresetStoreAdapter.PresetViewHolder holder, Runnable onFinish, Activity activity) {
+        public Download(Item item, Runnable onFinish, Activity activity) {
             this.item = item;
-            this.holder = holder;
             this.onFinish = onFinish;
             this.activity = activity;
 
@@ -284,7 +596,11 @@ public class Item {
             } else {
                 mBuilder = new NotificationCompat.Builder(activity).setDefaults(0);
             }
-            pendingIntent = PendingIntent.getActivity(this.activity, 0, new Intent(this.activity, PresetStoreActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+            Intent presetStoreIntent = new Intent(this.activity, PresetStoreActivity.class);
+            presetStoreIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            pendingIntent = PendingIntent.getActivity(
+                    this.activity, 0,
+                    presetStoreIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         }
 
         void cancel() {
@@ -547,7 +863,7 @@ public class Item {
                         })
                         .playOn(holder.installing);
 
-                fileHelper.unzip(PROJECT_LOCATION_PRESETS + "/" + item.getPreset().getAbout().getTitle() + "/preset.zip",
+                fileHelper.unzip(PROJECT_LOCATION_PRESETS + "/" + item.getPreset().getTag() + "/preset.zip",
                         PROJECT_LOCATION_PRESETS, tag, holder.root, activity,
                         new Runnable() {
                             @Override

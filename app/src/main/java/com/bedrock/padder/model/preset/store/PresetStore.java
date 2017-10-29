@@ -77,7 +77,12 @@ public class PresetStore {
 
     public void select(int position) {
         if (position >= 0 && position < items.size()) {
+            Item selected = getSelected();
             setSelected(items.get(position));
+            items.remove(position);
+            if (selected != null) {
+                items.add(position, selected);
+            }
         } else {
             Log.e("PresetStore", "Position [" + position + "] is out of bound");
         }

@@ -33,8 +33,8 @@ import com.bedrock.padder.model.preset.store.PresetStore;
 
 import rx.Subscriber;
 
+import static com.bedrock.padder.activity.MainActivity.isPresetDownloading;
 import static com.bedrock.padder.activity.MainActivity.online;
-import static com.bedrock.padder.activity.PresetStoreActivity.isPresetDownloading;
 import static com.bedrock.padder.model.preferences.Preferences.APPLICATION_ID;
 
 public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
@@ -104,15 +104,18 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
     }
 
     private void setLoadingFinished(boolean isFinished) {
-        setLoadingFailed(false);
         if (isFinished) {
             // finished, hide loading and show recyclerView
             Log.d(TAG, "Loading finished");
             anim.fadeOut(recyclerViewLoading, 0, 200, a);
+            anim.fadeOut(recyclerViewFailed, 0, 200, a);
+            anim.fadeOut(recyclerViewFailedRetry, 0, 200, a);
             anim.fadeIn(recyclerView, 200, 200, "rvIn", a);
         } else {
             // started, show loading
             anim.fadeOut(recyclerView, 0, 200, a);
+            anim.fadeOut(recyclerViewFailed, 0, 200, a);
+            anim.fadeOut(recyclerViewFailedRetry, 0, 200, a);
             anim.fadeIn(recyclerViewLoading, 200, 200, "rvLoadingIn", a);
         }
     }
@@ -163,6 +166,7 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
                     R.layout.adapter_preset_store, a
             );
             Log.i(TAG, "Currently downloading, show progress");
+            presetStoreAdapter.setCallingFragment("online");
             window.getRecyclerView(R.id.layout_online_preset_store_recycler_view, v).setAdapter(presetStoreAdapter);
             setLoadingFinished(true);
         } else {
@@ -272,10 +276,12 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
                                 online = new PresetStore(schema.getPresets(), new Preferences(a));
                             } else {
                                 // savedState
-                                PresetStore updated = new PresetStore(schema.getPresets(), new Preferences(a));
-                                if (online.getLength() != updated.getLength()) {
-                                    // updated
-
+                                if (!isPresetDownloading) {
+                                    PresetStore updated = new PresetStore(schema.getPresets(), new Preferences(a));
+                                    if (online.getLength() < updated.getLength()) {
+                                        // updated
+                                        online = updated;
+                                    }
                                 }
                             }
 
@@ -284,6 +290,7 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
                                     online,
                                     R.layout.adapter_preset_store, a
                             );
+                            presetStoreAdapter.setCallingFragment("online");
                             window.getRecyclerView(R.id.layout_online_preset_store_recycler_view, v).setAdapter(presetStoreAdapter);
                             setLoadingFinished(true);
                         }
@@ -305,10 +312,7 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
 
     @Override
     public void refresh() {
-        if (!isPresetDownloading) {
-            // only update when the preset is not downloading
-            setAdapter();
-        }
+        setAdapter();
     }
 
     @Override
@@ -321,5 +325,6 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
         if (recyclerViewLoading != null && recyclerViewLoading.getVisibility() != View.VISIBLE) {
             recyclerViewLoading.setVisibility(View.VISIBLE);
         }
+        refresh();
     }
 }

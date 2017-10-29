@@ -57,7 +57,8 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
     private static final int REQUEST_WRITE_STORAGE = 112;
     private boolean hasPermission;
 
-    public static boolean isPresetDownloading = false;
+    public static PresetStoreInstalledFragment installedFragment;
+    public static PresetStoreOnlineFragment onlineFragment;
 
     Activity activity = this;
 
@@ -253,9 +254,13 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
     private void setViewPager() {
         if (hasPermission) {
             Log.d(TAG, "setViewPager");
+
+            installedFragment = new PresetStoreInstalledFragment();
+            onlineFragment = new PresetStoreOnlineFragment();
+
             viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-            viewPagerAdapter.addFragment(new PresetStoreInstalledFragment(), getStringFromId(R.string.tab_1, activity));
-            viewPagerAdapter.addFragment(new PresetStoreOnlineFragment(), getStringFromId(R.string.tab_2, activity));
+            viewPagerAdapter.addFragment(installedFragment, getStringFromId(R.string.tab_1, activity));
+            viewPagerAdapter.addFragment(onlineFragment, getStringFromId(R.string.tab_2, activity));
 
             viewPager = (ViewPager) findViewById(R.id.layout_viewpager);
             viewPager.setAdapter(viewPagerAdapter);
