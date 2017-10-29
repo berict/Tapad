@@ -104,13 +104,11 @@
     <string name="feedback_song_genre_error">Select a song genre</string>
     <string-array name="feedback_song_genre_array">
         <item>Song genre</item>
-        <item>Drum and Bass</item>
-        <item>Hardcore</item>
-        <item>House</item>
-        <item>Trap</item>
-        <item>Techno</item>
-        <item>Trance</item>
+        <item>Electronic</item>
         <item>Pop</item>
+        <item>Dance</item>
+        <item>Hip-Hop/Rap</item>
+        <item>Rock</item>
     </string-array>
     <string name="feedback_song_send_error">Please fill out the form to request a song</string>
     <string name="feedback_email_client_feedback">Select a email client to send feedback</string>
