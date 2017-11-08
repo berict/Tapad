@@ -713,6 +713,8 @@ public class Item {
                 if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
                     Log.e(TAG, "Server returned HTTP " + connection.getResponseCode()
                             + " " + connection.getResponseMessage());
+                    connection.disconnect();
+                    // TODO add error dialog
                     return -1;
                 } else {
                     Log.i(TAG, "Server returned HTTP " + connection.getResponseCode()
