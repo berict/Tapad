@@ -94,7 +94,12 @@ public class About {
     }
 
     public int getColor() {
-        return Color.parseColor(color);
+        try {
+            return Color.parseColor(color);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return Color.BLACK;
+        }
     }
 
     public Bio getBio() {
