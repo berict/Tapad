@@ -4,29 +4,37 @@
 
 <tutorial>
     <head>
-        <tag>alan_walker_faded_gesture</tag>
-        <!-- <tag> tag contains a string for the preset tag -->
         <bpm>90</bpm>
         <!-- <bpm> tag contains a integer value of the preset BPM -->
+        <!-- This will be used for changing preset speed (future implementation) -->
     </head>
 
     <body>
-        <pad start="0">
-            1_31_2
-        </pad>
-        <!-- <pad> tag contains a string for the corresponding pad name -->
+        <sync start="0">
+            <!-- attribute start="value" contains a value for milliseconds of deck change timing -->
 
-        <!-- attribute start="value" contains a value for milliseconds of pad press timing -->
-        <!-- the value starts from 0, which is the start of the tutorial -->
+            <item deck="1" pad="24" gesture="2"/>
+            <!-- gesture pad, check the wiki for pad ids and gesture ids -->
+            <!-- gesture id should be an integer between 1 and 4, or it will throw GestureOutOfBoundsException -->
+        </sync>
 
-        <!-- pad name for normal pad is [deck]_[row][column] -->
-        <!-- pad name for gesture pad is [deck]_[row][column]_[gesture] -->
-        <!-- D_YX_G is deck number D, row Y, column X, gesture ID G (all values starts from 1) -->
-        <deck start="100">
-            1
-        </deck>
-        <!-- <deck> tag contains a integer value (starting from 1) of the deck index -->
+        <sync start="1000">
+            <item deck="2" pad="32"/>
+            <!-- normal pad, check the wiki for pad ids -->
+        </sync>
 
-        <!-- attribute start="value" contains a value for milliseconds of deck change timing -->
+        <sync start="2000">
+            <item deck="3"/>
+            <!-- <item> having only the deck attribute means turning on the deck indicator -->
+            <!-- deck id should be an integer between 1 and 4, or it will throw DeckOutOfBoundsException -->
+        </sync>
+
+        <sync start="3000">
+            <item deck="2" pad="22"/>
+            <item deck="2" pad="32"/>
+            <!-- You can put multiple items to time -->
+            <!-- Items' deck should be all same, or it will throw DifferentDeckException -->
+            <!-- Items' pad should be different to each other, or it will throw SamePadException -->
+        </sync>
     </body>
 </tutorial>
