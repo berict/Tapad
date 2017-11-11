@@ -28,6 +28,7 @@
                     android:id="@+id/layout_installed_preset_store_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:paddingBottom="64dp"
                     android:scrollbars="none"
                     android:visibility="visible"/>
 
