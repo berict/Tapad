@@ -323,6 +323,7 @@
     <string name="settings_color_placeholder_title">You have no colors</string>
 
     <string name="settings_deck_margin">Deck margin scale</string>
+    <string name="settings_deck_margin_error_format">Enter a formatted value</string>
     <string name="settings_deck_margin_error_bound">Enter a value between 0 and 1</string>
     <string name="settings_deck_margin_error_empty">Enter a scale value</string>
     <string name="settings_deck_margin_warning_visibility">Deck might be hard to play with scale smaller than 0.3</string>

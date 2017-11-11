@@ -369,26 +369,35 @@ public class SettingsFragment extends Fragment {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (textView.getText() != null && textView.getText().length() > 0) {
-                    float value = Float.valueOf(textView.getText().toString());
-                    Log.i("Settings", String.valueOf(value));
-                    if (value >= 0 && value <= 1) {
-                        // in the safezone
-                        hideDeckMarginEditTextError();
-                        setDeckMarginSeekbar(value);
-                        if (originalDeckMargin != value) {
-                            // changed
-                            preferences.setDeckMargin(value);
-                            isDeckShouldCleared = true;
-                        }
-                        if (value < 0.3f) {
-                            // warning
-                            showDeckMarginEditTextError("warning");
-                        } else {
+                    try {
+                        float value = Float.valueOf(textView.getText().toString());
+                        Log.i("Settings", String.valueOf(value));
+                        if (value >= 0 && value <= 1) {
+                            // in the safezone
                             hideDeckMarginEditTextError();
+                            setDeckMarginSeekbar(value);
+                            if (originalDeckMargin != value) {
+                                // changed
+                                preferences.setDeckMargin(value);
+                                isDeckShouldCleared = true;
+                            }
+                            if (value < 0.3f) {
+                                // warning
+                                showDeckMarginEditTextError("warning");
+                            } else {
+                                hideDeckMarginEditTextError();
+                            }
+                        } else {
+                            // bound error
+                            showDeckMarginEditTextError("bound");
                         }
-                    } else {
-                        // bound error
-                        showDeckMarginEditTextError("bound");
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                        // init values
+                        setDeckMarginEditText(preferences.getDeckMargin());
+                        setDeckMarginSeekbar(preferences.getDeckMargin());
+                        // Make error message
+                        Toast.makeText(a, getStringFromId(R.string.settings_deck_margin_error_format, a), Toast.LENGTH_LONG).show();
                     }
                 } else {
                     // empty
