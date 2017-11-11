@@ -1,6 +1,7 @@
 <!-- The file extension .TPT is named after Tapad Preset Tutorial. -->
     <!-- This is a pre-production example. -->
     <!-- The file format could change at any time. -->
+    <!-- This file should be placed on the folder preset/timing -->
 
 <tutorial>
     <head>
