@@ -277,7 +277,7 @@ public class Item {
         final Preset preset = presetSchema.getPreset();
 
         if (adapter.getCallingFragment().equals("installed")) {
-            largeLog(presetSchema.toString());
+            //largeLog(presetSchema.toString());
         }
 
         // set gesture

@@ -43,6 +43,7 @@ public class TutorialXmlParser {
 
     public Tutorial parse(InputStream in) throws XmlPullParserException, IOException {
         try {
+            Log.i(getClass().getSimpleName(), "parse");
             XmlPullParser parser = Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(in, null);
@@ -55,6 +56,7 @@ public class TutorialXmlParser {
 
     private Tutorial readTutorial(XmlPullParser parser) throws XmlPullParserException, IOException {
         Tutorial tutorial = new Tutorial(tag, activity);
+        Log.i(getClass().getSimpleName(), "readTutorial");
 
         parser.require(XmlPullParser.START_TAG, ns, "tutorial");
         while (parser.next() != XmlPullParser.END_TAG) {
@@ -72,11 +74,14 @@ public class TutorialXmlParser {
             }
         }
 
+        Log.i(this.getClass().getSimpleName(), "tutorial.size = " + tutorial.size());
+
         return tutorial;
     }
 
     private int readHeadBpm(XmlPullParser parser) throws XmlPullParserException, IOException {
         parser.require(XmlPullParser.START_TAG, ns, "head");
+        Log.i(getClass().getSimpleName(), "readHeadBpm");
         int bpm = -1;
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
@@ -96,6 +101,7 @@ public class TutorialXmlParser {
 
     private ArrayList<Sync> readBody(XmlPullParser parser) throws XmlPullParserException, IOException {
         parser.require(XmlPullParser.START_TAG, ns, "body");
+        Log.i(getClass().getSimpleName(), "readBody");
         ArrayList<Sync> syncList = new ArrayList<>();
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
@@ -115,6 +121,7 @@ public class TutorialXmlParser {
     // to their respective "read" methods for processing. Otherwise, skips the tag.
     private Sync readSync(XmlPullParser parser) throws XmlPullParserException, IOException {
         parser.require(XmlPullParser.START_TAG, ns, "sync");
+        Log.i(getClass().getSimpleName(), "readSync");
         Sync sync = new Sync();
 
         // set start from attr
@@ -159,6 +166,7 @@ public class TutorialXmlParser {
                         item.setGesture(Integer.valueOf(gesture));
                     }
                 }
+                Log.i(getClass().getSimpleName(), "readItem = " + item.toString());
             }
             parser.nextTag();
         }
@@ -177,6 +185,7 @@ public class TutorialXmlParser {
     }
 
     private void skip(XmlPullParser parser) throws XmlPullParserException, IOException {
+        Log.i(getClass().getSimpleName(), "skip");
         if (parser.getEventType() != XmlPullParser.START_TAG) {
             throw new IllegalStateException();
         }

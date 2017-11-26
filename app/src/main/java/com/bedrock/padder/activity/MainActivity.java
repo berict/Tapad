@@ -33,6 +33,7 @@ import com.bedrock.padder.model.preferences.Preferences;
 import com.bedrock.padder.model.preset.Preset;
 import com.bedrock.padder.model.preset.PresetSchema;
 import com.bedrock.padder.model.preset.store.PresetStore;
+import com.bedrock.padder.model.tutorial.Tutorial;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -158,7 +159,7 @@ public class MainActivity
                         }
                     } catch (Exception e) {
                         // corrupted preset
-                        e.printStackTrace();
+                        // e.printStackTrace();
                         currentPreset = null;
                     }
                 }
@@ -175,7 +176,7 @@ public class MainActivity
                         }
                     } catch (Exception e) {
                         // corrupted preset
-                        e.printStackTrace();
+                        // e.printStackTrace();
                         currentPreset = null;
                     }
                 }
@@ -212,7 +213,7 @@ public class MainActivity
                         }
                     } catch (Exception e) {
                         // corrupted preset
-                        e.printStackTrace();
+                        // e.printStackTrace();
                         currentPreset = null;
                     }
                 }
@@ -238,6 +239,14 @@ public class MainActivity
 
         //ab.setStatusHeight(a);
         sound.clear();
+
+        test();
+    }
+
+    private void test() {
+        Tutorial tutorial = new Tutorial("alan_walker_faded_gesture", a);
+        tutorial.parse();
+        Log.d("TUTORIAL", tutorial.toString());
     }
 
     @Override
@@ -960,7 +969,7 @@ public class MainActivity
     }
 
     public String getCurrentPresetLocation() {
-        if (preferences.getLastPlayed() != null) {
+        if (preferences.getLastPlayed() != null && preferences.getLastPlayed().length() > 0) {
             return PROJECT_LOCATION_PRESETS + "/" + preferences.getLastPlayed();
         } else {
             return null;

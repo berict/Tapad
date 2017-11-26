@@ -1,11 +1,13 @@
 package com.bedrock.padder.model.tutorial;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 
 import com.bedrock.padder.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class Tutorial {
@@ -16,7 +18,7 @@ public class Tutorial {
 
     private Activity activity;
 
-    private ArrayList<Sync> syncs = new ArrayList();
+    private ArrayList<Sync> syncs = new ArrayList<>();
 
     private View tutorialPads[];
 
@@ -51,12 +53,14 @@ public class Tutorial {
     public Tutorial(String tag, Activity activity) {
         this.tag = tag;
         this.activity = activity;
+        initViews();
     }
 
     public Tutorial(String tag, int bpm, Activity activity) {
         this.tag = tag;
         this.bpm = bpm;
         this.activity = activity;
+        initViews();
     }
 
     public void parse() {
@@ -80,8 +84,8 @@ public class Tutorial {
         syncs.add(sync);
     }
 
-    public void addSyncs(ArrayList<Sync> syncs) {
-        syncs.addAll(syncs);
+    public void addSyncs(ArrayList<Sync> sync) {
+        syncs.addAll(sync);
     }
 
     public boolean isSorted() {
@@ -105,8 +109,15 @@ public class Tutorial {
     }
 
     private void init(Tutorial tutorial) {
-        this.bpm = tutorial.bpm;
-        this.syncs = tutorial.syncs;
+        if (tutorial != null) {
+            this.bpm = tutorial.bpm;
+            this.syncs = tutorial.syncs;
+            Log.i(this.getClass().getSimpleName(), "tutorial.syncs.size = " + tutorial.syncs.size());
+            Log.i(this.getClass().getSimpleName(), "syncs.size = " + syncs.size());
+            initViews();
+        } else {
+            Log.e(this.getClass().getSimpleName(), ".init: tutorial is null");
+        }
     }
 
     public int size() {
@@ -119,5 +130,17 @@ public class Tutorial {
         for (int i = 0; i < tutorialViewIds.length; i++) {
             views[i] = activity.findViewById(tutorialViewIds[i]);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Tutorial{" +
+                "tag='" + tag + '\'' +
+                ", bpm=" + bpm +
+                ", activity=" + activity +
+                ", syncs.size()=" + syncs.size() +
+                ", tutorialPads=" + Arrays.toString(tutorialPads) +
+                ", tutorialViewIds=" + Arrays.toString(tutorialViewIds) +
+                '}';
     }
 }

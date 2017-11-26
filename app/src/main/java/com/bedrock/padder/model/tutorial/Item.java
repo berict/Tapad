@@ -72,4 +72,13 @@ public class Item {
         }
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "deck=" + deck +
+                ", pad=" + pad +
+                ", gesture=" + gesture +
+                '}';
+    }
 }
