@@ -607,11 +607,7 @@ public class Item {
             isPresetDownloading = false;
             if (item != null) {
                 item.setBytesTransferred(-1);
-                ;
                 item.setTotalByteCount(-1);
-
-                this.cancel(true);
-                this.onCancelled();
                 // cancelled / failed notification
                 notificationManager.cancel(mNotificationId);
                 if (isCancelled()) {
