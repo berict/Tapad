@@ -1,6 +1,7 @@
 package com.bedrock.padder.fragment;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -41,6 +42,8 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
     Gson gson;
 
     public PresetStoreAdapter installedAdapter = null;
+
+    private File[] presets;
 
     public PresetStoreInstalledFragment() {
         // Required empty public constructor
@@ -85,15 +88,22 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
 
     String tapadFolderPath = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
 
-    private void searchMetadata() {
-        Log.d(TAG, "searchMetadata");
-        // get metadata locally
-        File[] presets = getPresetFolderList();
-        if (presets != null && presets.length > 0) {
-            // length contains the metadata file
-            Log.d(TAG, "Initialized arrayList, length is " + (presets.length - 1));
-            ArrayList<PresetSchema> presetArrayList = new ArrayList<>();
+    class ScanLocal extends AsyncTask<Void, Void, Void> {
 
+        ArrayList<PresetSchema> presetArrayList;
+
+        @Override
+        protected void onPreExecute() {
+            presets = getPresetFolderList();
+            presetArrayList = new ArrayList<>();
+
+            if (presets == null || presets.length <= 0) {
+                cancel(true);
+            }
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
             for (File presetFolder : presets) {
                 if (fileHelper.isPresetMetadataAvailable(presetFolder.getName())) {
                     // check folder's presets
@@ -107,6 +117,19 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
                 }
             }
 
+            return null;
+        }
+
+        @Override
+        protected void onCancelled() {
+            // need to show no presets installed
+            // TODO need to add additional dialog supports
+            Log.e(TAG, "Cannot find installed presets");
+            installed = new PresetStore();
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
             // create metadata
             if (presetArrayList.size() > 0) {
                 installed = new PresetStore(
@@ -114,15 +137,14 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
                         new Preferences(a)
                 );
             } else {
-                // need to show no presets installed
-                // TODO need to add additional dialog supports
-                installed = new PresetStore();
+                onCancelled();
             }
-        } else {
-            Log.d(TAG, "null arrayList");
-            installed = new PresetStore();
+            setAdapter();
         }
-        setAdapter();
+    }
+
+    private void searchMetadata() {
+        new ScanLocal().execute();
     }
 
     private boolean validateMetadata(String presetName) {
