@@ -24,12 +24,10 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.activity.PresetStoreActivity;
 import com.bedrock.padder.adapter.PresetStoreAdapter;
-import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.ApiHelper;
 import com.bedrock.padder.helper.FileHelper;
 import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.SoundHelper;
-import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.preferences.Preferences;
 import com.bedrock.padder.model.preset.Preset;
 import com.bedrock.padder.model.preset.PresetSchema;
@@ -70,8 +68,6 @@ public class Item {
     private transient Preferences preferences = null;
     private transient PresetStoreAdapter adapter = null;
 
-    private transient WindowHelper window = new WindowHelper();
-    private transient AnimateHelper anim = new AnimateHelper();
     private transient FileHelper file = new FileHelper();
 
     private PresetSchema presetSchema;
@@ -276,14 +272,68 @@ public class Item {
         final PresetSchema presetSchema = getPresetSchema();
         final Preset preset = presetSchema.getPreset();
 
-        if (adapter.getCallingFragment().equals("installed")) {
-            //largeLog(presetSchema.toString());
+        // load preset image
+        String imageUrl = PRESET_LOCATION + "/" + preset.getTag() + "/album_art.jpg";
+
+        if (download != null && download.isCancelled()) {
+            Log.i(TAG, "Updated cancelled item");
+
+            // doesn't exist, download action
+            holder.select.setVisibility(View.GONE);
+            holder.select.setTextColor(preset.getAbout().getColor());
+            holder.remove.setVisibility(View.GONE);
+            holder.update.setVisibility(View.GONE);
+            holder.download.setVisibility(View.VISIBLE);
+            holder.download.setTextColor(preset.getAbout().getColor());
+            holder.download.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    download(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (isSelected()) {
+                                presetStore.unselect();
+                            }
+                            adapter.notifyItemChanged(index);
+                        }
+                    }, activity);
+                }
+            });
+            // load url image
+            Picasso.with(activity)
+                    .load(imageUrl)
+                    .placeholder(R.drawable.ic_image_album_placeholder)
+                    .error(R.drawable.ic_image_album_error)
+                    .into(holder.image);
+
+            YoYo.with(Techniques.FadeOut)
+                    .duration(200)
+                    .onStart(new YoYo.AnimatorCallback() {
+                        @Override
+                        public void call(Animator animator) {
+                            holder.actionLayout.setVisibility(View.GONE);
+                            holder.downloadProgressBar.setProgress(0);
+                            holder.downloadPercent.setText("0%");
+                            holder.downloadSize.setText(R.string.preset_store_download_size_downloading);
+                        }
+                    })
+                    .playOn(holder.downloadLayout);
+
+            YoYo.with(Techniques.FadeIn)
+                    .delay(200)
+                    .duration(200)
+                    .onStart(new YoYo.AnimatorCallback() {
+                        @Override
+                        public void call(Animator animator) {
+                            holder.actionLayout.setVisibility(View.VISIBLE);
+                        }
+                    })
+                    .playOn(holder.actionLayout);
         }
 
         // set gesture
         if (preset.isGesture()) {
             // preset is gesture
-            Log.i(TAG, "gesture");
             holder.gesture.setVisibility(View.VISIBLE);
             holder.gesture.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -298,12 +348,8 @@ public class Item {
                 }
             });
         } else {
-            Log.i(TAG, "normal");
             holder.gesture.setVisibility(View.GONE);
         }
-
-        // load preset image
-        String imageUrl = PRESET_LOCATION + "/" + preset.getTag() + "/album_art.jpg";
 
         // set title
         holder.title.setText(preset.getAbout().getSongName());
@@ -565,6 +611,10 @@ public class Item {
         private int mNotificationId = 1;
         private PendingIntent pendingIntent;
 
+        private InputStream input;
+        private OutputStream output;
+        private HttpURLConnection connection;
+
         private int mProgress = 0;
         private String mProgressText;
 
@@ -631,6 +681,15 @@ public class Item {
             } else {
                 Log.e(TAG, "Download is not initialized");
             }
+
+            // remove current preset
+            remove(new Runnable() {
+                @Override
+                public void run() {
+                    // re-init the view
+                    draw();
+                }
+            }, activity);
         }
 
         @Override
@@ -662,7 +721,7 @@ public class Item {
                 holder.downloadCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        cancel();
+                        cancel(true);
                     }
                 });
 
@@ -678,7 +737,7 @@ public class Item {
                 notificationManager.notify(mNotificationId, mBuilder.build());
             } else {
                 // no internet connection, cancel the task
-                cancel();
+                cancel(true);
                 // no connection dialog
                 new MaterialDialog.Builder(activity)
                         .title(R.string.preset_store_download_no_connection_dialog_title)
@@ -693,9 +752,9 @@ public class Item {
         protected Integer doInBackground(Void... voids) {
             // new http file download
 
-            InputStream input = null;
-            OutputStream output = null;
-            HttpURLConnection connection = null;
+            input = null;
+            output = null;
+            connection = null;
 
             int count;
 
@@ -725,6 +784,7 @@ public class Item {
                     if (isSpaceDialogVisible == false) {
                         isSpaceDialogVisible = true;
                         publishProgress(false);
+                        cancel(true);
                     }
                 }
 
@@ -738,8 +798,7 @@ public class Item {
 
                 while ((count = input.read(data)) != -1) {
                     if (isCancelled()) {
-                        input.close();
-                        return -1;
+                        throw new Exception("cancel");
                     }
 
                     item.setBytesTransferred(item.getBytesTransferred() + count);
@@ -760,8 +819,24 @@ public class Item {
                 }
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
-                Log.e(TAG, "Failed to download");
-                cancel(true);
+
+                try {
+                    if (output != null)
+                        output.close();
+                    if (input != null)
+                        input.close();
+                } catch (IOException e1) {
+                    Log.e(TAG, e1.getMessage());
+                }
+
+                if (connection != null) {
+                    connection.disconnect();
+                    Log.i(TAG, "HttpURLConnection disconnected");
+                }
+
+                if (e.getMessage().equals("cancel")) {
+                    cancel(true);
+                }
             } finally {
                 try {
                     if (output != null)
@@ -769,11 +844,7 @@ public class Item {
                     if (input != null)
                         input.close();
                 } catch (IOException e) {
-                    Log.e(TAG, e.getMessage() + " error, but meh");
-                }
-
-                if (connection != null) {
-                    connection.disconnect();
+                    Log.e(TAG, e.getMessage());
                 }
             }
 
@@ -804,10 +875,6 @@ public class Item {
                 holder.downloadSize.setText(mProgressText);
             }
 
-            if (isCancelled()) {
-                cancel();
-            }
-
             if (args.length > 0 && args[0] == false) {
                 // cancel task
                 new MaterialDialog.Builder(activity)
@@ -819,7 +886,7 @@ public class Item {
                             @Override
                             public void onDismiss(DialogInterface dialog) {
                                 isSpaceDialogVisible = false;
-                                cancel();
+                                cancel(true);
                             }
                         })
                         .show();
@@ -902,7 +969,7 @@ public class Item {
         }
     }
 
-    boolean isConnected(Context context) {
+    private boolean isConnected(Context context) {
         // returns whether the device is connected to the internet
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
