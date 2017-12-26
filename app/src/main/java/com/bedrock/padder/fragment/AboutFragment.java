@@ -3,7 +3,6 @@ package com.bedrock.padder.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -29,9 +28,6 @@ import com.squareup.picasso.Picasso;
 import static com.bedrock.padder.activity.MainActivity.coordinate;
 import static com.bedrock.padder.activity.MainActivity.currentPreset;
 import static com.bedrock.padder.activity.MainActivity.isPresetVisible;
-import static com.bedrock.padder.activity.MainActivity.isSettingVisible;
-import static com.bedrock.padder.activity.MainActivity.setSettingVisible;
-import static com.bedrock.padder.activity.MainActivity.showSettingsFragment;
 
 public class AboutFragment extends Fragment {
 
@@ -245,24 +241,12 @@ public class AboutFragment extends Fragment {
         w.getView(R.id.cardview_about_settings, v).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isSettingVisible == false) {
-                    anim.circularRevealInPx(R.id.placeholder,
-                            coordinate[2], coordinate[3],
-                            0, (int) Math.hypot(coordinate[2], coordinate[3]) + 200, new AccelerateDecelerateInterpolator(),
-                            circularRevealDuration, 0, a);
+                anim.circularRevealInPx(R.id.placeholder,
+                        coordinate[2], coordinate[3],
+                        0, (int) Math.hypot(coordinate[2], coordinate[3]) + 200, new AccelerateDecelerateInterpolator(),
+                        circularRevealDuration, 0, a);
 
-                    Handler about = new Handler();
-                    about.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            showSettingsFragment(a);
-                        }
-                    }, circularRevealDuration);
-
-                    anim.fadeOut(R.id.placeholder, circularRevealDuration, fadeAnimDuration, a);
-
-                    setSettingVisible(true);
-                }
+                intent.intent(a, "activity.SettingsActivity", circularRevealDuration);
             }
         });
 

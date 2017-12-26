@@ -542,8 +542,16 @@ public class WindowHelper {
         return (SeekBar) view.findViewById(id);
     }
 
+    public SeekBar getSeekBar(int id, Activity activity) {
+        return (SeekBar) activity.findViewById(id);
+    }
+
     public EditText getEditText(int id, View view) {
         return (EditText) view.findViewById(id);
+    }
+
+    public EditText getEditText(int id, Activity activity) {
+        return (EditText) activity.findViewById(id);
     }
 
     public ProgressBar getProgressBar(int id, Activity activity) {

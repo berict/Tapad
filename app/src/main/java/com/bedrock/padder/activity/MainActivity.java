@@ -99,22 +99,10 @@ public class MainActivity
 
     private boolean doubleBackToExitPressedOnce = false;
     private boolean isToolbarVisible = false;
-    private boolean isSettingsFromMenu = false;
     private int circularRevealDuration = 400;
     private int fadeAnimDuration = 200;
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-    public static void showSettingsFragment(AppCompatActivity a) {
-        a.getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.fragment_settings_container, new SettingsFragment())
-                .commit();
-        WindowHelper w = new WindowHelper();
-        w.getView(R.id.fragment_settings_container, a).setVisibility(View.VISIBLE);
-        setSettingVisible(true);
-        w.setRecentColor(R.string.settings, 0, R.color.colorAccent, a);
-    }
 
     public static void setSettingVisible(boolean isVisible) {
         isSettingVisible = isVisible;
@@ -264,14 +252,7 @@ public class MainActivity
                 intent.intentWithExtra(a, "activity.AboutActivity", "about", "tapad", 0);
                 break;
             case R.id.action_settings:
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        showSettingsFragment(a);
-                        isSettingsFromMenu = true;
-                    }
-                }, 400);
+                intent.intent(a, "activity.SettingsActivity");
                 break;
             case R.id.action_help:
                 intent.intent(a, "activity.HelpActivity");
@@ -290,25 +271,14 @@ public class MainActivity
     @Override
     public void onBackPressed() {
         Log.i("BackPressed", "isAboutVisible " + String.valueOf(isAboutVisible));
-        Log.i("BackPressed", "isSettingVisible " + String.valueOf(isSettingVisible));
         if (isToolbarVisible == true) {
-            // new structure
-            if (isAboutVisible && isSettingVisible) {
-                // Setting is visible above about
-                closeSettings();
-            } else if (isSettingVisible) {
-                // Setting visible alone
-                closeSettings();
-            } else if (isAboutVisible) {
+            if (isAboutVisible) {
                 // About visible alone
                 closeAbout();
             } else {
                 // Toolbar visible alone
                 closeToolbar(a);
             }
-        } else if (isSettingVisible == true) {
-            // Setting is visible above about
-            closeSettings();
         } else {
             Log.d("BackPressed", "Down");
             if (doubleBackToExitPressedOnce) {
@@ -373,11 +343,16 @@ public class MainActivity
         setColor();
 
         if (isPresetVisible) {
-            if (!isAboutVisible && !isSettingVisible) {
+            if (isToolbarVisible) {
                 // preset store visible
                 closePresetStore();
             }
             isPresetVisible = false;
+        }
+
+        if (isSettingVisible) {
+            closeSettings();
+            setSettingVisible(false);
         }
 
         if (isPresetChanged) {
@@ -709,25 +684,12 @@ public class MainActivity
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isSettingVisible == false) {
-                    w.setRecentColor(R.string.settings, 0, R.color.colorAccent, a);
-                    anim.circularRevealInPx(R.id.placeholder,
-                            coordinate[2], coordinate[3],
-                            0, (int) Math.hypot(coordinate[2], coordinate[3]) + 200, new AccelerateDecelerateInterpolator(),
-                            circularRevealDuration, 0, a);
+                anim.circularRevealInPx(R.id.placeholder,
+                        coordinate[2], coordinate[3],
+                        0, (int) Math.hypot(coordinate[2], coordinate[3]) + 200, new AccelerateDecelerateInterpolator(),
+                        circularRevealDuration, 0, a);
 
-                    Handler about = new Handler();
-                    about.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            showSettingsFragment(a);
-                        }
-                    }, circularRevealDuration);
-
-                    anim.fadeOut(R.id.placeholder, circularRevealDuration, fadeAnimDuration, a);
-
-                    setSettingVisible(true);
-                }
+                intent.intent(a, "activity.SettingsActivity", circularRevealDuration);
             }
         });
     }
@@ -798,51 +760,29 @@ public class MainActivity
     }
 
     private void closeSettings() {
-        Log.d("closeSettings", "triggered");
-        if (isToolbarVisible && !isSettingsFromMenu) {
+        setPresetInfo();
+
+        Log.d(TAG, coordinate[2] + ", " + coordinate[3]);
+
+        if (coordinate[2] > 0 && coordinate[3] > 0) {
+            w.setVisible(R.id.placeholder, 0, a);
             anim.circularRevealInPx(R.id.placeholder,
                     coordinate[2], coordinate[3],
                     (int) Math.hypot(coordinate[2], coordinate[3]) + 200, 0, new AccelerateDecelerateInterpolator(),
-                    circularRevealDuration, fadeAnimDuration, a);
-
-            anim.fadeIn(R.id.placeholder, 0, fadeAnimDuration, "settingOut", a);
-        } else {
-            w.getView(R.id.fragment_settings_container, a).setVisibility(View.GONE);
-            isSettingsFromMenu = false;
+                    circularRevealDuration, 0, a);
         }
-
-        setColor();
-        clearDeck();
-
-        setSettingVisible(false);
-
-        Handler closeSettings = new Handler();
-        closeSettings.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (isAboutVisible) {
-                    // about visible set taskDesc
-                    w.setRecentColor(R.string.about, 0, themeColor, a);
-                } else {
-                    setPresetInfo();
-                }
-                w.getView(R.id.fragment_settings_container, a).setVisibility(View.GONE);
-            }
-        }, fadeAnimDuration);
-
-        // reset the touch coordinates
-        coordinate[2] = 0;
-        coordinate[3] = 0;
     }
 
     private void closePresetStore() {
         setPresetInfo();
 
         if (coordinate[0] > 0 && coordinate[1] > 0) {
+            w.setVisible(R.id.placeholder, 0, a);
             anim.circularRevealInPx(R.id.placeholder,
                     coordinate[0], coordinate[1],
                     (int) Math.hypot(coordinate[0], coordinate[1]) + 200, 0, new AccelerateDecelerateInterpolator(),
                     circularRevealDuration, 200, a);
+            Log.i(TAG, "Animated");
         }
     }
 
@@ -934,7 +874,7 @@ public class MainActivity
     }
 
     private void setPresetInfo() {
-        if (isSettingVisible == false && isAboutVisible == false && currentPreset != null) {
+        if (isAboutVisible == false && currentPreset != null) {
             themeColor = currentPreset.getAbout().getColor();
             toolbar.setActionBarTitle(0);
             toolbar.setActionBarColor(themeColor, a);
