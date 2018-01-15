@@ -205,7 +205,7 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
                 .initialPath(Environment.getExternalStorageDirectory().getPath())
                 .mimeType("application/zip")
                 .tag("optional-identifier")
-                .show();
+                .show(this);
         Toast.makeText(activity, R.string.preset_store_open_preset, Toast.LENGTH_LONG).show();
     }
 
@@ -227,6 +227,10 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
                     }
                 }
         );
+    }
+
+    @Override
+    public void onFileChooserDismissed(@NonNull FileChooserDialog dialog) {
     }
 
     String getCustomFolderName() {
