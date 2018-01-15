@@ -104,7 +104,7 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
                 .cancelButton(R.string.md_cancel_label)
                 .backButton(R.string.md_back_label)
                 .dynamicButtonColor(true)
-                .show();
+                .show(this);
     }
 
     private void setPrimaryColor() {
@@ -175,6 +175,10 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
         } else {
             insertNewColor(colorInt);
         }
+    }
+
+    @Override
+    public void onColorChooserDismissed(@NonNull ColorChooserDialog dialog) {
     }
 
     private void insertNewColor(int color) {
