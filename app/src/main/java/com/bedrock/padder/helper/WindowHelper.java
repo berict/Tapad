@@ -41,7 +41,6 @@ import android.widget.VideoView;
 
 import com.bedrock.padder.R;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.NativeExpressAdView;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -600,10 +599,6 @@ public class WindowHelper {
 
     public AdView getAdView(int id, Activity activity) {
         return (AdView) activity.findViewById(id);
-    }
-
-    public NativeExpressAdView getNativeAdView(int id, Activity activity) {
-        return (NativeExpressAdView) activity.findViewById(id);
     }
 
     public RelativeLayout getRelativeLayout(int id, Activity activity) {

@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.bedrock.padder.R;
-import com.bedrock.padder.helper.AdmobHelper;
+import com.bedrock.padder.helper.AdMobHelper;
 import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
@@ -32,13 +32,15 @@ import static com.bedrock.padder.activity.MainActivity.isPresetVisible;
 public class AboutFragment extends Fragment {
 
     private WindowHelper w = new WindowHelper();
-    private AdmobHelper ad = new AdmobHelper();
+    private AdMobHelper ad = new AdMobHelper();
     private IntentHelper intent = new IntentHelper();
     private AnimateHelper anim = new AnimateHelper();
     private ToolbarHelper toolbar = new ToolbarHelper();
 
     private int circularRevealDuration = 400;
     private int fadeAnimDuration = 200;
+
+    public boolean isAdsShown = false;
 
     AppCompatActivity a;
     View v;
@@ -69,27 +71,27 @@ public class AboutFragment extends Fragment {
         super.onStart();
 
         v = getView();
-        ad.requestLoadNativeAd(ad.getNativeAdView(R.id.adView_about, a));
+        ad.requestLoadAd(ad.getAdView(R.id.adView_about, a));
         setPresetInfo();
     }
 
     @Override
     public void onPause() {
-        ad.pauseNativeAdView(R.id.adView_about, a);
+        ad.pauseAdView(R.id.adView_about, a);
 
         super.onPause();
     }
 
     @Override
     public void onResume() {
-        ad.resumeNativeAdView(R.id.adView_about, a);
+        ad.resumeAdView(R.id.adView_about, a);
 
         super.onResume();
     }
 
     @Override
     public void onDestroy() {
-        ad.destroyNativeAdView(R.id.adView_about, a);
+        ad.destroyAdView(R.id.adView_about, a);
 
         super.onDestroy();
     }
@@ -270,13 +272,16 @@ public class AboutFragment extends Fragment {
         // Blank ads
         if (ad.isConnected(a)) {
             // connected to internet, check ad is working
-            ad.getNativeAdView(R.id.adView_about, a).setAdListener(new AdListener() {
+            ad.getAdView(R.id.adView_about, a).setAdListener(new AdListener() {
                 @Override
                 public void onAdLoaded() {
                     // Ad loaded
                     Log.d("AdView", "Loaded");
                     anim.fadeOut(R.id.cardview_ad_loading, 0, 400, v, a);
                     w.getView(R.id.cardview_ad_failed, v).setVisibility(View.GONE);
+                    w.getView(R.id.adView_about, v).setVisibility(View.VISIBLE);
+                    isAdsShown = true;
+                    Log.d("AdView", "adView visible = " + String.valueOf(w.getView(R.id.adView_about, v).getVisibility() == View.VISIBLE));
                     super.onAdLoaded();
                 }
                 @Override

@@ -11,8 +11,11 @@ import com.bedrock.padder.helper.IntentHelper;
 import com.bedrock.padder.helper.ToolbarHelper;
 import com.bedrock.padder.helper.WindowHelper;
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.ads.MobileAds;
 
 import io.fabric.sdk.android.Fabric;
+
+import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
 public class LauncherActivity extends AppCompatActivity {
 
@@ -46,6 +49,9 @@ public class LauncherActivity extends AppCompatActivity {
         setContentView(R.layout.activity_launcher);
 
         activity = this;
+
+        // load ads
+        MobileAds.initialize(this, getStringFromId(R.string.admob_app_id, this));
 
         // White screen set
         toolbar.setStatusBarTint(this);

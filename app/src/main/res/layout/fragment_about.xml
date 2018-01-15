@@ -47,15 +47,16 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="260dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
                             android:background="@color/grey_100">
 
-                            <com.google.android.gms.ads.NativeExpressAdView
+                            <com.google.android.gms.ads.AdView
                                 android:id="@+id/adView_about"
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                ads:adSize="349x260"
-                                ads:adUnitId="@string/admob_unit_id_native_about"/>
+                                android:layout_height="wrap_content"
+                                ads:adSize="MEDIUM_RECTANGLE"
+                                ads:adUnitId="@string/admob_unit_id_about"/>
 
                             <RelativeLayout
                                 android:id="@+id/cardview_ad_loading"

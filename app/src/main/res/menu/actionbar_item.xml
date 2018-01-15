@@ -16,4 +16,9 @@
 		android:title="@string/help_title"
 		android:visible="false"
 		app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_help_developer"
+        android:title="@string/help_developer"
+        app:showAsAction="never"/>
 </menu>

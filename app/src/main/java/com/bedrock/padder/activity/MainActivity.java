@@ -20,8 +20,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.fragment.AboutFragment;
-import com.bedrock.padder.fragment.SettingsFragment;
-import com.bedrock.padder.helper.AdmobHelper;
+import com.bedrock.padder.helper.AdMobHelper;
 import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.FabHelper;
 import com.bedrock.padder.helper.FileHelper;
@@ -33,7 +32,6 @@ import com.bedrock.padder.model.preferences.Preferences;
 import com.bedrock.padder.model.preset.Preset;
 import com.bedrock.padder.model.preset.PresetSchema;
 import com.bedrock.padder.model.preset.store.PresetStore;
-import com.bedrock.padder.model.tutorial.Tutorial;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -44,7 +42,7 @@ import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
 public class MainActivity
         extends AppCompatActivity
-        implements AboutFragment.OnFragmentInteractionListener, SettingsFragment.OnFragmentInteractionListener {
+        implements AboutFragment.OnFragmentInteractionListener {
 
     public static final String TAG = "MainActivity";
 
@@ -94,7 +92,7 @@ public class MainActivity
     private FabHelper fab = new FabHelper();
     private ToolbarHelper toolbar = new ToolbarHelper();
     private IntentHelper intent = new IntentHelper();
-    private AdmobHelper ad = new AdmobHelper();
+    private AdMobHelper ad = new AdMobHelper();
     private FileHelper file = new FileHelper();
 
     private boolean doubleBackToExitPressedOnce = false;
@@ -227,14 +225,13 @@ public class MainActivity
 
         //ab.setStatusHeight(a);
         sound.clear();
-
-        test();
     }
 
     private void test() {
-        Tutorial tutorial = new Tutorial("alan_walker_faded_gesture", a);
-        tutorial.parse();
-        Log.d("TUTORIAL", tutorial.toString());
+//        Tutorial tutorial = new Tutorial("alan_walker_faded_gesture", a);
+//        tutorial.parse();
+//        Log.d("TUTORIAL", tutorial.toString());
+
     }
 
     @Override
@@ -256,6 +253,9 @@ public class MainActivity
                 break;
             case R.id.action_help:
                 intent.intent(a, "activity.HelpActivity");
+                break;
+            case R.id.action_help_developer:
+                intent.intent(this, "activity.VideoAdActivity");
                 break;
         }
 
@@ -377,7 +377,7 @@ public class MainActivity
 
     @Override
     public void onPause() {
-        ad.pauseNativeAdView(R.id.adView_main, a);
+        ad.pauseAdView(R.id.adView_main, a);
         super.onPause();
     }
 
@@ -418,7 +418,7 @@ public class MainActivity
             w.setInvisible(tutorial[i], 10, a);
         }
 
-        ad.resumeNativeAdView(R.id.adView_main, a);
+        ad.resumeAdView(R.id.adView_main, a);
 
         if (currentPreset != null && !file.isPresetAvailable(currentPreset)) {
             currentPreset = null;
@@ -434,7 +434,7 @@ public class MainActivity
         sound.stop();
         sound.cancelLoad();
 
-        ad.destroyNativeAdView(R.id.adView_main, a);
+        ad.destroyAdView(R.id.adView_main, a);
 
         super.onDestroy();
     }

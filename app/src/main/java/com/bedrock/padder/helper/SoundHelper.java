@@ -59,7 +59,7 @@ public class SoundHelper {
             R.id.btn44
     };
 
-    private AdmobHelper ad = new AdmobHelper();
+    private AdMobHelper ad = new AdMobHelper();
     private AnimateHelper anim = new AnimateHelper();
     private WindowHelper window = new WindowHelper();
 
@@ -216,7 +216,7 @@ public class SoundHelper {
                 + " sounds");
 
         // pause adViewMain after the loading
-        ad.pauseNativeAdView(R.id.adView_main, activity);
+        ad.pauseAdView(R.id.adView_main, activity);
 
         window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_white);
 
@@ -354,12 +354,12 @@ public class SoundHelper {
             // set progress
             progressCount = 0;
             progress = window.getProgressBar(R.id.progress_bar, activity);
-            ad.resumeNativeAdView(R.id.adView_main, activity);
+            ad.resumeAdView(R.id.adView_main, activity);
             if (window.getView(R.id.progress_bar_layout, activity).getVisibility() == View.GONE) {
                 anim.fadeIn(R.id.progress_bar_layout, 0, 600, "progressIn", activity);
                 // request ads
                 anim.fadeIn(R.id.adView_main, 0, 600, "adViewIn", activity);
-                ad.requestLoadNativeAd(ad.getNativeAdView(R.id.adView_main, activity));
+                ad.requestLoadAd(ad.getAdView(R.id.adView_main, activity));
                 window.setInvisible(R.id.base, 600, activity);
                 progress.setIndeterminate(true);
             }
