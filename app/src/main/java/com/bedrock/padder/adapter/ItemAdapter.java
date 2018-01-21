@@ -12,10 +12,10 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.StackingBehavior;
 import com.bedrock.padder.R;
 import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.IntentHelper;
@@ -246,7 +246,26 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                 exceptionalRunnable = new Runnable() {
                     @Override
                     public void run() {
-                        intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "report_bug", 400);
+                        new MaterialDialog.Builder(activity)
+                                .title(getStringFromId("info_berict_action_report_bug", a))
+                                .content(getStringFromId("info_berict_action_report_bug_dialog_content", a))
+                                .positiveText(getStringFromId("info_berict_action_report_bug_dialog_github", a))
+                                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                        intent.intentLink(a, getStringFromId("info_berict_action_report_bug_dialog_github_url", a), 0);
+                                    }
+                                })
+                                .neutralText(getStringFromId("info_berict_action_report_bug_dialog_email", a))
+                                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                        intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "report_bug", 400);
+                                    }
+                                })
+                                .negativeText(getStringFromId("dialog_cancel", a))
+                                .stackingBehavior(StackingBehavior.ALWAYS)
+                                .show();
                     }
                 };
                 break;
@@ -263,8 +282,19 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                 exceptionalRunnable = new Runnable() {
                     @Override
                     public void run() {
-                        // TODO make translation service available
-                        Toast.makeText(a, getStringFromId("info_tapad_others_translate_error", a), Toast.LENGTH_SHORT).show();
+                        new MaterialDialog.Builder(activity)
+                                .title(getStringFromId("info_berict_action_translate", a))
+                                .content(getStringFromId("info_berict_action_translate_dialog_content", a))
+                                .positiveText(getStringFromId("info_berict_action_translate_dialog_github", a))
+                                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                        intent.intentLink(a, getStringFromId("info_berict_action_translate_dialog_github_url", a), 0);
+                                    }
+                                })
+                                .negativeText(getStringFromId("dialog_cancel", a))
+                                .stackingBehavior(StackingBehavior.ALWAYS)
+                                .show();
                     }
                 };
                 break;
@@ -284,7 +314,26 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                 exceptionalRunnable = new Runnable() {
                     @Override
                     public void run() {
-                        intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "report_bug", 400);
+                        new MaterialDialog.Builder(activity)
+                                .title(getStringFromId("info_berict_action_report_bug", a))
+                                .content(getStringFromId("info_berict_action_report_bug_dialog_content", a))
+                                .positiveText(getStringFromId("info_berict_action_report_bug_dialog_github", a))
+                                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                        intent.intentLink(a, getStringFromId("info_berict_action_report_bug_dialog_github_url", a), 0);
+                                    }
+                                })
+                                .neutralText(getStringFromId("info_berict_action_report_bug_dialog_email", a))
+                                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                        intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "report_bug", 400);
+                                    }
+                                })
+                                .negativeText(getStringFromId("dialog_cancel", a))
+                                .stackingBehavior(StackingBehavior.ALWAYS)
+                                .show();
                     }
                 };
                 break;
@@ -301,7 +350,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                 exceptionalRunnable = new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(a, getStringFromId("info_berict_action_translate_error", a), Toast.LENGTH_SHORT).show();
                         new MaterialDialog.Builder(activity)
                                 .title(getStringFromId("info_berict_action_translate", a))
                                 .content(getStringFromId("info_berict_action_translate_dialog_content", a))
@@ -312,7 +360,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                                         intent.intentLink(a, getStringFromId("info_berict_action_translate_dialog_github_url", a), 0);
                                     }
                                 })
-                                .negativeText(getStringFromId("cancel", a))
+                                .negativeText(getStringFromId("dialog_cancel", a))
+                                .stackingBehavior(StackingBehavior.ALWAYS)
                                 .show();
                     }
                 };
@@ -321,8 +370,18 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                 exceptionalRunnable = new Runnable() {
                     @Override
                     public void run() {
-                        // TODO make translation service available
-                        Toast.makeText(a, getStringFromId("info_berict_action_donate_error", a), Toast.LENGTH_SHORT).show();
+                        new MaterialDialog.Builder(activity)
+                                .title(getStringFromId("info_berict_action_donate", a))
+                                .content(getStringFromId("info_berict_action_donate_dialog_content", a))
+                                .positiveText(getStringFromId("info_berict_action_donate_dialog_positive", a))
+                                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                        intent.intent(a, "activity.VideoAdActivity");
+                                    }
+                                })
+                                .negativeText(getStringFromId("dialog_no_thanks", a))
+                                .show();
                     }
                 };
                 break;

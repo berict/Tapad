@@ -190,6 +190,7 @@
 
     <!-- Dialog Actions -->
     <string name="dialog_cancel">CANCEL</string>
+    <string name="dialog_no_thanks">NO THANKS</string>
     <string name="dialog_save">SAVE</string>
     <string name="dialog_close">CLOSE</string>
     <string name="dialog_send">SEND</string>
