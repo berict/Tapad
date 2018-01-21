@@ -53,6 +53,9 @@
 	<string name="info_berict_action_translate"      >Translate Tapad</string>
 	<string name="info_berict_action_translate_hint" >Make Tapad available on your language</string>
 	<string name="info_berict_action_translate_error">Sorry, this feature is not available yet.</string>
+    <string name="info_berict_action_translate_dialog_content">Contribute to Tapad with translation.</string>
+    <string name="info_berict_action_translate_dialog_github">Make a pull request on GitHub</string>
+    <string name="info_berict_action_translate_dialog_github_url">https://github.com/berict/Tapad/pulls</string>
 	<string name="info_berict_action_rate"           >Rate Tapad</string>
 	<string name="info_berict_action_rate_hint"      >Leave positive rating on Tapad</string>
 	<string name="info_berict_action_donate"         >Donate</string>

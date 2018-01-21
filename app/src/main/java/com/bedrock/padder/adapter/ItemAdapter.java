@@ -2,6 +2,7 @@ package com.bedrock.padder.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.helper.AnimateHelper;
@@ -299,8 +301,19 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                 exceptionalRunnable = new Runnable() {
                     @Override
                     public void run() {
-                        // TODO make translation service available
                         Toast.makeText(a, getStringFromId("info_berict_action_translate_error", a), Toast.LENGTH_SHORT).show();
+                        new MaterialDialog.Builder(activity)
+                                .title(getStringFromId("info_berict_action_translate", a))
+                                .content(getStringFromId("info_berict_action_translate_dialog_content", a))
+                                .positiveText(getStringFromId("info_berict_action_translate_dialog_github", a))
+                                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                        intent.intentLink(a, getStringFromId("info_berict_action_translate_dialog_github_url", a), 0);
+                                    }
+                                })
+                                .negativeText(getStringFromId("cancel", a))
+                                .show();
                     }
                 };
                 break;
