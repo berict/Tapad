@@ -310,110 +310,116 @@ public class AnimateHelper {
     public void fadeOut(final int id, final int delay, final long duration, Activity activity) {
         final AlphaAnimation fadeOut = new AlphaAnimation(1.0f, 0.0f);
         final View view = activity.findViewById(id);
-        PowerManager powerManager = (PowerManager) activity.getSystemService(POWER_SERVICE);
 
-        if (Build.VERSION.SDK_INT >= 21 && powerManager.isPowerSaveMode()) {
-            // power save mode on
-            if (duration > 0) {
-                // delay, needs an handler
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        view.setVisibility(View.GONE);
+        if (view.getVisibility() == View.VISIBLE) {
+            PowerManager powerManager = (PowerManager) activity.getSystemService(POWER_SERVICE);
 
-                        Log.i(TAG, getViewId(view) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
-                    }
-                }, delay);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        view.setVisibility(View.GONE);
-                    }
-                }, delay + duration + 10);
+            if (Build.VERSION.SDK_INT >= 21 && powerManager.isPowerSaveMode()) {
+                // power save mode on
+                if (duration > 0) {
+                    // delay, needs an handler
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            view.setVisibility(View.GONE);
+
+                            Log.i(TAG, getViewId(view) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+                        }
+                    }, delay);
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            view.setVisibility(View.GONE);
+                        }
+                    }, delay + duration + 10);
+                } else {
+                    view.setVisibility(View.GONE);
+                    Log.i(TAG, getViewId(view) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with no delay");
+                }
             } else {
-                view.setVisibility(View.GONE);
-                Log.i(TAG, getViewId(view) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with no delay");
-            }
-        } else {
-            // normal fade out
-            if (duration > 0) {
-                // delay, needs an handler
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        fadeOut.setDuration(duration);
-                        view.startAnimation(fadeOut);
+                // normal fade out
+                if (duration > 0) {
+                    // delay, needs an handler
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            fadeOut.setDuration(duration);
+                            view.startAnimation(fadeOut);
 
-                        Log.i(TAG, getViewId(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
-                    }
-                }, delay);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        view.setVisibility(View.GONE);
-                    }
-                }, delay + duration + 10);
-            } else {
-                fadeOut.setDuration(duration);
-                view.setVisibility(View.GONE);
-                Log.i(TAG, getViewId(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with no delay");
+                            Log.i(TAG, getViewId(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+                        }
+                    }, delay);
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            view.setVisibility(View.GONE);
+                        }
+                    }, delay + duration + 10);
+                } else {
+                    fadeOut.setDuration(duration);
+                    view.setVisibility(View.GONE);
+                    Log.i(TAG, getViewId(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with no delay");
+                }
             }
         }
     }
 
     public void fadeOut(final View view, final int delay, final long duration, Activity activity) {
         final AlphaAnimation fadeOut = new AlphaAnimation(1.0f, 0.0f);
-        PowerManager powerManager = (PowerManager) activity.getSystemService(POWER_SERVICE);
 
-        if (Build.VERSION.SDK_INT >= 21 && powerManager.isPowerSaveMode()) {
-            // power save mode on
-            if (duration > 0) {
-                // delay, needs an handler
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        view.setVisibility(View.GONE);
+        if (view.getVisibility() == View.VISIBLE) {
+            PowerManager powerManager = (PowerManager) activity.getSystemService(POWER_SERVICE);
 
-                        Log.i(TAG, getViewId(view) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
-                    }
-                }, delay);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        view.setVisibility(View.GONE);
-                    }
-                }, delay + duration + 10);
+            if (Build.VERSION.SDK_INT >= 21 && powerManager.isPowerSaveMode()) {
+                // power save mode on
+                if (duration > 0) {
+                    // delay, needs an handler
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            view.setVisibility(View.GONE);
+
+                            Log.i(TAG, getViewId(view) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+                        }
+                    }, delay);
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            view.setVisibility(View.GONE);
+                        }
+                    }, delay + duration + 10);
+                } else {
+                    view.setVisibility(View.GONE);
+                    Log.i(TAG, getViewId(view) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with no delay");
+                }
             } else {
-                view.setVisibility(View.GONE);
-                Log.i(TAG, getViewId(view) + " fade OUT [GONE] effect for " + String.valueOf(duration) + "ms with no delay");
-            }
-        } else {
-            // normal fade out
-            if (duration > 0) {
-                // delay, needs an handler
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        fadeOut.setDuration(duration);
-                        view.startAnimation(fadeOut);
+                // normal fade out
+                if (duration > 0) {
+                    // delay, needs an handler
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            fadeOut.setDuration(duration);
+                            view.startAnimation(fadeOut);
 
-                        Log.i(TAG, getViewId(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
-                    }
-                }, delay);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        view.setVisibility(View.GONE);
-                    }
-                }, delay + duration + 10);
-            } else {
-                fadeOut.setDuration(duration);
-                view.setVisibility(View.GONE);
-                Log.i(TAG, getViewId(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with no delay");
+                            Log.i(TAG, getViewId(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with " + String.valueOf(delay) + "ms delay");
+                        }
+                    }, delay);
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            view.setVisibility(View.GONE);
+                        }
+                    }, delay + duration + 10);
+                } else {
+                    fadeOut.setDuration(duration);
+                    view.setVisibility(View.GONE);
+                    Log.i(TAG, getViewId(view) + " fade OUT effect for " + String.valueOf(duration) + "ms with no delay");
+                }
             }
         }
     }
