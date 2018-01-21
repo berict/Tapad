@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -88,7 +89,7 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
         toolbar.setActionBarDisplayHomeAsUp(true);
         toolbar.setStatusBarTint(this);
 
-        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.collapsedAppBar);
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.expandedAppBar);
 
@@ -107,7 +108,7 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
         }
 
         window.setMarginRelativePX(R.id.layout_relative, 0, window.getStatusBarFromPrefs(activity), 0, 0, activity);
-        window.getView(R.id.layout_margin, activity).getLayoutParams().height = window.getNavigationBarFromPrefs(activity) + window.convertDPtoPX(10, activity);
+        activity.findViewById(R.id.layout_margin).getLayoutParams().height = window.getNavigationBarFromPrefs(activity) + window.convertDPtoPX(10, activity);
 
         isDeckShouldCleared = true;
 
@@ -267,7 +268,7 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
             viewPagerAdapter.addFragment(installedFragment, getStringFromId(R.string.tab_1, activity));
             viewPagerAdapter.addFragment(onlineFragment, getStringFromId(R.string.tab_2, activity));
 
-            viewPager = (ViewPager) findViewById(R.id.layout_viewpager);
+            viewPager = findViewById(R.id.layout_viewpager);
             viewPager.setAdapter(viewPagerAdapter);
 
             final PresetStoreOnlineFragment onlineFragment = (PresetStoreOnlineFragment) viewPagerAdapter.instantiateItem(viewPager, 1);
@@ -369,7 +370,7 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
 
     private void setUi() {
         // status bar
-        window.getView(R.id.status_bar, activity).setBackgroundColor(themeColor);
+        activity.findViewById(R.id.status_bar).setBackgroundColor(themeColor);
 
         // action bar
         collapsingToolbarLayout.setContentScrimColor(themeColor);
@@ -380,7 +381,7 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
         window.setRecentColor(themeTitle, themeColor, activity);
 
         // title image / text
-        window.getImageView(R.id.layout_image, activity).setImageResource(R.drawable.about_image_preset_store);
+        ((ImageView) activity.findViewById(R.id.layout_image)).setImageResource(R.drawable.about_image_preset_store);
 
         // fab
         setFab();

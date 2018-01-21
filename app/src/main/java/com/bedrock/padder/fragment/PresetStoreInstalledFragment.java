@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,8 +81,8 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
         // adapter
         LinearLayoutManager layoutManager = new LinearLayoutManager(a);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        window.getRecyclerView(R.id.layout_installed_preset_store_recycler_view, v).setLayoutManager(layoutManager);
-        window.getRecyclerView(R.id.layout_installed_preset_store_recycler_view, v).setNestedScrollingEnabled(false);
+        ((RecyclerView) v.findViewById(R.id.layout_installed_preset_store_recycler_view)).setLayoutManager(layoutManager);
+        ((RecyclerView) v.findViewById(R.id.layout_installed_preset_store_recycler_view)).setNestedScrollingEnabled(false);
 
         setAdapter();
     }
@@ -177,7 +178,7 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
             window.setGone(R.id.layout_installed_preset_store_recycler_view, 0, a);
             anim.fadeIn(R.id.layout_installed_preset_store_recycler_view_no_preset, 0, 200, "rvNoPresetIn", v, a);
         } else {
-            if (window.getView(R.id.layout_installed_preset_store_recycler_view_no_preset, v).getVisibility()
+            if ((v.findViewById(R.id.layout_installed_preset_store_recycler_view_no_preset)).getVisibility()
                     == View.VISIBLE) {
                 // no preset visible
                 window.setGone(R.id.layout_installed_preset_store_recycler_view_no_preset, 0, a);
@@ -196,7 +197,7 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
                     R.layout.adapter_preset_store, a
             );
             installedAdapter.setCallingFragment("installed");
-            window.getRecyclerView(R.id.layout_installed_preset_store_recycler_view, v).setAdapter(installedAdapter);
+            ((RecyclerView) v.findViewById(R.id.layout_installed_preset_store_recycler_view)).setAdapter(installedAdapter);
         } else {
             Log.d(TAG, "Metadata is null");
         }

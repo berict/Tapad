@@ -124,19 +124,19 @@ public class FeedbackActivity extends AppCompatActivity {
         switch (MODE_TAG) {
             case "song":
                 // layout
-                RelativeLayout songLayout = (RelativeLayout) findViewById(R.id.feedback_song);
+                RelativeLayout songLayout = findViewById(R.id.feedback_song);
                 // input layout
-                songNameLayout    = (TextInputLayout) findViewById(R.id.feedback_song_name_input_layout);
-                songArtistLayout  = (TextInputLayout) findViewById(R.id.feedback_song_artist_input_layout);
-                songLinkLayout    = (TextInputLayout) findViewById(R.id.feedback_song_link_input_layout);
-                songMessageLayout = (TextInputLayout) findViewById(R.id.feedback_song_message_input_layout);
+                songNameLayout = findViewById(R.id.feedback_song_name_input_layout);
+                songArtistLayout = findViewById(R.id.feedback_song_artist_input_layout);
+                songLinkLayout = findViewById(R.id.feedback_song_link_input_layout);
+                songMessageLayout = findViewById(R.id.feedback_song_message_input_layout);
                 // editText
-                songName          = (EditText) findViewById(R.id.feedback_song_name_input);
-                songArtist        = (EditText) findViewById(R.id.feedback_song_artist_input);
-                songLink          = (EditText) findViewById(R.id.feedback_song_link_input);
-                songMessage       = (EditText) findViewById(R.id.feedback_song_message_input);
+                songName = findViewById(R.id.feedback_song_name_input);
+                songArtist = findViewById(R.id.feedback_song_artist_input);
+                songLink = findViewById(R.id.feedback_song_link_input);
+                songMessage = findViewById(R.id.feedback_song_message_input);
                 // spinner
-                songGenre         = (Spinner) findViewById(R.id.feedback_song_genre_spinner);
+                songGenre = findViewById(R.id.feedback_song_genre_spinner);
 
                 songLayout.setVisibility(View.VISIBLE);
                 songName   .addTextChangedListener(new mTextWatcher(songName   ));
@@ -160,13 +160,13 @@ public class FeedbackActivity extends AppCompatActivity {
                 break;
             case "feedback":
                 // layout
-                RelativeLayout feedbackLayout = (RelativeLayout) findViewById(R.id.feedback_feedback);
+                RelativeLayout feedbackLayout = findViewById(R.id.feedback_feedback);
                 // input layout
-                feedbackMessageLayout = (TextInputLayout) findViewById(R.id.feedback_feedback_message_input_layout);
+                feedbackMessageLayout = findViewById(R.id.feedback_feedback_message_input_layout);
                 // editText
-                feedbackMessage       = (EditText) findViewById(R.id.feedback_feedback_message_input);
+                feedbackMessage = findViewById(R.id.feedback_feedback_message_input);
                 // spinner
-                feedbackType          = (Spinner) findViewById(R.id.feedback_feedback_type_spinner);
+                feedbackType = findViewById(R.id.feedback_feedback_type_spinner);
 
                 feedbackLayout.setVisibility(View.VISIBLE);
                 feedbackMessage.addTextChangedListener(new mTextWatcher(feedbackMessage));
@@ -188,13 +188,13 @@ public class FeedbackActivity extends AppCompatActivity {
                 break;
             case "report_bug":
                 // layout
-                RelativeLayout reportBugLayout = (RelativeLayout) findViewById(R.id.feedback_report_bug);
+                RelativeLayout reportBugLayout = findViewById(R.id.feedback_report_bug);
                 // input layout
-                reportBugMessageLayout = (TextInputLayout) findViewById(R.id.feedback_report_bug_message_input_layout);
+                reportBugMessageLayout = findViewById(R.id.feedback_report_bug_message_input_layout);
                 // editText
-                reportBugMessage       = (EditText) findViewById(R.id.feedback_report_bug_message_input);
+                reportBugMessage = findViewById(R.id.feedback_report_bug_message_input);
                 // spinner
-                reportBugType          = (Spinner) findViewById(R.id.feedback_report_bug_type_spinner);
+                reportBugType = findViewById(R.id.feedback_report_bug_type_spinner);
 
                 reportBugLayout.setVisibility(View.VISIBLE);
                 reportBugMessage.addTextChangedListener(new mTextWatcher(reportBugMessage));
@@ -511,7 +511,7 @@ public class FeedbackActivity extends AppCompatActivity {
         Log.d("FocusCount", String.valueOf(focusCount));
         if (focusCount == 2) {
             if (feedbackSent == true) {
-                w.getView(R.id.layout_placeholder, a).setVisibility(View.GONE);
+                (a.findViewById(R.id.layout_placeholder)).setVisibility(View.GONE);
                 w.setRecentColor(w.getStringId("task_feedback_" + MODE_TAG), R.color.colorFeedback, a);
             }
             focusCount = 0;

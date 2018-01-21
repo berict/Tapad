@@ -8,11 +8,13 @@ import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bedrock.padder.R;
@@ -73,7 +75,7 @@ public class AboutActivity extends AppCompatActivity {
         toolbar.setActionBarDisplayHomeAsUp(true);
         toolbar.setStatusBarTint(this);
 
-        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.collapsedAppBar);
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.expandedAppBar);
 
@@ -92,7 +94,7 @@ public class AboutActivity extends AppCompatActivity {
         }
 
         window.setMarginRelativePX(R.id.layout_relative, 0, window.getStatusBarFromPrefs(activity), 0, 0, activity);
-        window.getView(R.id.layout_margin, activity).getLayoutParams().height = window.getNavigationBarFromPrefs(activity) + window.convertDPtoPX(10, activity);
+        activity.findViewById(R.id.layout_margin).getLayoutParams().height = window.getNavigationBarFromPrefs(activity) + window.convertDPtoPX(10, activity);
 
         enterAnim();
         setUi();
@@ -100,7 +102,7 @@ public class AboutActivity extends AppCompatActivity {
 
     private void setUi() {
         // status bar
-        window.getView(R.id.status_bar, activity).setBackgroundColor(about.getColor());
+        activity.findViewById(R.id.status_bar).setBackgroundColor(about.getColor());
 
         if (about == null) {
             Log.e("About", "Exploded");
@@ -118,21 +120,21 @@ public class AboutActivity extends AppCompatActivity {
                     .load("file:" + about.getImage(currentPreset))
                     .placeholder(R.drawable.ic_image_album_placeholder)
                     .error(R.drawable.ic_image_album_error)
-                    .into(window.getImageView(R.id.layout_image, activity));
+                    .into(((ImageView) activity.findViewById(R.id.layout_image)));
         } else {
             collapsingToolbarLayout.setTitle(about.getSongName());
             window.setRecentColor(about.getSongName(), about.getColor(), activity);
             // res
-            window.getImageView(R.id.layout_image, activity).setImageResource(
+            ((ImageView) activity.findViewById(R.id.layout_image)).setImageResource(
                     window.getDrawableId(about.getSongArtist())
             );
         }
 
         // bio
-        window.getTextView(R.id.layout_bio_title, activity).setText(about.getBio().getTitle());
-        window.getTextView(R.id.layout_bio_title, activity).setTextColor(about.getColor());
+        ((TextView) activity.findViewById(R.id.layout_bio_title)).setText(about.getBio().getTitle());
+        ((TextView) activity.findViewById(R.id.layout_bio_title)).setTextColor(about.getColor());
 
-        ImageView imageView = window.getImageView(R.id.layout_bio_image, activity);
+        ImageView imageView = ((ImageView) activity.findViewById(R.id.layout_bio_image));
         switch (currentAbout) {
             case "now_playing":
                 // storage
@@ -148,16 +150,16 @@ public class AboutActivity extends AppCompatActivity {
                 break;
             default:
                 // no bio image exception
-                window.getImageView(R.id.layout_bio_image, activity).setVisibility(View.GONE);
-                window.getView(R.id.layout_bio_image_divider, activity).setVisibility(View.GONE);
+                ((ImageView) activity.findViewById(R.id.layout_bio_image)).setVisibility(View.GONE);
+                activity.findViewById(R.id.layout_bio_image_divider).setVisibility(View.GONE);
                 break;
         }
 
-        window.getTextView(R.id.layout_bio_name, activity).setText(about.getBio().getName());
-        window.getTextView(R.id.layout_bio_text, activity).setText(about.getBio().getText());
-        window.getTextView(R.id.layout_bio_source, activity).setText(about.getBio().getSource());
+        ((TextView) activity.findViewById(R.id.layout_bio_name)).setText(about.getBio().getName());
+        ((TextView) activity.findViewById(R.id.layout_bio_text)).setText(about.getBio().getText());
+        ((TextView) activity.findViewById(R.id.layout_bio_source)).setText(about.getBio().getSource());
         if (about.getPresetArtist() != null) {
-            window.getTextView(R.id.layout_bio_preset_creator, activity).setText(getStringFromId("about_bio_preset_by", activity) + " " + about.getPresetArtist());
+            ((TextView) activity.findViewById(R.id.layout_bio_preset_creator)).setText(getStringFromId("about_bio_preset_by", activity) + " " + about.getPresetArtist());
         } else {
             window.setGone(R.id.layout_bio_preset_creator, 0, activity);
             window.setGone(R.id.layout_bio_text_divider, 0, activity);
@@ -166,9 +168,9 @@ public class AboutActivity extends AppCompatActivity {
         // adapter
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        window.getRecyclerView(R.id.layout_detail_recycler_view, activity).setLayoutManager(layoutManager);
-        window.getRecyclerView(R.id.layout_detail_recycler_view, activity).setNestedScrollingEnabled(false);
-        window.getRecyclerView(R.id.layout_detail_recycler_view, activity).setAdapter(new DetailAdapter(about, R.layout.adapter_details, getApplicationContext(), activity));
+        ((RecyclerView) activity.findViewById(R.id.layout_detail_recycler_view)).setLayoutManager(layoutManager);
+        ((RecyclerView) activity.findViewById(R.id.layout_detail_recycler_view)).setNestedScrollingEnabled(false);
+        ((RecyclerView) activity.findViewById(R.id.layout_detail_recycler_view)).setAdapter(new DetailAdapter(about, R.layout.adapter_details, getApplicationContext(), activity));
     }
 
     @Override

@@ -88,10 +88,10 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
     View recyclerViewFailedRetry = null;
 
     void setUi() {
-        recyclerView = window.getRecyclerView(R.id.layout_online_preset_store_recycler_view, v);
-        recyclerViewLoading = window.getView(R.id.layout_online_preset_store_recycler_view_loading, v);
-        recyclerViewFailed = window.getView(R.id.layout_online_preset_store_recycler_view_failed, v);
-        recyclerViewFailedRetry = window.getView(R.id.layout_online_preset_store_recycler_view_failed_retry, v);
+        recyclerView = ((RecyclerView) v.findViewById(R.id.layout_online_preset_store_recycler_view));
+        recyclerViewLoading = (v.findViewById(R.id.layout_online_preset_store_recycler_view_loading));
+        recyclerViewFailed = (v.findViewById(R.id.layout_online_preset_store_recycler_view_failed));
+        recyclerViewFailedRetry = (v.findViewById(R.id.layout_online_preset_store_recycler_view_failed_retry));
 
         // adapter
         LinearLayoutManager layoutManager = new LinearLayoutManager(a);
@@ -139,7 +139,7 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
                 }
             });
             Handler handler = new Handler();
-            if (((TabLayout) window.getView(R.id.layout_tab_layout, a)).getSelectedTabPosition() == 1) {
+            if (((TabLayout) (a.findViewById(R.id.layout_tab_layout))).getSelectedTabPosition() == 1) {
                 // only when the online tab is selected
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -172,15 +172,15 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
             );
             Log.i(TAG, "Currently downloading, show progress");
             presetStoreAdapter.setCallingFragment("online");
-            window.getRecyclerView(R.id.layout_online_preset_store_recycler_view, v).setAdapter(presetStoreAdapter);
+            ((RecyclerView) v.findViewById(R.id.layout_online_preset_store_recycler_view)).setAdapter(presetStoreAdapter);
             setLoadingFinished(true);
         } else {
             connectionTimeout.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (window.getView(R.id.layout_online_preset_store_recycler_view_loading, v).getVisibility() == View.VISIBLE) {
+                    if ((v.findViewById(R.id.layout_online_preset_store_recycler_view_loading)).getVisibility() == View.VISIBLE) {
                         // loading for 10 seconds, prompt user to retry or not
-                        if (((TabLayout) window.getView(R.id.layout_tab_layout, a)).getSelectedTabPosition() == 1) {
+                        if (((TabLayout) (a.findViewById(R.id.layout_tab_layout))).getSelectedTabPosition() == 1) {
                             // only when the online page is visible
                             setLoadingFailed(true);
                             if (a != null) {
@@ -242,7 +242,7 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
                                 e.printStackTrace();
                             }
 
-                            if (((TabLayout) window.getView(R.id.layout_tab_layout, a)).getSelectedTabPosition() == 1) {
+                            if (((TabLayout) (a.findViewById(R.id.layout_tab_layout))).getSelectedTabPosition() == 1) {
                                 // only when the online page is visible
                                 if (isUpdateDialogShown == false
                                         && version > 0
@@ -296,7 +296,7 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
                                     R.layout.adapter_preset_store, a
                             );
                             presetStoreAdapter.setCallingFragment("online");
-                            window.getRecyclerView(R.id.layout_online_preset_store_recycler_view, v).setAdapter(presetStoreAdapter);
+                            ((RecyclerView) v.findViewById(R.id.layout_online_preset_store_recycler_view)).setAdapter(presetStoreAdapter);
                             setLoadingFinished(true);
                         }
                     }

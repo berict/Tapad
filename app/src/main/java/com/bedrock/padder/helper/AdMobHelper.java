@@ -14,11 +14,11 @@ public class AdMobHelper {
     private String TAG = "AdMobHelper";
     
     public AdView getAdView(int id, Activity activity) {
-        return window.getAdView(id, activity);
+        return ((AdView) activity.findViewById(id));
     }
 
     public void pauseAdView(int id, Activity activity) {
-        AdView adView = window.getAdView(id, activity);
+        AdView adView = ((AdView) activity.findViewById(id));
         if (adView != null) {
             adView.pause();
             Log.d(TAG, "ad paused");
@@ -26,7 +26,7 @@ public class AdMobHelper {
     }
 
     public void resumeAdView(int id, Activity activity) {
-        AdView adView = window.getAdView(id, activity);
+        AdView adView = ((AdView) activity.findViewById(id));
         if (adView != null) {
             adView.resume();
             Log.d(TAG, "ad resumed");
@@ -34,7 +34,7 @@ public class AdMobHelper {
     }
 
     public void destroyAdView(int id, Activity activity) {
-        AdView adView = window.getAdView(id, activity);
+        AdView adView = ((AdView) activity.findViewById(id));
         if (adView != null) {
             adView.destroy();
             Log.d(TAG, "ad destroyed");

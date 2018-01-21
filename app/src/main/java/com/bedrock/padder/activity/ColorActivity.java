@@ -7,9 +7,11 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
@@ -85,9 +87,9 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
                 preferences,
                 activity
         );
-        w.getRecyclerView(R.id.layout_color_recycler_view, activity).setLayoutManager(layoutManager);
-        w.getRecyclerView(R.id.layout_color_recycler_view, activity).setNestedScrollingEnabled(false);
-        w.getRecyclerView(R.id.layout_color_recycler_view, activity).setAdapter(colorAdapter);
+        ((RecyclerView) activity.findViewById(R.id.layout_color_recycler_view)).setLayoutManager(layoutManager);
+        ((RecyclerView) activity.findViewById(R.id.layout_color_recycler_view)).setNestedScrollingEnabled(false);
+        ((RecyclerView) activity.findViewById(R.id.layout_color_recycler_view)).setAdapter(colorAdapter);
 
         // adapter margin
         w.setMarginLinearPX(R.id.color_bottom_margin, 0, 0, 0, w.getNavigationBarFromPrefs(activity), activity);
@@ -136,9 +138,9 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
         }
 
         try {
-            w.getTextView(R.id.layout_color_id, activity).setText(String.format("#%06X", (0xFFFFFF & activity.getResources().getColor(color))));
+            ((TextView) activity.findViewById(R.id.layout_color_id)).setText(String.format("#%06X", (0xFFFFFF & activity.getResources().getColor(color))));
         } catch (Resources.NotFoundException e) {
-            w.getTextView(R.id.layout_color_id, activity).setText(String.format("#%06X", (0xFFFFFF & color)));
+            ((TextView) activity.findViewById(R.id.layout_color_id)).setText(String.format("#%06X", (0xFFFFFF & color)));
         }
     }
 

@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -482,7 +483,7 @@ public class MainActivity
                 .add(R.id.fragment_about_container, new AboutFragment())
                 .commit();
         WindowHelper w = new WindowHelper();
-        w.getView(R.id.fragment_about_container, a).setVisibility(View.VISIBLE);
+        (a.findViewById(R.id.fragment_about_container)).setVisibility(View.VISIBLE);
         setAboutVisible(true);
         w.setRecentColor(R.string.about, 0, themeColor, a);
     }
@@ -526,7 +527,7 @@ public class MainActivity
                     resizeView(buttons[i][j], newWidthPx - (marginPx * 2), newHeightPx - (marginPx * 2));
                     w.setMarginLinearPX(buttons[i][j], marginPx, marginPx, marginPx, marginPx, a);
                     if (i != 0) {
-                        w.getTextView(buttons[i][j], a).setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) (newWidthPx / 3));
+                        ((TextView) a.findViewById(buttons[i][j])).setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) (newWidthPx / 3));
                     }
                 } else {
                     newWidthPx = (screenWidthPx / 9) * 2;
@@ -534,7 +535,7 @@ public class MainActivity
                     resizeView(buttons[i][j], newWidthPx - (marginPx * 2), newHeightPx - (marginPx * 2));
                     w.setMarginLinearPX(buttons[i][j], marginPx, marginPx, marginPx, marginPx, a);
                     if (i == 0) {
-                        w.getTextView(buttons[i][j], a).setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) (newHeightPx / 3));
+                        ((TextView) a.findViewById(buttons[i][j])).setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) (newHeightPx / 3));
                     }
                 }
             }
@@ -564,7 +565,6 @@ public class MainActivity
             public void run() {
                 if (isToolbarVisible == false) {
                     // remove this for test
-                    Log.i(TAG, w.getRect(R.id.toolbar_info, a).centerX() + " " + w.getRect(R.id.toolbar_info, a).centerY());
                     fab.hide(0, 200);
                     anim.fadeIn(R.id.toolbar, 200, 100, "toolbarIn", a);
                     isToolbarVisible = true;
@@ -715,7 +715,7 @@ public class MainActivity
             @Override
             public void run() {
                 setPresetInfo();
-                w.getView(R.id.fragment_about_container, a).setVisibility(View.GONE);
+                (a.findViewById(R.id.fragment_about_container)).setVisibility(View.GONE);
             }
         }, fadeAnimDuration);
 
@@ -827,31 +827,31 @@ public class MainActivity
 
                 // initialize view
                 View buttonViews[] = {
-                        w.getView(R.id.btn00, a),
-                        w.getView(R.id.tgl1, a),
-                        w.getView(R.id.tgl2, a),
-                        w.getView(R.id.tgl3, a),
-                        w.getView(R.id.tgl4, a),
-                        w.getView(R.id.tgl5, a),
-                        w.getView(R.id.tgl6, a),
-                        w.getView(R.id.tgl7, a),
-                        w.getView(R.id.tgl8, a),
-                        w.getView(R.id.btn11, a),
-                        w.getView(R.id.btn12, a),
-                        w.getView(R.id.btn13, a),
-                        w.getView(R.id.btn14, a),
-                        w.getView(R.id.btn21, a),
-                        w.getView(R.id.btn22, a),
-                        w.getView(R.id.btn23, a),
-                        w.getView(R.id.btn24, a),
-                        w.getView(R.id.btn31, a),
-                        w.getView(R.id.btn32, a),
-                        w.getView(R.id.btn33, a),
-                        w.getView(R.id.btn34, a),
-                        w.getView(R.id.btn41, a),
-                        w.getView(R.id.btn42, a),
-                        w.getView(R.id.btn43, a),
-                        w.getView(R.id.btn44, a)
+                        (a.findViewById(R.id.btn00)),
+                        (a.findViewById(R.id.tgl1)),
+                        (a.findViewById(R.id.tgl2)),
+                        (a.findViewById(R.id.tgl3)),
+                        (a.findViewById(R.id.tgl4)),
+                        (a.findViewById(R.id.tgl5)),
+                        (a.findViewById(R.id.tgl6)),
+                        (a.findViewById(R.id.tgl7)),
+                        (a.findViewById(R.id.tgl8)),
+                        (a.findViewById(R.id.btn11)),
+                        (a.findViewById(R.id.btn12)),
+                        (a.findViewById(R.id.btn13)),
+                        (a.findViewById(R.id.btn14)),
+                        (a.findViewById(R.id.btn21)),
+                        (a.findViewById(R.id.btn22)),
+                        (a.findViewById(R.id.btn23)),
+                        (a.findViewById(R.id.btn24)),
+                        (a.findViewById(R.id.btn31)),
+                        (a.findViewById(R.id.btn32)),
+                        (a.findViewById(R.id.btn33)),
+                        (a.findViewById(R.id.btn34)),
+                        (a.findViewById(R.id.btn41)),
+                        (a.findViewById(R.id.btn42)),
+                        (a.findViewById(R.id.btn43)),
+                        (a.findViewById(R.id.btn44))
                 };
 
                 for (View view : buttonViews) {
@@ -890,13 +890,13 @@ public class MainActivity
             toolbar.setActionBarPadding(a);
             toolbar.setActionBarImage(0, this);
             w.setRecentColor(0, 0, R.color.colorPrimary, a);
-            w.getView(R.id.main_cardview_preset_store, a).setOnClickListener(new View.OnClickListener() {
+            (a.findViewById(R.id.main_cardview_preset_store)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     intent.intent(a, "activity.PresetStoreActivity");
                 }
             });
-            w.getView(R.id.main_cardview_preset_store_download, a).setOnClickListener(new View.OnClickListener() {
+            (a.findViewById(R.id.main_cardview_preset_store_download)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     intent.intent(a, "activity.PresetStoreActivity");

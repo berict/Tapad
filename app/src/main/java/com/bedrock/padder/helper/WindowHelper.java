@@ -2,7 +2,6 @@ package com.bedrock.padder.helper;
 
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -16,10 +15,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SwitchCompat;
-import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -28,19 +23,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.SeekBar;
-import android.widget.TextView;
-import android.widget.ToggleButton;
-import android.widget.VideoView;
 
 import com.bedrock.padder.R;
-import com.google.android.gms.ads.AdView;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -416,19 +402,19 @@ public class WindowHelper {
 
     public void setViewBackgroundColor(int viewId, int colorId, Activity activity) {
         try {
-            getView(viewId, activity).setBackgroundColor(activity.getResources().getColor(colorId));
+            activity.findViewById(viewId).setBackgroundColor(activity.getResources().getColor(colorId));
         } catch (Resources.NotFoundException e) {
             Log.i("NotFoundException", "Handling with normal value");
-            getView(viewId, activity).setBackgroundColor(colorId);
+            activity.findViewById(viewId).setBackgroundColor(colorId);
         }
     }
 
     public void setViewBackgroundColor(int viewId, int colorId, Activity activity, View view) {
         try {
-            getView(viewId, view).setBackgroundColor(activity.getResources().getColor(colorId));
+            view.findViewById(viewId).setBackgroundColor(activity.getResources().getColor(colorId));
         } catch (Resources.NotFoundException e) {
             Log.i("NotFoundException", "Handling with normal value");
-            getView(viewId, view).setBackgroundColor(colorId);
+            view.findViewById(viewId).setBackgroundColor(colorId);
         }
     }
 
@@ -529,112 +515,8 @@ public class WindowHelper {
         return rect;
     }
 
-    public View getView(int id, Activity activity) {
-        return activity.findViewById(id);
-    }
-
-    public View getView(int id, View view) {
-        return view.findViewById(id);
-    }
-
-    public SeekBar getSeekBar(int id, View view) {
-        return (SeekBar) view.findViewById(id);
-    }
-
-    public SeekBar getSeekBar(int id, Activity activity) {
-        return (SeekBar) activity.findViewById(id);
-    }
-
-    public EditText getEditText(int id, View view) {
-        return (EditText) view.findViewById(id);
-    }
-
-    public EditText getEditText(int id, Activity activity) {
-        return (EditText) activity.findViewById(id);
-    }
-
-    public ProgressBar getProgressBar(int id, Activity activity) {
-        return (ProgressBar) activity.findViewById(id);
-    }
-
-    public Button getButton(int id, Activity activity) {
-        return (Button) activity.findViewById(id);
-    }
-
-    public Toolbar getToolbar(int id, Activity activity) {
-        return (Toolbar) activity.findViewById(id);
-    }
-
-    public Toolbar getToolbar(int id, View view) {
-        return (Toolbar) view.findViewById(id);
-    }
-
-    public ToggleButton getToggleButton(int id, Activity activity) {
-        return (ToggleButton) activity.findViewById(id);
-    }
-
-    public SwitchCompat getSwitchCompat(int id, Activity activity) {
-        return (SwitchCompat) activity.findViewById(id);
-    }
-
-    public SwitchCompat getSwitchCompat(int id, View view) {
-        return (SwitchCompat) view.findViewById(id);
-    }
-
-    public ImageView getImageView(int id, Activity activity) {
-        return (ImageView) activity.findViewById(id);
-    }
-
-    public ImageView getImageView(int id, View view) {
-        return (ImageView) view.findViewById(id);
-    }
-
-    public TextView getTextView(int id, Activity activity) {
-        return (TextView) activity.findViewById(id);
-    }
-
-    public TextView getTextView(int id, View view) {
-        return (TextView) view.findViewById(id);
-    }
-
-    public AdView getAdView(int id, Activity activity) {
-        return (AdView) activity.findViewById(id);
-    }
-
-    public RelativeLayout getRelativeLayout(int id, Activity activity) {
-        return (RelativeLayout) activity.findViewById(id);
-    }
-
-    public RelativeLayout getRelativeLayout(int id, View view) {
-        return (RelativeLayout) view.findViewById(id);
-    }
-
-    public LinearLayout getLinearLayout(int id, Activity activity) {
-        return (LinearLayout) activity.findViewById(id);
-    }
-
-    public CardView getCardView(int id, Activity activity) {
-        return (CardView) activity.findViewById(id);
-    }
-
-    public VideoView getVideoView(int id, Activity activity) {
-        return (VideoView) activity.findViewById(id);
-    }
-
-    public View getViewDialog(int id, Dialog dialog) {
-        return dialog.findViewById(id);
-    }
-
-    public RecyclerView getRecyclerView(int id, Activity activity) {
-        return (RecyclerView) activity.findViewById(id);
-    }
-
-    public RecyclerView getRecyclerView(int id, View view) {
-        return (RecyclerView) view.findViewById(id);
-    }
-
     public int getBackgroundColor(int id, Activity activity) {
-        View view = getView(id, activity);
+        View view = activity.findViewById(id);
         Drawable drawable = view.getBackground();
         if (drawable instanceof ColorDrawable) {
             ColorDrawable colorDrawable = (ColorDrawable) drawable;
@@ -714,11 +596,6 @@ public class WindowHelper {
         return context.getResources().getString(resId);
     }
 
-    // public Z getZ(int id, Activity activity) {
-    //     Z z = (Z) activity.findViewById(id);
-    //     return z;
-    // }
-
     public int getDrawableId(String id) {
         try {
             Class res = R.drawable.class;
@@ -776,14 +653,14 @@ public class WindowHelper {
             for (int i = 0; i < patternPreset[btnId].length; i++) {
                 for (int j = 0; j < patternPreset[btnId][i].length; j++) {
                     try {
-                        getView(patternPreset[btnId][i][j], activity).setBackgroundColor(
+                        activity.findViewById(patternPreset[btnId][i][j]).setBackgroundColor(
                                 getBlendColor(
                                         activity.getResources().getColor(colorDown),
                                         activity.getResources().getColor(colorUp),
                                         (0.8f - (0.3f * i))));
                     } catch (Resources.NotFoundException e) {
                         Log.i("NotFoundException", "Handling with normal value");
-                        getView(patternPreset[btnId][i][j], activity).setBackgroundColor(
+                        activity.findViewById(patternPreset[btnId][i][j]).setBackgroundColor(
                                 getBlendColor(
                                         colorDown,
                                         activity.getResources().getColor(colorUp),
@@ -801,10 +678,10 @@ public class WindowHelper {
             for (int i = 0; i < patternPreset[btnId].length; i++) {
                 for (int j = 0; j < patternPreset[btnId][i].length; j++) {
                     try {
-                        getView(patternPreset[btnId][i][j], activity).setBackgroundColor(activity.getResources().getColor(colorUp));
+                        activity.findViewById(patternPreset[btnId][i][j]).setBackgroundColor(activity.getResources().getColor(colorUp));
                     } catch (Resources.NotFoundException e) {
                         Log.i("NotFoundException", "Handling with normal value");
-                        getView(patternPreset[btnId][i][j], activity).setBackgroundColor(colorUp);
+                        activity.findViewById(patternPreset[btnId][i][j]).setBackgroundColor(colorUp);
                     }
                 }
             }

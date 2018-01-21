@@ -75,7 +75,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void setIntents() {
         // presets
-        w.getView(R.id.layout_settings_preset, a).setOnClickListener(new View.OnClickListener() {
+        (a.findViewById(R.id.layout_settings_preset)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isPresetVisible == false) {
@@ -85,7 +85,7 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         // colors
-        w.getView(R.id.layout_settings_color, a).setOnClickListener(new View.OnClickListener() {
+        (a.findViewById(R.id.layout_settings_color)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 intent.intent(a, "activity.ColorActivity");
@@ -93,14 +93,14 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         // abouts
-        w.getView(R.id.layout_settings_about_tapad, a).setOnClickListener(new View.OnClickListener() {
+        (a.findViewById(R.id.layout_settings_about_tapad)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 intent.intentWithExtra(a, "activity.AboutActivity", "about", "tapad", 0);
             }
         });
 
-        w.getView(R.id.layout_settings_about_dev, a).setOnClickListener(new View.OnClickListener() {
+        (a.findViewById(R.id.layout_settings_about_dev)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 intent.intentWithExtra(a, "activity.AboutActivity", "about", "dev", 0);
@@ -108,14 +108,14 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         // unused
-        w.getView(R.id.layout_settings_custom_touch, a).setOnClickListener(new View.OnClickListener() {
+        (a.findViewById(R.id.layout_settings_custom_touch)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(a, R.string.settings_custom_touch_error, Toast.LENGTH_SHORT).show();
             }
         });
 
-        w.getView(R.id.layout_settings_layout, a).setOnClickListener(new View.OnClickListener() {
+        (a.findViewById(R.id.layout_settings_layout)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(a, R.string.settings_layout_error, Toast.LENGTH_SHORT).show();
@@ -143,9 +143,9 @@ public class SettingsActivity extends AppCompatActivity {
         w.setRecentColor(R.string.settings, R.color.colorAccent, a);
 
         if (currentPreset != null) {
-            w.getTextView(R.id.layout_settings_preset_hint, a).setText(currentPreset.getAbout().getTitle());
+            ((TextView) a.findViewById(R.id.layout_settings_preset_hint)).setText(currentPreset.getAbout().getTitle());
         } else {
-            w.getTextView(R.id.layout_settings_preset_hint, a).setText(R.string.settings_preset_hint_no_preset);
+            ((TextView) a.findViewById(R.id.layout_settings_preset_hint)).setText(R.string.settings_preset_hint_no_preset);
         }
 
         setFocusLoss();
@@ -157,8 +157,8 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void setFocusLoss() {
         final boolean focusLoss = preferences.getStopOnFocusLoss();
-        final SwitchCompat focusLossSwitch = w.getSwitchCompat(R.id.layout_settings_focus_loss_switch, a);
-        RelativeLayout focusLossLayout = w.getRelativeLayout(R.id.layout_settings_focus_loss, a);
+        final SwitchCompat focusLossSwitch = ((SwitchCompat) a.findViewById(R.id.layout_settings_focus_loss_switch));
+        RelativeLayout focusLossLayout = ((RelativeLayout) a.findViewById(R.id.layout_settings_focus_loss));
 
         focusLossSwitch.setChecked(focusLoss);
         focusLossSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -182,8 +182,8 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void setStopLoop() {
         final boolean stopLoop = preferences.getStopLoopOnSingle();
-        final SwitchCompat stopLoopSwitch = w.getSwitchCompat(R.id.layout_settings_stop_loop_switch, a);
-        RelativeLayout stopLoopLayout = w.getRelativeLayout(R.id.layout_settings_stop_loop, a);
+        final SwitchCompat stopLoopSwitch = ((SwitchCompat) a.findViewById(R.id.layout_settings_stop_loop_switch));
+        RelativeLayout stopLoopLayout = ((RelativeLayout) a.findViewById(R.id.layout_settings_stop_loop));
 
         stopLoopSwitch.setChecked(stopLoop);
         stopLoopSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -221,7 +221,7 @@ public class SettingsActivity extends AppCompatActivity {
                 })
                 .build();
 
-        w.getView(R.id.layout_settings_start_page, a).setOnClickListener(new View.OnClickListener() {
+        (a.findViewById(R.id.layout_settings_start_page)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startPageDialog.setSelectedIndex(getStartPageIndexFromValue(preferences.getStartPage()));
@@ -238,7 +238,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void updateStartPageText() {
-        w.getTextView(R.id.layout_settings_start_page_hint, a).setText(getStringFromId("settings_start_page_" + preferences.getStartPage(), a));
+        ((TextView) a.findViewById(R.id.layout_settings_start_page_hint)).setText(getStringFromId("settings_start_page_" + preferences.getStartPage(), a));
     }
 
     @Nullable
@@ -271,8 +271,8 @@ public class SettingsActivity extends AppCompatActivity {
     private void setDeckMargin() {
         // deck margin
 
-        deckMarginEditText = w.getEditText(R.id.layout_settings_deck_margin_input, a);
-        deckMarginSeekbar = w.getSeekBar(R.id.layout_settings_deck_margin_slider, a);
+        deckMarginEditText = ((EditText) a.findViewById(R.id.layout_settings_deck_margin_input));
+        deckMarginSeekbar = ((SeekBar) a.findViewById(R.id.layout_settings_deck_margin_slider));
 
         setDeckMarginEditText(preferences.getDeckMargin());
         setDeckMarginSeekbar(preferences.getDeckMargin());
@@ -384,13 +384,13 @@ public class SettingsActivity extends AppCompatActivity {
 
         switch (errorType) {
             case "empty":
-                view = w.getView(R.id.layout_settings_deck_margin_input_error_empty, a);
+                view = (a.findViewById(R.id.layout_settings_deck_margin_input_error_empty));
                 break;
             case "bound":
-                view = w.getView(R.id.layout_settings_deck_margin_input_error_bound, a);
+                view = (a.findViewById(R.id.layout_settings_deck_margin_input_error_bound));
                 break;
             case "warning":
-                view = w.getView(R.id.layout_settings_deck_margin_input_warning, a);
+                view = (a.findViewById(R.id.layout_settings_deck_margin_input_warning));
                 break;
             default:
                 view = null;
@@ -404,9 +404,9 @@ public class SettingsActivity extends AppCompatActivity {
 
     private int hideDeckMarginEditTextError() {
         View views[] = {
-                w.getView(R.id.layout_settings_deck_margin_input_error_empty, a),
-                w.getView(R.id.layout_settings_deck_margin_input_error_bound, a),
-                w.getView(R.id.layout_settings_deck_margin_input_warning, a)
+                (a.findViewById(R.id.layout_settings_deck_margin_input_error_empty)),
+                (a.findViewById(R.id.layout_settings_deck_margin_input_error_bound)),
+                (a.findViewById(R.id.layout_settings_deck_margin_input_warning))
         };
 
         int isAnimated = 0;

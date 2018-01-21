@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.bedrock.padder.R;
@@ -88,10 +89,10 @@ public class SoundHelper {
         this.color = preferences.getColor();
         this.colorDef = colorDef;
         decks = new Deck[] {
-                new Deck(new Pad[17], null, window.getView(buttonId[1], activity), color, colorDef, activity),
-                new Deck(new Pad[17], null, window.getView(buttonId[2], activity), color, colorDef, activity),
-                new Deck(new Pad[17], null, window.getView(buttonId[3], activity), color, colorDef, activity),
-                new Deck(new Pad[17], null, window.getView(buttonId[4], activity), color, colorDef, activity),
+                new Deck(new Pad[17], null, activity.findViewById(buttonId[1]), color, colorDef, activity),
+                new Deck(new Pad[17], null, activity.findViewById(buttonId[2]), color, colorDef, activity),
+                new Deck(new Pad[17], null, activity.findViewById(buttonId[3]), color, colorDef, activity),
+                new Deck(new Pad[17], null, activity.findViewById(buttonId[4]), color, colorDef, activity),
         };
 
         for (int i = 1; i <= 4; i++) {
@@ -218,7 +219,7 @@ public class SoundHelper {
         // pause adViewMain after the loading
         ad.pauseAdView(R.id.adView_main, activity);
 
-        window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_white);
+        ((ImageView) activity.findViewById(R.id.toolbar_tutorial_icon)).setImageResource(R.drawable.ic_tutorial_white);
 
         anim.fadeOut(R.id.progress_bar_layout, 0, 600, activity);
         anim.fadeOut(R.id.adView_main, 0, 600, activity);
@@ -272,31 +273,31 @@ public class SoundHelper {
         };
 
         final View buttonViews[] = {
-                window.getView(R.id.btn00, activity),
-                window.getView(R.id.tgl1, activity),
-                window.getView(R.id.tgl2, activity),
-                window.getView(R.id.tgl3, activity),
-                window.getView(R.id.tgl4, activity),
-                window.getView(R.id.tgl5, activity),
-                window.getView(R.id.tgl6, activity),
-                window.getView(R.id.tgl7, activity),
-                window.getView(R.id.tgl8, activity),
-                window.getView(R.id.btn11, activity),
-                window.getView(R.id.btn12, activity),
-                window.getView(R.id.btn13, activity),
-                window.getView(R.id.btn14, activity),
-                window.getView(R.id.btn21, activity),
-                window.getView(R.id.btn22, activity),
-                window.getView(R.id.btn23, activity),
-                window.getView(R.id.btn24, activity),
-                window.getView(R.id.btn31, activity),
-                window.getView(R.id.btn32, activity),
-                window.getView(R.id.btn33, activity),
-                window.getView(R.id.btn34, activity),
-                window.getView(R.id.btn41, activity),
-                window.getView(R.id.btn42, activity),
-                window.getView(R.id.btn43, activity),
-                window.getView(R.id.btn44, activity)
+                activity.findViewById(R.id.btn00),
+                activity.findViewById(R.id.tgl1),
+                activity.findViewById(R.id.tgl2),
+                activity.findViewById(R.id.tgl3),
+                activity.findViewById(R.id.tgl4),
+                activity.findViewById(R.id.tgl5),
+                activity.findViewById(R.id.tgl6),
+                activity.findViewById(R.id.tgl7),
+                activity.findViewById(R.id.tgl8),
+                activity.findViewById(R.id.btn11),
+                activity.findViewById(R.id.btn12),
+                activity.findViewById(R.id.btn13),
+                activity.findViewById(R.id.btn14),
+                activity.findViewById(R.id.btn21),
+                activity.findViewById(R.id.btn22),
+                activity.findViewById(R.id.btn23),
+                activity.findViewById(R.id.btn24),
+                activity.findViewById(R.id.btn31),
+                activity.findViewById(R.id.btn32),
+                activity.findViewById(R.id.btn33),
+                activity.findViewById(R.id.btn34),
+                activity.findViewById(R.id.btn41),
+                activity.findViewById(R.id.btn42),
+                activity.findViewById(R.id.btn43),
+                activity.findViewById(R.id.btn44)
         };
 
         intervalPixel = (int) Math.hypot(window.getWindowWidthPx(activity), window.getWindowWidthPx(activity)) / 40;
@@ -353,9 +354,9 @@ public class SoundHelper {
             presetSoundCount = currentPreset.getSoundCount();
             // set progress
             progressCount = 0;
-            progress = window.getProgressBar(R.id.progress_bar, activity);
+            progress = ((ProgressBar) activity.findViewById(R.id.progress_bar));
             ad.resumeAdView(R.id.adView_main, activity);
-            if (window.getView(R.id.progress_bar_layout, activity).getVisibility() == View.GONE) {
+            if (activity.findViewById(R.id.progress_bar_layout).getVisibility() == View.GONE) {
                 anim.fadeIn(R.id.progress_bar_layout, 0, 600, "progressIn", activity);
                 // request ads
                 anim.fadeIn(R.id.adView_main, 0, 600, "adViewIn", activity);
@@ -366,31 +367,31 @@ public class SoundHelper {
 
             // initialize view
             View buttonViews[] = {
-                    window.getView(R.id.btn00, activity),
-                    window.getView(R.id.tgl1, activity),
-                    window.getView(R.id.tgl2, activity),
-                    window.getView(R.id.tgl3, activity),
-                    window.getView(R.id.tgl4, activity),
-                    window.getView(R.id.tgl5, activity),
-                    window.getView(R.id.tgl6, activity),
-                    window.getView(R.id.tgl7, activity),
-                    window.getView(R.id.tgl8, activity),
-                    window.getView(R.id.btn11, activity),
-                    window.getView(R.id.btn12, activity),
-                    window.getView(R.id.btn13, activity),
-                    window.getView(R.id.btn14, activity),
-                    window.getView(R.id.btn21, activity),
-                    window.getView(R.id.btn22, activity),
-                    window.getView(R.id.btn23, activity),
-                    window.getView(R.id.btn24, activity),
-                    window.getView(R.id.btn31, activity),
-                    window.getView(R.id.btn32, activity),
-                    window.getView(R.id.btn33, activity),
-                    window.getView(R.id.btn34, activity),
-                    window.getView(R.id.btn41, activity),
-                    window.getView(R.id.btn42, activity),
-                    window.getView(R.id.btn43, activity),
-                    window.getView(R.id.btn44, activity)
+                    activity.findViewById(R.id.btn00),
+                    activity.findViewById(R.id.tgl1),
+                    activity.findViewById(R.id.tgl2),
+                    activity.findViewById(R.id.tgl3),
+                    activity.findViewById(R.id.tgl4),
+                    activity.findViewById(R.id.tgl5),
+                    activity.findViewById(R.id.tgl6),
+                    activity.findViewById(R.id.tgl7),
+                    activity.findViewById(R.id.tgl8),
+                    activity.findViewById(R.id.btn11),
+                    activity.findViewById(R.id.btn12),
+                    activity.findViewById(R.id.btn13),
+                    activity.findViewById(R.id.btn14),
+                    activity.findViewById(R.id.btn21),
+                    activity.findViewById(R.id.btn22),
+                    activity.findViewById(R.id.btn23),
+                    activity.findViewById(R.id.btn24),
+                    activity.findViewById(R.id.btn31),
+                    activity.findViewById(R.id.btn32),
+                    activity.findViewById(R.id.btn33),
+                    activity.findViewById(R.id.btn34),
+                    activity.findViewById(R.id.btn41),
+                    activity.findViewById(R.id.btn42),
+                    activity.findViewById(R.id.btn43),
+                    activity.findViewById(R.id.btn44)
             };
 
             for (View view : buttonViews) {
@@ -452,27 +453,27 @@ public class SoundHelper {
             progress.setIndeterminate(false);
             progress.setMax(presetSoundCount);
             progress.setProgress(0);
-            window.getImageView(R.id.toolbar_tutorial_icon, activity).setImageResource(R.drawable.ic_tutorial_disabled_white);
+            ((ImageView) activity.findViewById(R.id.toolbar_tutorial_icon)).setImageResource(R.drawable.ic_tutorial_disabled_white);
 
             // initialize view
             buttonViews = new View[]{
-                    window.getView(R.id.btn00, activity),
-                    window.getView(R.id.btn11, activity),
-                    window.getView(R.id.btn12, activity),
-                    window.getView(R.id.btn13, activity),
-                    window.getView(R.id.btn14, activity),
-                    window.getView(R.id.btn21, activity),
-                    window.getView(R.id.btn22, activity),
-                    window.getView(R.id.btn23, activity),
-                    window.getView(R.id.btn24, activity),
-                    window.getView(R.id.btn31, activity),
-                    window.getView(R.id.btn32, activity),
-                    window.getView(R.id.btn33, activity),
-                    window.getView(R.id.btn34, activity),
-                    window.getView(R.id.btn41, activity),
-                    window.getView(R.id.btn42, activity),
-                    window.getView(R.id.btn43, activity),
-                    window.getView(R.id.btn44, activity)
+                    activity.findViewById(R.id.btn00),
+                    activity.findViewById(R.id.btn11),
+                    activity.findViewById(R.id.btn12),
+                    activity.findViewById(R.id.btn13),
+                    activity.findViewById(R.id.btn14),
+                    activity.findViewById(R.id.btn21),
+                    activity.findViewById(R.id.btn22),
+                    activity.findViewById(R.id.btn23),
+                    activity.findViewById(R.id.btn24),
+                    activity.findViewById(R.id.btn31),
+                    activity.findViewById(R.id.btn32),
+                    activity.findViewById(R.id.btn33),
+                    activity.findViewById(R.id.btn34),
+                    activity.findViewById(R.id.btn41),
+                    activity.findViewById(R.id.btn42),
+                    activity.findViewById(R.id.btn43),
+                    activity.findViewById(R.id.btn44)
             };
         }
 

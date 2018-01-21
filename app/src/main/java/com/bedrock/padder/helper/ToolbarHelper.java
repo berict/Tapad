@@ -73,16 +73,16 @@ public class ToolbarHelper {
     public void setActionBarImage(int imageResId, Activity activity) {
         WindowHelper window = new WindowHelper();
         if (imageResId != 0) {
-            window.getImageView(IMAGE, activity).setImageResource(imageResId);
-            window.getImageView(IMAGE, activity).setVisibility(View.VISIBLE);
+            ((ImageView) activity.findViewById(IMAGE)).setImageResource(imageResId);
+            ((ImageView) activity.findViewById(IMAGE)).setVisibility(View.VISIBLE);
         } else {
-            window.getImageView(IMAGE, activity).setVisibility(View.GONE);
+            ((ImageView) activity.findViewById(IMAGE)).setVisibility(View.GONE);
         }
     }
 
     public void setActionBarImage(String imageLocation, Activity activity) {
         WindowHelper window = new WindowHelper();
-        ImageView imageView = window.getImageView(IMAGE, activity);
+        ImageView imageView = ((ImageView) activity.findViewById(IMAGE));
         if (imageLocation != null) {
             Picasso.with(activity).load(new File(imageLocation)).into(imageView);
             imageView.setVisibility(View.VISIBLE);

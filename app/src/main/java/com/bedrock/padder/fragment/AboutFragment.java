@@ -15,6 +15,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bedrock.padder.R;
 import com.bedrock.padder.helper.AdMobHelper;
@@ -153,25 +155,25 @@ public class AboutFragment extends Fragment {
 
         if (currentPreset != null) {
             // CardView
-            w.getView(R.id.cardview_music_layout, v).setVisibility(View.VISIBLE);
+            (v.findViewById(R.id.cardview_music_layout)).setVisibility(View.VISIBLE);
             Picasso.with(a)
                     .load("file:" + currentPreset.getAbout().getImage(currentPreset))
                     .placeholder(R.drawable.ic_image_album_placeholder)
                     .error(R.drawable.ic_image_album_error)
-                    .into(w.getImageView(R.id.cardview_music_image, v));
-            w.getTextView(R.id.cardview_music_song, v).setText(currentPreset.getAbout().getTitle());
-            w.getTextView(R.id.cardview_music_explore, v).setTextColor(currentPreset.getAbout().getColor());
-            w.getTextView(R.id.cardview_music_change, v).setTextColor(currentPreset.getAbout().getColor());
+                    .into(((ImageView) v.findViewById(R.id.cardview_music_image)));
+            ((TextView) v.findViewById(R.id.cardview_music_song)).setText(currentPreset.getAbout().getTitle());
+            ((TextView) v.findViewById(R.id.cardview_music_explore)).setTextColor(currentPreset.getAbout().getColor());
+            ((TextView) v.findViewById(R.id.cardview_music_change)).setTextColor(currentPreset.getAbout().getColor());
 
             toolbar.setActionBarColor(currentPreset.getAbout().getColor(), a);
         } else {
-            w.getView(R.id.cardview_music_layout, v).setVisibility(View.GONE);
+            (v.findViewById(R.id.cardview_music_layout)).setVisibility(View.GONE);
 
             toolbar.setActionBarColor(R.color.colorPrimary, a);
         }
 
         // artist
-        w.getView(R.id.cardview_music, v).setOnClickListener(new View.OnClickListener() {
+        (v.findViewById(R.id.cardview_music)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
@@ -179,7 +181,7 @@ public class AboutFragment extends Fragment {
             }
         });
 
-        w.getView(R.id.cardview_music_explore, v).setOnClickListener(new View.OnClickListener() {
+        (v.findViewById(R.id.cardview_music_explore)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
@@ -187,7 +189,7 @@ public class AboutFragment extends Fragment {
             }
         });
 
-        w.getView(R.id.cardview_music_change, v).setOnClickListener(new View.OnClickListener() {
+        (v.findViewById(R.id.cardview_music_change)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isPresetVisible == false) {
@@ -197,7 +199,7 @@ public class AboutFragment extends Fragment {
         });
 
         // preset store
-        w.getView(R.id.cardview_preset_store, v).setOnClickListener(new View.OnClickListener() {
+        (v.findViewById(R.id.cardview_preset_store)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent.intentSharedElementWithExtra(a, "activity.PresetStoreActivity",
@@ -205,7 +207,7 @@ public class AboutFragment extends Fragment {
             }
         });
 
-        w.getView(R.id.cardview_preset_store_explore, v).setOnClickListener(new View.OnClickListener() {
+        (v.findViewById(R.id.cardview_preset_store_explore)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent.intentSharedElementWithExtra(a, "activity.PresetStoreActivity",
@@ -214,7 +216,7 @@ public class AboutFragment extends Fragment {
         });
 
         // tapad
-        w.getView(R.id.cardview_about, v).setOnClickListener(new View.OnClickListener() {
+        (v.findViewById(R.id.cardview_about)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
@@ -222,7 +224,7 @@ public class AboutFragment extends Fragment {
             }
         });
 
-        w.getView(R.id.cardview_about_explore, v).setOnClickListener(new View.OnClickListener() {
+        (v.findViewById(R.id.cardview_about_explore)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
@@ -230,7 +232,7 @@ public class AboutFragment extends Fragment {
             }
         });
 
-        w.getView(R.id.cardview_about_settings, v).setOnTouchListener(new View.OnTouchListener() {
+        (v.findViewById(R.id.cardview_about_settings)).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 coordinate[2] = (int) event.getRawX();
@@ -240,7 +242,7 @@ public class AboutFragment extends Fragment {
             }
         });
 
-        w.getView(R.id.cardview_about_settings, v).setOnClickListener(new View.OnClickListener() {
+        (v.findViewById(R.id.cardview_about_settings)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 anim.circularRevealInPx(R.id.placeholder,
@@ -253,7 +255,7 @@ public class AboutFragment extends Fragment {
         });
 
         // developer
-        w.getView(R.id.cardview_dev, v).setOnClickListener(new View.OnClickListener() {
+        (v.findViewById(R.id.cardview_dev)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
@@ -261,7 +263,7 @@ public class AboutFragment extends Fragment {
             }
         });
 
-        w.getView(R.id.cardview_dev_explore, v).setOnClickListener(new View.OnClickListener() {
+        (v.findViewById(R.id.cardview_dev_explore)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent.intentSharedElementWithExtra(a, "activity.AboutActivity",
@@ -278,10 +280,10 @@ public class AboutFragment extends Fragment {
                     // Ad loaded
                     Log.d("AdView", "Loaded");
                     anim.fadeOut(R.id.cardview_ad_loading, 0, 400, v, a);
-                    w.getView(R.id.cardview_ad_failed, v).setVisibility(View.GONE);
-                    w.getView(R.id.adView_about, v).setVisibility(View.VISIBLE);
+                    (v.findViewById(R.id.cardview_ad_failed)).setVisibility(View.GONE);
+                    (v.findViewById(R.id.adView_about)).setVisibility(View.VISIBLE);
                     isAdsShown = true;
-                    Log.d("AdView", "adView visible = " + String.valueOf(w.getView(R.id.adView_about, v).getVisibility() == View.VISIBLE));
+                    Log.d("AdView", "adView visible = " + String.valueOf((v.findViewById(R.id.adView_about)).getVisibility() == View.VISIBLE));
                     super.onAdLoaded();
                 }
                 @Override
@@ -296,7 +298,7 @@ public class AboutFragment extends Fragment {
         } else {
             // not connected to internet
             Log.d("AdView", "Failed to connect to the internet");
-            w.getView(R.id.cardview_ad, v).setVisibility(View.GONE);
+            (v.findViewById(R.id.cardview_ad)).setVisibility(View.GONE);
         }
     }
 

@@ -197,9 +197,9 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
         }
 
         try {
-            window.getTextView(R.id.layout_color_id, activity).setText(String.format("#%06X", (0xFFFFFF & activity.getResources().getColor(primaryColor))));
+            ((TextView) activity.findViewById(R.id.layout_color_id)).setText(String.format("#%06X", (0xFFFFFF & activity.getResources().getColor(primaryColor))));
         } catch (Resources.NotFoundException e) {
-            window.getTextView(R.id.layout_color_id, activity).setText(String.format("#%06X", (0xFFFFFF & primaryColor)));
+            ((TextView) activity.findViewById(R.id.layout_color_id)).setText(String.format("#%06X", (0xFFFFFF & primaryColor)));
         }
 
         // set to prefs color
