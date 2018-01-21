@@ -98,25 +98,30 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setNestedScrollingEnabled(false);
-
-        // preset store check
-        setAdapter();
     }
 
-    private void setLoadingFinished(boolean isFinished) {
+    public void setLoadingFinished(boolean isFinished) {
         if (isFinished) {
             // finished, hide loading and show recyclerView
-            Log.d(TAG, "Loading finished");
+            Log.d(TAG, "setLF(true)");
             anim.fadeOut(recyclerViewLoading, 0, 200, a);
             anim.fadeOut(recyclerViewFailed, 0, 200, a);
             anim.fadeOut(recyclerViewFailedRetry, 0, 200, a);
-            anim.fadeIn(recyclerView, 200, 200, "rvIn", a);
+            if (recyclerView.getVisibility() != View.VISIBLE) {
+                anim.fadeIn(recyclerView, 200, 200, "rvIn", a);
+            }
         } else {
             // started, show loading
+            Log.d(TAG, "setLF(false)");
             anim.fadeOut(recyclerView, 0, 200, a);
             anim.fadeOut(recyclerViewFailed, 0, 200, a);
             anim.fadeOut(recyclerViewFailedRetry, 0, 200, a);
-            anim.fadeIn(recyclerViewLoading, 200, 200, "rvLoadingIn", a);
+            anim.fadeOut(recyclerViewLoading, 0, 200, a);
+            if (recyclerViewLoading.getVisibility() != View.VISIBLE) {
+                anim.fadeIn(recyclerViewLoading, 200, 200, "rvLoadingIn", a);
+            }
+            // cancel the timeout check
+            connectionTimeout.removeCallbacksAndMessages(null);
         }
     }
 
@@ -312,6 +317,7 @@ public class PresetStoreOnlineFragment extends Fragment implements Refreshable {
 
     @Override
     public void refresh() {
+        Log.d(TAG, "refresh");
         setAdapter();
     }
 

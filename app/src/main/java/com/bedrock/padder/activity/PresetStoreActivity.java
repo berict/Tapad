@@ -29,6 +29,7 @@ import com.afollestad.materialdialogs.folderselector.FileChooserDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.fragment.PresetStoreInstalledFragment;
 import com.bedrock.padder.fragment.PresetStoreOnlineFragment;
+import com.bedrock.padder.fragment.Refreshable;
 import com.bedrock.padder.helper.AnimateHelper;
 import com.bedrock.padder.helper.FabHelper;
 import com.bedrock.padder.helper.FileHelper;
@@ -269,94 +270,83 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
             viewPager = (ViewPager) findViewById(R.id.layout_viewpager);
             viewPager.setAdapter(viewPagerAdapter);
 
-            final Fragment onlineFragment = (Fragment) viewPagerAdapter.instantiateItem(viewPager, 1);
+            final PresetStoreOnlineFragment onlineFragment = (PresetStoreOnlineFragment) viewPagerAdapter.instantiateItem(viewPager, 1);
 
             viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                private int position = 0;
-                private float positionOffset = 0;
+                int position = 0;
+
                 // from: https://stackoverflow.com/questions/31319758/how-can-i-animate-the-new-floating-action-button-between-tab-fragment-transition
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                    this.positionOffset = positionOffset;
+                    if (position != 1) {
+                        if (positionOffset < 0.5) {
+                            if (!fab.isVisible()) {
+                                fab.setVisibility(true);
+                            }
+                            fab.setScale((0.5 - positionOffset) * 2);
+                        } else if (positionOffset >= 0.5) {
+                            fab.setVisibility(false);
+                        }
+                    } else {
+                        fab.setVisibility(false);
+                    }
                 }
 
                 @Override
                 public void onPageSelected(int position) {
                     this.position = position;
-                    // from: https://stackoverflow.com/questions/20412379/viewpager-update-fragment-on-swipe
-                    Fragment fragment = (Fragment) viewPagerAdapter.instantiateItem(viewPager, position);
-                    if (fragment != null) {
-                        if (fragment instanceof PresetStoreInstalledFragment) {
-                            ((PresetStoreInstalledFragment) fragment).refresh();
-                            if (!fab.isVisible()) {
-                                // show open preset fab
-                                fab.show();
-                                Log.d(TAG, "show from onPageSelected");
-                            }
-                        } else if (fragment instanceof  PresetStoreOnlineFragment) {
-                            ((PresetStoreOnlineFragment) fragment).refresh();
-                        } else {
-                            Log.d(TAG, "Not an instance of any sub fragment");
-                        }
-                    }
-                    Log.d(TAG, "onPageSelected");
                 }
 
                 @Override
                 public void onPageScrollStateChanged(int state) {
-                    //hide floating action button
-                    //state 0 = nothing happen, state 1 = beginning scrolling, state 2 = stop at selected tab.
-                    if (fab.isVisible() && state == 1) {
-                        // fav visible
-                        if (fab.isVisible()) {
-                            fab.hide();
-                        }
-                    } else if (state == 2 && !fab.isVisible()) {
-                        if (position == 0 && positionOffset < 0.5 && positionOffset >= 0) {
-                            Log.d(TAG, "positionOffset = " + positionOffset);
-                            if (!fab.isVisible()) {
-                                Log.d(TAG, "show from onPageScrollStateChanged");
-                                fab.show();
+                    // from: https://stackoverflow.com/questions/20412379/viewpager-update-fragment-on-swipe
+                    if (state == ViewPager.SCROLL_STATE_IDLE) {
+                        final Fragment fragment = (Fragment) viewPagerAdapter.instantiateItem(viewPager, position);
+                        if (fragment != null) {
+                            if (fragment instanceof Refreshable) {
+                                ((Refreshable) fragment).refresh();
+//                                new Handler().postDelayed(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                    }
+//                                }, 2000);
+                            } else {
+                                Log.d(TAG, "Not an instance of any sub fragment");
                             }
                         }
-                    }
-
-                    if (state == 1 && position != 1) {
-                        // on move
-                        if (onlineFragment != null) {
-                            ((PresetStoreOnlineFragment) onlineFragment).clear();
-                        }
+                    } else {
+                        onlineFragment.setLoadingFinished(false);
                     }
                 }
             });
 
             TabLayout tabLayout = findViewById(R.id.layout_tab_layout);
             tabLayout.setupWithViewPager(viewPager);
-            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                @Override
-                public void onTabSelected(TabLayout.Tab tab) {
-                    if (tab.getPosition() == 0) {
-                        // show open preset fab
-                        if (!fab.isVisible()) {
-                            Log.d(TAG, "show from tabLayout");
-                            fab.show();
-                        }
-                    } else {
-                        if (onlineFragment != null) {
-                            ((PresetStoreOnlineFragment) onlineFragment).clear();
-                        }
-                        if (fab.isVisible()) {
-                            fab.hide();
-                        }
-                    }
-                }
-
-                @Override
-                public void onTabUnselected(TabLayout.Tab tab) {}
-
-                @Override
-                public void onTabReselected(TabLayout.Tab tab) {}
-            });
+//            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//                @Override
+//                public void onTabSelected(TabLayout.Tab tab) {
+//                    if (tab.getPosition() == 0) {
+//                        // show open preset fab
+//                        if (!fab.isVisible()) {
+//                            Log.d(TAG, "show from tabLayout");
+//                            fab.show();
+//                        }
+//                    } else {
+//                        if (onlineFragment != null) {
+//                            ((PresetStoreOnlineFragment) onlineFragment).clear();
+//                        }
+//                        if (fab.isVisible()) {
+//                            fab.hide();
+//                        }
+//                    }
+//                }
+//
+//                @Override
+//                public void onTabUnselected(TabLayout.Tab tab) {}
+//
+//                @Override
+//                public void onTabReselected(TabLayout.Tab tab) {}
+//            });
         }
     }
 

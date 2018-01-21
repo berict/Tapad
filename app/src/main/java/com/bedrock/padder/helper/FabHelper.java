@@ -85,6 +85,32 @@ public class FabHelper {
         }
     }
 
+    public void setVisibility(boolean visible) {
+        if (visible) {
+            floatingActionButton.setVisibility(View.VISIBLE);
+        } else {
+            floatingActionButton.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void setScale(double scale) {
+        setScaleX((float) scale);
+        setScaleY((float) scale);
+    }
+
+    public void setScale(float x, float y) {
+        setScaleX(x);
+        setScaleY(y);
+    }
+
+    public void setScaleX(float x) {
+        floatingActionButton.setScaleX(x);
+    }
+
+    public void setScaleY(float y) {
+        floatingActionButton.setScaleY(y);
+    }
+
     public boolean isVisible() {
         if (floatingActionButton != null) {
             return floatingActionButton.getVisibility() == View.VISIBLE;

@@ -231,7 +231,6 @@ public class MainActivity
 //        Tutorial tutorial = new Tutorial("alan_walker_faded_gesture", a);
 //        tutorial.parse();
 //        Log.d("TUTORIAL", tutorial.toString());
-
     }
 
     @Override
