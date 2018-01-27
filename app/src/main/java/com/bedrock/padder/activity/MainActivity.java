@@ -7,6 +7,7 @@ import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
@@ -18,6 +19,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
 import com.bedrock.padder.fragment.AboutFragment;
@@ -470,6 +472,20 @@ public class MainActivity
                             @Override
                             public void onDismiss(DialogInterface dialogInterface) {
                                 preferences.setVersionCode(currentVersionCode);
+                                // show Studio Berict social links
+                                new MaterialDialog.Builder(a)
+                                        .title(w.getStringId("info_tapad_info_social"))
+                                        .content(w.getStringId("info_tapad_info_social_text"))
+                                        .contentColorRes(R.color.dark_primary)
+                                        .positiveText(R.string.dialog_learn_more)
+                                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                            @Override
+                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                intent.intentWithExtra(a, "activity.AboutActivity", "about", "dev", 0);
+                                            }
+                                        })
+                                        .negativeText(R.string.close)
+                                        .show();
                             }
                         })
                         .show();

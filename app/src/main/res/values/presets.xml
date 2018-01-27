@@ -301,6 +301,8 @@
 		1.	<b>NEW:</b> New app\n
 		2.	<b>NEW:</b> New preset (Madeon Adventure)
 	</string>
+	<string name="info_tapad_info_social">More from Studio Berict</string>
+	<string name="info_tapad_info_social_text">Find us on Facebook, Twitter, Google+ and Discord! Message the developer and leave feedbacks.</string>
 	<string name="info_tapad_info_thanks"           >Special thanks</string>
 	<string name="info_tapad_info_thanks_text"      >
         <b>Stack Overflow</b>\n
