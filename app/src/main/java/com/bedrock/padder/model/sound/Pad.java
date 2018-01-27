@@ -9,7 +9,12 @@ import android.view.View;
 
 import com.bedrock.padder.helper.OnSwipeTouchListener;
 
+import static com.bedrock.padder.activity.MainActivity.PAD_PATTERN;
 import static com.bedrock.padder.activity.MainActivity.isStopLoopOnSingle;
+import static com.bedrock.padder.helper.WindowHelper.getBackgroundColor;
+import static com.bedrock.padder.helper.WindowHelper.getBlendColor;
+import static com.bedrock.padder.helper.WindowHelper.getColor;
+import static com.bedrock.padder.helper.WindowHelper.getViewFromId;
 
 public class Pad {
 
@@ -25,6 +30,9 @@ public class Pad {
 
     protected Activity activity = null;
 
+    protected int column;
+    protected int row;
+
     public Pad(Sound normal, View view, int color, int colorDef, Activity activity) {
         this.normal = normal;
         this.view = view;
@@ -32,6 +40,10 @@ public class Pad {
         this.colorDef = colorDef;
         this.activity = activity;
         handler = new Handler(Looper.getMainLooper());
+
+        // pad patterns
+        column = Integer.parseInt(String.valueOf(view.getTag().toString().charAt(0)));
+        row = Integer.parseInt(String.valueOf(view.getTag().toString().charAt(1)));
     }
 
     public Sound getNormal() {
@@ -61,6 +73,87 @@ public class Pad {
 
     void setPadColor() {
         setPadColor(color);
+        // TODO add equivalent to GesturePad
+
+        switch (PAD_PATTERN) {
+            case 1:
+                // 4 side
+                if (row - 1 > 0) {
+                    // left available
+                    setPadColor(row - 1, column, getBlendColor(color, colorDef, 0.3f, activity));
+                }
+                if (row + 1 <= 4) {
+                    // right available
+                    setPadColor(row + 1, column, getBlendColor(color, colorDef, 0.3f, activity));
+                }
+                if (column - 1 > 0) {
+                    // up available
+                    setPadColor(row, column - 1, getBlendColor(color, colorDef, 0.3f, activity));
+                }
+                if (column + 1 <= 4) {
+                    // up available
+                    setPadColor(row, column + 1, getBlendColor(color, colorDef, 0.3f, activity));
+                }
+                break;
+            case 2:
+                // vertical fade
+                break;
+            case 3:
+                // horizontal fade
+                break;
+            case 4:
+                // vertical-horizontal fade
+                break;
+        }
+    }
+
+    void setPadColor(int row, int column, final int colorNew) {
+        final View pad = getViewFromId("btn" + column + row, activity);
+        if (getBackgroundColor(pad) != getColor(colorNew, activity) && getBackgroundColor(pad) != getColor(color, activity)) {
+            // was not pressed
+            pad.setBackgroundColor(colorNew);
+        }
+    }
+
+    void setPadColor(int row, int column, final int color, int duration) {
+        final View pad = getViewFromId("btn" + column + row, activity);
+        if (getBackgroundColor(pad) != getColor(color, activity) && getBackgroundColor(pad) != getColor(color, activity)) {
+            // was not pressed
+            pad.setBackgroundColor(color);
+
+            if (duration > 0) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        pad.setBackgroundColor(getColor(colorDef, activity));
+                    }
+                }, duration);
+            }
+        }
+    }
+
+    void setPadColor(int row, int column, final int color, int duration, int delay) {
+        final View pad = getViewFromId("btn" + column + row, activity);
+        if (getBackgroundColor(pad) != getColor(color, activity) && getBackgroundColor(pad) != getColor(color, activity)) {
+            // was not pressed
+            if (delay > 0) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        pad.setBackgroundColor(color);
+                    }
+                }, delay);
+
+                if (duration > 0) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            pad.setBackgroundColor(getColor(colorDef, activity));
+                        }
+                    }, delay + duration);
+                }
+            }
+        }
     }
 
     public void update() {
@@ -79,6 +172,47 @@ public class Pad {
         if (normal != null && !normal.isLooping && view != null) {
             // while not looping
             setPadColor(colorDef);
+        }
+
+        // TODO add equivalent to GesturePad
+
+        switch (PAD_PATTERN) {
+            case 1:
+                // 4 side
+                if (row - 1 > 0) {
+                    // left available
+                    setPadColorToDefault(row - 1, column, getBlendColor(color, colorDef, 0.3f, activity));
+                }
+                if (row + 1 <= 4) {
+                    // right available
+                    setPadColorToDefault(row + 1, column, getBlendColor(color, colorDef, 0.3f, activity));
+                }
+                if (column - 1 > 0) {
+                    // up available
+                    setPadColorToDefault(row, column - 1, getBlendColor(color, colorDef, 0.3f, activity));
+                }
+                if (column + 1 <= 4) {
+                    // up available
+                    setPadColorToDefault(row, column + 1, getBlendColor(color, colorDef, 0.3f, activity));
+                }
+                break;
+            case 2:
+                // vertical fade
+                break;
+            case 3:
+                // horizontal fade
+                break;
+            case 4:
+                // vertical-horizontal fade
+                break;
+        }
+    }
+
+    void setPadColorToDefault(int row, int column, int color) {
+        final View pad = getViewFromId("btn" + column + row, activity);
+        if (getBackgroundColor(pad) == getColor(color, activity)) {
+            // was pressed
+            pad.setBackgroundColor(getColor(colorDef, activity));
         }
     }
 

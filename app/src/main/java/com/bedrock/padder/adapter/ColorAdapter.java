@@ -14,13 +14,11 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bedrock.padder.R;
-import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.preferences.ItemColor;
 import com.bedrock.padder.model.preferences.Preferences;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import static com.bedrock.padder.activity.MainActivity.isDeckShouldCleared;
+import static com.bedrock.padder.helper.WindowHelper.getBlendColor;
 
 public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHolder> {
     private ItemColor itemColor;
@@ -28,9 +26,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
     private Preferences preferences;
     private Activity activity;
 
-    private WindowHelper window = new WindowHelper();
-
-    public static class DetailViewHolder extends RecyclerView.ViewHolder {
+    static class DetailViewHolder extends RecyclerView.ViewHolder {
         RelativeLayout colorLayout;
         TextView colorTextId;
         View colorView1;
@@ -40,16 +36,16 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
         TextView actionPrimary;
         TextView actionRemove;
 
-        public DetailViewHolder(View view) {
+        DetailViewHolder(View view) {
             super(view);
-            colorLayout = (RelativeLayout) view.findViewById(R.id.layout_color);
-            colorTextId = (TextView) view.findViewById(R.id.layout_color_title);
+            colorLayout = view.findViewById(R.id.layout_color);
+            colorTextId = view.findViewById(R.id.layout_color_title);
             colorView1 = view.findViewById(R.id.view_color_1);
             colorView2 = view.findViewById(R.id.view_color_2);
             colorView3 = view.findViewById(R.id.view_color_3);
             colorView4 = view.findViewById(R.id.view_color_4);
-            actionRemove = (TextView) view.findViewById(R.id.layout_color_action_remove);
-            actionPrimary = (TextView) view.findViewById(R.id.layout_color_action_primary);
+            actionRemove = view.findViewById(R.id.layout_color_action_remove);
+            actionPrimary = view.findViewById(R.id.layout_color_action_primary);
         }
     }
 
@@ -66,8 +62,6 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
 
         return new DetailViewHolder(view);
     }
-
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @Override
     public void onBindViewHolder(final DetailViewHolder holder, int position) {
@@ -90,23 +84,14 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
         };
 
         for (int i = 0; i < 4; i++) {
-            try {
-                colorView[i].setBackgroundColor(
-                        window.getBlendColor(
-                                activity.getResources().getColor(color),
-                                activity.getResources().getColor(R.color.grey),
-                                (0.8f - (0.3f * i))
-                        )
-                );
-            } catch (Resources.NotFoundException e) {
-                colorView[i].setBackgroundColor(
-                        window.getBlendColor(
-                                color,
-                                activity.getResources().getColor(R.color.grey),
-                                (0.8f - (0.3f * i))
-                        )
-                );
-            }
+            colorView[i].setBackgroundColor(
+                    getBlendColor(
+                            color,
+                            R.color.grey,
+                            (0.8f - (0.3f * i)),
+                            activity
+                    )
+            );
         }
 
         // Set actions
@@ -177,23 +162,14 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.DetailViewHo
         };
 
         for (int i = 0; i < 4; i++) {
-            try {
-                colorView[i].setBackgroundColor(
-                        window.getBlendColor(
-                                activity.getResources().getColor(primaryColor),
-                                activity.getResources().getColor(R.color.grey),
-                                (0.8f - (0.3f * i))
-                        )
-                );
-            } catch (Resources.NotFoundException e) {
-                colorView[i].setBackgroundColor(
-                        window.getBlendColor(
-                                primaryColor,
-                                activity.getResources().getColor(R.color.grey),
-                                (0.8f - (0.3f * i))
-                        )
-                );
-            }
+            colorView[i].setBackgroundColor(
+                    getBlendColor(
+                            primaryColor,
+                            R.color.grey,
+                            (0.8f - (0.3f * i)),
+                            activity
+                    )
+            );
         }
 
         try {

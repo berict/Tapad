@@ -515,7 +515,7 @@ public class WindowHelper {
         return rect;
     }
 
-    public int getBackgroundColor(int id, Activity activity) {
+    public static int getBackgroundColor(int id, Activity activity) {
         View view = activity.findViewById(id);
         Drawable drawable = view.getBackground();
         if (drawable instanceof ColorDrawable) {
@@ -539,16 +539,27 @@ public class WindowHelper {
         return 0;
     }
 
-    public int getId(String id) {
-        try {
-            Class res = R.id.class;
-            Field field = res.getField(id);
-            return field.getInt(null);
-        } catch (Exception e) {
-            Log.e("getId", "Failure to get id.", e);
-            return -1;
+    public static int getBackgroundColor(View view) {
+        Drawable drawable = view.getBackground();
+        if (drawable instanceof ColorDrawable) {
+            ColorDrawable colorDrawable = (ColorDrawable) drawable;
+            if (Build.VERSION.SDK_INT >= 11) {
+                return colorDrawable.getColor();
+            }
+            try {
+                Field field = colorDrawable.getClass().getDeclaredField("mState");
+                field.setAccessible(true);
+                Object object = field.get(colorDrawable);
+                field = object.getClass().getDeclaredField("mUseColor");
+                field.setAccessible(true);
+                return field.getInt(object);
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
         }
-        //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
+        return 0;
     }
 
     public int getColorId(String id) {
@@ -574,6 +585,18 @@ public class WindowHelper {
             return field.getInt(null);
         } catch (Exception e) {
             Log.e("getStringId", "Failure to get string from id [" + id + "]");
+            return -1;
+        }
+        //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
+    }
+
+    public static int getId(String id) {
+        try {
+            Class res = R.id.class;
+            Field field = res.getField(id);
+            return field.getInt(null);
+        } catch (Exception e) {
+            Log.e("getId", "Failure to get id.", e);
             return -1;
         }
         //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
@@ -606,6 +629,10 @@ public class WindowHelper {
 
     public static String getStringFromId(int resId, Context context) {
         return context.getResources().getString(resId);
+    }
+
+    public static View getViewFromId(String id, Activity activity) {
+        return activity.findViewById(getId(id));
     }
 
     public int getDrawableId(String id) {
@@ -660,31 +687,6 @@ public class WindowHelper {
         v.setLayoutParams(params);
     }
 
-    private void setButtonPattern(int patternPreset[][][], int btnId, int colorDown, int colorUp, Activity activity) {
-        if (btnId >= 0) {
-            for (int i = 0; i < patternPreset[btnId].length; i++) {
-                for (int j = 0; j < patternPreset[btnId][i].length; j++) {
-                    try {
-                        activity.findViewById(patternPreset[btnId][i][j]).setBackgroundColor(
-                                getBlendColor(
-                                        activity.getResources().getColor(colorDown),
-                                        activity.getResources().getColor(colorUp),
-                                        (0.8f - (0.3f * i))));
-                    } catch (Resources.NotFoundException e) {
-                        Log.i("NotFoundException", "Handling with normal value");
-                        activity.findViewById(patternPreset[btnId][i][j]).setBackgroundColor(
-                                getBlendColor(
-                                        colorDown,
-                                        activity.getResources().getColor(colorUp),
-                                        (0.8f - (0.3f * i))
-                                )
-                        );
-                    }
-                }
-            }
-        }
-    }
-
     private void setButtonPatternDefault(int patternPreset[][][], int btnId, int colorUp, Activity activity) {
         if (btnId >= 0) {
             for (int i = 0; i < patternPreset[btnId].length; i++) {
@@ -700,10 +702,10 @@ public class WindowHelper {
         }
     }
 
-    public int getBlendColor(int color0, int color1, float blendPercent) {
-        String colorString0 = String.format("#%06X", (0xFFFFFF & color0));
+    public static int getBlendColor(int color0, int color1, float blendPercent, Activity activity) {
+        String colorString0 = String.format("#%06X", (0xFFFFFF & getColor(color0, activity)));
         //Log.d("color0", colorString0);
-        String colorString1 = String.format("#%06X", (0xFFFFFF & color1));
+        String colorString1 = String.format("#%06X", (0xFFFFFF & getColor(color1, activity)));
         //Log.d("color1", colorString1);
 
         int r0 = Integer.parseInt(colorString0.substring(1, 3), 16);
@@ -722,17 +724,26 @@ public class WindowHelper {
         return Color.parseColor(blendColorHex);
     }
 
-    private int averageIntegerWithPercent(int num1, int num2, float percent) {
+    public static int averageIntegerWithPercent(int num1, int num2, float percent) {
         return Math.round((num1 - num2) * percent) + num2;
     }
 
-    private String getTwoDigitHexString(int hexValue) {
+    public static String getTwoDigitHexString(int hexValue) {
         String hexString = Integer.toHexString(hexValue);
         //Log.d("hexStringCheck", hexString);
         if (hexString.length() == 1) {
             hexString = "0" + hexString;
         }
         return hexString;
+    }
+
+    public static int getColor(int color, Activity activity) {
+        try {
+            return activity.getResources().getColor(color);
+        } catch (Resources.NotFoundException e) {
+            Log.i("NotFoundException", "Handling with normal value");
+            return color;
+        }
     }
 
     public void setOnTouch(int id, final Runnable touch, Activity activity) {

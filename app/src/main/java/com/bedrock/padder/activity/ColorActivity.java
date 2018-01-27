@@ -25,6 +25,8 @@ import com.bedrock.padder.model.preferences.Preferences;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import static com.bedrock.padder.helper.WindowHelper.getBlendColor;
+
 public class ColorActivity extends AppCompatActivity implements ColorChooserDialog.ColorCallback {
 
     private WindowHelper w = new WindowHelper();
@@ -118,23 +120,14 @@ public class ColorActivity extends AppCompatActivity implements ColorChooserDial
         };
 
         for (int i = 0; i < 4; i++) {
-            try {
-                colorView[i].setBackgroundColor(
-                        w.getBlendColor(
-                                activity.getResources().getColor(color),
-                                activity.getResources().getColor(R.color.grey),
-                                (0.8f - (0.3f * i))
-                        )
-                );
-            } catch (Resources.NotFoundException e) {
-                colorView[i].setBackgroundColor(
-                        w.getBlendColor(
-                                color,
-                                activity.getResources().getColor(R.color.grey),
-                                (0.8f - (0.3f * i))
-                        )
-                );
-            }
+            colorView[i].setBackgroundColor(
+                    getBlendColor(
+                            color,
+                            R.color.grey,
+                            (0.8f - (0.3f * i)),
+                            activity
+                    )
+            );
         }
 
         try {

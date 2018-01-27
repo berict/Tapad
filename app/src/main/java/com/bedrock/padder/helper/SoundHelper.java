@@ -23,8 +23,11 @@ import com.bedrock.padder.model.sound.Sound;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static com.bedrock.padder.activity.MainActivity.PAD_PATTERN;
 import static com.bedrock.padder.activity.MainActivity.currentPreset;
 import static com.bedrock.padder.activity.MainActivity.isPresetLoading;
+import static com.bedrock.padder.activity.MainActivity.setPadPattern;
+import static com.bedrock.padder.helper.WindowHelper.getViewFromId;
 
 public class SoundHelper {
 
@@ -58,6 +61,13 @@ public class SoundHelper {
             R.id.btn42,
             R.id.btn43,
             R.id.btn44
+    };
+
+    private int padPatternToggleId[] = {
+            R.id.tgl5,
+            R.id.tgl6,
+            R.id.tgl7,
+            R.id.tgl8,
     };
 
     private AdMobHelper ad = new AdMobHelper();
@@ -110,6 +120,22 @@ public class SoundHelper {
                 }
             }, activity);
         }
+
+        for (int i = 0; i < 4; i++) {
+            final int index = i + 1;
+            window.setOnClick(padPatternToggleId[i], new Runnable() {
+                @Override
+                public void run() {
+                    // set pad pattern ids
+                    if (index == PAD_PATTERN) {
+                        // was already selected
+                        selectPattern(-1);
+                    } else {
+                        selectPattern(index);
+                    }
+                }
+            }, activity);
+        }
     }
 
     private void select(int index) {
@@ -133,6 +159,28 @@ public class SoundHelper {
                     }
                 } else {
                     decks[i].setSelected(false);
+                }
+            }
+        }
+    }
+
+    private void selectPattern(int index) {
+        Log.d("SH", "Index selected " + index);
+        // index starts from 0
+        if (index == -1) {
+            // disable all
+            setPadPattern(0);
+            for (int i = 0; i < 4; i++) {
+                getViewFromId("tgl" + String.valueOf(i + 4), activity).setBackgroundColor(activity.getResources().getColor(R.color.grey));
+            }
+        } else {
+            setPadPattern(index);
+            for (int i = 0; i < 4; i++) {
+                if (i == index) {
+                    // selected
+                    getViewFromId("tgl" + String.valueOf(i + 4), activity).setBackgroundColor(activity.getResources().getColor(R.color.colorAccent));
+                } else {
+                    getViewFromId("tgl" + String.valueOf(i + 4), activity).setBackgroundColor(activity.getResources().getColor(R.color.grey));
                 }
             }
         }

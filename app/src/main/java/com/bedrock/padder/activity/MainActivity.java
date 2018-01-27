@@ -72,22 +72,12 @@ public class MainActivity
 
     final AppCompatActivity a = this;
 
-    public boolean tgl1 = false;
-    public boolean tgl2 = false;
-    public boolean tgl3 = false;
-    public boolean tgl4 = false;
-    public boolean tgl5 = false;
-    public boolean tgl6 = false;
-    public boolean tgl7 = false;
-    public boolean tgl8 = false;
+    public static int PAD_PATTERN = 0;
 
     int currentVersionCode;
     int themeColor = R.color.hello;
     int color = R.color.cyan_400;
     int colorDef = R.color.grey;
-
-    int toggleSoundId = 0;
-    int togglePatternId = 0;
 
     private AnimateHelper anim = new AnimateHelper();
     private SoundHelper sound = new SoundHelper();
@@ -113,6 +103,17 @@ public class MainActivity
     public static void setAboutVisible(boolean isVisible) {
         isAboutVisible = isVisible;
         Log.d("AboutVisible", String.valueOf(isAboutVisible));
+    }
+
+    public static void setPadPattern(int id) {
+        /*
+        *  1: 4 side
+        *  2: vertical fade
+        *  3: horizontal fade
+        *  4: vertical-horizontal fade
+        */
+
+        PAD_PATTERN = id;
     }
 
     @Override
@@ -810,81 +811,6 @@ public class MainActivity
                     sound.load(currentPreset, preferences.getColor(), colorDef, a);
                 }
             }, delay);
-        }
-    }
-
-    private void clearDeck() {
-        if (isDeckShouldCleared) {
-            w.setViewBackgroundColor(R.id.tgl1, colorDef, a);
-            w.setViewBackgroundColor(R.id.tgl2, colorDef, a);
-            w.setViewBackgroundColor(R.id.tgl3, colorDef, a);
-            w.setViewBackgroundColor(R.id.tgl4, colorDef, a);
-            w.setViewBackgroundColor(R.id.tgl5, colorDef, a);
-            w.setViewBackgroundColor(R.id.tgl6, colorDef, a);
-            w.setViewBackgroundColor(R.id.tgl7, colorDef, a);
-            w.setViewBackgroundColor(R.id.tgl8, colorDef, a);
-
-            tgl1 = false;
-            tgl2 = false;
-            tgl3 = false;
-            tgl4 = false;
-            tgl5 = false;
-            tgl6 = false;
-            tgl7 = false;
-            tgl8 = false;
-
-            // reset the deck margin
-            if (!isPresetLoading) {
-                // only set buttons when preset is not loading
-                setButtonLayout();
-                sound.clear();
-                sound.loadColor(preferences.getColor());
-                w.setInvisible(R.id.base, 0, a);
-
-                // initialize view
-                View buttonViews[] = {
-                        (a.findViewById(R.id.btn00)),
-                        (a.findViewById(R.id.tgl1)),
-                        (a.findViewById(R.id.tgl2)),
-                        (a.findViewById(R.id.tgl3)),
-                        (a.findViewById(R.id.tgl4)),
-                        (a.findViewById(R.id.tgl5)),
-                        (a.findViewById(R.id.tgl6)),
-                        (a.findViewById(R.id.tgl7)),
-                        (a.findViewById(R.id.tgl8)),
-                        (a.findViewById(R.id.btn11)),
-                        (a.findViewById(R.id.btn12)),
-                        (a.findViewById(R.id.btn13)),
-                        (a.findViewById(R.id.btn14)),
-                        (a.findViewById(R.id.btn21)),
-                        (a.findViewById(R.id.btn22)),
-                        (a.findViewById(R.id.btn23)),
-                        (a.findViewById(R.id.btn24)),
-                        (a.findViewById(R.id.btn31)),
-                        (a.findViewById(R.id.btn32)),
-                        (a.findViewById(R.id.btn33)),
-                        (a.findViewById(R.id.btn34)),
-                        (a.findViewById(R.id.btn41)),
-                        (a.findViewById(R.id.btn42)),
-                        (a.findViewById(R.id.btn43)),
-                        (a.findViewById(R.id.btn44))
-                };
-
-                for (View view : buttonViews) {
-                    view.setVisibility(View.INVISIBLE);
-                }
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        sound.revealButtonWithAnimation();
-                    }
-                }, 400);
-            }
-
-            toggleSoundId = 0;
-
-            isDeckShouldCleared = false;
         }
     }
 
