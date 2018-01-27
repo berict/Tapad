@@ -226,6 +226,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                     }
                 };
                 break;
+            case "info_tapad_info_dev":
+                exceptionalRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        // intent to developer details
+                        intent.intentWithExtra(a, "activity.AboutActivity", "about", "dev", 0);
+                    }
+                };
+                break;
             case "info_tapad_others_song":
                 exceptionalRunnable = new Runnable() {
                     @Override
@@ -256,14 +265,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                                         intent.intentLink(a, getStringFromId("info_berict_action_report_bug_dialog_github_url", a), 0);
                                     }
                                 })
-                                .neutralText(getStringFromId("info_berict_action_report_bug_dialog_email", a))
-                                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                                .neutralText(getStringFromId("dialog_cancel", a))
+                                .negativeText(getStringFromId("info_berict_action_report_bug_dialog_email", a))
+                                .onNegative(new MaterialDialog.SingleButtonCallback() {
                                     @Override
                                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                         intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "report_bug", 400);
                                     }
                                 })
-                                .negativeText(getStringFromId("dialog_cancel", a))
                                 .stackingBehavior(StackingBehavior.ALWAYS)
                                 .show();
                     }
@@ -324,14 +333,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                                         intent.intentLink(a, getStringFromId("info_berict_action_report_bug_dialog_github_url", a), 0);
                                     }
                                 })
-                                .neutralText(getStringFromId("info_berict_action_report_bug_dialog_email", a))
-                                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                                .neutralText(getStringFromId("dialog_cancel", a))
+                                .negativeText(getStringFromId("info_berict_action_report_bug_dialog_email", a))
+                                .onNegative(new MaterialDialog.SingleButtonCallback() {
                                     @Override
                                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                         intent.intentWithExtra(a, "activity.FeedbackActivity", "feedbackMode", "report_bug", 400);
                                     }
                                 })
-                                .negativeText(getStringFromId("dialog_cancel", a))
                                 .stackingBehavior(StackingBehavior.ALWAYS)
                                 .show();
                     }
