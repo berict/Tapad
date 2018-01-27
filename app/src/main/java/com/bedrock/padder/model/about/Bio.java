@@ -1,8 +1,11 @@
 package com.bedrock.padder.model.about;
 
+import android.content.Context;
+
 import com.bedrock.padder.model.preset.Preset;
 
 import static com.bedrock.padder.helper.FileHelper.PROJECT_LOCATION_PRESETS;
+import static com.bedrock.padder.helper.WindowHelper.getStringFromIdWithFallback;
 
 public class Bio {
 
@@ -25,6 +28,10 @@ public class Bio {
         return title;
     }
 
+    public String getTitle(Context context) {
+        return getStringFromIdWithFallback(getTitle(), context);
+    }
+
     public String getImage(Preset preset) {
         String tag = preset.getTag();
         if (tag == null || tag.equals("about_bio_tapad")) {
@@ -38,11 +45,23 @@ public class Bio {
         return name;
     }
 
+    public String getName(Context context) {
+        return getStringFromIdWithFallback(getName(), context);
+    }
+
     public String getText() {
         return text;
     }
 
+    public String getText(Context context) {
+        return getStringFromIdWithFallback(getText(), context);
+    }
+
     public String getSource() {
         return source;
+    }
+
+    public String getSource(Context context) {
+        return getStringFromIdWithFallback(getSource(), context);
     }
 }

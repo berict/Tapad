@@ -1,10 +1,12 @@
 package com.bedrock.padder.model.about;
 
+import android.content.Context;
 import android.graphics.Color;
 
 import com.bedrock.padder.model.preset.Preset;
 
 import static com.bedrock.padder.helper.FileHelper.PROJECT_LOCATION_PRESETS;
+import static com.bedrock.padder.helper.WindowHelper.getStringFromIdWithFallback;
 
 public class About {
 
@@ -74,12 +76,24 @@ public class About {
         return songName + " - " + songArtist;
     }
 
+    public String getTitle(Context context) {
+        return getSongName(context) + " - " + getSongArtist(context);
+    }
+
     public String getSongName() {
         return songName;
     }
 
+    public String getSongName(Context context) {
+        return getStringFromIdWithFallback(getSongName(), context);
+    }
+
     public String getSongArtist() {
         return songArtist;
+    }
+
+    public String getSongArtist(Context context) {
+        return getStringFromIdWithFallback(getSongArtist(), context);
     }
 
     public String getImage(Preset preset) {
@@ -120,6 +134,10 @@ public class About {
 
     public String getPresetArtist() {
         return presetArtist;
+    }
+
+    public String getPresetArtist(Context context) {
+        return getStringFromIdWithFallback(getPresetArtist(), context);
     }
 
     public Boolean getTutorialAvailable() {

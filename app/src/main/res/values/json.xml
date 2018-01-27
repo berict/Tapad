@@ -4,23 +4,23 @@
     <string name="json_about_tapad">
         {
           \"bio\": {
-            \"name\": \"Remixing X Material Design\",
-            \"source\": \"Powered by Studio Berict\",
-            \"text\": \"Probably the best looking remix app out there. Extended from the instrument LaunchPad, and made mobile friendly with touch gesture support. It mainly features song genres like EDM, Dubstep, Progressive House, Electronic and further more.\",
-            \"title\": \"About Tapad\"
+            \"name\": \"info_tapad_bio_name\",
+            \"source\": \"info_tapad_bio_source\",
+            \"text\": \"info_tapad_bio_text\",
+            \"title\": \"info_tapad_bio_title\"
           },
           \"color\": \"#9C27B0\",
           \"details\": [
             {
               \"items\": [
                 {
-                  \"hint\": \"Open in Google Play\",
+                  \"hint\": \"info_tapad_info_check_update_hint\",
                   \"imageId\": \"google_play\",
                   \"isHintVisible\": true,
                   \"text\": \"info_tapad_info_check_update\"
                 },
                 {
-                  \"hint\": \"Receive updates of a testing version of the app\",
+                  \"hint\": \"info_tapad_info_tester_hint\",
                   \"imageId\": \"experiment\",
                   \"isHintVisible\": true,
                   \"text\": \"info_tapad_info_tester\"
@@ -31,7 +31,7 @@
                   \"text\": \"info_tapad_info_legal\"
                 },
                 {
-                  \"hint\": \"2.3 Beta 2\",
+                  \"hint\": \"info_tapad_info_version_hint\",
                   \"isHintVisible\": true,
                   \"isRunnableWithAnim\": false,
                   \"text\": \"info_tapad_info_version\"
@@ -47,149 +47,142 @@
                   \"text\": \"info_tapad_info_thanks\"
                 },
                 {
-                  \"hint\": \"Studio Berict\",
+                  \"hint\": \"info_tapad_info_dev_hint\",
                   \"imageId\": \"developer\",
                   \"isHintVisible\": false,
                   \"text\": \"info_tapad_info_dev\"
                 }
               ],
-              \"title\": \"Information\"
+              \"title\": \"info_tapad_info_title\"
             },
             {
               \"items\": [
                 {
-                  \"hint\": \"Will be added to the update list\",
                   \"imageId\": \"song\",
-                  \"isHintVisible\": true,
+                  \"isHintVisible\": false,
                   \"text\": \"info_tapad_others_song\"
                 },
                 {
-                  \"hint\": \"Request new features or ask questions\",
+                  \"hint\": \"info_tapad_others_feedback_hint\",
                   \"imageId\": \"feedback\",
                   \"isHintVisible\": true,
                   \"text\": \"info_tapad_others_feedback\"
                 },
                 {
-                  \"hint\": \"Help developers to fix bugs and problems\",
+                  \"hint\": \"info_tapad_others_report_bug_hint\",
                   \"imageId\": \"report_bug\",
                   \"isHintVisible\": true,
                   \"text\": \"info_tapad_others_report_bug\"
                 },
                 {
-                  \"hint\": \"Show your love on Tapad on Google Play\",
+                  \"hint\": \"info_tapad_others_rate_hint\",
                   \"imageId\": \"rate\",
                   \"isHintVisible\": true,
                   \"text\": \"info_tapad_others_rate\"
                 },
                 {
-                  \"hint\": \"Help making Tapad available on your language\",
+                  \"hint\": \"info_tapad_others_translate_hint\",
                   \"imageId\": \"web\",
                   \"isHintVisible\": true,
                   \"text\": \"info_tapad_others_translate\"
                 },
                 {
-                  \"hint\": \"Let your friends know this amazing app\",
+                  \"hint\": \"info_tapad_others_recommend_hint\",
                   \"imageId\": \"recommend\",
                   \"isHintVisible\": true,
                   \"text\": \"info_tapad_others_recommend\"
                 }
               ],
-              \"title\": \"Others\"
+              \"title\": \"info_tapad_others_title\"
             }
           ],
           \"songArtist\": \"about_image_tapad\",
-          \"songName\": \"About Tapad\"
+          \"songName\": \"info_tapad_bio_title\"
         }
     </string>
     <string name="json_about_dev">
         {
           \"bio\": {
-            \"name\": \"Bedrock Pictures\",
-            \"source\": \"Powered by Bedrock Pictures\",
-            \"text\": \"We target everyone. Whatever we make, it\u0027s just for you. Our main focus on our service is your experience. Unlike others, we think everything at your perspective. Mainly makes mobile / web software, often makes some high-quality videos.\",
-            \"title\": \"Studio Berict\u0027s biography\"
+            \"name\": \"info_berict_bio_name\",
+            \"source\": \"info_berict_bio_source\",
+            \"text\": \"info_berict_bio_text\",
+            \"title\": \"info_berict_bio_title\"
           },
           \"color\": \"#607D8B\",
           \"details\": [
             {
               \"items\": [
                 {
-                  \"hint\": \"https://facebook.com/studioberict\",
-                  \"imageId\": \"facebook\",
-                  \"isHintVisible\": true,
-                  \"isRunnableWithAnim\": false,
-                  \"text\": \"facebook\"
-                },
-                {
-                  \"hint\": \"https://twitter.com/studioberict\",
-                  \"imageId\": \"twitter\",
-                  \"isHintVisible\": true,
-                  \"isRunnableWithAnim\": false,
-                  \"text\": \"twitter\"
-                },
-                {
-                  \"hint\": \"https://plus.google.com/u/0/117444496369895524856\",
-                  \"imageId\": \"google_plus\",
-                  \"isHintVisible\": true,
-                  \"isRunnableWithAnim\": false,
-                  \"text\": \"google_plus\"
-                },
-                {
-                  \"hint\": \"https://youtube.com/channel/UCAXcxUEs9Mc2gN4eWev3mAw\",
-                  \"imageId\": \"youtube\",
-                  \"isHintVisible\": true,
-                  \"isRunnableWithAnim\": false,
-                  \"text\": \"youtube\"
-                },
-                {
-                  \"hint\": \"https://discord.me/berict\",
+                  \"hint\": \"info_berict_detail_discord\",
                   \"imageId\": \"discord\",
                   \"isHintVisible\": true,
                   \"isRunnableWithAnim\": false,
                   \"text\": \"discord\"
                 },
                 {
-                  \"hint\": \"http://berict.com\",
+                  \"hint\": \"info_berict_detail_facebook\",
+                  \"imageId\": \"facebook\",
+                  \"isHintVisible\": true,
+                  \"isRunnableWithAnim\": false,
+                  \"text\": \"facebook\"
+                },
+                {
+                  \"hint\": \"info_berict_detail_twitter\",
+                  \"imageId\": \"twitter\",
+                  \"isHintVisible\": true,
+                  \"isRunnableWithAnim\": false,
+                  \"text\": \"twitter\"
+                },
+                {
+                  \"hint\": \"info_berict_detail_google_plus\",
+                  \"imageId\": \"google_plus\",
+                  \"isHintVisible\": false,
+                  \"isRunnableWithAnim\": false,
+                  \"text\": \"google_plus\"
+                },
+                {
+                  \"hint\": \"info_berict_detail_youtube\",
+                  \"imageId\": \"youtube\",
+                  \"isHintVisible\": false,
+                  \"isRunnableWithAnim\": false,
+                  \"text\": \"youtube\"
+                },
+                {
+                  \"hint\": \"info_berict_detail_web\",
                   \"imageId\": \"web\",
                   \"isHintVisible\": true,
                   \"isRunnableWithAnim\": false,
                   \"text\": \"web\"
                 }
               ],
-              \"title\": \"About Studio Berict\"
+              \"title\": \"info_berict_detail_title\"
             },
             {
               \"items\": [
                 {
-                  \"hint\": \"Help us fix bugs and problems\",
+                  \"hint\": \"info_berict_action_report_bug_hint\",
                   \"imageId\": \"report_bug\",
                   \"isHintVisible\": true,
                   \"text\": \"info_berict_action_report_bug\"
                 },
                 {
-                  \"hint\": \"Leave positive rating on Tapad\",
-                  \"imageId\": \"rate\",
+                  \"hint\": \"info_berict_action_contribute_hint\",
+                  \"imageId\": \"developer\",
                   \"isHintVisible\": true,
-                  \"text\": \"info_berict_action_rate\"
+                  \"text\": \"info_berict_action_contribute\"
                 },
                 {
-                  \"hint\": \"Make Tapad available on your language\",
-                  \"imageId\": \"translate\",
-                  \"isHintVisible\": false,
-                  \"text\": \"info_berict_action_translate\"
-                },
-                {
-                  \"hint\": \"Boost dev on updating Tapad\",
+                  \"hint\": \"info_berict_action_donate_hint\",
                   \"imageId\": \"donate\",
                   \"isHintVisible\": false,
                   \"text\": \"info_berict_action_donate\"
                 }
               ],
-              \"title\": \"Support Development\"
+              \"title\": \"info_berict_action_title\"
             }
           ],
           \"songArtist\": \"about_image_berict\",
-          \"songName\": \"Studio Berict\"
+          \"songName\": \"info_berict_title\"
         }
     </string>
 </resources>

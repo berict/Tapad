@@ -44,7 +44,7 @@
     <string name="info_berict_detail_twitter"    >https://twitter.com/studioberict</string>
     <string name="info_berict_detail_google_plus">https://plus.google.com/u/0/117444496369895524856</string>
     <string name="info_berict_detail_youtube"    >https://youtube.com/channel/UCAXcxUEs9Mc2gN4eWev3mAw</string>
-	<string name="info_berict_detail_discord"    >https://discord.gg/Gewy9GH</string>
+	<string name="info_berict_detail_discord">https://discord.me/berict</string>
     <string name="info_berict_detail_web"        >http://berict.com</string>
 
 	<string name="info_berict_action_title"          >Support Development</string>
@@ -54,15 +54,13 @@
 	<string name="info_berict_action_report_bug_dialog_email">Send bug report over email</string>
 	<string name="info_berict_action_report_bug_dialog_github">Make an issue on GitHub</string>
 	<string name="info_berict_action_report_bug_dialog_github_url">https://github.com/berict/Tapad/issues/new</string>
-	<string name="info_berict_action_translate"      >Translate Tapad</string>
-	<string name="info_berict_action_translate_hint" >Make Tapad available on your language</string>
-    <string name="info_berict_action_translate_dialog_content">Contribute to Tapad with translation.</string>
-    <string name="info_berict_action_translate_dialog_github">Make a pull request on GitHub</string>
-    <string name="info_berict_action_translate_dialog_github_url">https://github.com/berict/Tapad/pulls</string>
-	<string name="info_berict_action_rate"           >Rate Tapad</string>
-	<string name="info_berict_action_rate_hint"      >Leave positive rating on Tapad</string>
+	<string name="info_berict_action_contribute">Help developing Tapad</string>
+	<string name="info_berict_action_contribute_hint">Make Tapad a better app, together.</string>
+	<string name="info_berict_action_contribute_dialog_content">Contribute to Tapad with your skills.</string>
+	<string name="info_berict_action_contribute_dialog_github">Make a pull request on GitHub</string>
+	<string name="info_berict_action_contribute_dialog_github_url">https://github.com/berict/Tapad/pulls</string>
 	<string name="info_berict_action_donate"         >Donate</string>
-	<string name="info_berict_action_donate_hint"    >Boost dev on updating Tapad</string>
+	<string name="info_berict_action_donate_hint">Help developers keep working</string>
 	<string name="info_berict_action_donate_dialog_content">Help developers by watching a video advertisement.</string>
 	<string name="info_berict_action_donate_dialog_positive">See video ad</string>
 
@@ -334,7 +332,6 @@
 
 	<string name="info_tapad_others_title"                  >Others</string>
 	<string name="info_tapad_others_song"                   >Request a song</string>
-	<string name="info_tapad_others_song_hint"              >Will be added to the update list</string>
 	<string name="info_tapad_others_feedback"               >Leave a feedback</string>
 	<string name="info_tapad_others_feedback_hint"          >Request new features or ask questions</string>
 	<string name="info_tapad_others_report_bug"             >Report bugs</string>
@@ -345,10 +342,10 @@
 	<string name="info_tapad_others_rate"                   >Rate Tapad</string>
 	<string name="info_tapad_others_rate_hint"              >Show your love on Tapad on Google Play</string>
 	<string name="info_tapad_others_recommend"              >Recommend Tapad</string>
-	<string name="info_tapad_others_recommend_hint"         >Let your friends know this amazing app</string>
+	<string name="info_tapad_others_recommend_hint">Let your friends know Tapad</string>
 	<string name="info_tapad_others_recommend_share_subject">The most beautiful remix app, Tapad.</string>
-	<string name="info_tapad_others_recommend_share_text"   >Check out this awesome app! : https://goo.gl/pmws51</string>
-	<string name="info_tapad_others_recommend_share_hint"   >Share this awesome app to everyone!</string>
+	<string name="info_tapad_others_recommend_share_text">Check this out : https://goo.gl/pmws51</string>
+	<string name="info_tapad_others_recommend_share_hint">Share Tapad with others</string>
 	
 	<!-- Example-Faded -->
 

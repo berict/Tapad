@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bedrock.padder.R;
-import com.bedrock.padder.helper.WindowHelper;
 import com.bedrock.padder.model.about.About;
 
 public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailViewHolder> {
@@ -19,16 +18,14 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
     private Context context;
     private Activity activity;
 
-    WindowHelper window = new WindowHelper();
-
     public static class DetailViewHolder extends RecyclerView.ViewHolder {
         TextView detailTitle;
         RecyclerView itemRecycleView;
 
         public DetailViewHolder(View view) {
             super(view);
-            detailTitle = (TextView) view.findViewById(R.id.layout_detail_title);
-            itemRecycleView = (RecyclerView) view.findViewById(R.id.layout_item_recycler_view);
+            detailTitle = view.findViewById(R.id.layout_detail_title);
+            itemRecycleView = view.findViewById(R.id.layout_item_recycler_view);
         }
     }
 
@@ -47,7 +44,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
 
     @Override
     public void onBindViewHolder(final DetailViewHolder holder, int position) {
-        holder.detailTitle.setText(about.getDetail(position).getTitle());
+        holder.detailTitle.setText(about.getDetail(position).getTitle(context));
         holder.detailTitle.setTextColor(about.getColor());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);

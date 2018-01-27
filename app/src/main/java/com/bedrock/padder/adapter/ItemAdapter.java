@@ -75,36 +75,36 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
             holder.divider.setVisibility(View.GONE);
         }
 
-        if (item[position].getHint() == null) {
+        if (item[position].getHint(context) == null) {
             // hint null
             holder.itemHint.setVisibility(View.GONE);
         } else if (item[position].isHintVisible() == false) {
             // hint invisible
             holder.itemHint.setVisibility(View.GONE);
 
-            if (item[position].getHint().startsWith("http")) {
+            if (item[position].getHint(context).startsWith("http")) {
                 // link available check
                 anim.circularRevealTouch(holder.itemLayout, R.id.layout_placeholder,
                         new AccelerateDecelerateInterpolator(), new Runnable() {
                             @Override
                             public void run() {
                                 window.setRecentColor(item[holder.getAdapterPosition()].getText(context), R.color.colorAccent, activity);
-                                intent.intentLink(activity, item[holder.getAdapterPosition()].getHint(), 400);
+                                intent.intentLink(activity, item[holder.getAdapterPosition()].getHint(context), 400);
                             }
                         }, 400, 0, activity);
             }
         } else {
             // hint visible
-            holder.itemHint.setText(item[position].getHint());
+            holder.itemHint.setText(item[position].getHint(context));
 
-            if (item[position].getHint().startsWith("http")) {
+            if (item[position].getHint(context).startsWith("http")) {
                 // link available check
                 anim.circularRevealTouch(holder.itemLayout, R.id.layout_placeholder,
                         new AccelerateDecelerateInterpolator(), new Runnable() {
                             @Override
                             public void run() {
-                                window.setRecentColor(item[holder.getAdapterPosition()].getText(), R.color.colorAccent, activity);
-                                intent.intentLink(activity, item[holder.getAdapterPosition()].getHint(), 400);
+                                window.setRecentColor(item[holder.getAdapterPosition()].getText(context), R.color.colorAccent, activity);
+                                intent.intentLink(activity, item[holder.getAdapterPosition()].getHint(context), 400);
                             }
                         }, 400, 0, activity);
             }
@@ -355,18 +355,18 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                     }
                 };
                 break;
-            case "info_berict_action_translate":
+            case "info_berict_action_contribute":
                 exceptionalRunnable = new Runnable() {
                     @Override
                     public void run() {
                         new MaterialDialog.Builder(activity)
-                                .title(getStringFromId("info_berict_action_translate", a))
-                                .content(getStringFromId("info_berict_action_translate_dialog_content", a))
-                                .positiveText(getStringFromId("info_berict_action_translate_dialog_github", a))
+                                .title(getStringFromId("info_berict_action_contribute", a))
+                                .content(getStringFromId("info_berict_action_contribute_dialog_content", a))
+                                .positiveText(getStringFromId("info_berict_action_contribute_dialog_github", a))
                                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                                     @Override
                                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                        intent.intentLink(a, getStringFromId("info_berict_action_translate_dialog_github_url", a), 0);
+                                        intent.intentLink(a, getStringFromId("info_berict_action_contribute_dialog_github_url", a), 0);
                                     }
                                 })
                                 .negativeText(getStringFromId("dialog_cancel", a))

@@ -3,6 +3,7 @@ package com.bedrock.padder.model.about;
 import android.content.Context;
 
 import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
+import static com.bedrock.padder.helper.WindowHelper.getStringFromIdWithFallback;
 
 public class Detail {
 
@@ -20,12 +21,7 @@ public class Detail {
     }
 
     public String getTitle(Context context) {
-        String res = getStringFromId(title, context);
-        if (res != null) {
-            return res;
-        } else {
-            return title;
-        }
+        return getStringFromIdWithFallback(getTitle(), context);
     }
 
     public String getTitle(String prefix, Context context) {

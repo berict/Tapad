@@ -113,8 +113,8 @@ public class AboutActivity extends AppCompatActivity {
 
         // set taskDesc, title image / text
         if (currentAbout.equals("now_playing")) {
-            collapsingToolbarLayout.setTitle(about.getTitle());
-            window.setRecentColor(about.getTitle(), about.getColor(), activity);
+            collapsingToolbarLayout.setTitle(about.getTitle(activity));
+            window.setRecentColor(about.getTitle(activity), about.getColor(), activity);
             // storage
             Picasso.with(activity)
                     .load("file:" + about.getImage(currentPreset))
@@ -122,16 +122,16 @@ public class AboutActivity extends AppCompatActivity {
                     .error(R.drawable.ic_image_album_error)
                     .into(((ImageView) activity.findViewById(R.id.layout_image)));
         } else {
-            collapsingToolbarLayout.setTitle(about.getSongName());
-            window.setRecentColor(about.getSongName(), about.getColor(), activity);
+            collapsingToolbarLayout.setTitle(about.getSongName(activity));
+            window.setRecentColor(about.getSongName(activity), about.getColor(), activity);
             // res
             ((ImageView) activity.findViewById(R.id.layout_image)).setImageResource(
-                    window.getDrawableId(about.getSongArtist())
+                    window.getDrawableId(about.getSongArtist(activity))
             );
         }
 
         // bio
-        ((TextView) activity.findViewById(R.id.layout_bio_title)).setText(about.getBio().getTitle());
+        ((TextView) activity.findViewById(R.id.layout_bio_title)).setText(about.getBio().getTitle(activity));
         ((TextView) activity.findViewById(R.id.layout_bio_title)).setTextColor(about.getColor());
 
         ImageView imageView = ((ImageView) activity.findViewById(R.id.layout_bio_image));
@@ -155,11 +155,11 @@ public class AboutActivity extends AppCompatActivity {
                 break;
         }
 
-        ((TextView) activity.findViewById(R.id.layout_bio_name)).setText(about.getBio().getName());
-        ((TextView) activity.findViewById(R.id.layout_bio_text)).setText(about.getBio().getText());
-        ((TextView) activity.findViewById(R.id.layout_bio_source)).setText(about.getBio().getSource());
-        if (about.getPresetArtist() != null) {
-            ((TextView) activity.findViewById(R.id.layout_bio_preset_creator)).setText(getStringFromId("about_bio_preset_by", activity) + " " + about.getPresetArtist());
+        ((TextView) activity.findViewById(R.id.layout_bio_name)).setText(about.getBio().getName(activity));
+        ((TextView) activity.findViewById(R.id.layout_bio_text)).setText(about.getBio().getText(activity));
+        ((TextView) activity.findViewById(R.id.layout_bio_source)).setText(about.getBio().getSource(activity));
+        if (about.getPresetArtist(activity) != null) {
+            ((TextView) activity.findViewById(R.id.layout_bio_preset_creator)).setText(getStringFromId("about_bio_preset_by", activity) + " " + about.getPresetArtist(activity));
         } else {
             window.setGone(R.id.layout_bio_preset_creator, 0, activity);
             window.setGone(R.id.layout_bio_text_divider, 0, activity);
@@ -198,9 +198,9 @@ public class AboutActivity extends AppCompatActivity {
             window.setGone(R.id.layout_placeholder, 0, activity);
             // reset taskDesc
             if (currentAbout.equals("now_playing")) {
-                window.setRecentColor(about.getTitle(), about.getColor(), activity);
+                window.setRecentColor(about.getTitle(activity), about.getColor(), activity);
             } else {
-                window.setRecentColor(about.getSongName(), about.getColor(), activity);
+                window.setRecentColor(about.getSongName(activity), about.getColor(), activity);
             }
         }
     }

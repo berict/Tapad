@@ -2,7 +2,7 @@ package com.bedrock.padder.model.about;
 
 import android.content.Context;
 
-import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
+import static com.bedrock.padder.helper.WindowHelper.getStringFromIdWithFallback;
 
 public class Item {
 
@@ -39,38 +39,20 @@ public class Item {
         this.imageId = imageId;
     }
 
-    public String getText(Context context) {
-        if (context != null) {
-            String res = getStringFromId(text, context);
-            if (res != null) {
-                return res;
-            } else {
-                return text;
-            }
-        } else {
-            return text;
-        }
-    }
-
     public String getText() {
         return text;
     }
 
-    public String getHint(Context context) {
-        if (context != null) {
-            String res = getStringFromId(hint, context);
-            if (res != null) {
-                return res;
-            } else {
-                return hint;
-            }
-        } else {
-            return hint;
-        }
+    public String getText(Context context) {
+        return getStringFromIdWithFallback(getText(), context);
     }
 
     public String getHint() {
         return hint;
+    }
+
+    public String getHint(Context context) {
+        return getStringFromIdWithFallback(getHint(), context);
     }
 
     public String getImage() {

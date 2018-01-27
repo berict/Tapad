@@ -592,6 +592,18 @@ public class WindowHelper {
         //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
     }
 
+    public static String getStringFromIdWithFallback(String id, Context context) {
+        try {
+            Class res = R.string.class;
+            Field field = res.getField(id);
+            return context.getResources().getString(field.getInt(null));
+        } catch (Exception e) {
+            Log.e("getStringFromId", "Failure to get string from id [" + id + "]");
+            return id;
+        }
+        //from : https://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
+    }
+
     public static String getStringFromId(int resId, Context context) {
         return context.getResources().getString(resId);
     }
