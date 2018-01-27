@@ -63,6 +63,11 @@
                   \"text\": \"info_tapad_others_song\"
                 },
                 {
+                  \"imageId\": \"create\",
+                  \"isHintVisible\": false,
+                  \"text\": \"info_tapad_others_create\"
+                },
+                {
                   \"hint\": \"info_tapad_others_feedback_hint\",
                   \"imageId\": \"feedback\",
                   \"isHintVisible\": true,

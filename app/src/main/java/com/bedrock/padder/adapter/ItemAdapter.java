@@ -12,6 +12,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -240,6 +241,45 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
                     @Override
                     public void run() {
                         intent.intentWithExtra(activity, "activity.FeedbackActivity", "feedbackMode", "song", 400);
+                    }
+                };
+                break;
+            case "info_tapad_others_create":
+                exceptionalRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        new MaterialDialog.Builder(activity)
+                                .title(getStringFromId("info_tapad_others_create_dialog_title", a))
+                                .content(getStringFromId("info_tapad_others_create_dialog_content", a))
+                                .positiveText(getStringFromId("info_tapad_others_create_dialog_open", a))
+                                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                        intent.intentLink(a, getStringFromId("info_tapad_others_create_link", a), 0);
+                                    }
+                                })
+                                .neutralText(getStringFromId("dialog_cancel", a))
+                                .negativeText(getStringFromId("info_tapad_others_create_dialog_clipboard", a))
+                                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                        try {
+                                            // copy to clipboard
+                                            android.content.ClipboardManager clipboard = (android.content.ClipboardManager) activity.getSystemService(android.content.Context.CLIPBOARD_SERVICE);
+                                            android.content.ClipData clip = android.content.ClipData.newPlainText(
+                                                    "preset-store",
+                                                    getStringFromId("info_tapad_others_create_link", a)
+                                            );
+                                            assert clipboard != null;
+                                            clipboard.setPrimaryClip(clip);
+                                            Toast.makeText(activity, R.string.info_tapad_others_create_dialog_clipboard_success, Toast.LENGTH_SHORT).show();
+                                        } catch (Exception e) {
+                                            Toast.makeText(activity, R.string.info_tapad_others_create_dialog_clipboard_failure, Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                })
+                                .stackingBehavior(StackingBehavior.ALWAYS)
+                                .show();
                     }
                 };
                 break;

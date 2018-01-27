@@ -332,6 +332,14 @@
 
 	<string name="info_tapad_others_title"                  >Others</string>
 	<string name="info_tapad_others_song"                   >Request a song</string>
+	<string name="info_tapad_others_create">Create a preset</string>
+	<string name="info_tapad_others_create_link">http://tapad.berict.com/preset-store/create/</string>
+	<string name="info_tapad_others_create_dialog_title">Open Preset creator on mobile?</string>
+	<string name="info_tapad_others_create_dialog_content">Preset creator is optimized to desktop browsers.</string>
+	<string name="info_tapad_others_create_dialog_open">Open in mobile browser</string>
+	<string name="info_tapad_others_create_dialog_clipboard">Copy link to clipboard</string>
+	<string name="info_tapad_others_create_dialog_clipboard_success">Link copied to clipboard</string>
+	<string name="info_tapad_others_create_dialog_clipboard_failure">Failed to copy link</string>
 	<string name="info_tapad_others_feedback"               >Leave a feedback</string>
 	<string name="info_tapad_others_feedback_hint"          >Request new features or ask questions</string>
 	<string name="info_tapad_others_report_bug"             >Report bugs</string>
