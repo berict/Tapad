@@ -122,14 +122,6 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
         }
 
         @Override
-        protected void onCancelled() {
-            // need to show no presets installed
-            // TODO need to add additional dialog supports
-            Log.e(TAG, "Cannot find installed presets");
-            installed = new PresetStore();
-        }
-
-        @Override
         protected void onPostExecute(Void aVoid) {
             // create metadata
             if (presetArrayList.size() > 0) {
@@ -137,9 +129,18 @@ public class PresetStoreInstalledFragment extends Fragment implements Refreshabl
                         presetArrayList.toArray(new PresetSchema[presetArrayList.size()]),
                         new Preferences(a)
                 );
+                setAdapter();
             } else {
                 onCancelled();
             }
+        }
+
+        @Override
+        protected void onCancelled() {
+            // need to show no presets installed
+            // TODO need to add additional dialog supports
+            Log.e(TAG, "Cannot find installed presets");
+            installed = new PresetStore();
             setAdapter();
         }
     }
