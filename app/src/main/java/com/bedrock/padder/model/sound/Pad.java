@@ -30,8 +30,8 @@ public class Pad {
 
     protected Activity activity = null;
 
-    protected int column;
-    protected int row;
+    protected int column = -1;
+    protected int row = -1;
 
     public Pad(Sound normal, View view, int color, int colorDef, Activity activity) {
         this.normal = normal;
@@ -100,55 +100,53 @@ public class Pad {
                 for (int i = 1; i <= 4; i++) {
                     if (i != column) {
                         int dy = Math.abs(column - i);
-                        setPadColor(row, i, getBlendColor(color, colorDef, 0.3f - (0.1f * (dy - 1)), activity));
+                        setPadColor(row, i, getBlendColor(color, colorDef, 0.3f * (1 / (float) dy), activity));
                     }
                 }
                 break;
             case 3:
                 // horizontal fade
+                for (int i = 1; i <= 4; i++) {
+                    if (i != row) {
+                        int dx = Math.abs(row - i);
+                        setPadColor(i, column, getBlendColor(color, colorDef, 0.3f * (1 / (float) dx), activity));
+                    }
+                }
                 break;
             case 4:
                 // vertical-horizontal fade
+                for (int i = 1; i <= 4; i++) {
+                    if (i != column) {
+                        int dy = Math.abs(column - i);
+                        setPadColor(row, i, getBlendColor(color, colorDef, 0.3f * (1 / (float) dy), activity));
+                    }
+                }
+                for (int i = 1; i <= 4; i++) {
+                    if (i != row) {
+                        int dx = Math.abs(row - i);
+                        setPadColor(i, column, getBlendColor(color, colorDef, 0.3f * (1 / (float) dx), activity));
+                    }
+                }
                 break;
         }
     }
 
     void setPadColor(int row, int column, final int colorNew) {
-        final View pad = getViewFromId("btn" + column + row, activity);
-        if (getBackgroundColor(pad) != getColor(colorNew, activity) && getBackgroundColor(pad) != getColor(color, activity)) {
-            // was not pressed
-            pad.setBackgroundColor(colorNew);
-        }
-    }
-
-    void setPadColor(int row, int column, final int color, int duration) {
-        final View pad = getViewFromId("btn" + column + row, activity);
-        if (getBackgroundColor(pad) != getColor(color, activity) && getBackgroundColor(pad) != getColor(color, activity)) {
-            // was not pressed
-            pad.setBackgroundColor(color);
-
-            if (duration > 0) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        pad.setBackgroundColor(getColor(colorDef, activity));
-                    }
-                }, duration);
+        if (row * column != 0) {
+            final View pad = getViewFromId("btn" + column + row, activity);
+            if (getBackgroundColor(pad) != getColor(colorNew, activity) && getBackgroundColor(pad) != getColor(color, activity)) {
+                // was not pressed
+                pad.setBackgroundColor(colorNew);
             }
         }
     }
 
-    void setPadColor(int row, int column, final int color, int duration, int delay) {
-        final View pad = getViewFromId("btn" + column + row, activity);
-        if (getBackgroundColor(pad) != getColor(color, activity) && getBackgroundColor(pad) != getColor(color, activity)) {
-            // was not pressed
-            if (delay > 0) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        pad.setBackgroundColor(color);
-                    }
-                }, delay);
+    void setPadColor(int row, int column, final int color, int duration) {
+        if (row * column != 0) {
+            final View pad = getViewFromId("btn" + column + row, activity);
+            if (getBackgroundColor(pad) != getColor(color, activity) && getBackgroundColor(pad) != getColor(color, activity)) {
+                // was not pressed
+                pad.setBackgroundColor(color);
 
                 if (duration > 0) {
                     new Handler().postDelayed(new Runnable() {
@@ -156,7 +154,33 @@ public class Pad {
                         public void run() {
                             pad.setBackgroundColor(getColor(colorDef, activity));
                         }
-                    }, delay + duration);
+                    }, duration);
+                }
+            }
+        }
+    }
+
+    void setPadColor(int row, int column, final int color, int duration, int delay) {
+        if (row * column != 0) {
+            final View pad = getViewFromId("btn" + column + row, activity);
+            if (getBackgroundColor(pad) != getColor(color, activity) && getBackgroundColor(pad) != getColor(color, activity)) {
+                // was not pressed
+                if (delay > 0) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            pad.setBackgroundColor(color);
+                        }
+                    }, delay);
+
+                    if (duration > 0) {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                pad.setBackgroundColor(getColor(colorDef, activity));
+                            }
+                        }, delay + duration);
+                    }
                 }
             }
         }
@@ -207,24 +231,44 @@ public class Pad {
                 for (int i = 1; i <= 4; i++) {
                     if (i != column) {
                         int dy = Math.abs(column - i);
-                        setPadColorToDefault(row, i, getBlendColor(color, colorDef, 0.3f - (0.1f * (dy - 1)), activity));
+                        setPadColorToDefault(row, i, getBlendColor(color, colorDef, 0.3f * (1 / (float) dy), activity));
                     }
                 }
                 break;
             case 3:
                 // horizontal fade
+                for (int i = 1; i <= 4; i++) {
+                    if (i != row) {
+                        int dx = Math.abs(row - i);
+                        setPadColorToDefault(i, column, getBlendColor(color, colorDef, 0.3f * (1 / (float) dx), activity));
+                    }
+                }
                 break;
             case 4:
                 // vertical-horizontal fade
+                for (int i = 1; i <= 4; i++) {
+                    if (i != column) {
+                        int dy = Math.abs(column - i);
+                        setPadColorToDefault(row, i, getBlendColor(color, colorDef, 0.3f * (1 / (float) dy), activity));
+                    }
+                }
+                for (int i = 1; i <= 4; i++) {
+                    if (i != row) {
+                        int dx = Math.abs(row - i);
+                        setPadColorToDefault(i, column, getBlendColor(color, colorDef, 0.3f * (1 / (float) dx), activity));
+                    }
+                }
                 break;
         }
     }
 
     void setPadColorToDefault(int row, int column, int color) {
-        final View pad = getViewFromId("btn" + column + row, activity);
-        if (getBackgroundColor(pad) == getColor(color, activity)) {
-            // was pressed
-            pad.setBackgroundColor(getColor(colorDef, activity));
+        if (row * column != 0) {
+            final View pad = getViewFromId("btn" + column + row, activity);
+            if (getBackgroundColor(pad) == getColor(color, activity)) {
+                // was pressed
+                pad.setBackgroundColor(getColor(colorDef, activity));
+            }
         }
     }
 

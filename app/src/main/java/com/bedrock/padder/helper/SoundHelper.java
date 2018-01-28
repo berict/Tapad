@@ -170,12 +170,12 @@ public class SoundHelper {
         if (index == -1) {
             // disable all
             setPadPattern(0);
-            for (int i = 0; i < 4; i++) {
+            for (int i = 1; i <= 4; i++) {
                 getViewFromId("tgl" + String.valueOf(i + 4), activity).setBackgroundColor(activity.getResources().getColor(R.color.grey));
             }
         } else {
             setPadPattern(index);
-            for (int i = 0; i < 4; i++) {
+            for (int i = 1; i <= 4; i++) {
                 if (i == index) {
                     // selected
                     getViewFromId("tgl" + String.valueOf(i + 4), activity).setBackgroundColor(activity.getResources().getColor(R.color.colorAccent));
