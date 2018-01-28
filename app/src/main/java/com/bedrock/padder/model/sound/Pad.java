@@ -97,6 +97,12 @@ public class Pad {
                 break;
             case 2:
                 // vertical fade
+                for (int i = 1; i <= 4; i++) {
+                    if (i != column) {
+                        int dy = Math.abs(column - i);
+                        setPadColor(row, i, getBlendColor(color, colorDef, 0.3f - (0.1f * (dy - 1)), activity));
+                    }
+                }
                 break;
             case 3:
                 // horizontal fade
@@ -198,6 +204,12 @@ public class Pad {
                 break;
             case 2:
                 // vertical fade
+                for (int i = 1; i <= 4; i++) {
+                    if (i != column) {
+                        int dy = Math.abs(column - i);
+                        setPadColorToDefault(row, i, getBlendColor(color, colorDef, 0.3f - (0.1f * (dy - 1)), activity));
+                    }
+                }
                 break;
             case 3:
                 // horizontal fade
