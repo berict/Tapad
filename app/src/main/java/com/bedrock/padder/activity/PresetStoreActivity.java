@@ -42,7 +42,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.bedrock.padder.activity.MainActivity.isDeckShouldCleared;
 import static com.bedrock.padder.activity.MainActivity.isPresetVisible;
 import static com.bedrock.padder.helper.FileHelper.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
@@ -107,8 +106,6 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
 
         window.setMarginRelativePX(R.id.layout_relative, 0, window.getStatusBarFromPrefs(activity), 0, 0, activity);
         activity.findViewById(R.id.layout_margin).getLayoutParams().height = window.getNavigationBarFromPrefs(activity) + window.convertDPtoPX(10, activity);
-
-        isDeckShouldCleared = true;
 
         hasPermission = ContextCompat.checkSelfPermission(
                 activity,

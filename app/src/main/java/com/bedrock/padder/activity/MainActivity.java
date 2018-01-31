@@ -38,8 +38,6 @@ import com.bedrock.padder.model.preset.store.PresetStore;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.File;
-
 import static com.bedrock.padder.helper.FileHelper.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
@@ -342,8 +340,46 @@ public class MainActivity
             w.setInvisible(view, 10, a);
         }
 
-        // get changed color values
-        setColor();
+        if (isDeckShouldCleared) {
+            // get changed color values
+            setColor();
+            sound.loadColor(color);
+            setButtonLayout();
+
+            final View buttonViews[] = {
+                    a.findViewById(R.id.btn00),
+                    a.findViewById(R.id.tgl1),
+                    a.findViewById(R.id.tgl2),
+                    a.findViewById(R.id.tgl3),
+                    a.findViewById(R.id.tgl4),
+                    a.findViewById(R.id.tgl5),
+                    a.findViewById(R.id.tgl6),
+                    a.findViewById(R.id.tgl7),
+                    a.findViewById(R.id.tgl8),
+                    a.findViewById(R.id.btn11),
+                    a.findViewById(R.id.btn12),
+                    a.findViewById(R.id.btn13),
+                    a.findViewById(R.id.btn14),
+                    a.findViewById(R.id.btn21),
+                    a.findViewById(R.id.btn22),
+                    a.findViewById(R.id.btn23),
+                    a.findViewById(R.id.btn24),
+                    a.findViewById(R.id.btn31),
+                    a.findViewById(R.id.btn32),
+                    a.findViewById(R.id.btn33),
+                    a.findViewById(R.id.btn34),
+                    a.findViewById(R.id.btn41),
+                    a.findViewById(R.id.btn42),
+                    a.findViewById(R.id.btn43),
+                    a.findViewById(R.id.btn44)
+            };
+
+            for (View view : buttonViews) {
+                view.setVisibility(View.INVISIBLE);
+            }
+
+            sound.revealButtonWithAnimation();
+        }
 
         if (isPresetVisible) {
             if (isToolbarVisible) {
@@ -855,12 +891,6 @@ public class MainActivity
         } else {
             return null;
         }
-    }
-
-    private boolean isPresetExists(String presetName) {
-        // preset exist
-        File folder = new File(PROJECT_LOCATION_PRESETS + "/" + presetName); // folder check
-        return folder.isDirectory() && folder.exists();
     }
 
     private void setColor() {
