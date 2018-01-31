@@ -374,7 +374,7 @@ public class Item {
                     public void onClick(View v) {
                         // select and load preset
                         preset.loadPreset(activity);
-                        presetStore.select(index);
+                        presetStore.select(preset.getTag());
                         adapter.updatePresetStore(presetStore);
                     }
                 });

@@ -75,7 +75,8 @@ public class PresetStore {
         }
     }
 
-    public void select(int position) {
+    public void select(String tag) {
+        int position = search(tag);
         if (position >= 0 && position < items.size()) {
             Item selected = getSelected();
             setSelected(items.get(position));
@@ -84,7 +85,7 @@ public class PresetStore {
                 items.add(position, selected);
             }
         } else {
-            Log.e("PresetStore", "Position [" + position + "] is out of bound");
+            Log.e("PresetStore", "Position [" + position + "] is out of bound of " + items.size());
         }
     }
 
