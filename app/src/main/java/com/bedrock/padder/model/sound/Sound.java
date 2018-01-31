@@ -2,6 +2,8 @@ package com.bedrock.padder.model.sound;
 
 import android.media.MediaMetadataRetriever;
 import android.media.SoundPool;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 public class Sound {
@@ -18,17 +20,27 @@ public class Sound {
 
     private int duration = -1;
 
+    private long startTime = -1;
+
     private SoundPool soundPool;
+
+    private SoundListener listener;
+
+    private Sound sound = this;
+
+    private Handler handler;
 
     public Sound(SoundPool soundPool, String path, MediaMetadataRetriever mmr) {
         this.soundPool = soundPool;
         this.duration = getDurationFromFile(path, mmr);
         this.load(path);
+        handler = new Handler(Looper.getMainLooper());
     }
 
     public Sound() {
         // empty initializer for null pads
         this.soundPool = null;
+        handler = new Handler(Looper.getMainLooper());
     }
 
     private int getDurationFromFile(String path, MediaMetadataRetriever mmr) {
@@ -54,6 +66,29 @@ public class Sound {
             } else {
                 soundPool.play(soundPoolId, 1, 1, 1, 0, 1);
             }
+
+            startTime = System.currentTimeMillis();
+
+            if (listener != null) {
+                listener.onSoundStart(sound);
+
+                if (isLooping) {
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            listener.onSoundLoop(sound);
+                            handler.postDelayed(this, getDuration());
+                        }
+                    }, getDuration());
+                } else {
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            listener.onSoundEnd(sound);
+                        }
+                    }, getDuration());
+                }
+            }
         } catch (NullPointerException e) {
             Log.e(TAG, "Sound was not initialized");
             e.getMessage();
@@ -67,6 +102,12 @@ public class Sound {
                 soundPool.stop(streamId);
             } else {
                 throw new NullStreamException();
+            }
+
+            // remove loop callbacks
+            handler.removeCallbacksAndMessages(null);
+            if (listener != null) {
+                listener.onSoundStop(this, (int) getCurrentPosition(), getCurrentCompletion());
             }
         } catch (NullStreamException e) {
             e.getMessage();
@@ -117,10 +158,20 @@ public class Sound {
         return duration;
     }
 
+    long getCurrentPosition() {
+        return System.currentTimeMillis() - startTime;
+    }
+
+    float getCurrentCompletion() {
+        return (int) getCurrentPosition() / (float) duration;
+    }
+
     void setRate(float rate) {
         try {
             if (streamId != 0) {
                 soundPool.setRate(streamId, rate);
+                // change the duration to the corresponding rate
+                duration = (int) (duration / rate);
             } else {
                 throw new NullStreamException();
             }
@@ -129,9 +180,24 @@ public class Sound {
         }
     }
 
+    public void setSoundListener(SoundListener listener) {
+        this.listener = listener;
+    }
+
     private class NullStreamException extends Exception {
         NullStreamException() {
             super("streamID is not initialized");
         }
+    }
+
+    public interface SoundListener {
+
+        void onSoundStart(Sound sound);
+
+        void onSoundEnd(Sound sound);
+
+        void onSoundStop(Sound sound, int position, float completion);
+
+        void onSoundLoop(Sound sound);
     }
 }

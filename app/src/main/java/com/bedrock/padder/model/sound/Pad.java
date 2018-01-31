@@ -33,17 +33,46 @@ public class Pad {
     protected int column = -1;
     protected int row = -1;
 
-    public Pad(Sound normal, View view, int color, int colorDef, Activity activity) {
+    // TODO change to preferences
+    boolean padColorOnPlay = true;
+
+    public Pad(Sound normal, View view, int color, int def, Activity activity) {
         this.normal = normal;
         this.view = view;
         this.color = color;
-        this.colorDef = colorDef;
+        this.colorDef = def;
         this.activity = activity;
         handler = new Handler(Looper.getMainLooper());
 
         // pad patterns
         column = Integer.parseInt(String.valueOf(view.getTag().toString().charAt(0)));
         row = Integer.parseInt(String.valueOf(view.getTag().toString().charAt(1)));
+
+        normal.setSoundListener(new Sound.SoundListener() {
+            @Override
+            public void onSoundStart(Sound sound) {
+                if (!padColorOnPlay) {
+                    setPadColor(colorDef);
+                }
+            }
+
+            @Override
+            public void onSoundEnd(Sound sound) {
+                if (padColorOnPlay) {
+                    setPadColor(colorDef);
+                }
+            }
+
+            @Override
+            public void onSoundStop(Sound sound, int position, float completion) {
+                Log.i("listener", "Sound stopped at " + position + ", completion of " + completion);
+            }
+
+            @Override
+            public void onSoundLoop(Sound sound) {
+                Log.i("listener", "Sound looped");
+            }
+        });
     }
 
     public Sound getNormal() {
@@ -73,7 +102,6 @@ public class Pad {
 
     void setPadColor() {
         setPadColor(color);
-        // TODO add equivalent to GesturePad
 
         switch (PAD_PATTERN) {
             case 1:
@@ -201,10 +229,8 @@ public class Pad {
     void setPadColorToDefault() {
         if (normal != null && !normal.isLooping && view != null) {
             // while not looping
-            setPadColor(colorDef);
+            //setPadColor(colorDef);
         }
-
-        // TODO add equivalent to GesturePad
 
         switch (PAD_PATTERN) {
             case 1:
@@ -319,6 +345,26 @@ public class Pad {
                 }
 
                 @Override
+                public void onSwipeRight() {
+                    onClick();
+                }
+
+                @Override
+                public void onSwipeLeft() {
+                    onClick();
+                }
+
+                @Override
+                public void onSwipeUp() {
+                    onClick();
+                }
+
+                @Override
+                public void onSwipeDown() {
+                    onClick();
+                }
+
+                @Override
                 public void onDoubleClick() {
                     playNormal();
                     setPadColorToDefault();
@@ -328,6 +374,8 @@ public class Pad {
                 public void onLongClick() {
                     loopNormal();
                 }
+
+
             });
             Log.d("Pad", "setOnTouchListener [Normal] on view " + view.toString());
         }
@@ -335,7 +383,7 @@ public class Pad {
 
     void loopNormal() {
         if (getNormal() != null) {
-            if (getNormal().isLooping) {
+            if (normal != null && !normal.isLooping && view != null) {
                 setPadColorToDefault(true);
             }
             getNormal().loop();
