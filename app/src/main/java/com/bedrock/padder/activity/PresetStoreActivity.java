@@ -80,8 +80,6 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preset_store);
 
-        isPresetVisible = true;
-
         themeColor = getResources().getColor(R.color.colorPresetStore);
         themeTitle = getResources().getString(R.string.preset_store);
 
@@ -120,6 +118,7 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
         setUi();
         setDirectory();
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -398,7 +397,8 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
 
     @Override
     public void onBackPressed() {
-        anim.fadeOut(R.id.layout_preset_store, 0, 200, activity);
+        isPresetVisible = true;
+        anim.fadeOut(R.id.layout_nested_scrollview, 0, 200, activity);
         anim.fadeOut(R.id.layout_text, 100, 200, activity);
         Handler delay = new Handler();
         delay.postDelayed(new Runnable() {

@@ -54,10 +54,14 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        setSettingVisible(true);
-
         preferences = new Preferences(a);
         setUi();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        setSettingVisible(true);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

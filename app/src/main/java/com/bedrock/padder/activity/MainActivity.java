@@ -785,7 +785,7 @@ public class MainActivity
             anim.circularRevealInPx(R.id.placeholder,
                     coordinate[2], coordinate[3],
                     (int) Math.hypot(coordinate[2], coordinate[3]) + 200, 0, new AccelerateDecelerateInterpolator(),
-                    circularRevealDuration, 0, a);
+                    circularRevealDuration, 200, a);
         }
     }
 

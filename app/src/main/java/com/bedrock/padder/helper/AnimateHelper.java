@@ -1018,6 +1018,8 @@ public class AnimateHelper {
         PowerManager powerManager = (PowerManager) activity.getSystemService(POWER_SERVICE);
         final View object = activity.findViewById(view);
 
+        Log.i(TAG, getViewId(object) + " circular reveal effect for " + duration + "ms with " + delay + "ms delay on (" + centerX + ", " + centerY + "), " + startRad + " > " + endRad);
+
         if (Build.VERSION.SDK_INT >= 21 && powerManager.isPowerSaveMode() == false) {
             Animator animator = ViewAnimationUtils.createCircularReveal(object, centerX, centerY, startRad, endRad);
             animator.setDuration(duration);
@@ -1031,7 +1033,6 @@ public class AnimateHelper {
                 animator.addListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
-
                     }
 
                     @Override
