@@ -309,37 +309,6 @@ public class MainActivity
             sound.stopAll();
         }
 
-        int tutorial[] = {
-                R.id.btn00_tutorial,
-                R.id.tgl1_tutorial,
-                R.id.tgl2_tutorial,
-                R.id.tgl3_tutorial,
-                R.id.tgl4_tutorial,
-                R.id.tgl5_tutorial,
-                R.id.tgl6_tutorial,
-                R.id.tgl7_tutorial,
-                R.id.tgl8_tutorial,
-                R.id.btn11_tutorial,
-                R.id.btn12_tutorial,
-                R.id.btn13_tutorial,
-                R.id.btn14_tutorial,
-                R.id.btn21_tutorial,
-                R.id.btn22_tutorial,
-                R.id.btn23_tutorial,
-                R.id.btn24_tutorial,
-                R.id.btn31_tutorial,
-                R.id.btn32_tutorial,
-                R.id.btn33_tutorial,
-                R.id.btn34_tutorial,
-                R.id.btn41_tutorial,
-                R.id.btn42_tutorial,
-                R.id.btn43_tutorial,
-                R.id.btn44_tutorial};
-
-        for (int view : tutorial) {
-            w.setInvisible(view, 10, a);
-        }
-
         if (isDeckShouldCleared) {
             // get changed color values
             setColor();
