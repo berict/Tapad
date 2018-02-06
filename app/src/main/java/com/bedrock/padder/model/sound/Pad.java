@@ -50,15 +50,13 @@ public class Pad {
         normal.setSoundListener(new Sound.SoundListener() {
             @Override
             public void onSoundStart(Sound sound, int playingThreadCount) {
-                Log.i("onSoundStart", String.valueOf(playingThreadCount));
-                if (playingThreadCount == 0 && !padColorOnPlay) {
+                if (playingThreadCount == 1 && !padColorOnPlay) {
                     setPadColor(colorDef);
                 }
             }
 
             @Override
             public void onSoundEnd(Sound sound, int playingThreadCount) {
-                Log.i("onSoundEnd", String.valueOf(playingThreadCount));
                 if (playingThreadCount == 0 && padColorOnPlay) {
                     setPadColor(colorDef);
                 }
@@ -76,8 +74,53 @@ public class Pad {
         });
     }
 
+    public Pad(Sound normal, View view, int color, int def, Activity activity, boolean withListener) {
+        this.normal = normal;
+        this.view = view;
+        this.color = color;
+        this.colorDef = def;
+        this.activity = activity;
+        handler = new Handler(Looper.getMainLooper());
+
+        // pad patterns
+        column = Integer.parseInt(String.valueOf(view.getTag().toString().charAt(0)));
+        row = Integer.parseInt(String.valueOf(view.getTag().toString().charAt(1)));
+
+        if (withListener) {
+            normal.setSoundListener(new Sound.SoundListener() {
+                @Override
+                public void onSoundStart(Sound sound, int playingThreadCount) {
+                    if (playingThreadCount == 1 && !padColorOnPlay) {
+                        setPadColor(colorDef);
+                    }
+                }
+
+                @Override
+                public void onSoundEnd(Sound sound, int playingThreadCount) {
+                    if (playingThreadCount == 0 && padColorOnPlay) {
+                        setPadColor(colorDef);
+                    }
+                }
+
+                @Override
+                public void onSoundStop(Sound sound, int position, float completion) {
+                    Log.i("listener", "Sound stopped at " + position + ", completion of " + completion);
+                }
+
+                @Override
+                public void onSoundLoop(Sound sound) {
+                    Log.i("listener", "Sound looped");
+                }
+            });
+        }
+    }
+
     public Sound getNormal() {
-        return normal;
+        if (normal.getDuration() > 0) {
+            return normal;
+        } else {
+            return null;
+        }
     }
 
     public void setNormal(Sound normal) {

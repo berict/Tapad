@@ -18,27 +18,165 @@ public class GesturePad extends Pad {
 
     private Sound left = null;
 
+    private int threadCount = 0;
+
     public GesturePad(Sound normal,
                       Sound up, Sound right, Sound down, Sound left,
                       View view, int color, int colorDef, Activity activity) {
-        super(normal, view, color, colorDef, activity);
+        super(normal, view, color, colorDef, activity, false);
         this.up = up;
         this.right = right;
         this.down = down;
         this.left = left;
+
+        initListener();
     }
 
     public GesturePad(Sound sounds[],
                       View view, int color, int colorDef, Activity activity) {
-        super(sounds[0], view, color, colorDef, activity);
+        super(sounds[0], view, color, colorDef, activity, false);
         this.up = sounds[1];
         this.right = sounds[2];
         this.down = sounds[3];
         this.left = sounds[4];
+
+        initListener();
+    }
+
+    private void initListener() {
+        normal.setSoundListener(new Sound.SoundListener() {
+            @Override
+            public void onSoundStart(Sound sound, int playingThreadCount) {
+                threadCount++;
+                if (threadCount == 1 && !padColorOnPlay) {
+                    setPadColor(colorDef);
+                }
+            }
+
+            @Override
+            public void onSoundEnd(Sound sound, int playingThreadCount) {
+                threadCount--;
+                if (threadCount == 0 && padColorOnPlay) {
+                    setPadColor(colorDef);
+                }
+            }
+
+            @Override
+            public void onSoundStop(Sound sound, int position, float completion) {
+            }
+
+            @Override
+            public void onSoundLoop(Sound sound) {
+            }
+        });
+
+        up.setSoundListener(new Sound.SoundListener() {
+            @Override
+            public void onSoundStart(Sound sound, int playingThreadCount) {
+                threadCount++;
+                if (threadCount == 1 && !padColorOnPlay) {
+                    setPadColor(colorDef);
+                }
+            }
+
+            @Override
+            public void onSoundEnd(Sound sound, int playingThreadCount) {
+                threadCount--;
+                if (threadCount == 0 && padColorOnPlay) {
+                    setPadColor(colorDef);
+                }
+            }
+
+            @Override
+            public void onSoundStop(Sound sound, int position, float completion) {
+            }
+
+            @Override
+            public void onSoundLoop(Sound sound) {
+            }
+        });
+
+        right.setSoundListener(new Sound.SoundListener() {
+            @Override
+            public void onSoundStart(Sound sound, int playingThreadCount) {
+                threadCount++;
+                if (threadCount == 1 && !padColorOnPlay) {
+                    setPadColor(colorDef);
+                }
+            }
+
+            @Override
+            public void onSoundEnd(Sound sound, int playingThreadCount) {
+                threadCount--;
+                if (threadCount == 0 && padColorOnPlay) {
+                    setPadColor(colorDef);
+                }
+            }
+
+            @Override
+            public void onSoundStop(Sound sound, int position, float completion) {
+            }
+
+            @Override
+            public void onSoundLoop(Sound sound) {
+            }
+        });
+
+        down.setSoundListener(new Sound.SoundListener() {
+            @Override
+            public void onSoundStart(Sound sound, int playingThreadCount) {
+                threadCount++;
+                if (threadCount == 1 && !padColorOnPlay) {
+                    setPadColor(colorDef);
+                }
+            }
+
+            @Override
+            public void onSoundEnd(Sound sound, int playingThreadCount) {
+                threadCount--;
+                if (threadCount == 0 && padColorOnPlay) {
+                    setPadColor(colorDef);
+                }
+            }
+
+            @Override
+            public void onSoundStop(Sound sound, int position, float completion) {
+            }
+
+            @Override
+            public void onSoundLoop(Sound sound) {
+            }
+        });
+
+        left.setSoundListener(new Sound.SoundListener() {
+            @Override
+            public void onSoundStart(Sound sound, int playingThreadCount) {
+                threadCount++;
+                if (threadCount == 1 && !padColorOnPlay) {
+                    setPadColor(colorDef);
+                }
+            }
+
+            @Override
+            public void onSoundEnd(Sound sound, int playingThreadCount) {
+                threadCount--;
+                if (threadCount == 0 && padColorOnPlay) {
+                    setPadColor(colorDef);
+                }
+            }
+
+            @Override
+            public void onSoundStop(Sound sound, int position, float completion) {
+            }
+
+            @Override
+            public void onSoundLoop(Sound sound) {
+            }
+        });
     }
 
     public Sound getUp() {
-        if (up != null) {
+        if (up.getDuration() > 0) {
             return up;
         } else {
             return normal;
@@ -46,7 +184,7 @@ public class GesturePad extends Pad {
     }
 
     public Sound getRight() {
-        if (right != null) {
+        if (right.getDuration() > 0) {
             return right;
         } else {
             return normal;
@@ -54,7 +192,7 @@ public class GesturePad extends Pad {
     }
 
     public Sound getDown() {
-        if (down != null) {
+        if (down.getDuration() > 0) {
             return down;
         } else {
             return normal;
@@ -62,7 +200,7 @@ public class GesturePad extends Pad {
     }
 
     public Sound getLeft() {
-        if (left != null) {
+        if (left.getDuration() > 0) {
             return left;
         } else {
             return normal;
@@ -98,8 +236,7 @@ public class GesturePad extends Pad {
 
                 @Override
                 public void onDoubleClick() {
-                    playNormal();
-                    setPadColorToDefault();
+                    onClick();
                 }
 
                 @Override
@@ -110,91 +247,45 @@ public class GesturePad extends Pad {
                 @Override
                 public void onSwipeUp() {
                     playUp();
-                    setPadColorToDefault();
                 }
 
                 @Override
                 public void onSwipeLeft() {
                     playLeft();
-                    setPadColorToDefault();
                 }
 
                 @Override
                 public void onSwipeDown() {
                     playDown();
-                    setPadColorToDefault();
                 }
 
                 @Override
                 public void onSwipeRight() {
                     playRight();
-                    setPadColorToDefault();
                 }
             });
             Log.d("Pad", "setOnTouchListener [Gesture] on view " + view.toString());
         }
     }
 
-    void loopNormal() {
-        if (getNormal() != null) {
-            if (getNormal().isLooping) {
-                setPadColorToDefault(true);
-            }
-            getNormal().loop();
-        } else {
-            Log.d("Pad [Gesture]", "Sound is null, can't loop.");
-        }
+    private void playUp() {
+        getUp().play();
     }
 
-    void playNormal() {
-        if (getNormal() != null) {
-            getNormal().play();
-        } else {
-            Log.d("Pad [Gesture]", "Sound is null, can't play.");
-        }
+    private void playRight() {
+        getRight().play();
     }
 
-    void playUp() {
-        if (getUp() != null) {
-            getUp().play();
-        } else {
-            Log.d("Pad [Gesture]", "Sound is null, can't play.");
-        }
+    private void playDown() {
+        getDown().play();
     }
 
-    void playRight() {
-        if (getRight() != null) {
-            getRight().play();
-        } else {
-            Log.d("Pad [Gesture]", "Sound is null, can't play.");
-        }
-    }
-
-    void playDown() {
-        if (getDown() != null) {
-            getDown().play();
-        } else {
-            Log.d("Pad [Gesture]", "Sound is null, can't play.");
-        }
-    }
-
-    void playLeft() {
-        if (getLeft() != null) {
-            getLeft().play();
-        } else {
-            Log.d("Pad [Gesture]", "Sound is null, can't play.");
-        }
-    }
-
-    @Override
-    void resetPad() {
-        super.resetPad();
+    private void playLeft() {
+        getLeft().play();
     }
 
     @Override
     void unload() {
-        super.unload();
-
         Sound sounds[] = {
                 up, right, down, left
         };
@@ -203,12 +294,12 @@ public class GesturePad extends Pad {
                 sound.unload();
             }
         }
+
+        super.unload();
     }
 
     @Override
     public void stop() {
-        super.stop();
-
         Sound sounds[] = {
                 up, right, down, left
         };
@@ -217,5 +308,7 @@ public class GesturePad extends Pad {
                 sound.stop();
             }
         }
+
+        super.stop();
     }
 }
