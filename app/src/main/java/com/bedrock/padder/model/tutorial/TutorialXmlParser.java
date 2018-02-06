@@ -125,7 +125,7 @@ public class TutorialXmlParser {
         Sync sync = new Sync();
 
         // set start from attr
-        String start = parser.getAttributeValue(null, "gesture");
+        String start = parser.getAttributeValue(null, "start");
         if (start != null) {
             sync.setStart(Integer.valueOf(start));
         }
