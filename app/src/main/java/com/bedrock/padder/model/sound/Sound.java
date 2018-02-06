@@ -11,6 +11,9 @@ public class Sound {
     final String TAG = "Sound";
 
     boolean isLooping = false;
+    boolean isPlaying = false;
+
+    private int playingThreadCount = 0;
 
     boolean canLoop = true;
 
@@ -67,10 +70,13 @@ public class Sound {
                 soundPool.play(soundPoolId, 1, 1, 1, 0, 1);
             }
 
+            playingThreadCount++;
+
             startTime = System.currentTimeMillis();
 
             if (listener != null) {
-                listener.onSoundStart(sound);
+                isPlaying = true;
+                listener.onSoundStart(sound, playingThreadCount);
 
                 if (isLooping) {
                     handler.postDelayed(new Runnable() {
@@ -84,7 +90,9 @@ public class Sound {
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            listener.onSoundEnd(sound);
+                            isPlaying = false;
+                            playingThreadCount--;
+                            listener.onSoundEnd(sound, playingThreadCount);
                         }
                     }, getDuration());
                 }
@@ -107,6 +115,8 @@ public class Sound {
             // remove loop callbacks
             handler.removeCallbacksAndMessages(null);
             if (listener != null) {
+                isPlaying = false;
+                playingThreadCount--;
                 listener.onSoundStop(this, (int) getCurrentPosition(), getCurrentCompletion());
             }
         } catch (NullStreamException e) {
@@ -192,9 +202,9 @@ public class Sound {
 
     public interface SoundListener {
 
-        void onSoundStart(Sound sound);
+        void onSoundStart(Sound sound, int playingThreadCount);
 
-        void onSoundEnd(Sound sound);
+        void onSoundEnd(Sound sound, int playingThreadCount);
 
         void onSoundStop(Sound sound, int position, float completion);
 

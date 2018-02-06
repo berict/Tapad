@@ -23,7 +23,6 @@ public class Pad {
     protected View view = null;
 
     protected int color = 0;
-
     protected int colorDef = 0;
 
     protected Handler handler;
@@ -50,15 +49,17 @@ public class Pad {
 
         normal.setSoundListener(new Sound.SoundListener() {
             @Override
-            public void onSoundStart(Sound sound) {
-                if (!padColorOnPlay) {
+            public void onSoundStart(Sound sound, int playingThreadCount) {
+                Log.i("onSoundStart", String.valueOf(playingThreadCount));
+                if (playingThreadCount == 0 && !padColorOnPlay) {
                     setPadColor(colorDef);
                 }
             }
 
             @Override
-            public void onSoundEnd(Sound sound) {
-                if (padColorOnPlay) {
+            public void onSoundEnd(Sound sound, int playingThreadCount) {
+                Log.i("onSoundEnd", String.valueOf(playingThreadCount));
+                if (playingThreadCount == 0 && padColorOnPlay) {
                     setPadColor(colorDef);
                 }
             }
@@ -227,11 +228,6 @@ public class Pad {
     }
 
     void setPadColorToDefault() {
-        if (normal != null && !normal.isLooping && view != null) {
-            // while not looping
-            //setPadColor(colorDef);
-        }
-
         switch (PAD_PATTERN) {
             case 1:
                 // 4 side
@@ -366,16 +362,14 @@ public class Pad {
 
                 @Override
                 public void onDoubleClick() {
-                    playNormal();
-                    setPadColorToDefault();
+                    onClick();
                 }
 
                 @Override
                 public void onLongClick() {
+                    setPadColor();
                     loopNormal();
                 }
-
-
             });
             Log.d("Pad", "setOnTouchListener [Normal] on view " + view.toString());
         }
@@ -383,7 +377,7 @@ public class Pad {
 
     void loopNormal() {
         if (getNormal() != null) {
-            if (normal != null && !normal.isLooping && view != null) {
+            if (normal != null && view != null) {
                 setPadColorToDefault(true);
             }
             getNormal().loop();
