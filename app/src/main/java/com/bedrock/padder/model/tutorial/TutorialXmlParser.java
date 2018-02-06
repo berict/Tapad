@@ -148,8 +148,8 @@ public class TutorialXmlParser {
         return sync;
     }
 
-    private Item readItem(XmlPullParser parser) throws IOException, XmlPullParserException {
-        Item item = null;
+    private Sync.Item readItem(XmlPullParser parser) throws IOException, XmlPullParserException {
+        Sync.Item item = null;
         parser.require(XmlPullParser.START_TAG, ns, "item");
         String tag = parser.getName();
 
@@ -157,7 +157,7 @@ public class TutorialXmlParser {
         if (tag.equals("item")) {
             String deck = parser.getAttributeValue(null, "deck");
             if (deck != null) {
-                item = new Item(Integer.valueOf(deck));
+                item = new Sync.Item(Integer.valueOf(deck));
                 String pad = parser.getAttributeValue(null, "pad");
                 if (pad != null) {
                     item.setPad(Integer.valueOf(pad));

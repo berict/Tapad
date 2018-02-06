@@ -15,6 +15,7 @@ import static com.bedrock.padder.helper.WindowHelper.getBackgroundColor;
 import static com.bedrock.padder.helper.WindowHelper.getBlendColor;
 import static com.bedrock.padder.helper.WindowHelper.getColor;
 import static com.bedrock.padder.helper.WindowHelper.getViewFromId;
+import static com.bedrock.padder.model.tutorial.TimingListener.broadcast;
 
 public class Pad {
 
@@ -29,14 +30,16 @@ public class Pad {
 
     protected Activity activity = null;
 
+    protected int deck;
     protected int column = -1;
     protected int row = -1;
 
     // TODO change to preferences
     boolean padColorOnPlay = true;
 
-    public Pad(Sound normal, View view, int color, int def, Activity activity) {
+    public Pad(Sound normal, final int deck, View view, int color, int def, Activity activity) {
         this.normal = normal;
+        this.deck = deck;
         this.view = view;
         this.color = color;
         this.colorDef = def;
@@ -53,6 +56,7 @@ public class Pad {
                 if (playingThreadCount == 1 && !padColorOnPlay) {
                     setPadColor(colorDef);
                 }
+                broadcast(deck, column * 10 + row);
             }
 
             @Override
@@ -74,8 +78,9 @@ public class Pad {
         });
     }
 
-    public Pad(Sound normal, View view, int color, int def, Activity activity, boolean withListener) {
+    public Pad(Sound normal, int deck, View view, int color, int def, Activity activity, boolean withListener) {
         this.normal = normal;
+        this.deck = deck;
         this.view = view;
         this.color = color;
         this.colorDef = def;

@@ -46,8 +46,7 @@
         android:layout_height="wrap_content"
         android:background="?selectableItemBackgroundBorderless"
         android:clickable="true"
-        android:padding="16dp"
-        android:visibility="gone">
+        android:padding="16dp">
 
         <ImageView
             android:id="@+id/toolbar_tutorial_icon"

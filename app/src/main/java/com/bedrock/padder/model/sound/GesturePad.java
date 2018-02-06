@@ -7,6 +7,7 @@ import android.view.View;
 import com.bedrock.padder.helper.OnSwipeTouchListener;
 
 import static com.bedrock.padder.activity.MainActivity.isStopLoopOnSingle;
+import static com.bedrock.padder.model.tutorial.TimingListener.broadcast;
 
 public class GesturePad extends Pad {
 
@@ -22,8 +23,8 @@ public class GesturePad extends Pad {
 
     public GesturePad(Sound normal,
                       Sound up, Sound right, Sound down, Sound left,
-                      View view, int color, int colorDef, Activity activity) {
-        super(normal, view, color, colorDef, activity, false);
+                      int deck, View view, int color, int colorDef, Activity activity) {
+        super(normal, deck, view, color, colorDef, activity, false);
         this.up = up;
         this.right = right;
         this.down = down;
@@ -33,8 +34,8 @@ public class GesturePad extends Pad {
     }
 
     public GesturePad(Sound sounds[],
-                      View view, int color, int colorDef, Activity activity) {
-        super(sounds[0], view, color, colorDef, activity, false);
+                      int deck, View view, int color, int colorDef, Activity activity) {
+        super(sounds[0], deck, view, color, colorDef, activity, false);
         this.up = sounds[1];
         this.right = sounds[2];
         this.down = sounds[3];
@@ -51,6 +52,7 @@ public class GesturePad extends Pad {
                 if (threadCount == 1 && !padColorOnPlay) {
                     setPadColor(colorDef);
                 }
+                broadcast(deck, column * 10 + row);
             }
 
             @Override
@@ -77,6 +79,7 @@ public class GesturePad extends Pad {
                 if (threadCount == 1 && !padColorOnPlay) {
                     setPadColor(colorDef);
                 }
+                broadcast(deck, column * 10 + row, 1);
             }
 
             @Override
@@ -103,6 +106,7 @@ public class GesturePad extends Pad {
                 if (threadCount == 1 && !padColorOnPlay) {
                     setPadColor(colorDef);
                 }
+                broadcast(deck, column * 10 + row, 2);
             }
 
             @Override
@@ -129,6 +133,7 @@ public class GesturePad extends Pad {
                 if (threadCount == 1 && !padColorOnPlay) {
                     setPadColor(colorDef);
                 }
+                broadcast(deck, column * 10 + row, 3);
             }
 
             @Override
@@ -155,6 +160,7 @@ public class GesturePad extends Pad {
                 if (threadCount == 1 && !padColorOnPlay) {
                     setPadColor(colorDef);
                 }
+                broadcast(deck, column * 10 + row, 4);
             }
 
             @Override

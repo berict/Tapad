@@ -1,51 +1,56 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/base_tutorial"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerInParent="true"
-    android:orientation="vertical"
-    android:visibility="gone">
+              android:id="@+id/base_tutorial"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_centerInParent="true"
+              android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/ver0_tutorial"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:tag="b0">
 
         <View
             android:id="@+id/tgl1_tutorial"
             android:layout_width="80dp"
             android:layout_height="40dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="t1"
+            android:visibility="invisible"/>
 
         <View
             android:id="@+id/tgl2_tutorial"
             android:layout_width="80dp"
             android:layout_height="40dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="t2"
+            android:visibility="invisible"/>
 
         <View
             android:id="@+id/tgl3_tutorial"
             android:layout_width="80dp"
             android:layout_height="40dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="t3"
+            android:visibility="invisible"/>
 
         <View
             android:id="@+id/tgl4_tutorial"
             android:layout_width="80dp"
             android:layout_height="40dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="t4"
+            android:visibility="invisible"/>
 
         <View
             android:id="@+id/btn00_tutorial"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="b00"
+            android:visibility="invisible"/>
 
     </LinearLayout>
 
@@ -53,42 +58,48 @@
         android:id="@+id/ver1_tutorial"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:tag="v1">
 
         <View
             android:id="@+id/btn11_tutorial"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="b11"
+            android:visibility="invisible"/>
 
         <View
             android:id="@+id/btn12_tutorial"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="b12"
+            android:visibility="invisible"/>
 
         <View
             android:id="@+id/btn13_tutorial"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="b13"
+            android:visibility="invisible"/>
 
         <View
             android:id="@+id/btn14_tutorial"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="b14"
+            android:visibility="invisible"/>
 
         <View
             android:id="@+id/tgl5_tutorial"
             android:layout_width="40dp"
             android:layout_height="80dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="t5"
+            android:visibility="invisible"/>
 
 
     </LinearLayout>
@@ -97,42 +108,48 @@
         android:id="@+id/ver2_tutorial"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:tag="v2">
 
         <View
             android:id="@+id/btn21_tutorial"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="b21"
+            android:visibility="invisible"/>
 
         <View
             android:id="@+id/btn22_tutorial"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="b22"
+            android:visibility="invisible"/>
 
         <View
             android:id="@+id/btn23_tutorial"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="b23"
+            android:visibility="invisible"/>
 
         <View
             android:id="@+id/btn24_tutorial"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="b24"
+            android:visibility="invisible"/>
 
         <View
             android:id="@+id/tgl6_tutorial"
             android:layout_width="40dp"
             android:layout_height="80dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="t6"
+            android:visibility="invisible"/>
 
 
     </LinearLayout>
@@ -141,42 +158,48 @@
         android:id="@+id/ver3_tutorial"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:tag="v3">
 
         <View
             android:id="@+id/btn31_tutorial"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="b31"
+            android:visibility="invisible"/>
 
         <View
             android:id="@+id/btn32_tutorial"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="b32"
+            android:visibility="invisible"/>
 
         <View
             android:id="@+id/btn33_tutorial"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="b33"
+            android:visibility="invisible"/>
 
         <View
             android:id="@+id/btn34_tutorial"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="b34"
+            android:visibility="invisible"/>
 
         <View
             android:id="@+id/tgl7_tutorial"
             android:layout_width="40dp"
             android:layout_height="80dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="t7"
+            android:visibility="invisible"/>
 
 
     </LinearLayout>
@@ -185,41 +208,47 @@
         android:id="@+id/ver4_tutorial"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:tag="v4">
 
         <View
             android:id="@+id/btn41_tutorial"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="b41"
+            android:visibility="invisible"/>
 
         <View
             android:id="@+id/btn42_tutorial"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="b42"
+            android:visibility="invisible"/>
 
         <View
             android:id="@+id/btn43_tutorial"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="b43"
+            android:visibility="invisible"/>
 
         <View
             android:id="@+id/btn44_tutorial"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="b44"
+            android:visibility="invisible"/>
 
         <View
             android:id="@+id/tgl8_tutorial"
             android:layout_width="40dp"
             android:layout_height="80dp"
             android:background="@color/black"
-            android:visibility="invisible" />
+            android:tag="t8"
+            android:visibility="invisible"/>
     </LinearLayout>
 </LinearLayout>

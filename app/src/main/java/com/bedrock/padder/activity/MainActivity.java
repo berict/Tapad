@@ -35,6 +35,7 @@ import com.bedrock.padder.model.preferences.Preferences;
 import com.bedrock.padder.model.preset.Preset;
 import com.bedrock.padder.model.preset.PresetSchema;
 import com.bedrock.padder.model.preset.store.PresetStore;
+import com.bedrock.padder.model.tutorial.Tutorial;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -227,12 +228,6 @@ public class MainActivity
 
         //ab.setStatusHeight(a);
         sound.clear();
-    }
-
-    private void test() {
-//        Tutorial tutorial = new Tutorial("alan_walker_faded_gesture", a);
-//        tutorial.parse();
-//        Log.d("TUTORIAL", tutorial.toString());
     }
 
     @Override
@@ -750,33 +745,62 @@ public class MainActivity
         if (isTutorialVisible == false) {
             isTutorialVisible = true;
             if (currentPreset != null) {
-                if (!isPresetLoading && currentPreset.getAbout().getTutorialAvailable()) {
-                    String tutorialText = currentPreset.getAbout().getTutorialVideoLink();
-                    if (tutorialText == null || tutorialText.equals("null")) {
-                        tutorialText = getStringFromId("dialog_tutorial_text_error", a);
-                    }
+                if (!isPresetLoading) {
+                    if (currentPreset.getAbout().getTutorialAvailable()) {
+                        String tutorialText = currentPreset.getAbout().getTutorialVideoLink();
+                        if (tutorialText == null || tutorialText.equals("null")) {
+                            tutorialText = getStringFromId("dialog_tutorial_text_error", a);
+                        }
 
-                    new MaterialDialog.Builder(a)
-                            .title(R.string.dialog_tutorial_title)
-                            .content(tutorialText)
-                            .neutralText(R.string.dialog_close)
-                            .dismissListener(new DialogInterface.OnDismissListener() {
-                                @Override
-                                public void onDismiss(DialogInterface dialog) {
-                                    isTutorialVisible = false;
-                                }
-                            })
-                            .show();
+                        // TODO update tutorial dialog
+                        new MaterialDialog.Builder(a)
+                                .title(R.string.dialog_tutorial_title)
+                                .content(tutorialText)
+                                .neutralText(R.string.dialog_close)
+                                .dismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        isTutorialVisible = false;
+                                    }
+                                })
+                                .show();
+                    } else {
+                        final Tutorial tutorial = new Tutorial("alan_walker_faded_gesture", a);
+                        tutorial.setTutorialListener(new Tutorial.TutorialListener() {
+                            @Override
+                            public void onLoadStart(Tutorial tutorial) {
+                            }
+
+                            @Override
+                            public void onLoadFinish(Tutorial t) {
+                                tutorial.start();
+                            }
+
+                            @Override
+                            public void onStart(Tutorial tutorial) {
+                            }
+
+                            @Override
+                            public void onFinish(Tutorial tutorial) {
+                                isTutorialVisible = false;
+                            }
+                        });
+                        tutorial.parse();
+                    }
                 } else {
                     // still loading preset
                     Toast.makeText(a, R.string.tutorial_loading, Toast.LENGTH_LONG).show();
                     isTutorialVisible = false;
                 }
             } else {
-                // no preset
-                Toast.makeText(a, R.string.tutorial_no_preset, Toast.LENGTH_LONG).show();
+                // still loading preset
+                Toast.makeText(a, R.string.tutorial_loading, Toast.LENGTH_LONG).show();
                 isTutorialVisible = false;
             }
+        } else {
+            // no preset
+            Toast.makeText(a, R.string.tutorial_no_preset, Toast.LENGTH_LONG).show();
+            isTutorialVisible = false;
         }
     }
 

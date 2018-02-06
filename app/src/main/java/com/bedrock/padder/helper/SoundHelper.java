@@ -28,6 +28,7 @@ import static com.bedrock.padder.activity.MainActivity.currentPreset;
 import static com.bedrock.padder.activity.MainActivity.isPresetLoading;
 import static com.bedrock.padder.activity.MainActivity.setPadPattern;
 import static com.bedrock.padder.helper.WindowHelper.getViewFromId;
+import static com.bedrock.padder.model.tutorial.TimingListener.broadcast;
 
 public class SoundHelper {
 
@@ -98,7 +99,7 @@ public class SoundHelper {
         Preferences preferences = new Preferences(activity);
         this.color = preferences.getColor();
         this.colorDef = colorDef;
-        decks = new Deck[] {
+        decks = new Deck[]{
                 new Deck(new Pad[17], null, activity.findViewById(buttonId[1]), color, colorDef, activity),
                 new Deck(new Pad[17], null, activity.findViewById(buttonId[2]), color, colorDef, activity),
                 new Deck(new Pad[17], null, activity.findViewById(buttonId[3]), color, colorDef, activity),
@@ -152,6 +153,7 @@ public class SoundHelper {
                 decks[i].setSound(new Sound(sp, currentPreset.getSound(index, i + 1), mmr));
                 if (i == index) {
                     // selected
+                    broadcast(i + 1);
                     decks[i].setSelected(true);
                     for (Pad pad : decks[i].getPads()) {
                         // update looping pads
@@ -242,6 +244,7 @@ public class SoundHelper {
 
     private GesturePad getGesturePadFromArray(String soundPaths[],
                                               SoundPool soundPool,
+                                              int deck,
                                               View buttonView,
                                               int color, int colorDef,
                                               Activity activity) {
@@ -255,7 +258,7 @@ public class SoundHelper {
                 sounds[i] = new Sound(soundPool, null, mmr);
             }
         }
-        return new GesturePad(sounds, buttonView, color, colorDef, activity);
+        return new GesturePad(sounds, deck, buttonView, color, colorDef, activity);
     }
 
     private void onLoadFinish() {
@@ -545,15 +548,15 @@ public class SoundHelper {
                         }
                         if (sounds.size() == 1) {
                             // only one sound, use sound
-                            decks[i].setPad(new Pad(new Sound(sp, sounds.get(0), mmr), buttonViews[j],
+                            decks[i].setPad(new Pad(new Sound(sp, sounds.get(0), mmr), i + 1, buttonViews[j],
                                     color, colorDef, activity), j);
                         } else if (sounds.size() > 1) {
                             // gesture pad
-                            decks[i].setPad(getGesturePadFromArray(sounds.toArray(new String[5]), sp, buttonViews[j],
+                            decks[i].setPad(getGesturePadFromArray(sounds.toArray(new String[5]), sp, i + 1, buttonViews[j],
                                     color, colorDef, activity), j);
                         } else {
                             // no sounds
-                            decks[i].setPad(new Pad(new Sound(), buttonViews[j],
+                            decks[i].setPad(new Pad(new Sound(), i + 1, buttonViews[j],
                                     color, colorDef, activity), j);
                         }
                     }
