@@ -7,7 +7,7 @@ public class ApiClient {
 
     static Retrofit retrofit = null;
 
-    public static String BASE_URL = "http://api.berict.com/";
+    public static String BASE_URL = "http://berict.com/api/";
 
     public static void setRetrofit() {
         retrofit = new Retrofit.Builder()
