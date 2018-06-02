@@ -129,6 +129,10 @@ public class Preset {
         }
     }
 
+    public Boolean getInAppTutorialAvailable() {
+        return new File(PROJECT_LOCATION_PRESETS + "/" + getTag() + "/timing/timing.tpt").exists();
+    }
+
     public void loadPreset(Activity activity) {
         isPresetChanged = true;
         new Preferences(activity).setLastPlayed(tag);

@@ -218,7 +218,16 @@ public class SoundHelper {
         previousPreset = currentPreset;
         currentPreset = preset;
         this.activity = activity;
+
         unload = new Unload().execute();
+
+        if (!(currentPreset.getInAppTutorialAvailable() ||
+                currentPreset.getAbout().getTutorialAvailable())) {
+            // no tutorial available
+            activity.findViewById(R.id.toolbar_tutorial).setVisibility(View.GONE);
+        } else {
+            activity.findViewById(R.id.toolbar_tutorial).setVisibility(View.VISIBLE);
+        }
     }
 
     public void cancelLoad() {

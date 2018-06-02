@@ -764,8 +764,8 @@ public class MainActivity
                                     }
                                 })
                                 .show();
-                    } else {
-                        final Tutorial tutorial = new Tutorial("alan_walker_faded_gesture", a);
+                    } else if (currentPreset.getInAppTutorialAvailable()) {
+                        final Tutorial tutorial = new Tutorial(currentPreset.getTag(), a);
                         tutorial.setTutorialListener(new Tutorial.TutorialListener() {
                             @Override
                             public void onLoadStart(Tutorial tutorial) {
