@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
 import android.view.animation.ScaleAnimation;
 
 import com.google.gson.GsonBuilder;
@@ -240,7 +240,7 @@ public class Tutorial {
                 Animation.RELATIVE_TO_SELF, 0.5f);
 
         for (Animation animation : animations) {
-            animation.setInterpolator(new LinearInterpolator());
+            animation.setInterpolator(new LinearOutSlowInInterpolator());
             animation.setDuration(TUTORIAL_ANIMATION_DURATION);
         }
     }
