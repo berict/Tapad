@@ -22,7 +22,7 @@
     <string name="confirm_get_started">Get Started</string>
     <string name="confirm_get_started_ac">GET STARTED</string>
 
-    <string name="tutorial_loading">Can\'t start tutorial mode during loading preset</string>
+    <string name="tutorial_loading">Can\'t start tutorial mode while loading preset</string>
     <string name="tutorial_no_preset">Can\'t start tutorial mode without a preset</string>
 
     <string name="user_benefits_get_started_title">@string/confirm_get_started</string>
