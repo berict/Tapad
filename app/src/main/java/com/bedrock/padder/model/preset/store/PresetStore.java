@@ -47,12 +47,12 @@ public class PresetStore {
         }
     }
 
-    public void setSelected(Item selected) {
-        this.selected = selected;
-    }
-
     public Item getSelected() {
         return selected;
+    }
+
+    public void setSelected(Item selected) {
+        this.selected = selected;
     }
 
     public Item getItem(int index) {
@@ -94,7 +94,9 @@ public class PresetStore {
     }
 
     public void remove(int position) {
-        items.remove(position);
+        // TODO check if this is needed
+        // seems this method doesn't need to work
+        //items.remove(position);
     }
 
     public void add(Item item) {
