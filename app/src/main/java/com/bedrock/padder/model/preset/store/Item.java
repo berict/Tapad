@@ -53,7 +53,6 @@ import static com.bedrock.padder.activity.MainActivity.isPresetChanged;
 import static com.bedrock.padder.activity.MainActivity.isPresetDownloading;
 import static com.bedrock.padder.helper.FileHelper.PRESET_LOCATION;
 import static com.bedrock.padder.helper.FileHelper.PROJECT_LOCATION_PRESETS;
-import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
 /*
 * Wrapper class for saving download status
@@ -123,12 +122,12 @@ public class Item {
         return bytesTransferred;
     }
 
-    public long getTotalByteCount() {
-        return totalByteCount;
-    }
-
     public void setBytesTransferred(long bytesTransferred) {
         this.bytesTransferred = bytesTransferred;
+    }
+
+    public long getTotalByteCount() {
+        return totalByteCount;
     }
 
     public void setTotalByteCount(long totalByteCount) {
@@ -564,10 +563,14 @@ public class Item {
         api.getPresetSchema(tag).enqueue(new Callback<PresetSchema>() {
             @Override
             public void onResponse(Call<PresetSchema> call, Response<PresetSchema> response) {
-                Log.i(TAG, "Current version : " + response.body().getVersion() + " / Local version : " + version);
-                if (response.body().getVersion() > version) {
-                    // the version is updated
-                    onUpdated.run();
+                if (response != null && response.body() != null) {
+                    Log.i(TAG, "Current version : " + response.body().getVersion() + " / Local version : " + version);
+                    if (response.body().getVersion() > version) {
+                        // the version is updated
+                        onUpdated.run();
+                    }
+                } else {
+                    Log.i(TAG, "Cannot get online version");
                 }
             }
 
@@ -590,6 +593,21 @@ public class Item {
         } else {
             return false;
         }
+    }
+
+    private boolean isConnected(Context context) {
+        // returns whether the device is connected to the internet
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
+
+    public boolean isWifiConnected(Context context) {
+        ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+        return mWifi.isConnected();
     }
 
     class Download extends AsyncTask<Void, Boolean, Integer> {
@@ -967,20 +985,5 @@ public class Item {
             int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
             return new DecimalFormat("#,##0.0").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
         }
-    }
-
-    private boolean isConnected(Context context) {
-        // returns whether the device is connected to the internet
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-    }
-
-    public boolean isWifiConnected(Context context) {
-        ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-
-        return mWifi.isConnected();
     }
 }

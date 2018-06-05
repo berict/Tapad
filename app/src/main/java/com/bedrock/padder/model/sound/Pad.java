@@ -379,13 +379,15 @@ public class Pad {
 
                 @Override
                 public void onClick() {
-                    if (getNormal().isLooping && isStopLoopOnSingle) {
-                        setPadColorToDefault(true);
-                        getNormal().loop(false);
-                    } else {
-                        playNormal();
+                    if (getNormal() != null) {
+                        if (getNormal().isLooping && isStopLoopOnSingle) {
+                            setPadColorToDefault(true);
+                            getNormal().loop(false);
+                        } else {
+                            playNormal();
+                        }
+                        setPadColorToDefault();
                     }
-                    setPadColorToDefault();
                 }
 
                 @Override
