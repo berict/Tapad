@@ -23,11 +23,6 @@ public class ToolbarHelper {
     
     private ActionBar actionBar;
 
-    public void setActionBar(AppCompatActivity appCompatActivity) {
-        appCompatActivity.setSupportActionBar((Toolbar)appCompatActivity.findViewById(TOOLBAR));
-        actionBar = appCompatActivity.getSupportActionBar();
-    }
-
     public void setActionBar(AppCompatActivity appCompatActivity, View view) {
         appCompatActivity.setSupportActionBar((Toolbar)view.findViewById(TOOLBAR));
         actionBar = appCompatActivity.getSupportActionBar();
@@ -105,6 +100,11 @@ public class ToolbarHelper {
         return actionBar;
     }
 
+    public void setActionBar(AppCompatActivity appCompatActivity) {
+        appCompatActivity.setSupportActionBar((Toolbar) appCompatActivity.findViewById(TOOLBAR));
+        actionBar = appCompatActivity.getSupportActionBar();
+    }
+
     public void setActionBarPadding(Activity activity) {
         WindowHelper window = new WindowHelper();
         // set the top padding to the status bar size
@@ -120,12 +120,16 @@ public class ToolbarHelper {
     }
 
     public void setStatusBarTint(Activity activity) {
-        SystemBarTintManager tintManager = new SystemBarTintManager(activity);
-        // enable status bar tint
-        tintManager.setStatusBarTintEnabled(true);
-        // enable navigation bar tint
-        tintManager.setNavigationBarTintEnabled(true);
-        // set the transparent color of the status bar, 20% darker
-        tintManager.setTintColor(activity.getResources().getColor(R.color.dark_status_bar));
+        try {
+            SystemBarTintManager tintManager = new SystemBarTintManager(activity);
+            // enable status bar tint
+            tintManager.setStatusBarTintEnabled(true);
+            // enable navigation bar tint
+            tintManager.setNavigationBarTintEnabled(true);
+            // set the transparent color of the status bar, 20% darker
+            tintManager.setTintColor(activity.getResources().getColor(R.color.dark_status_bar));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
