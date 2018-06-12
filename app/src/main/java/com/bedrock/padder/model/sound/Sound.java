@@ -50,7 +50,13 @@ public class Sound {
         if (path != null) {
             try {
                 mmr.setDataSource(path);
-                return Integer.parseInt(mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
+                int duration = Integer.parseInt(mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
+                if (duration > 0) {
+                    return duration;
+                } else {
+                    Log.e(TAG, "MediaMetadataRetriever didn't receive duration from file metadata");
+                    return 500;
+                }
             } catch (IllegalArgumentException e) {
                 Log.d(TAG, "IAE");
                 return -1;
