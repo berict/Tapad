@@ -53,6 +53,7 @@ import static com.bedrock.padder.activity.MainActivity.isPresetChanged;
 import static com.bedrock.padder.activity.MainActivity.isPresetDownloading;
 import static com.bedrock.padder.helper.FileHelper.PRESET_LOCATION;
 import static com.bedrock.padder.helper.FileHelper.PROJECT_LOCATION_PRESETS;
+import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
 /*
 * Wrapper class for saving download status
