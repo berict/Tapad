@@ -68,6 +68,11 @@ public class VideoAdActivity extends AppCompatActivity implements RewardedVideoA
     }
 
     @Override
+    public void onRewardedVideoCompleted() {
+
+    }
+
+    @Override
     public void onResume() {
         mRewardedVideoAd.resume(this);
         super.onResume();
