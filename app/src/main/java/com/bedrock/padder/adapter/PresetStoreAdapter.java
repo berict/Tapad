@@ -17,6 +17,7 @@ import com.bedrock.padder.model.preset.store.Item;
 import com.bedrock.padder.model.preset.store.PresetStore;
 
 import static com.bedrock.padder.activity.PresetStoreActivity.installedFragment;
+import static com.bedrock.padder.activity.PresetStoreActivity.onlineFragment;
 
 public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.PresetViewHolder> {
 
@@ -49,12 +50,11 @@ public class PresetStoreAdapter extends RecyclerView.Adapter<PresetStoreAdapter.
     public void updatePresetStore(PresetStore presetStore) {
         this.presetStore = presetStore;
         this.items = presetStore.get().toArray(new Item[presetStore.getLength()]);
-        if (items.length <= 0) {
-            if (callingFragment.equals("installed")) {
-                installedFragment.refresh();
-            }
-        } else {
-            notifyDataSetChanged();
+        if (callingFragment.equals("installed")) {
+            installedFragment.refresh();
+        }
+        if (callingFragment.equals("online")) {
+            onlineFragment.refresh();
         }
     }
 
