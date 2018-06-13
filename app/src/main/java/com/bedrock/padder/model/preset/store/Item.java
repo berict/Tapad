@@ -506,10 +506,8 @@ public class Item {
                                         @Override
                                         public void run() {
                                             if (adapter.getCallingFragment().equals("installed")) {
-                                                presetStore.remove(index);
                                                 adapter.updatePresetStore(presetStore);
                                             }
-                                            adapter.notifyDataSetChanged();
                                         }
                                     }, activity);
                                 }

@@ -93,12 +93,6 @@ public class PresetStore {
         setSelected(null);
     }
 
-    public void remove(int position) {
-        // TODO check if this is needed
-        // seems this method doesn't need to work
-        //items.remove(position);
-    }
-
     public void add(Item item) {
         items.add(item);
     }
