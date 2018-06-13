@@ -51,22 +51,28 @@ import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
 public class PresetStoreActivity extends AppCompatActivity implements FileChooserDialog.FileCallback {
 
-    private static final int REQUEST_WRITE_STORAGE = 112;
-    public static PresetStoreInstalledFragment installedFragment;
-    public static PresetStoreOnlineFragment onlineFragment;
-    Activity activity = this;
-    ViewPager viewPager;
-    ViewPagerAdapter viewPagerAdapter;
     private WindowHelper window = new WindowHelper();
     private AnimateHelper anim = new AnimateHelper();
     private ToolbarHelper toolbar = new ToolbarHelper();
     private IntentHelper intent = new IntentHelper();
     private FabHelper fab = new FabHelper();
     private FileHelper fileHelper = new FileHelper();
+
+    private static final int REQUEST_WRITE_STORAGE = 112;
     private boolean hasPermission;
+
+    public static PresetStoreInstalledFragment installedFragment;
+    public static PresetStoreOnlineFragment onlineFragment;
+
+    Activity activity = this;
+
     private String tapadFolderPath = Environment.getExternalStorageDirectory().getPath() + "/Tapad";
     private String themeTitle;
     private String TAG = "PresetStore";
+
+    ViewPager viewPager;
+    ViewPagerAdapter viewPagerAdapter;
+
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
 
     private int themeColor;
@@ -228,25 +234,27 @@ public class PresetStoreActivity extends AppCompatActivity implements FileChoose
     public void setCustomPresetTag(String tag) {
         String result = fileHelper.getStringFromFile(PROJECT_LOCATION_PRESETS + "/" + tag + "/about/json");
 
-        int tagStart = result.indexOf("\"tag\"") + 7;
-        int tagFinish = result.indexOf("\"", tagStart) - 1;
-        String previousTag = result.substring(tagStart, tagFinish);
+        if (result != null) {
+            int tagStart = result.indexOf("\"tag\"") + 7;
+            int tagFinish = result.indexOf("\"", tagStart) - 1;
+            String previousTag = result.substring(tagStart, tagFinish);
 
-        Log.e(TAG, previousTag);
+            Log.e(TAG, previousTag);
 
-        result = result.replace(previousTag, tag);
+            result = result.replace(previousTag, tag);
 
-        try {
-            FileOutputStream outputStream = openFileOutput(PROJECT_LOCATION_PRESETS + "/" + tag + "/about/json", MODE_PRIVATE);
-            OutputStreamWriter streamWriter = new OutputStreamWriter(outputStream);
+            try {
+                FileOutputStream outputStream = openFileOutput(PROJECT_LOCATION_PRESETS + "/" + tag + "/about/json", MODE_PRIVATE);
+                OutputStreamWriter streamWriter = new OutputStreamWriter(outputStream);
 
-            streamWriter.write(result);
-            streamWriter.flush();
-            streamWriter.close();
+                streamWriter.write(result);
+                streamWriter.flush();
+                streamWriter.close();
 
-            Log.i(TAG, "wrote: " + result);
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+                Log.i(TAG, "wrote: " + result);
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
         }
     }
 
