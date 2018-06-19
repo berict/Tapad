@@ -387,6 +387,9 @@ public class Pad {
                             playNormal();
                         }
                         setPadColorToDefault();
+                    } else {
+                        Log.w("Pad", "Pad attempted to play a null sound");
+                        setPadColorToDefault(true);
                     }
                 }
 
