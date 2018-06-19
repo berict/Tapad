@@ -33,10 +33,10 @@ public class TimingListener {
                 listening.listener.onBroadcast(timing, delay);
             }
             timings.remove(index);
-            Log.e("broadcast", "listener removed for " + timing.toString());
+            Log.w("broadcast", "Listener removed for " + timing.toString());
             return true;
         } else {
-            Log.e("broadcast", "no listener found for " + timing.toString());
+            Log.w("broadcast", "No listener found for " + timing.toString());
             return false;
         }
     }
