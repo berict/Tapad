@@ -459,13 +459,13 @@ public class Pad {
         if (getNormal() != null) {
             getNormal().unload();
         }
-        setPadColorToDefault();
+        setPadColorToDefault(true);
     }
 
     public void stop() {
         if (getNormal() != null) {
             getNormal().stop();
         }
-        setPadColorToDefault();
+        setPadColorToDefault(true);
     }
 }

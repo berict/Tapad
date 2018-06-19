@@ -76,7 +76,7 @@ public class Sound {
                 canLoop = false;
                 streamId = soundPool.play(soundPoolId, 1, 1, 1, -1, 1);
             } else {
-                soundPool.play(soundPoolId, 1, 1, 1, 0, 1);
+                streamId = soundPool.play(soundPoolId, 1, 1, 1, 0, 1);
             }
 
             playingThreadCount++;
@@ -117,6 +117,7 @@ public class Sound {
         try {
             if (streamId != 0) {
                 soundPool.stop(streamId);
+                Log.i("Sound", "Stopped sound " + streamId);
             } else {
                 throw new NullStreamException();
             }
@@ -129,10 +130,13 @@ public class Sound {
                 listener.onSoundStop(this, (int) getCurrentPosition(), getCurrentCompletion());
             }
         } catch (NullStreamException e) {
-            e.getMessage();
+            if (isPlaying) {
+                Log.e("Sound", "Error on stopping sound " + streamId);
+                e.printStackTrace();
+            }
         } catch (NullPointerException e) {
             Log.e(TAG, "Sound was not initialized");
-            e.getMessage();
+            e.printStackTrace();
         }
     }
 
