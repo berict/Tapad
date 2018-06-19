@@ -124,6 +124,17 @@
 	<string name="info_tapad_info_changelog_text"   >
         You can view the changelog dialog again at any time from the <b><i>about</i></b> section.\n\n
 
+		<b>Version 2.3 Beta 4</b>\n\n
+        1.	<b>NEW</b>: Tutorial mode (Beta) \n
+        2.	<b>NEW</b>: Continuing pad colors while playing \n
+        3.	<b>NEW</b>: Android Oreo adaptive icons \n
+        4.	<b>NEW</b>: Android Oreo app shortcuts \n
+        5.	<b>IMPROVEMENT</b>: Redefined music genres \n
+        6.	<b>IMPROVEMENT</b>: Better performing preset store \n
+        7.	<b>REVERT</b>: Added pad patterns \n
+        8.	<b>FIX</b>: Missing / lagging animations \n
+        9.	<b>FIX</b>: Bugs and glitches \n\n
+
 		<b>Version 2.3 Beta 3</b>\n\n
 		1.	<b>NEW</b>: Colored download button \n
 		2.	<b>FIX</b>: About screen crash \n
