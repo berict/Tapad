@@ -244,10 +244,15 @@ public class SoundHelper {
     public void cancelLoad() {
         try {
             unload.cancel(true);
-            load.cancel(true);
-            Log.d("TAG", "Loading canceled");
+            Log.i("TAG", "Unloading canceled");
         } catch (NullPointerException e) {
-            Log.d("NPE", "AsyncTask is null");
+            Log.e("NPE", "Unload AsyncTask is null");
+        }
+        try {
+            load.cancel(true);
+            Log.i("TAG", "Loading canceled");
+        } catch (NullPointerException e) {
+            Log.e("NPE", "Loading AsyncTask is null");
         }
     }
 
@@ -622,6 +627,9 @@ public class SoundHelper {
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N_MR1) {
                     Intent main = new Intent(activity.getApplicationContext(), MainActivity.class);
                     main.setAction(Intent.ACTION_VIEW);
+                    main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    main.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     main.putExtra("shortcut", currentPreset.getTag());
 
                     ShortcutManager shortcutManager = activity.getSystemService(ShortcutManager.class);

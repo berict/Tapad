@@ -203,6 +203,7 @@
     <string name="close">Close</string>
     <string name="about">About</string>
     <string name="presets">Presets</string>
+    <string name="preset_shortcut_error">Can\'t load selected preset</string>
 
     <string name="progressbar_loading_preset">Loading preset</string>
     <string name="progressbar_loading_tutorial">Loading tutorial</string>

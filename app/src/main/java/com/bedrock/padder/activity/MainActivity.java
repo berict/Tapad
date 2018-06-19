@@ -39,6 +39,8 @@ import com.bedrock.padder.model.tutorial.Tutorial;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.File;
+
 import static com.bedrock.padder.helper.FileHelper.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
@@ -140,6 +142,22 @@ public class MainActivity
 
         if (shortcut != null) {
             Log.i(TAG, "onCreate: shortcuts used " + shortcut);
+            sound.cancelLoad();
+
+            File folder = new File(PROJECT_LOCATION_PRESETS + "/" + shortcut);
+            if (folder.isDirectory() && folder.exists()) {
+                try {
+                    currentPreset = gson.fromJson(file.getStringFromFile(PROJECT_LOCATION_PRESETS + "/" + shortcut + "/about/json"), PresetSchema.class).getPreset();
+                    if (!file.isPresetAvailable(currentPreset)) {
+                        // preset corrupted or doesn't exist
+                        currentPreset = null;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    currentPreset = null;
+                    Toast.makeText(a, R.string.preset_shortcut_error, Toast.LENGTH_LONG).show();
+                }
+            }
         } else {
             switch (preferences.getStartPage()) {
                 case "recent":
@@ -844,6 +862,7 @@ public class MainActivity
                 @Override
                 public void run() {
                     sound.load(currentPreset, preferences.getColor(), colorDef, a);
+                    new Preferences(a).setLastPlayed(currentPreset.getTag());
                 }
             }, delay);
         }
