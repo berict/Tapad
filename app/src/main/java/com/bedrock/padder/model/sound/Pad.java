@@ -427,7 +427,7 @@ public class Pad {
 
     void loopNormal() {
         if (getNormal() != null) {
-            if (normal != null && view != null) {
+            if (getNormal().isLooping && normal != null && view != null) {
                 setPadColorToDefault(true);
             }
             getNormal().loop();
