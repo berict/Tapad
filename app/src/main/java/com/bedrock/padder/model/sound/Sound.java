@@ -52,17 +52,20 @@ public class Sound {
                 mmr.setDataSource(path);
                 int duration = Integer.parseInt(mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
                 if (duration > 0) {
+                    if (duration > 8000) {
+                        Log.w(TAG, "Sounds longer than 8 seconds will have cutting issues");
+                    }
                     return duration;
                 } else {
                     Log.e(TAG, "MediaMetadataRetriever didn't receive duration from file metadata");
                     return 500;
                 }
             } catch (IllegalArgumentException e) {
-                Log.d(TAG, "IAE");
-                return -1;
+                e.printStackTrace();
+                return 500;
             }
         } else {
-            return -1;
+            return 500;
         }
     }
 
