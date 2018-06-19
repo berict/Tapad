@@ -3,7 +3,7 @@
     <shortcut
         android:shortcutId="preset-store"
         android:enabled="true"
-        android:icon="@drawable/ic_shortcut_preset_store"
+        android:icon="@mipmap/ic_shortcut_preset_store"
         android:shortcutShortLabel="@string/preset_store">
         <intent
             android:action="android.intent.action.VIEW"
