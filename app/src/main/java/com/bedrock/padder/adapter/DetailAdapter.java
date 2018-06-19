@@ -20,12 +20,12 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
 
     public static class DetailViewHolder extends RecyclerView.ViewHolder {
         TextView detailTitle;
-        RecyclerView itemRecycleView;
+        RecyclerView itemRecyclerView;
 
         public DetailViewHolder(View view) {
             super(view);
             detailTitle = view.findViewById(R.id.layout_detail_title);
-            itemRecycleView = view.findViewById(R.id.layout_item_recycler_view);
+            itemRecyclerView = view.findViewById(R.id.layout_item_recycler_view);
         }
     }
 
@@ -44,13 +44,17 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
 
     @Override
     public void onBindViewHolder(final DetailViewHolder holder, int position) {
-        holder.detailTitle.setText(about.getDetail(position).getTitle(context));
-        holder.detailTitle.setTextColor(about.getColor());
+        if (about.getDetail(position).hasContent()) {
+            holder.detailTitle.setText(about.getDetail(position).getTitle(context));
+            holder.detailTitle.setTextColor(about.getColor());
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        holder.itemRecycleView.setLayoutManager(layoutManager);
-        holder.itemRecycleView.setAdapter(new ItemAdapter(about.getDetail(position).getItems(), R.layout.adapter_item, context, activity));
+            LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            holder.itemRecyclerView.setLayoutManager(layoutManager);
+            holder.itemRecyclerView.setAdapter(new ItemAdapter(about.getDetail(position).getItems(), R.layout.adapter_item, context, activity));
+        } else {
+            ((View) holder.itemRecyclerView.getParent().getParent().getParent()).setVisibility(View.GONE);
+        }
     }
 
     @Override

@@ -33,6 +33,17 @@ public class Detail {
         }
     }
 
+    public boolean hasContent() {
+        boolean result = false;
+        for (Item item : items) {
+            if (!(item.getHint().equals("") || item.getHint() == null)) {
+                result = true;
+            }
+        }
+
+        return result;
+    }
+
     public Item[] getItems() {
         return items;
     }

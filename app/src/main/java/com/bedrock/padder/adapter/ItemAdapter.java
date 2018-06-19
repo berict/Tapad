@@ -71,6 +71,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
     public void onBindViewHolder(final DetailViewHolder holder, int position) {
         holder.itemText.setText(item[position].getText(context));
 
+        if (item[position].getHint(context).equals("")) {
+            // Fix for #222
+            holder.itemLayout.setVisibility(View.GONE);
+            holder.itemLayout.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+        }
+
         if(position == getItemCount() - 1) {
             // last item on list, hide divider
             holder.divider.setVisibility(View.GONE);
