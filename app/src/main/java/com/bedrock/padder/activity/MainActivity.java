@@ -106,11 +106,11 @@ public class MainActivity
 
     public static void setPadPattern(int id) {
         /*
-        *  1: 4 side
-        *  2: vertical fade
-        *  3: horizontal fade
-        *  4: vertical-horizontal fade
-        */
+         *  1: 4 side
+         *  2: vertical fade
+         *  3: horizontal fade
+         *  4: vertical-horizontal fade
+         */
 
         PAD_PATTERN = id;
     }
@@ -136,77 +136,83 @@ public class MainActivity
         setFab();
         setToolbar();
 
-        switch (preferences.getStartPage()) {
-            case "recent":
-                // load latest played preset
-                if (preferences.getLastPlayed() != null) {
-                    try {
-                        currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json"), PresetSchema.class).getPreset();
-                        if (!file.isPresetAvailable(currentPreset)) {
-                            // preset corrupted or doesn't exist
+        String shortcut = getIntent().getStringExtra("shortcut");
+
+        if (shortcut != null) {
+            Log.i(TAG, "onCreate: shortcuts used " + shortcut);
+        } else {
+            switch (preferences.getStartPage()) {
+                case "recent":
+                    // load latest played preset
+                    if (preferences.getLastPlayed() != null) {
+                        try {
+                            currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json"), PresetSchema.class).getPreset();
+                            if (!file.isPresetAvailable(currentPreset)) {
+                                // preset corrupted or doesn't exist
+                                currentPreset = null;
+                            }
+                        } catch (Exception e) {
+                            // corrupted preset
+                            // e.printStackTrace();
                             currentPreset = null;
                         }
-                    } catch (Exception e) {
-                        // corrupted preset
-                        // e.printStackTrace();
-                        currentPreset = null;
                     }
-                }
-                break;
-            case "about":
-                // load latest played preset and show about
-                setToolbarVisible();
-                if (preferences.getLastPlayed() != null) {
-                    try {
-                        currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json"), PresetSchema.class).getPreset();
-                        if (!file.isPresetAvailable(currentPreset)) {
-                            // preset corrupted or doesn't exist
+                    break;
+                case "about":
+                    // load latest played preset and show about
+                    setToolbarVisible();
+                    if (preferences.getLastPlayed() != null) {
+                        try {
+                            currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json"), PresetSchema.class).getPreset();
+                            if (!file.isPresetAvailable(currentPreset)) {
+                                // preset corrupted or doesn't exist
+                                currentPreset = null;
+                            }
+                        } catch (Exception e) {
+                            // corrupted preset
+                            // e.printStackTrace();
                             currentPreset = null;
                         }
-                    } catch (Exception e) {
-                        // corrupted preset
-                        // e.printStackTrace();
-                        currentPreset = null;
                     }
-                }
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        coordinate[0] = w.getRect(R.id.toolbar_info, a).centerX();
-                        coordinate[1] = w.getRect(R.id.toolbar_info, a).centerY();
-                        showAboutFragment();
-                    }
-                }, 200);
-                break;
-            case "preset_store":
-                // set null for selecting presets
-                preferences.setLastPlayed(null);
-                setToolbarVisible();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        coordinate[0] = w.getRect(R.id.toolbar_preset, a).centerX();
-                        coordinate[1] = w.getRect(R.id.toolbar_preset, a).centerY();
-                        intent.intent(a, "activity.PresetStoreActivity", 0);
-                    }
-                }, 200);
-                break;
-            default:
-                // load latest played preset
-                if (preferences.getLastPlayed() != null) {
-                    try {
-                        currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json"), PresetSchema.class).getPreset();
-                        if (!file.isPresetAvailable(currentPreset)) {
-                            // preset corrupted or doesn't exist
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            coordinate[0] = w.getRect(R.id.toolbar_info, a).centerX();
+                            coordinate[1] = w.getRect(R.id.toolbar_info, a).centerY();
+                            showAboutFragment();
+                        }
+                    }, 200);
+                    break;
+                case "preset_store":
+                    // set null for selecting presets
+                    preferences.setLastPlayed(null);
+                    setToolbarVisible();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            coordinate[0] = w.getRect(R.id.toolbar_preset, a).centerX();
+                            coordinate[1] = w.getRect(R.id.toolbar_preset, a).centerY();
+                            intent.intent(a, "activity.PresetStoreActivity", 0);
+                        }
+                    }, 200);
+                    break;
+                default:
+                    // load latest played preset
+                    if (preferences.getLastPlayed() != null) {
+                        try {
+                            currentPreset = gson.fromJson(file.getStringFromFile(getCurrentPresetLocation() + "/about/json"), PresetSchema.class).getPreset();
+                            if (!file.isPresetAvailable(currentPreset)) {
+                                // preset corrupted or doesn't exist
+                                currentPreset = null;
+                            }
+                        } catch (Exception e) {
+                            // corrupted preset
+                            // e.printStackTrace();
                             currentPreset = null;
                         }
-                    } catch (Exception e) {
-                        // corrupted preset
-                        // e.printStackTrace();
-                        currentPreset = null;
                     }
-                }
-                break;
+                    break;
+            }
         }
 
         // load preset info / sound

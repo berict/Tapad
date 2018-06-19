@@ -14,14 +14,20 @@
         android:resizeableActivity="false"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".activity.LauncherActivity"
             android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts"/>
         </activity>
         <activity
             android:name=".activity.MainActivity"
@@ -31,6 +37,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.PresetStoreActivity"
+            android:exported="true"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.FeedbackActivity"
@@ -52,11 +59,8 @@
         <activity
             android:name=".activity.MainIntroActivity"
             android:theme="@style/Theme.Intro"/>
-
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="b07abd5ed5e39c5184eacf640f4c620707e52781"/>
-
     </application>
-
 </manifest>

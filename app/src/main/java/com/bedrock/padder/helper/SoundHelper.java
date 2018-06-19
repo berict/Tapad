@@ -1,7 +1,13 @@
 package com.bedrock.padder.helper;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Rect;
+import android.graphics.drawable.Icon;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.SoundPool;
@@ -13,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.bedrock.padder.R;
+import com.bedrock.padder.activity.MainActivity;
 import com.bedrock.padder.model.preferences.Preferences;
 import com.bedrock.padder.model.preset.Preset;
 import com.bedrock.padder.model.sound.Deck;
@@ -20,7 +27,11 @@ import com.bedrock.padder.model.sound.GesturePad;
 import com.bedrock.padder.model.sound.Pad;
 import com.bedrock.padder.model.sound.Sound;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import static com.bedrock.padder.activity.MainActivity.PAD_PATTERN;
@@ -606,6 +617,35 @@ public class SoundHelper {
                         savedSampleId = sampleId;
                     }
                 });
+
+                // Add loaded preset to shortcut
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N_MR1) {
+                    Intent main = new Intent(activity.getApplicationContext(), MainActivity.class);
+                    main.setAction(Intent.ACTION_VIEW);
+                    main.putExtra("shortcut", currentPreset.getTag());
+
+                    ShortcutManager shortcutManager = activity.getSystemService(ShortcutManager.class);
+
+                    ShortcutInfo.Builder shortcut = new ShortcutInfo.Builder(activity, currentPreset.getTag())
+                            .setShortLabel(currentPreset.getAbout().getSongName())
+                            .setLongLabel(currentPreset.getAbout().getSongName() + " - " + currentPreset.getAbout().getSongArtist())
+                            .setIntent(main);
+
+                    Bitmap icon;
+                    try {
+                        icon = BitmapFactory.decodeStream(new FileInputStream(
+                                new File(currentPreset.getAbout().getImage(currentPreset))
+                        ));
+
+                        shortcut = shortcut.setIcon(Icon.createWithBitmap(icon));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (shortcutManager != null) {
+                        shortcutManager.addDynamicShortcuts(Arrays.asList(shortcut.build()));
+                    }
+                }
 
                 final Handler intervalTimer = new Handler();
 

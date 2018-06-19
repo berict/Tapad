@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="preset-store"
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_preset_store"
+        android:shortcutShortLabel="@string/preset_store">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.bedrock.padder"
+            android:targetClass="com.bedrock.padder.activity.PresetStoreActivity"/>
+        <!-- If your shortcuts is associated with multiple intents, include them
+             here. The last intent in the list determines what the user sees when
+             they launch this shortcuts. -->
+        <categories android:name="android.shortcut.conversation"/>
+    </shortcut>
+    <!-- Specify more shortcuts here. -->
+</shortcuts>

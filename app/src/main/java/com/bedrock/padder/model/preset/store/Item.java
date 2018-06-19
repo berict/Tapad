@@ -9,6 +9,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ShortcutManager;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -44,6 +45,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -239,6 +241,13 @@ public class Item {
     }
 
     public void removeLocalPreset(String presetName, Runnable onSuccess, Runnable onFailure) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N_MR1) {
+            ShortcutManager shortcutManager = activity.getSystemService(ShortcutManager.class);
+            if (shortcutManager != null) {
+                shortcutManager.removeDynamicShortcuts(Arrays.asList(presetName));
+            }
+        }
+
         if (new FileHelper().deleteRecursive(new File(PROJECT_LOCATION_PRESETS + "/" + presetName))) {
             Log.d("remove()", "Successfully removed preset folder");
             if (onSuccess != null) {
