@@ -44,7 +44,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
 
     @Override
     public void onBindViewHolder(final DetailViewHolder holder, int position) {
-        if (about.getDetail(position).hasContent()) {
+        if (about != null && about.getDetail(position) != null && about.getDetail(position).hasContent()) {
             holder.detailTitle.setText(about.getDetail(position).getTitle(context));
             holder.detailTitle.setTextColor(about.getColor());
 
