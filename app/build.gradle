@@ -26,8 +26,8 @@ android {
         minSdkVersion 15
         targetSdkVersion 27
         // TODO RELEASE
-        versionCode 25
-        versionName "2.3 Beta 4"
+        versionCode 26
+        versionName "2.3"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled = true
     }
