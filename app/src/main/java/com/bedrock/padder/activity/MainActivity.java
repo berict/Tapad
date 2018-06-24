@@ -845,13 +845,15 @@ public class MainActivity
     private void closePresetStore() {
         setPresetInfo();
 
-        if (coordinate[0] > 0 && coordinate[1] > 0) {
-            w.setVisible(R.id.placeholder, 0, a);
-            anim.circularRevealInPx(R.id.placeholder,
-                    coordinate[0], coordinate[1],
-                    (int) Math.hypot(coordinate[0], coordinate[1]) + 200, 0, new AccelerateDecelerateInterpolator(),
-                    circularRevealDuration, 200, a);
-            Log.i(TAG, "Animated");
+        if (!isAboutVisible) {
+            if (coordinate[0] > 0 && coordinate[1] > 0) {
+                w.setVisible(R.id.placeholder, 0, a);
+                anim.circularRevealInPx(R.id.placeholder,
+                        coordinate[0], coordinate[1],
+                        (int) Math.hypot(coordinate[0], coordinate[1]) + 200, 0, new AccelerateDecelerateInterpolator(),
+                        circularRevealDuration, 200, a);
+                Log.i(TAG, "Animated");
+            }
         }
     }
 
