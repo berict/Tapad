@@ -167,46 +167,52 @@ public class WindowHelper {
 
     public void setVisible(final int viewId, final int delay, final Activity activity) {
         final View view = activity.findViewById(viewId);
-        if (delay > 0) {
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    view.setVisibility(View.VISIBLE);
-                }
-            }, delay);
-        } else {
-            view.setVisibility(View.VISIBLE);
+        if (view != null) {
+            if (delay > 0) {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.setVisibility(View.VISIBLE);
+                    }
+                }, delay);
+            } else {
+                view.setVisibility(View.VISIBLE);
+            }
         }
     }
 
     public void setInvisible(final int viewId, final int delay, final Activity activity) {
         final View view = activity.findViewById(viewId);
-        if (delay > 0) {
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    view.setVisibility(View.INVISIBLE);
-                }
-            }, delay);
-        } else {
-            view.setVisibility(View.INVISIBLE);
+        if (view != null) {
+            if (delay > 0) {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.setVisibility(View.INVISIBLE);
+                    }
+                }, delay);
+            } else {
+                view.setVisibility(View.INVISIBLE);
+            }
         }
     }
 
     public void setGone(final int viewId, final int delay, final Activity activity) {
         final View view = activity.findViewById(viewId);
-        if (delay > 0) {
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    view.setVisibility(View.GONE);
-                }
-            }, delay);
-        } else {
-            view.setVisibility(View.GONE);
+        if (view != null) {
+            if (delay > 0) {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.setVisibility(View.GONE);
+                    }
+                }, delay);
+            } else {
+                view.setVisibility(View.GONE);
+            }
         }
     }
 
