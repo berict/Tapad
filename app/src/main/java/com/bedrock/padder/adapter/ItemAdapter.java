@@ -71,7 +71,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.DetailViewHold
     public void onBindViewHolder(final DetailViewHolder holder, int position) {
         holder.itemText.setText(item[position].getText(context));
 
-        if (item[position].getHint(context).equals("")) {
+        if (item[position].getHint(context) == null || item[position].getHint(context).equals("")) {
             // Fix for #222
             holder.itemLayout.setVisibility(View.GONE);
             holder.itemLayout.setLayoutParams(new RecyclerView.LayoutParams(0, 0));

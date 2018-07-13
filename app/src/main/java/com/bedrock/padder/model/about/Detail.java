@@ -36,7 +36,7 @@ public class Detail {
     public boolean hasContent() {
         boolean result = false;
         for (Item item : items) {
-            if (!(item.getHint().equals("") || item.getHint() == null)) {
+            if (!(item.getHint() == null) && !item.getHint().equals("")) {
                 result = true;
             }
         }
