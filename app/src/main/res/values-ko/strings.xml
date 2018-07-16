@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">Tapad</string>
-
     <string name="error">Error</string>
 
     <!-- Actions -->
@@ -26,27 +24,15 @@
     <string name="tutorial_loading">Can\'t start tutorial mode while loading preset</string>
     <string name="tutorial_no_preset">Can\'t start tutorial mode without a preset</string>
 
-    <string name="user_benefits_get_started_title" translatable="false">@string/confirm_get_started</string>
     <string name="user_benefits_get_started_text">Discover and download presets from the Preset Store, then play it on Tapad app.</string>
 
     <!-- Intro -->
-    <string name="intro_1_title" translatable="false">@string/app_name</string>
     <string name="intro_1_text">Welcome to Tapad, the new grid instrument for Android.</string>
-    <color name="intro_1_color">@color/purple_300</color>
-    <color name="intro_1_color_dark">@color/purple_400</color>
-    <drawable name="intro_1_drawable">@drawable/ic_launcher</drawable>
     <string name="intro_2_title">Gesture mode</string>
     <string name="intro_2_text">Make use of your touchscreen.</string>
-    <color name="intro_2_color">@color/blue_500</color>
-    <color name="intro_2_color_dark">@color/blue_700</color>
     <string name="intro_3_title">Preset store</string>
-    <string name="intro_3_text" translatable="false">@string/preset_store_description</string>
-    <color name="intro_3_color">@color/amber_300</color>
-    <color name="intro_3_color_dark">@color/amber_500</color>
     <string name="intro_4_title">Customize</string>
     <string name="intro_4_text">Color your pads, patterns and more.</string>
-    <color name="intro_4_color">@color/light_green_800</color>
-    <color name="intro_4_color_dark">@color/light_green_900</color>
 
     <string name="tab_1">Installed</string>
     <string name="tab_2">Online</string>
@@ -265,7 +251,6 @@
     <string name="preset_store_open_preset">Open zip preset files to open</string>
     <string name="preset_store_download_size_downloading">Downloading…</string>
     <string name="preset_store_download_size_installing">Installing…</string>
-    <string name="preset_store_download_size_placeholder" translatable="false">50 MB/100 MB</string>
     <string name="preset_store_download_no_connection_dialog_title">No connection</string>
     <string name="preset_store_download_no_connection_dialog_text">
 		Can\'t connect to the preset store. Please check your internet connection.
@@ -291,8 +276,6 @@
     <string name="preset_store_download_notification_text_cancelled">Download cancelled</string>
     <string name="preset_store_download_notification_text_failed">Download failed</string>
     <string name="preset_store_remove_warning_dialog_text">Remove preset?</string>
-
-    <string name="custom_preset_folder_name" translatable="false">custom-preset-</string>
 
     <!--Settings-->
     <string name="settings_group_play">Play</string>
@@ -348,16 +331,7 @@
 
     <string name="task_about_tapad">Tapad</string>
     <string name="task_about_dev">Studio Berict</string>
-
-    <string name="task_feedback_song" translatable="false">@string/info_tapad_others_song</string>
-    <string name="task_feedback_feedback" translatable="false">@string/info_tapad_others_feedback</string>
-    <string name="task_feedback_report_bug" translatable="false">@string/info_tapad_others_report_bug</string>
-
-    <string name="task_presets" translatable="false">@string/settings_preset</string>
     <string name="task_tutorial_mode">Start tutorial mode?</string>
-
-    <string name="task_settings" translatable="false">@string/settings</string>
-    <string name="task_settings_color" translatable="false">@string/settings_color</string>
 
     <!-- Promote -->
     <string name="feedback">Feedback</string>
@@ -372,25 +346,6 @@
     <!-- Ads message -->
     <string name="ads_video_thanks">Thanks! 😀</string>
     <string name="help_developer">Help developer</string>
-
-    <!-- No translation below -->
-
-    <string name="dev_email" translatable="false">dev.bedrock@gmail.com</string>
-    <string name="feedback_email" translatable="false">berict.bedrock@gmail.com</string>
-
-    <string name="app_link_long" translatable="false">https://play.google.com/store/apps/details?id=com.bedrock.padder</string>
-    <string name="app_link_short" translatable="false">https://goo.gl/pmws51</string>
-    <string name="app_package_name" translatable="false">com.bedrock.padder</string>
-
-    <string name="placeholder" translatable="false">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet felis blandit, iaculis odio sit amet, aliquam lacus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed interdum posuere est, nec vehicula felis elementum ac. Nulla aliquet libero semper vehicula consectetur. Aliquam eget luctus felis, pulvinar euismod lectus. Morbi mattis eros non fermentum imperdiet. Praesent cursus urna ligula, ac porttitor purus posuere nec. Phasellus quis purus quis dolor tempus volutpat eu luctus leo. Nulla facilisi. Nullam facilisis pellentesque massa in laoreet. Nulla facilisi. Aenean et fermentum nunc.
-    </string>
-
-    <!-- Google AdMob -->
-    <string name="admob_app_id" translatable="false">ca-app-pub-4284148629649013~6148783881</string>
-    <string name="admob_unit_id_main" translatable="false">ca-app-pub-4284148629649013/6868459633</string>
-    <string name="admob_unit_id_about" translatable="false">ca-app-pub-4284148629649013/9972478584</string>
-    <string name="admob_unit_id_video" translatable="false">ca-app-pub-4284148629649013/1407770461</string>
 
     <string name="noti_channel_download">Download preset</string>
 </resources>

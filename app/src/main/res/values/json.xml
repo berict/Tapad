@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- About Json -->
-    <string name="json_about_tapad">
+  <string name="json_about_tapad" translatable="false">
         {
           \"bio\": {
             \"name\": \"info_tapad_bio_name\",
@@ -105,7 +105,7 @@
           \"songName\": \"info_tapad_bio_title\"
         }
     </string>
-    <string name="json_about_dev">
+  <string name="json_about_dev" translatable="false">
         {
           \"bio\": {
             \"name\": \"info_berict_bio_name\",
