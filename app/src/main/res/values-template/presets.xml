@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Translation outlines -->
+    <!-- The string "Studio Berict", "Tapad", "Bedrock Pictures" and links shouldn't be translated -->
+    <!-- Any translation pull requests not following outlines will not be accepted -->
+
+    <!-- Berict -->
+    <string name="info_berict_bio_title">Studio Berict\'s biography</string>
+    <string name="info_berict_bio_text">We target everyone. Whatever we make, it\'s just for you.
+        Our main focus on our service is your experience. Unlike others, we think everything at your perspective.
+		Mainly makes mobile / web software, often makes some high-quality videos.</string>
+    <string name="info_berict_bio_name">Bedrock Pictures</string>
+    <string name="info_berict_bio_source">Powered by Bedrock Pictures</string>
+
+    <string name="info_berict_detail_title">About Studio Berict</string>
+
+    <string name="info_berict_action_title">Support Development</string>
+    <string name="info_berict_action_report_bug">Report bugs</string>
+    <string name="info_berict_action_report_bug_hint">Help us fix bugs and problems</string>
+    <string name="info_berict_action_report_bug_dialog_content">Report bug to the developers. Making an issue on GitHub fixes faster than emails.</string>
+    <string name="info_berict_action_report_bug_dialog_email">Send bug report over email</string>
+    <string name="info_berict_action_report_bug_dialog_github">Make an issue on GitHub</string>
+    <string name="info_berict_action_contribute">Help developing Tapad</string>
+    <string name="info_berict_action_contribute_hint">Make Tapad a better app, together.</string>
+    <string name="info_berict_action_contribute_dialog_content">Contribute to Tapad with your skills.</string>
+    <string name="info_berict_action_contribute_dialog_github">Make a pull request on GitHub</string>
+    <string name="info_berict_action_donate">Donate</string>
+    <string name="info_berict_action_donate_hint">Help developers keep working</string>
+    <string name="info_berict_action_donate_dialog_content">Help developers by watching a video advertisement.</string>
+    <string name="info_berict_action_donate_dialog_positive">See video ad</string>
+
+    <!-- Tapad -->
+    <string name="info_tapad_title">About Tapad</string>
+    <string name="info_tapad_bio_title">About Tapad</string>
+    <string name="info_tapad_bio_name">Remixing X Material Design</string>
+    <string name="info_tapad_bio_text">
+        Probably the best looking remix app out there.
+		Extended from the instrument LaunchPad, and made mobile friendly with touch gesture support.
+        It mainly features song genres like EDM, Dubstep, Progressive House, Electronic and further more.</string>
+    <string name="info_tapad_bio_source">Powered by Studio Berict</string>
+
+    <string name="info_tapad_info_title">Information</string>
+    <string name="info_tapad_info_check_update">Check updates</string>
+    <string name="info_tapad_info_check_update_hint">Open in Google Play</string>
+    <string name="info_tapad_info_tester">Become a tester</string>
+    <string name="info_tapad_info_tester_hint">Receive updates of a testing version of the app</string>
+    <string name="info_tapad_info_legal">Legal Information</string>
+    <string name="info_tapad_info_version">Tapad version</string>
+    <string name="info_tapad_info_changelog">Changelog</string>
+    <string name="info_tapad_info_social">More from Studio Berict</string>
+    <string name="info_tapad_info_social_text">Find us on Facebook, Twitter, Google+ and Discord! Message the developer and leave feedbacks.</string>
+    <string name="info_tapad_info_thanks">Special thanks</string>
+    <string name="info_tapad_info_dev">Developer</string>
+    <string name="info_tapad_info_dev_hint">Studio Berict</string>
+
+    <string name="info_tapad_others_title">Others</string>
+    <string name="info_tapad_others_song">Request a song</string>
+    <string name="info_tapad_others_create">Create a preset</string>
+    <string name="info_tapad_others_create_dialog_title">Open Preset creator on mobile?</string>
+    <string name="info_tapad_others_create_dialog_content">Preset creator is optimized to desktop browsers.</string>
+    <string name="info_tapad_others_create_dialog_open">Open in mobile browser</string>
+    <string name="info_tapad_others_create_dialog_clipboard">Copy link to clipboard</string>
+    <string name="info_tapad_others_create_dialog_clipboard_success">Link copied to clipboard</string>
+    <string name="info_tapad_others_create_dialog_clipboard_failure">Failed to copy link</string>
+    <string name="info_tapad_others_feedback">Leave a feedback</string>
+    <string name="info_tapad_others_feedback_hint">Request new features or ask questions</string>
+    <string name="info_tapad_others_report_bug">Report bugs</string>
+    <string name="info_tapad_others_report_bug_hint">Help developers to fix bugs and problems</string>
+    <string name="info_tapad_others_rate">Rate Tapad</string>
+    <string name="info_tapad_others_rate_hint">Show your love on Tapad on Google Play</string>
+    <string name="info_tapad_others_recommend">Recommend Tapad</string>
+    <string name="info_tapad_others_recommend_hint">Let your friends know Tapad</string>
+    <string name="info_tapad_others_recommend_share_subject">The most beautiful remix app, Tapad.</string>
+    <string name="info_tapad_others_recommend_share_text">Check this out : https://goo.gl/pmws51</string>
+    <string name="info_tapad_others_recommend_share_hint">Share Tapad with others</string>
+</resources>

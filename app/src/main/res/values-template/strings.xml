@@ -1,0 +1,355 @@
+<resources>
+    <!-- Translation outlines -->
+    <!-- The string "Studio Berict", "Tapad", "Bedrock Pictures" and links shouldn't be translated -->
+    <!-- Any translation pull requests not following outlines will not be accepted -->
+
+    <string name="error">Error</string>
+
+    <!-- Actions -->
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+    <string name="explore">Explore</string>
+    <string name="change">Change</string>
+    <string name="settings">Settings</string>
+    <string name="confirm_got_it">Got It</string>
+    <string name="explore_ac">EXPLORE</string>
+    <string name="change_ac">CHANGE</string>
+    <string name="make_primary_ac">MAKE PRIMARY</string>
+    <string name="remove_ac">REMOVE</string>
+    <string name="download_preset_ac">DOWNLOAD PRESETS</string>
+    <string name="settings_ac">SETTINGS</string>
+    <string name="proceed_ac">PROCEED</string>
+    <string name="confirm_got_it_ac">GOT IT</string>
+    <string name="confirm_exit">Press back again to exit</string>
+    <string name="confirm_get_started">Get Started</string>
+    <string name="confirm_get_started_ac">GET STARTED</string>
+
+    <string name="tutorial_none">This preset doesn\'t support tutorial mode</string>
+    <string name="tutorial_loading">Can\'t start tutorial mode while loading preset</string>
+    <string name="tutorial_no_preset">Can\'t start tutorial mode without a preset</string>
+
+    <string name="user_benefits_get_started_text">Discover and download presets from the Preset Store, then play it on Tapad app.</string>
+
+    <!-- Intro -->
+    <string name="intro_1_text">Welcome to Tapad, the new grid instrument for Android.</string>
+    <string name="intro_2_title">Gesture mode</string>
+    <string name="intro_2_text">Make use of your touchscreen.</string>
+    <string name="intro_3_title">Preset store</string>
+    <string name="intro_4_title">Customize</string>
+    <string name="intro_4_text">Color your pads, patterns and more.</string>
+
+    <string name="tab_1">Installed</string>
+    <string name="tab_2">Online</string>
+
+    <!-- CardView -->
+    <string name="cardview_now_playing">Now playing</string>
+
+    <!-- Help -->
+    <string name="help_title">Help</string>
+
+    <string name="help_contact_title">Contact us</string>
+    <string name="help_contact_email">Email</string>
+    <string name="help_contact_send_feedback">Send feedback</string>
+
+    <string name="help_popular_title">Popular</string>
+    <string name="help_popular_about_tapad">About Tapad</string>
+    <string name="help_popular_about_gesture_mode">About gesture mode</string>
+    <string name="help_popular_preset_store_download">Download new presets</string>
+    <string name="help_popular_preset_store_manage">View &amp; delete installed presets</string>
+    <string name="help_popular_tutorial">Learn to play Tapad</string>
+
+    <string name="help_popular_about_tapad_detail">
+		<b><i>Tapad</i></b> is a mobile remix application. \n\n
+		Extended from the instrument <i>LaunchPad</i>, and made mobile friendly with touch gesture support.
+        It mainly features song genres like EDM, Dubstep, Progressive House, Electronic and further more.
+	</string>
+    <string name="help_popular_about_gesture_mode_detail">
+		<b><i>Gesture mode</i></b> is a new feature in <i>Tapad</i>. \n
+		In gesture mode, you can swipe in 4 directions and press a pad. Gesture presets have different sounds playing on these 5 actions.
+		LaunchPad and other applications have 1 input / pad. But Tapad have gesture mode to get maximum 5 input / pad.
+	</string>
+    <string name="help_popular_preset_store_download_detail">Download new presets</string>
+    <string name="help_popular_preset_store_manage_detail">View &amp; delete presets</string>
+    <string name="help_popular_tutorial_detail">Learn to play Tapad</string>
+
+    <string name="help_popular_browse_all">Browse all articles</string>
+
+    <!-- Feedback -->
+    <string name="feedback_disclaimer_text">Your system info will be sent to Studio Berict.</string>
+    <string name="feedback_disclaimer_action">Learn More</string>
+    <string name="feedback_disclaimer_dialog_title">System information</string>
+    <string name="feedback_disclaimer_dialog_action">Close</string>
+    <string name="feedback_quit_dialog_positive">KEEP WRITING</string>
+    <string name="feedback_quit_dialog_negative">DISCARD</string>
+
+    <string name="feedback_song_discard">Discard song request?</string>
+    <string name="feedback_song_description">We would love new presets! Please let us know what song would fit in Tapad.</string>
+    <string name="feedback_song_name_input_hint">Song title</string>
+    <string name="feedback_song_name_input_error">Enter the song title</string>
+    <string name="feedback_song_artist_input_hint">Artist name</string>
+    <string name="feedback_song_artist_input_error">Enter the artist name</string>
+    <string name="feedback_song_link_input_error">Enter the song link</string>
+    <string name="feedback_song_link_input_hint">YouTube / SoundCloud link</string>
+    <string name="feedback_song_link_input_url_error">Enter a valid YouTube / SoundCloud link</string>
+    <string name="feedback_song_message_input_hint">Message (optional)</string>
+    <string name="feedback_song_genre_error">Select a song genre</string>
+    <string-array name="feedback_song_genre_array">
+        <item>Song genre</item>
+        <item>Electronic</item>
+        <item>Pop</item>
+        <item>Dance</item>
+        <item>Hip-Hop/Rap</item>
+        <item>Rock</item>
+    </string-array>
+    <string name="feedback_song_send_error">Please fill out the form to request a song</string>
+    <string name="feedback_email_client_feedback">Select a email client to send feedback</string>
+    <string name="feedback_email_client_bug_report">Select a email client to send bug report</string>
+
+    <string name="feedback_feedback_discard">Discard feedback?</string>
+    <string name="feedback_feedback_description">We would love to hear thoughts, ideas, anything from you. We hope we can improve Tapad with you!</string>
+    <string name="feedback_feedback_message_input_hint">Feedback message</string>
+    <string name="feedback_feedback_message_input_error_empty">Enter feedback message (at least 15 characters)</string>
+    <string name="feedback_feedback_message_input_error_too_short">more to go…</string>
+    <string name="feedback_feedback_type_error">Select a feedback type</string>
+    <string-array name="feedback_feedback_type_array">
+        <item>Feedback type</item>
+        <item>Comments</item>
+        <item>Questions</item>
+        <item>Ideas</item>
+        <item>Others</item>
+    </string-array>
+    <string name="feedback_feedback_send_error">Please fill out the form to send a feedback</string>
+
+    <string name="feedback_report_bug_discard">Discard bug report?</string>
+    <string name="feedback_report_bug_description">Our priority is on you. We are not letting you to see any of those errors. Let us know and fix them.</string>
+    <string name="feedback_report_bug_message_input_hint">Bug details</string>
+    <string name="feedback_report_bug_message_input_error_empty">Enter bug details (at least 15 characters)</string>
+    <string name="feedback_report_bug_message_input_error_too_short">more to go…</string>
+    <string name="feedback_report_bug_type_error">Select a bug type</string>
+    <string name="feedback_report_bug_type_quickfix_text">Wait! We might have a quickfix for you.</string>
+    <string name="feedback_report_bug_type_quickfix_action">Learn More</string>
+    <string name="feedback_report_bug_type_quickfix_content">Make sure the deck (buttons with numbers on the first row) is selected and your device volume is big enough to hear.</string>
+    <string name="feedback_report_bug_type_quickfix_neutral">CLOSE</string>
+    <string-array name="feedback_report_bug_type_array">
+        <item>Bug type</item>
+        <item>Preset problem</item>
+        <item>Sound not playing</item>
+        <item>App crashing</item>
+        <item>Others</item>
+    </string-array>
+    <string name="feedback_report_bug_send_error">Please fill out the form to report a bug</string>
+
+    <!-- Quickstart Dialog -->
+    <string name="dialog_quickstart_welcome_title">Welcome to Tapad!</string>
+    <string name="dialog_quickstart_welcome_text">Walk through how to use Tapad or tap \'Tips\' in Settings when you want this later.</string>
+    <string name="dialog_quickstart_welcome_negative">NO THANKS</string>
+    <string name="dialog_quickstart_welcome_positive">SHOW ME HOW</string>
+
+    <!-- Tutorial -->
+    <string name="dialog_tutorial_warning_title">Start tutorial mode?</string>
+    <string name="dialog_tutorial_warning_text">This is an experimental feature. It may cause huge frame drops and glitches on low-ram devices. Use at your own risk.</string>
+    <string name="dialog_tutorial_warning_text_low_ram">This is an experimental feature. It seems your device has not enough ram, it will probably cause huge frame drops, glitches and even shutting down your device. Use at your own risk.</string>
+    <string name="dialog_tutorial_warning_negative">CANCEL</string>
+    <string name="dialog_tutorial_warning_positive">CONTINUE</string>
+    <string name="dialog_tutorial_title">Tutorial mode</string>
+    <string name="dialog_tutorial_text_error">Sorry, there is no tutorial for this preset for now. Check again later.</string>
+
+    <!-- TapTarget Dialog -->
+    <string name="dialog_tap_target_toggle_primary">Select deck</string>
+    <string name="dialog_tap_target_toggle_secondary">Tap the toggle button to load sounds to pads.</string>
+    <string name="dialog_tap_target_button_primary">Make the music</string>
+    <string name="dialog_tap_target_button_secondary">Press the pads in the right time to make the music!</string>
+    <string name="dialog_tap_target_swipe_primary">Play with style</string>
+    <string name="dialog_tap_target_swipe_secondary">Swipe the pad up, down, left, right. It will make different sounds.</string>
+    <string name="dialog_tap_target_loop_primary">Loop sounds</string>
+    <string name="dialog_tap_target_loop_secondary">You can loop the sound by holding the pad.</string>
+    <string name="dialog_tap_target_pattern_primary">Play more beautifully</string>
+    <string name="dialog_tap_target_pattern_secondary">Toggle the auto pattern to make the pads light with patterns.</string>
+    <string name="dialog_tap_target_fab_primary">Get control of the app</string>
+    <string name="dialog_tap_target_fab_secondary">Tap the action button to get information, change settings &amp; more.</string>
+    <string name="dialog_tap_target_info_primary">Check out more information</string>
+    <string name="dialog_tap_target_info_secondary">Know about the artist, app itself &amp; more.</string>
+    <string name="dialog_tap_target_tutorial_primary">Learn how to play</string>
+    <string name="dialog_tap_target_tutorial_secondary">Check out the tutorial to learn the preset.</string>
+    <string name="dialog_tap_target_preset_primary">Change now playing preset</string>
+    <string name="dialog_tap_target_preset_secondary">Discover different presets and its artists.</string>
+    <string name="dialog_thanks_positive">CLOSE</string>
+
+    <string name="dialog_preset_title">Presets</string>
+    <string name="dialog_preset_positive">SAVE</string>
+    <string name="dialog_preset_negative">CANCEL</string>
+
+    <!-- Dialog Actions -->
+    <string name="dialog_cancel">CANCEL</string>
+    <string name="dialog_no_thanks">NO THANKS</string>
+    <string name="dialog_learn_more">LEARN MORE</string>
+    <string name="dialog_save">SAVE</string>
+    <string name="dialog_close">CLOSE</string>
+    <string name="dialog_send">SEND</string>
+
+    <!-- Main Screen -->
+    <string name="warning">Please select a deck to play</string>
+    <string name="tutorial">Tutorial</string>
+    <string name="close">Close</string>
+    <string name="about">About</string>
+    <string name="presets">Presets</string>
+    <string name="preset_shortcut_error">Can\'t load selected preset</string>
+
+    <string name="progressbar_loading_preset">Loading preset</string>
+    <string name="progressbar_loading_tutorial">Loading tutorial</string>
+
+    <string name="progressbar_loading_ad">Loading ads</string>
+    <string name="progressbar_loading_ad_failed">Can\'t load ads</string>
+
+    <!-- About -->
+    <string name="about_bio_preset_by">Preset by </string>
+    <string name="about_intent_error">Can\'t load information.</string>
+
+    <!-- Preset Store -->
+    <string name="preset_store">Preset store</string>
+    <string name="preset_store_description">Discover and download new presets</string>
+    <string name="preset_store_preset_by">By </string>
+    <string name="preset_store_current_preset">Current preset</string>
+    <string name="preset_store_action_download">DOWNLOAD</string>
+    <string name="preset_store_action_repair">REPAIR</string>
+    <string name="preset_store_action_repair_needed">Preset repair is needed</string>
+    <string name="preset_store_action_remove">REMOVE</string>
+    <string name="preset_store_action_select">SELECT</string>
+    <string name="preset_store_action_update">UPDATE</string>
+    <string name="preset_store_action_update_available">Preset update is available</string>
+    <string name="preset_store_action_gesture_enabled">Gesture preset</string>
+    <string name="preset_store_loading_metadata">Loading preset store</string>
+    <string name="preset_store_loading_metadata_failure">Failed to load preset store</string>
+    <string name="preset_store_loading_metadata_failure_retry">Retry</string>
+    <string name="preset_store_loading_no_preset">No preset installed</string>
+    <string name="preset_store_permission_dialog_title">Grant access</string>
+    <string name="preset_store_permission_dialog_text">
+		Preset store needs storage permissions to run.
+		Change permissions in your device\'s app settings.
+		Give Tapad access to Storage.
+	</string>
+    <string name="preset_store_permission_dialog_positive">SETTINGS</string>
+    <string name="preset_store_permission_dialog_negative">EXIT</string>
+    <string name="preset_store_outdated_version_dialog_title">New update available</string>
+    <string name="preset_store_outdated_version_dialog_text">
+		New version is available for download.
+	</string>
+    <string name="preset_store_outdated_version_dialog_positive">UPDATE</string>
+    <string name="preset_store_outdated_version_dialog_negative">NO THANKS</string>
+    <string name="preset_store_connection_timeout_dialog_title">Loading preset store</string>
+    <string name="preset_store_connection_timeout_dialog_text">
+		Connecting to the preset store takes longer than usual. Do you want to retry connecting?
+	</string>
+    <string name="preset_store_connection_timeout_dialog_positive">RETRY</string>
+    <string name="preset_store_connection_timeout_dialog_negative">@string/dialog_cancel</string>
+    <string name="preset_store_gesture_help_dialog_title">About gesture presets</string>
+    <string name="preset_store_gesture_help_dialog_text">
+		This preset is available in <i>gesture mode</i>.\n
+		Gesture mode enables to swipe the pad in 4 directions to make more sounds.
+	</string>
+    <string name="preset_store_action_repair_dialog_title">Corrupted preset</string>
+    <string name="preset_store_action_repair_dialog_text">
+		This preset is corrupted and needs repair to play.
+		Repairing the preset will remove the preset and download it again.
+	</string>
+    <string name="preset_store_open_preset">Open zip preset files to open</string>
+    <string name="preset_store_download_size_downloading">Downloading…</string>
+    <string name="preset_store_download_size_installing">Installing…</string>
+    <string name="preset_store_download_no_connection_dialog_title">No connection</string>
+    <string name="preset_store_download_no_connection_dialog_text">
+		Can\'t connect to the preset store. Please check your internet connection.
+	</string>
+    <string name="preset_store_download_no_space_dialog_title">Can\'t download preset</string>
+    <string name="preset_store_download_no_space_dialog_text">
+		There is no space left on your device. Please free up spaces to download presets.
+	</string>
+    <string name="preset_store_download_data_usage_title">Downloading a large preset</string>
+    <string name="preset_store_download_data_usage_text">
+		This preset is large. To avoid potential delays or extra data usage charges, use Wi-Fi to download.
+	</string>
+    <string name="preset_store_download_data_usage_neutral">SET UP WI-FI</string>
+    <string name="preset_store_exit_warning_dialog_title">Download in progress</string>
+    <string name="preset_store_exit_warning_dialog_text">
+		Preset download is currently in progress. Do you want to cancel the download and exit?
+	</string>
+    <string name="preset_store_exit_warning_dialog_positive">Continue download</string>
+    <string name="preset_store_exit_warning_dialog_negative">Cancel download</string>
+    <string name="preset_store_download_notification_text_downloading">Downloading preset</string>
+    <string name="preset_store_download_notification_text_installing">Installing preset</string>
+    <string name="preset_store_download_notification_text_complete">Successfully downloaded</string>
+    <string name="preset_store_download_notification_text_cancelled">Download cancelled</string>
+    <string name="preset_store_download_notification_text_failed">Download failed</string>
+    <string name="preset_store_remove_warning_dialog_text">Remove preset?</string>
+
+    <!--Settings-->
+    <string name="settings_group_play">Play</string>
+
+    <string name="settings_preset">Presets</string>
+    <string name="settings_preset_hint">PRESET_NAME_HERE</string>
+    <string name="settings_preset_hint_no_preset">No preset loaded</string>
+    <string name="settings_focus_loss">Stop sound on focus loss</string>
+    <string name="settings_stop_loop">Stop looping with single touch</string>
+    <string name="settings_custom_sound">Custom sound</string>
+    <string name="settings_custom_sound_error">This feature is under development.</string>
+    <string name="settings_tutorial">Tutorial mode</string>
+
+    <string name="settings_group_interface">Interface</string>
+
+    <string name="settings_start_page">Start page</string>
+    <string name="settings_start_page_recent">Last played</string>
+    <string name="settings_start_page_about">About preset</string>
+    <string name="settings_start_page_preset_store">Preset store</string>
+    <string-array name="settings_start_page_items">
+        <item>@string/settings_start_page_recent</item>
+        <item>@string/settings_start_page_about</item>
+        <item>@string/settings_start_page_preset_store</item>
+    </string-array>
+
+    <string name="settings_color">Colors</string>
+    <string name="settings_color_current">Current color</string>
+    <string name="settings_color_dialog">Add new color</string>
+    <string name="settings_color_dialog_remove">Remove color?</string>
+    <string name="settings_color_dialog_duplicate">You already have this color</string>
+    <string name="settings_color_dialog_duplicate_current">This color is already your current color</string>
+    <string name="settings_color_placeholder_title">You have no colors</string>
+
+    <string name="settings_deck_margin">Deck margin scale</string>
+    <string name="settings_deck_margin_error_format">Enter a formatted value</string>
+    <string name="settings_deck_margin_error_bound">Enter a value between 0 and 1</string>
+    <string name="settings_deck_margin_error_empty">Enter a scale value</string>
+    <string name="settings_deck_margin_warning_visibility">Deck might be hard to play with scale smaller than 0.3</string>
+
+    <string name="settings_layout">Button layout</string>
+    <string name="settings_layout_error">This feature is under development.</string>
+    <string name="settings_custom_touch">Custom touch pattern</string>
+    <string name="settings_custom_touch_error">This feature is under development.</string>
+
+    <string name="settings_group_about">About</string>
+
+    <string name="settings_about_tapad">About Tapad</string>
+    <string name="settings_about_dev">About developer</string>
+
+    <!-- TaskDescription -->
+    <string name="task_welcome">Welcome to Tapad</string>
+    <string name="task_main">Tapad</string>
+
+    <string name="task_about_tapad">Tapad</string>
+    <string name="task_about_dev">Studio Berict</string>
+    <string name="task_tutorial_mode">Start tutorial mode?</string>
+
+    <!-- Promote -->
+    <string name="feedback">Feedback</string>
+    <string name="request">Ask for new feature or song</string>
+    <string name="email_subject">E-mail Subject</string>
+    <string name="email_message">Message to developer</string>
+    <string name="email_message_hint">For song requests, including a video link will help a lot.</string>
+    <string name="no_email_client">There are no email clients installed.</string>
+    <string name="discard">Discard</string>
+    <string name="send">Send</string>
+
+    <!-- Ads message -->
+    <string name="ads_video_thanks">Thanks! 😀</string>
+    <string name="help_developer">Help developer</string>
+
+    <string name="noti_channel_download">Download preset</string>
+</resources>
