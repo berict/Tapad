@@ -46,6 +46,18 @@ public class Sync {
         this.items.addAll(Arrays.asList(items));
     }
 
+    public boolean hasSamePad(Sync sync) {
+        for (int i = 0; i < this.items.size(); i++) {
+            for (int j = 0; j < sync.items.size(); j++) {
+                if (this.items.get(i).equals(sync.items.get(j))) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     public static class Item {
 
         int deck;
@@ -125,6 +137,19 @@ public class Sync {
                     ", pad=" + pad +
                     ", gesture=" + gesture +
                     '}';
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            try {
+                Item item = (Item) obj;
+                return item.deck == this.deck &&
+                        item.pad == this.pad &&
+                        item.gesture == this.gesture;
+            } catch (Exception e) {
+                Log.e("Sync.Item", "equals: data type conflict");
+                return false;
+            }
         }
     }
 }

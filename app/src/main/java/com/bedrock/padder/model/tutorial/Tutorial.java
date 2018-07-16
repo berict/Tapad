@@ -138,14 +138,37 @@ public class Tutorial {
     private Runnable nextTutorial = new Runnable() {
         @Override
         public void run() {
+            // Current sync
             Sync sync = syncs.get(currentSyncIndex++);
-            for (Sync.Item item : sync.items) {
-                show(item.deck, item.pad, item.gesture);
-            }
 
             if (currentSyncIndex < syncs.size()) {
-                handler.postDelayed(this, syncs.get(currentSyncIndex).getStart() - sync.getStart());
+                // Next sync is syncs.get(currentSyncIndex)
+                int delay = syncs.get(currentSyncIndex).getStart() - sync.getStart();
+
+                boolean hasSamePad = sync.hasSamePad(syncs.get(currentSyncIndex));
+
+                for (Sync.Item item : sync.items) {
+                    if (hasSamePad && delay < 400) {
+                        // Set duration as 50ms less than next interval
+                        if (delay > 50) {
+                            show(item.deck, item.pad, item.gesture, delay - 50);
+                        } else {
+                            Log.e("Sync", "TUTORIAL SKIPPED: bad tutorial composition (same pad under 50ms)");
+                        }
+                    } else {
+                        show(item.deck, item.pad, item.gesture);
+                    }
+                }
+
+                if (delay == 0) {
+                    handler.post(this);
+                } else {
+                    handler.postDelayed(this, delay);
+                }
             } else {
+                for (Sync.Item item : sync.items) {
+                    show(item.deck, item.pad, item.gesture);
+                }
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -180,6 +203,28 @@ public class Tutorial {
                 view = new TutorialView(decks[deck - 1], new Timing(deck));
                 view.setAnimation(animations[0]);
             }
+            view.start();
+        }
+        Log.d("TUTORIAL", "show [" + deck + ", " + pad + ", " + gesture + "]");
+    }
+
+    private void show(int deck, int pad, int gesture, int duration) {
+        if (deck > 0) {
+            TutorialView view;
+            if (pad != -1) {
+                if (gesture != -1) {
+                    // gesture pad
+                    view = new TutorialView(pads[pad], new Timing(deck, pad, gesture));
+                    view.setAnimation(animations[gesture]);
+                } else {
+                    view = new TutorialView(pads[pad], new Timing(deck, pad));
+                    view.setAnimation(animations[0]);
+                }
+            } else {
+                view = new TutorialView(decks[deck - 1], new Timing(deck));
+                view.setAnimation(animations[0]);
+            }
+            view.setDuration(duration);
             view.start();
         }
         Log.d("TUTORIAL", "show [" + deck + ", " + pad + ", " + gesture + "]");

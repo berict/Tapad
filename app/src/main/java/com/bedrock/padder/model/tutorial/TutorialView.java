@@ -1,11 +1,13 @@
 package com.bedrock.padder.model.tutorial;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 
 import static com.bedrock.padder.model.tutorial.TimingListener.listen;
 import static com.bedrock.padder.model.tutorial.Tutorial.ANIMATION_FADE;
+import static com.bedrock.padder.model.tutorial.Tutorial.TUTORIAL_ANIMATION_DURATION;
 
 public class TutorialView {
 
@@ -14,37 +16,69 @@ public class TutorialView {
 
     private Animation animation = null;
     private Animation.AnimationListener listener = new Animation.AnimationListener() {
+
+        boolean isOnAnimationCalled = false;
+
         @Override
-        public void onAnimationStart(Animation animation) {
+        public void onAnimationStart(final Animation anim) {
             if (view != null) {
                 view.setVisibility(View.VISIBLE);
+                Log.d("TutorialView", "animation.onAnimationStart");
             }
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    onAnimationEnd(anim);
+                }
+            }, anim.getDuration());
         }
 
         @Override
-        public void onAnimationEnd(Animation animation) {
-            if (view != null) {
-                Animation hide = ANIMATION_FADE;
-                hide.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                    }
+        public void onAnimationEnd(Animation anim) {
+            if (!isOnAnimationCalled) {
+                Log.d("TutorialView", "animation.onAnimationEnd");
+                if (view != null) {
+                    Animation hide = ANIMATION_FADE;
+                    hide.setAnimationListener(new Animation.AnimationListener() {
 
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        view.setVisibility(View.INVISIBLE);
-                    }
+                        boolean isOnAnimationCalled = false;
 
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
+                        @Override
+                        public void onAnimationStart(final Animation anim) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    onAnimationEnd(anim);
+                                }
+                            }, anim.getDuration());
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation anim) {
+                            if (!isOnAnimationCalled) {
+                                view.setVisibility(View.INVISIBLE);
+                                Log.d("TutorialView", "hide.onAnimationEnd");
+                            }
+                            isOnAnimationCalled = true;
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation anim) {
+                        }
+                    });
+                    view.startAnimation(hide);
+                    if (animation.getDuration() != TUTORIAL_ANIMATION_DURATION) {
+                        // Return to default duration
+                        animation.setDuration(TUTORIAL_ANIMATION_DURATION);
                     }
-                });
-                view.startAnimation(hide);
+                }
             }
+            isOnAnimationCalled = true;
         }
 
         @Override
-        public void onAnimationRepeat(Animation animation) {
+        public void onAnimationRepeat(Animation anim) {
         }
     };
 
@@ -56,6 +90,10 @@ public class TutorialView {
     void setAnimation(Animation animation) {
         this.animation = animation;
         animation.setAnimationListener(listener);
+    }
+
+    public void setDuration(int duration) {
+        animation.setDuration(duration);
     }
 
     public void start() {
