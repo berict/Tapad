@@ -44,22 +44,22 @@
     <!-- TODO RELEASE -->
     <string name="info_tapad_info_version_hint">2.3</string>
     <string name="info_tapad_info_changelog">변경 사항</string>
-    <string name="info_tapad_info_social">More from Studio Berict</string>
-    <string name="info_tapad_info_social_text">Find us on Facebook, Twitter, Google+ and Discord! Message the developer and leave feedbacks.</string>
-    <string name="info_tapad_info_thanks">Special thanks</string>
-    <string name="info_tapad_info_dev">Developer</string>
+    <string name="info_tapad_info_social">다양한 곳에서 Studio Berict를 만나기</string>
+    <string name="info_tapad_info_social_text">Facebook, Twitter, Google+ 그리고 Discord에서 개발자에게 메시지로 피드백을 남겨 보세요!</string>
+    <string name="info_tapad_info_thanks">도와 주신 분들</string>
+    <string name="info_tapad_info_dev">개발자</string>
     <string name="info_tapad_info_dev_hint">Studio Berict</string>
 
     <string name="info_tapad_others_title">Others</string>
-    <string name="info_tapad_others_song">Request a song</string>
-    <string name="info_tapad_others_create">Create a preset</string>
-    <string name="info_tapad_others_create_dialog_title">Open Preset creator on mobile?</string>
-    <string name="info_tapad_others_create_dialog_content">Preset creator is optimized to desktop browsers.</string>
-    <string name="info_tapad_others_create_dialog_open">Open in mobile browser</string>
-    <string name="info_tapad_others_create_dialog_clipboard">Copy link to clipboard</string>
-    <string name="info_tapad_others_create_dialog_clipboard_success">Link copied to clipboard</string>
-    <string name="info_tapad_others_create_dialog_clipboard_failure">Failed to copy link</string>
-    <string name="info_tapad_others_feedback">Leave a feedback</string>
+    <string name="info_tapad_others_song">음악 요청</string>
+    <string name="info_tapad_others_create">프리셋 제작</string>
+    <string name="info_tapad_others_create_dialog_title">프리셋 크리에이터를 모바일에서 열까요?</string>
+    <string name="info_tapad_others_create_dialog_content">프리셋 크리에이터는 데스크톱 환경에 최적화 되어 있습니다.</string>
+    <string name="info_tapad_others_create_dialog_open">모바일 브라우저로 열기</string>
+    <string name="info_tapad_others_create_dialog_clipboard">링크를 클립보드에 복사</string>
+    <string name="info_tapad_others_create_dialog_clipboard_success">링크가 클립보드에 복사되었습니다.</string>
+    <string name="info_tapad_others_create_dialog_clipboard_failure">링크를 복사하는 데 실패했습니다.</string>
+    <string name="info_tapad_others_feedback">피드백 남기기</string>
     <string name="info_tapad_others_feedback_hint">Request new features or ask questions</string>
     <string name="info_tapad_others_report_bug">Report bugs</string>
     <string name="info_tapad_others_report_bug_hint">Help developers to fix bugs and problems</string>
