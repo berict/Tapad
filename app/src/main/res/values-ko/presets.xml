@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Berict -->
     <string name="info_berict_bio_title">Studio Berict\'s biography</string>
     <string name="info_berict_bio_text">We target everyone. Whatever we make, it\'s just for you.
         Our main focus on our service is your experience. Unlike others, we think everything at your perspective.
@@ -23,7 +24,6 @@
     <string name="info_berict_action_donate_dialog_positive">See video ad</string>
 
     <!-- Tapad -->
-
     <string name="info_tapad_title">About Tapad</string>
 
     <string name="info_tapad_bio_title">About Tapad</string>
