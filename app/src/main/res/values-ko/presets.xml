@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Berict -->
-    <string name="info_berict_bio_title">Studio Berict\'s biography</string>
-    <string name="info_berict_bio_text">We target everyone. Whatever we make, it\'s just for you.
-        Our main focus on our service is your experience. Unlike others, we think everything at your perspective.
-		Mainly makes mobile / web software, often makes some high-quality videos.</string>
+    <string name="info_berict_bio_title">Studio Berict를 소개합니다.</string>
+    <string name="info_berict_bio_text">우리는 모두의 눈높이에 맞춥니다. 우리가 제작하는 모든 것은, 당신을 위한 것입니다.
+        우리가 가장 중요하게 생각하는 것은 당신의 경험입니다. 다른 이들과는 달리, 우리는 모든 것을 당신의 관점에서 생각합니다.
+		모바일/웹 소프트웨어를 중점으로 제작하며, 때로는 높은 수준의 영상물을 제작합니다.</string>
 
-    <string name="info_berict_detail_title">About Studio Berict</string>
+    <string name="info_berict_detail_title">Studio Berict에 대해</string>
 
-    <string name="info_berict_action_title">Support Development</string>
-    <string name="info_berict_action_report_bug">Report bugs</string>
-    <string name="info_berict_action_report_bug_hint">Help us fix bugs and problems</string>
-    <string name="info_berict_action_report_bug_dialog_content">Report bug to the developers. Making an issue on GitHub fixes faster than emails.</string>
+    <string name="info_berict_action_title">개발 지원</string>
+    <string name="info_berict_action_report_bug">오류 보고</string>
+    <string name="info_berict_action_report_bug_hint">오류 개선에 동참해 주세요.</string>
+    <string name="info_berict_action_report_bug_dialog_content">오류를 개발자에게 보고합니다. 이메일보다 Github에 이슈를 등록하는 것이 더 빠르게 오류를 개선할 수 있습ㄴㅣ다.</string>
     <string name="info_berict_action_report_bug_dialog_email">Send bug report over email</string>
     <string name="info_berict_action_report_bug_dialog_github">Make an issue on GitHub</string>
     <string name="info_berict_action_contribute">Help developing Tapad</string>
