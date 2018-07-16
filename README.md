@@ -2,12 +2,9 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/fbf48cff762f476293f755d05c439946)](https://www.codacy.com/app/BedrockDev/Tapad?)
 [![Code Climate](https://codeclimate.com/github/berict/Tapad/badges/gpa.svg)](https://codeclimate.com/github/berict/Tapad)
-[![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/berict/Tapad/blob/master/LICENSE)
 [![Coverage Status](https://coveralls.io/repos/github/berict/Tapad/badge.svg?branch=master)](https://coveralls.io/github/berict/Tapad?branch=master)
 
-[***Get it on Google Play***](https://goo.gl/pmws51)
- | 
-[***Be a beta tester***](https://goo.gl/a5V8kc)
+[***Get it on Google Play***](https://goo.gl/pmws51) | [***Be a beta tester***](https://goo.gl/a5V8kc)
 
 ### Remixing X Material Design
 

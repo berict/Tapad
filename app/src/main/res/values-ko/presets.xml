@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Berict -->
-    <string name="info_berict_bio_title">Studio Berict\'s biography</string>
-    <string name="info_berict_bio_text">We target everyone. Whatever we make, it\'s just for you.
-        Our main focus on our service is your experience. Unlike others, we think everything at your perspective.
-		Mainly makes mobile / web software, often makes some high-quality videos.</string>
+    <string name="info_berict_bio_title">Studio Berict를 소개합니다.</string>
+    <string name="info_berict_bio_text">우리는 모두의 눈높이에 맞춥니다. 우리가 제작하는 모든 것은, 당신을 위한 것입니다.
+        우리가 가장 중요하게 생각하는 것은 당신의 경험입니다. 다른 이들과는 달리, 우리는 모든 것을 당신의 관점에서 생각합니다.
+		모바일/웹 소프트웨어를 중점으로 제작하며, 때로는 높은 수준의 영상물을 제작합니다.</string>
 
-    <string name="info_berict_detail_title">About Studio Berict</string>
+    <string name="info_berict_detail_title">Studio Berict에 대해</string>
 
-    <string name="info_berict_action_title">Support Development</string>
-    <string name="info_berict_action_report_bug">Report bugs</string>
-    <string name="info_berict_action_report_bug_hint">Help us fix bugs and problems</string>
-    <string name="info_berict_action_report_bug_dialog_content">Report bug to the developers. Making an issue on GitHub fixes faster than emails.</string>
-    <string name="info_berict_action_report_bug_dialog_email">Send bug report over email</string>
-    <string name="info_berict_action_report_bug_dialog_github">Make an issue on GitHub</string>
-    <string name="info_berict_action_contribute">Help developing Tapad</string>
-    <string name="info_berict_action_contribute_hint">Make Tapad a better app, together.</string>
-    <string name="info_berict_action_contribute_dialog_content">Contribute to Tapad with your skills.</string>
-    <string name="info_berict_action_contribute_dialog_github">Make a pull request on GitHub</string>
-    <string name="info_berict_action_donate">Donate</string>
-    <string name="info_berict_action_donate_hint">Help developers keep working</string>
-    <string name="info_berict_action_donate_dialog_content">Help developers by watching a video advertisement.</string>
-    <string name="info_berict_action_donate_dialog_positive">See video ad</string>
+    <string name="info_berict_action_title">개발 지원</string>
+    <string name="info_berict_action_report_bug">오류 보고</string>
+    <string name="info_berict_action_report_bug_hint">오류 개선에 동참해 주세요.</string>
+    <string name="info_berict_action_report_bug_dialog_content">오류를 개발자에게 보고합니다. 이메일보다 GitHub에 이슈를 등록하는 것이 더 빠르게 오류를 개선할 수 있습니다.</string>
+    <string name="info_berict_action_report_bug_dialog_email">이메일로 오류를 전송하기</string>
+    <string name="info_berict_action_report_bug_dialog_github">GitHub에 이슈를 등록하기</string>
+    <string name="info_berict_action_contribute">개발 지원</string>
+    <string name="info_berict_action_contribute_hint">함께 Tapad를 개선할 수 있습니다.</string>
+    <string name="info_berict_action_contribute_dialog_content">Tapad에 당신의 재능을 기부해 주세요.</string>
+    <string name="info_berict_action_contribute_dialog_github">GitHub에 pull request보내기/string>
+    <string name="info_berict_action_donate">기부</string>
+    <string name="info_berict_action_donate_hint">개발자가 계속 일할 수 있도록 기부해 주세요.</string>
+    <string name="info_berict_action_donate_dialog_content">비디오 광고 시청을 통해 개발자에게 기부할 수 있습니다..</string>
+    <string name="info_berict_action_donate_dialog_positive">비디오 광고 시청</string>
 
     <!-- Tapad -->
-    <string name="info_tapad_title">About Tapad</string>
+    <string name="info_tapad_title">Tapad에 대해</string>
 
-    <string name="info_tapad_bio_title">About Tapad</string>
-    <string name="info_tapad_bio_name">Remixing X Material Design</string>
+    <string name="info_tapad_bio_title">Tapad에 대해</string>
+    <string name="info_tapad_bio_name">리믹싱 X 머티리얼 디자인</string>
     <string name="info_tapad_bio_text">
         Probably the best looking remix app out there.
 		Extended from the instrument LaunchPad, and made mobile friendly with touch gesture support.
         It mainly features song genres like EDM, Dubstep, Progressive House, Electronic and further more.</string>
     <string name="info_tapad_bio_source">Powered by Studio Berict</string>
 
-    <string name="info_tapad_info_title">Information</string>
-    <string name="info_tapad_info_check_update">Check updates</string>
-    <string name="info_tapad_info_check_update_hint">Open in Google Play</string>
-    <string name="info_tapad_info_tester">Become a tester</string>
-    <string name="info_tapad_info_tester_hint">Receive updates of a testing version of the app</string>
-    <string name="info_tapad_info_legal">Legal Information</string>
-    <string name="info_tapad_info_version">Tapad version</string>
+    <string name="info_tapad_info_title">정보</string>
+    <string name="info_tapad_info_check_update">업데이트 확인</string>
+    <string name="info_tapad_info_check_update_hint">구글 플레이에서 열기</string>
+    <string name="info_tapad_info_tester">베타테스터 참가</string>
+    <string name="info_tapad_info_tester_hint">어플리케이션의 테스팅 버전을 받아 보세요.</string>
+    <string name="info_tapad_info_legal">법적 고지</string>
+    <string name="info_tapad_info_version">Tapad 버전</string>
     <!-- TODO RELEASE -->
     <string name="info_tapad_info_version_hint">2.3</string>
-    <string name="info_tapad_info_changelog">Changelog</string>
+    <string name="info_tapad_info_changelog">변경 사항</string>
     <string name="info_tapad_info_social">More from Studio Berict</string>
     <string name="info_tapad_info_social_text">Find us on Facebook, Twitter, Google+ and Discord! Message the developer and leave feedbacks.</string>
     <string name="info_tapad_info_thanks">Special thanks</string>
