@@ -10,17 +10,17 @@
 
     <string name="info_berict_action_title">개발 지원</string>
     <string name="info_berict_action_report_bug">오류 보고</string>
-    <string name="info_berict_action_report_bug_hint">오류 개선에 동참해 주세요.</string>
+    <string name="info_berict_action_report_bug_hint">오류 개선에 동참하기</string>
     <string name="info_berict_action_report_bug_dialog_content">오류를 개발자에게 보고합니다. 이메일보다 GitHub에 이슈를 등록하는 것이 더 빠르게 오류를 개선할 수 있습니다.</string>
     <string name="info_berict_action_report_bug_dialog_email">이메일로 오류를 전송하기</string>
     <string name="info_berict_action_report_bug_dialog_github">GitHub에 이슈를 등록하기</string>
     <string name="info_berict_action_contribute">개발 지원</string>
     <string name="info_berict_action_contribute_hint">함께 Tapad를 개선할 수 있습니다.</string>
     <string name="info_berict_action_contribute_dialog_content">Tapad에 당신의 재능을 기부해 주세요.</string>
-    <string name="info_berict_action_contribute_dialog_github">GitHub에 pull request보내기/string>
+    <string name="info_berict_action_contribute_dialog_github">GitHub에 pull request보내기</string>
     <string name="info_berict_action_donate">기부</string>
     <string name="info_berict_action_donate_hint">개발자가 계속 일할 수 있도록 기부해 주세요.</string>
-    <string name="info_berict_action_donate_dialog_content">비디오 광고 시청을 통해 개발자에게 기부할 수 있습니다..</string>
+    <string name="info_berict_action_donate_dialog_content">비디오 광고 시청을 통해 개발자에게 기부할 수 있습니다.</string>
     <string name="info_berict_action_donate_dialog_positive">비디오 광고 시청</string>
 
     <!-- Tapad -->
@@ -39,7 +39,7 @@
     <string name="info_tapad_info_check_update">업데이트 확인</string>
     <string name="info_tapad_info_check_update_hint">구글 플레이에서 열기</string>
     <string name="info_tapad_info_tester">베타테스터 참가</string>
-    <string name="info_tapad_info_tester_hint">어플리케이션의 테스팅 버전을 받아 보세요.</string>
+    <string name="info_tapad_info_tester_hint">어플리케이션 테스팅 버전 받기</string>
     <string name="info_tapad_info_legal">법적 고지</string>
     <string name="info_tapad_info_version">Tapad 버전</string>
     <!-- TODO RELEASE -->
@@ -54,12 +54,12 @@
     <string name="info_tapad_others_title">기타</string>
     <string name="info_tapad_others_song">음악 요청</string>
     <string name="info_tapad_others_create">프리셋 제작</string>
-    <string name="info_tapad_others_create_dialog_title">프리셋 크리에이터를 모바일에서 열까요?</string>
+    <string name="info_tapad_others_create_dialog_title">프리셋 크리에이터를 모바일에서 여시겠습니까?</string>
     <string name="info_tapad_others_create_dialog_content">프리셋 크리에이터는 데스크톱 환경에 최적화 되어 있습니다.</string>
     <string name="info_tapad_others_create_dialog_open">모바일 브라우저로 열기</string>
     <string name="info_tapad_others_create_dialog_clipboard">링크를 클립보드에 복사</string>
     <string name="info_tapad_others_create_dialog_clipboard_success">링크가 클립보드에 복사되었습니다.</string>
-    <string name="info_tapad_others_create_dialog_clipboard_failure">링크를 복사하는 데 실패했습니다.</string>
+    <string name="info_tapad_others_create_dialog_clipboard_failure">링크를 복사하는데 실패했습니다.</string>
     <string name="info_tapad_others_feedback">피드백 남기기</string>
     <string name="info_tapad_others_feedback_hint">질문을 하거나 새로운 기능을 요청해 보세요.</string>
     <string name="info_tapad_others_report_bug">오류 보고</string>
