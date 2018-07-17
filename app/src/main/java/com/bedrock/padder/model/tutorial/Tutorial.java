@@ -31,7 +31,7 @@ public class Tutorial {
     private Activity activity;
 
     private ArrayList<Sync> syncs = new ArrayList<>();
-    private int currentSyncIndex = 0;
+    private int currentSyncIndex = 1;
 
     private TutorialListener listener;
 
@@ -175,7 +175,7 @@ public class Tutorial {
                         Log.i("TUTORIAL", "ended");
                         listener.onFinish(getTutorial());
                         timings.clear();
-                        currentSyncIndex = 0;
+                        currentSyncIndex = 1;
                     }
                 }, 1000); // delay the finish
             }
@@ -199,11 +199,19 @@ public class Tutorial {
     }
 
     public void start(int delay) {
-        currentSyncIndex = 0;
-        if (delay < 0) {
-            handler.postDelayed(nextTutorial, syncs.get(0).getStart());
+        int startDeckDelay = 200;
+        currentSyncIndex = 1;
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Sync.Item item = syncs.get(0).items.get(0);
+                show(item.deck, item.pad, item.gesture);
+            }
+        }, startDeckDelay);
+        if (delay > 0) {
+            handler.postDelayed(nextTutorial, delay + startDeckDelay + 400);
         } else {
-            handler.postDelayed(nextTutorial, delay);
+            handler.postDelayed(nextTutorial, startDeckDelay + 400);
         }
         listener.onStart(this);
     }

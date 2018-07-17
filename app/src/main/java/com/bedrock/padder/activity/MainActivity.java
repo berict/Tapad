@@ -16,7 +16,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Animation;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +44,6 @@ import java.io.File;
 
 import static com.bedrock.padder.helper.FileHelper.PROJECT_LOCATION_PRESETS;
 import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
-import static com.bedrock.padder.model.tutorial.Tutorial.ANIMATION_FADE;
 
 public class MainActivity
         extends AppCompatActivity
@@ -63,6 +62,7 @@ public class MainActivity
     public static boolean isStopLoopOnSingle = false;
 
     public static Preset currentPreset = null;
+    private Tutorial tutorial = null;
 
     public static PresetStore installed = null;
     public static PresetStore online = null;
@@ -385,6 +385,7 @@ public class MainActivity
         }
 
         if (isPresetChanged) {
+            tutorial = null;
             currentPreset = null;
             if (preferences.getLastPlayed() != null) {
                 // preset loaded
@@ -768,11 +769,46 @@ public class MainActivity
     }
 
     private void showTutorial() {
+        final ImageView tutorialToolbar = findViewById(R.id.toolbar_tutorial_icon);
+
         if (isTutorialVisible == false) {
             isTutorialVisible = true;
             if (currentPreset != null) {
                 if (!isPresetLoading) {
-                    if (currentPreset.getAbout().getTutorialAvailable()) {
+                    if (currentPreset.getInAppTutorialAvailable()) {
+                        if (tutorial == null) {
+                            tutorial = new Tutorial(currentPreset.getTag(), a);
+                            tutorial.setTutorialListener(new Tutorial.TutorialListener() {
+                                @Override
+                                public void onLoadStart(Tutorial tutorial) {
+                                }
+
+                                @Override
+                                public void onLoadFinish(Tutorial t) {
+                                    tutorial.start(0);
+                                }
+
+                                @Override
+                                public void onStart(Tutorial tutorial) {
+                                    tutorialToolbar.setImageResource(R.drawable.ic_tutorial_quit_white);
+                                }
+
+                                @Override
+                                public void onPause(Tutorial tutorial, int syncIndex) {
+                                    // TODO add pause UI changes
+                                }
+
+                                @Override
+                                public void onFinish(Tutorial tutorial) {
+                                    tutorialToolbar.setImageResource(R.drawable.ic_tutorial_white);
+                                    isTutorialVisible = false;
+                                }
+                            });
+                            tutorial.parse();
+                        } else {
+                            tutorial.start(0);
+                        }
+                    } else if (currentPreset.getAbout().getTutorialAvailable()) {
                         String tutorialText = currentPreset.getAbout().getTutorialVideoLink();
                         if (tutorialText == null || tutorialText.equals("null")) {
                             tutorialText = getStringFromId("dialog_tutorial_text_error", a);
@@ -790,54 +826,6 @@ public class MainActivity
                                     }
                                 })
                                 .show();
-                    } else if (currentPreset.getInAppTutorialAvailable()) {
-                        final Tutorial tutorial = new Tutorial(currentPreset.getTag(), a);
-                        tutorial.setTutorialListener(new Tutorial.TutorialListener() {
-                            @Override
-                            public void onLoadStart(Tutorial tutorial) {
-                            }
-
-                            @Override
-                            public void onLoadFinish(Tutorial t) {
-                                /*
-                                 * start
-                                 * deck clear + fade out
-                                 * countdown
-                                 * show deck (reveal)
-                                 * start tutorial
-                                 * */
-                                // hide base
-                                Animation hide = ANIMATION_FADE;
-                                hide.setDuration(400);
-                                findViewById(R.id.base).startAnimation(hide);
-                                // TODO create tutorial control view (might be cardView)
-                                // clear deck, show base with reveal animation
-                                Handler handler = new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        isDeckShouldCleared = true;
-                                        onWindowFocusChanged(true);
-                                    }
-                                }, 400 + 400);
-                                tutorial.start(400 + 400 + 1000);
-                            }
-
-                            @Override
-                            public void onStart(Tutorial tutorial) {
-                            }
-
-                            @Override
-                            public void onPause(Tutorial tutorial, int syncIndex) {
-                                // TODO add pause UI changes
-                            }
-
-                            @Override
-                            public void onFinish(Tutorial tutorial) {
-                                isTutorialVisible = false;
-                            }
-                        });
-                        tutorial.parse();
                     }
                 } else {
                     // still loading preset
@@ -845,13 +833,15 @@ public class MainActivity
                     isTutorialVisible = false;
                 }
             } else {
-                // still loading preset
-                Toast.makeText(a, R.string.tutorial_loading, Toast.LENGTH_LONG).show();
+                // no selected preset
+                Toast.makeText(a, R.string.tutorial_no_preset, Toast.LENGTH_LONG).show();
                 isTutorialVisible = false;
             }
         } else {
-            // no preset
-            Toast.makeText(a, R.string.tutorial_no_preset, Toast.LENGTH_LONG).show();
+            // playing tutorial
+            if (tutorial != null) {
+                tutorial.stop();
+            }
             isTutorialVisible = false;
         }
     }

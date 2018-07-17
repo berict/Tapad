@@ -17,7 +17,8 @@ public class TutorialView {
     private Animation animation = null;
     private Animation.AnimationListener listener = new Animation.AnimationListener() {
 
-        boolean isOnAnimationCalled = false;
+        boolean isOnAnimationEndCalled = false;
+        boolean isAnimationCalled = false;
 
         @Override
         public void onAnimationStart(final Animation anim) {
@@ -36,17 +37,19 @@ public class TutorialView {
 
         @Override
         public void onAnimationEnd(Animation anim) {
-            if (!isOnAnimationCalled) {
+            if (!isOnAnimationEndCalled) {
                 Log.d("TutorialView", "animation.onAnimationEnd " + view.getTag());
                 if (view != null) {
+
                     Animation hide = ANIMATION_FADE;
                     hide.setAnimationListener(new Animation.AnimationListener() {
 
-                        boolean isOnAnimationCalled = false;
+                        boolean isOnAnimationEndCalled = false;
 
                         @Override
                         public void onAnimationStart(final Animation anim) {
                             Log.d("TutorialView", "hide.onAnimationStart " + view.getTag());
+                            isAnimationCalled = true;
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -57,23 +60,34 @@ public class TutorialView {
 
                         @Override
                         public void onAnimationEnd(Animation anim) {
-                            if (!isOnAnimationCalled) {
+                            if (!isOnAnimationEndCalled) {
                                 view.setVisibility(View.INVISIBLE);
                                 Log.d("TutorialView", "hide.onAnimationEnd " + view.getTag());
                             }
-                            isOnAnimationCalled = true;
+                            isOnAnimationEndCalled = true;
                         }
 
                         @Override
                         public void onAnimationRepeat(Animation anim) {
                         }
                     });
+                    hide.setDuration(50);
 
                     if (view != null) {
                         Log.d("TutorialView", "view.startAnimation " + view.getTag());
                         Log.d("TutorialView", "view.getVisibility " + view.getVisibility());
                     }
                     view.startAnimation(hide);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!isAnimationCalled) {
+                                Log.w("run", "View " + view.getTag() + ".getVisibility " + view.getVisibility());
+                                view.setVisibility(View.INVISIBLE);
+                            }
+                        }
+                    }, 50 + 10);
 
                     if (animation.getDuration() != TUTORIAL_ANIMATION_DURATION) {
                         // Return to default duration
@@ -83,7 +97,7 @@ public class TutorialView {
                     Log.e("onAnimationEnd", "View is null");
                 }
             }
-            isOnAnimationCalled = true;
+            isOnAnimationEndCalled = true;
         }
 
         @Override
