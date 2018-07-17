@@ -16,7 +16,7 @@
     <string name="settings_ac">설정</string>
     <string name="proceed_ac">계속</string>
     <string name="confirm_got_it_ac">확인</string>
-    <string name="confirm_exit">'뒤로'버튼을 한번 더 눌러 종료합니다.</string>
+    <string name="confirm_exit">\'뒤로\'버튼을 한번 더 눌러 종료합니다.</string>
     <string name="confirm_get_started">시작하기</string>
     <string name="confirm_get_started_ac">시작하기</string>
 
@@ -137,23 +137,23 @@
 
     <!-- Quickstart Dialog -->
     <string name="dialog_quickstart_welcome_title">Tapad에 어서오세요!</string>
-    <string name="dialog_quickstart_welcome_text">Walk through how to use Tapad or tap \'Tips\' in Settings when you want this later.</string>
-    <string name="dialog_quickstart_welcome_negative">NO THANKS</string>
-    <string name="dialog_quickstart_welcome_positive">SHOW ME HOW</string>
+    <string name="dialog_quickstart_welcome_text">Tapad의 사용 방법을 보거나 설정의 \'팁\'을 통해 다시 볼 수 있습니다.</string>
+    <string name="dialog_quickstart_welcome_negative">괜찮습니다</string>
+    <string name="dialog_quickstart_welcome_positive">방법을 알려주세요</string>
 
     <!-- Tutorial -->
-    <string name="dialog_tutorial_warning_title">Start tutorial mode?</string>
-    <string name="dialog_tutorial_warning_text">This is an experimental feature. It may cause huge frame drops and glitches on low-ram devices. Use at your own risk.</string>
-    <string name="dialog_tutorial_warning_text_low_ram">This is an experimental feature. It seems your device has not enough ram, it will probably cause huge frame drops, glitches and even shutting down your device. Use at your own risk.</string>
-    <string name="dialog_tutorial_warning_negative">CANCEL</string>
-    <string name="dialog_tutorial_warning_positive">CONTINUE</string>
-    <string name="dialog_tutorial_title">Tutorial mode</string>
-    <string name="dialog_tutorial_text_error">Sorry, there is no tutorial for this preset for now. Check again later.</string>
+    <string name="dialog_tutorial_warning_title">튜토리얼 모드를 시작합니까?</string>
+    <string name="dialog_tutorial_warning_text">이것은 실험적인 기능입니다. 램 용량이 적은 기기에서 심각한 프레임 드랍을 유발할 수 있습니다. 사용상의 책임은 사용자에게 있습니다.</string>
+    <string name="dialog_tutorial_warning_text_low_ram">이것은 실험적인 기능입니다. 디바이스의 램 용량이 불충분합니다, 시스템을 종료하기 전까지 심각한 프레임 드랍을 유발할 수 있습니다. 사용상의 책임은 사용자에게 있습니다.</string>
+    <string name="dialog_tutorial_warning_negative">취소</string>
+    <string name="dialog_tutorial_warning_positive">계속</string>
+    <string name="dialog_tutorial_title">튜토리얼 모드</string>
+    <string name="dialog_tutorial_text_error">현재 이 프리셋은 튜토리얼 모드를 지원하지 않습니다. 나중에 다시 확인해 주세요.</string>
 
     <!-- TapTarget Dialog -->
-    <string name="dialog_tap_target_toggle_primary">Select deck</string>
-    <string name="dialog_tap_target_toggle_secondary">Tap the toggle button to load sounds to pads.</string>
-    <string name="dialog_tap_target_button_primary">Make the music</string>
+    <string name="dialog_tap_target_toggle_primary">덱 선택</string>
+    <string name="dialog_tap_target_toggle_secondary">패드에 오디오 클립을 불러오기 위해 토글 버튼을 클릭해 주세요.</string>
+    <string name="dialog_tap_target_button_primary">음악 만들기</string>
     <string name="dialog_tap_target_button_secondary">Press the pads in the right time to make the music!</string>
     <string name="dialog_tap_target_swipe_primary">Play with style</string>
     <string name="dialog_tap_target_swipe_secondary">Swipe the pad up, down, left, right. It will make different sounds.</string>
