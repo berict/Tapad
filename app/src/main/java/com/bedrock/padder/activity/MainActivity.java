@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,8 @@ import com.google.gson.GsonBuilder;
 import java.io.File;
 
 import static com.bedrock.padder.helper.FileHelper.PROJECT_LOCATION_PRESETS;
+import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
+import static com.bedrock.padder.model.tutorial.Tutorial.ANIMATION_FADE;
 
 public class MainActivity
         extends AppCompatActivity
@@ -796,7 +799,28 @@ public class MainActivity
 
                             @Override
                             public void onLoadFinish(Tutorial t) {
-                                tutorial.start();
+                                /*
+                                 * start
+                                 * deck clear + fade out
+                                 * countdown
+                                 * show deck (reveal)
+                                 * start tutorial
+                                 * */
+                                // hide base
+                                Animation hide = ANIMATION_FADE;
+                                hide.setDuration(400);
+                                findViewById(R.id.base).startAnimation(hide);
+                                // TODO create tutorial control view (might be cardView)
+                                // clear deck, show base with reveal animation
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        isDeckShouldCleared = true;
+                                        onWindowFocusChanged(true);
+                                    }
+                                }, 400 + 400);
+                                tutorial.start(400 + 400 + 1000);
                             }
 
                             @Override

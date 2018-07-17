@@ -198,9 +198,13 @@ public class Tutorial {
         // TODO add countdown
     }
 
-    public void start() {
+    public void start(int delay) {
         currentSyncIndex = 0;
-        handler.postDelayed(nextTutorial, syncs.get(0).getStart());
+        if (delay < 0) {
+            handler.postDelayed(nextTutorial, syncs.get(0).getStart());
+        } else {
+            handler.postDelayed(nextTutorial, delay);
+        }
         listener.onStart(this);
     }
 
