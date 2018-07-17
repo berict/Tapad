@@ -10,7 +10,7 @@
     <string name="confirm_got_it">확인</string>
     <string name="explore_ac">탐색</string>
     <string name="change_ac">변경</string>
-    #<string name="make_primary_ac">MAKE PRIMARY</string>
+    <string name="make_primary_ac">우선으로 </string>
     <string name="remove_ac">삭제</string>
     <string name="download_preset_ac">프리셋 다운로드</string>
     <string name="settings_ac">설정</string>
@@ -27,7 +27,7 @@
     <string name="user_benefits_get_started_text">프리셋 스토어에서 여러 프리셋을 다운받고, Tapad 앱에서 실행해 보세요.</string>
 
     <!-- Intro -->
-    #<string name="intro_1_text">Welcome to Tapad, the new grid instrument for Android.</string>
+    <string name="intro_1_text">안드로이드를 위한 새로운 그리드 형식의 악기인 Tapad에 어서오세요!</string>
     <string name="intro_2_title">제스처 모드</string>
     <string name="intro_2_text">터치스크린의 사용성을 극대화 해보세요.</string>
     <string name="intro_3_title">프리셋 스토어</string>
@@ -65,10 +65,10 @@
 		런치패드와 다른 어플리케이션은 한 패드에 하나의 오디오 클립이 있지만, Tapad는 한 패드의 최대 5가지의 오디오 클립을 담을 수 있습니다.
 	</string>
     <string name="help_popular_preset_store_download_detail">새로운 프리셋 다운로드</string>
-    <string name="help_popular_preset_store_manage_detail">View &amp; 프리셋 삭제</string>
-    <string name="help_popular_tutorial_detail">Learn를 플레이 하는 방법 배우기</string>
+    <string name="help_popular_preset_store_manage_detail">프리셋 삭제</string>
+    <string name="help_popular_tutorial_detail">Tapad를 플레이 하는 방법 배우기</string>
 
-    #<string name="help_popular_browse_all">Browse all articles</string>
+    <string name="help_popular_browse_all">모든 도움말 보기</string>
 
     <!-- Feedback -->
     <string name="feedback_disclaimer_text">시스템 정보가 Studio Berict로 전송됩니다.</string>
@@ -122,7 +122,7 @@
     <string name="feedback_report_bug_message_input_error_empty">오류에 대한 상세 정보를 입력해 주세요. (최소 15글자)</string>
     <string name="feedback_report_bug_message_input_error_too_short">입력이 너무 짧습니다.</string>
     <string name="feedback_report_bug_type_error">오류 종류를 선택해 주세요.</string>
-    #<string name="feedback_report_bug_type_quickfix_text">Wait! We might have a quickfix for you.</string>
+    <string name="feedback_report_bug_type_quickfix_text">잠깐! 그 전에 확인 해 주세요!</string>
     <string name="feedback_report_bug_type_quickfix_action">더 알아보기</string>
     <string name="feedback_report_bug_type_quickfix_content">덱(첫번째 열의 숫자 버튼들)이 선택되어 있고 디바이스의 볼륨이 충분히 큰지 확인해 주세요.</string>
     <string name="feedback_report_bug_type_quickfix_neutral">닫기</string>
@@ -203,149 +203,148 @@
 
     <!-- Preset Store -->
     <string name="preset_store">프리셋 스토어</string>
-    <string name="preset_store_description">Discover and download new presets</string>
+    <string name="preset_store_description">여러가지 프리셋을 다운받아 보세요!</string>
     <string name="preset_store_preset_by">By </string>
-    <string name="preset_store_current_preset">Current preset</string>
-    <string name="preset_store_action_download">DOWNLOAD</string>
-    <string name="preset_store_action_repair">REPAIR</string>
-    <string name="preset_store_action_repair_needed">Preset repair is needed</string>
-    <string name="preset_store_action_remove">REMOVE</string>
-    <string name="preset_store_action_select">SELECT</string>
-    <string name="preset_store_action_update">UPDATE</string>
-    <string name="preset_store_action_update_available">Preset update is available</string>
-    <string name="preset_store_action_gesture_enabled">Gesture preset</string>
-    <string name="preset_store_loading_metadata">Loading preset store</string>
-    <string name="preset_store_loading_metadata_failure">Failed to load preset store</string>
-    <string name="preset_store_loading_metadata_failure_retry">Retry</string>
-    <string name="preset_store_loading_no_preset">No preset installed</string>
-    <string name="preset_store_permission_dialog_title">Grant access</string>
+    <string name="preset_store_current_preset">현재 프리셋</string>
+    <string name="preset_store_action_download">다운로드</string>
+    <string name="preset_store_action_repair">복구</string>
+    <string name="preset_store_action_repair_needed">프리셋 복구가 필요합니다.</string>
+    <string name="preset_store_action_remove">제거</string>
+    <string name="preset_store_action_select">선택</string>
+    <string name="preset_store_action_update">업데이트</string>
+    <string name="preset_store_action_update_available">프리셋 업데이트가 가능합니다.</string>
+    <string name="preset_store_action_gesture_enabled">제스처 프리셋</string>
+    <string name="preset_store_loading_metadata">프리셋 스토어 불러오는 중</string>
+    <string name="preset_store_loading_metadata_failure">프리셋 스토어를 불러오는 데 실패했습니다.</string>
+    <string name="preset_store_loading_metadata_failure_retry">재시도</string>
+    <string name="preset_store_loading_no_preset">프리셋이 설치되지 않았습니다.</string>
+    <string name="preset_store_permission_dialog_title">접근 권한</string>
     <string name="preset_store_permission_dialog_text">
-		Preset store needs storage permissions to run.
-		Change permissions in your device\'s app settings.
-		Give Tapad access to Storage.
+		프리셋 스토어가 정상적으로 작동되기 위해서는 저장소 접근 권한이 필요합니다.
+		기기의 어플리케이션 설정에서 권한을 설정하세요.
+		Tapad에 저장소 접근 권한을 부여해 주세요.
 	</string>
-    <string name="preset_store_permission_dialog_positive">SETTINGS</string>
-    <string name="preset_store_permission_dialog_negative">EXIT</string>
-    <string name="preset_store_outdated_version_dialog_title">New update available</string>
+    <string name="preset_store_permission_dialog_positive">설정</string>
+    <string name="preset_store_permission_dialog_negative">나가기</string>
+    <string name="preset_store_outdated_version_dialog_title">새 업데이트가 가능합니다.</string>
     <string name="preset_store_outdated_version_dialog_text">
-		New version is available for download.
+		새로운 버전이 다운로드 가능합니다.
 	</string>
-    <string name="preset_store_outdated_version_dialog_positive">UPDATE</string>
-    <string name="preset_store_outdated_version_dialog_negative">NO THANKS</string>
-    <string name="preset_store_connection_timeout_dialog_title">Loading preset store</string>
+    <string name="preset_store_outdated_version_dialog_positive">업데이트</string>
+    <string name="preset_store_outdated_version_dialog_negative">괜찮습니다</string>
+    <string name="preset_store_connection_timeout_dialog_title">프리셋 스토어 불러오는 중</string>
     <string name="preset_store_connection_timeout_dialog_text">
-		Connecting to the preset store takes longer than usual. Do you want to retry connecting?
+		연결 시간을 초과했습니다. 재시도 하겠습니까?
 	</string>
-    <string name="preset_store_connection_timeout_dialog_positive">RETRY</string>
+    <string name="preset_store_connection_timeout_dialog_positive">재시도</string>
     <string name="preset_store_connection_timeout_dialog_negative">@string/dialog_cancel</string>
-    <string name="preset_store_gesture_help_dialog_title">About gesture presets</string>
+    <string name="preset_store_gesture_help_dialog_title">제스처 프리셋에 대해</string>
     <string name="preset_store_gesture_help_dialog_text">
-		This preset is available in <i>gesture mode</i>.\n
-		Gesture mode enables to swipe the pad in 4 directions to make more sounds.
+		이 프리셋은 <i>제스처 모드</i>로 사용이 가능합니다.\n
+		제스처 모드는 패드를 4방향으로 스와이프 하거나 클릭해 더 많은 오디오 클립을 재생할 수 있습니다.
 	</string>
-    <string name="preset_store_action_repair_dialog_title">Corrupted preset</string>
+    <string name="preset_store_action_repair_dialog_title">손상된 프리셋</string>
     <string name="preset_store_action_repair_dialog_text">
-		This preset is corrupted and needs repair to play.
-		Repairing the preset will remove the preset and download it again.
+		이 프리셋을 재생하기 위해서는 복구 작업이 필요합니다.
+		프리셋을 복구하기 위해서 프리셋을 삭제하고 다시 다운로드 할 것입니다.
 	</string>
-    <string name="preset_store_open_preset">Open zip preset files to open</string>
-    <string name="preset_store_download_size_downloading">Downloading…</string>
-    <string name="preset_store_download_size_installing">Installing…</string>
-    <string name="preset_store_download_no_connection_dialog_title">No connection</string>
+    <string name="preset_store_open_preset">압축된 프리셋 열기</string>
+    <string name="preset_store_download_size_downloading">다운로드 중...</string>
+    <string name="preset_store_download_size_installing">설치 중...</string>
+    <string name="preset_store_download_no_connection_dialog_title">인터넷 없음</string>
     <string name="preset_store_download_no_connection_dialog_text">
-		Can\'t connect to the preset store. Please check your internet connection.
+		프리셋 스토어에 연결할 수 없습니다. 인터넷 연결을 확인 해 주세요.
 	</string>
-    <string name="preset_store_download_no_space_dialog_title">Can\'t download preset</string>
+    <string name="preset_store_download_no_space_dialog_title">프리셋을 다운로드 할 수 없습니다.</string>
     <string name="preset_store_download_no_space_dialog_text">
-		There is no space left on your device. Please free up spaces to download presets.
+		기기의 저장공간이 부족합니다. 저장 공간을 비우고 다시 시도해 주세요.
 	</string>
-    <string name="preset_store_download_data_usage_title">Downloading a large preset</string>
+    <string name="preset_store_download_data_usage_title">큰 용량의 프리셋 다운로드</string>
     <string name="preset_store_download_data_usage_text">
-		This preset is large. To avoid potential delays or extra data usage charges, use Wi-Fi to download.
-	</string>
-    <string name="preset_store_download_data_usage_neutral">SET UP WI-FI</string>
-    <string name="preset_store_exit_warning_dialog_title">Download in progress</string>
+		이 프리셋은 용량이 매우 큽니다. 다운로드가 지연되는 것을 방지하고 데이터 추가 사용 요금을 부담하지 않으려면 Wi-Fi만 사용하세요.</string>
+    <string name="preset_store_download_data_usage_neutral">WI-FI 설정</string>
+    <string name="preset_store_exit_warning_dialog_title">다운로드 진행 중</string>
     <string name="preset_store_exit_warning_dialog_text">
-		Preset download is currently in progress. Do you want to cancel the download and exit?
+		프리셋이 다운로드 중입니다. 취소하고 종료하시겠습니까?
 	</string>
-    <string name="preset_store_exit_warning_dialog_positive">Continue download</string>
-    <string name="preset_store_exit_warning_dialog_negative">Cancel download</string>
-    <string name="preset_store_download_notification_text_downloading">Downloading preset</string>
-    <string name="preset_store_download_notification_text_installing">Installing preset</string>
-    <string name="preset_store_download_notification_text_complete">Successfully downloaded</string>
-    <string name="preset_store_download_notification_text_cancelled">Download cancelled</string>
-    <string name="preset_store_download_notification_text_failed">Download failed</string>
-    <string name="preset_store_remove_warning_dialog_text">Remove preset?</string>
+    <string name="preset_store_exit_warning_dialog_positive">계속 다운로드</string>
+    <string name="preset_store_exit_warning_dialog_negative">다운로드 취소</string>
+    <string name="preset_store_download_notification_text_downloading">프리셋 다운로드 중</string>
+    <string name="preset_store_download_notification_text_installing">프리셋 설치 중</string>
+    <string name="preset_store_download_notification_text_complete">다운로드 성공</string>
+    <string name="preset_store_download_notification_text_cancelled">다운로드 취소됨</string>
+    <string name="preset_store_download_notification_text_failed">다운로드 실패</string>
+    <string name="preset_store_remove_warning_dialog_text">프리셋을 삭제합니까?</string>
 
     <!--Settings-->
-    <string name="settings_group_play">Play</string>
+    <string name="settings_group_play">재생</string>
 
-    <string name="settings_preset">Presets</string>
-    <string name="settings_preset_hint">PRESET_NAME_HERE</string>
-    <string name="settings_preset_hint_no_preset">No preset loaded</string>
-    <string name="settings_focus_loss">Stop sound on focus loss</string>
-    <string name="settings_stop_loop">Stop looping with single touch</string>
-    <string name="settings_custom_sound">Custom sound</string>
-    <string name="settings_custom_sound_error">This feature is under development.</string>
-    <string name="settings_tutorial">Tutorial mode</string>
+    <string name="settings_preset">프리셋</string>
+    <string name="settings_preset_hint">프리셋 이름</string>
+    <string name="settings_preset_hint_no_preset">프리셋이 로드되지 않았습니다.</string>
+    <string name="settings_focus_loss">다른 활동 중일때 오디오 클립 재생 중지</string>
+    <string name="settings_stop_loop">한번 터치로 반복 재생 중지</string>
+    <string name="settings_custom_sound">사용자 설정 오디오 클립</string>
+    <string name="settings_custom_sound_error">이 기능은 개발중에 있습니다.</string>
+    <string name="settings_tutorial">튜토리얼 모드</string>
 
-    <string name="settings_group_interface">Interface</string>
+    <string name="settings_group_interface">인터페이스</string>
 
-    <string name="settings_start_page">Start page</string>
-    <string name="settings_start_page_recent">Last played</string>
-    <string name="settings_start_page_about">About preset</string>
-    <string name="settings_start_page_preset_store">Preset store</string>
+    <string name="settings_start_page">시작 화면</string>
+    <string name="settings_start_page_recent">최근 플레이</string>
+    <string name="settings_start_page_about">프리셋 정보</string>
+    <string name="settings_start_page_preset_store">프리셋 스토어</string>
     <string-array name="settings_start_page_items">
         <item>@string/settings_start_page_recent</item>
         <item>@string/settings_start_page_about</item>
         <item>@string/settings_start_page_preset_store</item>
     </string-array>
 
-    <string name="settings_color">Colors</string>
-    <string name="settings_color_current">Current color</string>
-    <string name="settings_color_dialog">Add new color</string>
-    <string name="settings_color_dialog_remove">Remove color?</string>
-    <string name="settings_color_dialog_duplicate">You already have this color</string>
-    <string name="settings_color_dialog_duplicate_current">This color is already your current color</string>
-    <string name="settings_color_placeholder_title">You have no colors</string>
+    <string name="settings_color">색상</string>
+    <string name="settings_color_current">현재 색상</string>
+    <string name="settings_color_dialog">새로운 색상 추가</string>
+    <string name="settings_color_dialog_remove">색상을 제거합니까?</string>
+    <string name="settings_color_dialog_duplicate">이 색상은 이미 등록되어 있습니다.</string>
+    <string name="settings_color_dialog_duplicate_current">이 색상은 이미 현재 색상으로 등록되어 있습니다.</string>
+    <string name="settings_color_placeholder_title">등록된 색상이 없습니다.</string>
 
-    <string name="settings_deck_margin">Deck margin scale</string>
-    <string name="settings_deck_margin_error_format">Enter a formatted value</string>
-    <string name="settings_deck_margin_error_bound">Enter a value between 0 and 1</string>
-    <string name="settings_deck_margin_error_empty">Enter a scale value</string>
-    <string name="settings_deck_margin_warning_visibility">Deck might be hard to play with scale smaller than 0.3</string>
+    <string name="settings_deck_margin">덱의 여유 공간 크기</string>
+    <string name="settings_deck_margin_error_format">정형화된 값을 입력해 주세요.</string>
+    <string name="settings_deck_margin_error_bound">0에서 1사이의 값을 입력해 주세요.</string>
+    <string name="settings_deck_margin_error_empty">크기 값을 입력해 주세요.</string>
+    <string name="settings_deck_margin_warning_visibility">0.3이하의 크기에서는 플레이에 지장이 생길 수 있습니다.</string>
 
-    <string name="settings_layout">Button layout</string>
-    <string name="settings_layout_error">This feature is under development.</string>
-    <string name="settings_custom_touch">Custom touch pattern</string>
-    <string name="settings_custom_touch_error">This feature is under development.</string>
+    <string name="settings_layout">버튼 레이아웃</string>
+    <string name="settings_layout_error">이 기능은 개발중에 있습니다.</string>
+    <string name="settings_custom_touch">사용자 설정 터치 패턴</string>
+    <string name="settings_custom_touch_error">이 기능은 개발중에 있습니다.</string>
 
-    <string name="settings_group_about">About</string>
+    <string name="settings_group_about">정보</string>
 
-    <string name="settings_about_tapad">About Tapad</string>
-    <string name="settings_about_dev">About developer</string>
+    <string name="settings_about_tapad">Tapad에 대해</string>
+    <string name="settings_about_dev">개발자에 대해</string>
 
     <!-- TaskDescription -->
-    <string name="task_welcome">Welcome to Tapad</string>
+    <string name="task_welcome">Tapad에 어서오세요</string>
     <string name="task_main">Tapad</string>
 
     <string name="task_about_tapad">Tapad</string>
     <string name="task_about_dev">Studio Berict</string>
-    <string name="task_tutorial_mode">Start tutorial mode?</string>
+    <string name="task_tutorial_mode">튜토리얼 모드를 시작합니까?</string>
 
     <!-- Promote -->
-    <string name="feedback">Feedback</string>
-    <string name="request">Ask for new feature or song</string>
-    <string name="email_subject">E-mail Subject</string>
-    <string name="email_message">Message to developer</string>
-    <string name="email_message_hint">For song requests, including a video link will help a lot.</string>
-    <string name="no_email_client">There are no email clients installed.</string>
-    <string name="discard">Discard</string>
-    <string name="send">Send</string>
+    <string name="feedback">피드백</string>
+    <string name="request">새로운 기능이나 음악을 요청해 주세요.</string>
+    <string name="email_subject">이메일</string>
+    <string name="email_message">개발자에게 메시지를 보내 보세요.</string>
+    <string name="email_message_hint">비디오 링크를 첨부하면 음악을 추가하는 데 더욱 도움이 될 것입니다.</string>
+    <string name="no_email_client">이메일 앱이 설치되어 있지 않습니다.</string>
+    <string name="discard">취소</string>
+    <string name="send">전송</string>
 
     <!-- Ads message -->
-    <string name="ads_video_thanks">Thanks! 😀</string>
-    <string name="help_developer">Help developer</string>
+    <string name="ads_video_thanks">감사합니다! 😀</string>
+    <string name="help_developer">개발자 </string>
 
-    <string name="noti_channel_download">Download preset</string>
+    <string name="noti_channel_download">프리셋 다운로드</string>
 </resources>
