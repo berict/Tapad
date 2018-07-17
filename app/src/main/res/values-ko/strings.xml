@@ -121,22 +121,22 @@
     <string name="feedback_report_bug_message_input_hint">오류 상세 정보</string>
     <string name="feedback_report_bug_message_input_error_empty">오류에 대한 상세 정보를 입력해 주세요. (최소 15글자)</string>
     <string name="feedback_report_bug_message_input_error_too_short">입력이 너무 짧습니다.</string>
-    <string name="feedback_report_bug_type_error">Select a bug type</string>
-    <string name="feedback_report_bug_type_quickfix_text">Wait! We might have a quickfix for you.</string>
-    <string name="feedback_report_bug_type_quickfix_action">Learn More</string>
-    <string name="feedback_report_bug_type_quickfix_content">Make sure the deck (buttons with numbers on the first row) is selected and your device volume is big enough to hear.</string>
-    <string name="feedback_report_bug_type_quickfix_neutral">CLOSE</string>
+    <string name="feedback_report_bug_type_error">오류 종류를 선택해 주세요.</string>
+    #<string name="feedback_report_bug_type_quickfix_text">Wait! We might have a quickfix for you.</string>
+    <string name="feedback_report_bug_type_quickfix_action">더 알아보기</string>
+    <string name="feedback_report_bug_type_quickfix_content">덱(첫번째 열의 숫자 버튼들)이 선택되어 있고 디바이스의 볼륨이 충분히 큰지 확인해 주세요.</string>
+    <string name="feedback_report_bug_type_quickfix_neutral">닫기</string>
     <string-array name="feedback_report_bug_type_array">
-        <item>Bug type</item>
-        <item>Preset problem</item>
-        <item>Sound not playing</item>
-        <item>App crashing</item>
-        <item>Others</item>
+        <item>오류 종류</item>
+        <item>프리셋 문제</item>
+        <item>음악이 재생되지 않음</item>
+        <item>앱 충돌</item>
+        <item>기타</item>
     </string-array>
-    <string name="feedback_report_bug_send_error">Please fill out the form to report a bug</string>
+    <string name="feedback_report_bug_send_error">오류 보고를 위해 필드를 모두 채워주세요.</string>
 
     <!-- Quickstart Dialog -->
-    <string name="dialog_quickstart_welcome_title">Welcome to Tapad!</string>
+    <string name="dialog_quickstart_welcome_title">Tapad에 어서오세요!</string>
     <string name="dialog_quickstart_welcome_text">Walk through how to use Tapad or tap \'Tips\' in Settings when you want this later.</string>
     <string name="dialog_quickstart_welcome_negative">NO THANKS</string>
     <string name="dialog_quickstart_welcome_positive">SHOW ME HOW</string>
