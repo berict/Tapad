@@ -23,7 +23,7 @@ public class TutorialView {
         public void onAnimationStart(final Animation anim) {
             if (view != null) {
                 view.setVisibility(View.VISIBLE);
-                Log.d("TutorialView", "animation.onAnimationStart");
+                Log.d("TutorialView", "animation.onAnimationStart " + view.getTag());
             }
 
             new Handler().postDelayed(new Runnable() {
@@ -37,7 +37,7 @@ public class TutorialView {
         @Override
         public void onAnimationEnd(Animation anim) {
             if (!isOnAnimationCalled) {
-                Log.d("TutorialView", "animation.onAnimationEnd");
+                Log.d("TutorialView", "animation.onAnimationEnd " + view.getTag());
                 if (view != null) {
                     Animation hide = ANIMATION_FADE;
                     hide.setAnimationListener(new Animation.AnimationListener() {
@@ -46,6 +46,7 @@ public class TutorialView {
 
                         @Override
                         public void onAnimationStart(final Animation anim) {
+                            Log.d("TutorialView", "hide.onAnimationStart " + view.getTag());
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -58,7 +59,7 @@ public class TutorialView {
                         public void onAnimationEnd(Animation anim) {
                             if (!isOnAnimationCalled) {
                                 view.setVisibility(View.INVISIBLE);
-                                Log.d("TutorialView", "hide.onAnimationEnd");
+                                Log.d("TutorialView", "hide.onAnimationEnd " + view.getTag());
                             }
                             isOnAnimationCalled = true;
                         }
@@ -67,11 +68,19 @@ public class TutorialView {
                         public void onAnimationRepeat(Animation anim) {
                         }
                     });
+
+                    if (view != null) {
+                        Log.d("TutorialView", "view.startAnimation " + view.getTag());
+                        Log.d("TutorialView", "view.getVisibility " + view.getVisibility());
+                    }
                     view.startAnimation(hide);
+
                     if (animation.getDuration() != TUTORIAL_ANIMATION_DURATION) {
                         // Return to default duration
                         animation.setDuration(TUTORIAL_ANIMATION_DURATION);
                     }
+                } else {
+                    Log.e("onAnimationEnd", "View is null");
                 }
             }
             isOnAnimationCalled = true;

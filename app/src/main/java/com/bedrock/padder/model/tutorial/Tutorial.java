@@ -182,7 +182,24 @@ public class Tutorial {
         }
     };
 
+    public void stop() {
+        handler.removeCallbacks(nextTutorial);
+        listener.onFinish(this);
+    }
+
+    public int pause() {
+        listener.onPause(this, currentSyncIndex);
+        return currentSyncIndex;
+    }
+
+    public void resume(int syncIndex) {
+        currentSyncIndex = syncIndex;
+        handler.postDelayed(nextTutorial, 3000);
+        // TODO add countdown
+    }
+
     public void start() {
+        currentSyncIndex = 0;
         handler.postDelayed(nextTutorial, syncs.get(0).getStart());
         listener.onStart(this);
     }
@@ -314,6 +331,8 @@ public class Tutorial {
         void onLoadFinish(Tutorial tutorial);
 
         void onStart(Tutorial tutorial);
+
+        void onPause(Tutorial tutorial, int syncIndex);
 
         void onFinish(Tutorial tutorial);
     }

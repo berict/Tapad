@@ -42,7 +42,6 @@ import com.google.gson.GsonBuilder;
 import java.io.File;
 
 import static com.bedrock.padder.helper.FileHelper.PROJECT_LOCATION_PRESETS;
-import static com.bedrock.padder.helper.WindowHelper.getStringFromId;
 
 public class MainActivity
         extends AppCompatActivity
@@ -802,6 +801,11 @@ public class MainActivity
 
                             @Override
                             public void onStart(Tutorial tutorial) {
+                            }
+
+                            @Override
+                            public void onPause(Tutorial tutorial, int syncIndex) {
+                                // TODO add pause UI changes
                             }
 
                             @Override
