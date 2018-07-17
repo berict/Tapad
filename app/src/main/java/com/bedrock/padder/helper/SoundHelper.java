@@ -161,7 +161,6 @@ public class SoundHelper {
             }
         } else {
             for (int i = 0; i < decks.length; i++) {
-                decks[i].setSound(new Sound(sp, currentPreset.getSound(index, i + 1), mmr));
                 if (i == index) {
                     // selected
                     broadcast(i + 1);
@@ -583,6 +582,14 @@ public class SoundHelper {
                             // no sounds
                             decks[i].setPad(new Pad(new Sound(), i + 1, buttonViews[j],
                                     color, colorDef, activity), j);
+                        }
+                    }
+
+                    for (int j = 0; j < 4; j++) {
+                        String sound = currentPreset.getSound(i, "0" + (j + 1));
+                        if (sound != null) {
+                            publishProgress();
+                            decks[i].setSound(new Sound(sp, sound, mmr));
                         }
                     }
                 }

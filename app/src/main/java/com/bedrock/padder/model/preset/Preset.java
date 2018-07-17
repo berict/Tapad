@@ -88,6 +88,20 @@ public class Preset {
         }
     }
 
+    public String getSound(int deckIndex, String padIndex) {
+        String fileName = PROJECT_LOCATION_PRESETS + "/"
+                + tag
+                + "/sounds/sound"
+                + "_" + (deckIndex + 1)
+                + "_" + padIndex;
+        File sound = new File(fileName);
+        if (sound.exists()) {
+            return fileName;
+        } else {
+            return null;
+        }
+    }
+
     private String getPadStringFromIndex(int padIndex) {
         switch (padIndex) {
             case 0:
