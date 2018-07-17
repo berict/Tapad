@@ -10,117 +10,117 @@
     <string name="confirm_got_it">확인</string>
     <string name="explore_ac">탐색</string>
     <string name="change_ac">변경</string>
-    <string name="make_primary_ac">MAKE PRIMARY</string>
-    <string name="remove_ac">REMOVE</string>
-    <string name="download_preset_ac">DOWNLOAD PRESETS</string>
-    <string name="settings_ac">SETTINGS</string>
-    <string name="proceed_ac">PROCEED</string>
-    <string name="confirm_got_it_ac">GOT IT</string>
-    <string name="confirm_exit">Press back again to exit</string>
-    <string name="confirm_get_started">Get Started</string>
-    <string name="confirm_get_started_ac">GET STARTED</string>
+    #<string name="make_primary_ac">MAKE PRIMARY</string>
+    <string name="remove_ac">삭제</string>
+    <string name="download_preset_ac">프리셋 다운로드</string>
+    <string name="settings_ac">설정</string>
+    <string name="proceed_ac">계속</string>
+    <string name="confirm_got_it_ac">확인</string>
+    <string name="confirm_exit">'뒤로'버튼을 한번 더 눌러 종료합니다.</string>
+    <string name="confirm_get_started">시작하기</string>
+    <string name="confirm_get_started_ac">시작하기</string>
 
-    <string name="tutorial_none">This preset doesn\'t support tutorial mode</string>
-    <string name="tutorial_loading">Can\'t start tutorial mode while loading preset</string>
-    <string name="tutorial_no_preset">Can\'t start tutorial mode without a preset</string>
+    <string name="tutorial_none">이 프리셋은 튜토리얼 모드를 지원하지 않습니다.</string>
+    <string name="tutorial_loading">프리셋을 불러오는 도중에는 튜토리얼 모드를 사용할 수 없습니다.</string>
+    <string name="tutorial_no_preset">프리셋 없이는 튜토리얼 모드를 사용할 수 없습니다.</string>
 
-    <string name="user_benefits_get_started_text">Discover and download presets from the Preset Store, then play it on Tapad app.</string>
+    <string name="user_benefits_get_started_text">프리셋 스토어에서 여러 프리셋을 다운받고, Tapad 앱에서 실행해 보세요.</string>
 
     <!-- Intro -->
-    <string name="intro_1_text">Welcome to Tapad, the new grid instrument for Android.</string>
-    <string name="intro_2_title">Gesture mode</string>
-    <string name="intro_2_text">Make use of your touchscreen.</string>
-    <string name="intro_3_title">Preset store</string>
-    <string name="intro_4_title">Customize</string>
-    <string name="intro_4_text">Color your pads, patterns and more.</string>
+    #<string name="intro_1_text">Welcome to Tapad, the new grid instrument for Android.</string>
+    <string name="intro_2_title">제스처 모드</string>
+    <string name="intro_2_text">터치스크린의 사용성을 극대화 해보세요.</string>
+    <string name="intro_3_title">프리셋 스토어</string>
+    <string name="intro_4_title">사용자 설정</string>
+    <string name="intro_4_text">패드와 패턴의 색상을 다양하게 꾸며 보세요.</string>
 
-    <string name="tab_1">Installed</string>
-    <string name="tab_2">Online</string>
+    <string name="tab_1">설치됨</string>
+    <string name="tab_2">온라인</string>
 
     <!-- CardView -->
-    <string name="cardview_now_playing">Now playing</string>
+    <string name="cardview_now_playing">현재 사용중</string>
 
     <!-- Help -->
-    <string name="help_title">Help</string>
+    <string name="help_title">도움</string>
 
-    <string name="help_contact_title">Contact us</string>
-    <string name="help_contact_email">Email</string>
-    <string name="help_contact_send_feedback">Send feedback</string>
+    <string name="help_contact_title">연락하기</string>
+    <string name="help_contact_email">이메일</string>
+    <string name="help_contact_send_feedback">피드백 보내기</string>
 
     <string name="help_popular_title">Popular</string>
-    <string name="help_popular_about_tapad">About Tapad</string>
-    <string name="help_popular_about_gesture_mode">About gesture mode</string>
-    <string name="help_popular_preset_store_download">Download new presets</string>
-    <string name="help_popular_preset_store_manage">View &amp; delete installed presets</string>
-    <string name="help_popular_tutorial">Learn to play Tapad</string>
+    <string name="help_popular_about_tapad">Tapad에 대해</string>
+    <string name="help_popular_about_gesture_mode">제스처 모드에 대해</string>
+    <string name="help_popular_preset_store_download">새로운 프리셋 다운로드</string>
+    <string name="help_popular_preset_store_manage">View &amp; 설치된 프리셋 삭제</string>
+    <string name="help_popular_tutorial">Tapad를 플레이 하는 방법 배우기</string>
 
     <string name="help_popular_about_tapad_detail">
-		<b><i>Tapad</i></b> is a mobile remix application. \n\n
-		Extended from the instrument <i>LaunchPad</i>, and made mobile friendly with touch gesture support.
-        It mainly features song genres like EDM, Dubstep, Progressive House, Electronic and further more.
+		<b><i>Tapad</i></b> 는 모바일 전용 리믹싱 어플리케이션 입니다. \n\n
+		<i>런치패드</i> 에서 확장해, 모바일 환경에 최적화된 제스쳐 모드를 지원합니다.
+        기본적으로 EDM, Dubstep, Progressive House, Electronic 등 여러 장르를 지원합니다.
 	</string>
     <string name="help_popular_about_gesture_mode_detail">
-		<b><i>Gesture mode</i></b> is a new feature in <i>Tapad</i>. \n
-		In gesture mode, you can swipe in 4 directions and press a pad. Gesture presets have different sounds playing on these 5 actions.
-		LaunchPad and other applications have 1 input / pad. But Tapad have gesture mode to get maximum 5 input / pad.
+		<b><i>제스처 모드</i></b> 는 <i>Tapad</i> 의 새로운 기능입니다. \n
+		제스처 모드에서, 패드를 4방향으로 스와이프 하거나 클릭할 수 있습니다. 제스처 프리셋은 이 5가지에 대해 각각의 오디오 클립을 담고 있습니다.
+		런치패드와 다른 어플리케이션은 한 패드에 하나의 오디오 클립이 있지만, Tapad는 한 패드의 최대 5가지의 오디오 클립을 담을 수 있습니다.
 	</string>
-    <string name="help_popular_preset_store_download_detail">Download new presets</string>
-    <string name="help_popular_preset_store_manage_detail">View &amp; delete presets</string>
-    <string name="help_popular_tutorial_detail">Learn to play Tapad</string>
+    <string name="help_popular_preset_store_download_detail">새로운 프리셋 다운로드</string>
+    <string name="help_popular_preset_store_manage_detail">View &amp; 프리셋 삭제</string>
+    <string name="help_popular_tutorial_detail">Learn를 플레이 하는 방법 배우기</string>
 
-    <string name="help_popular_browse_all">Browse all articles</string>
+    #<string name="help_popular_browse_all">Browse all articles</string>
 
     <!-- Feedback -->
-    <string name="feedback_disclaimer_text">Your system info will be sent to Studio Berict.</string>
-    <string name="feedback_disclaimer_action">Learn More</string>
-    <string name="feedback_disclaimer_dialog_title">System information</string>
-    <string name="feedback_disclaimer_dialog_action">Close</string>
-    <string name="feedback_quit_dialog_positive">KEEP WRITING</string>
-    <string name="feedback_quit_dialog_negative">DISCARD</string>
+    <string name="feedback_disclaimer_text">시스템 정보가 Studio Berict로 전송됩니다.</string>
+    <string name="feedback_disclaimer_action">더 알아보기</string>
+    <string name="feedback_disclaimer_dialog_title">시스템 정보</string>
+    <string name="feedback_disclaimer_dialog_action">닫기</string>
+    <string name="feedback_quit_dialog_positive">계속</string>
+    <string name="feedback_quit_dialog_negative">취소</string>
 
-    <string name="feedback_song_discard">Discard song request?</string>
-    <string name="feedback_song_description">We would love new presets! Please let us know what song would fit in Tapad.</string>
-    <string name="feedback_song_name_input_hint">Song title</string>
-    <string name="feedback_song_name_input_error">Enter the song title</string>
-    <string name="feedback_song_artist_input_hint">Artist name</string>
-    <string name="feedback_song_artist_input_error">Enter the artist name</string>
-    <string name="feedback_song_link_input_error">Enter the song link</string>
-    <string name="feedback_song_link_input_hint">YouTube / SoundCloud link</string>
-    <string name="feedback_song_link_input_url_error">Enter a valid YouTube / SoundCloud link</string>
-    <string name="feedback_song_message_input_hint">Message (optional)</string>
-    <string name="feedback_song_genre_error">Select a song genre</string>
+    <string name="feedback_song_discard">음악 요청을 취소하시겠습니까?</string>
+    <string name="feedback_song_description">Tapad에 어울리는 음악을 추천해 주세요.</string>
+    <string name="feedback_song_name_input_hint">노래 제목</string>
+    <string name="feedback_song_name_input_error">노래 제목 입력</string>
+    <string name="feedback_song_artist_input_hint">아티스트 이름</string>
+    <string name="feedback_song_artist_input_error">아티스트 이름 입력</string>
+    <string name="feedback_song_link_input_error">음원 주소 입력</string>
+    <string name="feedback_song_link_input_hint">YouTube / SoundCloud 주소</string>
+    <string name="feedback_song_link_input_url_error">알맞은 YouTube / SoundCloud 주소를 입력해 주세요.</string>
+    <string name="feedback_song_message_input_hint">메시지 (추가적)</string>
+    <string name="feedback_song_genre_error">장르 선택</string>
     <string-array name="feedback_song_genre_array">
-        <item>Song genre</item>
+        <item>장르</item>
         <item>Electronic</item>
         <item>Pop</item>
         <item>Dance</item>
         <item>Hip-Hop/Rap</item>
         <item>Rock</item>
     </string-array>
-    <string name="feedback_song_send_error">Please fill out the form to request a song</string>
-    <string name="feedback_email_client_feedback">Select a email client to send feedback</string>
-    <string name="feedback_email_client_bug_report">Select a email client to send bug report</string>
+    <string name="feedback_song_send_error">음악 요청을 위해 필드를 모두 채워주세요.</string>
+    <string name="feedback_email_client_feedback">피드백을 보낼 이메일 앱을 선택해 주세요.</string>
+    <string name="feedback_email_client_bug_report">오류를 보고할 이메일 앱을 선택해 주세요.</string>
 
-    <string name="feedback_feedback_discard">Discard feedback?</string>
-    <string name="feedback_feedback_description">We would love to hear thoughts, ideas, anything from you. We hope we can improve Tapad with you!</string>
-    <string name="feedback_feedback_message_input_hint">Feedback message</string>
-    <string name="feedback_feedback_message_input_error_empty">Enter feedback message (at least 15 characters)</string>
-    <string name="feedback_feedback_message_input_error_too_short">more to go…</string>
-    <string name="feedback_feedback_type_error">Select a feedback type</string>
+    <string name="feedback_feedback_discard">피드백을 취소합니까?</string>
+    <string name="feedback_feedback_description">저희는 다양한 의견을 듣고 싶습니다. 사용자와 함께 더 나은 Tapad를 만들 수 있을 것입니다.</string>
+    <string name="feedback_feedback_message_input_hint">피드백</string>
+    <string name="feedback_feedback_message_input_error_empty">피드백 입력 (최소 15글자)</string>
+    <string name="feedback_feedback_message_input_error_too_short">입력이 너무 짧습니다.</string>
+    <string name="feedback_feedback_type_error">피드백 종류를 선택해 주세요.</string>
     <string-array name="feedback_feedback_type_array">
-        <item>Feedback type</item>
-        <item>Comments</item>
-        <item>Questions</item>
-        <item>Ideas</item>
-        <item>Others</item>
+        <item>피드백 종류</item>
+        <item>코멘트</item>
+        <item>질문</item>
+        <item>의견</item>
+        <item>기타</item>
     </string-array>
-    <string name="feedback_feedback_send_error">Please fill out the form to send a feedback</string>
+    <string name="feedback_feedback_send_error">피드백 전송을 위해 필드를 모두 채워주세요.</string>
 
-    <string name="feedback_report_bug_discard">Discard bug report?</string>
-    <string name="feedback_report_bug_description">Our priority is on you. We are not letting you to see any of those errors. Let us know and fix them.</string>
-    <string name="feedback_report_bug_message_input_hint">Bug details</string>
-    <string name="feedback_report_bug_message_input_error_empty">Enter bug details (at least 15 characters)</string>
-    <string name="feedback_report_bug_message_input_error_too_short">more to go…</string>
+    <string name="feedback_report_bug_discard">오류 전송을 취소합니까?</string>
+    <string name="feedback_report_bug_description">저희에게는 사용자의 편의가 최우선입니다. 앞으로는 이러한 오류가 없도록 신속히 조치하겠습니다.</string>
+    <string name="feedback_report_bug_message_input_hint">오류 상세 정보</string>
+    <string name="feedback_report_bug_message_input_error_empty">오류에 대한 상세 정보를 입력해 주세요. (최소 15글자)</string>
+    <string name="feedback_report_bug_message_input_error_too_short">입력이 너무 짧습니다.</string>
     <string name="feedback_report_bug_type_error">Select a bug type</string>
     <string name="feedback_report_bug_type_quickfix_text">Wait! We might have a quickfix for you.</string>
     <string name="feedback_report_bug_type_quickfix_action">Learn More</string>
