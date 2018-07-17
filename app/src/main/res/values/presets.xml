@@ -34,7 +34,7 @@
 
     <string name="info_berict_bio_title">Studio Berict\'s biography</string>
     <string name="info_berict_bio_name" translatable="false">Bedrock Pictures</string>
-    <string name="info_berict_bio_text" translatable="false">We target everyone. Whatever we make, it\'s just for you.
+	<string name="info_berict_bio_text">We target everyone. Whatever we make, it\'s just for you.
         Our main focus on our service is your experience. Unlike others, we think everything at your perspective.
 		Mainly makes mobile / web software, often makes some high-quality videos.</string>
     <string name="info_berict_bio_source" translatable="false">Powered by Bedrock Pictures</string>
@@ -83,10 +83,10 @@
     <string name="info_tapad_info_title"            >Information</string>
 	<string name="info_tapad_info_check_update"     >Check updates</string>
 	<string name="info_tapad_info_check_update_hint">Open in Google Play</string>
-	<string name="info_tapad_info_check_update_link">https://goo.gl/pmws51</string>
+	<string name="info_tapad_info_check_update_link" translatable="false">https://goo.gl/pmws51</string>
 	<string name="info_tapad_info_tester"           >Become a tester</string>
 	<string name="info_tapad_info_tester_hint"      >Receive updates of a testing version of the app</string>
-	<string name="info_tapad_info_tester_link"      >https://goo.gl/a5V8kc</string>
+	<string name="info_tapad_info_tester_link" translatable="false">https://goo.gl/a5V8kc</string>
 	<string name="info_tapad_info_legal"            >Legal Information</string>
     <string name="info_tapad_info_legal_text" translatable="false">
         <i>Last updated: December 14, 2016</i> \n\n
@@ -118,7 +118,7 @@
         If you have any questions about these Terms, please contact us to <b><i>berict.bedrock@gmail.com</i></b>.</string>
 	<string name="info_tapad_info_version"          >Tapad version</string>
 	<!-- TODO RELEASE -->
-    <string name="info_tapad_info_version_hint">2.3</string>
+	<string name="info_tapad_info_version_hint" translatable="false">2.3</string>
 	<string name="info_tapad_info_changelog"        >Changelog</string>
 	<!-- TODO RELEASE -->
     <string name="info_tapad_info_changelog_text" translatable="false">

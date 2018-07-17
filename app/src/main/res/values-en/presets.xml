@@ -9,8 +9,6 @@
     <string name="info_berict_bio_text">We target everyone. Whatever we make, it\'s just for you.
         Our main focus on our service is your experience. Unlike others, we think everything at your perspective.
 		Mainly makes mobile / web software, often makes some high-quality videos.</string>
-    <string name="info_berict_bio_name">Bedrock Pictures</string>
-    <string name="info_berict_bio_source">Powered by Bedrock Pictures</string>
 
     <string name="info_berict_detail_title">About Studio Berict</string>
 
@@ -66,6 +64,9 @@
     <string name="info_tapad_others_feedback_hint">Request new features or ask questions</string>
     <string name="info_tapad_others_report_bug">Report bugs</string>
     <string name="info_tapad_others_report_bug_hint">Help developers to fix bugs and problems</string>
+    <string name="info_tapad_others_translate">Translate Tapad</string>
+    <string name="info_tapad_others_translate_hint">Help making Tapad available on your language</string>
+    <string name="info_tapad_others_translate_error">Sorry, this feature is not available yet.</string>
     <string name="info_tapad_others_rate">Rate Tapad</string>
     <string name="info_tapad_others_rate_hint">Show your love on Tapad on Google Play</string>
     <string name="info_tapad_others_recommend">Recommend Tapad</string>
